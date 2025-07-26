@@ -5,9 +5,10 @@ secondaryBackgroundColor = "#F0F2F6"
 textColor = "#262730"
 
 [server]
-port = 8501
+headless = true
+port = $PORT
 enableCORS = false
-enableXsrfProtection = false
 
 [browser]
+serverAddress = "0.0.0.0"
 gatherUsageStats = false
