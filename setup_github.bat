@@ -58,7 +58,8 @@ echo echo Envoi vers GitHub... >> push_to_github.bat
 echo set PATH=%%PATH%%;C:\Program Files\Git\bin >> push_to_github.bat
 echo cd /d "c:\Users\Administrateur\Desktop\ECG lecture" >> push_to_github.bat
 echo git remote add origin https://github.com/EPCASE/edu-ecg.git >> push_to_github.bat
-echo git push -u origin main >> push_to_github.bat
+echo git pull origin main --allow-unrelated-histories >> push_to_github.bat
+echo git push -f origin main >> push_to_github.bat
 echo echo. >> push_to_github.bat
 echo echo ======================================== >> push_to_github.bat
 echo echo    SUCCES ! Votre projet est sur GitHub >> push_to_github.bat
