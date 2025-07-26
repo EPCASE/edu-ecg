@@ -2401,8 +2401,9 @@ def create_ecg_session_from_dict(session_data):
         
         # Ajouter un ID unique si absent
         if 'session_id' not in session_data:
-            session_data['session_id'] = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}
-        
+            session_data['session_id'] = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+           
+
         with open(session_file, 'w', encoding='utf-8') as f:
             json.dump(session_data, f, indent=2, ensure_ascii=False)
         
@@ -2410,64 +2411,6 @@ def create_ecg_session_from_dict(session_data):
     except Exception as e:
         st.error(f"Erreur lors de la création de la session : {e}")
         return False
-
-if __name__ == "__main__":
-    main()
-                    session['current_case_index'] += 1
-                    st.rerun()
-            else:
-                if st.button("✅ Terminer", type="primary", use_container_width=True):
-                    session['responses'][current_case_name] = current_annotations
-                    session['current_case_index'] += 1
-                    st.rerun()
-        else:
-            st.info("💡 Ajoutez des annotations avant de continuer")
-                st.session_state['confirm_quit'] = True
-                st.warning("Cliquez à nouveau pour confirmer")
-                st.rerun()
-
-    # Vérifier si la session est terminée
-    if current_index >= total_cases:
-        display_session_results(session)
-        return
-
-    # Récupérer le cas actuel
-    current_case_name = session['cases'][current_index]
-    current_case_data = load_case_for_exercise(current_case_name)
-
-    if not current_case_data:
-        st.error(f"❌ Cas '{current_case_name}' non trouvé")
-        return
-
-    st.markdown("---")
-    display_case_for_exercise(current_case_data)
-
-    # Navigation entre les cas
-    st.markdown("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col1:
-        if current_index > 0:
-            if st.button("◀ Cas précédent", use_container_width=True):
-                session['current_case_index'] -= 1
-                st.rerun()
-    with col2:
-        st.markdown(f"<center>Cas {current_index + 1} sur {total_cases}</center>", unsafe_allow_html=True)
-    with col3:
-        key_prefix = f"student_{current_case_data.get('case_id', 'unknown')}_annotations"
-        current_annotations = st.session_state.get('student_annotations', {}).get(key_prefix, [])
-        if current_annotations:
-            if current_index < total_cases - 1:
-                if st.button("Cas suivant ▶", type="primary", use_container_width=True):
-                    session['responses'][current_case_name] = current_annotations
-                    session['current_case_index'] += 1
-                    st.rerun()
-            else:
-                if st.button("✅ Terminer", type="primary", use_container_width=True):
-                    session['responses'][current_case_name] = current_annotations
-                    session['current_case_index'] += 1
-                    st.rerun()
-        else:
-            st.info("💡 Ajoutez des annotations avant de continuer")
 
 if __name__ == "__main__":
     main()
