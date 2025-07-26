@@ -7,7 +7,6 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
     - Affichage toujours entier sans scroll
     - Zoom molette
     - Caliper avancé avec mesures précises
-    - Largeur configurable pour laisser de la place aux annotations
     """
     import base64
     from PIL import Image
@@ -27,14 +26,24 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
     img_width, img_height = image.size
     aspect_ratio = img_height / img_width
 
-    # Configuration de la largeur du conteneur
     if container_width is not None:
-        viewer_width = f"{container_width}px"
-        viewer_height = "100vh"
+        available_width = container_width
     else:
-        viewer_width = "100vw"
-        viewer_height = "100vh"
+        available_width = 1400
 
+    natural_height = int(available_width * aspect_ratio)
+
+    if container_width is not None:
+        final_width = available_width
+        final_height = natural_height
+    else:
+        final_width = available_width
+        final_height = natural_height
+        if final_height > 2000:
+            final_height = 2000
+            final_width = int(final_height / aspect_ratio)
+
+    final_height = max(250, final_height)
     viewer_html = f"""
 <!DOCTYPE html>
 <html>
@@ -44,29 +53,30 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
         html, body {{
             margin: 0;
             padding: 0;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             box-sizing: border-box;
             background: transparent;
             overflow: hidden;
         }}
         .ecg-viewer-container {{
-            position: relative;
-            width: {viewer_width};
-            height: {viewer_height};
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw;
+            height: 100vh;
             margin: 0;
             border: none;
             border-radius: 0;
             overflow: hidden;
-            background: white;
+            background: transparent;
             box-shadow: none;
             display: flex;
             align-items: center;
             justify-content: center;
         }}
         .ecg-viewer-canvas {{
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -74,8 +84,8 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
             cursor: crosshair;
         }}
         .ecg-image {{
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 100vw;
+            max-height: 100vh;
             width: auto;
             height: auto;
             object-fit: contain;
