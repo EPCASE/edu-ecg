@@ -49,29 +49,3 @@ temp/
 # Sensitive data
 users.db
 *.db
-ehthumbs.db
-Thumbs.db
-
-# Logs
-*.log
-logs/
-
-# Données temporaires
-temp/
-tmp/
-*.tmp
-
-# Backups
-*.bak
-backup/
-backups/
-
-# Cache et fichiers temporaires
-.cache/
-.pytest_cache/
-
-# Fichiers spécifiques au projet
-# (décommentez si nécessaire)
-# users/sessions_*.json
-# data/ecg_sessions/temp_*
-# exports/temp_*
