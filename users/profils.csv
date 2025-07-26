@@ -1,0 +1,4 @@
+user_id,nom,prenom,email,niveau,date_creation
+1,Doe,John,john.doe@medical.edu,etudiant,2025-01-15
+2,Smith,Jane,jane.smith@hospital.fr,resident,2025-01-20
+3,Martin,Paul,paul.martin@chu.fr,senior,2025-01-25

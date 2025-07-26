@@ -1,0 +1,39 @@
+{
+  "admin": {
+    "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "admin",
+    "name": "Administrateur",
+    "email": "admin@example.com",
+    "created_date": "2025-07-26T02:50:34.691775",
+    "last_login": "2025-07-26T02:56:38.751445",
+    "active": true
+  },
+  "expert_demo": {
+    "password_hash": "34a6c1a9600377c8dc05ea00380f406fb52e8104e921dc6bd5869bfdf1516164",
+    "role": "expert",
+    "name": "Dr. Expert Demo",
+    "email": "expert@example.com",
+    "created_date": "2025-07-26T02:50:34.691784",
+    "last_login": "2025-07-26T02:55:16.951185",
+    "active": true
+  },
+  "etudiant_demo": {
+    "password_hash": "36432aa0a54a06c13ca2ff16cef78ca66e1cd5fa869f36791a79bc4f4c5d8120",
+    "role": "etudiant",
+    "name": "Étudiant Demo",
+    "email": "etudiant@example.com",
+    "created_date": "2025-07-26T02:50:34.691788",
+    "last_login": "2025-07-26T03:00:24.394446",
+    "active": true
+  },
+  "Interne": {
+    "password_hash": "3878a028acba9bc840c691b5e0898face6cab3482be4837cb747b93d0fb21d46",
+    "role": "expert",
+    "name": "Clermont ECG Groupe",
+    "email": "gmassoullie@chu-clermontferrand.fr",
+    "created_date": "2025-07-26T02:59:07.787208",
+    "last_login": "2025-07-26T03:00:48.938754",
+    "active": true,
+    "created_by": "admin"
+  }
+}

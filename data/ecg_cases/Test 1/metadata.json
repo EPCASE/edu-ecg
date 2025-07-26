@@ -1,0 +1,40 @@
+{
+  "case_id": "Test 1",
+  "filename": "ecg_20250725_001228_89cd032f.png",
+  "created_date": "2025-07-25T00:12:28.767221",
+  "type": "image",
+  "age": 65,
+  "sexe": "M",
+  "contexte": "",
+  "diagnostic": "À analyser",
+  "statut": "imported",
+  "metadata": {
+    "source_file": "CWPDFView.pdf",
+    "import_method": "smart_importer_simple",
+    "crop_coordinates": [
+      0,
+      0,
+      1580,
+      1178
+    ],
+    "image_size": [
+      1580,
+      1178
+    ]
+  },
+  "annotations": [
+    {
+      "timestamp": "2025-07-25T00:22:59.390474",
+      "type": "expert_semi_auto",
+      "auteur": "expert",
+      "annotation_tags": [
+        "Tachycardie ventriculaire"
+      ],
+      "contexte_clinique": "",
+      "interpretation_experte": "",
+      "nombre_concepts": 1
+    }
+  ],
+  "last_annotation": "2025-07-25T00:22:59.392473",
+  "annotation_status": "expert_annotated"
+}

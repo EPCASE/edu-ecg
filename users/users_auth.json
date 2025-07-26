@@ -1,0 +1,39 @@
+{
+  "admin": {
+    "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "role": "admin",
+    "name": "Administrateur",
+    "email": "admin@edu-cg.fr",
+    "created_date": "2025-07-26T02:38:22.149968",
+    "last_login": "2025-07-26T02:40:29.627064",
+    "active": true
+  },
+  "expert_demo": {
+    "password_hash": "34a6c1a9600377c8dc05ea00380f406fb52e8104e921dc6bd5869bfdf1516164",
+    "role": "expert",
+    "name": "Dr. Expert Demo",
+    "email": "expert@edu-cg.fr",
+    "created_date": "2025-07-26T02:38:22.149978",
+    "last_login": "2025-07-26T02:40:11.869240",
+    "active": true
+  },
+  "etudiant_demo": {
+    "password_hash": "36432aa0a54a06c13ca2ff16cef78ca66e1cd5fa869f36791a79bc4f4c5d8120",
+    "role": "etudiant",
+    "name": "Étudiant Demo",
+    "email": "etudiant@edu-cg.fr",
+    "created_date": "2025-07-26T02:38:22.149983",
+    "last_login": "2025-07-26T02:39:22.114688",
+    "active": true
+  },
+  "test_user": {
+    "password_hash": "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae",
+    "role": "etudiant",
+    "name": "Test Utilisateur",
+    "email": "test@edu-cg.fr",
+    "created_date": "2025-07-26T02:38:22.150482",
+    "last_login": null,
+    "active": true,
+    "created_by": "admin"
+  }
+}

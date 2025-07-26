@@ -1,0 +1,11 @@
+{
+  "bd97ddae": {
+    "name": "Variante Normale - Template",
+    "description": "Template pour cas de type Variante Normale",
+    "category": "Normal",
+    "difficulty": "Débutant",
+    "clinical_context": "Contexte clinique à définir",
+    "suggested_annotations": [],
+    "created_date": "2025-07-26T02:17:37.269076"
+  }
+}

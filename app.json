@@ -1,0 +1,34 @@
+{
+  "name": "edu-ecg",
+  "description": "Plateforme d'enseignement interactif de l'électrocardiogramme",
+  "repository": "https://github.com/votre-username/edu-ecg",
+  "logo": "",
+  "keywords": ["streamlit", "education", "medical", "ecg", "teaching"],
+  "success_url": "/",
+  "env": {
+    "STREAMLIT_SERVER_HEADLESS": {
+      "description": "Run Streamlit in headless mode",
+      "value": "true"
+    },
+    "STREAMLIT_SERVER_ENABLE_CORS": {
+      "description": "Enable CORS",
+      "value": "false"
+    },
+    "STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION": {
+      "description": "Enable XSRF protection",
+      "value": "false"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "S"
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}

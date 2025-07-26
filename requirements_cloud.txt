@@ -1,0 +1,13 @@
+# Déploiement pour Scalingo (hébergement français)
+# Configuration optimisée pour PaaS français
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+owlready2>=0.48
+rdflib>=6.3.2
+plotly>=5.17.0
+Pillow>=10.0.0
+
+# Dépendances système pour Scalingo
+setuptools>=65.0.0
+wheel>=0.38.0
