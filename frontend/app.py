@@ -43,6 +43,19 @@ from auth_system import (
     create_user_interface, list_users_interface
 )
 
+# Fonction de fallback pour create_advanced_ecg_viewer
+def create_advanced_ecg_viewer_fallback(image_path, title):
+    """Fallback simple pour l'affichage ECG"""
+    return f"""
+    <div style="text-align: center;">
+        <h3>{title}</h3>
+        <p>Visualiseur ECG avancé non disponible</p>
+    </div>
+    """
+
+# Variable globale qui sera mise à jour si le module est disponible
+create_advanced_ecg_viewer = create_advanced_ecg_viewer_fallback
+
 # Correction du chemin pour que data/ecg_cases soit à la racine du projet (et non dans frontend/)
 # Définir le dossier data à la racine du projet
 DATA_ROOT = Path(__file__).parent.parent / "data"
@@ -160,7 +173,13 @@ def main_app_with_auth():
         from import_cases import admin_import_cases
         from annotation_tool import admin_annotation_tool
         from annotation_components import smart_annotation_input, display_annotation_summary
-        from advanced_ecg_viewer import create_advanced_ecg_viewer
+        # Correction: importer create_advanced_ecg_viewer depuis le bon module
+        try:
+            from advanced_ecg_viewer import create_advanced_ecg_viewer as _create_advanced_ecg_viewer
+            create_advanced_ecg_viewer = _create_advanced_ecg_viewer
+        except ImportError:
+            # Garder le fallback défini plus haut
+            pass
         try:
             from ecg_reader import ecg_reader_interface
             ECG_READER_AVAILABLE = True
@@ -671,17 +690,19 @@ def page_ecg_cases():
                             st.info(f"📊 Ce cas contient **1 ECG**")
                         image_path = Path(case_data['image_paths'][ecg_preview_index])
                         if image_path.exists():
-                            html = create_advanced_ecg_viewer(str(image_path), f"ECG {ecg_preview_index+1}/{total_images} - {case_id}")
-                            import streamlit.components.v1 as components
-                            components.html(html, height=600, scrolling=True)
+                            # Utiliser st.image directement - plus simple et plus fiable
+                            st.image(str(image_path), 
+                                   caption=f"ECG {ecg_preview_index+1}/{total_images} - {case_id}",
+                                   use_container_width=True)
                         else:
                             st.warning(f"⚠️ ECG {ecg_preview_index+1} non trouvé")
                     elif 'image_path' in case_data:
                         image_path = Path(case_data['image_path'])
                         if image_path.exists():
-                            html = create_advanced_ecg_viewer(str(image_path), f"ECG - {case_id}")
-                            import streamlit.components.v1 as components
-                            components.html(html, height=600, scrolling=True)
+                            # Utiliser st.image directement
+                            st.image(str(image_path), 
+                                   caption=f"ECG - {case_id}",
+                                   use_container_width=True)
                         else:
                             st.warning("⚠️ Image ECG non trouvée")
                     else:
@@ -845,73 +866,6 @@ def page_exercises():
             if st.button("📚 Explorer les cas ECG", type="primary"):
                 st.session_state.selected_page = "cases"  # CORRECTION: utiliser selected_page
                 st.rerun()
-
-def evaluate_student_exercise_intelligent(case_data, student_responses):
-    """Évaluation intelligente d'un exercice étudiant avec comparaison ontologique"""
-    
-    try:
-        from annotation_intelligente import compare_annotations
-        
-        # Récupérer les annotations expertes du cas
-        annotations = case_data.get('annotations', [])
-        expert_annotations = []
-        
-        for ann in annotations:
-            if ann.get('type') == 'expert_tags' and ann.get('annotation_tags'):
-                expert_annotations.extend(ann['annotation_tags'])
-            elif ann.get('type') == 'expert' and ann.get('annotation_experte'):
-                # Pour les annotations textuelles, extraire des concepts clés
-                # (simplification - en production, on analyserait le texte)
-                expert_annotations.append(ann['annotation_experte'][:50] + "...")
-        
-        if expert_annotations:
-            # Comparaison ontologique
-            comparison = compare_annotations(expert_annotations, student_responses)
-            
-            st.markdown("### 🎯 Résultats de l'évaluation")
-            
-            score = comparison.get('score', 0)
-            
-            # Affichage du score avec couleurs
-            col1, col2, col3 = st.columns(3)
-            
-            with col1:
-                if score >= 80:
-                    st.success(f"🏆 Excellent: {score}%")
-                elif score >= 60:
-                    st.warning(f"👍 Bien: {score}%")
-                else:
-                    st.error(f"📚 À revoir: {score}%")
-            
-            with col2:
-                st.info(f"📊 {len(student_responses)} concepts analysés")
-            
-            with col3:
-                st.metric("Score ontologique", f"{score}%")
-            
-            # Feedback détaillé
-            if 'details' in comparison and comparison['details']:
-                st.markdown("### 📝 Feedback détaillé")
-                for detail in comparison['details']:
-                    st.write(detail)
-            
-            # Conseils d'amélioration
-            if score < 70:
-                st.markdown("### � Conseils pour s'améliorer")
-                st.info("""
-                - Observez attentivement le rythme cardiaque
-                - Analysez la morphologie des ondes P, QRS, T
-                - Vérifiez les intervalles PR et QT
-                - Considérez l'axe électrique du cœur
-                """)
-        
-        else:
-            st.warning("⚠️ Aucune annotation experte disponible pour ce cas")
-            st.info("✅ Votre interprétation a été enregistrée pour révision")
-    
-    except ImportError:
-        st.error("❌ Module de comparaison ontologique non disponible")
-        st.info("✅ Interprétation enregistrée - évaluation manuelle requise")
 
 def page_student_progress():
     """Page de suivi des progrès étudiant"""
@@ -1184,23 +1138,23 @@ def display_case_for_exercise(case_data):
                 ecg_index = 0
                 st.info(f"📊 Ce cas contient **1 ECG**")
             
-            # Affichage de l'ECG sélectionné avec le visualiseur avancé
+            # Affichage de l'ECG sélectionné
             image_path = Path(case_data['image_paths'][ecg_index])
             if image_path.exists():
-                # Utiliser le visualiseur avancé en mode exercice
-                html = create_advanced_ecg_viewer(str(image_path), f"ECG {ecg_index+1} - {case_id}")
-                import streamlit.components.v1 as components
-                components.html(html, height=600, scrolling=True)
+                # Utiliser st.image directement
+                st.image(str(image_path), 
+                       caption=f"ECG {ecg_index+1} - {case_id}",
+                       use_container_width=True)
             else:
                 st.warning(f"⚠️ ECG {ecg_index+1} non trouvé")
         
         elif 'image_path' in case_data:
             image_path = Path(case_data['image_path'])
             if image_path.exists():
-                # Utiliser le visualiseur avancé en mode exercice
-                html = create_advanced_ecg_viewer(str(image_path), f"ECG - {case_id}")
-                import streamlit.components.v1 as components
-                components.html(html, height=600, scrolling=True)
+                # Utiliser st.image directement
+                st.image(str(image_path), 
+                       caption=f"ECG - {case_id}",
+                       use_container_width=True)
             else:
                 st.warning("⚠️ Image ECG non trouvée")
         else:
@@ -1574,7 +1528,7 @@ def display_session_results(session):
     
     st.markdown("## 🎉 Session terminée !")
     
-    # Calcul du temps écoulé
+    # Calculer le temps écoulé
     start_time = datetime.fromisoformat(session['start_time'])
     duration = datetime.now() - start_time
     
@@ -1649,7 +1603,7 @@ def display_available_sessions():
         
         for session in sessions:
             with st.expander(f"📖 {session['name']} - {session.get('difficulty', '🟢 Débutant')}", expanded=False):
-                col1, col2 = st.columns([3, 1])
+                col1, col2 = st.columns(2)
                 
                 with col1:
                     st.markdown(f"**Description:** {session.get('description', 'Aucune description')}")
@@ -2422,6 +2376,52 @@ def run_ecg_session():
                     del st.session_state['confirm_quit']
                 st.rerun()
             else:
+                st.session_state['confirm_quit'] = True
+                st.warning("Cliquez à nouveau pour confirmer")
+                st.rerun()
+
+    # Vérifier si la session est terminée
+    if current_index >= total_cases:
+        display_session_results(session)
+        return
+
+    # Récupérer le cas actuel
+    current_case_name = session['cases'][current_index]
+    current_case_data = load_case_for_exercise(current_case_name)
+
+    if not current_case_data:
+        st.error(f"❌ Cas '{current_case_name}' non trouvé")
+        return
+
+    st.markdown("---")
+    display_case_for_exercise(current_case_data)
+
+    # Navigation entre les cas
+    st.markdown("---")
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col1:
+        if current_index > 0:
+            if st.button("◀ Cas précédent", use_container_width=True):
+                session['current_case_index'] -= 1
+                st.rerun()
+    with col2:
+        st.markdown(f"<center>Cas {current_index + 1} sur {total_cases}</center>", unsafe_allow_html=True)
+    with col3:
+        key_prefix = f"student_{current_case_data.get('case_id', 'unknown')}_annotations"
+        current_annotations = st.session_state.get('student_annotations', {}).get(key_prefix, [])
+        if current_annotations:
+            if current_index < total_cases - 1:
+                if st.button("Cas suivant ▶", type="primary", use_container_width=True):
+                    session['responses'][current_case_name] = current_annotations
+                    session['current_case_index'] += 1
+                    st.rerun()
+            else:
+                if st.button("✅ Terminer", type="primary", use_container_width=True):
+                    session['responses'][current_case_name] = current_annotations
+                    session['current_case_index'] += 1
+                    st.rerun()
+        else:
+            st.info("💡 Ajoutez des annotations avant de continuer")
                 st.session_state['confirm_quit'] = True
                 st.warning("Cliquez à nouveau pour confirmer")
                 st.rerun()
