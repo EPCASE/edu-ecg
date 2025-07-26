@@ -53,8 +53,53 @@ def create_advanced_ecg_viewer_fallback(image_path, title):
     </div>
     """
 
+# Fonctions de fallback pour les annotations
+def smart_annotation_input_fallback(key_prefix, max_tags=10):
+    """Fallback pour l'interface d'annotation"""
+    import streamlit as st
+    
+    # Interface simple sans autocomplétion
+    if f'{key_prefix}_tags' not in st.session_state:
+        st.session_state[f'{key_prefix}_tags'] = []
+    
+    # Zone de texte pour ajouter des tags
+    new_tag = st.text_input("Ajouter une annotation:", key=f"{key_prefix}_input")
+    
+    col1, col2 = st.columns([1, 4])
+    with col1:
+        if st.button("➕ Ajouter", key=f"{key_prefix}_add"):
+            if new_tag and new_tag not in st.session_state[f'{key_prefix}_tags']:
+                if len(st.session_state[f'{key_prefix}_tags']) < max_tags:
+                    st.session_state[f'{key_prefix}_tags'].append(new_tag)
+                    st.rerun()
+    
+    # Afficher les tags existants
+    if st.session_state[f'{key_prefix}_tags']:
+        st.write("**Annotations actuelles:**")
+        for i, tag in enumerate(st.session_state[f'{key_prefix}_tags']):
+            col1, col2 = st.columns([4, 1])
+            with col1:
+                st.write(f"• {tag}")
+            with col2:
+                if st.button("❌", key=f"{key_prefix}_remove_{i}"):
+                    st.session_state[f'{key_prefix}_tags'].pop(i)
+                    st.rerun()
+    
+    return st.session_state[f'{key_prefix}_tags']
+
+def display_annotation_summary_fallback(annotations, title="Résumé"):
+    """Fallback pour l'affichage du résumé des annotations"""
+    import streamlit as st
+    
+    if annotations:
+        st.markdown(f"**{title}**")
+        for ann in annotations:
+            st.write(f"• {ann}")
+
 # Variable globale qui sera mise à jour si le module est disponible
 create_advanced_ecg_viewer = create_advanced_ecg_viewer_fallback
+smart_annotation_input = smart_annotation_input_fallback
+display_annotation_summary = display_annotation_summary_fallback
 
 # Correction du chemin pour que data/ecg_cases soit à la racine du projet (et non dans frontend/)
 # Définir le dossier data à la racine du projet
@@ -64,14 +109,18 @@ ECG_SESSIONS_DIR = DATA_ROOT / "ecg_sessions"
 
 def load_ontology():
     """Chargement de l'ontologie ECG"""
-    from correction_engine import OntologyCorrector
     ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
     if 'corrector' not in st.session_state:
         try:
+            from correction_engine import OntologyCorrector
             ontology_path = DATA_ROOT / "ontologie.owx"
             st.session_state.corrector = OntologyCorrector(str(ontology_path))
             st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
             return True
+        except ImportError as e:
+            st.warning(f"⚠️ Module owlready2 non installé. Fonctionnalités d'ontologie désactivées.")
+            st.session_state.concepts = []
+            return False
         except Exception as e:
             st.error(f"❌ Erreur lors du chargement de l'ontologie : {e}")
             return False
@@ -132,10 +181,10 @@ def count_annotated_cases():
 
 def load_ontology():
     """Chargement de l'ontologie ECG"""
-    from correction_engine import OntologyCorrector
     ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
     if 'corrector' not in st.session_state:
         try:
+            from correction_engine import OntologyCorrector
             ontology_path = DATA_ROOT / "ontologie.owx"
             st.session_state.corrector = OntologyCorrector(str(ontology_path))
             st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
@@ -172,30 +221,40 @@ def main_app_with_auth():
         from correction_engine import OntologyCorrector
         from import_cases import admin_import_cases
         from annotation_tool import admin_annotation_tool
-        from annotation_components import smart_annotation_input, display_annotation_summary
-        # Correction: importer create_advanced_ecg_viewer depuis le bon module
-        try:
-            from advanced_ecg_viewer import create_advanced_ecg_viewer as _create_advanced_ecg_viewer
-            create_advanced_ecg_viewer = _create_advanced_ecg_viewer
-        except ImportError:
-            # Garder le fallback défini plus haut
-            pass
-        try:
-            from ecg_reader import ecg_reader_interface
-            ECG_READER_AVAILABLE = True
-        except ImportError:
-            ECG_READER_AVAILABLE = False
-        try:
-            from user_management import user_management_interface
-            USER_MANAGEMENT_AVAILABLE = True
-        except ImportError:
-            USER_MANAGEMENT_AVAILABLE = False
         ONTOLOGY_LOADED = True
     except ImportError as e:
         ONTOLOGY_LOADED = False
+        st.warning(f"⚠️ Certains modules ne sont pas disponibles : {e}")
+    
+    # Essayer d'importer les composants d'annotation
+    try:
+        from annotation_components import smart_annotation_input as _smart_annotation_input
+        from annotation_components import display_annotation_summary as _display_annotation_summary
+        smart_annotation_input = _smart_annotation_input
+        display_annotation_summary = _display_annotation_summary
+    except ImportError:
+        # Garder les fonctions de fallback
+        st.info("💡 Module d'annotation avancé non disponible, utilisation de l'interface simplifiée")
+    
+    # Correction: importer create_advanced_ecg_viewer depuis le bon module
+    try:
+        from advanced_ecg_viewer import create_advanced_ecg_viewer as _create_advanced_ecg_viewer
+        create_advanced_ecg_viewer = _create_advanced_ecg_viewer
+    except ImportError:
+        # Garder le fallback défini plus haut
+        pass
+    
+    try:
+        from ecg_reader import ecg_reader_interface
+        ECG_READER_AVAILABLE = True
+    except ImportError:
         ECG_READER_AVAILABLE = False
+    
+    try:
+        from user_management import user_management_interface
+        USER_MANAGEMENT_AVAILABLE = True
+    except ImportError:
         USER_MANAGEMENT_AVAILABLE = False
-        st.error(f"⚠️ Erreur import modules : {e}")
 
     # Charger l'ontologie si nécessaire
     if ONTOLOGY_LOADED:
@@ -1074,65 +1133,49 @@ def load_case_for_exercise(case_name):
     case_dir = ECG_CASES_DIR / case_name
     if not case_dir.exists():
         return None
+    
     metadata_file = case_dir / "metadata.json"
     if not metadata_file.exists():
         return None
+    
     try:
         with open(metadata_file, 'r', encoding='utf-8') as f:
             case_data = json.load(f)
+        
+        # Ajouter les chemins des images
         image_files = []
         for ext in ['*.png', '*.jpg', '*.jpeg']:
             image_files.extend(case_dir.glob(ext))
+        
         if image_files:
             sorted_images = sorted(image_files, key=lambda x: x.name)
             case_data['image_paths'] = [str(img) for img in sorted_images]
-            case_data['image_path'] = str(sorted_images[0])
             case_data['total_images'] = len(sorted_images)
-        case_data['case_id'] = case_name
+        
+        case_data['case_folder'] = str(case_dir)
         return case_data
+    
     except Exception as e:
-        st.error(f"❌ Erreur lors du chargement du cas : {e}")
+        st.error(f"Erreur lors du chargement du cas {case_name}: {e}")
         return None
 
 def display_case_for_exercise(case_data):
-    """Affiche un cas ECG pour un exercice avec interface d'annotation intégrée"""
-    
+    """Affiche un cas ECG pendant un exercice"""
     case_id = case_data.get('case_id', 'Cas ECG')
     
-    # Informations du cas - Layout simplifié
-    st.markdown(f"### 📋 {case_id}")
-    
-    # Informations cliniques compactes
-    info_items = []
-    if case_data.get('age'):
-        info_items.append(f"**Âge :** {case_data['age']} ans")
-    if case_data.get('sexe'):
-        info_items.append(f"**Sexe :** {case_data['sexe']}")
-    if case_data.get('context'):
-        info_items.append(f"**Contexte :** {case_data['context']}")
-    
-    if info_items:
-        st.info(" • ".join(info_items))
-    
-    # Layout en colonnes : ECG à gauche (2/3), Annotations à droite (1/3)
-    col_ecg, col_annotations = st.columns([2, 1])
+    col_ecg, col_annotations = st.columns([3, 2])
     
     with col_ecg:
-        st.markdown("#### 📊 Électrocardiogramme")
-        
         # Affichage des ECG
         if 'image_paths' in case_data and case_data['image_paths']:
             total_images = len(case_data['image_paths'])
             
             if total_images > 1:
-                st.info(f"📊 Ce cas contient **{total_images} ECG**")
-                
-                # Navigation entre les ECG si plusieurs
                 ecg_index = st.selectbox(
-                    "Sélectionner l'ECG à visualiser :",
+                    "Sélectionner l'ECG :",
                     range(total_images),
                     format_func=lambda i: f"ECG {i+1}/{total_images}",
-                    key=f"exercise_ecg_{case_id}"
+                    key=f"exercise_ecg_select_{case_id}"
                 )
             else:
                 ecg_index = 0
@@ -1141,7 +1184,6 @@ def display_case_for_exercise(case_data):
             # Affichage de l'ECG sélectionné
             image_path = Path(case_data['image_paths'][ecg_index])
             if image_path.exists():
-                # Utiliser st.image directement
                 st.image(str(image_path), 
                        caption=f"ECG {ecg_index+1} - {case_id}",
                        use_container_width=True)
@@ -1151,7 +1193,6 @@ def display_case_for_exercise(case_data):
         elif 'image_path' in case_data:
             image_path = Path(case_data['image_path'])
             if image_path.exists():
-                # Utiliser st.image directement
                 st.image(str(image_path), 
                        caption=f"ECG - {case_id}",
                        use_container_width=True)
@@ -1167,7 +1208,7 @@ def display_case_for_exercise(case_data):
         if 'student_annotations' not in st.session_state:
             st.session_state['student_annotations'] = {}
         
-        # Correction : utiliser le nom du cas comme identifiant unique pour la clé
+        # Utiliser le nom du cas comme identifiant unique pour la clé
         key_prefix = f"student_{case_data.get('case_id', 'unknown')}_annotations"
         
         # Interface d'annotation avec autocomplétion
@@ -1184,15 +1225,16 @@ def display_case_for_exercise(case_data):
                 if 'case_folder' in case_data:
                     student_folder = Path(case_data['case_folder'])
                 else:
-                    # fallback: créer le dossier si absent
-                    student_folder = Path(__file__).parent.parent / "data" / "ecg_cases" / str(case_id)
+                    student_folder = ECG_CASES_DIR / str(case_id)
                     student_folder.mkdir(parents=True, exist_ok=True)
+                
                 student_file = student_folder / "student_annotations.json"
                 with open(student_file, 'w', encoding='utf-8') as f:
                     json.dump(annotations, f, ensure_ascii=False, indent=2)
                 st.success("✅ Sauvegardé !")
             except Exception as e:
                 st.error(f"Erreur : {e}")
+        
         # Résumé structuré
         if annotations:
             st.markdown("---")
@@ -1208,7 +1250,7 @@ def display_case_for_exercise(case_data):
         if show_feedback:
             # Charger les annotations expertes
             try:
-                case_folder = Path("data/ecg_cases") / case_data['case_id']
+                case_folder = ECG_CASES_DIR / case_data.get('case_id', '')
                 annotations_file = case_folder / "annotations.json"
                 
                 if annotations_file.exists():
@@ -1224,7 +1266,7 @@ def display_case_for_exercise(case_data):
                         
                         if expert_concepts:
                             st.markdown("**🧠 Concepts experts :**")
-                            for concept in list(expert_concepts)[:5]:  # Limiter l'affichage
+                            for concept in list(expert_concepts)[:5]:
                                 st.markdown(f"• {concept}")
                             
                             if len(expert_concepts) > 5:
@@ -1256,8 +1298,6 @@ def display_case_for_exercise(case_data):
                     st.info("Feedback non disponible")
             except Exception as e:
                 st.error(f"Erreur : {e}")
-    
-    # FIN DE LA FONCTION - Supprimer tout ce qui suit cette ligne
 
 def finish_ecg_session():
     """Termine une session ECG et affiche les résultats"""
