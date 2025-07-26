@@ -283,7 +283,7 @@ def user_analytics_dashboard():
                     fig_progress = px.histogram(
                         student_data,
                         x='progres',
-                        bins=10,
+                        nbins=10,
                         title="Distribution des Progrès"
                     )
                     st.plotly_chart(fig_progress, use_container_width=True)
@@ -717,22 +717,6 @@ def process_bulk_import(df):
             st.warning(f"Erreur pour {row.get('nom', 'utilisateur')}: {e}")
     
 def apply_user_filters(df, role_filter, status_filter, search_term):
-    """Applique les filtres sur les données utilisateurs"""
-    filtered_df = df.copy()
-    
-    if role_filter != "Tous":
-        filtered_df = filtered_df[filtered_df['role'] == role_filter]
-    
-    if status_filter != "Tous":
-        filtered_df = filtered_df[filtered_df['statut'] == status_filter]
-    
-    if search_term:
-        filtered_df = filtered_df[
-            filtered_df['nom'].str.contains(search_term, case=False, na=False) |
-            filtered_df['email'].str.contains(search_term, case=False, na=False)
-        ]
-    
-    return filtered_df
     """Applique les filtres sur les données utilisateurs"""
     filtered_df = df.copy()
     

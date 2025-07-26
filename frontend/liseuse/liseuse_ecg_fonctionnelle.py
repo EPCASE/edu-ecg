@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Liseuse ECG Multi-ECG - Affichage intelligent avec navigation entre ECG
-Gère les cas simples et multi-ECG avec défilement
+Liseuse ECG - Affichage intelligent avec navigation entre ECG
+Gère tous les cas ECG de manière uniforme
 Version intégrée dans le système principal
 """
 
@@ -14,8 +14,19 @@ import pandas as pd
 from datetime import datetime
 import sys
 
+# Import du nouveau visualiseur avancé
+try:
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+    from advanced_ecg_viewer import enhanced_ecg_display, advanced_ecg_viewer_component
+    from annotation_components import smart_annotation_input, display_annotation_summary
+    ADVANCED_VIEWER_AVAILABLE = True
+    ANNOTATION_AVAILABLE = True
+except ImportError:
+    ADVANCED_VIEWER_AVAILABLE = False
+    ANNOTATION_AVAILABLE = False
+
 def liseuse_ecg_fonctionnelle():
-    """Interface principale de la liseuse ECG avec support multi-ECG"""
+    """Interface principale de la liseuse ECG"""
     
     st.title("📚 Liseuse ECG")
     
@@ -52,7 +63,7 @@ def liseuse_ecg_fonctionnelle():
         interface_annotation_multi(cas_selectionne, ecg_selectionne)
 
 def charger_cas_ecg_multi():
-    """Charge tous les cas ECG (simples et multi-ECG)"""
+    """Charge tous les cas ECG disponibles"""
     
     cas_ecg = []
     ecg_dir = Path("data/ecg_cases")
@@ -73,7 +84,7 @@ def charger_cas_ecg_multi():
     return cas_ecg
 
 def charger_cas_individuel_multi(case_folder):
-    """Charge les données d'un cas (simple ou multi-ECG)"""
+    """Charge les données d'un cas ECG"""
     
     try:
         # Lire les métadonnées
@@ -183,46 +194,21 @@ def interface_selection_cas(cas_ecg):
     
     st.markdown("#### 📊 Sélection du Cas")
     
-    # Grouper par type
-    cas_simples = [cas for cas in cas_ecg if cas.get('type') != 'multi_ecg']
-    cas_multi = [cas for cas in cas_ecg if cas.get('type') == 'multi_ecg']
-    
-    # Statistiques
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("📄 Cas simples", len(cas_simples))
-    with col2:
-        st.metric("📁 Cas multi", len(cas_multi))
-    
-    # Options de filtrage
-    type_filtre = st.selectbox(
-        "Filtrer par type",
-        ["Tous", "Cas simples", "Cas multi-ECG"],
-        key="filtre_type_cas"
-    )
-    
-    # Filtrer les cas
-    if type_filtre == "Cas simples":
-        cas_filtres = cas_simples
-    elif type_filtre == "Cas multi-ECG":
-        cas_filtres = cas_multi
-    else:
-        cas_filtres = cas_ecg
-    
-    if not cas_filtres:
-        st.warning("⚠️ Aucun cas correspond au filtre")
+    if not cas_ecg:
+        st.warning("⚠️ Aucun cas ECG disponible")
         return None
     
-    # Sélection du cas
+    # Sélection du cas - affichage unifié
     options_cas = []
-    for cas in cas_filtres:
+    for cas in cas_ecg:
         name = cas.get('name', cas.get('case_id', 'Cas sans nom'))
         
+        # Affichage unifié - pas de différence visuelle entre types
         if cas.get('type') == 'multi_ecg':
             nb_ecg = len(cas.get('ecgs', []))
-            label = f"📁 {name} ({nb_ecg} ECG)"
+            label = f"� {name} ({nb_ecg} ECG)"
         else:
-            label = f"📄 {name}"
+            label = f"� {name}"
         
         options_cas.append(label)
     
@@ -238,7 +224,7 @@ def interface_selection_cas(cas_ecg):
     
     # Récupérer le cas sélectionné
     index_cas = options_cas.index(selection)
-    cas_selectionne = cas_filtres[index_cas]
+    cas_selectionne = cas_ecg[index_cas]
     
     # Afficher les infos du cas
     afficher_info_cas_multi(cas_selectionne)
@@ -246,7 +232,7 @@ def interface_selection_cas(cas_ecg):
     return cas_selectionne
 
 def interface_navigation_ecg(cas):
-    """Interface de navigation pour les cas multi-ECG"""
+    """Interface de navigation pour les cas avec plusieurs ECG"""
     
     if cas.get('type') != 'multi_ecg':
         return None
@@ -323,13 +309,13 @@ def afficher_info_cas_multi(cas):
     st.write(f"**Nom:** {name}")
     st.write(f"**ID:** {cas.get('case_id', 'Non défini')}")
     
-    # Type
+    # Type - affichage unifié
     type_cas = cas.get('type', 'simple')
     if type_cas == 'multi_ecg':
         nb_ecg = len(cas.get('ecgs', []))
-        st.write(f"**Type:** Multi-ECG ({nb_ecg} ECG)")
+        st.write(f"**Contenu:** {nb_ecg} ECG")
     else:
-        st.write(f"**Type:** Cas simple")
+        st.write(f"**Contenu:** 1 ECG")
     
     # Date
     date_str = cas.get('created_date', '')
@@ -390,111 +376,97 @@ def afficher_ecg_avec_navigation(cas, ecg_selectionne=None):
         st.error(f"❌ Erreur affichage: {e}")
 
 def afficher_ecg_image_avec_controles(file_path, titre):
-    """Affiche une image ECG avec contrôles de zoom et grille"""
+    """Affiche une image ECG avec contrôles avancés et colonne d'interprétation"""
     
     try:
         image = Image.open(file_path)
         
-        # Contrôles d'affichage
-        col1, col2, col3 = st.columns([2, 1, 1])
-        
-        with col2:
-            zoom_level = st.selectbox(
-                "🔍 Zoom",
-                ["Ajusté", "50%", "75%", "100%", "125%", "150%", "200%"],
-                index=0,
-                key=f"zoom_{titre}"
+        # Sélecteurs de visualisation
+        if ADVANCED_VIEWER_AVAILABLE:
+            view_mode = st.radio(
+                "Mode d'affichage",
+                ["📋 Affichage Standard", "🎨 Visualiseur Avancé"],
+                horizontal=True,
+                key=f"view_mode_{titre}",
+                help="Choisir le mode d'affichage de l'ECG",
+                label_visibility="collapsed"
             )
-        
-        with col3:
-            show_grid = st.checkbox(
-                "📐 Grille",
-                value=False,
-                key=f"grid_{titre}",
-                help="Afficher la grille millimétrique"
-            )
-        
-        # Affichage de l'image
-        with col1:
-            st.markdown(f"**{titre}**")
-        
-        # Mode plein écran
-        if st.button("🖼️ Mode Plein Écran", key=f"fullscreen_{titre}"):
-            afficher_mode_plein_ecran(image, titre)
-        
-        # Affichage principal
-        if zoom_level == "Ajusté":
-            st.image(image, caption=titre, use_container_width=True)
         else:
-            zoom_factor = int(zoom_level.replace('%', '')) / 100
-            width = int(image.width * zoom_factor)
-            st.image(image, caption=titre, width=width)
+            view_mode = "📋 Affichage Standard"
+            st.info("💡 Visualiseur avancé non disponible - mode standard")
         
-        # Grille ECG
-        if show_grid:
-            st.markdown("""
-            <div style="opacity: 0.7; margin-top: -10px; font-size: 0.8em;">
-            📐 Grille millimétrique: 25mm/s horizontalement, 10mm/mV verticalement
-            </div>
-            """, unsafe_allow_html=True)
+        # Affichage selon le mode choisi
+        if ADVANCED_VIEWER_AVAILABLE and view_mode == "🎨 Visualiseur Avancé":
+            st.markdown(f"### 🔍 {titre}")
+            
+            # Visualiseur avancé avec dimensions augmentées de 15%
+            # Le conteneur s'adapte strictement aux dimensions de l'ECG et occupe l'espace au maximum + 15%
+            img_width, img_height = image.size
+            aspect_ratio = img_height / img_width
+            
+            # Calculer la largeur de base puis ajouter 15%
+            base_width = 1000  # Largeur de base du visualiseur
+            enhanced_width = int(base_width * 1.15)  # +15%
+            
+            # Calculer la hauteur correspondante avec le même ratio
+            enhanced_height = int(enhanced_width * aspect_ratio)
+            
+            print(f"📐 Dimensions augmentées +15%: {enhanced_width}x{enhanced_height}px (base: {base_width}px)")
+            
+            advanced_ecg_viewer_component(
+                file_path, 
+                titre, 
+                height=enhanced_height + 60,  # +60 pour toolbar et marges
+                container_width=enhanced_width
+            )
+            
+            # Guide des contrôles
+            with st.expander("🎮 Guide des contrôles avancés", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.markdown("""
+                    **🖱️ Navigation :**
+                    - **Clic + Glisser** : Déplacer l'image
+                    - **Molette souris** : Zoom in/out
+                    - **Slider zoom** : Contrôle précis (0.25x - 5x)
+                    - **🔄 Reset** : Retour vue initiale
+                    """)
+                
+                with col2:
+                    st.markdown("""
+                    **🔧 Outils ECG :**
+                    - **📏 Mesure** : Cliquer-glisser pour mesurer
+                    - **⛶ Plein écran** : Mode immersif
+                    - **Info panel** : Position et zoom temps réel
+                    """)
         
-        # Informations image
-        with st.expander("📊 Détails image"):
-            st.write(f"**Dimensions:** {image.width} × {image.height} pixels")
-            st.write(f"**Mode:** {image.mode}")
-            file_size = os.path.getsize(file_path) // 1024
-            st.write(f"**Taille:** {file_size} KB")
+        else:
+            # Mode standard - Affichage simple sans contrôles de zoom
+            st.image(image, use_container_width=True)
+        
+        # Module d'annotation rapide avec ontologie
+        if ANNOTATION_AVAILABLE:
+            st.markdown("---")
+            st.markdown("### 🏷️ Annotation rapide")
+            
+            try:
+                # Interface d'annotation compacte
+                with st.expander("📝 Annoter cet ECG", expanded=False):
+                    annotations = smart_annotation_input(
+                        key_prefix=f"quick_annotation_{titre.replace(' ', '_')}",
+                        max_tags=10
+                    )
+                    
+                    if annotations:
+                        st.markdown("**🎯 Résumé rapide :**")
+                        display_annotation_summary(annotations)
+                        
+            except Exception as e:
+                st.info("💡 Module d'annotation ontologique en cours de chargement...")
         
     except Exception as e:
         st.error(f"❌ Erreur affichage image: {e}")
-
-def afficher_mode_plein_ecran(image, titre):
-    """Affiche l'ECG en mode plein écran"""
-    
-    st.markdown("### 🖼️ Mode Plein Écran")
-    
-    # Convertir en base64 pour affichage HTML
-    import base64
-    from io import BytesIO
-    
-    buffered = BytesIO()
-    image.save(buffered, format="PNG")
-    img_base64 = base64.b64encode(buffered.getvalue()).decode()
-    
-    # HTML plein écran
-    html_fullscreen = f"""
-    <div style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: black;
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    " onclick="this.style.display='none'">
-        <img src="data:image/png;base64,{img_base64}" 
-             style="max-width: 95%; max-height: 95%; object-fit: contain;" 
-             alt="{titre}">
-        <div style="
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 24px;
-            background: rgba(0,0,0,0.5);
-            padding: 10px;
-            border-radius: 5px;
-        ">
-            ✕ Cliquez pour fermer
-        </div>
-    </div>
-    """
-    
-    st.components.v1.html(html_fullscreen, height=600)
 
 def afficher_ecg_xml(file_path):
     """Affiche un fichier ECG XML"""
@@ -541,9 +513,9 @@ def afficher_ecg_pdf(file_path):
         st.error(f"❌ Erreur affichage PDF: {e}")
 
 def interface_annotation_multi(cas, ecg_selectionne):
-    """Interface d'annotation pour cas simple et multi-ECG"""
+    """Interface d'annotation pour cas simple et multi-ECG avec ontologie"""
     
-    st.markdown("### 📝 Annotation")
+    st.markdown("### 📝 Annotation selon l'ontologie")
     
     # Déterminer l'ECG à annoter
     if cas.get('type') == 'multi_ecg':
@@ -557,12 +529,63 @@ def interface_annotation_multi(cas, ecg_selectionne):
         ecg_id = "ECG_principal"
         st.write(f"**Annotation du cas:** {cas.get('name', 'ECG')}")
     
-    # Interface d'annotation simple
-    annotation_text = st.text_area(
-        "💭 Votre interprétation",
-        placeholder="Décrivez ce que vous observez sur cet ECG...",
-        key=f"annotation_{cas['case_id']}_{ecg_id}"
-    )
+    # Interface d'annotation intelligente avec ontologie
+    if ANNOTATION_AVAILABLE:
+        try:
+            # Module d'annotation semi-automatique
+            annotations = smart_annotation_input(
+                key_prefix=f"annotation_{cas['case_id']}_{ecg_id}",
+                max_tags=15
+            )
+            
+            # Affichage du résumé des annotations
+            if annotations:
+                st.markdown("---")
+                display_annotation_summary(annotations)
+                
+                # Zone de notes complémentaires
+                st.markdown("#### 📝 Notes complémentaires")
+                notes_text = st.text_area(
+                    "Observations détaillées",
+                    placeholder="Ajoutez des détails ou observations spécifiques...",
+                    key=f"notes_{cas['case_id']}_{ecg_id}",
+                    height=100
+                )
+                
+                # Sauvegarde des annotations
+                if st.button("💾 Sauvegarder les annotations", key=f"save_{cas['case_id']}_{ecg_id}"):
+                    annotation_data = {
+                        'case_id': cas['case_id'],
+                        'ecg_id': ecg_id,
+                        'annotations': annotations,
+                        'notes': notes_text,
+                        'timestamp': datetime.now().isoformat()
+                    }
+                    
+                    # Sauvegarder dans le state
+                    if 'saved_annotations' not in st.session_state:
+                        st.session_state['saved_annotations'] = {}
+                    
+                    annotation_key = f"{cas['case_id']}_{ecg_id}"
+                    st.session_state['saved_annotations'][annotation_key] = annotation_data
+                    
+                    st.success("✅ Annotations sauvegardées avec succès!")
+            
+        except Exception as e:
+            st.error(f"❌ Erreur module annotation: {e}")
+            # Interface de fallback simple
+            annotation_text = st.text_area(
+                "💭 Votre interprétation (mode simple)",
+                placeholder="Décrivez ce que vous observez sur cet ECG...",
+                key=f"annotation_fallback_{cas['case_id']}_{ecg_id}"
+            )
+    else:
+        # Interface d'annotation simple si module non disponible
+        annotation_text = st.text_area(
+            "💭 Votre interprétation",
+            placeholder="Décrivez ce que vous observez sur cet ECG...",
+            key=f"annotation_{cas['case_id']}_{ecg_id}"
+        )
     
     if st.button("💾 Sauvegarder annotation", key=f"save_annotation_{ecg_id}"):
         sauvegarder_annotation(cas, ecg_id, annotation_text)

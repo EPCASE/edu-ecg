@@ -43,33 +43,87 @@ from auth_system import (
     create_user_interface, list_users_interface
 )
 
-try:
-    from correction_engine import OntologyCorrector
-    from import_cases import admin_import_cases
-    from annotation_tool import admin_annotation_tool
-    from annotation_components import smart_annotation_input, display_annotation_summary
-    try:
-        from ecg_reader import ecg_reader_interface
-        ECG_READER_AVAILABLE = True
-    except ImportError:
-        ECG_READER_AVAILABLE = False
-    try:
-        from user_management import user_management_interface
-        USER_MANAGEMENT_AVAILABLE = True
-    except ImportError:
-        USER_MANAGEMENT_AVAILABLE = False
-    ONTOLOGY_LOADED = True
-except ImportError as e:
-    ONTOLOGY_LOADED = False
-    ECG_READER_AVAILABLE = False
-    USER_MANAGEMENT_AVAILABLE = False
-    st.error(f"⚠️ Erreur import modules : {e}")
+# Correction du chemin pour que data/ecg_cases soit à la racine du projet (et non dans frontend/)
+# Définir le dossier data à la racine du projet
+DATA_ROOT = Path(__file__).parent.parent / "data"
+ECG_CASES_DIR = DATA_ROOT / "ecg_cases"
+ECG_SESSIONS_DIR = DATA_ROOT / "ecg_sessions"
 
 def load_ontology():
     """Chargement de l'ontologie ECG"""
+    from correction_engine import OntologyCorrector
+    ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
     if 'corrector' not in st.session_state:
         try:
-            ontology_path = project_root / "data" / "ontologie.owx"
+            ontology_path = DATA_ROOT / "ontologie.owx"
+            st.session_state.corrector = OntologyCorrector(str(ontology_path))
+            st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
+            return True
+        except Exception as e:
+            st.error(f"❌ Erreur lors du chargement de l'ontologie : {e}")
+            return False
+    return True
+
+def count_ecg_sessions():
+    """Compte le nombre de sessions ECG existantes"""
+    sessions_dir = ECG_SESSIONS_DIR
+    if not sessions_dir.exists():
+        return 0
+    
+    return len([f for f in sessions_dir.iterdir() if f.suffix == '.json'])
+
+def count_total_cases():
+    """Compte le nombre total de cas ECG dans la base"""
+    if not ECG_CASES_DIR.exists():
+        return 0
+    
+    return len([d for d in ECG_CASES_DIR.iterdir() if d.is_dir()])
+
+def count_annotated_cases():
+    """Compte le nombre de cas ECG ayant des annotations expertes"""
+    if not ECG_CASES_DIR.exists():
+        return 0
+    
+    annotated = 0
+    for case_dir in ECG_CASES_DIR.iterdir():
+        if case_dir.is_dir():
+            annotations_file = case_dir / "annotations.json"
+            metadata_file = case_dir / "metadata.json"
+            
+            # Vérifier s'il y a des annotations dans le fichier annotations.json
+            has_annotations = False
+            if annotations_file.exists():
+                try:
+                    with open(annotations_file, 'r', encoding='utf-8') as f:
+                        anns = json.load(f)
+                        if anns and len(anns) > 0:
+                            has_annotations = True
+                except:
+                    pass
+            
+            # Sinon vérifier dans metadata.json
+            if not has_annotations and metadata_file.exists():
+                try:
+                    with open(metadata_file, 'r', encoding='utf-8') as f:
+                        metadata = json.load(f)
+                        anns = metadata.get('annotations', [])
+                        if anns and len(anns) > 0:
+                            has_annotations = True
+                except:
+                    pass
+            
+            if has_annotations:
+                annotated += 1
+    
+    return annotated
+
+def load_ontology():
+    """Chargement de l'ontologie ECG"""
+    from correction_engine import OntologyCorrector
+    ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
+    if 'corrector' not in st.session_state:
+        try:
+            ontology_path = DATA_ROOT / "ontologie.owx"
             st.session_state.corrector = OntologyCorrector(str(ontology_path))
             st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
             return True
@@ -87,14 +141,43 @@ def main():
     # Vérifier si l'utilisateur est connecté
     if not st.session_state.authenticated:
         login_interface()
-        return
-    
-    # Application principale après authentification
-    main_app_with_auth()
+    else:
+        # Application principale après authentification
+        main_app_with_auth()
 
 def main_app_with_auth():
     """Application principale après authentification"""
+
+    # Définir ONTOLOGY_LOADED comme variable globale pour qu'elle soit accessible partout
+    global ONTOLOGY_LOADED, ECG_READER_AVAILABLE, USER_MANAGEMENT_AVAILABLE
+    global smart_annotation_input, display_annotation_summary, create_advanced_ecg_viewer
+    global ecg_reader_interface, user_management_interface
+    global admin_import_cases, admin_annotation_tool
     
+    # Importer les modules critiques ici pour éviter de bloquer l'auth
+    try:
+        from correction_engine import OntologyCorrector
+        from import_cases import admin_import_cases
+        from annotation_tool import admin_annotation_tool
+        from annotation_components import smart_annotation_input, display_annotation_summary
+        from advanced_ecg_viewer import create_advanced_ecg_viewer
+        try:
+            from ecg_reader import ecg_reader_interface
+            ECG_READER_AVAILABLE = True
+        except ImportError:
+            ECG_READER_AVAILABLE = False
+        try:
+            from user_management import user_management_interface
+            USER_MANAGEMENT_AVAILABLE = True
+        except ImportError:
+            USER_MANAGEMENT_AVAILABLE = False
+        ONTOLOGY_LOADED = True
+    except ImportError as e:
+        ONTOLOGY_LOADED = False
+        ECG_READER_AVAILABLE = False
+        USER_MANAGEMENT_AVAILABLE = False
+        st.error(f"⚠️ Erreur import modules : {e}")
+
     # Charger l'ontologie si nécessaire
     if ONTOLOGY_LOADED:
         load_ontology()
@@ -126,49 +209,38 @@ def main_app_with_auth():
         # Pages communes à tous
         if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'home'
-            st.rerun()
         
         # Menu selon les permissions
         if user_role in ['admin', 'expert']:  # Utiliser les vrais noms de rôles
             st.markdown("### 📋 Gestion de Contenu")
             if st.button("📥 Import ECG", type="primary" if st.session_state.selected_page == 'import' else "secondary", use_container_width=True):
                 st.session_state.selected_page = 'import'
-                st.rerun()
             
-            if st.button("📖 Liseuse ECG", type="primary" if st.session_state.selected_page == 'reader' else "secondary", use_container_width=True):
-                st.session_state.selected_page = 'reader'
-                st.rerun()
             
             # Menu Sessions pour experts et admins
             if check_permission('create_sessions') or check_permission('all'):
                 if st.button("📚 Sessions ECG", type="primary" if st.session_state.selected_page == 'sessions' else "secondary", use_container_width=True):
                     st.session_state.selected_page = 'sessions'
-                    st.rerun()
         
         # Menu pour tous les utilisateurs
         st.markdown("### 📚 Formation")
         if st.button("📋 Cas ECG", type="primary" if st.session_state.selected_page == 'cases' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'cases'
-            st.rerun()
         
         if st.button("🎯 Exercices", type="primary" if st.session_state.selected_page == 'exercises' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'exercises'
-            st.rerun()
         
         if st.button("📊 Mes Sessions", type="primary" if st.session_state.selected_page == 'progress' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'progress'
-            st.rerun()
         
         # Menu Admin uniquement
         if user_role == 'admin':  # Utiliser le vrai nom de rôle
             st.markdown("### ⚙️ Administration")
             if st.button("🗄️ Base de Données", type="primary" if st.session_state.selected_page == 'database' else "secondary", use_container_width=True):
                 st.session_state.selected_page = 'database'
-                st.rerun()
             
             if st.button("👥 Utilisateurs", type="primary" if st.session_state.selected_page == 'users' else "secondary", use_container_width=True):
                 st.session_state.selected_page = 'users'
-                st.rerun()
     
     # Routage des pages selon les permissions
     route_pages_with_auth(st.session_state.selected_page)
@@ -195,16 +267,6 @@ def route_pages_with_auth(page):
         else:
             st.error("❌ Accès non autorisé")
     
-    elif page == 'reader':
-        if check_permission('annotate_cases') or check_permission('all'):
-            try:
-                from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
-                liseuse_ecg_simple()
-            except ImportError:
-                st.error("❌ Module de lecture ECG non disponible")
-                st.info("💡 Utilisez l'import intelligent pour créer des cas d'abord")
-        else:
-            st.error("❌ Accès non autorisé")
     
     elif page == 'cases':
         page_ecg_cases()
@@ -280,46 +342,35 @@ def page_users_management_with_auth():
         if st.session_state.user_mode == 'admin':
             st.markdown("### 👨‍⚕️ Menu Admin")
             
-            # Boutons sidebar admin
+            # Boutons sidebar admin - SANS st.rerun() pour éviter double chargement
             if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True, key="admin_home_btn"):
                 st.session_state.selected_page = 'home'
-                st.rerun()
             
             if st.button("📥 Import ECG", type="primary" if st.session_state.selected_page == 'import' else "secondary", use_container_width=True, key="admin_import_btn"):
                 st.session_state.selected_page = 'import'
-                st.rerun()
             
-            if st.button("📺 Liseuse ECG", type="primary" if st.session_state.selected_page == 'reader' else "secondary", use_container_width=True, key="admin_reader_btn"):
-                st.session_state.selected_page = 'reader'
-                st.rerun()
             
             if st.button("👥 Utilisateurs", type="primary" if st.session_state.selected_page == 'users' else "secondary", use_container_width=True, key="admin_users_btn"):
                 st.session_state.selected_page = 'users'
-                st.rerun()
             
             if st.button("📊 Base de Données", type="primary" if st.session_state.selected_page == 'database' else "secondary", use_container_width=True, key="admin_database_btn"):
                 st.session_state.selected_page = 'database'
-                st.rerun()
             
         else:
             st.markdown("### 🎓 Menu Étudiant")
             
-            # Boutons sidebar étudiant
+            # Boutons sidebar étudiant - SANS st.rerun() pour éviter double chargement
             if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True, key="student_home_btn"):
                 st.session_state.selected_page = 'home'
-                st.rerun()
             
             if st.button("📚 Cas ECG", type="primary" if st.session_state.selected_page == 'cases' else "secondary", use_container_width=True, key="student_cases_btn"):
                 st.session_state.selected_page = 'cases'
-                st.rerun()
             
             if st.button("🎯 Exercices", type="primary" if st.session_state.selected_page == 'exercises' else "secondary", use_container_width=True, key="student_exercises_btn"):
                 st.session_state.selected_page = 'exercises'
-                st.rerun()
             
             if st.button("📈 Mes Progrès", type="primary" if st.session_state.selected_page == 'progress' else "secondary", use_container_width=True, key="student_progress_btn"):
                 st.session_state.selected_page = 'progress'
-                st.rerun()
         
         st.markdown("---")
         
@@ -356,11 +407,16 @@ def route_admin_sidebar_pages(page):
             st.error("❌ Module d'import non disponible")
     elif page == 'reader':
         try:
-            from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
-            liseuse_ecg_simple()
+            from liseuse.liseuse_ecg_fonctionnelle import liseuse_ecg_fonctionnelle
+            liseuse_ecg_fonctionnelle()
         except ImportError:
-            st.error("❌ Module de lecture ECG non disponible")
-            st.info("💡 Utilisez l'import intelligent pour créer des cas d'abord")
+            try:
+                from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
+                st.info("🔄 Liseuse standard (visualiseur avancé non disponible)")
+                liseuse_ecg_simple()
+            except ImportError:
+                st.error("❌ Module de lecture ECG non disponible")
+                st.info("💡 Utilisez l'import intelligent pour créer des cas d'abord")
     elif page == 'users':
         try:
             from user_management import user_management_interface
@@ -390,28 +446,63 @@ def route_admin_pages(page):
     elif page == "📤 Import ECG (WP1)":
         admin_import_cases()
     elif page == "🎯 Import Intelligent":
-        try:
-            from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
-            smart_ecg_importer_simple()
-        except ImportError as e:
-            # Fallback vers version avec onglets
+        # Option pour choisir l'interface d'import
+        st.subheader("🎯 Import Intelligent ECG")
+        
+        import_method = st.selectbox(
+            "🎨 Choisir l'interface d'import",
+            [
+                "🚀 Import Amélioré (ep-cases style)",
+                "📤 Import Standard", 
+                "🔧 Import Classique"
+            ],
+            help="Interface d'import inspirée d'ep-cases avec drag-and-drop et validation intelligente"
+        )
+        
+        if import_method == "🚀 Import Amélioré (ep-cases style)":
             try:
-                from admin.smart_ecg_importer import smart_ecg_importer
-                smart_ecg_importer()
-            except ImportError:
-                st.error(f"❌ Erreur d'import du module : {e}")
-                st.info("🔧 Utilisation de l'import simple en fallback")
-                admin_import_cases()
+                from enhanced_import import enhanced_import_interface
+                enhanced_import_interface()
+            except ImportError as e:
+                st.error(f"⚠️ Interface améliorée non disponible : {e}")
+                st.info("🔄 Utilisation de l'interface standard...")
+                # Fallback vers interface standard
+                try:
+                    from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
+                    smart_ecg_importer_simple()
+                except ImportError:
+                    from admin.smart_ecg_importer import smart_ecg_importer
+                    smart_ecg_importer()
+        elif import_method == "📤 Import Standard":
+            try:
+                from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
+                smart_ecg_importer_simple()
+            except ImportError as e:
+                # Fallback vers version avec onglets
+                try:
+                    from admin.smart_ecg_importer import smart_ecg_importer
+                    smart_ecg_importer()
+                except ImportError as e:
+                    st.error(f"❌ Erreur d'import du module : {e}")
+                    st.info("🔧 Utilisation de l'import simple en fallback")
+                    admin_import_cases()
+        else:  # Import Classique
+            admin_import_cases()
     elif page == "📺 Liseuse ECG":
         try:
-            from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
-            liseuse_ecg_simple()
+            from liseuse.liseuse_ecg_fonctionnelle import liseuse_ecg_fonctionnelle
+            liseuse_ecg_fonctionnelle()
         except ImportError:
-            # Fallback vers ancienne liseuse
-            if ECG_READER_AVAILABLE:
-                ecg_reader_interface()
-            else:
-                st.warning("⚠️ Module Liseuse ECG non disponible")
+            try:
+                from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
+                st.info("🔄 Liseuse standard (visualiseur avancé non disponible)")
+                liseuse_ecg_simple()
+            except ImportError:
+                # Fallback vers ancienne liseuse
+                if ECG_READER_AVAILABLE:
+                    ecg_reader_interface()
+                else:
+                    st.warning("⚠️ Module Liseuse ECG non disponible")
     elif page == "✏️ Annotation Admin":
         admin_annotation_tool()
     elif page == "👥 Gestion Utilisateurs":
@@ -478,12 +569,10 @@ def page_admin_home():
     with col1:
         if st.button("📥 Import Intelligent", type="primary", use_container_width=True):
             st.session_state.selected_page = "import"
-            st.rerun()
     
     with col2:
         if st.button("📺 Liseuse ECG", use_container_width=True):
             st.session_state.selected_page = "reader"
-            st.rerun()
 
 def page_student_home():
     """Page d'accueil étudiant"""
@@ -509,17 +598,14 @@ def page_student_home():
     with col1:
         if st.button("📚 Cas ECG", type="primary", use_container_width=True):
             st.session_state.selected_page = "cases"
-            st.rerun()
     
     with col2:
         if st.button("🎯 Exercices", use_container_width=True):
             st.session_state.selected_page = "exercises"
-            st.rerun()
     
     with col3:
         if st.button("📈 Mes progrès", use_container_width=True):
             st.session_state.selected_page = "progress"
-            st.rerun()
     
     st.markdown("---")
     
@@ -539,58 +625,41 @@ def page_student_home():
 
 def page_ecg_cases():
     """Page de consultation des cas ECG pour étudiants"""
-    
-    st.header("📚 Cas ECG disponibles")
-    st.markdown("*Sélectionnez un cas pour vous exercer à l'interprétation*")
-    
-    # Chargement des cas depuis data/ecg_cases
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
+    ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
     available_cases = []
-    
-    if cases_dir.exists():
-        for case_dir in cases_dir.iterdir():
+    if ECG_CASES_DIR.exists():
+        for case_dir in ECG_CASES_DIR.iterdir():
             if case_dir.is_dir():
                 metadata_file = case_dir / "metadata.json"
-                
-                # Chercher les images ECG dans le dossier
                 image_files = []
                 for ext in ['*.png', '*.jpg', '*.jpeg']:
                     image_files.extend(case_dir.glob(ext))
-                
                 if metadata_file.exists() and image_files:
                     try:
                         with open(metadata_file, 'r', encoding='utf-8') as f:
                             case_data = json.load(f)
-                        
-                        # Ajouter toutes les informations sur les images
                         sorted_images = sorted(image_files, key=lambda x: x.name)
                         case_data['image_paths'] = [str(img) for img in sorted_images]
-                        case_data['image_path'] = str(sorted_images[0])  # Première image pour compatibilité
+                        case_data['image_path'] = str(sorted_images[0])
                         case_data['total_images'] = len(sorted_images)
                         case_data['case_folder'] = str(case_dir)
-                        
                         available_cases.append(case_data)
                     except Exception as e:
                         st.warning(f"⚠️ Erreur lecture métadonnées {case_dir.name}: {e}")
-    
+
     if available_cases:
         st.success(f"✅ {len(available_cases)} cas disponibles pour l'entraînement")
-        
         for i, case_data in enumerate(available_cases):
             case_id = case_data.get('case_id', f'cas_{i}')
-            
             with st.expander(f"📋 Cas ECG: {case_id}", expanded=(i == 0)):
-                col1, col2 = st.columns([3, 2])
-                
-                with col1:
-                    # Affichage de tous les ECG du cas
+                # --- NOUVEAU LAYOUT ---
+                col_ecg, col_annot = st.columns([3, 2])
+                with col_ecg:
+                    # Affichage ECG(s)
                     if 'image_paths' in case_data and case_data['image_paths']:
                         total_images = len(case_data['image_paths'])
-                        
                         if total_images > 1:
                             st.info(f"📊 Ce cas contient **{total_images} ECG**")
-                            
-                            # Navigation entre les ECG
                             ecg_preview_index = st.selectbox(
                                 "Aperçu ECG :",
                                 range(total_images),
@@ -600,57 +669,106 @@ def page_ecg_cases():
                         else:
                             ecg_preview_index = 0
                             st.info(f"📊 Ce cas contient **1 ECG**")
-                        
-                        # Affichage de l'ECG sélectionné
                         image_path = Path(case_data['image_paths'][ecg_preview_index])
                         if image_path.exists():
-                            st.image(str(image_path), 
-                                   caption=f"ECG {ecg_preview_index+1}/{total_images} - {case_id}",
-                                   use_container_width=True)
+                            html = create_advanced_ecg_viewer(str(image_path), f"ECG {ecg_preview_index+1}/{total_images} - {case_id}")
+                            import streamlit.components.v1 as components
+                            components.html(html, height=600, scrolling=True)
                         else:
                             st.warning(f"⚠️ ECG {ecg_preview_index+1} non trouvé")
-                            
                     elif 'image_path' in case_data:
-                        # Compatibilité avec l'ancien format
                         image_path = Path(case_data['image_path'])
                         if image_path.exists():
-                            st.image(str(image_path), 
-                                   caption=f"ECG - {case_id}",
-                                   use_container_width=True)
+                            html = create_advanced_ecg_viewer(str(image_path), f"ECG - {case_id}")
+                            import streamlit.components.v1 as components
+                            components.html(html, height=600, scrolling=True)
                         else:
                             st.warning("⚠️ Image ECG non trouvée")
                     else:
                         st.info("📄 Cas ECG (format non-image)")
-                
-                with col2:
-                    st.markdown("**📋 Informations du cas**")
-                    
-                    # Informations cliniques si disponibles
-                    if case_data.get('age'):
-                        st.write(f"**Âge :** {case_data['age']} ans")
-                    if case_data.get('sexe'):
-                        st.write(f"**Sexe :** {case_data['sexe']}")
-                    if case_data.get('context'):
-                        st.write(f"**Contexte :** {case_data['context']}")
-                    
-                    # Vérifier s'il y a des annotations expertes
-                    annotations = case_data.get('annotations', [])
-                    expert_annotations = [ann for ann in annotations 
-                                        if ann.get('type') == 'expert' or ann.get('auteur') == 'expert']
-                    
-                    if expert_annotations:
-                        st.success("✅ Cas avec annotation experte")
-                    else:
-                        st.info("💭 Cas en attente d'annotation experte")
-                    
+
+                with col_annot:
+                    st.markdown("### 📝 Vos annotations")
+                    # --- Interface d'annotation avec autocomplétion ---
+                    key_prefix = f"student_{case_id}_annotations"
+                    # Charger/sauver les annotations de l'étudiant (session + fichier)
+                    if 'student_annotations' not in st.session_state:
+                        st.session_state['student_annotations'] = {}
+                    # Charger depuis fichier si dispo
+                    student_file = Path(case_data['case_folder']) / "student_annotations.json"
+                    if key_prefix not in st.session_state['student_annotations']:
+                        if student_file.exists():
+                            try:
+                                with open(student_file, 'r', encoding='utf-8') as f:
+                                    st.session_state['student_annotations'][key_prefix] = json.load(f)
+                            except Exception:
+                                st.session_state['student_annotations'][key_prefix] = []
+                        else:
+                            st.session_state['student_annotations'][key_prefix] = []
+                    # Interface
+                    annotations = smart_annotation_input(
+                        key_prefix=key_prefix,
+                        max_tags=15
+                    )
+                    # Sauvegarde bouton
+                    if st.button("💾 Sauvegarder mes annotations", key=f"save_{case_id}"):
+                        st.session_state['student_annotations'][key_prefix] = annotations
+                        try:
+                            # Créer le chemin si case_folder existe, sinon le créer
+                            if 'case_folder' in case_data:
+                                student_folder = Path(case_data['case_folder'])
+                            else:
+                                student_folder = ECG_CASES_DIR / str(case_id)
+                                student_folder.mkdir(parents=True, exist_ok=True)
+                            student_file = student_folder / "student_annotations.json"
+                            with open(student_file, 'w', encoding='utf-8') as f:
+                                json.dump(annotations, f, ensure_ascii=False, indent=2)
+                            st.success("✅ Sauvegardé !")
+                        except Exception as e:
+                            st.error(f"Erreur : {e}")
+                    # Résumé structuré
+                    if annotations:
+                        display_annotation_summary(annotations, title="📊 Résumé de vos observations")
+                    # Option voir la correction
+                    show_correction = st.checkbox("Voir la correction experte", key=f"show_corr_{case_id}")
+                    if show_correction:
+                        # Affichage des annotations expertes
+                        expert_annots = []
+                        # Recherche dans metadata ou annotations.json
+                        expert_file = Path(case_data['case_folder']) / "annotations.json"
+                        if expert_file.exists():
+                            try:
+                                with open(expert_file, 'r', encoding='utf-8') as f:
+                                    expert_annots = json.load(f)
+                            except Exception:
+                                expert_annots = []
+                        else:
+                            expert_annots = case_data.get('annotations', [])
+                        expert_tags = []
+                        for ann in expert_annots:
+                            if ann.get('type') == 'expert' or ann.get('auteur') == 'expert':
+                                if ann.get('annotation_tags'):
+                                    expert_tags.extend(ann['annotation_tags'])
+                                elif ann.get('concept'):
+                                    expert_tags.append(ann['concept'])
+                        if expert_tags:
+                            st.markdown("**🧠 Concepts experts :**")
+                            display_annotation_summary(expert_tags, title="🧠 Concepts experts")
+                            # Comparaison simple
+                            if annotations:
+                                overlap = set(expert_tags).intersection(set(annotations))
+                                score = len(overlap) / len(expert_tags) * 100 if expert_tags else 0
+                                st.markdown(f"**Votre score de recoupement :** {score:.0f}%")
+                                if overlap:
+                                    st.success("✅ Points communs : " + ", ".join(overlap))
+                                missed = set(expert_tags) - set(annotations)
+                                if missed:
+                                    st.info("💡 Concepts manqués : " + ", ".join(missed))
+                        else:
+                            st.info("Aucune annotation experte disponible pour ce cas.")
                     st.markdown("---")
-                    
-                    # Bouton pour commencer l'exercice
-                    if st.button(f"🎯 S'exercer sur ce cas", 
-                               key=f"exercise_{case_id}",
-                               type="primary",
-                               help="Commencer l'annotation de ce cas ECG en mode apprentissage"):
-                        # Créer une session individuelle pour ce cas
+                    # Option secondaire : passer en mode exercice
+                    if st.button("🎯 Passer en mode exercice complet", key=f"to_ex_{case_id}"):
                         case_name = case_data.get('case_id', case_data.get('name', f'cas_{i}'))
                         individual_session = {
                             'session_data': {
@@ -667,13 +785,12 @@ def page_ecg_cases():
                             'responses': {},
                             'start_time': datetime.now().isoformat(),
                             'scores': {},
-                            'individual_mode': True  # Marquer comme exercice individuel
+                            'individual_mode': True
                         }
                         st.session_state['current_session'] = individual_session
-                        st.session_state.selected_page = "exercises"  # CORRECTION: utiliser selected_page au lieu de student_page
+                        st.session_state.selected_page = "exercises"
                         st.success(f"🎯 Exercice sur '{case_data.get('name', 'ce cas')}' démarré !")
                         st.rerun()
-    
     else:
         st.warning("⚠️ Aucun cas ECG disponible")
         st.info("""
@@ -691,15 +808,7 @@ def page_exercises():
     
     # Vérifier s'il y a une session en cours
     if 'current_session' in st.session_state:
-        # Déterminer si c'est un exercice individuel ou une session
-        session = st.session_state['current_session']
-        is_individual = session.get('individual_mode', False)
-        
-        if is_individual:
-            st.info("📝 **Exercice individuel en cours**")
-        else:
-            st.info("📚 **Session d'exercices en cours**")
-            
+        # Exécuter la session directement sans messages parasites
         run_ecg_session()
     else:
         # Onglets pour organiser le contenu
@@ -903,7 +1012,7 @@ def create_session_interface():
                 selected_cases = st.multiselect(
                     "📋 Cas ECG à inclure",
                     options=available_cases,
-                    help="Sélectionnez les cas ECG pour cette session"
+                    help="Sélectionnez plusieurs cas pour créer un parcours d'exercices"
                 )
             else:
                 st.warning("⚠️ Aucun cas ECG disponible. Importez des cas d'abord.")
@@ -986,13 +1095,9 @@ def get_available_cases_for_sessions():
 
 def create_ecg_session(name, description, difficulty, time_limit, cases, show_feedback, allow_retry, created_by):
     """Crée une nouvelle session ECG"""
-    
-    sessions_dir = Path(__file__).parent.parent / "data" / "ecg_sessions"
-    sessions_dir.mkdir(exist_ok=True)
-    
+    ECG_SESSIONS_DIR.mkdir(parents=True, exist_ok=True)
     session_id = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-    session_file = sessions_dir / f"{session_id}.json"
-    
+    session_file = ECG_SESSIONS_DIR / f"{session_id}.json"
     session_data = {
         'session_id': session_id,
         'name': name,
@@ -1007,408 +1112,268 @@ def create_ecg_session(name, description, difficulty, time_limit, cases, show_fe
         'status': 'active',
         'participants': []
     }
-    
     with open(session_file, 'w', encoding='utf-8') as f:
         json.dump(session_data, f, indent=2, ensure_ascii=False)
 
-def display_user_sessions():
-    """Affiche les sessions créées par l'utilisateur"""
-    
-    sessions_dir = Path(__file__).parent.parent / "data" / "ecg_sessions"
-    
-    if not sessions_dir.exists():
-        st.info("📭 Aucune session créée pour le moment")
-        return
-    
-    current_user = st.session_state.user_info.get('name', 'Expert')
-    user_sessions = []
-    
-    for session_file in sessions_dir.glob("*.json"):
-        try:
-            with open(session_file, 'r', encoding='utf-8') as f:
-                session_data = json.load(f)
-            
-            # Afficher toutes les sessions pour les admins, seulement les siennes pour les experts
-            if st.session_state.user_role == 'admin' or session_data.get('created_by') == current_user:
-                user_sessions.append(session_data)
-        except Exception:
-            continue
-    
-    if user_sessions:
-        st.success(f"📚 {len(user_sessions)} session(s) trouvée(s)")
-        
-        for session in user_sessions:
-            with st.expander(f"📚 {session['name']}", expanded=False):
-                col1, col2 = st.columns([2, 1])
-                
-                with col1:
-                    st.markdown(f"**Description:** {session.get('description', 'Aucune description')}")
-                    st.markdown(f"**Difficulté:** {session.get('difficulty', 'Non spécifiée')}")
-                    st.markdown(f"**Durée:** {session.get('time_limit', 30)} minutes")
-                    st.markdown(f"**Cas ECG:** {len(session.get('cases', []))} cas")
-                    
-                    cases_list = ", ".join(session.get('cases', [])[:3])
-                    if len(session.get('cases', [])) > 3:
-                        cases_list += f" et {len(session.get('cases', [])) - 3} autre(s)"
-                    st.markdown(f"**Contenu:** {cases_list}")
-                
-                with col2:
-                    st.markdown(f"**Créé par:** {session.get('created_by', 'Inconnu')}")
-                    created_date = session.get('created_date', '')
-                    if created_date:
-                        try:
-                            date_obj = datetime.fromisoformat(created_date.replace('Z', '+00:00'))
-                            formatted_date = date_obj.strftime("%d/%m/%Y")
-                            st.markdown(f"**Date:** {formatted_date}")
-                        except:
-                            st.markdown(f"**Date:** {created_date[:10]}")
-                    
-                    status = session.get('status', 'active')
-                    if status == 'active':
-                        st.success("✅ Active")
-                    else:
-                        st.warning("⏸️ Inactive")
-                    
-                    # Actions
-                    if st.button(f"✏️ Modifier", key=f"edit_{session['session_id']}"):
-                        st.info("🚧 Modification en développement")
-                    
-                    if st.button(f"📊 Stats", key=f"stats_{session['session_id']}"):
-                        st.info("🚧 Statistiques en développement")
-    else:
-        st.info("📭 Aucune session créée par vous")
-
-def display_sessions_statistics():
-    """Affiche les statistiques des sessions"""
-    
-    st.info("🚧 Statistiques des sessions en développement")
-    
-    # Simulation de statistiques
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("📈 Taux de complétion", "0%")
-    
-    with col2:
-        st.metric("⭐ Score moyen", "0%")
-    
-    with col3:
-        st.metric("⏱️ Temps moyen", "0 min")
-
-def page_database_management():
-    """Page de gestion de base de données"""
-    
-    st.title("📊 Gestion Base de Données")
-    
-    # Statistiques de la base
-    cases_count = count_total_cases()
-    annotated_count = count_annotated_cases()
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("📋 Cas totaux", cases_count)
-    
-    with col2:
-        st.metric("✅ Cas annotés", annotated_count)
-    
-    with col3:
-        if cases_count > 0:
-            progress = annotated_count / cases_count
-            st.metric("📈 Progression", f"{progress*100:.0f}%")
-        else:
-            st.metric("📈 Progression", "0%")
-    
-    st.markdown("---")
-    
-    # Onglets pour organiser les fonctionnalités
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["📋 Cas ECG", "📚 Sessions ECG", "📊 Analytics", "💾 Backup", "🏷️ Tags", "📄 Templates"])
-    
-    with tab1:
-        display_advanced_cases_management()
-    
-    with tab2:
-        display_sessions_management()
-    
-    with tab3:
-        display_database_analytics_tab()
-    
-    with tab4:
-        display_backup_management_tab()
-    
-    with tab5:
-        display_tagging_management_tab()
-    
-    with tab6:
-        display_templates_management_tab()
-
-def display_advanced_cases_management():
-    """Interface avancée de gestion des cas ECG"""
-    
-    st.markdown("### 📋 Gestion Avancée des Cas ECG")
-    
-    # Contrôles de recherche et filtrage
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        search_term = st.text_input(
-            "🔍 Recherche",
-            placeholder="Titre, annotation, mots-clés...",
-            help="Recherche dans les titres, annotations et mots-clés"
-        )
-    
-    with col2:
-        sort_by = st.selectbox(
-            "📊 Trier par",
-            ["Date d'ajout (récent)", "Date d'ajout (ancien)", "Titre (A-Z)", "Titre (Z-A)", "Nb annotations"],
-            help="Critère de tri des cas ECG"
-        )
-    
-    with col3:
-        filter_annotated = st.selectbox(
-            "🏷️ Filtrer",
-            ["Tous les cas", "Cas annotés", "Cas non annotés"],
-            help="Filtrer selon l'état d'annotation"
-        )
-    
-    st.markdown("---")
-    
-    # Charger et filtrer les cas
-    cases_data = load_and_filter_cases(search_term, sort_by, filter_annotated)
-    
-    if not cases_data:
-        st.info("📭 Aucun cas ECG trouvé selon vos critères.")
-        return
-    
-    st.markdown(f"**📊 {len(cases_data)} cas trouvé(s)**")
-    
-    # Affichage des cas avec pagination
-    cases_per_page = 10
-    total_pages = (len(cases_data) + cases_per_page - 1) // cases_per_page
-    
-    if total_pages > 1:
-        page_num = st.number_input(
-            f"📄 Page", 
-            min_value=1, 
-            max_value=total_pages, 
-            value=1,
-            help=f"Page courante sur {total_pages} pages"
-        )
-        start_idx = (page_num - 1) * cases_per_page
-        end_idx = min(start_idx + cases_per_page, len(cases_data))
-        page_cases = cases_data[start_idx:end_idx]
-    else:
-        page_cases = cases_data
-        page_num = 1
-    
-    # Affichage des cas
-    for case in page_cases:
-        display_case_card(case)
-    
-    # Gestion de la confirmation de suppression avec dialog modal
-    if 'delete_confirm' in st.session_state:
-        case_to_delete = st.session_state['delete_confirm']
-        
-        # Utiliser st.dialog si disponible (Streamlit 1.32+)
-        try:
-            @st.dialog("🗑️ Confirmation de suppression")
-            def show_delete_confirmation():
-                st.markdown(f"""
-                <div style="text-align: center; padding: 20px;">
-                    <h3 style="color: #ff4757;">⚠️ Attention !</h3>
-                    <p style="font-size: 18px;">Voulez-vous vraiment supprimer le cas :</p>
-                    <div style="background: #fff5f5; padding: 15px; border-radius: 8px; border: 2px solid #ff4757; margin: 15px 0;">
-                        <strong style="color: #ff4757; font-size: 20px;">📋 {case_to_delete}</strong>
-                    </div>
-                    <p style="color: #dc3545; font-weight: bold;">⚠️ Cette action est irréversible !</p>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                col1, col2 = st.columns(2)
-                
-                with col1:
-                    if st.button("✅ Confirmer", type="primary", use_container_width=True):
-                        with st.spinner("🗑️ Suppression..."):
-                            success = delete_case(case_to_delete)
-                            if success:
-                                keys_to_delete = [key for key in st.session_state.keys() if case_to_delete in str(key)]
-                                for key in keys_to_delete:
-                                    del st.session_state[key]
-                                del st.session_state['delete_confirm']
-                                st.success(f"✅ Cas '{case_to_delete}' supprimé !")
-                                st.rerun()
-                
-                with col2:
-                    if st.button("❌ Annuler", use_container_width=True):
-                        del st.session_state['delete_confirm']
-                        st.rerun()
-            
-            # Afficher la dialog
-            show_delete_confirmation()
-            
-        except (AttributeError, TypeError):
-            # Fallback si st.dialog n'est pas disponible
-            st.error("🚨 **CONFIRMATION DE SUPPRESSION**")
-            
-            # Container en haut de page
-            with st.container():
-                st.markdown(f"""
-                <div style="
-                    background: #fff;
-                    border: 4px solid #ff4757;
-                    border-radius: 15px;
-                    padding: 30px;
-                    margin: 20px auto;
-                    max-width: 600px;
-                    text-align: center;
-                    box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
-                ">
-                    <h2 style="color: #ff4757; margin: 0 0 20px 0;">🗑️ Suppression de cas</h2>
-                    <p style="font-size: 18px; margin: 15px 0;">Voulez-vous supprimer le cas :</p>
-                    <div style="background: #fff5f5; padding: 15px; border-radius: 8px; border: 2px solid #ff4757; margin: 20px 0;">
-                        <strong style="color: #ff4757; font-size: 22px;">📋 {case_to_delete}</strong>
-                    </div>
-                    <p style="color: #dc3545; font-weight: bold; font-size: 16px;">⚠️ Cette action est définitive !</p>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                # Boutons centrés
-                col1, col2, col3 = st.columns([1, 2, 1])
-                
-                with col2:
-                    subcol1, subcol2 = st.columns(2)
-                    
-                    with subcol1:
-                        if st.button("✅ **CONFIRMER**", type="primary", key="confirm_delete", use_container_width=True):
-                            with st.spinner("🗑️ Suppression..."):
-                                success = delete_case(case_to_delete)
-                                if success:
-                                    keys_to_delete = [key for key in st.session_state.keys() if case_to_delete in str(key)]
-                                    for key in keys_to_delete:
-                                        del st.session_state[key]
-                                    del st.session_state['delete_confirm']
-                                    st.balloons()
-                                    st.success(f"✅ Cas supprimé !")
-                                    st.rerun()
-                    
-                    with subcol2:
-                        if st.button("❌ **ANNULER**", key="cancel_delete", use_container_width=True):
-                            del st.session_state['delete_confirm']
-                            st.rerun()
-            
-            # Stopper l'exécution pour ne montrer que la confirmation
-            st.stop()
-
-def load_and_filter_cases(search_term, sort_by, filter_annotated):
-    """Charge et filtre les cas ECG selon les critères"""
-    
-    # Utilisation d'un chemin absolu cohérent
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-    if not cases_dir.exists():
-        return []
-    
-    cases_data = []
-    
-    for case_folder in cases_dir.iterdir():
-        if case_folder.is_dir():
-            case_info = load_case_info(case_folder)
-            if case_info:
-                cases_data.append(case_info)
-    
-    # Filtrage par recherche
-    if search_term:
-        search_lower = search_term.lower()
-        filtered_cases = []
-        
-        for case in cases_data:
-            # Recherche dans le titre
-            if search_lower in case.get('name', '').lower():
-                filtered_cases.append(case)
-                continue
-            
-            # Recherche dans les annotations
-            annotations = case.get('annotations', [])
-            found_in_annotations = False
-            for ann in annotations:
-                if search_lower in ann.get('concept', '').lower() or search_lower in ann.get('interpretation', '').lower():
-                    found_in_annotations = True
-                    break
-            
-            if found_in_annotations:
-                filtered_cases.append(case)
-        
-        cases_data = filtered_cases
-    
-    # Filtrage par état d'annotation
-    if filter_annotated == "Cas annotés":
-        cases_data = [case for case in cases_data if case.get('annotations')]
-    elif filter_annotated == "Cas non annotés":
-        cases_data = [case for case in cases_data if not case.get('annotations')]
-    
-    # Tri
-    if sort_by == "Date d'ajout (récent)":
-        cases_data.sort(key=lambda x: x.get('created_date', ''), reverse=True)
-    elif sort_by == "Date d'ajout (ancien)":
-        cases_data.sort(key=lambda x: x.get('created_date', ''))
-    elif sort_by == "Titre (A-Z)":
-        cases_data.sort(key=lambda x: x.get('name', '').lower())
-    elif sort_by == "Titre (Z-A)":
-        cases_data.sort(key=lambda x: x.get('name', '').lower(), reverse=True)
-    elif sort_by == "Nb annotations":
-        cases_data.sort(key=lambda x: len(x.get('annotations', [])), reverse=True)
-    
-    return cases_data
-
-def load_case_info(case_folder):
-    """Charge les informations d'un cas ECG - REPRODUCTION EXACTE DE LA LOGIQUE ÉTUDIANT"""
-    
+def load_case_for_exercise(case_name):
+    """Charge un cas pour un exercice"""
+    case_dir = ECG_CASES_DIR / case_name
+    if not case_dir.exists():
+        return None
+    metadata_file = case_dir / "metadata.json"
+    if not metadata_file.exists():
+        return None
     try:
-        case_name = case_folder.name
-        metadata_file = case_folder / "metadata.json"
-        
-        # Chercher les images ECG dans le dossier - EXACTEMENT COMME CÔTÉ ÉTUDIANT
-        image_files = []
-        for ext in ['*.png', '*.jpg', '*.jpeg']:
-            image_files.extend(case_folder.glob(ext))
-        
-        # Vérifier qu'il y a metadata.json ET des images - COMME CÔTÉ ÉTUDIANT
-        if not (metadata_file.exists() and image_files):
-            return None
-        
-        # Charger les métadonnées - EXACTEMENT COMME CÔTÉ ÉTUDIANT
         with open(metadata_file, 'r', encoding='utf-8') as f:
             case_data = json.load(f)
-        
-        # Ajouter toutes les informations sur les images - COPIE EXACTE CÔTÉ ÉTUDIANT
-        sorted_images = sorted(image_files, key=lambda x: x.name)
-        case_data['image_paths'] = [str(img) for img in sorted_images]
-        case_data['image_path'] = str(sorted_images[0])  # Première image pour compatibilité
-        case_data['total_images'] = len(sorted_images)
-        case_data['case_folder'] = str(case_folder)
-        
-        # Ajouts spécifiques admin
-        case_data['name'] = case_name
-        case_data['folder_path'] = str(case_folder)
-        
-        # Charger les annotations séparément pour l'admin
-        annotations_file = case_folder / "annotations.json"
-        if annotations_file.exists():
-            with open(annotations_file, 'r', encoding='utf-8') as f:
-                case_data['annotations'] = json.load(f)
-        elif 'annotations' not in case_data:
-            case_data['annotations'] = []
-        
-        # Compter les fichiers ECG pour l'admin
-        ecg_files = []
-        for ext in ['.png', '.jpg', '.jpeg', '.pdf']:
-            ecg_files.extend(case_folder.glob(f"*{ext}"))
-        case_data['ecg_files_count'] = len(ecg_files)
-        
+        image_files = []
+        for ext in ['*.png', '*.jpg', '*.jpeg']:
+            image_files.extend(case_dir.glob(ext))
+        if image_files:
+            sorted_images = sorted(image_files, key=lambda x: x.name)
+            case_data['image_paths'] = [str(img) for img in sorted_images]
+            case_data['image_path'] = str(sorted_images[0])
+            case_data['total_images'] = len(sorted_images)
+        case_data['case_id'] = case_name
         return case_data
-        
     except Exception as e:
-        st.warning(f"Erreur lors du chargement du cas {case_folder.name}: {e}")
+        st.error(f"❌ Erreur lors du chargement du cas : {e}")
         return None
+
+def display_case_for_exercise(case_data):
+    """Affiche un cas ECG pour un exercice avec interface d'annotation intégrée"""
+    
+    case_id = case_data.get('case_id', 'Cas ECG')
+    
+    # Informations du cas - Layout simplifié
+    st.markdown(f"### 📋 {case_id}")
+    
+    # Informations cliniques compactes
+    info_items = []
+    if case_data.get('age'):
+        info_items.append(f"**Âge :** {case_data['age']} ans")
+    if case_data.get('sexe'):
+        info_items.append(f"**Sexe :** {case_data['sexe']}")
+    if case_data.get('context'):
+        info_items.append(f"**Contexte :** {case_data['context']}")
+    
+    if info_items:
+        st.info(" • ".join(info_items))
+    
+    # Layout en colonnes : ECG à gauche (2/3), Annotations à droite (1/3)
+    col_ecg, col_annotations = st.columns([2, 1])
+    
+    with col_ecg:
+        st.markdown("#### 📊 Électrocardiogramme")
+        
+        # Affichage des ECG
+        if 'image_paths' in case_data and case_data['image_paths']:
+            total_images = len(case_data['image_paths'])
+            
+            if total_images > 1:
+                st.info(f"📊 Ce cas contient **{total_images} ECG**")
+                
+                # Navigation entre les ECG si plusieurs
+                ecg_index = st.selectbox(
+                    "Sélectionner l'ECG à visualiser :",
+                    range(total_images),
+                    format_func=lambda i: f"ECG {i+1}/{total_images}",
+                    key=f"exercise_ecg_{case_id}"
+                )
+            else:
+                ecg_index = 0
+                st.info(f"📊 Ce cas contient **1 ECG**")
+            
+            # Affichage de l'ECG sélectionné avec le visualiseur avancé
+            image_path = Path(case_data['image_paths'][ecg_index])
+            if image_path.exists():
+                # Utiliser le visualiseur avancé en mode exercice
+                html = create_advanced_ecg_viewer(str(image_path), f"ECG {ecg_index+1} - {case_id}")
+                import streamlit.components.v1 as components
+                components.html(html, height=600, scrolling=True)
+            else:
+                st.warning(f"⚠️ ECG {ecg_index+1} non trouvé")
+        
+        elif 'image_path' in case_data:
+            image_path = Path(case_data['image_path'])
+            if image_path.exists():
+                # Utiliser le visualiseur avancé en mode exercice
+                html = create_advanced_ecg_viewer(str(image_path), f"ECG - {case_id}")
+                import streamlit.components.v1 as components
+                components.html(html, height=600, scrolling=True)
+            else:
+                st.warning("⚠️ Image ECG non trouvée")
+        else:
+            st.info("📄 Cas ECG (format non-image)")
+
+    with col_annotations:
+        st.markdown("#### 📝 Vos annotations")
+        
+        # Initialiser student_annotations si nécessaire
+        if 'student_annotations' not in st.session_state:
+            st.session_state['student_annotations'] = {}
+        
+        # Correction : utiliser le nom du cas comme identifiant unique pour la clé
+        key_prefix = f"student_{case_data.get('case_id', 'unknown')}_annotations"
+        
+        # Interface d'annotation avec autocomplétion
+        annotations = smart_annotation_input(
+            key_prefix=key_prefix,
+            max_tags=15
+        )
+        
+        # Bouton de sauvegarde
+        if st.button("💾 Sauvegarder", key=f"save_{case_id}", use_container_width=True):
+            st.session_state['student_annotations'][key_prefix] = annotations
+            try:
+                # Créer le chemin si case_folder existe, sinon le créer
+                if 'case_folder' in case_data:
+                    student_folder = Path(case_data['case_folder'])
+                else:
+                    # fallback: créer le dossier si absent
+                    student_folder = Path(__file__).parent.parent / "data" / "ecg_cases" / str(case_id)
+                    student_folder.mkdir(parents=True, exist_ok=True)
+                student_file = student_folder / "student_annotations.json"
+                with open(student_file, 'w', encoding='utf-8') as f:
+                    json.dump(annotations, f, ensure_ascii=False, indent=2)
+                st.success("✅ Sauvegardé !")
+            except Exception as e:
+                st.error(f"Erreur : {e}")
+        # Résumé structuré
+        if annotations:
+            st.markdown("---")
+            display_annotation_summary(annotations, title="📊 Résumé")
+        
+        # Feedback
+        st.markdown("---")
+        st.markdown("#### 💡 Feedback")
+        
+        # Option pour voir/masquer le feedback
+        show_feedback = st.checkbox("Voir le feedback expert", key=f"feedback_{case_id}")
+        
+        if show_feedback:
+            # Charger les annotations expertes
+            try:
+                case_folder = Path("data/ecg_cases") / case_data['case_id']
+                annotations_file = case_folder / "annotations.json"
+                
+                if annotations_file.exists():
+                    with open(annotations_file, 'r', encoding='utf-8') as f:
+                        expert_annotations = json.load(f)
+                    
+                    if expert_annotations:
+                        # Extraire les concepts experts
+                        expert_concepts = set()
+                        for ann in expert_annotations:
+                            if ann.get('annotation_tags'):
+                                expert_concepts.update(ann['annotation_tags'])
+                        
+                        if expert_concepts:
+                            st.markdown("**🧠 Concepts experts :**")
+                            for concept in list(expert_concepts)[:5]:  # Limiter l'affichage
+                                st.markdown(f"• {concept}")
+                            
+                            if len(expert_concepts) > 5:
+                                st.caption(f"... et {len(expert_concepts) - 5} autres")
+                            
+                            # Score simple si l'étudiant a annoté
+                            if annotations:
+                                student_concepts = set(annotations)
+                                overlap = expert_concepts.intersection(student_concepts)
+                                score = len(overlap) / len(expert_concepts) * 100 if expert_concepts else 0
+                                
+                                st.markdown("---")
+                                if score >= 70:
+                                    st.success(f"🏆 Score : {score:.0f}%")
+                                elif score >= 50:
+                                    st.warning(f"👍 Score : {score:.0f}%")
+                                else:
+                                    st.error(f"📚 Score : {score:.0f}%")
+                                
+                                # Concepts manqués
+                                missed = expert_concepts - student_concepts
+                                if missed and score < 100:
+                                    st.caption("💡 À considérer :")
+                                    for concept in list(missed)[:3]:
+                                        st.caption(f"• {concept}")
+                        else:
+                            st.info("Pas d'annotation experte")
+                else:
+                    st.info("Feedback non disponible")
+            except Exception as e:
+                st.error(f"Erreur : {e}")
+    
+    # FIN DE LA FONCTION - Supprimer tout ce qui suit cette ligne
+
+def finish_ecg_session():
+    """Termine une session ECG et affiche les résultats"""
+    
+    session = st.session_state['current_session']
+    session_data = session['session_data']
+    responses = session.get('responses', {})
+    
+    st.markdown("## 🎉 Session terminée !")
+    
+    # Statistiques
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric("📋 Cas traités", len(responses))
+    
+    with col2:
+        completion = len(responses) / len(session['cases'])
+        st.metric("📈 Completion", f"{completion*100:.0f}%")
+    
+    with col3:
+        # Calculer le temps écoulé
+        start_time = datetime.fromisoformat(session['start_time'])
+        duration = datetime.now() - start_time
+        st.metric("⏱️ Durée", f"{duration.seconds//60} min")
+    
+    # Résumé des réponses
+    st.markdown("### 📝 Vos réponses")
+    
+    for case_name, response in responses.items():
+        with st.expander(f"📋 {case_name}"):
+            if isinstance(response, dict):
+                # Nouvelle format avec annotations semi-automatiques
+                if response.get('annotations'):
+                    st.markdown("**🏷️ Annotations sélectionnées :**")
+                    for ann in response['annotations']:
+                        st.write(f"• {ann}")
+                
+                if response.get('text_response'):
+                    st.markdown("**📝 Observations textuelles :**")
+                    st.write(response['text_response'])
+            else:
+                # Ancien format (texte simple)
+                st.write(response)
+    
+    # Boutons d'action
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("🔄 Refaire la session", type="primary"):
+            if session_data.get('allow_retry', True):
+                # Redémarrer la session
+                session_instance = {
+                    'session_data': session_data,
+                    'cases': session_data['cases'],
+                    'current_case_index': 0,
+                    'responses': {},
+                    'start_time': datetime.now().isoformat(),
+                    'scores': {},
+                    'individual_mode': False
+                }
+                st.session_state['current_session'] = session_instance
+                st.rerun()
+            else:
+                st.warning("⚠️ Les reprises ne sont pas autorisées pour cette session")
+    
+    with col2:
+        if st.button("📚 Retour aux sessions"):
+            del st.session_state['current_session']
+            st.rerun()
 
 def display_case_card(case):
     """Affiche une carte pour un cas ECG - UTILISE LA LOGIQUE ÉTUDIANT QUI FONCTIONNE"""
@@ -1464,7 +1429,7 @@ def display_case_card(case):
                 if total_images > 1:
                     st.info(f"📊 Ce cas contient **{total_images} ECG**")
                     
-                    # Navigation entre les ECG - EXACTEMENT COMME CÔTÉ ÉTUDIANT
+                    # Navigation entre les ECG si plusieurs
                     ecg_preview_index = st.selectbox(
                         "Aperçu ECG :",
                         range(total_images),
@@ -1475,7 +1440,7 @@ def display_case_card(case):
                     ecg_preview_index = 0
                     st.info(f"📊 Ce cas contient **1 ECG**")
                 
-                # Affichage de l'ECG sélectionné - EXACTEMENT COMME CÔTÉ ÉTUDIANT
+                # Affichage de l'ECG sélectionné avec le visualiseur avancé
                 image_path = Path(case['image_paths'][ecg_preview_index])
                 if image_path.exists():
                     st.image(str(image_path), 
@@ -1485,7 +1450,7 @@ def display_case_card(case):
                     st.warning(f"⚠️ ECG {ecg_preview_index+1} non trouvé")
                     
             elif 'image_path' in case:
-                # Compatibilité avec l'ancien format - COMME CÔTÉ ÉTUDIANT
+                # Compatibilité avec l'ancien format
                 image_path = Path(case['image_path'])
                 if image_path.exists():
                     st.image(str(image_path), 
@@ -1525,41 +1490,200 @@ def display_case_card(case):
         
         st.markdown("</div>", unsafe_allow_html=True)
 
-def display_case_edit_form(case):
-    """Affiche le formulaire d'édition d'un cas"""
-    
-    st.markdown("#### ✏️ Édition du cas")
-    
-    with st.form(f"edit_case_{case['name']}"):
-        new_name = st.text_input("Nouveau nom", value=case['name'])
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            if st.form_submit_button("✅ Sauvegarder", type="primary"):
-                if new_name and new_name != case['name']:
-                    rename_case(case['name'], new_name)
-                    st.session_state[f"editing_{case['name']}"] = False
-                    st.success(f"Cas renommé en '{new_name}'")
-                    st.rerun()
-        
-        with col2:
-            if st.form_submit_button("❌ Annuler"):
-                st.session_state[f"editing_{case['name']}"] = False
+def run_ecg_session():
+    """Exécute une session d'exercices ECG"""
+    if 'current_session' not in st.session_state:
+        st.error("❌ Aucune session active")
+        return
+
+    session = st.session_state['current_session']
+    session_data = session['session_data']
+    current_index = session['current_case_index']
+    total_cases = len(session['cases'])
+    is_individual = session.get('individual_mode', False)
+
+    # En-tête minimaliste
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        if is_individual:
+            st.markdown(f"## 🎯 {session_data['name']}")
+        else:
+            st.markdown(f"## 📚 {session_data['name']} - Cas {current_index + 1}/{total_cases}")
+    with col2:
+        quit_label = "✖ Quitter"
+        if st.button(quit_label, type="secondary"):
+            if st.session_state.get('confirm_quit'):
+                del st.session_state['current_session']
+                if 'confirm_quit' in st.session_state:
+                    del st.session_state['confirm_quit']
+                st.rerun()
+            else:
+                st.session_state['confirm_quit'] = True
+                st.warning("Cliquez à nouveau pour confirmer")
                 st.rerun()
 
+    # Vérifier si la session est terminée
+    if current_index >= total_cases:
+        display_session_results(session)
+        return
 
-def display_database_analytics_tab():
-    """Onglet Analytics de la base de données"""
-    try:
-        from frontend.admin.database_analytics import display_database_analytics
-        display_database_analytics()
-    except ImportError:
-        st.warning("⚠️ Module Analytics non disponible. Installer: pip install plotly pandas")
-        st.info("📊 Les analytics avancés nécessitent des dépendances supplémentaires")
+    # Récupérer le cas actuel
+    current_case_name = session['cases'][current_index]
+    current_case_data = load_case_for_exercise(current_case_name)
+
+    if not current_case_data:
+        st.error(f"❌ Cas '{current_case_name}' non trouvé")
+        return
+
+    st.markdown("---")
+    display_case_for_exercise(current_case_data)
+
+    # Navigation entre les cas
+    st.markdown("---")
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col1:
+        if current_index > 0:
+            if st.button("◀ Cas précédent", use_container_width=True):
+                session['current_case_index'] -= 1
+                st.rerun()
+    with col2:
+        st.markdown(f"<center>Cas {current_index + 1} sur {total_cases}</center>", unsafe_allow_html=True)
+    with col3:
+        key_prefix = f"student_{current_case_data.get('case_id', 'unknown')}_annotations"
+        current_annotations = st.session_state.get('student_annotations', {}).get(key_prefix, [])
+        if current_annotations:
+            if current_index < total_cases - 1:
+                if st.button("Cas suivant ▶", type="primary", use_container_width=True):
+                    session['responses'][current_case_name] = current_annotations
+                    session['current_case_index'] += 1
+                    st.rerun()
+            else:
+                if st.button("✅ Terminer", type="primary", use_container_width=True):
+                    session['responses'][current_case_name] = current_annotations
+                    session['current_case_index'] += 1
+                    st.rerun()
+        else:
+            st.info("💡 Ajoutez des annotations avant de continuer")
+
+def display_session_results(session):
+    """Affiche les résultats d'une session terminée"""
+    
+    session_data = session['session_data']
+    responses = session.get('responses', {})
+    scores = session.get('scores', {})
+    
+    st.markdown("## 🎉 Session terminée !")
+    
+    # Calcul du temps écoulé
+    start_time = datetime.fromisoformat(session['start_time'])
+    duration = datetime.now() - start_time
+    
+    # Statistiques générales
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        st.metric("📋 Cas complétés", f"{len(responses)}/{len(session['cases'])}")
+    
+    with col2:
+        avg_score = sum(scores.values()) / len(scores) if scores else 0
+        st.metric("📊 Score moyen", f"{avg_score:.0f}%")
+    
+    with col3:
+        st.metric("⏱️ Durée", f"{duration.seconds//60} min")
+    
+    with col4:
+        completion_rate = len(responses) / len(session['cases']) * 100
+        st.metric("✅ Complétion", f"{completion_rate:.0f}%")
+    
+    st.markdown("---")
+    
+    # Détails par cas
+    st.markdown("### 📊 Détails par cas")
+    
+    for case_name in session['cases']:
+        if case_name in responses:
+            score = scores.get(case_name, 0)
+            with st.expander(f"📋 {case_name} - Score: {score:.0f}%"):
+                response = responses[case_name]
+                
+                if isinstance(response, list):  # Annotations
+                    st.markdown("**Vos annotations:**")
+                    for ann in response:
+                        st.write(f"• {ann}")
+                else:
+                    st.write(response)
+    
+    # Actions finales
+    st.markdown("---")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("📄 Télécharger le rapport", type="primary", use_container_width=True):
+            st.info("🚧 Fonction en développement")
+    
+    with col2:
+        if st.button("📚 Retour aux sessions", use_container_width=True):
+            del st.session_state['current_session']
+            st.rerun()
+
+def display_available_sessions():
+    """Affiche les sessions ECG disponibles pour les étudiants"""
+    
+    sessions_dir = ECG_SESSIONS_DIR
+    
+    if not sessions_dir.exists():
+        st.info("📭 Aucune session disponible pour le moment")
+        return
+    
+    sessions = []
+    for session_file in sessions_dir.glob("*.json"):
+        try:
+            with open(session_file, 'r', encoding='utf-8') as f:
+                session_data = json.load(f)
+                sessions.append(session_data)
+        except Exception:
+            continue
+    
+    if sessions:
+        st.success(f"📚 {len(sessions)} session(s) disponible(s)")
+        
+        for session in sessions:
+            with st.expander(f"📖 {session['name']} - {session.get('difficulty', '🟢 Débutant')}", expanded=False):
+                col1, col2 = st.columns([3, 1])
+                
+                with col1:
+                    st.markdown(f"**Description:** {session.get('description', 'Aucune description')}")
+                    st.markdown(f"**Nombre de cas:** {len(session.get('cases', []))}")
+                    st.markdown(f"**Durée estimée:** {session.get('time_limit', 30)} minutes")
+                    
+                    if session.get('created_by'):
+                        st.caption(f"Créé par: {session['created_by']}")
+                
+                with col2:
+                    if st.button("▶️ Commencer", key=f"start_{session['session_id']}", type="primary", use_container_width=True):
+                        # Initialiser la session d'exercices
+                        session_instance = {
+                            'session_data': session,
+                            'cases': session['cases'],
+                            'current_case_index': 0,
+                            'responses': {},
+                            'start_time': datetime.now().isoformat(),
+                            'scores': {},
+                            'individual_mode': False
+                        }
+                        st.session_state['current_session'] = session_instance
+                        st.rerun()
+    else:
+        st.info("📭 Aucune session créée par vos enseignants")
+        st.markdown("""
+        **💡 En attendant, vous pouvez :**
+        - Explorer les cas ECG individuellement
+        - Vous exercer sur chaque cas séparément
+        - Prendre des notes personnelles
+        """)
 
 def display_backup_management_tab():
-    """Onglet gestion des backups"""
+    """Onglet gestion des sauvegardes"""
     try:
         from frontend.admin.database_backup import display_backup_system
         display_backup_system()
@@ -1582,397 +1706,370 @@ def display_templates_management_tab():
     except ImportError as e:
         st.error(f"❌ Erreur chargement module templates : {e}")
 
-def display_sessions_management():
-    """Interface de gestion des sessions ECG"""
+def page_database_management():
+    """Page de gestion de la base de données"""
+    st.header("🗄️ Gestion de la Base de Données")
     
-    st.markdown("### 📚 Gestion des Sessions ECG")
+    # Onglets pour organiser les fonctionnalités
+    tab1, tab2, tab3 = st.tabs(["📊 Vue d'ensemble", "🔧 Maintenance", "💾 Sauvegardes"])
     
-    col1, col2 = st.columns([2, 1])
+    with tab1:
+        display_database_overview()
+    
+    with tab2:
+        display_database_maintenance()
+    
+    with tab3:
+        display_backup_management_tab()
+
+def display_database_overview():
+    """Affiche une vue d'ensemble de la base de données"""
+    st.markdown("### 📊 Vue d'ensemble de la base")
+    
+    # Statistiques
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        if st.button("➕ Créer une nouvelle session", type="primary"):
-            st.session_state['creating_session'] = True
-            st.rerun()
+        cases_count = count_total_cases()
+        st.metric("📋 Cas ECG", cases_count)
     
     with col2:
         sessions_count = count_ecg_sessions()
         st.metric("📚 Sessions", sessions_count)
     
-    # Interface de création de session
-    if st.session_state.get('creating_session', False):
-        create_ecg_session_interface()
+    with col3:
+        # Compter les annotations
+        annotations_count = 0
+        if ECG_CASES_DIR.exists():
+            for case_dir in ECG_CASES_DIR.iterdir():
+                if case_dir.is_dir():
+                    ann_file = case_dir / "annotations.json"
+                    if ann_file.exists():
+                        try:
+                            with open(ann_file, 'r', encoding='utf-8') as f:
+                                anns = json.load(f)
+                                annotations_count += len(anns)
+                        except:
+                            pass
+        st.metric("🏷️ Annotations", annotations_count)
     
-    # Liste des sessions existantes
-    display_ecg_sessions()
+    with col4:
+        # Taille de la base
+        total_size = 0
+        if DATA_ROOT.exists():
+            for path in DATA_ROOT.rglob('*'):
+                if path.is_file():
+                    total_size += path.stat().st_size
+        size_mb = total_size / (1024 * 1024)
+        st.metric("💾 Taille", f"{size_mb:.1f} MB")
 
-def display_multi_ecg_import():
-    """Interface supprimée - utilisez Import Intelligent"""
-    st.warning("⚠️ Cette fonctionnalité a été retirée. Utilisez 'Import Intelligent' pour ajouter des ECG.")
+def display_database_maintenance():
+    """Affiche les outils de maintenance de la base"""
+    st.markdown("### 🔧 Maintenance de la base")
     
-    with st.form("multi_ecg_import"):
-        case_name = st.text_input(
-            "Nom du cas d'étude",
-            placeholder="FONCTIONNALITÉ SUPPRIMÉE",
-            help="Utilisez 'Import Intelligent' pour ajouter des ECG",
-            disabled=True
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("#### 🧹 Nettoyage")
+        if st.button("🗑️ Nettoyer les fichiers temporaires", use_container_width=True):
+            clean_temp_files()
+        
+        if st.button("🔄 Réparer les métadonnées", use_container_width=True):
+            repair_metadata()
+    
+    with col2:
+        st.markdown("#### 📦 Export/Import")
+        if st.button("📤 Exporter la base complète", use_container_width=True):
+            export_database()
+        
+        if st.button("📥 Importer une base", use_container_width=True):
+            st.info("🚧 Fonction en développement")
+
+def clean_temp_files():
+    """Nettoie les fichiers temporaires"""
+    try:
+        cleaned = 0
+        # Nettoyer les fichiers temporaires
+        for temp_file in DATA_ROOT.rglob("*.tmp"):
+            temp_file.unlink()
+            cleaned += 1
+        
+        for temp_file in DATA_ROOT.rglob("*~"):
+            temp_file.unlink()
+            cleaned += 1
+        
+        st.success(f"✅ {cleaned} fichiers temporaires supprimés")
+    except Exception as e:
+        st.error(f"❌ Erreur lors du nettoyage : {e}")
+
+def repair_metadata():
+    """Répare les métadonnées manquantes ou corrompues"""
+    try:
+        repaired = 0
+        if ECG_CASES_DIR.exists():
+            for case_dir in ECG_CASES_DIR.iterdir():
+                if case_dir.is_dir():
+                    metadata_file = case_dir / "metadata.json"
+                    
+                    # Si le fichier n'existe pas, le créer
+                    if not metadata_file.exists():
+                        metadata = {
+                            "case_id": case_dir.name,
+                            "created_date": datetime.now().isoformat(),
+                            "annotations": []
+                        }
+                        with open(metadata_file, 'w', encoding='utf-8') as f:
+                            json.dump(metadata, f, indent=2, ensure_ascii=False)
+                        repaired += 1
+                    else:
+                        # Vérifier et réparer le contenu
+                        try:
+                            with open(metadata_file, 'r', encoding='utf-8') as f:
+                                metadata = json.load(f)
+                            
+                            # Ajouter les champs manquants
+                            updated = False
+                            if "case_id" not in metadata:
+                                metadata["case_id"] = case_dir.name
+                                updated = True
+                            
+                            if "created_date" not in metadata:
+                                metadata["created_date"] = datetime.now().isoformat()
+                                updated = True
+                            
+                            if updated:
+                                with open(metadata_file, 'w', encoding='utf-8') as f:
+                                    json.dump(metadata, f, indent=2, ensure_ascii=False)
+                                repaired += 1
+                        
+                        except json.JSONDecodeError:
+                            # Fichier corrompu, recréer
+                            metadata = {
+                                "case_id": case_dir.name,
+                                "created_date": datetime.now().isoformat(),
+                                "annotations": []
+                            }
+                            with open(metadata_file, 'w', encoding='utf-8') as f:
+                                json.dump(metadata, f, indent=2, ensure_ascii=False)
+                            repaired += 1
+        
+        st.success(f"✅ {repaired} métadonnées réparées")
+    
+    except Exception as e:
+        st.error(f"❌ Erreur lors de la réparation : {e}")
+
+def export_database():
+    """Exporte la base de données complète"""
+    try:
+        import zipfile
+        from io import BytesIO
+        
+        # Créer un fichier ZIP en mémoire
+        zip_buffer = BytesIO()
+        
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            # Ajouter tous les fichiers de data/
+            if DATA_ROOT.exists():
+                for file_path in DATA_ROOT.rglob('*'):
+                    if file_path.is_file():
+                        arcname = str(file_path.relative_to(DATA_ROOT.parent))
+                        zip_file.write(file_path, arcname)
+        
+        # Proposer le téléchargement
+        zip_buffer.seek(0)
+        timestamp = datetime.now().strftime('%Y%m%d_%H%S')
+        
+        st.download_button(
+            label="💾 Télécharger l'export",
+            data=zip_buffer,
+            file_name=f"ecg_database_export_{timestamp}.zip",
+            mime="application/zip"
         )
         
-        uploaded_files = st.file_uploader(
-            "Sélectionnez plusieurs fichiers ECG",
-            type=['png', 'jpg', 'jpeg', 'pdf'],
-            accept_multiple_files=True,
-            help="Importez plusieurs ECG (images ou PDF) pour un même cas"
-        )
-        
-        case_description = st.text_area(
-            "Description du cas (optionnel)",
-            placeholder="Description des ECG importés, contexte clinique...",
-            help="Description pour contextualiser les ECG"
-        )
-        
-        submitted = st.form_submit_button("� Importer les ECG", type="primary")
-        
-        if submitted and case_name and uploaded_files:
-            import_multi_ecg_case(case_name, uploaded_files, case_description)
-
-def import_multi_ecg_case(case_name, uploaded_files, description):
-    """Importe plusieurs ECG dans un même cas"""
+        st.success("✅ Export prêt au téléchargement")
     
-    pass
+    except Exception as e:
+        st.error(f"❌ Erreur lors de l'export : {e}")
 
-def page_admin_settings():
-    """Page de paramètres administrateur"""
+def display_user_sessions():
+    """Affiche les sessions créées par l'utilisateur actuel"""
+    sessions = get_ecg_sessions()
     
-    st.header("⚙️ Paramètres système")
-    st.info("🚧 Configuration système en développement")
+    # Filtrer par créateur si nécessaire
+    user_name = st.session_state.user_info.get('name', 'Unknown')
+    user_sessions = [s for s in sessions if s.get('created_by') == user_name]
+    
+    if user_sessions:
+        st.info(f"📚 Vous avez créé {len(user_sessions)} session(s)")
+        
+        for session in user_sessions:
+            with st.expander(f"📖 {session['name']}", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.write(f"**Description:** {session.get('description', 'Aucune')}")
+                    st.write(f"**Difficulté:** {session.get('difficulty', 'Non spécifiée')}")
+                    st.write(f"**Nombre de cas:** {len(session.get('cases', []))}")
+                    st.write(f"**Créée le:** {session.get('created_date', 'Date inconnue')[:10]}")
+                
+                with col2:
+                    if st.button("✏️ Modifier", key=f"edit_{session['session_id']}"):
+                        st.session_state['editing_session'] = session
+                        st.rerun()
+                    
+                    if st.button("🗑️ Supprimer", key=f"delete_{session['session_id']}"):
+                        if delete_ecg_session(session['name']):
+                            st.success("✅ Session supprimée")
+                            st.rerun()
+    else:
+        st.info("📭 Vous n'avez pas encore créé de session")
 
-def count_total_cases():
-    """Compte le nombre total de cas"""
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-    if cases_dir.exists():
-        return len([d for d in cases_dir.iterdir() if d.is_dir()])
-    return 0
+def display_sessions_statistics():
+    """Affiche les statistiques des sessions"""
+    sessions = get_ecg_sessions()
+    
+    if sessions:
+        # Statistiques générales
+        st.markdown("#### 📊 Statistiques générales")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.metric("📚 Total sessions", len(sessions))
+        
+        with col2:
+            # Nombre moyen de cas par session
+            avg_cases = sum(len(s.get('cases', [])) for s in sessions) / len(sessions)
+            st.metric("📋 Moyenne cas/session", f"{avg_cases:.1f}")
+        
+        with col3:
+            # Répartition par difficulté
+            difficulties = {}
+            for s in sessions:
+                diff = s.get('difficulty', 'Non spécifiée')
+                difficulties[diff] = difficulties.get(diff, 0) + 1
+            
+            st.metric("🎯 Difficulté la plus fréquente", 
+                     max(difficulties.items(), key=lambda x: x[1])[0] if difficulties else "N/A")
+        
+        # Graphiques
+        st.markdown("#### 📈 Visualisations")
+        
+        # Répartition par difficulté
+        if difficulties:
+            st.bar_chart(difficulties)
+    else:
+        st.info("📊 Aucune statistique disponible (pas de sessions créées)")
 
-def count_annotated_cases():
-    """Compte le nombre de cas annotés"""
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-    count = 0
-    if cases_dir.exists():
-        for case_dir in cases_dir.iterdir():
-            if case_dir.is_dir():
-                metadata_file = case_dir / "metadata.json"
-                if metadata_file.exists():
-                    try:
-                        with open(metadata_file, 'r', encoding='utf-8') as f:
-                            metadata = json.load(f)
-                        annotations = metadata.get('annotations', [])
-                        if annotations:
-                            count += 1
-                    except Exception:
-                        pass
-    return count
+def display_case_edit_form(case):
+    """Formulaire d'édition d'un cas ECG"""
+    st.markdown("### ✏️ Édition du cas")
+    
+    with st.form(f"edit_case_{case['name']}"):
+        # Champs éditables
+        new_name = st.text_input("Nom du cas", value=case.get('case_id', case['name']))
+        new_description = st.text_area("Description", value=case.get('description', ''))
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            new_age = st.number_input("Âge", value=case.get('age', 0), min_value=0, max_value=120)
+        with col2:
+            new_sexe = st.selectbox("Sexe", ["M", "F"], index=0 if case.get('sexe', 'M') == 'M' else 1)
+        
+        # Boutons
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.form_submit_button("💾 Sauvegarder", type="primary"):
+                # Mettre à jour les métadonnées
+                update_case_metadata(case['name'], {
+                    'case_id': new_name,
+                    'description': new_description,
+                    'age': new_age,
+                    'sexe': new_sexe
+                })
+                st.session_state[f"editing_{case['name']}"] = False
+                st.success("✅ Cas mis à jour")
+                st.rerun()
+        
+        with col2:
+            if st.form_submit_button("❌ Annuler"):
+                st.session_state[f"editing_{case['name']}"] = False
+                st.rerun()
+
+def update_case_metadata(case_name, updates):
+    """Met à jour les métadonnées d'un cas"""
+    try:
+        case_dir = ECG_CASES_DIR / case_name
+        metadata_file = case_dir / "metadata.json"
+        
+        if metadata_file.exists():
+            with open(metadata_file, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+            
+            # Mettre à jour
+            metadata.update(updates)
+            metadata['last_modified'] = datetime.now().isoformat()
+            
+            with open(metadata_file, 'w', encoding='utf-8') as f:
+                json.dump(metadata, f, indent=2, ensure_ascii=False)
+            
+            return True
+    except Exception as e:
+        st.error(f"❌ Erreur lors de la mise à jour : {e}")
+        return False
 
 def count_ecg_sessions():
-    """Compte le nombre de sessions ECG"""
-    sessions_dir = Path("data/ecg_sessions")
+    """Compte le nombre de sessions ECG existantes"""
+    sessions_dir = ECG_SESSIONS_DIR
     if not sessions_dir.exists():
         return 0
     
     return len([f for f in sessions_dir.iterdir() if f.suffix == '.json'])
 
-def delete_case(case_name):
-    """Supprimer un cas ECG"""
-    try:
-        # Utilisation d'un chemin absolu pour éviter les problèmes
-        base_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-        case_dir = base_dir / case_name
-        
-        if case_dir.exists():
-            shutil.rmtree(case_dir)
-            st.success(f"✅ Cas '{case_name}' supprimé avec succès")
-            return True
-        else:
-            st.error(f"❌ Cas '{case_name}' non trouvé")
-            return False
-    except Exception as e:
-        st.error(f"❌ Erreur lors de la suppression : {e}")
-        return False
-
-def rename_case(old_name, new_name):
-    """Renommer un cas ECG"""
-    try:
-        base_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-        old_path = base_dir / old_name
-        new_path = base_dir / new_name
-        
-        if old_path.exists() and not new_path.exists():
-            old_path.rename(new_path)
-            
-            # Mettre à jour l'ID dans les métadonnées
-            metadata_file = new_path / "metadata.json"
-            if metadata_file.exists():
-                with open(metadata_file, 'r', encoding='utf-8') as f:
-                    metadata = json.load(f)
-                metadata['case_id'] = new_name
-                with open(metadata_file, 'w', encoding='utf-8') as f:
-                    json.dump(metadata, f, indent=2, ensure_ascii=False)
-            
-            st.success(f"✅ Cas renommé de '{old_name}' vers '{new_name}'")
-        else:
-            st.error(f"❌ Impossible de renommer : le cas '{new_name}' existe déjà ou '{old_name}' n'existe pas")
-    except Exception as e:
-        st.error(f"❌ Erreur lors du renommage : {e}")
-
-def show_case_details(case_dir):
-    """Afficher les détails d'un cas"""
-    st.markdown(f"### 🔍 Détails du cas: {case_dir.name}")
-    
-    # Métadonnées
-    metadata_file = case_dir / "metadata.json"
-    if metadata_file.exists():
-        try:
-            with open(metadata_file, 'r', encoding='utf-8') as f:
-                metadata = json.load(f)
-            
-            st.json(metadata)
-            
-        except Exception as e:
-            st.error(f"❌ Erreur lecture métadonnées: {e}")
-    else:
-        st.warning("⚠️ Aucune métadonnée trouvée")
-    
-    # Fichiers
-    st.markdown("**📁 Fichiers dans le dossier:**")
-    for file_path in case_dir.iterdir():
-        if file_path.is_file():
-            st.write(f"- {file_path.name} ({file_path.stat().st_size} bytes)")
-
-def evaluate_student_exercise(case_data, user_input):
-    """Évalue l'exercice d'un étudiant"""
-    
-    # Chargement des annotations expertes
-    case_dir = Path(f"data/ecg_cases/{case_data['case_id']}")
-    annotations_file = case_dir / "annotations.json"
-    
-    if not annotations_file.exists():
-        st.error("❌ Annotations expertes non trouvées")
-        return
-    
-    with open(annotations_file, 'r', encoding='utf-8') as f:
-        expert_annotations = json.load(f)
-    
-    # Évaluation avec le moteur de correction
-    if 'corrector' in st.session_state:
-        total_score = 0
-        max_score = 0
-        
-        for annotation in expert_annotations['annotations']:
-            expected = annotation['concept']
-            coefficient = annotation.get('coefficient', 1.0)
-            
-            score = st.session_state.corrector.get_score(expected, user_input)
-            total_score += score * coefficient
-            max_score += 100 * coefficient
-        
-        final_score = (total_score / max_score * 100) if max_score > 0 else 0
-        
-        # Affichage du résultat
-        st.markdown("### 📊 Résultat de l'évaluation")
-        
-        if final_score >= 80:
-            st.success(f"🎉 Excellent ! Score : {final_score:.1f}%")
-        elif final_score >= 60:
-            st.warning(f"👍 Bien ! Score : {final_score:.1f}%")
-        elif final_score >= 40:
-            st.info(f"📚 À améliorer. Score : {final_score:.1f}%")
-        else:
-            st.error(f"❌ Insuffisant. Score : {final_score:.1f}%")
-
-def count_ecg_sessions():
-    """Compte le nombre de sessions ECG existantes"""
-    sessions_dir = Path("data/ecg_sessions")
-    if not sessions_dir.exists():
+def count_total_cases():
+    """Compte le nombre total de cas ECG dans la base"""
+    if not ECG_CASES_DIR.exists():
         return 0
-    return len([d for d in sessions_dir.iterdir() if d.is_dir()])
+    
+    return len([d for d in ECG_CASES_DIR.iterdir() if d.is_dir()])
 
-def create_ecg_session_interface():
-    """Interface de création et modification des sessions ECG"""
+def count_annotated_cases():
+    """Compte le nombre de cas ECG ayant des annotations expertes"""
+    if not ECG_CASES_DIR.exists():
+        return 0
     
-    # Onglets pour Créer / Modifier
-    tab1, tab2 = st.tabs(["➕ Créer Session", "✏️ Modifier Session"])
-    
-    with tab1:
-        create_new_session_form()
-    
-    with tab2:
-        modify_existing_session_interface()
-
-def create_new_session_form():
-    """Formulaire de création d'une nouvelle session"""
-    
-    st.markdown("### ➕ Créer une nouvelle session d'exercices")
-    
-    with st.form("create_session_form"):
-        # Informations de la session
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            session_name = st.text_input(
-                "Nom de la session *",
-                placeholder="Ex: Troubles du Rythme - Niveau 1",
-                help="Nom descriptif de la session d'exercices"
-            )
+    annotated = 0
+    for case_dir in ECG_CASES_DIR.iterdir():
+        if case_dir.is_dir():
+            annotations_file = case_dir / "annotations.json"
+            metadata_file = case_dir / "metadata.json"
             
-            session_description = st.text_area(
-                "Description",
-                placeholder="Description de la session et objectifs pédagogiques...",
-                help="Description détaillée pour les étudiants"
-            )
-        
-        with col2:
-            difficulty = st.selectbox(
-                "Niveau de difficulté",
-                ["🟢 Débutant", "🟡 Intermédiaire", "🔴 Avancé"],
-                help="Niveau de difficulté pour guider les étudiants"
-            )
+            # Vérifier s'il y a des annotations dans le fichier annotations.json
+            has_annotations = False
+            if annotations_file.exists():
+                try:
+                    with open(annotations_file, 'r', encoding='utf-8') as f:
+                        anns = json.load(f)
+                        if anns and len(anns) > 0:
+                            has_annotations = True
+                except:
+                    pass
             
-            time_limit = st.number_input(
-                "Temps limite (minutes)",
-                min_value=5,
-                max_value=120,
-                value=30,
-                help="Temps recommandé pour compléter la session"
-            )
-        
-        st.markdown("---")
-        
-        # Sélection des cas ECG
-        st.markdown("**📋 Sélection des cas ECG**")
-        
-        # Charger la liste des cas disponibles
-        available_cases = get_available_ecg_cases()
-        
-        if available_cases:
-            selected_cases = st.multiselect(
-                "Choisissez les cas ECG pour cette session",
-                options=[case['name'] for case in available_cases],
-                help="Sélectionnez plusieurs cas pour créer un parcours d'exercices"
-            )
+            # Sinon vérifier dans metadata.json
+            if not has_annotations and metadata_file.exists():
+                try:
+                    with open(metadata_file, 'r', encoding='utf-8') as f:
+                        metadata = json.load(f)
+                        anns = metadata.get('annotations', [])
+                        if anns and len(anns) > 0:
+                            has_annotations = True
+                except:
+                    pass
             
-            if selected_cases:
-                st.info(f"✅ {len(selected_cases)} cas sélectionnés")
-                
-                # Aperçu des cas sélectionnés
-                with st.expander("📖 Aperçu des cas sélectionnés"):
-                    for case_name in selected_cases:
-                        case_info = next((c for c in available_cases if c['name'] == case_name), None)
-                        if case_info:
-                            st.write(f"• **{case_name}** - {case_info.get('annotations_count', 0)} annotation(s)")
-        else:
-            st.warning("⚠️ Aucun cas ECG disponible. Importez des cas d'abord.")
-        
-        st.markdown("---")
-        
-        # Paramètres avancés
-        with st.expander("⚙️ Paramètres avancés"):
-            randomize_order = st.checkbox(
-                "Ordre aléatoire des cas",
-                value=False,
-                help="Mélanger l'ordre des cas pour chaque étudiant"
-            )
-            
-            show_feedback = st.checkbox(
-                "Feedback immédiat",
-                value=True,
-                help="Afficher les corrections après chaque cas"
-            )
-            
-            allow_retry = st.checkbox(
-                "Autoriser les reprises",
-                value=True,
-                help="Permettre aux étudiants de refaire la session"
-            )
-        
-        # Boutons de validation
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            submitted = st.form_submit_button("✅ Créer la session", type="primary")
-        
-        with col2:
-            cancelled = st.form_submit_button("❌ Annuler")
-        
-        if cancelled:
-            st.session_state['creating_session'] = False
-            st.rerun()
-        
-        if submitted:
-            if session_name and selected_cases:
-                # Créer la session
-                session_data = {
-                    'name': session_name,
-                    'description': session_description,
-                    'difficulty': difficulty,
-                    'time_limit': time_limit,
-                    'cases': selected_cases,
-                    'randomize_order': randomize_order,
-                    'show_feedback': show_feedback,
-                    'allow_retry': allow_retry,
-                    'created_date': datetime.now().isoformat(),
-                    'created_by': 'admin'  # TODO: gérer les utilisateurs
-                }
-                
-                if create_ecg_session(session_data):
-                    st.success(f"✅ Session '{session_name}' créée avec succès !")
-                    st.session_state['creating_session'] = False
-                    st.rerun()
-                else:
-                    st.error("❌ Erreur lors de la création de la session")
-            else:
-                st.error("⚠️ Veuillez remplir le nom et sélectionner au moins un cas ECG")
-
-def modify_existing_session_interface():
-    """Interface de modification des sessions existantes"""
+            if has_annotations:
+                annotated += 1
     
-    st.markdown("### ✏️ Modifier une session existante")
-    
-    # Charger les sessions existantes
-    existing_sessions = get_existing_sessions()
-    
-    if not existing_sessions:
-        st.info("📭 Aucune session créée pour le moment.")
-        return
-    
-    # Sélection de la session à modifier
-    col1, col2 = st.columns([2, 1])
-    
-    with col1:
-        session_names = [session['name'] for session in existing_sessions]
-        selected_session_name = st.selectbox(
-            "Choisir une session à modifier",
-            session_names,
-            help="Sélectionnez la session que vous souhaitez modifier"
-        )
-    
-    with col2:
-        # Boutons d'action
-        if st.button("🗑️ Supprimer", type="secondary"):
-            if st.session_state.get('confirm_delete_session') != selected_session_name:
-                st.session_state['confirm_delete_session'] = selected_session_name
-                st.warning(f"⚠️ Cliquez à nouveau pour confirmer la suppression de '{selected_session_name}'")
-            else:
-                if delete_ecg_session(selected_session_name):
-                    st.success(f"✅ Session '{selected_session_name}' supprimée")
-                    del st.session_state['confirm_delete_session']
-                    st.rerun()
-                else:
-                    st.error("❌ Erreur lors de la suppression")
-    
-    # Affichage et modification de la session sélectionnée
-    if selected_session_name:
-        selected_session = next((s for s in existing_sessions if s['name'] == selected_session_name), None)
-        if selected_session:
-            modify_session_form(selected_session)
+    return annotated
 
 def modify_session_form(session_data):
     """Formulaire de modification d'une session"""
@@ -1985,7 +2082,7 @@ def modify_session_form(session_data):
         col1, col2 = st.columns(2)
         with col1:
             st.write(f"**Nom :** {session_data['name']}")
-            st.write(f"**Difficulté :** {session_data.get('difficulty', 'Non définie')}")
+            st.write(f"**Difficulté :** {session_data.get('difficulty', 'Non spécifiée')}")
             st.write(f"**Temps limite :** {session_data.get('time_limit', 30)} minutes")
         with col2:
             st.write(f"**Cas ECG :** {len(session_data.get('cases', []))} cas")
@@ -2097,8 +2194,6 @@ def modify_session_form(session_data):
             duplicate_name = f"{new_name} - Copie"
             duplicate_data = {
                 'name': duplicate_name,
-                'description': new_description + "\n(Copie de la session originale)",
-                'difficulty': new_difficulty,
                 'time_limit': new_time_limit,
                 'cases': new_selected_cases,
                 'randomize_order': new_randomize,
@@ -2108,7 +2203,7 @@ def modify_session_form(session_data):
                 'created_by': 'admin'
             }
             
-            if create_ecg_session(duplicate_data):
+            if create_ecg_session_from_dict(duplicate_data):
                 st.success(f"✅ Session dupliquée sous le nom '{duplicate_name}'")
                 st.rerun()
             else:
@@ -2134,7 +2229,7 @@ def modify_session_form(session_data):
                 
                 # Supprimer l'ancienne et créer la nouvelle (si le nom a changé)
                 if new_name != session_data['name']:
-                    if delete_ecg_session(session_data['name']) and create_ecg_session(updated_data):
+                    if delete_ecg_session(session_data['name']) and create_ecg_session_from_dict(updated_data):
                         st.success(f"✅ Session renommée de '{session_data['name']}' vers '{new_name}' et mise à jour")
                         st.rerun()
                     else:
@@ -2246,12 +2341,12 @@ def display_ecg_sessions():
         for session in sessions:
             with st.expander(f"📖 {session['name']} ({session['difficulty']})", expanded=False):
                 
-                col1, col2 = st.columns([2, 1])
+                col1, col2 = st.columns(2)
                 
                 with col1:
-                    st.write(f"**Description :** {session.get('description', 'Aucune description')}")
-                    st.write(f"**Cas inclus :** {len(session['cases'])} ECG")
-                    st.write(f"**Temps limite :** {session['time_limit']} minutes")
+                    st.markdown(f"**Description :** {session.get('description', 'Aucune description')}")
+                    st.markdown(f"**Cas inclus :** {len(session['cases'])} ECG")
+                    st.markdown(f"**Temps limite :** {session['time_limit']} minutes")
                     
                     # Liste des cas
                     if session['cases']:
@@ -2267,7 +2362,8 @@ def display_ecg_sessions():
                     
                     with col_edit:
                         if st.button("✏️ Modifier", key=f"edit_session_{session['name']}"):
-                            st.info("🚧 Modification en développement")
+                            st.session_state['editing_session'] = session
+                            st.rerun()
                     
                     with col_delete:
                         if st.button("🗑️ Supprimer", key=f"delete_session_{session['name']}"):
@@ -2279,168 +2375,11 @@ def display_ecg_sessions():
     else:
         st.info("📚 Aucune session créée pour le moment")
 
-def get_available_ecg_cases():
-    """Récupère la liste des cas ECG disponibles"""
-    
-    cases = []
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-    
-    if cases_dir.exists():
-        for case_dir in cases_dir.iterdir():
-            if case_dir.is_dir():
-                metadata_file = case_dir / "metadata.json"
-                
-                if metadata_file.exists():
-                    try:
-                        with open(metadata_file, 'r', encoding='utf-8') as f:
-                            metadata = json.load(f)
-                        
-                        # Compter les annotations
-                        annotations_count = len(metadata.get('annotations', []))
-                        
-                        cases.append({
-                            'name': case_dir.name,
-                            'case_id': metadata.get('case_id', case_dir.name),
-                            'annotations_count': annotations_count
-                        })
-                    except Exception as e:
-                        pass  # Ignorer les cas avec métadonnées corrompues
-    
-    return cases
-
-def create_ecg_session(session_data):
-    """Crée une nouvelle session ECG"""
-    
-    try:
-        sessions_dir = Path("data/ecg_sessions")
-        sessions_dir.mkdir(exist_ok=True)
-        
-        # Créer un nom de fichier sûr
-        session_filename = session_data['name'].replace(' ', '_').replace('/', '_')
-        session_file = sessions_dir / f"{session_filename}.json"
-        
-        # Vérifier que la session n'existe pas déjà
-        if session_file.exists():
-            return False
-        
-        # Sauvegarder la session
-        with open(session_file, 'w', encoding='utf-8') as f:
-            json.dump(session_data, f, indent=2, ensure_ascii=False)
-        
-        return True
-        
-    except Exception as e:
-        return False
-
 def get_ecg_sessions():
-    """Récupère toutes les sessions ECG"""
+    """Récupère la liste des sessions ECG disponibles"""
     
     sessions = []
     sessions_dir = Path("data/ecg_sessions")
-    
-    if sessions_dir.exists():
-        for session_file in sessions_dir.glob("*.json"):
-            try:
-                with open(session_file, 'r', encoding='utf-8') as f:
-                    session_data = json.load(f)
-                sessions.append(session_data)
-            except Exception as e:
-                pass  # Ignorer les fichiers corrompus
-    
-    return sessions
-
-def delete_ecg_session(session_name):
-    """Supprime une session ECG"""
-    
-    try:
-        sessions_dir = Path("data/ecg_sessions")
-        session_filename = session_name.replace(' ', '_').replace('/', '_')
-        session_file = sessions_dir / f"{session_filename}.json"
-        
-        if session_file.exists():
-            session_file.unlink()
-            return True
-        
-        return False
-        
-    except Exception as e:
-        return False
-
-def display_available_sessions():
-    """Affiche les sessions ECG disponibles pour les étudiants"""
-    
-    sessions = get_ecg_sessions()
-    
-    if sessions:
-        st.markdown("### 📚 Sessions d'exercices disponibles")
-        
-        # Filtres
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            difficulty_filter = st.selectbox(
-                "Filtrer par niveau :",
-                ["Tous niveaux", "🟢 Débutant", "🟡 Intermédiaire", "🔴 Avancé"],
-                help="Choisissez votre niveau pour filtrer les sessions"
-            )
-        
-        with col2:
-            sort_by = st.selectbox(
-                "Trier par :",
-                ["Date de création", "Nom", "Durée", "Nombre de cas"],
-                help="Ordre d'affichage des sessions"
-            )
-        
-        # Filtrer les sessions
-        filtered_sessions = sessions
-        
-        if difficulty_filter != "Tous niveaux":
-            filtered_sessions = [s for s in sessions if s.get('difficulty') == difficulty_filter]
-        
-        if not filtered_sessions:
-            st.info("📭 Aucune session disponible selon vos critères.")
-            return
-        
-        # Afficher les sessions
-        for session in filtered_sessions:
-            with st.expander(f"📚 {session['name']}", expanded=False):
-                col1, col2 = st.columns([2, 1])
-                
-                with col1:
-                    st.markdown(f"**📝 Description :** {session.get('description', 'Aucune description')}")
-                    st.markdown(f"**🎯 Niveau :** {session.get('difficulty', 'Non spécifié')}")
-                    st.markdown(f"**⏱️ Durée estimée :** {session.get('time_limit', 30)} minutes")
-                    st.markdown(f"**📋 Nombre de cas :** {len(session.get('cases', []))}")
-                
-                with col2:
-                    if st.button(f"▶️ Commencer", key=f"start_session_{session['name']}", type="primary"):
-                        # Démarrer la session
-                        session_instance = {
-                            'session_data': session,
-                            'cases': session['cases'],
-                            'current_case_index': 0,
-                            'responses': {},
-                            'start_time': datetime.now().isoformat(),
-                            'scores': {},
-                            'individual_mode': False
-                        }
-                        st.session_state['current_session'] = session_instance
-                        st.success(f"🎯 Session '{session['name']}' démarrée !")
-                        st.rerun()
-    else:
-        st.info("📭 Aucune session d'exercices disponible pour le moment.")
-        st.markdown("""
-        **💡 Les enseignants peuvent créer des sessions d'exercices dans la section Administration.**
-        
-        En attendant, vous pouvez :
-        - Explorer les cas ECG individuels
-        - Vous exercer sur des cas spécifiques
-        """)
-
-def get_ecg_sessions():
-    """Récupère la liste des sessions ECG disponibles"""
-    sessions_dir = Path(__file__).parent.parent / "data" / "ecg_sessions"
-    sessions = []
     
     if not sessions_dir.exists():
         return sessions
@@ -2457,7 +2396,6 @@ def get_ecg_sessions():
 
 def run_ecg_session():
     """Exécute une session d'exercices ECG"""
-    
     if 'current_session' not in st.session_state:
         st.error("❌ Aucune session active")
         return
@@ -2467,29 +2405,17 @@ def run_ecg_session():
     current_index = session['current_case_index']
     total_cases = len(session['cases'])
     is_individual = session.get('individual_mode', False)
-    
-    # En-tête adapté selon le type d'exercice
-    col1, col2, col3 = st.columns([2, 1, 1])
-    
+
+    # En-tête minimaliste
+    col1, col2 = st.columns([3, 1])
     with col1:
         if is_individual:
-            st.markdown(f"## 📖 {session_data['name']}")
-            st.markdown("**🎯 Exercice individuel**")
+            st.markdown(f"## 🎯 {session_data['name']}")
         else:
-            st.markdown(f"## 📖 {session_data['name']}")
-            st.markdown(f"**Cas {current_index + 1} sur {total_cases}**")
-    
+            st.markdown(f"## 📚 {session_data['name']} - Cas {current_index + 1}/{total_cases}")
     with col2:
-        if not is_individual:
-            progress = (current_index) / total_cases
-            st.progress(progress, text=f"{progress*100:.0f}%")
-        else:
-            st.markdown("### 📝")
-            st.markdown("Mode pratique")
-    
-    with col3:
-        quit_label = "❌ Quitter l'exercice" if is_individual else "❌ Quitter la session"
-        if st.button(quit_label):
+        quit_label = "✖ Quitter"
+        if st.button(quit_label, type="secondary"):
             if st.session_state.get('confirm_quit'):
                 del st.session_state['current_session']
                 if 'confirm_quit' in st.session_state:
@@ -2499,610 +2425,49 @@ def run_ecg_session():
                 st.session_state['confirm_quit'] = True
                 st.warning("Cliquez à nouveau pour confirmer")
                 st.rerun()
-    
+
     # Vérifier si la session est terminée
     if current_index >= total_cases:
         display_session_results(session)
         return
-    
-    # Récupérer le cas current
+
+    # Récupérer le cas actuel
     current_case_name = session['cases'][current_index]
     current_case_data = load_case_for_exercise(current_case_name)
-    
+
     if not current_case_data:
         st.error(f"❌ Cas '{current_case_name}' non trouvé")
         return
-    
+
     st.markdown("---")
-    
-    # Affichage du cas ECG
     display_case_for_exercise(current_case_data)
-    
+
+    # Navigation entre les cas
     st.markdown("---")
-    
-    # Interface d'annotation pour l'exercice
-    st.markdown("### 🏷️ Votre interprétation")
-    st.markdown("*Saisissez votre interprétation de cet ECG*")
-    
-    # Utiliser le système d'annotation semi-automatique
-    try:
-        from annotation_components import smart_annotation_input
-        student_annotations = smart_annotation_input(
-            key_prefix=f"exercise_{current_case_name}",
-            max_tags=10
-        )
-    except ImportError:
-        # Fallback en cas d'erreur d'import
-        student_annotations = []
-        st.text_area(
-            "💭 Votre interprétation",
-            key=f"interpretation_{current_case_name}",
-            height=150,
-            placeholder="Décrivez ce que vous observez sur cet ECG..."
-        )
-    
-    # Zone de commentaires
-    student_comments = st.text_area(
-        "💬 Commentaires supplémentaires",
-        key=f"comments_{current_case_name}",
-        height=100,
-        placeholder="Ajoutez des commentaires ou questions..."
-    )
-    
-    # Boutons d'action
-    col1, col2, col3 = st.columns([1, 1, 2])
-    
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col1:
-        if st.button("💾 Sauvegarder", type="secondary"):
-            save_exercise_response(session, current_case_name, student_annotations, student_comments)
-            st.success("✅ Réponse sauvegardée")
-    
-    with col2:
-        if st.button("➡️ Suivant", type="primary"):
-            # Sauvegarder la réponse
-            save_exercise_response(session, current_case_name, student_annotations, student_comments)
-            
-            # Passer au cas suivant
-            st.session_state['current_session']['current_case_index'] += 1
-            st.rerun()
-    
-    with col3:
-        if session_data.get('show_feedback', True):
-            if st.button("💡 Voir le feedback", help="Comparer avec l'annotation experte"):
-                display_exercise_feedback(current_case_data, student_annotations)
-
-def load_case_for_exercise(case_name):
-    """Charge un cas pour un exercice"""
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
-    case_dir = cases_dir / case_name
-    
-    if not case_dir.exists():
-        return None
-    
-    metadata_file = case_dir / "metadata.json"
-    if not metadata_file.exists():
-        return None
-    
-    try:
-        with open(metadata_file, 'r', encoding='utf-8') as f:
-            case_data = json.load(f)
-        
-        # Ajouter les chemins des images
-        image_files = []
-        for ext in ['*.png', '*.jpg', '*.jpeg']:
-            image_files.extend(case_dir.glob(ext))
-        
-        if image_files:
-            sorted_images = sorted(image_files, key=lambda x: x.name)
-            case_data['image_paths'] = [str(img) for img in sorted_images]
-            case_data['image_path'] = str(sorted_images[0])
-        
-        case_data['case_id'] = case_name
-        return case_data
-        
-    except Exception as e:
-        st.error(f"❌ Erreur lors du chargement du cas : {e}")
-        return None
-
-def display_case_for_exercise(case_data):
-    """Affiche un cas ECG pour un exercice"""
-    
-    case_id = case_data.get('case_id', 'Cas ECG')
-    
-    # Informations du cas
-    col1, col2 = st.columns([3, 1])
-    
-    with col1:
-        st.markdown(f"### 📋 {case_id}")
-        
-        # Affichage des ECG
-        if 'image_paths' in case_data and case_data['image_paths']:
-            total_images = len(case_data['image_paths'])
-            
-            if total_images > 1:
-                st.info(f"📊 Ce cas contient **{total_images} ECG**")
-                
-                # Navigation entre les ECG
-                ecg_index = st.selectbox(
-                    "Sélectionner l'ECG :",
-                    range(total_images),
-                    format_func=lambda i: f"ECG {i+1}/{total_images}",
-                    key=f"exercise_ecg_{case_id}"
-                )
-            else:
-                ecg_index = 0
-            
-            # Affichage de l'ECG sélectionné
-            image_path = Path(case_data['image_paths'][ecg_index])
-            if image_path.exists():
-                st.image(str(image_path), 
-                       caption=f"ECG {ecg_index+1}/{total_images} - {case_id}",
-                       use_container_width=True)
-            else:
-                st.warning(f"⚠️ ECG {ecg_index+1} non trouvé")
-        
-        elif 'image_path' in case_data:
-            image_path = Path(case_data['image_path'])
-            if image_path.exists():
-                st.image(str(image_path), 
-                       caption=f"ECG - {case_id}",
-                       use_container_width=True)
-            else:
-                st.warning("⚠️ Image ECG non trouvée")
-        else:
-            st.info("📄 Cas ECG (format non-image)")
-    
-    with col2:
-        st.markdown("**📋 Informations cliniques**")
-        
-        # Afficher les informations disponibles
-        if case_data.get('age'):
-            st.write(f"**Âge :** {case_data['age']} ans")
-        if case_data.get('sexe'):
-            st.write(f"**Sexe :** {case_data['sexe']}")
-        if case_data.get('context'):
-            st.write(f"**Contexte :** {case_data['context']}")
-        
-        # Indications supplémentaires
-        st.markdown("---")
-        st.markdown("**🎯 Instructions**")
-        st.info("""
-        Analysez cet ECG et proposez votre interprétation en utilisant les concepts médicaux appropriés.
-        
-        Points à considérer :
-        - Rythme cardiaque
-        - Morphologie des ondes
-        - Intervalles et segments
-        - Anomalies visibles
-        """)
-
-def save_exercise_response(session, case_name, annotations, comments):
-    """Sauvegarde la réponse d'un exercice"""
-    
-    response = {
-        'case_name': case_name,
-        'annotations': annotations,
-        'comments': comments,
-        'timestamp': datetime.now().isoformat(),
-        'session_type': 'individual' if session.get('individual_mode') else 'session'
-    }
-    
-    # Ajouter à la session en cours
-    if 'responses' not in session:
-        session['responses'] = {}
-    
-    session['responses'][case_name] = response
-
-def display_exercise_feedback(case_data, student_annotations):
-    """Affiche le feedback d'un exercice"""
-    
-    st.markdown("### 💡 Feedback de l'exercice")
-    
-    # Charger les annotations expertes
-    case_folder = Path("data/ecg_cases") / case_data['case_id']
-    annotations_file = case_folder / "annotations.json"
-    
-    if annotations_file.exists():
-        try:
-            with open(annotations_file, 'r', encoding='utf-8') as f:
-                expert_annotations = json.load(f)
-            
-            # Analyser et comparer
-            if expert_annotations:
-                st.success("✅ Annotations expertes disponibles")
-                
-                # Afficher les annotations expertes
-                st.markdown("**🧠 Interprétation experte :**")
-                for ann in expert_annotations[:3]:  # Limiter l'affichage
-                    if ann.get('annotation_tags'):
-                        for tag in ann['annotation_tags']:
-                            st.markdown(f"- 🏷️ {tag}")
-                    elif ann.get('interpretation_experte'):
-                        st.info(ann['interpretation_experte'])
-                
-                # Comparaison simple
-                if student_annotations:
-                    st.markdown("**📊 Votre performance :**")
-                    
-                    # Calculer un score simple
-                    expert_concepts = set()
-                    for ann in expert_annotations:
-                        if ann.get('annotation_tags'):
-                            expert_concepts.update(ann['annotation_tags'])
-                    
-                    student_concepts = set(student_annotations)
-                    
-                    if expert_concepts:
-                        overlap = expert_concepts.intersection(student_concepts)
-                        score = len(overlap) / len(expert_concepts) * 100
-                        
-                        if score >= 70:
-                            st.success(f"🏆 Excellent ! Score : {score:.0f}%")
-                        elif score >= 50:
-                            st.warning(f"👍 Bien ! Score : {score:.0f}%")
-                        else:
-                            st.error(f"📚 À améliorer. Score : {score:.0f}%")
-                        
-                        # Concepts manqués
-                        missed = expert_concepts - student_concepts
-                        if missed:
-                            st.markdown("**💡 Concepts importants à considérer :**")
-                            for concept in missed:
-                                st.markdown(f"- 🔍 {concept}")
-                    else:
-                        st.info("✅ Votre interprétation a été enregistrée")
-                else:
-                    st.info("💭 Ajoutez des annotations pour voir la comparaison")
-            else:
-                st.info("💭 Pas d'annotation experte disponible pour ce cas")
-                
-        except Exception as e:
-            st.error(f"❌ Erreur lors du chargement du feedback : {e}")
-    else:
-        st.info("💭 Feedback non disponible pour ce cas")
-
-def display_session_results(session):
-    """Affiche les résultats d'une session terminée"""
-    
-    st.markdown("## 🎉 Session terminée !")
-    
-    session_data = session['session_data']
-    responses = session.get('responses', {})
-    is_individual = session.get('individual_mode', False)
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("📋 Cas traités", len(responses))
-    
-    with col2:
-        total_time = "Non calculé"  # À implémenter si besoin
-        st.metric("⏱️ Temps total", total_time)
-    
-    with col3:
-        if is_individual:
-            st.metric("🎯 Mode", "Exercice individuel")
-        else:
-            st.metric("🎯 Session", session_data['name'])
-    
-    st.markdown("---")
-    
-    # Affichage des réponses
-    if responses:
-        st.markdown("### 📝 Vos réponses")
-        
-        for case_name, response in responses.items():
-            with st.expander(f"📋 {case_name}"):
-                st.markdown(f"**🏷️ Annotations :** {', '.join(response.get('annotations', []))}")
-                if response.get('comments'):
-                    st.markdown(f"**💬 Commentaires :** {response['comments']}")
-                st.caption(f"⏰ {response.get('timestamp', '')}")
-    
-    # Boutons d'action
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("🔄 Nouvelle session", type="primary"):
-            del st.session_state['current_session']
-            st.rerun()
-    
-    with col2:
-        if st.button("📚 Retour aux cas", type="secondary"):
-            del st.session_state['current_session']
-            st.session_state.selected_page = "cases"
-            st.rerun()
-        finish_ecg_session()
-        return
-    
-    # Cas actuel
-    current_case_name = session['cases'][current_index]
-    case_data = load_case_data(current_case_name)
-    
-    if case_data:
-        col1, col2 = st.columns([3, 2])
-        
-        with col1:
-            st.markdown(f"### 📋 {current_case_name}")
-            
-            # Affichage de tous les ECG du cas
-            if 'image_paths' in case_data and case_data['image_paths']:
-                total_images = len(case_data['image_paths'])
-                
-                if total_images > 1:
-                    st.info(f"📊 Ce cas contient **{total_images} ECG** à analyser")
-                    
-                    # Navigation entre les ECG si plusieurs
-                    ecg_index = st.selectbox(
-                        "Sélectionner l'ECG à visualiser :",
-                        range(total_images),
-                        format_func=lambda i: f"ECG {i+1}/{total_images}",
-                        key=f"ecg_selector_{current_case_name}_{current_index}"
-                    )
-                else:
-                    ecg_index = 0
-                
-                # Affichage de l'ECG sélectionné
-                image_path = Path(case_data['image_paths'][ecg_index])
-                if image_path.exists():
-                    st.image(str(image_path), 
-                           caption=f"ECG {ecg_index+1}/{total_images} à analyser",
-                           use_container_width=True)
-                else:
-                    st.error(f"❌ ECG {ecg_index+1} non trouvé")
-                    
-            elif 'image_path' in case_data:
-                # Compatibilité avec l'ancien format (une seule image)
-                image_path = Path(case_data['image_path'])
-                if image_path.exists():
-                    st.image(str(image_path), 
-                           caption=f"ECG à analyser",
-                           use_container_width=True)
-            else:
-                st.warning("⚠️ Aucun ECG trouvé pour ce cas")
-            
-            # Informations contextuelles
-            if case_data.get('context'):
-                st.info(f"**📋 Contexte :** {case_data['context']}")
-        
-        with col2:
-            st.markdown("### ✍️ Votre interprétation")
-            
-            # Interface de saisie semi-automatique pour les étudiants
-            student_annotations = smart_annotation_input(
-                key_prefix=f"student_{current_case_name}_{current_index}", 
-                max_tags=10
-            )
-            
-            # Zone de saisie textuelle complémentaire
-            st.markdown("### 📝 Observations complémentaires")
-            user_response = st.text_area(
-                "Description détaillée (optionnel) :",
-                placeholder="Ajoutez vos observations textuelles...",
-                height=100,
-                key=f"response_{current_case_name}_{current_index}"
-            )
-            
-            # Aperçu des annotations sélectionnées
-            if student_annotations:
-                display_annotation_summary(student_annotations, "📋 Vos annotations")
-            
-            col_validate, col_next = st.columns(2)
-            
-            with col_validate:
-                if st.button("✅ Valider", type="primary"):
-                    if student_annotations or user_response.strip():
-                        # Enregistrer la réponse (annotations + texte)
-                        response_data = {
-                            'annotations': student_annotations,
-                            'text_response': user_response.strip(),
-                            'combined_response': student_annotations + [user_response.strip()] if user_response.strip() else student_annotations
-                        }
-                        session['responses'][current_case_name] = response_data
-                        
-                        # Feedback immédiat si activé
-                        if session_data.get('show_feedback', True):
-                            show_case_feedback(case_data, response_data)
-                        
-                        st.success("✅ Réponse enregistrée !")
-                    else:
-                        st.warning("⚠️ Veuillez saisir au moins une annotation ou observation")
-            
-            with col_next:
-                if current_case_name in session.get('responses', {}):
-                    if st.button("➡️ Cas suivant"):
-                        session['current_case_index'] += 1
-                        st.session_state['current_session'] = session
-                        st.rerun()
-    else:
-        st.error(f"❌ Cas '{current_case_name}' non trouvé")
-        if st.button("⏭️ Passer au suivant"):
-            session['current_case_index'] += 1
-            st.session_state['current_session'] = session
-            st.rerun()
-
-def load_case_data(case_name):
-    """Charge les données d'un cas ECG"""
-    
-    case_dir = Path(__file__).parent.parent / "data" / "ecg_cases" / case_name
-    metadata_file = case_dir / "metadata.json"
-    
-    if metadata_file.exists():
-        try:
-            with open(metadata_file, 'r', encoding='utf-8') as f:
-                case_data = json.load(f)
-            
-            # Ajouter tous les chemins d'images
-            image_files = []
-            for ext in ['*.png', '*.jpg', '*.jpeg']:
-                image_files.extend(case_dir.glob(ext))
-            
-            if image_files:
-                # Trier les images par nom pour un ordre cohérent
-                sorted_images = sorted(image_files, key=lambda x: x.name)
-                case_data['image_paths'] = [str(img) for img in sorted_images]
-                # Garder l'ancienne clé pour la compatibilité
-                case_data['image_path'] = str(sorted_images[0])
-                case_data['total_images'] = len(sorted_images)
-            
-            return case_data
-            
-        except Exception as e:
-            return None
-    
-    return None
-
-def show_case_feedback(case_data, response_data):
-    """Affiche le feedback pour un cas avec annotations semi-automatiques"""
-    
-    st.markdown("---")
-    st.markdown("### 💡 Feedback")
-    
-    # Extraire les annotations de l'étudiant
-    if isinstance(response_data, dict):
-        student_annotations = response_data.get('annotations', [])
-        student_text = response_data.get('text_response', '')
-    else:
-        # Compatibilité avec l'ancien format (string simple)
-        student_annotations = []
-        student_text = str(response_data)
-    
-    # Annotations expertes si disponibles
-    expert_annotations = []
-    case_annotations = case_data.get('annotations', [])
-    
-    # Extraire les annotations expertes selon différents formats
-    for ann in case_annotations:
-        if ann.get('type') == 'expert' or ann.get('annotation_type') == 'expert':
-            if ann.get('expert_annotations'):
-                expert_annotations.extend(ann['expert_annotations'])
-            elif ann.get('concept'):
-                expert_annotations.append(ann['concept'])
-    
-    if expert_annotations and student_annotations:
-        # Comparaison intelligente avec l'ontologie
-        try:
-            from annotation_components import get_ontology_concepts
-            concepts = get_ontology_concepts()
-            
-            # Analyser les correspondances
-            matches = []
-            missed = []
-            
-            for expert_ann in expert_annotations[:5]:  # Limiter à 5 annotations expertes
-                found_match = False
-                for student_ann in student_annotations:
-                    if (expert_ann.lower() in student_ann.lower() or 
-                        student_ann.lower() in expert_ann.lower() or
-                        expert_ann.lower() == student_ann.lower()):
-                        matches.append((expert_ann, student_ann))
-                        found_match = True
-                        break
-                
-                if not found_match:
-                    missed.append(expert_ann)
-            
-            # Affichage des résultats
-            if matches:
-                st.success("🎯 **Bonnes observations :**")
-                for expert, student in matches:
-                    st.write(f"✅ {student} ↔ {expert}")
-            
-            if missed:
-                st.info("💡 **Points à retenir :**")
-                for miss in missed:
-                    st.write(f"• {miss}")
-            
-            # Suggestions d'amélioration
-            if len(missed) > len(matches):
-                st.warning("📚 Pensez à utiliser l'ontologie médicale pour affiner vos observations")
-        
-        except ImportError:
-            # Fallback simple
-            st.info("📚 **Points clés à retenir :**")
-            for ann in expert_annotations[:3]:
-                st.write(f"• {ann}")
-    
-    elif expert_annotations:
-        st.info("📚 **Points clés à retenir :**")
-        for ann in expert_annotations[:3]:
-            st.write(f"• {ann}")
-    else:
-        st.info("📚 Corrections détaillées disponibles avec votre enseignant")
-
-def finish_ecg_session():
-    """Termine une session ECG et affiche les résultats"""
-    
-    session = st.session_state['current_session']
-    session_data = session['session_data']
-    responses = session.get('responses', {})
-    
-    st.markdown("## 🎉 Session terminée !")
-    
-    # Statistiques
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("📋 Cas traités", len(responses))
-    
-    with col2:
-        completion = len(responses) / len(session['cases'])
-        st.metric("📈 Completion", f"{completion*100:.0f}%")
-    
-    with col3:
-        # Calculer le temps écoulé
-        start_time = datetime.fromisoformat(session['start_time'])
-        duration = datetime.now() - start_time
-        st.metric("⏱️ Durée", f"{duration.seconds//60} min")
-    
-    # Résumé des réponses
-    st.markdown("### 📝 Vos réponses")
-    
-    for case_name, response in responses.items():
-        with st.expander(f"📋 {case_name}"):
-            if isinstance(response, dict):
-                # Nouvelle format avec annotations semi-automatiques
-                if response.get('annotations'):
-                    st.markdown("**🏷️ Annotations sélectionnées :**")
-                    for ann in response['annotations']:
-                        st.write(f"• {ann}")
-                
-                if response.get('text_response'):
-                    st.markdown("**📝 Observations textuelles :**")
-                    st.write(response['text_response'])
-            else:
-                # Ancien format (texte simple)
-                st.write(response)
-    
-    # Boutons d'action
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("🔄 Refaire la session", type="primary"):
-            if session_data.get('allow_retry', True):
-                # Redémarrer la session
-                session_instance = {
-                    'session_data': session_data,
-                    'cases': session_data['cases'],
-                    'current_case_index': 0,
-                    'responses': {},
-                    'start_time': datetime.now().isoformat(),
-                    'scores': {},
-                    'individual_mode': False
-                }
-                st.session_state['current_session'] = session_instance
+        if current_index > 0:
+            if st.button("◀ Cas précédent", use_container_width=True):
+                session['current_case_index'] -= 1
                 st.rerun()
-            else:
-                st.warning("⚠️ Les reprises ne sont pas autorisées pour cette session")
-    
     with col2:
-        if st.button("📚 Retour aux sessions"):
-            del st.session_state['current_session']
-            st.rerun()
-
-def get_session_progress(session_name):
-    """Récupère les progrès d'un étudiant sur une session"""
-    # TODO: Implémenter la persistance des progrès
-    return None
+        st.markdown(f"<center>Cas {current_index + 1} sur {total_cases}</center>", unsafe_allow_html=True)
+    with col3:
+        key_prefix = f"student_{current_case_data.get('case_id', 'unknown')}_annotations"
+        current_annotations = st.session_state.get('student_annotations', {}).get(key_prefix, [])
+        if current_annotations:
+            if current_index < total_cases - 1:
+                if st.button("Cas suivant ▶", type="primary", use_container_width=True):
+                    session['responses'][current_case_name] = current_annotations
+                    session['current_case_index'] += 1
+                    st.rerun()
+            else:
+                if st.button("✅ Terminer", type="primary", use_container_width=True):
+                    session['responses'][current_case_name] = current_annotations
+                    session['current_case_index'] += 1
+                    st.rerun()
+        else:
+            st.info("💡 Ajoutez des annotations avant de continuer")
 
 if __name__ == "__main__":
     main()

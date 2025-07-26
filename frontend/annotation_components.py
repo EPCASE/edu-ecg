@@ -6,291 +6,275 @@ Composants d'annotation semi-automatique avec ontologie ECG
 import streamlit as st
 from pathlib import Path
 import json
+from typing import List, Dict, Set
 
-def smart_annotation_input(key_prefix="annotation", max_tags=10):
+# Ontologie ECG structurée pour l'autocomplétion
+ECG_ONTOLOGY = {
+    "rythme": [
+        "Rythme sinusal", "Fibrillation auriculaire", "Flutter auriculaire", 
+        "Tachycardie sinusale", "Bradycardie sinusale", "Arythmie sinusale",
+        "Tachycardie supraventriculaire", "Tachycardie ventriculaire",
+        "Fibrillation ventriculaire", "Rythme jonctionnel", "Rythme idioventriculaire"
+    ],
+    "conduction": [
+        "BAV 1er degré", "BAV 2ème degré Mobitz 1", "BAV 2ème degré Mobitz 2",
+        "BAV 3ème degré", "Bloc de branche droit", "Bloc de branche gauche",
+        "Hémibloc antérieur gauche", "Hémibloc postérieur gauche",
+        "Préexcitation", "Syndrome de Wolff-Parkinson-White"
+    ],
+    "morphologie": [
+        "Onde P normale", "Onde P bifide", "Onde P ample", "Absence d'onde P",
+        "QRS fin", "QRS large", "QRS fragmenté", "Onde Q pathologique",
+        "Onde R prédominante", "Onde T inversée", "Onde T ample", "Onde T plate",
+        "Sus-décalage ST", "Sous-décalage ST", "Onde U présente"
+    ],
+    "intervalles": [
+        "PR court", "PR long", "PR normal", "QT court", "QT long", "QT normal",
+        "QRS < 120ms", "QRS > 120ms", "Intervalle RR régulier", "Intervalle RR irrégulier"
+    ],
+    "pathologie": [
+        "Infarctus aigu", "Infarctus ancien", "Ischémie myocardique", "Péricardite",
+        "Myocardite", "Hypertrophie ventriculaire gauche", "Hypertrophie ventriculaire droite",
+        "Hypertrophie auriculaire gauche", "Hypertrophie auriculaire droite",
+        "Syndrome coronarien aigu", "STEMI", "NSTEMI"
+    ],
+    "électrolytes": [
+        "Hyperkaliémie", "Hypokaliémie", "Hypercalcémie", "Hypocalcémie",
+        "Hypermagnésémie", "Hypomagnésémie"
+    ],
+    "autres": [
+        "Pacemaker", "Défibrillateur implantable", "Artéfacts", "Mauvaise qualité du tracé",
+        "Extrasystoles auriculaires", "Extrasystoles ventriculaires", "Bigéminisme",
+        "Trigéminisme", "Torsade de pointes", "Syndrome du QT long congénital"
+    ]
+}
+
+def get_ontology_concepts() -> List[str]:
+    """Retourne tous les concepts de l'ontologie ECG"""
+    all_concepts = []
+    for category, concepts in ECG_ONTOLOGY.items():
+        all_concepts.extend(concepts)
+    return sorted(all_concepts)
+
+def get_filtered_suggestions(search_term: str, selected_tags: Set[str], max_suggestions: int = 10) -> List[Dict[str, str]]:
     """
-    Interface de saisie semi-automatique d'annotations avec l'ontologie
+    Retourne des suggestions filtrées basées sur le terme de recherche
     
     Args:
-        key_prefix: Préfixe pour les clés de session
-        max_tags: Nombre maximum de tags autorisés
+        search_term: Terme recherché par l'utilisateur
+        selected_tags: Tags déjà sélectionnés (pour les exclure)
+        max_suggestions: Nombre maximum de suggestions
     
     Returns:
-        list: Liste des annotations sélectionnées
-    """
-    
-    # Initialiser les annotations dans la session
-    if f'{key_prefix}_tags' not in st.session_state:
-        st.session_state[f'{key_prefix}_tags'] = []
-    
-    # Récupérer les concepts de l'ontologie
-    concepts = get_ontology_concepts()
-    
-    st.markdown("### 🏷️ Annotations ECG")
-    st.markdown("*Saisissez des mots-clés pour rechercher dans l'ontologie médicale*")
-    
-    # Zone de saisie avec autocomplétion
-    col1, col2 = st.columns([3, 1])
-    
-    with col1:
-        # Input pour rechercher dans l'ontologie
-        search_term = st.text_input(
-            "🔍 Rechercher un concept médical",
-            placeholder="Ex: rythme, tachycardie, fibrillation...",
-            key=f"{key_prefix}_search",
-            help="Tapez pour rechercher dans l'ontologie de 281 concepts ECG"
-        )
-    
-    with col2:
-        # Bouton pour ajouter le terme personnalisé
-        if st.button("➕ Ajouter", key=f"{key_prefix}_add_custom"):
-            if search_term and search_term not in st.session_state[f'{key_prefix}_tags']:
-                if len(st.session_state[f'{key_prefix}_tags']) < max_tags:
-                    st.session_state[f'{key_prefix}_tags'].append(search_term)
-                    st.rerun()
-                else:
-                    st.warning(f"⚠️ Maximum {max_tags} annotations autorisées")
-    
-    # Suggestions basées sur la recherche
-    if search_term:
-        suggestions = search_ontology_concepts(concepts, search_term)
-        
-        if suggestions:
-            st.markdown("**💡 Suggestions de l'ontologie :**")
-            
-            # Afficher les suggestions en colonnes
-            cols = st.columns(min(3, len(suggestions)))
-            
-            for i, suggestion in enumerate(suggestions[:6]):  # Limiter à 6 suggestions
-                col_idx = i % len(cols)
-                with cols[col_idx]:
-                    if st.button(
-                        f"✨ {suggestion}", 
-                        key=f"{key_prefix}_suggestion_{i}",
-                        help=f"Ajouter '{suggestion}' aux annotations"
-                    ):
-                        if suggestion not in st.session_state[f'{key_prefix}_tags']:
-                            if len(st.session_state[f'{key_prefix}_tags']) < max_tags:
-                                st.session_state[f'{key_prefix}_tags'].append(suggestion)
-                                st.rerun()
-                            else:
-                                st.warning(f"⚠️ Maximum {max_tags} annotations autorisées")
-        else:
-            st.info("💭 Aucun concept trouvé dans l'ontologie - vous pouvez ajouter ce terme personnalisé")
-    
-    # Affichage des annotations actuelles
-    current_tags = st.session_state[f'{key_prefix}_tags']
-    
-    if current_tags:
-        st.markdown("**🏷️ Annotations sélectionnées :**")
-        
-        # Afficher les tags avec boutons de suppression
-        cols = st.columns(min(4, len(current_tags)))
-        
-        for i, tag in enumerate(current_tags):
-            col_idx = i % len(cols)
-            with cols[col_idx]:
-                col_tag, col_del = st.columns([3, 1])
-                
-                with col_tag:
-                    # Vérifier si c'est un concept de l'ontologie
-                    is_ontology = tag.lower() in [c.lower() for c in concepts]
-                    icon = "🧠" if is_ontology else "📝"
-                    st.markdown(f"{icon} **{tag}**")
-                
-                with col_del:
-                    if st.button("❌", key=f"{key_prefix}_remove_{i}", help=f"Supprimer '{tag}'"):
-                        st.session_state[f'{key_prefix}_tags'].remove(tag)
-                        st.rerun()
-    else:
-        st.info("💭 Aucune annotation sélectionnée")
-    
-    return st.session_state[f'{key_prefix}_tags']
-
-def search_ontology_concepts(concepts, search_term):
-    """
-    Recherche dans les concepts de l'ontologie
-    
-    Args:
-        concepts: Liste des concepts disponibles
-        search_term: Terme à rechercher
-    
-    Returns:
-        list: Liste des concepts correspondants
+        Liste de dictionnaires avec 'concept' et 'category'
     """
     if not search_term or len(search_term) < 2:
         return []
     
     search_lower = search_term.lower()
-    matches = []
+    suggestions = []
     
-    # Recherche exacte en priorité
-    for concept in concepts:
-        if search_lower in concept.lower():
-            matches.append(concept)
+    for category, concepts in ECG_ONTOLOGY.items():
+        for concept in concepts:
+            # Exclure les concepts déjà sélectionnés
+            if concept in selected_tags:
+                continue
+                
+            # Recherche flexible
+            concept_lower = concept.lower()
+            if (search_lower in concept_lower or 
+                concept_lower.startswith(search_lower) or
+                any(word.startswith(search_lower) for word in concept_lower.split())):
+                
+                suggestions.append({
+                    'concept': concept,
+                    'category': category,
+                    'score': calculate_relevance_score(search_lower, concept_lower)
+                })
     
-    # Trier par pertinence (correspondance au début du mot en premier)
-    matches.sort(key=lambda x: (
-        not x.lower().startswith(search_lower),  # Commence par le terme
-        not search_lower in x.lower().split()[0],  # Premier mot contient le terme
-        len(x)  # Plus court en premier
-    ))
+    # Trier par score de pertinence
+    suggestions.sort(key=lambda x: x['score'], reverse=True)
     
-    return matches[:10]  # Limiter à 10 suggestions
+    return suggestions[:max_suggestions]
 
+def calculate_relevance_score(search: str, concept: str) -> int:
+    """Calcule un score de pertinence pour le tri des suggestions"""
+    score = 0
+    
+    # Correspondance exacte
+    if search == concept:
+        score += 100
+    # Commence par le terme
+    elif concept.startswith(search):
+        score += 80
+    # Mot complet qui commence par le terme
+    elif any(word.startswith(search) for word in concept.split()):
+        score += 60
+    # Contient le terme
+    elif search in concept:
+        score += 40
+    
+    # Bonus pour les termes courts (plus spécifiques)
+    score += max(0, 20 - len(concept))
+    
+    return score
 
-def get_ontology_concepts():
+def smart_annotation_input(key_prefix: str = "annotation", max_tags: int = 10) -> List[str]:
     """
-    Récupère la liste des concepts de l'ontologie depuis la session ou charge depuis le fichier
+    Interface de saisie d'annotations avec autocomplétion intelligente
+    
+    Args:
+        key_prefix: Préfixe pour les clés Streamlit
+        max_tags: Nombre maximum de tags
     
     Returns:
-        list: Liste des concepts ECG
+        Liste des annotations sélectionnées
     """
     
-    # Essayer de récupérer depuis la session state
-    if 'concepts' in st.session_state:
-        return st.session_state.concepts
+    # Initialiser l'état si nécessaire
+    if f'{key_prefix}_selected_tags' not in st.session_state:
+        st.session_state[f'{key_prefix}_selected_tags'] = []
+    if f'{key_prefix}_search_term' not in st.session_state:
+        st.session_state[f'{key_prefix}_search_term'] = ""
     
-    # Charger depuis le fichier ontologie si disponible
-    try:
-        ontology_path = Path(__file__).parent.parent / "data" / "ontologie.owx"
-        if ontology_path.exists():
-            # Si on a un corrector en session, utiliser ses concepts
-            if 'corrector' in st.session_state:
-                return list(st.session_state.corrector.concepts.keys())
-    except Exception:
-        pass
+    selected_tags = st.session_state[f'{key_prefix}_selected_tags']
     
-    # Fallback : concepts de base
-    return [
-        "Rythme sinusal", "Tachycardie", "Bradycardie", "Fibrillation atriale",
-        "Flutter atrial", "Extrasystole", "Bloc AV", "QRS large", "QRS fin",
-        "Onde P", "Intervalle PR", "Segment ST", "Onde T", "Intervalle QT",
-        "Axe normal", "Déviation axiale gauche", "Déviation axiale droite",
-        "Hypertrophie VG", "Hypertrophie VD", "Ischémie", "Lésion", "Nécrose"
-    ]
+    # Afficher les tags déjà sélectionnés
+    if selected_tags:
+        st.markdown("**🏷️ Annotations sélectionnées:**")
+        
+        # Afficher les tags avec possibilité de suppression
+        cols = st.columns(min(len(selected_tags), 4))
+        for idx, tag in enumerate(selected_tags):
+            with cols[idx % len(cols)]:
+                if st.button(f"❌ {tag}", key=f"{key_prefix}_remove_{idx}"):
+                    st.session_state[f'{key_prefix}_selected_tags'].remove(tag)
+                    st.rerun()
+    
+    # Zone de recherche avec autocomplétion
+    if len(selected_tags) < max_tags:
+        col1, col2 = st.columns([4, 1])
+        
+        with col1:
+            search_term = st.text_input(
+                "🔍 Rechercher une annotation",
+                value=st.session_state[f'{key_prefix}_search_term'],
+                placeholder="Tapez au moins 2 caractères...",
+                key=f"{key_prefix}_search_input",
+                help="Commencez à taper pour voir les suggestions de l'ontologie ECG"
+            )
+            
+            # Mettre à jour le terme de recherche dans session_state
+            if search_term != st.session_state[f'{key_prefix}_search_term']:
+                st.session_state[f'{key_prefix}_search_term'] = search_term
+        
+        with col2:
+            if st.button("➕ Texte libre", key=f"{key_prefix}_free_text"):
+                if search_term and search_term not in selected_tags:
+                    st.session_state[f'{key_prefix}_selected_tags'].append(search_term)
+                    st.session_state[f'{key_prefix}_search_term'] = ""
+                    st.rerun()
+        
+        # Afficher les suggestions
+        if search_term and len(search_term) >= 2:
+            suggestions = get_filtered_suggestions(
+                search_term, 
+                set(selected_tags),
+                max_suggestions=8
+            )
+            
+            if suggestions:
+                st.markdown("**💡 Suggestions de l'ontologie:**")
+                
+                # Afficher les suggestions groupées par catégorie
+                categories_shown = set()
+                for suggestion in suggestions:
+                    category = suggestion['category']
+                    concept = suggestion['concept']
+                    
+                    # Afficher la catégorie si c'est la première fois
+                    if category not in categories_shown:
+                        st.caption(f"**{category.upper()}**")
+                        categories_shown.add(category)
+                    
+                    # Bouton pour ajouter le concept
+                    if st.button(
+                        f"➕ {concept}",
+                        key=f"{key_prefix}_add_{concept}",
+                        help=f"Ajouter '{concept}' aux annotations"
+                    ):
+                        st.session_state[f'{key_prefix}_selected_tags'].append(concept)
+                        st.session_state[f'{key_prefix}_search_term'] = ""
+                        st.rerun()
+            else:
+                st.info("💡 Aucune suggestion trouvée. Utilisez 'Texte libre' pour ajouter votre propre annotation.")
+    else:
+        st.warning(f"⚠️ Limite de {max_tags} annotations atteinte")
+    
+    return selected_tags
 
-
-def display_annotation_summary(annotations, title="📋 Résumé des annotations"):
+def display_annotation_summary(annotations: List[str], title: str = "Résumé des annotations"):
     """
-    Affiche un résumé des annotations avec classification
+    Affiche un résumé visuel des annotations sélectionnées
     
     Args:
         annotations: Liste des annotations
         title: Titre de la section
     """
-    
-    if not annotations:
-        st.info("💭 Aucune annotation disponible")
-        return
-    
-    st.markdown(f"### {title}")
-    
-    concepts = get_ontology_concepts()
-    
-    # Classifier les annotations
-    ontology_annotations = []
-    custom_annotations = []
-    
-    for annotation in annotations:
-        if annotation.lower() in [c.lower() for c in concepts]:
-            ontology_annotations.append(annotation)
-        else:
-            custom_annotations.append(annotation)
-    
-    # Affichage des annotations ontologiques
-    if ontology_annotations:
-        st.markdown("**🧠 Concepts ontologiques :**")
-        for annotation in ontology_annotations:
-            st.markdown(f"- 🧠 {annotation}")
-    
-    # Affichage des annotations personnalisées
-    if custom_annotations:
-        st.markdown("**📝 Annotations personnalisées :**")
-        for annotation in custom_annotations:
-            st.markdown(f"- 📝 {annotation}")
-    
-    # Statistiques
-    total = len(annotations)
-    ontology_count = len(ontology_annotations)
-    custom_count = len(custom_annotations)
-    
-    st.markdown("---")
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("📊 Total", total)
-    
-    with col2:
-        st.metric("🧠 Ontologie", ontology_count)
-    
-    with col3:
-        st.metric("📝 Personnalisé", custom_count)
-
-
-def validate_annotations(annotations):
-    """
-    Valide et nettoie une liste d'annotations
-    
-    Args:
-        annotations: Liste des annotations à valider
-    
-    Returns:
-        tuple: (annotations_valides, annotations_invalides)
-    """
-    
-    valid_annotations = []
-    invalid_annotations = []
-    
-    for annotation in annotations:
-        # Nettoyage basique
-        cleaned = annotation.strip()
+    if annotations:
+        st.markdown(f"### {title}")
         
-        # Validation
-        if len(cleaned) >= 2 and len(cleaned) <= 100:
-            valid_annotations.append(cleaned)
-        else:
-            invalid_annotations.append(annotation)
-    
-    return valid_annotations, invalid_annotations
+        # Grouper par catégorie
+        categorized = {}
+        uncategorized = []
+        
+        for annotation in annotations:
+            found = False
+            for category, concepts in ECG_ONTOLOGY.items():
+                if annotation in concepts:
+                    if category not in categorized:
+                        categorized[category] = []
+                    categorized[category].append(annotation)
+                    found = True
+                    break
+            
+            if not found:
+                uncategorized.append(annotation)
+        
+        # Afficher par catégorie
+        for category, items in categorized.items():
+            st.markdown(f"**{category.upper()}**")
+            for item in items:
+                st.markdown(f"• {item}")
+        
+        # Afficher les annotations libres
+        if uncategorized:
+            st.markdown("**AUTRES**")
+            for item in uncategorized:
+                st.markdown(f"• {item}")
 
-
-def export_annotations_to_json(annotations, metadata=None):
+def export_annotations_to_json(annotations: List[str], case_id: str) -> str:
     """
     Exporte les annotations au format JSON
     
     Args:
         annotations: Liste des annotations
-        metadata: Métadonnées additionnelles
+        case_id: Identifiant du cas
     
     Returns:
-        str: JSON formaté
+        JSON string des annotations
     """
-    
     export_data = {
-        "annotations": annotations,
-        "count": len(annotations),
-        "export_date": str(st.session_state.get('current_time', 'unknown')),
-        "metadata": metadata or {}
+        'case_id': case_id,
+        'annotations': annotations,
+        'timestamp': st.session_state.get('annotation_timestamp', ''),
+        'annotator': st.session_state.get('user_info', {}).get('name', 'Unknown')
     }
     
-    return json.dumps(export_data, indent=2, ensure_ascii=False)
+    return json.dumps(export_data, ensure_ascii=False, indent=2)
 
-
-def import_annotations_from_json(json_data):
-    """
-    Importe des annotations depuis du JSON
-    
-    Args:
-        json_data: Données JSON à importer
-    
-    Returns:
-        list: Liste des annotations importées
-    """
-    
-    try:
-        data = json.loads(json_data) if isinstance(json_data, str) else json_data
-        return data.get('annotations', [])
-    except Exception as e:
-        st.error(f"❌ Erreur lors de l'import : {e}")
-        return []
+# Pour compatibilité avec l'ancien code
+def get_annotation_suggestions(search_term: str) -> List[str]:
+    """Fonction de compatibilité pour l'ancien code"""
+    suggestions = get_filtered_suggestions(search_term, set(), max_suggestions=10)
+    return [s['concept'] for s in suggestions]

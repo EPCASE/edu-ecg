@@ -62,46 +62,8 @@ def display_ecg_image(file_path):
         # Vérification et optimisation de l'image
         img = Image.open(file_path)
         
-        col1, col2 = st.columns([3, 1])
-        
-        with col2:
-            st.markdown("#### 🔧 Contrôles")
-            
-            # Contrôles d'affichage
-            zoom_level = st.selectbox(
-                "Zoom",
-                ["Ajusté", "100%", "150%", "200%"],
-                help="Ajuster pour une meilleure lecture"
-            )
-            
-            show_grid = st.checkbox(
-                "Grille ECG", 
-                value=True,
-                help="Superposer une grille millimétrique"
-            )
-            
-            # Informations image
-            st.info(f"""
-            **Dimensions :** {img.width} × {img.height}  
-            **Mode :** {img.mode}  
-            **Taille :** {os.path.getsize(file_path)//1024} KB
-            """)
-        
-        with col1:
-            # Affichage principal
-            if zoom_level == "Ajusté":
-                st.image(file_path, use_container_width=True, caption="ECG - Cliquez pour zoomer")
-            else:
-                zoom_px = int(zoom_level.replace('%', '')) * img.width // 100
-                st.image(file_path, width=zoom_px, caption=f"ECG - Zoom {zoom_level}", use_container_width=False)
-            
-            # Grille ECG si demandée
-            if show_grid:
-                st.markdown("""
-                <div style="opacity: 0.3; position: relative; top: -20px;">
-                📐 Grille millimétrique superposée (25mm/s, 10mm/mV)
-                </div>
-                """, unsafe_allow_html=True)
+        # Affichage direct sans contrôles de zoom
+        st.image(img, caption=f"ECG - {os.path.basename(file_path)}", use_container_width=True)
         
         return True
         

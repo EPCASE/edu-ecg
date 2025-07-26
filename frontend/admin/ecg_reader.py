@@ -324,15 +324,6 @@ def display_ecg_image_with_grid(image_path, show_grid, display_mode):
             
             if success:
                 st.success("✅ ECG affiché avec le visualiseur intelligent")
-                
-                # Afficher les infos complémentaires selon le mode d'affichage
-                with st.expander("📊 Informations d'affichage"):
-                    st.markdown(f"""
-                    - **Mode :** {display_mode}
-                    - **Grille :** {'Activée' if show_grid else 'Désactivée'}
-                    - **Format :** {file_path.suffix.upper()}
-                    - **Taille :** {file_path.stat().st_size // 1024} KB
-                    """)
                     
             else:
                 st.warning("⚠️ Affichage partiel - fichier partiellement supporté")

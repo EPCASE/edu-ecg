@@ -220,7 +220,7 @@ def display_home_page():
 def count_total_cases():
     """Compte le nombre total de cas ECG"""
     try:
-        cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
+        cases_dir = Path(__file__).parent.parent / "frontend" / "data" / "ecg_cases"
         if cases_dir.exists():
             return len([d for d in cases_dir.iterdir() if d.is_dir()])
         return 0
@@ -230,7 +230,7 @@ def count_total_cases():
 def count_annotated_cases():
     """Compte le nombre de cas annotés"""
     try:
-        cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
+        cases_dir = Path(__file__).parent.parent / "frontend" / "data" / "ecg_cases"
         annotated = 0
         if cases_dir.exists():
             for case_dir in cases_dir.iterdir():
@@ -403,8 +403,8 @@ def page_ecg_cases():
     st.header("📚 Cas ECG disponibles")
     st.markdown("*Sélectionnez un cas pour vous exercer à l'interprétation*")
     
-    # Chargement des cas depuis data/ecg_cases
-    cases_dir = Path(__file__).parent.parent / "data" / "ecg_cases"
+    # Chargement des cas depuis frontend/data/ecg_cases
+    cases_dir = Path(__file__).parent.parent / "frontend" / "data" / "ecg_cases"
     available_cases = []
     
     if cases_dir.exists():
@@ -559,6 +559,16 @@ def page_mes_statistiques():
 def page_database_management():
     st.markdown("## 🗄️ Base de Données")
     st.info("Gestion avancée de la base de données")
+
+    # Affichage des cas ECG présents dans la base
+    cases_dir = Path(__file__).parent.parent / "frontend" / "data" / "ecg_cases"
+    if cases_dir.exists():
+        case_dirs = [d for d in cases_dir.iterdir() if d.is_dir()]
+        st.markdown(f"### 📋 Cas ECG présents ({len(case_dirs)})")
+        for case_dir in case_dirs:
+            st.markdown(f"- {case_dir.name}")
+    else:
+        st.warning("Aucun dossier de cas ECG trouvé dans frontend/data/ecg_cases")
 
 def page_users_management():
     st.markdown("## 👥 Gestion des Utilisateurs")

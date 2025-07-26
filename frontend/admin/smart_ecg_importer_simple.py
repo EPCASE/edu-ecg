@@ -20,67 +20,10 @@ def smart_ecg_importer_simple():
     
     st.header("📥 Import ECG Intelligent")
     
-    # Mode d'import
-    mode_tabs = st.tabs(["📄 Import Simple", "📁 Import Multiple"])
-    
-    with mode_tabs[0]:
-        # Mode simple existant
-        st.markdown("**Workflow simplifié : Upload → Recadrage → Export**")
-        import_simple_workflow()
-    
-    with mode_tabs[1]:
-        # Nouveau mode multiple
-        st.markdown("**Import Multiple : Créez un cas puis ajoutez plusieurs ECG**")
-        import_multiple_workflow()
+    # Mode d'import : uniquement multiple
+    st.markdown("**Import Multiple : Créez un cas puis ajoutez plusieurs ECG**")
+    import_multiple_workflow()
 
-def import_simple_workflow():
-    """Workflow d'import simple existant"""
-    
-    # Étape 1 : Upload
-    st.markdown("### 📤 Étape 1 : Upload de votre ECG")
-    
-    uploaded_file = st.file_uploader(
-        "Choisissez votre fichier ECG",
-        type=['pdf', 'png', 'jpg', 'jpeg', 'xml'],
-        help="Formats supportés : PDF, PNG, JPG, JPEG, XML"
-    )
-    
-    if uploaded_file is not None:
-        # Traitement du fichier
-        success, file_data = process_uploaded_file(uploaded_file)
-        
-        if success and file_data:
-            st.success("✅ Fichier chargé avec succès !")
-            
-            # Stockage en session
-            st.session_state.uploaded_file_data = file_data
-            
-            # Étape 2 : Recadrage (apparaît automatiquement)
-            st.markdown("---")
-            st.markdown("### ✂️ Étape 2 : Recadrage de l'ECG")
-            
-            if file_data['type'] == 'image' or file_data['type'] == 'pdf_converted':
-                cropped_data = interface_recadrage_simple(file_data)
-                
-                # Vérifier si on a des données recadrées OU déjà stockées
-                if cropped_data:
-                    st.session_state.cropped_ecg = cropped_data
-                
-                # Afficher l'export si on a des données (nouvelles ou stockées)
-                if 'cropped_ecg' in st.session_state and st.session_state.cropped_ecg:
-                    # Étape 3 : Export (apparaît automatiquement)
-                    st.markdown("---")
-                    st.markdown("### 💾 Étape 3 : Export vers format standard")
-                    
-                    interface_export_simple(st.session_state.cropped_ecg)
-            
-            elif file_data['type'] in ['pdf_large', 'pdf_manual']:
-                st.info("📄 PDF détecté - Capture d'écran recommandée")
-                guide_capture_pdf(file_data)
-            
-            elif file_data['type'] == 'xml':
-                st.info("📋 Fichier XML - Export direct possible")
-                interface_export_xml_simple(file_data)
 
 def import_multiple_workflow():
     """Workflow d'import multiple - plusieurs ECG pour un cas"""
@@ -210,32 +153,27 @@ def add_ecg_to_multi_case():
     if uploaded_file is not None:
         # Traitement du fichier
         success, file_data = process_uploaded_file(uploaded_file)
-        
         if success and file_data:
-            # Métadonnées de l'ECG
             with st.form("ecg_metadata"):
                 col1, col2 = st.columns(2)
-                
                 with col1:
                     ecg_label = st.text_input("🏷️ Libellé", 
-                                            value=f"ECG_{len(st.session_state.multi_ecgs) + 1}",
-                                            placeholder="Ex: ECG_Initial, ECG_Post_Traitement")
-                
+                        value=f"ECG_{len(st.session_state.multi_ecgs) + 1}",
+                        placeholder="Ex: ECG_Initial, ECG_Post_Traitement")
                 with col2:
                     ecg_timing = st.selectbox("⏰ Timing", [
                         "Initial", "Contrôle", "Post-traitement", "Suivi", 
                         "Admission", "Sortie", "J+1", "Autre"
                     ])
-                
                 ecg_notes = st.text_area("📝 Notes", 
-                                       placeholder="Notes particulières pour cet ECG...")
-                
+                    placeholder="Notes particulières pour cet ECG...")
+
                 col1, col2 = st.columns(2)
                 with col1:
                     add_direct = st.form_submit_button("✅ Ajouter Direct", type="primary")
                 with col2:
                     add_with_crop = st.form_submit_button("✂️ Ajouter + Recadrer", type="secondary")
-                
+
                 if add_direct or add_with_crop:
                     if ecg_label:
                         ecg_data = {
@@ -243,21 +181,43 @@ def add_ecg_to_multi_case():
                             'label': ecg_label,
                             'timing': ecg_timing,
                             'notes': ecg_notes,
+                            'annotations': [],  # annotation à faire après
                             'filename': uploaded_file.name,
                             'added_date': datetime.now().isoformat(),
                             'needs_crop': add_with_crop,
                             'cropped': False
                         }
-                        
                         st.session_state.multi_ecgs.append(ecg_data)
+                        st.session_state.pending_annotation_idx = len(st.session_state.multi_ecgs) - 1
                         st.success(f"✅ ECG '{ecg_label}' ajouté au cas !")
-                        
                         if add_with_crop:
                             st.info("💡 Passez à l'onglet 'Recadrer ECG' pour traiter cet ECG")
-                        
                         st.rerun()
                     else:
                         st.error("❌ Le libellé est obligatoire")
+
+    # Affichage de la boîte d'annotation après ajout
+    if 'pending_annotation_idx' in st.session_state:
+        idx = st.session_state['pending_annotation_idx']
+        if 0 <= idx < len(st.session_state.multi_ecgs):
+            ecg = st.session_state.multi_ecgs[idx]
+            st.markdown(f"### 🏷️ Annotations pour l'ECG : **{ecg['label']}**")
+            import sys
+            import importlib.util
+            annopath = os.path.join(os.path.dirname(__file__), '..', 'annotation_components.py')
+            spec = importlib.util.spec_from_file_location("annotation_components", annopath)
+            annotation_components = importlib.util.module_from_spec(spec)
+            sys.modules["annotation_components"] = annotation_components
+            spec.loader.exec_module(annotation_components)
+            annotations = annotation_components.smart_annotation_input(
+                key_prefix=f"ecg_anno_{idx}",
+                max_tags=10
+            )
+            if st.button("✅ Valider l'annotation", key=f"validate_anno_{idx}"):
+                st.session_state.multi_ecgs[idx]['annotations'] = annotations
+                st.success("Annotations enregistrées !")
+                del st.session_state['pending_annotation_idx']
+                st.rerun()
 
 def crop_multi_ecg_interface():
     """Interface de recadrage pour les ECG du cas"""

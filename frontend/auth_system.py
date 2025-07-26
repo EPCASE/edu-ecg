@@ -145,7 +145,7 @@ def login_interface():
         if login_button:
             if authenticate_user(username, password):
                 st.success("✅ Connexion réussie !")
-                st.rerun()
+                st.rerun()  # NÉCESSAIRE pour rafraîchir et afficher l'app principale
             else:
                 st.error("❌ Nom d'utilisateur ou mot de passe incorrect")
 

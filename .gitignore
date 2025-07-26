@@ -1,4 +1,4 @@
-# Fichiers Python
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -16,39 +16,39 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
-# Environnements virtuels
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+# Virtual Environment
 .conda/
-
-# Streamlit
-.streamlit/secrets.toml
+venv/
+env/
+ENV/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
 # OS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
+Thumbs.db
+
+# Project specific
+data/ecg_cases/
+data/ecg_sessions/
+*.log
+*.tmp
+temp/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Sensitive data
+users.db
+*.db
 ehthumbs.db
 Thumbs.db
 
