@@ -2348,71 +2348,71 @@ def get_ecg_sessions():
     
     return sessions
 
-def run_ecg_session():
-    """Exécute une session d'exercices ECG"""
-    if 'current_session' not in st.session_state:
-        st.error("❌ Aucune session active")
-        return
+def get_available_ecg_cases():
+    """Récupère la liste des cas ECG disponibles avec leurs métadonnées"""
+    
+    cases = []
+    
+    if ECG_CASES_DIR.exists():
+        for case_dir in ECG_CASES_DIR.iterdir():
+            if case_dir.is_dir():
+                metadata_file = case_dir / "metadata.json"
+                if metadata_file.exists():
+                    try:
+                        with open(metadata_file, 'r', encoding='utf-8') as f:
+                            metadata = json.load(f)
+                        
+                        # Compter les annotations
+                        annotations_file = case_dir / "annotations.json"
+                        annotations_count = 0
+                        if annotations_file.exists():
+                            try:
+                                with open(annotations_file, 'r', encoding='utf-8') as f:
+                                    annotations = json.load(f)
+                                    annotations_count = len(annotations)
+                            except:
+                                pass
+                        
+                        cases.append({
+                            'name': case_dir.name,
+                            'case_id': metadata.get('case_id', case_dir.name),
+                            'annotations_count': annotations_count,
+                            'metadata': metadata
+                        })
+                    except Exception:
+                        continue
+    
+    return sorted(cases, key=lambda x: x['name'])
 
-    session = st.session_state['current_session']
-    session_data = session['session_data']
-    current_index = session['current_case_index']
-    total_cases = len(session['cases'])
-    is_individual = session.get('individual_mode', False)
+def create_ecg_session_from_dict(session_data):
+    """Crée une session ECG à partir d'un dictionnaire"""
+    try:
+        ECG_SESSIONS_DIR.mkdir(parents=True, exist_ok=True)
+        
+        # Générer un nom de fichier unique basé sur le nom de la session
+        safe_name = "".join(c for c in session_data['name'] if c.isalnum() or c in (' ', '-', '_')).rstrip()
+        safe_name = safe_name.replace(' ', '_')
+        
+        # Ajouter un timestamp si le fichier existe déjà
+        session_file = ECG_SESSIONS_DIR / f"{safe_name}.json"
+        if session_file.exists():
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            session_file = ECG_SESSIONS_DIR / f"{safe_name}_{timestamp}.json"
+        
+        # Ajouter un ID unique si absent
+        if 'session_id' not in session_data:
+            session_data['session_id'] = f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}
+        
+        with open(session_file, 'w', encoding='utf-8') as f:
+            json.dump(session_data, f, indent=2, ensure_ascii=False)
+        
+        return True
+    except Exception as e:
+        st.error(f"Erreur lors de la création de la session : {e}")
+        return False
 
-    # En-tête minimaliste
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        if is_individual:
-            st.markdown(f"## 🎯 {session_data['name']}")
-        else:
-            st.markdown(f"## 📚 {session_data['name']} - Cas {current_index + 1}/{total_cases}")
-    with col2:
-        quit_label = "✖ Quitter"
-        if st.button(quit_label, type="secondary"):
-            if st.session_state.get('confirm_quit'):
-                del st.session_state['current_session']
-                if 'confirm_quit' in st.session_state:
-                    del st.session_state['confirm_quit']
-                st.rerun()
-            else:
-                st.session_state['confirm_quit'] = True
-                st.warning("Cliquez à nouveau pour confirmer")
-                st.rerun()
-
-    # Vérifier si la session est terminée
-    if current_index >= total_cases:
-        display_session_results(session)
-        return
-
-    # Récupérer le cas actuel
-    current_case_name = session['cases'][current_index]
-    current_case_data = load_case_for_exercise(current_case_name)
-
-    if not current_case_data:
-        st.error(f"❌ Cas '{current_case_name}' non trouvé")
-        return
-
-    st.markdown("---")
-    display_case_for_exercise(current_case_data)
-
-    # Navigation entre les cas
-    st.markdown("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col1:
-        if current_index > 0:
-            if st.button("◀ Cas précédent", use_container_width=True):
-                session['current_case_index'] -= 1
-                st.rerun()
-    with col2:
-        st.markdown(f"<center>Cas {current_index + 1} sur {total_cases}</center>", unsafe_allow_html=True)
-    with col3:
-        key_prefix = f"student_{current_case_data.get('case_id', 'unknown')}_annotations"
-        current_annotations = st.session_state.get('student_annotations', {}).get(key_prefix, [])
-        if current_annotations:
-            if current_index < total_cases - 1:
-                if st.button("Cas suivant ▶", type="primary", use_container_width=True):
-                    session['responses'][current_case_name] = current_annotations
+if __name__ == "__main__":
+    main()
                     session['current_case_index'] += 1
                     st.rerun()
             else:
