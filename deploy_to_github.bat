@@ -5,114 +5,114 @@ echo ========================================
 echo.
 
 REM Initialiser Git
-echo [1/8] Initialisation de Git...
+echo [1/7] Initialisation de Git...
 git init
 
 REM Configurer Git
 echo.
-echo [2/8] Configuration de Git...
+echo [2/7] Configuration de Git...
 git config user.name "Gregoire Massoullie"
 git config user.email "gregoire.massoullie@orange.fr"
 
-REM Créer .gitignore
+REM Ajouter tous les fichiers
 echo.
-echo [3/8] Creation du fichier .gitignore...
-(
-echo # Python
-echo __pycache__/
-echo *.py[cod]
-echo *$py.class
-echo *.so
-echo .Python
-echo build/
-echo develop-eggs/
-echo dist/
-echo downloads/
-echo eggs/
-echo .eggs/
-echo lib/
-echo lib64/
-echo parts/
-echo sdist/
-echo var/
-echo wheels/
-echo *.egg-info/
-echo .installed.cfg
-echo *.egg
-echo.
-echo # Virtual Environment
-echo .conda/
-echo venv/
-echo env/
-echo ENV/
-echo.
-echo # IDE
-echo .vscode/
-echo .idea/
-echo *.swp
-echo *.swo
-echo.
-echo # OS
-echo .DS_Store
-echo Thumbs.db
-echo.
-echo # Project specific
-echo data/ecg_cases/
-echo data/ecg_sessions/
-echo *.log
-echo *.tmp
-echo temp/
-echo.
-echo # Streamlit
-echo .streamlit/secrets.toml
-echo.
-echo # Sensitive data
-echo users.db
-echo *.db
-) > .gitignore
+echo [3/7] Ajout de tous les fichiers...
+git add .
 
-REM Créer README.md
+REM Faire un commit (même si déjà commité)
 echo.
-echo [4/8] Creation du fichier README.md...
-(
-echo # 🫀 Edu-ECG - Plateforme d'apprentissage ECG
+echo [4/7] Commit des modifications...
+git commit -m "Force update: écrase la version GitHub avec la version locale" || echo "Aucun changement à commiter"
+
+REM Définir le remote (remplacez l'URL si besoin)
 echo.
-echo Plateforme interactive d'apprentissage de l'electrocardiogramme avec annotation semi-automatique et ontologie medicale.
+echo [5/7] Configuration du remote GitHub...
+git remote remove origin 2>nul
+git remote add origin https://github.com/EPCASE/edu-ecg.git
+git branch -M main
+
+REM Forcer le push (⚠️ cela écrase la branche distante)
 echo.
-echo ## 🚀 Fonctionnalites
+echo [6/7] Force push vers GitHub...
+echo ========================================
+echo IMPORTANT: Authentification GitHub
+echo ========================================
 echo.
-echo - 🧠 **Correction intelligente** basee sur une ontologie de 281 concepts ECG
-echo - 📱 **Interface moderne** compatible desktop, tablette et mobile  
-echo - 🎓 **Workflow pedagogique** : annotation expert → formation etudiant → evaluation
-echo - 📊 **Analytics detailles** avec scoring nuance et suivi de progression
-echo - 🔐 **Systeme d'authentification** avec gestion des roles ^(admin, expert, etudiant^)
+echo GitHub necessite un token d'acces personnel.
+echo Si vous n'en avez pas :
+echo 1. Allez sur GitHub.com
+echo 2. Settings -^> Developer settings -^> Personal access tokens
+echo 3. Generate new token avec les permissions 'repo'
+echo 4. Copiez le token et utilisez-le comme mot de passe
 echo.
-echo ## 📦 Installation
+echo Appuyez sur une touche pour continuer avec le push force...
+pause > nul
+
+git push --force origin main
+
 echo.
-echo 1. Cloner le depot :
-echo ```bash
-echo git clone https://github.com/EPCASE/edu-ecg.git
-echo cd edu-ecg
-echo ```
+echo ========================================
+echo Deploiement termine !
+echo ========================================
 echo.
-echo 2. Creer un environnement virtuel :
-echo ```bash
-echo python -m venv venv
-echo # Windows
-echo venv\Scripts\activate
-echo # Linux/Mac
-echo source venv/bin/activate
-echo ```
+echo Pour les prochaines modifications :
+echo   git add .
+echo   git commit -m "Description des changements"
+echo   git push
 echo.
-echo 3. Installer les dependances :
-echo ```bash
-echo pip install -r requirements.txt
-echo ```
+pause
+
+:: filepath: c:\Users\Administrateur\Desktop\ECG lecture\deploy_scalingo.bat
+@echo off
+echo ========================================
+echo Deploiement Edu-ECG sur Scalingo
+echo ========================================
+
+:: Vérifier que Scalingo CLI est installé
+where scalingo >nul 2>nul
+if errorlevel 1 (
+    echo [ERREUR] Scalingo CLI n'est pas installee.
+    echo Telechargez-la ici : https://cli.scalingo.com/
+    pause
+    exit /b 1
+)
+
+:: Demander l'URL du remote Scalingo si non existant
+git remote get-url scalingo >nul 2>nul
+if errorlevel 1 (
+    echo.
+    set /p APPURL="Entrez l'URL du remote Scalingo (ex: git@scalingo.com:mon-app.git) : "
+    git remote add scalingo %APPURL%
+)
+
+:: Ajouter les fichiers Scalingo essentiels
 echo.
-echo ## 🏃‍♂️ Utilisation
+echo [1/3] Ajout des fichiers de configuration Scalingo...
+if not exist ".python-version" echo 3.11 > .python-version
+if not exist "Procfile" echo web: streamlit run frontend/app.py --server.port \$PORT --server.address 0.0.0.0 > Procfile
+if not exist ".streamlit" mkdir .streamlit
+if not exist ".streamlit\config.toml" (
+    echo [server]> .streamlit\config.toml
+    echo headless = true>> .streamlit\config.toml
+    echo port = \$PORT>> .streamlit\config.toml
+    echo enableCORS = false>> .streamlit\config.toml
+    echo.>> .streamlit\config.toml
+    echo [browser]>> .streamlit\config.toml
+    echo serverAddress = "0.0.0.0">> .streamlit\config.toml
+)
+
+git add .python-version Procfile .streamlit/config.toml
+git commit -m "Ajout fichiers config Scalingo" || echo "Aucun changement a commiter"
+
+:: Push vers Scalingo
 echo.
-echo Lancer l'application :
-echo ```bash
+echo [2/3] Push vers Scalingo...
+git push scalingo main
+
+echo.
+echo [3/3] Deploiement termine !
+echo.
+pause
 echo streamlit run frontend/app.py
 echo ```
 echo.
