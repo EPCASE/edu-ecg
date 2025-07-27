@@ -1,0 +1,36 @@
+{
+  "name": "Télémétrie",
+  "description": "",
+  "category": "Arythmie",
+  "difficulty": "Débutant",
+  "created_date": "2025-07-26T15:48:02.226362",
+  "case_id": "multi_20250726_154802_b66e1c8a",
+  "type": "multi_ecg",
+  "total_files": 2,
+  "options": {
+    "generate_previews": true,
+    "create_annotations": true,
+    "auto_publish": false,
+    "create_session": false
+  },
+  "ecgs": [
+    {
+      "filename": "ecg_01_ECG.png",
+      "label": "ECG",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "image_6.png",
+      "cropped": false,
+      "added_date": "2025-07-26T15:48:20.012979"
+    },
+    {
+      "filename": "ecg_02_ECG.png",
+      "label": "ECG",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "image_10.png",
+      "cropped": false,
+      "added_date": "2025-07-26T15:53:20.879461"
+    }
+  ]
+}

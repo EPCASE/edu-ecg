@@ -1,0 +1,25 @@
+{
+  "case_id": "ecg_20250726_075822_7fbbe99f",
+  "filename": "ecg_20250726_075822_7fbbe99f.png",
+  "created_date": "2025-07-26T07:58:22.645920",
+  "type": "image",
+  "age": 65,
+  "sexe": "M",
+  "contexte": "",
+  "diagnostic": "À analyser",
+  "statut": "imported",
+  "metadata": {
+    "source_file": "FV.png",
+    "import_method": "smart_importer_simple",
+    "crop_coordinates": [
+      0,
+      0,
+      1192,
+      796
+    ],
+    "image_size": [
+      1192,
+      796
+    ]
+  }
+}

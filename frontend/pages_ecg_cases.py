@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import datetime
 import json
 from config import ECG_CASES_DIR  # Import depuis config.py
+from advanced_ecg_viewer import create_advanced_ecg_viewer
 
 # Import des composants nécessaires
 try:

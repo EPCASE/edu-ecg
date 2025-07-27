@@ -1,0 +1,19 @@
+{
+  "session_id": "session_20250726_081758",
+  "name": "Session test",
+  "description": "test ",
+  "difficulty": "🟢 Débutant",
+  "time_limit": 30,
+  "cases": [
+    "ecg_20250726_080416_a3cfc1cb",
+    "multi_20250726_080528_d7a3c298",
+    "Test 1",
+    "ecg_20250726_065017_8bf9b9b6"
+  ],
+  "show_feedback": true,
+  "allow_retry": true,
+  "created_by": "Administrateur",
+  "created_date": "2025-07-26T08:17:58.585099",
+  "status": "active",
+  "participants": []
+}

@@ -37,8 +37,6 @@ ENV/
 Thumbs.db
 
 # Project specific
-data/ecg_cases/
-data/ecg_sessions/
 *.log
 *.tmp
 temp/

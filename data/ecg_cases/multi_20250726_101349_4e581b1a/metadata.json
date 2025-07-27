@@ -1,0 +1,45 @@
+{
+  "name": "aa",
+  "description": "azeaez",
+  "category": "Infarctus",
+  "difficulty": "Débutant",
+  "created_date": "2025-07-26T10:13:49.036751",
+  "case_id": "multi_20250726_101349_4e581b1a",
+  "type": "multi_ecg",
+  "total_files": 3,
+  "options": {
+    "generate_previews": true,
+    "create_annotations": true,
+    "auto_publish": false,
+    "create_session": false
+  },
+  "ecgs": [
+    {
+      "filename": "ecg_01_ECG_1.png",
+      "label": "ECG_1",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "asystolie.png",
+      "cropped": false,
+      "added_date": "2025-07-26T10:19:03.739448"
+    },
+    {
+      "filename": "ecg_02_ECG_2.png",
+      "label": "ECG_2",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "bav2m2.PNG",
+      "cropped": false,
+      "added_date": "2025-07-26T10:21:17.699865"
+    },
+    {
+      "filename": "ecg_03_ECG_3.png",
+      "label": "ECG_3",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "bbdhagbav1.PNG",
+      "cropped": false,
+      "added_date": "2025-07-26T10:24:09.929262"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Telemetrie sinusale",
+  "description": "",
+  "category": "Normal",
+  "difficulty": "Débutant",
+  "created_date": "2025-07-26T15:45:13.624691",
+  "case_id": "multi_20250726_154513_27de2420",
+  "type": "multi_ecg",
+  "total_files": 1,
+  "options": {
+    "generate_previews": true,
+    "create_annotations": true,
+    "auto_publish": false,
+    "create_session": false
+  },
+  "ecgs": [
+    {
+      "filename": "ecg_01_ECG_1.png",
+      "label": "ECG_1",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "image_2.png",
+      "cropped": false,
+      "added_date": "2025-07-26T15:46:12.123386"
+    }
+  ]
+}

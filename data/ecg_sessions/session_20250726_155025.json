@@ -1,0 +1,16 @@
+{
+  "session_id": "session_20250726_155025",
+  "name": "Télémétrie 1",
+  "description": "Tracés d'initiation à la télémétrie",
+  "difficulty": "🟢 Débutant",
+  "time_limit": 30,
+  "cases": [
+    "Test 1"
+  ],
+  "show_feedback": true,
+  "allow_retry": true,
+  "created_by": "Administrateur",
+  "created_date": "2025-07-26T15:50:25.878963",
+  "status": "active",
+  "participants": []
+}

@@ -1,0 +1,36 @@
+{
+  "name": "ze(-zer(-",
+  "description": "ze(-z(-",
+  "category": "Infarctus",
+  "difficulty": "Débutant",
+  "created_date": "2025-07-26T08:05:28.352121",
+  "case_id": "multi_20250726_080528_d7a3c298",
+  "type": "multi_ecg",
+  "total_files": 2,
+  "options": {
+    "generate_previews": true,
+    "create_annotations": true,
+    "auto_publish": false,
+    "create_session": false
+  },
+  "ecgs": [
+    {
+      "filename": "ecg_01_ECG_1.png",
+      "label": "ECG_1",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "hyperk.PNG",
+      "cropped": false,
+      "added_date": "2025-07-26T08:05:41.062538"
+    },
+    {
+      "filename": "ecg_02_ECG_2.png",
+      "label": "ECG_2",
+      "timing": "Initial",
+      "notes": "",
+      "original_filename": "nbstemi.PNG",
+      "cropped": false,
+      "added_date": "2025-07-26T08:05:49.504277"
+    }
+  ]
+}

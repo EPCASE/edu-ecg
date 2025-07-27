@@ -1,0 +1,25 @@
+{
+  "case_id": "ecg_20250726_111006_88ce075e",
+  "filename": "ecg_20250726_111006_88ce075e.png",
+  "created_date": "2025-07-26T11:10:06.197723",
+  "type": "image",
+  "age": 65,
+  "sexe": "M",
+  "contexte": "",
+  "diagnostic": "À analyser",
+  "statut": "imported",
+  "metadata": {
+    "source_file": "tv.png",
+    "import_method": "smart_importer_simple",
+    "crop_coordinates": [
+      0,
+      0,
+      1195,
+      505
+    ],
+    "image_size": [
+      1195,
+      505
+    ]
+  }
+}

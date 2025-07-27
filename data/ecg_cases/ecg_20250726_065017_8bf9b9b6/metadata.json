@@ -1,0 +1,25 @@
+{
+  "case_id": "ecg_20250726_065017_8bf9b9b6",
+  "filename": "ecg_20250726_065017_8bf9b9b6.png",
+  "created_date": "2025-07-26T06:50:17.190785",
+  "type": "image",
+  "age": 65,
+  "sexe": "M",
+  "contexte": "",
+  "diagnostic": "À analyser",
+  "statut": "imported",
+  "metadata": {
+    "source_file": "asystolie.png",
+    "import_method": "smart_importer_simple",
+    "crop_coordinates": [
+      0,
+      0,
+      1383,
+      530
+    ],
+    "image_size": [
+      1383,
+      530
+    ]
+  }
+}

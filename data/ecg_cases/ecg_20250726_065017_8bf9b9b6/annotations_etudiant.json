@@ -1,0 +1,12 @@
+{
+  "case_id": "ecg_20250726_065017_8bf9b9b6",
+  "annotations": [
+    {
+      "ecg_id": "ECG_principal",
+      "annotation": "asystolie",
+      "date": "2025-07-26T06:50:28.766030",
+      "type": "etudiant"
+    }
+  ],
+  "created_date": "2025-07-26T06:50:28.766023"
+}

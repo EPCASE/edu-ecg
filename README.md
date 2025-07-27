@@ -1,48 +1,101 @@
-# 🫀 Edu-ECG - Plateforme d'apprentissage ECG
+# 🫀 Edu-ECG – Plateforme d'enseignement interactif de l'électrocardiogramme
 
-Plateforme interactive d'apprentissage de l'electrocardiogramme avec annotation semi-automatique et ontologie medicale.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)](#)
 
-## 🚀 Fonctionnalites
+**📋 Projet Original** : Créé en décembre 2024 | **👨‍💻 Auteur** : Grégoire Massoullié | **🏛️ Institution** : EPCASE
 
-- 🧠 **Correction intelligente** basee sur une ontologie de 281 concepts ECG
-- 📱 **Interface moderne** compatible desktop, tablette et mobile  
-- 🎓 **Workflow pedagogique** : annotation expert → formation etudiant → evaluation
-- 📊 **Analytics detailles** avec scoring nuance et suivi de progression
-- 🔐 **Systeme d'authentification** avec gestion des roles (admin, expert, etudiant)
+---
 
-## 📦 Installation
+## 🌐 **Accès Direct - Application Web**
 
-1. Cloner le depot :
+**🎯 Pour les utilisateurs (étudiants/enseignants) :**
+- ✅ **AUCUNE installation** requise
+- ✅ **Accès web direct** : http://localhost:8501
+- ✅ **Compatible tous navigateurs** (Chrome, Firefox, Safari, Edge)
+- ✅ **Interface responsive** : PC, tablette, mobile
+
+---
+
+## 🎯 **Vue d'ensemble**
+
+**Edu-ECG** révolutionne l'apprentissage de l'électrocardiogramme avec :
+
+### 🧠 **Correction Intelligente**
+- **281 concepts ECG** organisés par ontologie médicale
+- **Autocomplétion intelligente** avec suggestions en temps réel
+- **Scoring nuancé** : reconnaît les réponses partiellement correctes
+- **Feedback pédagogique** : suggestions constructives et comparaisons expert/étudiant
+
+### 🎨 **Visualiseur ECG Avancé**
+- **Zoom fluide** : molette souris + slider (0.25x - 5x)
+- **Navigation pan** : clic-glisser pour explorer l'ECG
+- **Outil de mesure** : caliper intégré pour intervalles et amplitudes
+- **Mode plein écran** : présentation immersive
+- **Grille ECG** : superposition 5mm/25mm
+
+### 📱 **Interface Moderne**
+- **Design épuré** : navigation sidebar intuitive
+- **Mode dev actif** : accès admin anonyme par défaut
+- **Authentification optionnelle** : connexion dans la sidebar
+- **Multi-rôles** : admin, expert, étudiant
+
+### 🎓 **Workflow Pédagogique**
+1. **Expert** : Import ECG → Annotation avec ontologie → Création sessions
+2. **Étudiant** : Consultation cas → Annotation guidée → Feedback intelligent
+3. **Suivi** : Analytics détaillés, progression, scores
+
+---
+
+## 🚀 **Démarrage Rapide**
+
+### Installation (administrateur uniquement)
+
 ```bash
+# 1. Cloner le projet
 git clone https://github.com/EPCASE/edu-ecg.git
 cd edu-ecg
-```
 
-2. Creer un environnement virtuel :
-```bash
-python -m venv venv
-# Windows
-venv\Scripts\activate
-# Linux/Mac
-source venv/bin/activate
-```
-
-3. Installer les dependances :
-```bash
+# 2. Installer les dépendances
 pip install -r requirements.txt
-```
 
-## 🏃‍♂️ Utilisation
-
-Lancer l'application :
-```bash
+# 3. Lancer l'application
 streamlit run frontend/app.py
 ```
 
-## 👥 Auteur
+### Accès utilisateurs
+- Ouvrir **http://localhost:8501** dans le navigateur
+- Mode développement actif (admin par défaut)
+- Connexion optionnelle via sidebar
 
-Gregoire Massoullie - gregoire.massoullie@orange.fr
+### Identifiants démo
+- **Admin** : admin/admin123
+- **Expert** : expert/expert123  
+- **Étudiant** : etudiant/etudiant123
 
-## 📄 Licence
+---
 
-MIT License
+## 📁 **Structure du Projet**
+````markdown
+ECG lecture/
+├── frontend/                      # Interface utilisateur
+│   ├── app.py                    # Application principale
+│   ├── pages_ecg_cases.py        # Page cas ECG
+│   ├── auth_system.py            # Authentification
+│   ├── correction_engine.py      # Moteur ontologique
+│   ├── advanced_ecg_viewer.py    # Visualiseur avancé
+│   ├── annotation_components.py  # Composants annotation
+│   └── admin/                    # Modules administration
+│       └── smart_ecg_importer_simple.py
+├── data/                         # Données
+│   ├── ecg_cases/               # Base de cas ECG
+│   ├── ecg_sessions/            # Sessions d'exercices
+│   ├── ontology.json            # Ontologie ECG
+│   └── users.json               # Base utilisateurs
+├── backend/                      # Logique métier
+├── deploy_to_github.bat         # Script déploiement
+└── requirements.txt             # Dépendances Python
+````
+

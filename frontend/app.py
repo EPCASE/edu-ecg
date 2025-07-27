@@ -25,6 +25,20 @@ from datetime import datetime
 # Import de la configuration
 from config import ECG_CASES_DIR, ECG_SESSIONS_DIR, DATA_ROOT, ONTOLOGY_FILE
 
+# Import du visualiseur ECG avancé
+try:
+    from advanced_ecg_viewer import create_advanced_ecg_viewer
+except ImportError:
+    # Fonction de fallback si le module n'est pas disponible
+    def create_advanced_ecg_viewer(image_path, title, container_width=None):
+        """Fallback simple pour l'affichage ECG"""
+        return f"""
+        <div style="text-align: center;">
+            <h3>{title}</h3>
+            <p>Visualiseur ECG avancé non disponible</p>
+        </div>
+        """
+
 # Configuration de la page
 st.set_page_config(
     page_title="🫀 Edu-CG - Formation ECG",
@@ -48,16 +62,6 @@ from auth_system import (
 
 # Import de la page des cas ECG
 from pages_ecg_cases import page_ecg_cases
-
-# Fonction de fallback pour create_advanced_ecg_viewer
-def create_advanced_ecg_viewer_fallback(image_path, title):
-    """Fallback simple pour l'affichage ECG"""
-    return f"""
-    <div style="text-align: center;">
-        <h3>{title}</h3>
-        <p>Visualiseur ECG avancé non disponible</p>
-    </div>
-    """
 
 # Fonctions de fallback pour les annotations
 def smart_annotation_input_fallback(key_prefix, max_tags=10):
@@ -103,7 +107,7 @@ def display_annotation_summary_fallback(annotations, title="Résumé"):
             st.write(f"• {ann}")
 
 # Variable globale qui sera mise à jour si le module est disponible
-create_advanced_ecg_viewer = create_advanced_ecg_viewer_fallback
+create_advanced_ecg_viewer = create_advanced_ecg_viewer
 smart_annotation_input = smart_annotation_input_fallback
 display_annotation_summary = display_annotation_summary_fallback
 
@@ -892,7 +896,6 @@ def display_case_for_exercise(case_data):
             image_path = Path(case_data['image_path'])
             if image_path.exists():
                 try:
-                    from advanced_ecg_viewer import create_advanced_ecg_viewer
                     viewer_html = create_advanced_ecg_viewer(
                         image_path=str(image_path),
                         title=f"ECG - {case_id}",
