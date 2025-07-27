@@ -1181,21 +1181,50 @@ def display_case_for_exercise(case_data):
                 ecg_index = 0
                 st.info(f"📊 Ce cas contient **1 ECG**")
             
-            # Affichage de l'ECG sélectionné
+            # Affichage de l'ECG sélectionné avec le visualiseur avancé
             image_path = Path(case_data['image_paths'][ecg_index])
             if image_path.exists():
-                st.image(str(image_path), 
-                       caption=f"ECG {ecg_index+1} - {case_id}",
-                       use_container_width=True)
+                # Utiliser la liseuse avancée si disponible
+                try:
+                    from advanced_ecg_viewer import create_advanced_ecg_viewer
+                    viewer_html = create_advanced_ecg_viewer(
+                        image_path=str(image_path),
+                        title=f"ECG {ecg_index+1} - {case_id}",
+                        container_width=None
+                    )
+                    st.components.v1.html(
+                        viewer_html,
+                        height=800,
+                        scrolling=False
+                    )
+                except Exception as e:
+                    st.warning(f"Visualiseur avancé indisponible : {e}")
+                    st.image(str(image_path), 
+                             caption=f"ECG {ecg_index+1} - {case_id}",
+                             use_container_width=True)
             else:
                 st.warning(f"⚠️ ECG {ecg_index+1} non trouvé")
         
         elif 'image_path' in case_data:
             image_path = Path(case_data['image_path'])
             if image_path.exists():
-                st.image(str(image_path), 
-                       caption=f"ECG - {case_id}",
-                       use_container_width=True)
+                try:
+                    from advanced_ecg_viewer import create_advanced_ecg_viewer
+                    viewer_html = create_advanced_ecg_viewer(
+                        image_path=str(image_path),
+                        title=f"ECG - {case_id}",
+                        container_width=None
+                    )
+                    st.components.v1.html(
+                        viewer_html,
+                        height=800,
+                        scrolling=False
+                    )
+                except Exception as e:
+                    st.warning(f"Visualiseur avancé indisponible : {e}")
+                    st.image(str(image_path), 
+                             caption=f"ECG - {case_id}",
+                             use_container_width=True)
             else:
                 st.warning("⚠️ Image ECG non trouvée")
         else:
