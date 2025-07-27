@@ -22,6 +22,9 @@ from PIL import Image
 import shutil
 from datetime import datetime
 
+# Import de la configuration
+from config import ECG_CASES_DIR, ECG_SESSIONS_DIR, DATA_ROOT, ONTOLOGY_FILE
+
 # Configuration de la page
 st.set_page_config(
     page_title="🫀 Edu-CG - Formation ECG",
@@ -42,6 +45,9 @@ from auth_system import (
     check_permission, get_user_sidebar_items, require_auth, 
     create_user_interface, list_users_interface
 )
+
+# Import de la page des cas ECG
+from pages_ecg_cases import page_ecg_cases
 
 # Fonction de fallback pour create_advanced_ecg_viewer
 def create_advanced_ecg_viewer_fallback(image_path, title):
@@ -101,20 +107,13 @@ create_advanced_ecg_viewer = create_advanced_ecg_viewer_fallback
 smart_annotation_input = smart_annotation_input_fallback
 display_annotation_summary = display_annotation_summary_fallback
 
-# Correction du chemin pour que data/ecg_cases soit à la racine du projet (et non dans frontend/)
-# Définir le dossier data à la racine du projet
-DATA_ROOT = Path(__file__).parent.parent / "data"
-ECG_CASES_DIR = DATA_ROOT / "ecg_cases"
-ECG_SESSIONS_DIR = DATA_ROOT / "ecg_sessions"
-
 def load_ontology():
     """Chargement de l'ontologie ECG"""
     ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
     if 'corrector' not in st.session_state:
         try:
             from correction_engine import OntologyCorrector
-            ontology_path = DATA_ROOT / "ontologie.owx"
-            st.session_state.corrector = OntologyCorrector(str(ontology_path))
+            st.session_state.corrector = OntologyCorrector(str(ONTOLOGY_FILE))
             st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
             return True
         except ImportError as e:
@@ -185,8 +184,7 @@ def load_ontology():
     if 'corrector' not in st.session_state:
         try:
             from correction_engine import OntologyCorrector
-            ontology_path = DATA_ROOT / "ontologie.owx"
-            st.session_state.corrector = OntologyCorrector(str(ontology_path))
+            st.session_state.corrector = OntologyCorrector(str(ONTOLOGY_FILE))
             st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
             return True
         except Exception as e:
@@ -195,17 +193,24 @@ def load_ontology():
     return True
 
 def main():
-    """Application principale Edu-CG avec authentification"""
+    """Application principale Edu-CG avec authentification optionnelle"""
     
     # Initialiser le système d'authentification
     init_auth_system()
     
-    # Vérifier si l'utilisateur est connecté
-    if not st.session_state.authenticated:
-        login_interface()
-    else:
-        # Application principale après authentification
-        main_app_with_auth()
+    # Mode développement : accès direct en admin anonyme
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = True
+        st.session_state.user_role = 'admin'
+        st.session_state.user_info = {
+            'username': 'admin_dev',
+            'name': 'Admin Dev',
+            'role': 'admin',
+            'permissions': ['all']
+        }
+    
+    # Application principale
+    main_app_with_auth()
 
 def main_app_with_auth():
     """Application principale après authentification"""
@@ -214,13 +219,10 @@ def main_app_with_auth():
     global ONTOLOGY_LOADED, ECG_READER_AVAILABLE, USER_MANAGEMENT_AVAILABLE
     global smart_annotation_input, display_annotation_summary, create_advanced_ecg_viewer
     global ecg_reader_interface, user_management_interface
-    global admin_import_cases, admin_annotation_tool
     
     # Importer les modules critiques ici pour éviter de bloquer l'auth
     try:
         from correction_engine import OntologyCorrector
-        from import_cases import admin_import_cases
-        from annotation_tool import admin_annotation_tool
         ONTOLOGY_LOADED = True
     except ImportError as e:
         ONTOLOGY_LOADED = False
@@ -265,24 +267,81 @@ def main_app_with_auth():
     with col1:
         st.title("🫀 ECG Lecture & Annotation Platform")
     with col2:
-        user_info = st.session_state.user_info
-        st.markdown(f"**{user_info['name']}** ({user_info['role']})")
+        user_info = st.session_state.get('user_info')
+
+        if user_info:
+            st.markdown(f"**{user_info['name']}** ({user_info['role']})")
+        else:
+            st.warning("⚠️ Utilisateur inconnu. Veuillez vous reconnecter.")
     
     # Navigation selon les permissions utilisateur
     with st.sidebar:
-        st.markdown("## 🔧 Navigation")
-        
-        # Informations utilisateur
-        display_user_info()
+        # Zone d'authentification en haut de la sidebar
+        with st.container():
+            st.markdown("### 🔐 Authentification")
+            
+            if not st.session_state.get('authenticated_real', False):
+                # Formulaire de connexion compact sans labels au-dessus
+                with st.form("login_sidebar", clear_on_submit=True):
+                    username = st.text_input("", placeholder="Identifiant", key="login_username")
+                    password = st.text_input("", type="password", placeholder="Mot de passe", key="login_password")
+                    
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        if st.form_submit_button("Connexion", type="primary", use_container_width=True):
+                            # Vérifier les identifiants
+                            from auth_system import verify_credentials
+                            user_info = verify_credentials(username, password)
+                            
+                            if user_info:
+                                st.session_state.authenticated = True
+                                st.session_state.authenticated_real = True
+                                st.session_state.user_role = user_info['role']
+                                st.session_state.user_info = user_info
+                                st.success(f"✅ Bienvenue {user_info['name']}!")
+                                st.rerun()
+                            else:
+                                st.error("❌ Identifiants incorrects")
+                    
+                    with col2:
+                        if st.form_submit_button("Anonyme", use_container_width=True):
+                            st.info("Mode anonyme activé")
+                
+                st.caption("🔓 Mode développement actif")
+            else:
+                # Utilisateur connecté
+                user_info = st.session_state.get('user_info')
+
+                if user_info:
+                    st.success(f"✅ {user_info['name']}")
+                    st.caption(f"Role: {user_info['role']}")
+
+                    if st.button("🚪 Déconnexion", use_container_width=True):
+                        st.session_state.authenticated = True  # Reste en mode dev
+                        st.session_state.authenticated_real = False
+                        st.session_state.user_role = 'admin'
+                        st.session_state.user_info = {
+                            'username': 'admin_dev',
+                            'name': 'Admin Dev',
+                            'role': 'admin',
+                            'permissions': ['all']
+                        }
+                        st.rerun()
+                else:
+                    st.warning("⚠️ Utilisateur non reconnu. Veuillez vous reconnecter.")
+
+                    
         
         st.markdown("---")
+        
+        st.markdown("## 🔧 Navigation")
         
         # Initialiser la page sélectionnée
         if 'selected_page' not in st.session_state:
             st.session_state.selected_page = 'home'
         
         # Menu selon le rôle utilisateur
-        user_role = st.session_state.user_role  # Utiliser user_role au lieu de user_info['role']
+        user_role = st.session_state.user_role
         
         # Pages communes à tous
         if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True):
@@ -347,7 +406,7 @@ def route_pages_with_auth(page):
     
     
     elif page == 'cases':
-        page_ecg_cases()
+        page_ecg_cases()  # Utilise maintenant la fonction importée
     
     elif page == 'exercises':
         page_exercises()
@@ -372,14 +431,7 @@ def route_pages_with_auth(page):
             page_users_management_with_auth()
         else:
             st.error("❌ Accès non autorisé")
-    
-    else:
-        # Fallback vers l'ancienne navigation pour compatibilité
-        if page in ["📥 Import ECG (WP1)", "📺 Liseuse ECG (WP2)", "🎯 Exercices & Tests (WP3)", 
-                   "📊 Analytics & Base (WP4)", "👥 Users Management", "🗄️ Base de Données"]:
-            route_admin_pages(page)
-        else:
-            page_admin_home()
+
 
 def page_users_management_with_auth():
     """Page de gestion des utilisateurs avec l'interface d'authentification"""
@@ -392,117 +444,7 @@ def page_users_management_with_auth():
     
     with tab2:
         create_user_interface()
-    
-    # SIDEBAR NAVIGATION avec boutons simples
-    with st.sidebar:
-        st.markdown("## 🔧 Navigation")
-        
-        # Commutateur Admin/Étudiant dans la sidebar
-        if 'user_mode' not in st.session_state:
-            st.session_state.user_mode = 'admin'
-        
-        mode_display = "👨‍⚕️ Administrateur" if st.session_state.user_mode == 'admin' else "🎓 Étudiant"
-        
-        if st.button(f"🔄 Changer : {mode_display}", type="secondary", use_container_width=True, key="change_mode_btn"):
-            st.session_state.user_mode = 'student' if st.session_state.user_mode == 'admin' else 'admin'
-            # Reset de la page sélectionnée lors du changement de mode
-            if 'selected_page' in st.session_state:
-                del st.session_state.selected_page
-            st.rerun()
-        
-        st.markdown("---")
-        
-        # Initialiser la page sélectionnée
-        if 'selected_page' not in st.session_state:
-            st.session_state.selected_page = 'home'
-        
-        # Menu selon le mode avec BOUTONS SIMPLES
-        if st.session_state.user_mode == 'admin':
-            st.markdown("### 👨‍⚕️ Menu Admin")
-            
-            # Boutons sidebar admin - SANS st.rerun() pour éviter double chargement
-            if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True, key="admin_home_btn"):
-                st.session_state.selected_page = 'home'
-            
-            if st.button("📥 Import ECG", type="primary" if st.session_state.selected_page == 'import' else "secondary", use_container_width=True, key="admin_import_btn"):
-                st.session_state.selected_page = 'import'
-            
-            
-            if st.button("👥 Utilisateurs", type="primary" if st.session_state.selected_page == 'users' else "secondary", use_container_width=True, key="admin_users_btn"):
-                st.session_state.selected_page = 'users'
-            
-            if st.button("📊 Base de Données", type="primary" if st.session_state.selected_page == 'database' else "secondary", use_container_width=True, key="admin_database_btn"):
-                st.session_state.selected_page = 'database'
-            
-        else:
-            st.markdown("### 🎓 Menu Étudiant")
-            
-            # Boutons sidebar étudiant - SANS st.rerun() pour éviter double chargement
-            if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True, key="student_home_btn"):
-                st.session_state.selected_page = 'home'
-            
-            if st.button("📚 Cas ECG", type="primary" if st.session_state.selected_page == 'cases' else "secondary", use_container_width=True, key="student_cases_btn"):
-                st.session_state.selected_page = 'cases'
-            
-            if st.button("🎯 Exercices", type="primary" if st.session_state.selected_page == 'exercises' else "secondary", use_container_width=True, key="student_exercises_btn"):
-                st.session_state.selected_page = 'exercises'
-            
-            if st.button("📈 Mes Progrès", type="primary" if st.session_state.selected_page == 'progress' else "secondary", use_container_width=True, key="student_progress_btn"):
-                st.session_state.selected_page = 'progress'
-        
-        st.markdown("---")
-        
-        # Statut système dans la sidebar
-        st.markdown("### 🧠 Statut Système")
-        if ONTOLOGY_LOADED and load_ontology():
-            st.success("✅ Ontologie OK")
-            st.caption(f"📊 {len(st.session_state.concepts)} concepts")
-        else:
-            st.error("❌ Ontologie KO")
-        
-        st.caption(f"🔄 Mode : {mode_display}")
-        
-        if st.button("🔧 Recharger", use_container_width=True, key="reload_system_btn"):
-            load_ontology()
-            st.rerun()
-    
-    # Routage des pages selon le mode
-    if st.session_state.user_mode == 'admin':
-        route_admin_sidebar_pages(st.session_state.selected_page)
-    else:
-        route_student_sidebar_pages(st.session_state.selected_page)
 
-def route_admin_sidebar_pages(page):
-    """Routage des pages administrateur avec sidebar"""
-    
-    if page == 'home':
-        page_admin_home()
-    elif page == 'import':
-        try:
-            from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
-            smart_ecg_importer_simple()
-        except ImportError:
-            st.error("❌ Module d'import non disponible")
-    elif page == 'reader':
-        try:
-            from liseuse.liseuse_ecg_fonctionnelle import liseuse_ecg_fonctionnelle
-            liseuse_ecg_fonctionnelle()
-        except ImportError:
-            try:
-                from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
-                st.info("🔄 Liseuse standard (visualiseur avancé non disponible)")
-                liseuse_ecg_simple()
-            except ImportError:
-                st.error("❌ Module de lecture ECG non disponible")
-                st.info("💡 Utilisez l'import intelligent pour créer des cas d'abord")
-    elif page == 'users':
-        try:
-            from user_management import user_management_interface
-            user_management_interface()
-        except ImportError:
-            st.error("❌ Module de gestion utilisateurs non disponible")
-    elif page == 'database':
-        page_database_management()
 
 def route_student_sidebar_pages(page):
     """Routage des pages étudiant avec sidebar"""
@@ -510,86 +452,12 @@ def route_student_sidebar_pages(page):
     if page == 'home':
         page_student_home()
     elif page == 'cases':
-        page_ecg_cases()
+        page_ecg_cases()  # Utilise maintenant la fonction importée
     elif page == 'exercises':
         page_exercises()
     elif page == 'progress':
         page_student_progress()
 
-def route_admin_pages(page):
-    """Routage des pages administrateur"""
-    
-    if page == "🏠 Accueil":
-        page_admin_home()
-    elif page == "📤 Import ECG (WP1)":
-        admin_import_cases()
-    elif page == "🎯 Import Intelligent":
-        # Option pour choisir l'interface d'import
-        st.subheader("🎯 Import Intelligent ECG")
-        
-        import_method = st.selectbox(
-            "🎨 Choisir l'interface d'import",
-            [
-                "🚀 Import Amélioré (ep-cases style)",
-                "📤 Import Standard", 
-                "🔧 Import Classique"
-            ],
-            help="Interface d'import inspirée d'ep-cases avec drag-and-drop et validation intelligente"
-        )
-        
-        if import_method == "🚀 Import Amélioré (ep-cases style)":
-            try:
-                from enhanced_import import enhanced_import_interface
-                enhanced_import_interface()
-            except ImportError as e:
-                st.error(f"⚠️ Interface améliorée non disponible : {e}")
-                st.info("🔄 Utilisation de l'interface standard...")
-                # Fallback vers interface standard
-                try:
-                    from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
-                    smart_ecg_importer_simple()
-                except ImportError:
-                    from admin.smart_ecg_importer import smart_ecg_importer
-                    smart_ecg_importer()
-        elif import_method == "📤 Import Standard":
-            try:
-                from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
-                smart_ecg_importer_simple()
-            except ImportError as e:
-                # Fallback vers version avec onglets
-                try:
-                    from admin.smart_ecg_importer import smart_ecg_importer
-                    smart_ecg_importer()
-                except ImportError as e:
-                    st.error(f"❌ Erreur d'import du module : {e}")
-                    st.info("🔧 Utilisation de l'import simple en fallback")
-                    admin_import_cases()
-        else:  # Import Classique
-            admin_import_cases()
-    elif page == "📺 Liseuse ECG":
-        try:
-            from liseuse.liseuse_ecg_fonctionnelle import liseuse_ecg_fonctionnelle
-            liseuse_ecg_fonctionnelle()
-        except ImportError:
-            try:
-                from liseuse.liseuse_ecg_simple import liseuse_ecg_simple
-                st.info("🔄 Liseuse standard (visualiseur avancé non disponible)")
-                liseuse_ecg_simple()
-            except ImportError:
-                # Fallback vers ancienne liseuse
-                if ECG_READER_AVAILABLE:
-                    ecg_reader_interface()
-                else:
-                    st.warning("⚠️ Module Liseuse ECG non disponible")
-    elif page == "✏️ Annotation Admin":
-        admin_annotation_tool()
-    elif page == "👥 Gestion Utilisateurs":
-        if USER_MANAGEMENT_AVAILABLE:
-            user_management_interface()
-        else:
-            st.warning("⚠️ Module Gestion Utilisateurs non disponible")
-    elif page == "📊 Gestion BDD":
-        page_database_management()
 
 def route_student_pages(page):
     """Routage des pages étudiant"""
@@ -648,9 +516,7 @@ def page_admin_home():
         if st.button("📥 Import Intelligent", type="primary", use_container_width=True):
             st.session_state.selected_page = "import"
     
-    with col2:
-        if st.button("📺 Liseuse ECG", use_container_width=True):
-            st.session_state.selected_page = "reader"
+    
 
 def page_student_home():
     """Page d'accueil étudiant"""
@@ -701,191 +567,10 @@ def page_student_home():
     with col3:
         st.metric("🎯 Niveau", "Débutant")
 
-def page_ecg_cases():
-    """Page de consultation des cas ECG pour étudiants"""
-    ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
-    available_cases = []
-    if ECG_CASES_DIR.exists():
-        for case_dir in ECG_CASES_DIR.iterdir():
-            if case_dir.is_dir():
-                metadata_file = case_dir / "metadata.json"
-                image_files = []
-                for ext in ['*.png', '*.jpg', '*.jpeg']:
-                    image_files.extend(case_dir.glob(ext))
-                if metadata_file.exists() and image_files:
-                    try:
-                        with open(metadata_file, 'r', encoding='utf-8') as f:
-                            case_data = json.load(f)
-                        sorted_images = sorted(image_files, key=lambda x: x.name)
-                        case_data['image_paths'] = [str(img) for img in sorted_images]
-                        case_data['image_path'] = str(sorted_images[0])
-                        case_data['total_images'] = len(sorted_images)
-                        case_data['case_folder'] = str(case_dir)
-                        available_cases.append(case_data)
-                    except Exception as e:
-                        st.warning(f"⚠️ Erreur lecture métadonnées {case_dir.name}: {e}")
-
-    if available_cases:
-        st.success(f"✅ {len(available_cases)} cas disponibles pour l'entraînement")
-        for i, case_data in enumerate(available_cases):
-            case_id = case_data.get('case_id', f'cas_{i}')
-            with st.expander(f"📋 Cas ECG: {case_id}", expanded=(i == 0)):
-                # --- NOUVEAU LAYOUT ---
-                col_ecg, col_annot = st.columns([3, 2])
-                with col_ecg:
-                    # Affichage ECG(s)
-                    if 'image_paths' in case_data and case_data['image_paths']:
-                        total_images = len(case_data['image_paths'])
-                        if total_images > 1:
-                            st.info(f"📊 Ce cas contient **{total_images} ECG**")
-                            ecg_preview_index = st.selectbox(
-                                "Aperçu ECG :",
-                                range(total_images),
-                                format_func=lambda i: f"ECG {i+1}/{total_images}",
-                                key=f"preview_ecg_{case_id}_{i}"
-                            )
-                        else:
-                            ecg_preview_index = 0
-                            st.info(f"📊 Ce cas contient **1 ECG**")
-                        image_path = Path(case_data['image_paths'][ecg_preview_index])
-                        if image_path.exists():
-                            # Utiliser st.image directement - plus simple et plus fiable
-                            st.image(str(image_path), 
-                                   caption=f"ECG {ecg_preview_index+1}/{total_images} - {case_id}",
-                                   use_container_width=True)
-                        else:
-                            st.warning(f"⚠️ ECG {ecg_preview_index+1} non trouvé")
-                    elif 'image_path' in case_data:
-                        image_path = Path(case_data['image_path'])
-                        if image_path.exists():
-                            # Utiliser st.image directement
-                            st.image(str(image_path), 
-                                   caption=f"ECG - {case_id}",
-                                   use_container_width=True)
-                        else:
-                            st.warning("⚠️ Image ECG non trouvée")
-                    else:
-                        st.info("📄 Cas ECG (format non-image)")
-
-                with col_annot:
-                    st.markdown("### 📝 Vos annotations")
-                    # --- Interface d'annotation avec autocomplétion ---
-                    key_prefix = f"student_{case_id}_annotations"
-                    # Charger/sauver les annotations de l'étudiant (session + fichier)
-                    if 'student_annotations' not in st.session_state:
-                        st.session_state['student_annotations'] = {}
-                    # Charger depuis fichier si dispo
-                    student_file = Path(case_data['case_folder']) / "student_annotations.json"
-                    if key_prefix not in st.session_state['student_annotations']:
-                        if student_file.exists():
-                            try:
-                                with open(student_file, 'r', encoding='utf-8') as f:
-                                    st.session_state['student_annotations'][key_prefix] = json.load(f)
-                            except Exception:
-                                st.session_state['student_annotations'][key_prefix] = []
-                        else:
-                            st.session_state['student_annotations'][key_prefix] = []
-                    # Interface
-                    annotations = smart_annotation_input(
-                        key_prefix=key_prefix,
-                        max_tags=15
-                    )
-                    # Sauvegarde bouton
-                    if st.button("💾 Sauvegarder mes annotations", key=f"save_{case_id}"):
-                        st.session_state['student_annotations'][key_prefix] = annotations
-                        try:
-                            # Créer le chemin si case_folder existe, sinon le créer
-                            if 'case_folder' in case_data:
-                                student_folder = Path(case_data['case_folder'])
-                            else:
-                                student_folder = ECG_CASES_DIR / str(case_id)
-                                student_folder.mkdir(parents=True, exist_ok=True)
-                            student_file = student_folder / "student_annotations.json"
-                            with open(student_file, 'w', encoding='utf-8') as f:
-                                json.dump(annotations, f, ensure_ascii=False, indent=2)
-                            st.success("✅ Sauvegardé !")
-                        except Exception as e:
-                            st.error(f"Erreur : {e}")
-                    # Résumé structuré
-                    if annotations:
-                        display_annotation_summary(annotations, title="📊 Résumé de vos observations")
-                    # Option voir la correction
-                    show_correction = st.checkbox("Voir la correction experte", key=f"show_corr_{case_id}")
-                    if show_correction:
-                        # Affichage des annotations expertes
-                        expert_annots = []
-                        # Recherche dans metadata ou annotations.json
-                        expert_file = Path(case_data['case_folder']) / "annotations.json"
-                        if expert_file.exists():
-                            try:
-                                with open(expert_file, 'r', encoding='utf-8') as f:
-                                    expert_annots = json.load(f)
-                            except Exception:
-                                expert_annots = []
-                        else:
-                            expert_annots = case_data.get('annotations', [])
-                        expert_tags = []
-                        for ann in expert_annots:
-                            if ann.get('type') == 'expert' or ann.get('auteur') == 'expert':
-                                if ann.get('annotation_tags'):
-                                    expert_tags.extend(ann['annotation_tags'])
-                                elif ann.get('concept'):
-                                    expert_tags.append(ann['concept'])
-                        if expert_tags:
-                            st.markdown("**🧠 Concepts experts :**")
-                            display_annotation_summary(expert_tags, title="🧠 Concepts experts")
-                            # Comparaison simple
-                            if annotations:
-                                overlap = set(expert_tags).intersection(set(annotations))
-                                score = len(overlap) / len(expert_tags) * 100 if expert_tags else 0
-                                st.markdown(f"**Votre score de recoupement :** {score:.0f}%")
-                                if overlap:
-                                    st.success("✅ Points communs : " + ", ".join(overlap))
-                                missed = set(expert_tags) - set(annotations)
-                                if missed:
-                                    st.info("💡 Concepts manqués : " + ", ".join(missed))
-                        else:
-                            st.info("Aucune annotation experte disponible pour ce cas.")
-                    st.markdown("---")
-                    # Option secondaire : passer en mode exercice
-                    if st.button("🎯 Passer en mode exercice complet", key=f"to_ex_{case_id}"):
-                        case_name = case_data.get('case_id', case_data.get('name', f'cas_{i}'))
-                        individual_session = {
-                            'session_data': {
-                                'name': f"Exercice individuel - {case_data.get('name', 'Cas ECG')}",
-                                'description': f"Exercice sur le cas {case_data.get('name', 'ECG')}",
-                                'difficulty': case_data.get('difficulty', '🟡 Intermédiaire'),
-                                'time_limit': 30,
-                                'cases': [case_name],
-                                'show_feedback': True,
-                                'allow_retry': True
-                            },
-                            'cases': [case_name],
-                            'current_case_index': 0,
-                            'responses': {},
-                            'start_time': datetime.now().isoformat(),
-                            'scores': {},
-                            'individual_mode': True
-                        }
-                        st.session_state['current_session'] = individual_session
-                        st.session_state.selected_page = "exercises"
-                        st.success(f"🎯 Exercice sur '{case_data.get('name', 'ce cas')}' démarré !")
-                        st.rerun()
-    else:
-        st.warning("⚠️ Aucun cas ECG disponible")
-        st.info("""
-        **💡 Pour avoir des cas disponibles :**
-        1. Passez en mode Administrateur/Expert
-        2. Utilisez l'Import Intelligent pour ajouter des ECG
-        3. Annotez les cas dans la Liseuse ECG
-        4. Les cas annotés apparaîtront ici pour les étudiants
-        """)
 
 def page_exercises():
     """Page d'exercices pour étudiants avec sessions ECG"""
-    
-    st.header("🎯 Exercices d'interprétation ECG")
-    
+        
     # Vérifier s'il y a une session en cours
     if 'current_session' in st.session_state:
         # Exécuter la session directement sans messages parasites
@@ -1184,9 +869,7 @@ def display_case_for_exercise(case_data):
             # Affichage de l'ECG sélectionné avec le visualiseur avancé
             image_path = Path(case_data['image_paths'][ecg_index])
             if image_path.exists():
-                # Utiliser la liseuse avancée si disponible
                 try:
-                    from advanced_ecg_viewer import create_advanced_ecg_viewer
                     viewer_html = create_advanced_ecg_viewer(
                         image_path=str(image_path),
                         title=f"ECG {ecg_index+1} - {case_id}",
@@ -2347,6 +2030,7 @@ def get_existing_sessions():
                         sessions.append(session_data)
                 except (json.JSONDecodeError, KeyError) as e:
                     st.warning(f"Session corrompue ignorée : {filename}")
+
                     continue
     except Exception as e:
         st.error(f"Erreur lors du chargement des sessions : {e}")
@@ -2393,8 +2077,6 @@ def display_ecg_sessions():
                             if delete_ecg_session(session['name']):
                                 st.success("✅ Session supprimée")
                                 st.rerun()
-                            else:
-                                st.error("❌ Erreur lors de la suppression")
     else:
         st.info("📚 Aucune session créée pour le moment")
 

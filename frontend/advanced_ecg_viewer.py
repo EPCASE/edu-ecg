@@ -94,7 +94,17 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
             pointer-events: none;
             display: block;
             transform-origin: center center;
-            transition: transform 0.1s ease-out;
+            transition: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+        }}
+        .ecg-viewer-canvas.panning {{
+            cursor: grab !important;
+        }}
+        .ecg-viewer-canvas.panning:active {{
+            cursor: grabbing !important;
         }}
         .caliper-line {{
             position: absolute;
@@ -318,6 +328,11 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
                 <div id="measure-label" class="measure-label"></div>
             </div>
             <div class="mini-toolbar">
+                <button class="toolbar-btn" id="pan-btn" title="Mode déplacement">
+                    <span class="icon">✋</span>
+                    <span class="tooltip">Déplacer l'image</span>
+                </button>
+                <div class="toolbar-separator"></div>
                 <button class="toolbar-btn" id="calibration-btn" title="Mode calibration 1000ms">
                     <span class="icon">📏</span>
                     <span class="tooltip">Calibration 1000ms</span>
@@ -348,7 +363,15 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
     let calibrationMode = false;
     let calibrationMeasurement = null;
     let scale = 1.0;
+    let translateX = 0;
+    let translateY = 0;
     let zoomEnabled = false;
+    let panMode = false;
+    let isPanning = false;
+    let panStartX = 0;
+    let panStartY = 0;
+    let panStartTranslateX = 0;
+    let panStartTranslateY = 0;
     let caliperActive = false;
     let caliperStart = null;
     let caliperEnd = null;
@@ -439,8 +462,24 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
     }}
     
     function updateTransform() {{
-        document.getElementById('ecg-img').style.transform = 'scale(' + scale + ')';
+        const img = document.getElementById('ecg-img');
+        img.style.transform = `translate(calc(-50% + ${{translateX}}px), calc(-50% + ${{translateY}}px)) scale(${{scale}})`;
         document.getElementById('zoom-info').textContent = 'Zoom: ' + Math.round(scale * 100) + '%';
+    }}
+    
+    function resetView() {{
+        scale = 1.0;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+        zoomEnabled = false;
+        panMode = false;
+        document.getElementById('pan-btn').classList.remove('active');
+        document.getElementById('zoom-info').style.background = 'rgba(0,0,0,0.7)';
+        calibrationMode = false;
+        document.getElementById('calibration-info').style.display = 'none';
+        document.getElementById('calibration-btn').classList.remove('active');
+        resetCaliper();
     }}
     
     function setCaliperVisible(visible) {{
@@ -456,21 +495,27 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
         const dx = x2 - x1;
         const length = Math.abs(dx);
         
+        // Ajuster les positions du caliper en fonction du pan et du zoom
+        const adjustedX1 = x1;
+        const adjustedY1 = y1;
+        const adjustedX2 = x2;
+        const adjustedY2 = y2;
+        
         const caliperLine = document.getElementById('caliper-line');
-        caliperLine.style.left = Math.min(x1, x2) + 'px';
-        caliperLine.style.top = (y1 - 1) + 'px';
+        caliperLine.style.left = Math.min(adjustedX1, adjustedX2) + 'px';
+        caliperLine.style.top = (adjustedY1 - 1) + 'px';
         caliperLine.style.width = length + 'px';
         caliperLine.style.height = '2px';
         
         const caliperStartBar = document.getElementById('caliper-start-bar');
         caliperStartBar.className = 'caliper-end-bar vertical';
-        caliperStartBar.style.left = (x1 - 1) + 'px';
-        caliperStartBar.style.top = y1 + 'px';
+        caliperStartBar.style.left = (adjustedX1 - 1) + 'px';
+        caliperStartBar.style.top = adjustedY1 + 'px';
         
         const caliperEndBar = document.getElementById('caliper-end-bar');
         caliperEndBar.className = 'caliper-end-bar vertical';
-        caliperEndBar.style.left = (x2 - 1) + 'px';
-        caliperEndBar.style.top = y2 + 'px';
+        caliperEndBar.style.left = (adjustedX2 - 1) + 'px';
+        caliperEndBar.style.top = adjustedY2 + 'px';
         
         const pixelDistance = length / scale;
         const mmDistance = pixelDistance / ECG_CONFIG.pixelsPerMm;
@@ -550,6 +595,24 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
         // Boutons
         document.getElementById('fullscreen-btn').addEventListener('click', toggleFullscreen);
         
+        document.getElementById('pan-btn').addEventListener('click', function() {{
+            panMode = !panMode;
+            this.classList.toggle('active', panMode);
+            canvas.classList.toggle('panning', panMode);
+            if (panMode) {{
+                zoomEnabled = false;
+                document.getElementById('zoom-info').style.background = 'rgba(0,0,0,0.7)';
+                calibrationMode = false;
+                document.getElementById('calibration-info').style.display = 'none';
+                document.getElementById('calibration-btn').classList.remove('active');
+                if (hideUITimeout) clearTimeout(hideUITimeout);
+            }} else {{
+                if (!caliperActive && !caliperDragging) {{
+                    hideUITimeout = setTimeout(hideUI, HIDE_UI_DELAY);
+                }}
+            }}
+        }});
+        
         document.getElementById('calibration-btn').addEventListener('click', function() {{
             calibrationMode = !calibrationMode;
             const calibInfo = document.getElementById('calibration-info');
@@ -557,6 +620,9 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
             this.classList.toggle('active', calibrationMode);
             if (calibrationMode) {{
                 resetCaliper();
+                panMode = false;
+                document.getElementById('pan-btn').classList.remove('active');
+                canvas.classList.remove('panning');
                 if (hideUITimeout) clearTimeout(hideUITimeout);
             }} else {{
                 if (!caliperActive && !caliperDragging) {{
@@ -579,7 +645,7 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
         
         // Zoom
         canvas.addEventListener('wheel', function(e) {{
-            if (zoomEnabled) {{
+            if (zoomEnabled && !panMode) {{
                 e.preventDefault();
                 const delta = e.deltaY < 0 ? ZOOM_SPEED : -ZOOM_SPEED;
                 const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale + delta));
@@ -590,9 +656,9 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
             }}
         }}, {{ passive: false }});
         
-        // Clic gauche pour zoom
+        // Clic gauche pour zoom ou pan
         canvas.addEventListener('click', function(e) {{
-            if (e.button === 0 && !caliperActive && !caliperDragging) {{
+            if (e.button === 0 && !caliperActive && !caliperDragging && !panMode && !isPanning) {{
                 const rect = canvas.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -615,7 +681,37 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            if (e.button === 0 && isClickOnCaliper(x, y)) {{
+            // Pan mode avec clic gauche
+            if (e.button === 0 && panMode && !isClickOnCaliper(x, y)) {{
+                e.preventDefault();
+                isPanning = true;
+                panStartX = e.clientX;
+                panStartY = e.clientY;
+                panStartTranslateX = translateX;
+                panStartTranslateY = translateY;
+                canvas.style.cursor = 'grabbing';
+                
+                const moveHandler = function(ev) {{
+                    if (!isPanning) return;
+                    const deltaX = ev.clientX - panStartX;
+                    const deltaY = ev.clientY - panStartY;
+                    translateX = panStartTranslateX + deltaX;
+                    translateY = panStartTranslateY + deltaY;
+                    updateTransform();
+                }};
+                
+                const upHandler = function(ev) {{
+                    if (!isPanning) return;
+                    document.removeEventListener('mousemove', moveHandler);
+                    document.removeEventListener('mouseup', upHandler);
+                    isPanning = false;
+                    canvas.style.cursor = panMode ? 'grab' : 'crosshair';
+                }};
+                
+                document.addEventListener('mousemove', moveHandler);
+                document.addEventListener('mouseup', upHandler);
+                
+            }} else if (e.button === 0 && isClickOnCaliper(x, y) && !panMode) {{
                 e.preventDefault();
                 caliperDragging = true;
                 const centerX = (caliperStart.x + caliperEnd.x) / 2;
@@ -642,7 +738,7 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
                 document.addEventListener('mousemove', moveHandler);
                 document.addEventListener('mouseup', upHandler);
                 
-            }} else if (e.button === 2) {{
+            }} else if (e.button === 2 && !panMode) {{
                 e.preventDefault();
                 if (resetTimeout) {{
                     clearTimeout(resetTimeout);
@@ -701,7 +797,7 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
         }});
         
         canvas.addEventListener('mouseup', function(e) {{
-            if (!caliperActive && !caliperDragging && !calibrationMode) {{
+            if (!caliperActive && !caliperDragging && !calibrationMode && !panMode) {{
                 hideUITimeout = setTimeout(hideUI, HIDE_UI_DELAY);
             }}
         }});
@@ -709,14 +805,10 @@ def create_advanced_ecg_viewer(image_path, title, container_width=None):
         // Double-clic pour reset
         canvas.addEventListener('dblclick', function(e) {{
             e.preventDefault();
-            resetCaliper();
-            scale = 1.0;
-            updateTransform();
-            zoomEnabled = false;
-            document.getElementById('zoom-info').style.background = 'rgba(0,0,0,0.7)';
-            calibrationMode = false;
-            document.getElementById('calibration-info').style.display = 'none';
-            document.getElementById('calibration-btn').classList.remove('active');
+            resetView();
+            // Supprimer aussi le caliper persistant
+            caliperPersistent = false;
+            setCaliperVisible(false);
         }});
         
         // Démarrer le timer initial

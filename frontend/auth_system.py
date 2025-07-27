@@ -174,6 +174,55 @@ def authenticate_user(username, password):
     
     return False
 
+def verify_credentials(username, password):
+    """Vérifie les identifiants et retourne les informations utilisateur"""
+    users_file = Path(__file__).parent.parent / "data" / "users.json"
+    
+    if users_file.exists():
+        try:
+            with open(users_file, 'r', encoding='utf-8') as f:
+                users = json.load(f)
+            
+            for user in users:
+                if user['username'] == username:
+                    # Vérifier le mot de passe (hashé en production)
+                    if user.get('password', '') == password:  # Simple pour le dev
+                        return {
+                            'username': user['username'],
+                            'name': user.get('name', username),
+                            'role': user.get('role', 'etudiant'),
+                            'permissions': get_role_permissions(user.get('role', 'etudiant'))
+                        }
+        except Exception:
+            pass
+    
+    # Identifiants par défaut pour le développement
+    default_users = {
+        'admin': {'password': 'admin123', 'name': 'Administrateur', 'role': 'admin'},
+        'expert': {'password': 'expert123', 'name': 'Expert ECG', 'role': 'expert'},
+        'etudiant': {'password': 'etudiant123', 'name': 'Étudiant Test', 'role': 'etudiant'}
+    }
+    
+    if username in default_users and default_users[username]['password'] == password:
+        user = default_users[username]
+        return {
+            'username': username,
+            'name': user['name'],
+            'role': user['role'],
+            'permissions': get_role_permissions(user['role'])
+        }
+    
+    return None
+
+def get_role_permissions(role):
+    """Retourne les permissions selon le rôle"""
+    permissions_map = {
+        'admin': ['all'],
+        'expert': ['view_cases', 'annotate', 'create_sessions', 'import_ecg'],
+        'etudiant': ['view_cases', 'practice', 'view_progress']
+    }
+    return permissions_map.get(role, [])
+
 def logout_user():
     """Déconnecte l'utilisateur"""
     st.session_state.authenticated = False
@@ -425,13 +474,14 @@ def require_auth(func):
         return func(*args, **kwargs)
     return wrapper
 
-def require_permission(permission):
-    """Décorateur pour vérifier les permissions"""
-    def decorator(func):
-        def wrapper(*args, **kwargs):
-            if not check_permission(permission):
-                st.error("❌ Vous n'avez pas les permissions nécessaires pour accéder à cette page")
-                return
-            return func(*args, **kwargs)
-        return wrapper
-    return decorator
+    def require_permission(permission):
+        """Décorateur pour vérifier les permissions"""
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                if not check_permission(permission):
+                    st.error("❌ Vous n'avez pas les permissions nécessaires pour accéder à cette page")
+                    return
+                return func(*args, **kwargs)
+            return wrapper
+        return decorator
+
