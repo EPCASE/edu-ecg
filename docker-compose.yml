@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: edu-ecg-db
+    environment:
+      POSTGRES_DB: ${DB_NAME:-edu_ecg}
+      POSTGRES_USER: ${DB_USER:-eduecg_admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-eduecg_admin}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - edu-ecg-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: edu-ecg-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - edu-ecg-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: edu-ecg-api
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-eduecg_admin}:${DB_PASSWORD}@postgres:5432/${DB_NAME:-edu_ecg}
+      REDIS_URL: redis://redis:6379/0
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      MAX_CORRECTIONS_PER_MONTH: ${MAX_CORRECTIONS_PER_MONTH:-100}
+    volumes:
+      - ./data/ecg_pdfs:/app/data/ecg_pdfs
+      - ./data/ontology:/app/data/ontology
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - edu-ecg-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: edu-ecg-frontend
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - edu-ecg-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: edu-ecg-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    networks:
+      - edu-ecg-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  edu-ecg-network:
+    driver: bridge

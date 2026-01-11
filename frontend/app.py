@@ -60,8 +60,25 @@ from auth_system import (
     create_user_interface, list_users_interface
 )
 
-# Import de la page des cas ECG
-from pages_ecg_cases import page_ecg_cases
+# Import de la correction LLM intégrée (NOUVEAU - Party Mode Integration!)
+try:
+    from pages.correction_llm import page_correction_llm
+    CORRECTION_LLM_AVAILABLE = True
+except ImportError as e:
+    CORRECTION_LLM_AVAILABLE = False
+    correction_llm_error = str(e)
+
+# Import du module Import ECG (NOUVEAU - Party Mode Integration!)
+try:
+    from pages.ecg_import import page_ecg_import
+    ECG_IMPORT_AVAILABLE = True
+except ImportError as e:
+    ECG_IMPORT_AVAILABLE = False
+    ecg_import_error = str(e)
+
+# Import des interfaces de correction LLM (LEGACY - SUPPRIMÉ)
+# Ces fonctions sont maintenant dans pages/correction_llm.py et pages/ecg_import.py
+LLM_CORRECTION_AVAILABLE = False  # Legacy module désactivé
 
 # Fonctions de fallback pour les annotations
 def smart_annotation_input_fallback(key_prefix, max_tags=10):
@@ -112,22 +129,38 @@ smart_annotation_input = smart_annotation_input_fallback
 display_annotation_summary = display_annotation_summary_fallback
 
 def load_ontology():
-    """Chargement de l'ontologie ECG"""
+    """Chargement de l'ontologie ECG depuis JSON (converti depuis OWL)"""
     ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
-    if 'corrector' not in st.session_state:
+    
+    if 'ontology_loaded' not in st.session_state:
         try:
-            from correction_engine import OntologyCorrector
-            st.session_state.corrector = OntologyCorrector(str(ONTOLOGY_FILE))
-            st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
-            return True
-        except ImportError as e:
-            st.warning(f"⚠️ Module owlready2 non installé. Fonctionnalités d'ontologie désactivées.")
-            st.session_state.concepts = []
-            return False
+            # Charger ontologie depuis JSON (converti depuis OWL avec simple_owl_converter.py)
+            ontology_json = DATA_ROOT / "ontology_from_owl.json"
+            
+            if ontology_json.exists():
+                with open(ontology_json, 'r', encoding='utf-8') as f:
+                    ontology_data = json.load(f)
+                
+                # Extraire concepts depuis concept_mappings
+                concepts = list(ontology_data.get('concept_mappings', {}).keys())
+                st.session_state.concepts = concepts
+                st.session_state.ontology_data = ontology_data
+                st.session_state.ontology_loaded = True
+                return True
+            else:
+                st.warning(f"⚠️ Fichier ontologie JSON introuvable: {ontology_json}")
+                st.info("💡 Générez-le avec: python backend/simple_owl_converter.py")
+                st.session_state.concepts = []
+                st.session_state.ontology_loaded = False
+                return False
+                
         except Exception as e:
             st.error(f"❌ Erreur lors du chargement de l'ontologie : {e}")
+            st.session_state.concepts = []
+            st.session_state.ontology_loaded = False
             return False
-    return True
+    
+    return st.session_state.ontology_loaded
 
 def count_ecg_sessions():
     """Compte le nombre de sessions ECG existantes"""
@@ -182,33 +215,18 @@ def count_annotated_cases():
     
     return annotated
 
-def load_ontology():
-    """Chargement de l'ontologie ECG"""
-    ECG_CASES_DIR.mkdir(parents=True, exist_ok=True)
-    if 'corrector' not in st.session_state:
-        try:
-            from correction_engine import OntologyCorrector
-            st.session_state.corrector = OntologyCorrector(str(ONTOLOGY_FILE))
-            st.session_state.concepts = list(st.session_state.corrector.concepts.keys())
-            return True
-        except Exception as e:
-            st.error(f"❌ Erreur lors du chargement de l'ontologie : {e}")
-            return False
-    return True
+# FONCTION SUPPRIMÉE - Voir reload_ontology() plus bas qui utilise load_ontology()
 
 def main():
-    """Application principale Edu-CG avec authentification optionnelle"""
+    """Application principale Edu-CG - Mode Admin Direct"""
     
-    # Initialiser le système d'authentification
-    init_auth_system()
-    
-    # Mode développement : accès direct en admin anonyme
+    # Mode admin permanent - pas d'authentification
     if 'authenticated' not in st.session_state:
         st.session_state.authenticated = True
         st.session_state.user_role = 'admin'
         st.session_state.user_info = {
-            'username': 'admin_dev',
-            'name': 'Admin Dev',
+            'username': 'admin',
+            'name': 'Administrateur',
             'role': 'admin',
             'permissions': ['all']
         }
@@ -219,28 +237,24 @@ def main():
 def main_app_with_auth():
     """Application principale après authentification"""
 
-    # Définir ONTOLOGY_LOADED comme variable globale pour qu'elle soit accessible partout
+    # Définir variables globales pour qu'elles soient accessibles partout
     global ONTOLOGY_LOADED, ECG_READER_AVAILABLE, USER_MANAGEMENT_AVAILABLE
     global smart_annotation_input, display_annotation_summary, create_advanced_ecg_viewer
     global ecg_reader_interface, user_management_interface
     
-    # Importer les modules critiques ici pour éviter de bloquer l'auth
-    try:
-        from correction_engine import OntologyCorrector
-        ONTOLOGY_LOADED = True
-    except ImportError as e:
-        ONTOLOGY_LOADED = False
-        st.warning(f"⚠️ Certains modules ne sont pas disponibles : {e}")
+    # Charger ontologie JSON (pas besoin d'import correction_engine)
+    ONTOLOGY_LOADED = load_ontology()
     
-    # Essayer d'importer les composants d'annotation
+    # Essayer d'importer les composants d'annotation (optionnels - fallback existe)
+    # Ces imports sont en try/except pour graceful degradation
     try:
         from annotation_components import smart_annotation_input as _smart_annotation_input
         from annotation_components import display_annotation_summary as _display_annotation_summary
         smart_annotation_input = _smart_annotation_input
         display_annotation_summary = _display_annotation_summary
     except ImportError:
-        # Garder les fonctions de fallback
-        st.info("💡 Module d'annotation avancé non disponible, utilisation de l'interface simplifiée")
+        # Garder les fonctions de fallback définies plus haut - mode silencieux
+        pass
     
     # Correction: importer create_advanced_ecg_viewer depuis le bon module
     try:
@@ -271,72 +285,10 @@ def main_app_with_auth():
     with col1:
         st.title("🫀 ECG Lecture & Annotation Platform")
     with col2:
-        user_info = st.session_state.get('user_info')
-
-        if user_info:
-            st.markdown(f"**{user_info['name']}** ({user_info['role']})")
-        else:
-            st.warning("⚠️ Utilisateur inconnu. Veuillez vous reconnecter.")
+        st.markdown("**Mode Admin**")
     
     # Navigation selon les permissions utilisateur
     with st.sidebar:
-        # Zone d'authentification en haut de la sidebar
-        with st.container():
-            st.markdown("### 🔐 Authentification")
-            
-            if not st.session_state.get('authenticated_real', False):
-                # Formulaire de connexion compact sans labels au-dessus
-                with st.form("login_sidebar", clear_on_submit=True):
-                    username = st.text_input("", placeholder="Identifiant", key="login_username")
-                    password = st.text_input("", type="password", placeholder="Mot de passe", key="login_password")
-                    
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        if st.form_submit_button("Connexion", type="primary", use_container_width=True):
-                            # Vérifier les identifiants
-                            from auth_system import verify_credentials
-                            user_info = verify_credentials(username, password)
-                            
-                            if user_info:
-                                st.session_state.authenticated = True
-                                st.session_state.authenticated_real = True
-                                st.session_state.user_role = user_info['role']
-                                st.session_state.user_info = user_info
-                                st.success(f"✅ Bienvenue {user_info['name']}!")
-                                st.rerun()
-                            else:
-                                st.error("❌ Identifiants incorrects")
-                    
-                    with col2:
-                        if st.form_submit_button("Anonyme", use_container_width=True):
-                            st.info("Mode anonyme activé")
-                
-                st.caption("🔓 Mode développement actif")
-            else:
-                # Utilisateur connecté
-                user_info = st.session_state.get('user_info')
-
-                if user_info:
-                    st.success(f"✅ {user_info['name']}")
-                    st.caption(f"Role: {user_info['role']}")
-
-                    if st.button("🚪 Déconnexion", use_container_width=True):
-                        st.session_state.authenticated = True  # Reste en mode dev
-                        st.session_state.authenticated_real = False
-                        st.session_state.user_role = 'admin'
-                        st.session_state.user_info = {
-                            'username': 'admin_dev',
-                            'name': 'Admin Dev',
-                            'role': 'admin',
-                            'permissions': ['all']
-                        }
-                        st.rerun()
-                else:
-                    st.warning("⚠️ Utilisateur non reconnu. Veuillez vous reconnecter.")
-
-                    
-        
-        st.markdown("---")
         
         st.markdown("## 🔧 Navigation")
         
@@ -344,27 +296,18 @@ def main_app_with_auth():
         if 'selected_page' not in st.session_state:
             st.session_state.selected_page = 'home'
         
-        # Menu selon le rôle utilisateur
-        user_role = st.session_state.user_role
-        
-        # Pages communes à tous
+        # Menu complet en mode admin
         if st.button("🏠 Accueil", type="primary" if st.session_state.selected_page == 'home' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'home'
         
-        # Menu selon les permissions
-        if user_role in ['admin', 'expert']:  # Utiliser les vrais noms de rôles
-            st.markdown("### 📋 Gestion de Contenu")
-            if st.button("📥 Import ECG", type="primary" if st.session_state.selected_page == 'import' else "secondary", use_container_width=True):
-                st.session_state.selected_page = 'import'
-            
-            
-            # Menu Sessions pour experts et admins
-            if check_permission('create_sessions') or check_permission('all'):
-                if st.button("📚 Sessions ECG", type="primary" if st.session_state.selected_page == 'sessions' else "secondary", use_container_width=True):
-                    st.session_state.selected_page = 'sessions'
+        st.markdown("### 📋 Gestion de Contenu")
+        if st.button("📥 Import ECG", type="primary" if st.session_state.selected_page == 'import' else "secondary", use_container_width=True):
+            st.session_state.selected_page = 'import'
         
-        # Menu pour tous les utilisateurs
-        st.markdown("### 📚 Formation")
+        if st.button("📚 Sessions ECG", type="primary" if st.session_state.selected_page == 'sessions' else "secondary", use_container_width=True):
+            st.session_state.selected_page = 'sessions'
+        
+        st.markdown("### 🎓 Formation")
         if st.button("📋 Cas ECG", type="primary" if st.session_state.selected_page == 'cases' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'cases'
         
@@ -374,43 +317,42 @@ def main_app_with_auth():
         if st.button("📊 Mes Sessions", type="primary" if st.session_state.selected_page == 'progress' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'progress'
         
-        # Menu Admin uniquement
-        if user_role == 'admin':  # Utiliser le vrai nom de rôle
-            st.markdown("### ⚙️ Administration")
-            if st.button("🗄️ Base de Données", type="primary" if st.session_state.selected_page == 'database' else "secondary", use_container_width=True):
-                st.session_state.selected_page = 'database'
-            
-            if st.button("👥 Utilisateurs", type="primary" if st.session_state.selected_page == 'users' else "secondary", use_container_width=True):
-                st.session_state.selected_page = 'users'
+        st.markdown("### ⚙️ Administration")
+        
+        if st.button("🔧 Ontologie OWL", type="primary" if st.session_state.selected_page == 'admin_ontology' else "secondary", use_container_width=True):
+            st.session_state.selected_page = 'admin_ontology'
+        
+        if st.button("🗄️ Base de Données", type="primary" if st.session_state.selected_page == 'database' else "secondary", use_container_width=True):
+            st.session_state.selected_page = 'database'
+        
+        if st.button("👥 Utilisateurs", type="primary" if st.session_state.selected_page == 'users' else "secondary", use_container_width=True):
+            st.session_state.selected_page = 'users'
     
     # Routage des pages selon les permissions
     route_pages_with_auth(st.session_state.selected_page)
 
 def route_pages_with_auth(page):
-    """Routage des pages avec contrôle d'authentification"""
+    """Routage des pages - Mode Admin complet"""
     
     if page == 'home':
-        # Page d'accueil selon le rôle
-        user_role = st.session_state.user_role  # Utiliser user_role
-        if user_role == 'etudiant':  # Utiliser le vrai nom de rôle
-            page_student_home()
-        else:
-            page_admin_home()
+        page_admin_home()
     
     elif page == 'import':
-        if check_permission('import_ecg') or check_permission('all'):
-            try:
-                from admin.smart_ecg_importer_simple import smart_ecg_importer_simple
-                smart_ecg_importer_simple()
-            except ImportError:
-                st.error("❌ Module d'import non disponible")
-                st.info("💡 Vérifiez que le module admin/smart_ecg_importer_simple.py existe")
+        if ECG_IMPORT_AVAILABLE:
+            page_ecg_import()
         else:
-            st.error("❌ Accès non autorisé")
-    
+            st.error("❌ Module Import ECG non disponible")
+            st.info(f"💡 Erreur d'import: {ecg_import_error if 'ecg_import_error' in dir() else 'Module non trouvé'}")
     
     elif page == 'cases':
-        page_ecg_cases()  # Utilise maintenant la fonction importée
+        page_ecg_cases()
+    
+    elif page == 'correction_llm':
+        if CORRECTION_LLM_AVAILABLE:
+            page_correction_llm()
+        else:
+            st.error("❌ Module de correction LLM non disponible")
+            st.info(f"Erreur: {correction_llm_error if 'correction_llm_error' in dir() else 'Module non trouvé'}")
     
     elif page == 'exercises':
         page_exercises()
@@ -419,22 +361,16 @@ def route_pages_with_auth(page):
         page_student_progress()
     
     elif page == 'sessions':
-        if check_permission('create_sessions') or check_permission('all'):
-            page_sessions_management()
-        else:
-            st.error("❌ Accès non autorisé")
+        page_sessions_management()
     
     elif page == 'database':
-        if check_permission('all'):
-            page_database_management()
-        else:
-            st.error("❌ Accès non autorisé")
+        page_database_management()
+    
+    elif page == 'admin_ontology':
+        page_admin_ontology()
     
     elif page == 'users':
-        if check_permission('all'):
-            page_users_management_with_auth()
-        else:
-            st.error("❌ Accès non autorisé")
+        page_users_management_with_auth()
 
 
 def page_users_management_with_auth():
@@ -511,15 +447,7 @@ def page_admin_home():
     
     st.markdown("---")
     
-    # Actions principales - CORRIGÉES
-    st.markdown("### 🚀 Actions rapides")
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        if st.button("📥 Import Intelligent", type="primary", use_container_width=True):
-            st.session_state.selected_page = "import"
-    
+   
     
 
 def page_student_home():
@@ -615,6 +543,156 @@ def page_exercises():
                 st.session_state.selected_page = "cases"  # CORRECTION: utiliser selected_page
                 st.rerun()
 
+def page_ecg_cases():
+    """
+    📚 Bibliothèque de Cas ECG - Simple Gallery
+    Browse all created ECG cases with practice button
+    """
+    st.title("📚 Bibliothèque de Cas ECG")
+    st.markdown("*Parcourez tous les cas ECG créés et entraînez-vous*")
+    
+    cases_dir = Path("data/ecg_cases")
+    
+    if not cases_dir.exists():
+        st.info("📁 Aucun cas disponible. Créez-en via **Import ECG**.")
+        if st.button("➕ Aller à Import ECG"):
+            st.session_state.selected_page = 'import'
+            st.rerun()
+        return
+    
+    # List all case directories
+    case_dirs = [d for d in cases_dir.iterdir() if d.is_dir()]
+    
+    if not case_dirs:
+        st.info("📁 Aucun cas disponible. Créez-en via **Import ECG**.")
+        if st.button("➕ Aller à Import ECG"):
+            st.session_state.selected_page = 'import'
+            st.rerun()
+        return
+    
+    st.markdown(f"**{len(case_dirs)} cas disponibles**")
+    st.divider()
+    
+    # Display as 3-column grid
+    cols = st.columns(3)
+    
+    for idx, case_dir in enumerate(sorted(case_dirs, key=lambda x: x.name, reverse=True)):
+        metadata_file = case_dir / "metadata.json"
+        
+        if not metadata_file.exists():
+            continue
+        
+        try:
+            with open(metadata_file, 'r', encoding='utf-8') as f:
+                case_data = json.load(f)
+            
+            # Add case_folder path for correction_llm
+            case_data['case_folder'] = str(case_dir)
+            case_data['case_id'] = case_data.get('case_id', case_dir.name)
+            
+        except Exception as e:
+            st.error(f"Erreur lecture {case_dir.name}: {e}")
+            continue
+        
+        with cols[idx % 3]:
+            # Card display
+            with st.container():
+                st.markdown(f"### {case_data.get('name', case_dir.name)}")
+                
+                # Display category and difficulty with icons
+                category = case_data.get('category', 'N/A')
+                difficulty = case_data.get('difficulty', 'N/A')
+                
+                category_icons = {
+                    'Rythme': '🫀',
+                    'Conduction': '⚡',
+                    'Repolarisation': '📈',
+                    'Arythmie': '💓',
+                    'Ischémie': '🚨',
+                    'SCA': '🆘'
+                }
+                
+                difficulty_icons = {
+                    'Débutant': '🟢',
+                    'Intermédiaire': '🟡',
+                    'Avancé': '🔴'
+                }
+                
+                cat_icon = category_icons.get(category, '📁')
+                diff_icon = difficulty_icons.get(difficulty, '⚪')
+                
+                st.markdown(f"{cat_icon} **Catégorie:** {category}")
+                st.markdown(f"{diff_icon} **Difficulté:** {difficulty}")
+                
+                # Show creation date
+                created = case_data.get('created_date', 'N/A')
+                if created != 'N/A':
+                    try:
+                        from datetime import datetime
+                        dt = datetime.fromisoformat(created)
+                        st.caption(f"📅 Créé le {dt.strftime('%d/%m/%Y')}")
+                    except:
+                        st.caption(f"📅 {created}")
+                
+                # Thumbnail preview if exists
+                ecg_files = case_data.get('ecgs', [])
+                image_displayed = False
+                
+                # Try new format: ecgs array
+                if ecg_files and len(ecg_files) > 0:
+                    first_ecg = ecg_files[0]
+                    image_path = case_dir / first_ecg.get('filename', '')
+                    if image_path.exists():
+                        try:
+                            from PIL import Image
+                            img = Image.open(str(image_path))
+                            st.image(img, use_container_width=True)
+                            image_displayed = True
+                        except Exception as e:
+                            pass
+                
+                # Try old format: image_path
+                if not image_displayed and case_data.get('image_path'):
+                    image_path = case_dir / case_data['image_path']
+                    if image_path.exists():
+                        try:
+                            from PIL import Image
+                            img = Image.open(str(image_path))
+                            st.image(img, use_container_width=True)
+                            image_displayed = True
+                        except:
+                            pass
+                
+                # Try to find any image in directory
+                if not image_displayed:
+                    for ext in ['*.png', '*.jpg', '*.jpeg', '*.PNG', '*.JPG', '*.JPEG']:
+                        images = list(case_dir.glob(ext))
+                        if images:
+                            try:
+                                from PIL import Image
+                                img = Image.open(str(images[0]))
+                                st.image(img, use_container_width=True)
+                                image_displayed = True
+                                break
+                            except:
+                                pass
+                
+                if not image_displayed:
+                    st.caption("📷 Aperçu non disponible")
+                
+                st.divider()
+                
+                # Action button - Practice with correction_llm
+                if st.button("🎯 Pratiquer", key=f"practice_{case_dir.name}", use_container_width=True, type="primary"):
+                    # Redirect to correction_llm (unified page)
+                    st.session_state.selected_practice_case = case_data
+                    st.session_state.selected_page = 'correction_llm'
+                    st.rerun()
+                
+                st.markdown("---")
+    
+    # Plus de sidebar avec détails des cas - supprimé
+
 def page_student_progress():
     """Page de suivi des progrès étudiant"""
     
@@ -635,6 +713,320 @@ def page_student_progress():
     
     with col4:
         st.metric("⏱️ Temps total", "0h", "")
+
+def page_admin_ontology():
+    """
+    🔧 Administration - Rechargement Ontologie OWL
+    Page réservée aux administrateurs pour recharger l'ontologie
+    depuis un fichier .owl/.owx
+    
+    Use cases:
+    - Mode hors ligne (pas d'accès GitHub)
+    - Itérations de développement ontologie
+    """
+    st.title("🔧 Administration - Ontologie OWL")
+    st.markdown("*Rechargez l'ontologie depuis un fichier .owl (offline ou dev)*")
+    
+    st.info("""
+    **Cas d'usage :**
+    - 🌐 **Mode hors ligne** : Environnements sans accès GitHub
+    - 🔬 **Développement** : Itérations rapides d'ontologie
+    - 🏥 **Hôpitaux** : Déploiements avec restrictions internet
+    """)
+    
+    st.markdown("---")
+    
+    # Status actuel
+    st.subheader("📊 Status Actuel")
+    
+    owl_file = Path("data/ontologie.owx")
+    json_file = Path("data/ontology_from_owl.json")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if owl_file.exists():
+            st.success(f"✅ Fichier OWL: `{owl_file.name}`")
+            try:
+                size_mb = owl_file.stat().st_size / (1024 * 1024)
+                st.caption(f"Taille: {size_mb:.2f} MB")
+            except:
+                pass
+        else:
+            st.warning("⚠️ Fichier OWL non trouvé")
+    
+    with col2:
+        if json_file.exists():
+            st.success(f"✅ Ontologie JSON: `{json_file.name}`")
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    ontology_data = json.load(f)
+                    concept_count = len(ontology_data.get('concept_mappings', {}))
+                    st.caption(f"Concepts: {concept_count}")
+            except Exception as e:
+                st.error(f"Erreur lecture: {e}")
+        else:
+            st.warning("⚠️ Ontologie JSON non trouvée")
+    
+    st.markdown("---")
+    
+    # Upload et extraction
+    st.subheader("📤 Upload et Extraction")
+    
+    uploaded_file = st.file_uploader(
+        "Sélectionnez un fichier .owl ou .owx",
+        type=['owl', 'owx'],
+        help="Fichier ontologie Protégé (format OWL/RDF)"
+    )
+    
+    if uploaded_file:
+        st.success(f"✅ Fichier chargé: **{uploaded_file.name}** ({uploaded_file.size:,} bytes)")
+        
+        # Preview first few lines
+        with st.expander("👁️ Aperçu du fichier"):
+            try:
+                content_preview = uploaded_file.getvalue().decode('utf-8')[:1000]
+                st.code(content_preview, language='xml')
+                uploaded_file.seek(0)  # Reset pour utilisation ultérieure
+            except Exception as e:
+                st.warning(f"Impossible d'afficher l'aperçu: {e}")
+        
+        st.markdown("---")
+        
+        # Extraction button
+        col1, col2, col3 = st.columns([1, 2, 1])
+        
+        with col2:
+            extract_button = st.button(
+                "🔄 Extraire vers JSON et Recharger",
+                type="primary",
+                use_container_width=True
+            )
+        
+        if extract_button:
+            with st.spinner("🔄 Extraction en cours..."):
+                try:
+                    # Step 1: Save uploaded file to data/ontologie.owx
+                    st.info("📝 Étape 1/3: Sauvegarde du fichier OWL...")
+                    with open(owl_file, 'wb') as f:
+                        f.write(uploaded_file.getbuffer())
+                    
+                    st.success(f"✅ Fichier sauvegardé: {owl_file}")
+                    
+                    # Step 2: Convert OWL to JSON
+                    st.info("🔄 Étape 2/3: Extraction ontologie...")
+                    
+                    try:
+                        # ✅ UTILISATION DU BON EXTRACTEUR (rdf_owl_extractor, pas owl_to_json_converter!)
+                        from backend.rdf_owl_extractor import RDFOWLExtractor
+                        
+                        # Extraction complète avec RDFOWLExtractor
+                        extractor = RDFOWLExtractor(str(owl_file))
+                        extractor.load()
+                        extractor.extract_labels()
+                        extractor.extract_weight_classes()
+                        extractor.extract_weights()
+                        extractor.inherit_weights()
+                        extractor.extract_territoires()
+                        extractor.extract_concept_territoires()
+                        extractor.extract_requires_findings()
+                        ontology_data = extractor.generate_json(str(json_file))
+                        
+                        st.success(f"✅ Ontologie extraite: {json_file}")
+                        
+                        # Show detailed stats
+                        concept_count = len(ontology_data.get('concept_mappings', {}))
+                        territory_count = len(ontology_data.get('territoires_ecg', {}))
+                        
+                        # Compter concepts avec synonymes
+                        concepts_with_synonyms = sum(
+                            1 for concept_data in ontology_data.get('concept_mappings', {}).values()
+                            if concept_data.get('synonymes', [])
+                        )
+                        total_synonyms = sum(
+                            len(concept_data.get('synonymes', []))
+                            for concept_data in ontology_data.get('concept_mappings', {}).values()
+                        )
+                        
+                        # Compter par catégorie
+                        nb_urgent = len(ontology_data.get('concept_categories', {}).get('DIAGNOSTIC_URGENT', {}).get('concepts', []))
+                        nb_majeur = len(ontology_data.get('concept_categories', {}).get('DIAGNOSTIC_MAJEUR', {}).get('concepts', []))
+                        nb_signe = len(ontology_data.get('concept_categories', {}).get('SIGNE_ECG_PATHOLOGIQUE', {}).get('concepts', []))
+                        nb_desc = len(ontology_data.get('concept_categories', {}).get('DESCRIPTEUR_ECG', {}).get('concepts', []))
+                        
+                        st.info(f"""
+                        📊 **Statistiques d'extraction:**
+                        - **{concept_count} concepts** au total
+                        - **{territory_count} territoires** ECG
+                        - **{concepts_with_synonyms} concepts** avec synonymes ({total_synonyms} synonymes totaux)
+                        
+                        **Répartition par catégorie:**
+                        - 🚨 Diagnostic URGENT: {nb_urgent}
+                        - ⚠️ Diagnostic MAJEUR: {nb_majeur}
+                        - 🔍 Signe ECG: {nb_signe}
+                        - 📝 Descripteur ECG: {nb_desc}
+                        """)
+                        
+                    except ImportError as e:
+                        st.error(f"❌ Module rdf_owl_extractor non disponible: {e}")
+                        st.info("Vérifiez que backend/rdf_owl_extractor.py existe")
+                        return
+                    except Exception as e:
+                        st.error(f"❌ Erreur lors de l'extraction: {e}")
+                        import traceback
+                        with st.expander("🐛 Détails de l'erreur"):
+                            st.code(traceback.format_exc())
+                        return
+                    
+                    # Step 3: Reload instruction
+                    st.info("🔄 Étape 3/3: Rechargement...")
+                    st.warning("""
+                    ⚠️ **Action requise:**
+                    
+                    L'ontologie a été extraite avec succès !
+                    
+                    Pour appliquer les changements, **rechargez l'application** :
+                    - Cliquez sur le bouton ci-dessous
+                    - Ou appuyez sur **R** dans votre navigateur
+                    """)
+                    
+                    if st.button("🔄 Recharger l'application maintenant", type="primary"):
+                        st.rerun()
+                    
+                except Exception as e:
+                    st.error(f"❌ Erreur lors de l'extraction: {e}")
+                    
+                    import traceback
+                    with st.expander("🐛 Détails de l'erreur"):
+                        st.code(traceback.format_exc())
+    
+    else:
+        st.info("💡 Uploadez un fichier .owl pour commencer")
+    
+    st.markdown("---")
+    
+    # Section alternative: Chemin externe
+    st.subheader("📂 Ou charger depuis un chemin externe")
+    
+    col1, col2 = st.columns([3, 1])
+    
+    with col1:
+        external_path = st.text_input(
+            "Chemin complet vers le fichier OWL",
+            value=r"C:\Users\Administrateur\bmad\BrYOzRZIu7jQTwmfcGsi35.owl",
+            help="Chemin absolu vers votre fichier .owl (ex: C:\\path\\to\\file.owl)"
+        )
+    
+    with col2:
+        st.write("")  # Spacer
+        st.write("")  # Spacer
+        load_external_button = st.button("🔄 Charger", type="primary", use_container_width=True)
+    
+    if load_external_button:
+        external_owl = Path(external_path)
+        
+        if not external_owl.exists():
+            st.error(f"❌ Fichier introuvable: {external_path}")
+        else:
+            with st.spinner("🔄 Chargement et extraction en cours..."):
+                try:
+                    st.info(f"📥 Chargement depuis: {external_owl}")
+                    
+                    # Extraction directe sans copie
+                    from backend.rdf_owl_extractor import RDFOWLExtractor
+                    
+                    extractor = RDFOWLExtractor(str(external_owl))
+                    extractor.load()
+                    extractor.extract_labels()
+                    extractor.extract_weight_classes()
+                    extractor.extract_weights()
+                    extractor.inherit_weights()
+                    extractor.extract_territoires()
+                    extractor.extract_concept_territoires()
+                    extractor.extract_requires_findings()
+                    ontology_data = extractor.generate_json(str(json_file))
+                    
+                    st.success(f"✅ Ontologie extraite vers: {json_file}")
+                    
+                    # Show detailed stats
+                    concept_count = len(ontology_data.get('concept_mappings', {}))
+                    territory_count = len(ontology_data.get('territoires_ecg', {}))
+                    
+                    concepts_with_synonyms = sum(
+                        1 for concept_data in ontology_data.get('concept_mappings', {}).values()
+                        if concept_data.get('synonymes', [])
+                    )
+                    total_synonyms = sum(
+                        len(concept_data.get('synonymes', []))
+                        for concept_data in ontology_data.get('concept_mappings', {}).values()
+                    )
+                    
+                    nb_urgent = len(ontology_data.get('concept_categories', {}).get('DIAGNOSTIC_URGENT', {}).get('concepts', []))
+                    nb_majeur = len(ontology_data.get('concept_categories', {}).get('DIAGNOSTIC_MAJEUR', {}).get('concepts', []))
+                    nb_signe = len(ontology_data.get('concept_categories', {}).get('SIGNE_ECG_PATHOLOGIQUE', {}).get('concepts', []))
+                    nb_desc = len(ontology_data.get('concept_categories', {}).get('DESCRIPTEUR_ECG', {}).get('concepts', []))
+                    
+                    st.success(f"""
+                    🎉 **EXTRACTION RÉUSSIE !**
+                    
+                    📊 **Statistiques:**
+                    - **{concept_count} concepts** au total
+                    - **{territory_count} territoires** ECG
+                    - **{concepts_with_synonyms} concepts** avec synonymes ({total_synonyms} synonymes totaux)
+                    
+                    **Répartition par catégorie:**
+                    - 🚨 Diagnostic URGENT: {nb_urgent}
+                    - ⚠️ Diagnostic MAJEUR: {nb_majeur}
+                    - 🔍 Signe ECG: {nb_signe}
+                    - 📝 Descripteur ECG: {nb_desc}
+                    """)
+                    
+                    st.warning("⚠️ **Rechargez l'application** pour utiliser la nouvelle ontologie (touche R)")
+                    
+                    if st.button("🔄 Recharger maintenant", type="primary", key="reload_after_external"):
+                        # Reset ontology cache
+                        if 'ontology_loaded' in st.session_state:
+                            del st.session_state['ontology_loaded']
+                        if 'ontology_data' in st.session_state:
+                            del st.session_state['ontology_data']
+                        st.rerun()
+                    
+                except Exception as e:
+                    st.error(f"❌ Erreur lors de l'extraction: {e}")
+                    import traceback
+                    with st.expander("🐛 Détails de l'erreur"):
+                        st.code(traceback.format_exc())
+    
+    st.markdown("---")
+    
+    # Documentation
+    with st.expander("📚 Documentation"):
+        st.markdown("""
+        ### 🔍 Comment ça marche?
+        
+        1. **Upload** : Sélectionnez votre fichier .owl/.owx
+        2. **Sauvegarde** : Le fichier est sauvegardé dans `data/ontologie.owx`
+        3. **Extraction** : Le convertisseur extrait les concepts vers JSON
+        4. **Rechargement** : L'application recharge la nouvelle ontologie
+        
+        ### 📁 Fichiers générés
+        
+        - `data/ontologie.owx` : Fichier OWL source
+        - `data/ontology_from_owl.json` : Ontologie au format JSON
+        
+        ### ⚠️ Précautions
+        
+        - Testez d'abord en environnement de développement
+        - Faites une sauvegarde avant de remplacer
+        - Vérifiez les logs après rechargement
+        
+        ### 🔧 Dépannage
+        
+        Si l'extraction échoue :
+        - Vérifiez le format du fichier OWL (doit être OWL/XML ou RDF/XML)
+        - Consultez les logs de l'extracteur
+        - Vérifiez que tous les concepts ont des labels français
+        """)
 
 def page_sessions_management():
     """Page de gestion des sessions ECG pour experts et admins"""
@@ -917,102 +1309,35 @@ def display_case_for_exercise(case_data):
             st.info("📄 Cas ECG (format non-image)")
 
     with col_annotations:
-        st.markdown("#### 📝 Vos annotations")
+        # 🎯 UTILISER LE MODULE DE CORRECTION LLM UNIFIÉ
+        st.markdown("#### 🔍 Correction Automatique LLM")
         
-        # Initialiser student_annotations si nécessaire
-        if 'student_annotations' not in st.session_state:
-            st.session_state['student_annotations'] = {}
+        # Préparer les données du cas pour correction_llm
+        if 'case_folder' not in case_data:
+            case_folder = ECG_CASES_DIR / case_data.get('case_id', '')
+            case_data['case_folder'] = str(case_folder)
         
-        # Utiliser le nom du cas comme identifiant unique pour la clé
-        key_prefix = f"student_{case_data.get('case_id', 'unknown')}_annotations"
+        # Rediriger vers la page de correction LLM pour ce cas
+        if st.button("🎯 Ouvrir le module de correction", key=f"open_correction_{case_id}", type="primary", use_container_width=True):
+            # Sauvegarder le cas dans session_state pour correction_llm
+            st.session_state.selected_practice_case = case_data
+            st.session_state.selected_page = 'correction_llm'
+            st.rerun()
         
-        # Interface d'annotation avec autocomplétion
-        annotations = smart_annotation_input(
-            key_prefix=key_prefix,
-            max_tags=15
-        )
+        st.info("💡 Utilisez le module de correction pour une analyse complète avec IA")
         
-        # Bouton de sauvegarde
-        if st.button("💾 Sauvegarder", key=f"save_{case_id}", use_container_width=True):
-            st.session_state['student_annotations'][key_prefix] = annotations
-            try:
-                # Créer le chemin si case_folder existe, sinon le créer
-                if 'case_folder' in case_data:
-                    student_folder = Path(case_data['case_folder'])
+        # Aperçu du diagnostic attendu
+        with st.expander("📋 Voir le diagnostic de référence"):
+            diagnosis = case_data.get('expected_concepts', case_data.get('annotations', []))
+            if diagnosis:
+                if isinstance(diagnosis, list):
+                    for diag in diagnosis[:5]:
+                        concept_text = diag if isinstance(diag, str) else diag.get('concept', diag.get('text', str(diag)))
+                        st.write(f"• {concept_text}")
                 else:
-                    student_folder = ECG_CASES_DIR / str(case_id)
-                    student_folder.mkdir(parents=True, exist_ok=True)
-                
-                student_file = student_folder / "student_annotations.json"
-                with open(student_file, 'w', encoding='utf-8') as f:
-                    json.dump(annotations, f, ensure_ascii=False, indent=2)
-                st.success("✅ Sauvegardé !")
-            except Exception as e:
-                st.error(f"Erreur : {e}")
-        
-        # Résumé structuré
-        if annotations:
-            st.markdown("---")
-            display_annotation_summary(annotations, title="📊 Résumé")
-        
-        # Feedback
-        st.markdown("---")
-        st.markdown("#### 💡 Feedback")
-        
-        # Option pour voir/masquer le feedback
-        show_feedback = st.checkbox("Voir le feedback expert", key=f"feedback_{case_id}")
-        
-        if show_feedback:
-            # Charger les annotations expertes
-            try:
-                case_folder = ECG_CASES_DIR / case_data.get('case_id', '')
-                annotations_file = case_folder / "annotations.json"
-                
-                if annotations_file.exists():
-                    with open(annotations_file, 'r', encoding='utf-8') as f:
-                        expert_annotations = json.load(f)
-                    
-                    if expert_annotations:
-                        # Extraire les concepts experts
-                        expert_concepts = set()
-                        for ann in expert_annotations:
-                            if ann.get('annotation_tags'):
-                                expert_concepts.update(ann['annotation_tags'])
-                        
-                        if expert_concepts:
-                            st.markdown("**🧠 Concepts experts :**")
-                            for concept in list(expert_concepts)[:5]:
-                                st.markdown(f"• {concept}")
-                            
-                            if len(expert_concepts) > 5:
-                                st.caption(f"... et {len(expert_concepts) - 5} autres")
-                            
-                            # Score simple si l'étudiant a annoté
-                            if annotations:
-                                student_concepts = set(annotations)
-                                overlap = expert_concepts.intersection(student_concepts)
-                                score = len(overlap) / len(expert_concepts) * 100 if expert_concepts else 0
-                                
-                                st.markdown("---")
-                                if score >= 70:
-                                    st.success(f"🏆 Score : {score:.0f}%")
-                                elif score >= 50:
-                                    st.warning(f"👍 Score : {score:.0f}%")
-                                else:
-                                    st.error(f"📚 Score : {score:.0f}%")
-                                
-                                # Concepts manqués
-                                missed = expert_concepts - student_concepts
-                                if missed and score < 100:
-                                    st.caption("💡 À considérer :")
-                                    for concept in list(missed)[:3]:
-                                        st.caption(f"• {concept}")
-                        else:
-                            st.info("Pas d'annotation experte")
-                else:
-                    st.info("Feedback non disponible")
-            except Exception as e:
-                st.error(f"Erreur : {e}")
+                    st.write(diagnosis)
+            else:
+                st.info("Pas de diagnostic de référence disponible")
 
 def finish_ecg_session():
     """Termine une session ECG et affiche les résultats"""
@@ -2166,5 +2491,5 @@ def create_ecg_session_from_dict(session_data):
         st.error(f"Erreur lors de la création de la session : {e}")
         return False
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

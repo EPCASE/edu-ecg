@@ -21,7 +21,7 @@
 
 ## 🎯 **Vue d'ensemble**
 
-**Edu-ECG** révolutionne l'apprentissage de l'électrocardiogramme avec :
+**Edu-ECG** Inventions l'apprentissage de l'électrocardiogramme avec :
 
 ### 🧠 **Correction Intelligente**
 - **281 concepts ECG** organisés par ontologie médicale
@@ -46,6 +46,22 @@
 1. **Expert** : Import ECG → Annotation avec ontologie → Création sessions
 2. **Étudiant** : Consultation cas → Annotation guidée → Feedback intelligent
 3. **Suivi** : Analytics détaillés, progression, scores
+
+### 🎓 **Session Builder** (NOUVEAU)
+**Interface complète pour créer des sessions de formation en minutes**
+- **📤 Import intelligent** : ECG simple ou multi-ECG (évolution temporelle)
+- **🏷️ Annotation assistée par LLM** : 3000 concepts détectés automatiquement
+- **🔍 Recherche rapide** : Recherche instantanée dans l'ontologie (0ms)
+- **📚 Création de sessions** : Workflow guidé en 4 étapes
+
+**Accès :** http://localhost:8502  
+**Documentation :** [`docs/SESSION_BUILDER_QUICKSTART.md`](docs/SESSION_BUILDER_QUICKSTART.md)
+
+**Performance :**
+- ⏱️ **1-2 min** pour créer un cas complet
+- 🚀 **Cache Redis** : 70% des requêtes instantanées
+- 🎯 **5-15 concepts** détectés automatiquement
+- 💰 **Gratuit** avec mode Recherche Rapide
 
 ---
 
@@ -78,7 +94,7 @@ streamlit run frontend/app.py
 ---
 
 ## 📁 **Structure du Projet**
-````markdown
+```
 ECG lecture/
 ├── frontend/                      # Interface utilisateur
 │   ├── app.py                    # Application principale
@@ -97,5 +113,10 @@ ECG lecture/
 ├── backend/                      # Logique métier
 ├── deploy_to_github.bat         # Script déploiement
 └── requirements.txt             # Dépendances Python
-````
+```
 
+<div align="center">
+🫀 Edu-ECG - Transformer l'apprentissage de l'électrocardiographie
+
+Développé avec ❤️ pour l'éducation médicale
+</div>

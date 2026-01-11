@@ -47,3 +47,51 @@ temp/
 # Sensitive data
 users.db
 *.db
+.env
+
+# BMAD & Session Notes (local only)
+_bmad
+_bmad-output/
+
+# Backups
+backups/
+*.backup
+
+# Analysis & Scripts temporaires
+analyze_*.py
+test_*.py
+extract_*.py
+cleanup_*.ps1
+cleanup_*.bat
+
+# Documentation temporaire (markdown session notes)
+SESSION_RECAP_*.md
+PARTY_MODE_*.md
+AMELIORATIONS_*.md
+CORRECTIFS_*.md
+CORRECTIONS_*.md
+INTEGRATION_*.md
+VALIDATION_*.md
+SYNTHESE_*.md
+POC_*.md
+READY_TO_TEST.md
+ONTOLOGY_CONVENTIONS.md
+mapping_analysis.txt
+
+# Fichiers PDF/HTML générés
+README.html
+*.pdf
+
+# Dev archive (déjà versionné, pas besoin de re-commit)
+# dev_archive/ 
+
+# Data temporaire / test (ECG cases & sessions)
+data/ecg_cases/
+data/ecg_sessions/
+data/case_templates_epic1*.json
+data/test_cases*.json
+data/ontology_*.json.backup
+data/epic1_ontology_mapping.json
+
+# Dataset EPIC1 (fichiers volumineux)
+data/epi1c_dataset/

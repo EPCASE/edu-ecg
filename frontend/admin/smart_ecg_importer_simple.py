@@ -14,14 +14,63 @@ from pathlib import Path
 import io
 import uuid
 from datetime import datetime
+import sys
+
+# Ajouter backend au path pour imports LLM
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root / "backend"))
+
+# Import services LLM pour validation automatique
+try:
+    from backend.services.llm_service import LLMService
+    from backend.scoring_service_llm import SemanticScorer
+    from backend.feedback_service import FeedbackService
+    LLM_AVAILABLE = True
+except ImportError as e:
+    LLM_AVAILABLE = False
+    llm_import_error = str(e)
 
 def smart_ecg_importer_simple():
     """Interface d'import ECG simplifiée et linéaire avec support multi-ECG"""
     
     st.header("📥 Import ECG Intelligent")
     
-    # Mode d'import : uniquement multiple
-    st.markdown("**Import Multiple : Créez un cas puis ajoutez plusieurs ECG**")
+    # Sélection du mode d'import
+    st.markdown("### 🎯 Choisir le Mode d'Import")
+    
+    mode_col1, mode_col2, mode_col3 = st.columns(3)
+    
+    with mode_col1:
+        if st.button("⚡ Recherche Rapide", type="primary", use_container_width=True):
+            st.session_state.import_mode = 'quick'
+            st.rerun()
+        st.caption("Import ultra-rapide sans annotation")
+    
+    with mode_col2:
+        if st.button("🤖 Mode IA (Auto)", type="primary", use_container_width=True):
+            st.session_state.import_mode = 'ai'
+            st.rerun()
+        st.caption("Validation automatique avec LLM")
+    
+    with mode_col3:
+        if st.button("✍️ Mode Manuel", type="primary", use_container_width=True):
+            st.session_state.import_mode = 'manual'
+            st.rerun()
+        st.caption("Annotation manuelle avec tags")
+    
+    st.markdown("---")
+    
+    # Initialiser le mode par défaut
+    if 'import_mode' not in st.session_state:
+        st.session_state.import_mode = 'ai'
+    
+    # Afficher le mode actuel
+    mode_icons = {'quick': '⚡', 'ai': '🤖', 'manual': '✍️'}
+    mode_names = {'quick': 'Recherche Rapide', 'ai': 'Mode IA', 'manual': 'Mode Manuel'}
+    
+    st.info(f"{mode_icons[st.session_state.import_mode]} **Mode actif:** {mode_names[st.session_state.import_mode]}")
+    
+    # Workflow selon le mode
     import_multiple_workflow()
 
 
@@ -196,28 +245,252 @@ def add_ecg_to_multi_case():
                     else:
                         st.error("❌ Le libellé est obligatoire")
 
-    # Affichage de la boîte d'annotation après ajout
+    # Affichage du module de validation LLM après ajout
     if 'pending_annotation_idx' in st.session_state:
         idx = st.session_state['pending_annotation_idx']
         if 0 <= idx < len(st.session_state.multi_ecgs):
             ecg = st.session_state.multi_ecgs[idx]
-            st.markdown(f"### 🏷️ Annotations pour l'ECG : **{ecg['label']}**")
-            import sys
-            import importlib.util
-            annopath = os.path.join(os.path.dirname(__file__), '..', 'annotation_components.py')
-            spec = importlib.util.spec_from_file_location("annotation_components", annopath)
-            annotation_components = importlib.util.module_from_spec(spec)
-            sys.modules["annotation_components"] = annotation_components
-            spec.loader.exec_module(annotation_components)
-            annotations = annotation_components.smart_annotation_input(
-                key_prefix=f"ecg_anno_{idx}",
-                max_tags=10
-            )
-            if st.button("✅ Valider l'annotation", key=f"validate_anno_{idx}"):
-                st.session_state.multi_ecgs[idx]['annotations'] = annotations
-                st.success("Annotations enregistrées !")
-                del st.session_state['pending_annotation_idx']
-                st.rerun()
+            
+            # Mode Recherche Rapide: pas d'annotation
+            if st.session_state.get('import_mode') == 'quick':
+                st.markdown(f"### ⚡ Mode Recherche Rapide - ECG : **{ecg['label']}**")
+                st.info("✅ En mode recherche rapide, l'ECG est enregistré sans annotation")
+                
+                if st.button("✅ Continuer (sans annotation)", key=f"quick_continue_{idx}", type="primary"):
+                    st.session_state.multi_ecgs[idx]['annotations'] = []
+                    st.session_state.multi_ecgs[idx]['expected_concepts'] = []
+                    st.session_state.multi_ecgs[idx]['teacher_correction_text'] = ""
+                    st.session_state.multi_ecgs[idx]['mode'] = 'quick'
+                    del st.session_state['pending_annotation_idx']
+                    st.success("✅ ECG enregistré en mode rapide!")
+                    st.rerun()
+                return
+            
+            # Mode Manuel: annotation avec tags
+            if st.session_state.get('import_mode') == 'manual':
+                st.markdown(f"### ✍️ Mode Manuel - ECG : **{ecg['label']}**")
+                st.info("📝 Annotez manuellement avec des tags (concepts clés)")
+                
+                # Charger annotation_components
+                try:
+                    import importlib.util
+                    annopath = os.path.join(os.path.dirname(__file__), '..', 'annotation_components.py')
+                    spec = importlib.util.spec_from_file_location("annotation_components", annopath)
+                    annotation_components = importlib.util.module_from_spec(spec)
+                    sys.modules["annotation_components"] = annotation_components
+                    spec.loader.exec_module(annotation_components)
+                    
+                    annotations = annotation_components.smart_annotation_input(
+                        key_prefix=f"manual_anno_{idx}",
+                        max_tags=20
+                    )
+                    
+                    col_save, col_skip = st.columns(2)
+                    
+                    with col_save:
+                        if st.button("✅ Valider l'annotation", key=f"validate_manual_{idx}", type="primary",
+                                    disabled=not annotations):
+                            st.session_state.multi_ecgs[idx]['annotations'] = annotations
+                            st.session_state.multi_ecgs[idx]['expected_concepts'] = annotations
+                            st.session_state.multi_ecgs[idx]['teacher_correction_text'] = ""
+                            st.session_state.multi_ecgs[idx]['mode'] = 'manual'
+                            st.success(f"✅ {len(annotations)} concepts enregistrés!")
+                            del st.session_state['pending_annotation_idx']
+                            st.rerun()
+                    
+                    with col_skip:
+                        if st.button("⏭️ Passer", key=f"skip_manual_{idx}"):
+                            st.session_state.multi_ecgs[idx]['annotations'] = []
+                            st.session_state.multi_ecgs[idx]['expected_concepts'] = []
+                            st.session_state.multi_ecgs[idx]['mode'] = 'manual'
+                            del st.session_state['pending_annotation_idx']
+                            st.rerun()
+                    
+                except Exception as e:
+                    st.error(f"❌ Erreur chargement module annotation: {e}")
+                    st.info("💡 Utilisez le mode IA à la place")
+                
+                return
+            
+            # Mode IA (par défaut)
+            st.markdown(f"### 🤖 Validation IA pour l'ECG : **{ecg['label']}**")
+            
+            if not LLM_AVAILABLE:
+                st.warning(f"⚠️ Module LLM non disponible: {llm_import_error}")
+                st.info("💡 Utilisation du mode manuel (tags)")
+                
+                # Fallback: annotation manuelle
+                import importlib.util
+                annopath = os.path.join(os.path.dirname(__file__), '..', 'annotation_components.py')
+                spec = importlib.util.spec_from_file_location("annotation_components", annopath)
+                annotation_components = importlib.util.module_from_spec(spec)
+                sys.modules["annotation_components"] = annotation_components
+                spec.loader.exec_module(annotation_components)
+                annotations = annotation_components.smart_annotation_input(
+                    key_prefix=f"ecg_anno_{idx}",
+                    max_tags=15
+                )
+                
+                if st.button("✅ Valider l'annotation", key=f"validate_anno_{idx}"):
+                    st.session_state.multi_ecgs[idx]['annotations'] = annotations
+                    st.session_state.multi_ecgs[idx]['expected_concepts'] = annotations  # Pour compatibilité
+                    st.success("Annotations enregistrées !")
+                    del st.session_state['pending_annotation_idx']
+                    st.rerun()
+            else:
+                # Mode LLM: Rédaction de correction + extraction automatique
+                st.markdown("""
+                **📝 Mode Validation IA:**
+                1. Rédigez votre correction (minimum 10 caractères)
+                2. L'IA extrait automatiquement les concepts médicaux
+                3. Validez les concepts détectés
+                """)
+                
+                # Clé pour stocker la correction temporaire
+                correction_key = f"teacher_correction_{idx}"
+                if correction_key not in st.session_state:
+                    st.session_state[correction_key] = ""
+                
+                # Zone de texte pour correction du professeur
+                teacher_correction = st.text_area(
+                    "✍️ Rédigez votre correction (texte libre):",
+                    value=st.session_state[correction_key],
+                    height=200,
+                    placeholder="""Exemple court:
+
+Rythme sinusal régulier à 70 bpm.
+PR allongé à 240ms → BAV 1er degré.
+QRS élargis (140ms) avec rSR' en V1 et S larges en V6 → BBG complet.
+Pas d'anomalie de repolarisation.
+
+Diagnostic: BAV 1 + BBG complet.""",
+                    key=f"correction_input_{idx}"
+                )
+                
+                st.session_state[correction_key] = teacher_correction
+                
+                # Indicateur de caractères
+                char_count = len(teacher_correction.strip())
+                if char_count > 0:
+                    if char_count < 10:
+                        st.caption(f"⚠️ {char_count} caractères (minimum 10 pour extraction IA)")
+                    else:
+                        st.caption(f"✅ {char_count} caractères - Prêt pour extraction IA")
+                
+                # Bouton extraction LLM
+                col_extract, col_skip = st.columns(2)
+                
+                with col_extract:
+                    if st.button("🤖 Extraire les Concepts avec IA", type="primary", key=f"extract_{idx}", 
+                                disabled=not teacher_correction or len(teacher_correction.strip()) < 10):
+                        with st.spinner("🔍 Extraction en cours..."):
+                            try:
+                                llm_service = LLMService()
+                                extraction_result = llm_service.extract_concepts(teacher_correction)
+                                extracted_concepts = extraction_result.get('concepts', [])
+                                
+                                # Stocker résultats extraction
+                                st.session_state[f'extracted_{idx}'] = extracted_concepts
+                                st.session_state[f'correction_text_{idx}'] = teacher_correction
+                                st.success(f"✅ {len(extracted_concepts)} concepts extraits!")
+                                st.rerun()
+                            except Exception as e:
+                                st.error(f"❌ Erreur extraction: {e}")
+                
+                with col_skip:
+                    if st.button("⏭️ Passer (sans validation)", key=f"skip_{idx}"):
+                        st.session_state.multi_ecgs[idx]['annotations'] = []
+                        st.session_state.multi_ecgs[idx]['expected_concepts'] = []
+                        st.session_state.multi_ecgs[idx]['teacher_correction_text'] = ""
+                        st.warning("ECG enregistré sans validation")
+                        del st.session_state['pending_annotation_idx']
+                        st.rerun()
+                
+                # Affichage résultats extraction et validation
+                if f'extracted_{idx}' in st.session_state:
+                    st.markdown("---")
+                    st.markdown("### ✅ Validation des Concepts Extraits")
+                    
+                    extracted = st.session_state[f'extracted_{idx}']
+                    
+                    st.info(f"🎯 {len(extracted)} concepts détectés - Cochez ceux qui sont pertinents:")
+                    
+                    validated_concepts = []
+                    
+                    # Afficher chaque concept avec checkbox
+                    for i, concept in enumerate(extracted):
+                        col_check, col_concept, col_info = st.columns([1, 5, 2])
+                        
+                        with col_check:
+                            is_valid = st.checkbox(
+                                "",
+                                value=True,  # Par défaut, tous cochés
+                                key=f"concept_check_{idx}_{i}",
+                                label_visibility="collapsed"
+                            )
+                        
+                        with col_concept:
+                            # Afficher le texte du concept
+                            concept_text = concept.get('text', concept) if isinstance(concept, dict) else concept
+                            st.write(f"**{concept_text}**")
+                        
+                        with col_info:
+                            # Afficher catégorie si disponible
+                            if isinstance(concept, dict):
+                                category = concept.get('category', 'N/A')
+                                confidence = concept.get('confidence', 1.0)
+                                st.caption(f"📁 {category} ({confidence:.0%})")
+                        
+                        if is_valid:
+                            validated_concepts.append(concept_text if isinstance(concept_text, str) else concept)
+                    
+                    # Option ajout manuel
+                    st.markdown("---")
+                    st.markdown("**➕ Ajouter un concept manuellement:**")
+                    
+                    col_manual, col_add = st.columns([4, 1])
+                    with col_manual:
+                        manual_concept = st.text_input(
+                            "Concept supplémentaire:",
+                            key=f"manual_concept_{idx}",
+                            placeholder="Ex: Onde T inversée en V1-V3",
+                            label_visibility="collapsed"
+                        )
+                    
+                    with col_add:
+                        if st.button("➕", key=f"add_manual_{idx}"):
+                            if manual_concept:
+                                validated_concepts.append(manual_concept)
+                                st.success(f"✅ Ajouté: {manual_concept}")
+                    
+                    # Sauvegarde finale
+                    st.markdown("---")
+                    
+                    col_save, col_cancel = st.columns(2)
+                    
+                    with col_save:
+                        if st.button("💾 Sauvegarder la Validation", type="primary", key=f"save_validation_{idx}",
+                                    disabled=not validated_concepts):
+                            # Sauvegarder tous les résultats
+                            st.session_state.multi_ecgs[idx]['expected_concepts'] = validated_concepts
+                            st.session_state.multi_ecgs[idx]['teacher_correction_text'] = st.session_state[f'correction_text_{idx}']
+                            st.session_state.multi_ecgs[idx]['annotations'] = validated_concepts  # Pour compatibilité
+                            
+                            # Nettoyer états temporaires
+                            del st.session_state[f'extracted_{idx}']
+                            del st.session_state[f'correction_text_{idx}']
+                            del st.session_state[correction_key]
+                            del st.session_state['pending_annotation_idx']
+                            
+                            st.success(f"✅ Validation enregistrée: {len(validated_concepts)} concepts!")
+                            st.rerun()
+                    
+                    with col_cancel:
+                        if st.button("🔄 Recommencer", key=f"restart_{idx}"):
+                            del st.session_state[f'extracted_{idx}']
+                            if f'correction_text_{idx}' in st.session_state:
+                                del st.session_state[f'correction_text_{idx}']
+                            st.rerun()
 
 def crop_multi_ecg_interface():
     """Interface de recadrage pour les ECG du cas"""
@@ -396,14 +669,25 @@ def save_final_multi_case(case, ecgs, generate_previews, create_annotations, aut
             'case_id': case['case_id'],
             'type': 'multi_ecg',
             'total_files': len(ecgs),
+            'import_mode': st.session_state.get('import_mode', 'ai'),  # Mode d'import utilisé
             'options': {
                 'generate_previews': generate_previews,
                 'create_annotations': create_annotations,
                 'auto_publish': auto_publish,
                 'create_session': create_session
             },
-            'ecgs': []
+            'ecgs': [],
+            'expected_concepts': []  # Tous les concepts attendus du cas
         }
+        
+        # Collecter tous les concepts attendus
+        all_expected_concepts = []
+        for ecg in ecgs:
+            concepts = ecg.get('expected_concepts', [])
+            all_expected_concepts.extend(concepts)
+        
+        # Dédupliquer
+        metadata['expected_concepts'] = list(set(all_expected_concepts))
         
         # Traiter chaque ECG
         for i, ecg in enumerate(ecgs):
@@ -446,7 +730,9 @@ def save_final_multi_case(case, ecgs, generate_previews, create_annotations, aut
                     'notes': ecg['notes'],
                     'original_filename': ecg['filename'],
                     'cropped': ecg.get('cropped', False),
-                    'added_date': ecg['added_date']
+                    'added_date': ecg['added_date'],
+                    'mode': ecg.get('mode', 'ai'),  # Mode d'annotation utilisé
+                    'has_validation': len(ecg.get('expected_concepts', [])) > 0
                 }
                 
                 metadata['ecgs'].append(ecg_meta)

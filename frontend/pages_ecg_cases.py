@@ -2,8 +2,13 @@ import streamlit as st
 from pathlib import Path
 from datetime import datetime
 import json
+import sys
 from config import ECG_CASES_DIR  # Import depuis config.py
 from advanced_ecg_viewer import create_advanced_ecg_viewer
+
+# Ajouter backend au path pour imports LLM
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root / "backend"))
 
 # Import des composants nécessaires
 try:
@@ -42,6 +47,16 @@ except ImportError:
             st.markdown(f"**{title}**")
             for ann in annotations:
                 st.write(f"• {ann}")
+
+# Import services LLM pour correction automatique
+try:
+    from backend.services.llm_service import LLMService
+    from backend.scoring_service_llm import SemanticScorer
+    from backend.feedback_service import FeedbackService
+    LLM_CORRECTION_AVAILABLE = True
+except ImportError as e:
+    LLM_CORRECTION_AVAILABLE = False
+    llm_import_error = str(e)
 
 def page_ecg_cases():
     """Page de consultation des cas ECG pour étudiants"""
@@ -138,180 +153,444 @@ def display_case_detail(case_data):
     
     st.markdown(f"## 📋 Cas ECG: {case_id}")
     
-    # Layout principal
-    col_ecg, col_annot = st.columns([3, 2])
+    # Section 1: Affichage ECG (pleine largeur)
+    st.markdown("### 📊 ECG")
     
-    with col_ecg:
-        # Affichage ECG(s)
-        if 'image_paths' in case_data and case_data['image_paths']:
-            total_images = len(case_data['image_paths'])
-            
-            # Navigation entre les ECG avec flèches
-            col_nav1, col_select, col_nav2 = st.columns([1, 3, 1])
-            
-            # Initialiser l'index si nécessaire
-            if f'ecg_index_{case_id}' not in st.session_state:
-                st.session_state[f'ecg_index_{case_id}'] = 0
-            
-            current_index = st.session_state[f'ecg_index_{case_id}']
-            
-            with col_nav1:
-                if st.button("◀", key=f"prev_ecg_{case_id}", disabled=(current_index == 0)):
-                    st.session_state[f'ecg_index_{case_id}'] = current_index - 1
+    # Affichage ECG(s)
+    if 'image_paths' in case_data and case_data['image_paths']:
+        total_images = len(case_data['image_paths'])
+        
+        # Navigation entre les ECG avec flèches
+        col_nav1, col_select, col_nav2 = st.columns([1, 3, 1])
+        
+        # Initialiser l'index si nécessaire
+        if f'ecg_index_{case_id}' not in st.session_state:
+            st.session_state[f'ecg_index_{case_id}'] = 0
+        
+        current_index = st.session_state[f'ecg_index_{case_id}']
+        
+        with col_nav1:
+            if st.button("◀", key=f"prev_ecg_{case_id}", disabled=(current_index == 0)):
+                st.session_state[f'ecg_index_{case_id}'] = current_index - 1
+                st.rerun()
+        
+        with col_select:
+            if total_images > 1:
+                ecg_index = st.selectbox(
+                    "Sélectionner l'ECG :",
+                    range(total_images),
+                    format_func=lambda i: f"ECG {i+1}/{total_images}",
+                    key=f"detail_ecg_select_{case_id}",
+                    index=current_index
+                )
+                if ecg_index != current_index:
+                    st.session_state[f'ecg_index_{case_id}'] = ecg_index
                     st.rerun()
+            else:
+                ecg_index = 0
+                st.info(f"📊 Ce cas contient **1 ECG**")
+        
+        with col_nav2:
+            if st.button("▶", key=f"next_ecg_{case_id}", disabled=(current_index >= total_images - 1)):
+                st.session_state[f'ecg_index_{case_id}'] = current_index + 1
+                st.rerun()
+        
+        # Bouton pour basculer vers affichage simple/avancé
+        col_tools1, col_tools2 = st.columns([3, 1])
+        with col_tools2:
+            # Texte du bouton selon état actuel
+            viewer_key = f'advanced_viewer_{case_id}'
+            is_advanced = st.session_state.get(viewer_key, True)  # Default TRUE
+            button_text = "📷 Vue Simple" if is_advanced else "🔍 Vue Avancée"
+            button_help = "Désactiver zoom/caliper" if is_advanced else "Activer zoom/caliper"
             
-            with col_select:
-                if total_images > 1:
-                    ecg_index = st.selectbox(
-                        "Sélectionner l'ECG :",
-                        range(total_images),
-                        format_func=lambda i: f"ECG {i+1}/{total_images}",
-                        key=f"detail_ecg_select_{case_id}",
-                        index=current_index
+            if st.button(button_text, key=f"tools_{case_id}", type="secondary", help=button_help):
+                # Basculer l'état du visualiseur avancé
+                st.session_state[viewer_key] = not is_advanced
+                st.rerun()
+        
+        # Affichage de l'image - normale ou avec visualiseur avancé
+        image_path = Path(case_data['image_paths'][current_index])
+        
+        if image_path.exists():
+            # Vérifier si le visualiseur avancé est activé (DEFAULT: TRUE - Party Mode v2.0)
+            if st.session_state.get(f'advanced_viewer_{case_id}', True):
+                try:
+                    from advanced_ecg_viewer import create_advanced_ecg_viewer
+                    st.success("🔍 **Visualiseur Avancé Actif** - Zoom (molette souris) | Caliper (clic gauche) | Drag (clic droit)")
+                    viewer_html = create_advanced_ecg_viewer(
+                        image_path=str(image_path),
+                        title=f"ECG {current_index+1}/{total_images} - {case_id}"
                     )
-                    if ecg_index != current_index:
-                        st.session_state[f'ecg_index_{case_id}'] = ecg_index
-                        st.rerun()
-                else:
-                    ecg_index = 0
-                    st.info(f"📊 Ce cas contient **1 ECG**")
-            
-            with col_nav2:
-                if st.button("▶", key=f"next_ecg_{case_id}", disabled=(current_index >= total_images - 1)):
-                    st.session_state[f'ecg_index_{case_id}'] = current_index + 1
-                    st.rerun()
-            
-            # Bouton pour basculer vers le visualiseur avancé
-            col_tools1, col_tools2 = st.columns([3, 1])
-            with col_tools2:
-                if st.button("🔍 Outils", key=f"tools_{case_id}", type="secondary"):
-                    # Basculer l'état du visualiseur avancé
-                    viewer_key = f'advanced_viewer_{case_id}'
-                    st.session_state[viewer_key] = not st.session_state.get(viewer_key, False)
-                    st.rerun()
-            
-            # Affichage de l'image - normale ou avec visualiseur avancé
-            image_path = Path(case_data['image_paths'][current_index])
-            
-            if image_path.exists():
-                # Vérifier si le visualiseur avancé est activé
-                if st.session_state.get(f'advanced_viewer_{case_id}', False):
-                    try:
-                        from advanced_ecg_viewer import create_advanced_ecg_viewer
-                        st.info("🔍 Visualiseur avancé activé - Utilisez les outils de zoom et mesure")
-                        viewer_html = create_advanced_ecg_viewer(
-                            image_path=str(image_path),
-                            title=f"ECG {current_index+1}/{total_images} - {case_id}"
-                        )
-                        st.components.v1.html(
-                            viewer_html,
-                            height=800,
-                            scrolling=False
-                        )
-                    except ImportError:
-                        st.warning("⚠️ Module advanced_ecg_viewer non disponible")
-                        st.image(str(image_path), 
-                               caption=f"ECG {current_index+1}/{total_images} - {case_id}",
-                               use_container_width=True)
-                else:
-                    # Affichage normal
+                    st.components.v1.html(
+                        viewer_html,
+                        height=800,
+                        scrolling=False
+                    )
+                except ImportError:
+                    st.warning("⚠️ Module advanced_ecg_viewer non disponible - Affichage simple")
                     st.image(str(image_path), 
                            caption=f"ECG {current_index+1}/{total_images} - {case_id}",
                            use_container_width=True)
             else:
-                st.warning(f"⚠️ ECG {current_index+1} non trouvé")
+                # Affichage normal (simple)
+                st.info("📷 **Affichage Simple** - Pour zoom et mesures, cliquez sur '🔍 Vue Avancée'")
+                st.image(str(image_path), 
+                       caption=f"ECG {current_index+1}/{total_images} - {case_id}",
+                       use_container_width=True)
+        else:
+            st.warning(f"⚠️ ECG {current_index+1} non trouvé")
     
-    with col_annot:
-        st.markdown("### 📝 Vos annotations")
-        
-        # Interface d'annotation avec autocomplétion
-        key_prefix = f"student_{case_id}_annotations"
-        
-        # Initialiser les annotations si nécessaire
-        if 'student_annotations' not in st.session_state:
-            st.session_state['student_annotations'] = {}
-        
+    # Section 2: Zone d'interprétation (sous l'ECG)
+    st.markdown("---")
+    st.markdown("### 🎓 Votre Interprétation ECG")
+    
+    # Initialisation session state
+    answer_key = f"student_answer_{case_id}"
+    correction_key = f"correction_result_{case_id}"
+    
+    if answer_key not in st.session_state:
         # Charger depuis fichier si disponible
-        student_file = Path(case_data['case_folder']) / "student_annotations.json"
-        if key_prefix not in st.session_state['student_annotations']:
-            if student_file.exists():
-                try:
-                    with open(student_file, 'r', encoding='utf-8') as f:
-                        st.session_state['student_annotations'][key_prefix] = json.load(f)
-                except Exception:
-                    st.session_state['student_annotations'][key_prefix] = []
-            else:
-                st.session_state['student_annotations'][key_prefix] = []
+        student_file = Path(case_data['case_folder']) / "student_answer.json"
+        if student_file.exists():
+            try:
+                with open(student_file, 'r', encoding='utf-8') as f:
+                    saved_data = json.load(f)
+                    st.session_state[answer_key] = saved_data.get('answer', '')
+            except Exception:
+                st.session_state[answer_key] = ''
+        else:
+            st.session_state[answer_key] = ''
+    
+    # Instructions
+    st.markdown("""
+    **📋 Instructions:**
+    - Décrivez ce que vous observez sur l'ECG (rythme, fréquence, intervalles, anomalies)
+    - Proposez un diagnostic si possible
+    - Écrivez en texte libre comme dans un compte-rendu
+    """)
+    
+    # Zone de texte pour réponse libre
+    student_answer = st.text_area(
+        "✍️ Écrivez votre interprétation :",
+        value=st.session_state[answer_key],
+        height=250,
+        placeholder="""Exemple:
         
-        # Interface d'annotation
-        annotations = smart_annotation_input(
-            key_prefix=key_prefix,
-            max_tags=15
-        )
-        
-        # Bouton de sauvegarde
-        if st.button("💾 Sauvegarder mes annotations", key=f"save_detail_{case_id}"):
-            st.session_state['student_annotations'][key_prefix] = annotations
+Rythme sinusal régulier, fréquence cardiaque à 75 bpm.
+
+L'intervalle PR est normal (160ms). Les QRS sont fins (90ms).
+
+Pas d'onde Q pathologique. Segment ST isoélectrique.
+
+Ondes T positives et symétriques dans toutes les dérivations.
+
+Diagnostic: ECG normal.""",
+        key=f"answer_input_{case_id}"
+    )
+    
+    # Sauvegarder dans session state
+    st.session_state[answer_key] = student_answer
+    
+    # Boutons d'action
+    st.markdown("---")
+    col_btn1, col_btn2 = st.columns(2)
+    
+    with col_btn1:
+        if st.button("💾 Sauvegarder", key=f"save_answer_{case_id}", use_container_width=True):
             try:
                 student_folder = Path(case_data['case_folder'])
-                student_file = student_folder / "student_annotations.json"
+                student_file = student_folder / "student_answer.json"
+                save_data = {
+                    'answer': student_answer,
+                    'case_id': case_id,
+                    'timestamp': str(Path(__file__).stat().st_mtime)
+                }
                 with open(student_file, 'w', encoding='utf-8') as f:
-                    json.dump(annotations, f, ensure_ascii=False, indent=2)
+                    json.dump(save_data, f, ensure_ascii=False, indent=2)
                 st.success("✅ Sauvegardé !")
             except Exception as e:
-                st.error(f"Erreur : {e}")
+                st.error(f"❌ Erreur sauvegarde: {e}")
+    
+    with col_btn2:
+        # Bouton correction LLM
+        can_correct = LLM_CORRECTION_AVAILABLE and student_answer and len(student_answer.strip()) > 20
         
-        # Résumé structuré
-        if annotations:
-            st.markdown("---")
-            display_annotation_summary(annotations, title="📊 Résumé de vos observations")
+        if st.button(
+            "🤖 Corriger avec IA",
+            key=f"llm_corr_{case_id}",
+            type="primary",
+            disabled=not can_correct,
+            use_container_width=True
+        ):
+            st.session_state[correction_key] = perform_llm_correction(case_data, student_answer)
         
-        # Comparaison avec expert
+        if not can_correct:
+            if not LLM_CORRECTION_AVAILABLE:
+                st.caption("⚠️ LLM non disponible")
+            elif not student_answer or len(student_answer.strip()) <= 20:
+                st.caption("Écrivez votre interprétation d'abord")
+    
+    # Affichage des résultats de correction (si disponible)
+    if correction_key in st.session_state and st.session_state[correction_key]:
         st.markdown("---")
-        show_correction = st.checkbox("Voir la correction experte", key=f"show_corr_detail_{case_id}")
+        display_llm_correction_results(st.session_state[correction_key])
+    
+    # Option pour voir correction experte
+    st.markdown("---")
+    show_expert = st.checkbox("👨‍🏫 Voir la correction experte", key=f"show_expert_{case_id}")
+    
+    if show_expert:
+        display_expert_correction(case_data)
+
+
+def perform_llm_correction(case_data, student_text):
+    """
+    Effectue une correction automatique avec LLM et retourne les résultats
+    
+    Args:
+        case_data: Métadonnées du cas ECG
+        student_text: Texte de la réponse étudiant
         
-        if show_correction:
-            # Charger les annotations expertes
+    Returns:
+        dict: Résultats de correction avec scoring_result et feedback
+    """
+    case_id = case_data.get('case_id', 'unknown')
+    
+    results = {
+        'success': False,
+        'scoring_result': None,
+        'feedback': None,
+        'student_concepts': [],
+        'error': None
+    }
+    
+    with st.spinner("🤖 Correction en cours..."):
+        
+        try:
+            # Étape 1: Extraction concepts LLM
+            st.info("🔍 Étape 1/3: Extraction des concepts...")
+            llm_service = LLMService()
+            extraction_result = llm_service.extract_concepts(student_text)
+            student_concepts_llm = extraction_result.get('concepts', [])
+            results['student_concepts'] = student_concepts_llm
+            
+            st.success(f"✅ {len(student_concepts_llm)} concepts extraits")
+            
+            # Étape 2: Scoring sémantique
+            st.info("📊 Étape 2/3: Scoring avec ontologie...")
+            
+            # Récupérer concepts attendus
+            expected_concepts_raw = case_data.get('expected_concepts', [])
+            
+            if not expected_concepts_raw:
+                # Fallback: utiliser annotations expertes
+                expert_file = Path(case_data['case_folder']) / "annotations.json"
+                if expert_file.exists():
+                    try:
+                        with open(expert_file, 'r', encoding='utf-8') as f:
+                            expert_annots = json.load(f)
+                            for ann in expert_annots:
+                                if ann.get('annotation_tags'):
+                                    expected_concepts_raw.extend(ann['annotation_tags'])
+                    except Exception:
+                        pass
+            
+            if not expected_concepts_raw:
+                results['error'] = "no_expected_concepts"
+                st.warning("⚠️ Aucun concept attendu défini pour ce cas. Impossible de corriger automatiquement.")
+                st.info("💡 Demandez à un enseignant de valider ce cas avec des concepts attendus.")
+                return results
+            
+            # Convertir expected_concepts en format dict si nécessaire
+            expected_concepts = []
+            for concept in expected_concepts_raw:
+                if isinstance(concept, str):
+                    # Convertir string en dict
+                    expected_concepts.append({
+                        'text': concept,
+                        'category': 'general',
+                        'confidence': 1.0
+                    })
+                elif isinstance(concept, dict):
+                    # Déjà au bon format
+                    expected_concepts.append(concept)
+            
+            # Scoring (sans student_answer_full)
+            scorer = SemanticScorer()
+            scoring_result = scorer.score(
+                student_concepts=student_concepts_llm,
+                expected_concepts=expected_concepts
+            )
+            results['scoring_result'] = scoring_result
+            
+            st.success(f"✅ Score: {scoring_result.percentage:.1f}%")
+            
+            # Étape 3: Feedback pédagogique
+            st.info("💬 Étape 3/3: Génération du feedback...")
+            
+            feedback_service = FeedbackService()
+            feedback = feedback_service.generate_feedback(
+                case_title=case_data.get('diagnostic_principal', 'ECG'),
+                student_answer=student_text,
+                scoring_result=scoring_result,
+                student_level='intermediate'
+            )
+            results['feedback'] = feedback
+            
+            st.success("✅ Feedback généré!")
+            results['success'] = True
+            
+        except Exception as e:
+            st.error(f"❌ Erreur correction: {e}")
+            results['error'] = str(e)
+            return results
+    
+    return results
+
+
+def display_llm_correction_results(results):
+    """
+    Affiche les résultats de la correction LLM
+    
+    Args:
+        results: dict avec scoring_result et feedback
+    """
+    if not results.get('success'):
+        st.error("❌ La correction n'a pas abouti")
+        if results.get('error'):
+            st.info(f"Erreur: {results['error']}")
+        return
+    
+    scoring_result = results['scoring_result']
+    feedback = results['feedback']
+    
+    st.markdown("## 📊 Résultats de la Correction")
+    
+    # Score cards
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        score_color = "🟢" if scoring_result.percentage >= 80 else "🟡" if scoring_result.percentage >= 60 else "🔴"
+        st.metric("Score Global", f"{scoring_result.percentage:.1f}%")
+        
+        if scoring_result.percentage >= 90:
+            st.markdown(f"{score_color} **Excellent**")
+        elif scoring_result.percentage >= 80:
+            st.markdown(f"{score_color} **Très bien**")
+        elif scoring_result.percentage >= 70:
+            st.markdown(f"{score_color} **Bien**")
+        elif scoring_result.percentage >= 60:
+            st.markdown(f"{score_color} **Passable**")
+        else:
+            st.markdown(f"{score_color} **À améliorer**")
+    
+    with col2:
+        st.metric(
+            "Concepts Corrects",
+            f"{scoring_result.exact_matches + scoring_result.partial_matches}/{scoring_result.max_score}"
+        )
+    
+    with col3:
+        st.metric("Concepts Manquants", scoring_result.missing_concepts)
+    
+    st.divider()
+    
+    # Feedback pédagogique
+    if feedback:
+        st.subheader("💬 Feedback Pédagogique")
+        
+        st.markdown(f"**Résumé:** {feedback.summary}")
+        
+        # Points forts
+        if feedback.strengths:
+            with st.expander("✅ Points Forts", expanded=True):
+                for strength in feedback.strengths:
+                    st.success(strength)
+        
+        # Concepts manquants
+        if feedback.missing_concepts:
+            with st.expander("❌ Concepts Manquants", expanded=True):
+                for missing in feedback.missing_concepts:
+                    st.warning(missing)
+        
+        # Erreurs
+        if feedback.errors:
+            with st.expander("🔴 Erreurs à Corriger", expanded=True):
+                for error in feedback.errors:
+                    st.error(error)
+        
+        # Conseils
+        with st.expander("💡 Conseils pour Progresser", expanded=False):
+            st.info(feedback.advice)
+            st.markdown(f"**Prochaines étapes:** {feedback.next_steps}")
+    
+    # Analyse détaillée
+    st.divider()
+    
+    with st.expander("🔍 Analyse Détaillée des Concepts", expanded=False):
+        for match in scoring_result.matches:
+            match_type = match.match_type.value
+            
+            if match_type == 'exact':
+                st.success(f"✅ **{match.expected_concept}** - Correspondance exacte")
+            elif match_type == 'partial':
+                st.warning(f"⚠️ **{match.expected_concept}** - Correspondance partielle: {match.student_concept}")
+            elif match_type == 'missing':
+                st.error(f"❌ **{match.expected_concept}** - Non mentionné")
+            elif match_type == 'child':
+                st.info(f"🔹 **{match.expected_concept}** - Implication validée via: {match.student_concept}")
+
+
+def display_expert_correction(case_data):
+    """
+    Affiche la correction experte pour comparaison
+    
+    Args:
+        case_data: Métadonnées du cas ECG
+    """
+    st.markdown("### 👨‍🏫 Correction Experte")
+    
+    # Charger les annotations expertes
+    expert_annots = []
+    expert_file = Path(case_data['case_folder']) / "annotations.json"
+    
+    if expert_file.exists():
+        try:
+            with open(expert_file, 'r', encoding='utf-8') as f:
+                expert_annots = json.load(f)
+        except Exception:
             expert_annots = []
-            expert_file = Path(case_data['case_folder']) / "annotations.json"
-            if expert_file.exists():
-                try:
-                    with open(expert_file, 'r', encoding='utf-8') as f:
-                        expert_annots = json.load(f)
-                except Exception:
-                    expert_annots = []
-            else:
-                expert_annots = case_data.get('annotations', [])
-            
-            expert_tags = []
-            for ann in expert_annots:
-                if ann.get('type') == 'expert' or ann.get('auteur') == 'expert':
-                    if ann.get('annotation_tags'):
-                        expert_tags.extend(ann['annotation_tags'])
-                    elif ann.get('concept'):
-                        expert_tags.append(ann['concept'])
-            
-            if expert_tags:
-                st.markdown("**🧠 Concepts experts :**")
-                display_annotation_summary(expert_tags, title="")
-                
-                # Comparaison
-                if annotations:
-                    st.markdown("---")
-                    overlap = set(expert_tags).intersection(set(annotations))
-                    score = len(overlap) / len(expert_tags) * 100 if expert_tags else 0
+    else:
+        expert_annots = case_data.get('annotations', [])
+    
+    # Extraire concepts experts
+    expert_tags = []
+    for ann in expert_annots:
+        if ann.get('type') == 'expert' or ann.get('auteur') == 'expert':
+            if ann.get('annotation_tags'):
+                expert_tags.extend(ann['annotation_tags'])
+            elif ann.get('concept'):
+                expert_tags.append(ann['concept'])
+    
+    if expert_tags:
+        st.markdown("**🧠 Concepts Clés :**")
+        display_annotation_summary(expert_tags, title="")
+        
+        # Afficher texte de correction si disponible
+        teacher_correction_file = Path(case_data['case_folder']) / "metadata.json"
+        if teacher_correction_file.exists():
+            try:
+                with open(teacher_correction_file, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                    teacher_text = metadata.get('teacher_correction_text', '')
                     
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric("Score", f"{score:.0f}%")
-                    with col2:
-                        st.metric("Concepts trouvés", f"{len(overlap)}/{len(expert_tags)}")
-                    
-                    if overlap:
-                        st.success("✅ Points communs : " + ", ".join(overlap))
-                    
-                    missed = set(expert_tags) - set(annotations)
-                    if missed:
-                        st.info("💡 Concepts manqués : " + ", ".join(missed))
-            else:
-                st.info("Aucune annotation experte disponible pour ce cas.")
+                    if teacher_text:
+                        st.markdown("---")
+                        st.markdown("**📝 Correction Rédigée :**")
+                        st.info(teacher_text)
+            except Exception:
+                pass
+    else:
+        st.info("💡 Aucune annotation experte disponible pour ce cas.")
+
