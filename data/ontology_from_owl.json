@@ -1739,15 +1739,15 @@
     "CIRCONFÉRENTIEL": {
       "nom": "Circonférentiel",
       "electrodes": [
-        "V1",
-        "AVL",
-        "V5",
-        "V4",
         "AVF",
-        "V6",
+        "V1",
+        "DII",
+        "V5",
         "V3",
+        "V4",
         "V2",
-        "DII"
+        "AVL",
+        "V6"
       ]
     },
     "ONDE_T_NÉGATIVE": {
@@ -1777,24 +1777,24 @@
     "PERTE_DES_ONDE_Q_SEPTALES": {
       "nom": "Perte des onde Q septales",
       "electrodes": [
-        "V5",
-        "V6"
+        "V6",
+        "V5"
       ]
     },
     "VENTRICULE_DROIT": {
       "nom": "Ventricule droit",
       "electrodes": [
         "V1",
-        "V3R",
-        "V2R"
+        "V2R",
+        "V3R"
       ]
     },
     "LATÉRAL": {
       "nom": "Latéral",
       "electrodes": [
-        "AVL",
         "V6",
-        "DI"
+        "DI",
+        "AVL"
       ]
     },
     "ALLONGEMENT_PROGRESSIF_DE_L'INTERVALLE_PR": {
@@ -1818,27 +1818,27 @@
     "APICALE": {
       "nom": "Apicale",
       "electrodes": [
-        "V3",
-        "V4"
+        "V4",
+        "V3"
       ]
     },
     "ANTÉRIEUR": {
       "nom": "Antérieur",
       "electrodes": [
-        "V2",
         "V1",
+        "V2",
         "V3"
       ]
     },
     "POSTÉRIEUR": {
       "nom": "Postérieur",
       "electrodes": [
-        "V7",
-        "DIII",
-        "V8",
         "AVF",
         "V9",
-        "DII"
+        "DII",
+        "V7",
+        "DIII",
+        "V8"
       ]
     },
     "DÉVIATION_AXIALE": {
@@ -1887,6 +1887,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -1898,6 +1899,7 @@
         "Localisation faisceau accessoire"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -1907,6 +1909,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -1918,6 +1921,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -1927,6 +1931,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -1938,6 +1943,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -1947,6 +1953,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -1958,6 +1965,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -1973,6 +1981,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -1984,6 +1993,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -1993,6 +2003,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2002,6 +2013,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2015,6 +2027,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2024,6 +2037,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2035,6 +2049,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2050,6 +2065,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2066,6 +2082,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2077,6 +2094,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2094,6 +2112,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2103,6 +2122,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2118,6 +2138,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2127,6 +2148,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2136,6 +2158,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2145,6 +2168,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -2154,6 +2178,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2167,6 +2192,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -2178,6 +2204,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2187,6 +2214,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2199,6 +2227,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2210,6 +2239,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -2219,6 +2249,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2232,6 +2263,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2246,6 +2278,7 @@
         "Localisation faisceau accessoire"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2260,6 +2293,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2273,6 +2307,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2286,6 +2321,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2295,6 +2331,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2304,6 +2341,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2313,6 +2351,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2322,6 +2361,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2334,6 +2374,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2345,6 +2386,7 @@
       "excludes": [
         "Hyperkaliémie"
       ],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -2356,6 +2398,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2365,6 +2408,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2374,6 +2418,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2383,6 +2428,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2392,6 +2438,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2424,6 +2471,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2437,6 +2485,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2453,6 +2502,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2466,6 +2516,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2485,6 +2536,12 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": {
+        "importance": "critique",
+        "may_have_territory": true,
+        "may_have_mirror": true,
+        "required_territory": true
+      },
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -2494,6 +2551,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2505,6 +2563,7 @@
       "excludes": [
         "Hypercalcémie"
       ],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2514,6 +2573,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2525,6 +2585,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2534,6 +2595,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2550,6 +2612,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2565,6 +2628,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2579,6 +2643,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2591,6 +2656,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2600,6 +2666,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -2613,6 +2680,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2628,6 +2696,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2648,6 +2717,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2661,6 +2731,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2670,6 +2741,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2681,6 +2753,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2690,6 +2763,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2701,6 +2775,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2712,6 +2787,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2721,6 +2797,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2733,6 +2810,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2749,6 +2827,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2761,6 +2840,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2770,6 +2850,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2783,6 +2864,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2792,6 +2874,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2803,6 +2886,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2812,6 +2896,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2821,6 +2906,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2830,6 +2916,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2843,6 +2930,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2855,6 +2943,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2864,6 +2953,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2873,6 +2963,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2882,6 +2973,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2891,6 +2983,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2900,6 +2993,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2911,6 +3005,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2922,6 +3017,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -2933,6 +3029,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2948,6 +3045,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -2957,6 +3055,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2966,6 +3065,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2977,6 +3077,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -2990,6 +3091,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3002,6 +3104,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3011,6 +3114,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3027,6 +3131,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3038,6 +3143,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3051,6 +3157,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3060,6 +3167,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3076,6 +3184,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3085,6 +3194,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3101,6 +3211,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3110,6 +3221,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3130,6 +3242,12 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": false,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3145,6 +3263,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3158,6 +3277,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3167,6 +3287,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3176,6 +3297,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3194,6 +3316,7 @@
         "Trouble de repolarisation",
         "Arrhythmie"
       ],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3208,6 +3331,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3221,6 +3345,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3234,6 +3359,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3243,6 +3369,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3259,6 +3386,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3268,6 +3396,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3277,6 +3406,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3286,6 +3416,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3297,6 +3428,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3308,6 +3440,7 @@
       "excludes": [
         "Hyponatrémie"
       ],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3321,6 +3454,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3332,6 +3466,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3344,6 +3479,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3353,6 +3489,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3364,6 +3501,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3386,6 +3524,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3395,6 +3534,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3406,6 +3546,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3415,6 +3556,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3426,6 +3568,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3435,6 +3578,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3444,6 +3588,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3453,6 +3598,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3470,6 +3616,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3486,6 +3633,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3498,6 +3646,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3513,6 +3662,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3524,6 +3674,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3540,6 +3691,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3551,6 +3703,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3560,6 +3713,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3571,6 +3725,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3583,6 +3738,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3594,6 +3750,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3613,6 +3770,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3622,6 +3780,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3631,6 +3790,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3643,6 +3803,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3654,6 +3815,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3663,6 +3825,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3677,6 +3840,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3686,6 +3850,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3695,6 +3860,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3704,6 +3870,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3713,6 +3880,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3725,6 +3893,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3736,6 +3905,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3747,6 +3917,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3758,6 +3929,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3767,6 +3939,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3788,6 +3961,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3803,6 +3977,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3812,6 +3987,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3823,6 +3999,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3835,6 +4012,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3844,6 +4022,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3856,6 +4035,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3865,6 +4045,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3877,6 +4058,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3890,6 +4072,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3906,6 +4089,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3917,6 +4101,7 @@
       "excludes": [
         "Hypokaliémie"
       ],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3933,6 +4118,7 @@
         "Localisation IDM"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3947,6 +4133,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -3956,6 +4143,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3968,6 +4156,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -3977,6 +4166,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -3986,6 +4176,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -3998,6 +4189,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4011,6 +4203,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4026,6 +4219,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4040,6 +4234,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4051,6 +4246,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4060,6 +4256,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4069,6 +4266,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4080,6 +4278,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4091,6 +4290,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4100,6 +4300,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4111,6 +4312,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4122,6 +4324,7 @@
       "excludes": [
         "Bradycardie"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4131,6 +4334,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4142,6 +4346,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4151,6 +4356,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4160,6 +4366,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4175,6 +4382,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4187,6 +4395,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4196,6 +4405,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4205,6 +4415,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4223,6 +4434,7 @@
       "excludes": [
         "PR normal"
       ],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4236,6 +4448,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4245,6 +4458,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4257,6 +4471,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4268,6 +4483,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4277,6 +4493,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4286,6 +4503,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4305,6 +4523,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4317,6 +4536,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4326,6 +4546,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4335,6 +4556,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4346,6 +4568,7 @@
       "excludes": [
         "Hypocalcémie"
       ],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4355,6 +4578,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4364,6 +4588,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4373,6 +4598,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4382,6 +4608,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4391,6 +4618,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4400,6 +4628,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4415,6 +4644,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4424,6 +4654,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4435,6 +4666,7 @@
         "localisation ESV"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4444,6 +4676,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4453,6 +4686,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4467,6 +4701,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4478,6 +4713,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4498,6 +4734,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4507,6 +4744,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4519,6 +4757,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4536,6 +4775,7 @@
       "excludes": [
         "Bloc fasciculaire postérieur gauche"
       ],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4545,6 +4785,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4556,6 +4797,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4567,6 +4809,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4576,6 +4819,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4585,6 +4829,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4594,6 +4839,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4603,6 +4849,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4614,6 +4861,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4628,6 +4876,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4637,6 +4886,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4646,6 +4896,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4666,6 +4917,7 @@
         "Localisation faisceau accessoire"
       ],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4675,6 +4927,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4684,6 +4937,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4695,6 +4949,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4706,6 +4961,7 @@
       "excludes": [
         "Onde P normale"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4715,6 +4971,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4728,6 +4985,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -4737,6 +4995,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4750,6 +5009,7 @@
       "excludes": [
         "Organisée"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4761,6 +5021,7 @@
       "excludes": [
         "rythme régulier"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4777,6 +5038,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4789,6 +5051,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4801,6 +5064,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4814,6 +5078,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4823,6 +5088,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4834,6 +5100,7 @@
       "excludes": [
         "Tachycardie"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4847,6 +5114,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4858,6 +5126,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4867,6 +5136,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4883,6 +5153,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4896,6 +5167,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4911,6 +5183,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4925,6 +5198,7 @@
       "excludes": [
         "PR normal"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4934,6 +5208,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4945,6 +5220,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4959,6 +5235,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4968,6 +5245,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -4980,6 +5258,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4992,6 +5271,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5001,6 +5281,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -5010,6 +5291,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
@@ -5019,6 +5301,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5028,6 +5311,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -5041,6 +5325,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5050,6 +5335,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5059,6 +5345,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5076,6 +5363,7 @@
       "excludes": [
         "Bloc de branche gauche"
       ],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5085,6 +5373,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5094,6 +5383,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5113,6 +5403,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -5124,6 +5415,7 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
@@ -5136,6 +5428,7 @@
       ],
       "territoires_possibles": [],
       "excludes": [],
+      "territory_metadata": null,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     }

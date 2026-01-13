@@ -39,6 +39,7 @@ class RDFOWLExtractor:
         self.classe_territoires = defaultdict(list)  # IRI classe → [IRI territoire1, IRI territoire2, ...]
         self.classe_findings = defaultdict(list)  # 🆕 IRI classe → [IRI finding1, finding2, ...] (requiresFinding)
         self.classe_excludes = defaultdict(list)  # 🆕 IRI classe → [ID exclus1, exclus2, ...] (annotation "exclut")
+        self.territory_metadata = {}  # 🆕 IRI classe → {importance, may_have_territory, may_have_mirror}
         
         # IRIs des propriétés (trouvées dans le fichier)
         self.hasweight_iri = "http://webprotege.stanford.edu/R91SX26q028zwTknzSKDZUj"
@@ -46,6 +47,11 @@ class RDFOWLExtractor:
         self.hasterritory_iri = "http://webprotege.stanford.edu/R86MFl68gsSAS3kHPEgghC3"
         self.requiresfinding_iri = "http://webprotege.stanford.edu/R7w5XngTituGN8Nt6R834WB"  # 🆕 ecg:requiresFinding
         self.excludes_iri = "http://webprotege.stanford.edu/Rgkbf3QYLEo9sJtKMJFyFW"  # 🆕 ecg:exclut (ObjectProperty)
+        
+        # 🆕 IRIs des annotation properties pour métadonnées territoire
+        self.importance_territoire_iri = "http://webprotege.stanford.edu/RBiXCmVuqDW3Kzzg8N1v6i3"  # importanceTerritoire
+        self.mayhave_territory_iri = "http://webprotege.stanford.edu/RvQtNXH9Cp7Ss5k9ocYaZD"  # mayHaveTerritory
+        self.mayhave_mirror_iri = "http://webprotege.stanford.edu/R81WX84pmfiju3JOXA5ub0A"  # mayHaveMirror
         
     def load(self):
         """Charge le fichier OWL"""
@@ -378,6 +384,59 @@ class RDFOWLExtractor:
                     excluded_labels.append(excluded_label)
                 print(f"     • {class_label}: exclut {', '.join(excluded_labels)}")
     
+    def extract_territory_metadata(self):
+        """
+        🆕 Extrait les métadonnées de territoire pour concepts (STEMI, ESV, etc.)
+        - importanceTerritoire : critique/importante/optionnelle
+        - mayHaveTerritory : true/false
+        - mayHaveMirror : true/false
+        """
+        print("\n🗺️ Extraction métadonnées territoire...")
+        
+        count = 0
+        for owl_class in self.root.findall('.//owl:Class', self.ns):
+            class_iri = owl_class.get('{%s}about' % self.ns['rdf'])
+            if not class_iri:
+                continue
+            
+            # Extraire les 3 annotation properties
+            importance = None
+            may_have_territory = None
+            may_have_mirror = None
+            
+            # Parcourir les éléments enfants pour trouver les annotations
+            for child in owl_class:
+                # Vérifier si c'est une de nos annotation properties
+                if child.tag.endswith(self.importance_territoire_iri.split('/')[-1]):
+                    importance = child.text
+                elif child.tag.endswith(self.mayhave_territory_iri.split('/')[-1]):
+                    may_have_territory = child.text
+                elif child.tag.endswith(self.mayhave_mirror_iri.split('/')[-1]):
+                    may_have_mirror = child.text
+            
+            # Stocker si au moins une métadonnée trouvée
+            if importance or may_have_territory or may_have_mirror:
+                self.territory_metadata[class_iri] = {
+                    'importance': importance,
+                    'may_have_territory': may_have_territory == 'true' if may_have_territory else False,
+                    'may_have_mirror': may_have_mirror == 'true' if may_have_mirror else False
+                }
+                count += 1
+        
+        print(f"  ✅ {count} concepts avec métadonnées territoire")
+        
+        # Afficher exemples (focus STEMI)
+        if self.territory_metadata:
+            print("\n  📋 Exemples de métadonnées trouvées:")
+            for class_iri, metadata in list(self.territory_metadata.items())[:5]:
+                class_label = self.classes_labels.get(class_iri, {}).get('fr', 'Sans nom')
+                importance = metadata.get('importance', 'non défini')
+                has_territory = "✓" if metadata.get('may_have_territory') else "✗"
+                has_mirror = "✓" if metadata.get('may_have_mirror') else "✗"
+                print(f"     • {class_label}")
+                print(f"       - Importance: {importance}")
+                print(f"       - Territoire: {has_territory} | Miroir: {has_mirror}")
+    
     def generate_json(self, output_path="data/ontology_from_owl.json"):
         """Génère le fichier JSON final"""
         print(f"\n💾 Génération JSON: {output_path}")
@@ -488,12 +547,24 @@ class RDFOWLExtractor:
                     if excluded_name:
                         excludes.append(excluded_name)
             
+            # 🆕 CONSTRUIRE MÉTADONNÉES TERRITOIRE
+            territory_metadata = None
+            if class_iri in self.territory_metadata:
+                metadata = self.territory_metadata[class_iri]
+                territory_metadata = {
+                    "importance": metadata.get('importance'),
+                    "may_have_territory": metadata.get('may_have_territory', False),
+                    "may_have_mirror": metadata.get('may_have_mirror', False),
+                    "required_territory": metadata.get('importance') == 'critique'  # Dérivé automatiquement
+                }
+            
             concept_mappings[concept_id] = {
                 "concept_name": label_fr,
                 "synonymes": all_synonymes,
                 "implications": implications,  # 🆕 Maintenant avec enfants hiérarchiques !
                 "territoires_possibles": territoires_possibles,  # 🆕 Territoires liés au concept !
                 "excludes": excludes,  # 🆕 Liste des concepts exclus (IDs)
+                "territory_metadata": territory_metadata,  # 🆕 Métadonnées pour sélection territoire
                 "poids": weight,
                 "categorie": category
             }

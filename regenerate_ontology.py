@@ -47,6 +47,7 @@ def main():
         extractor.extract_concept_territoires()
         extractor.extract_requires_findings()
         extractor.extract_excludes()  # 🆕 Extraction des exclusions depuis annotation "exclut"
+        extractor.extract_territory_metadata()  # 🆕 Extraction métadonnées territoire (STEMI, etc.)
         ontology_data = extractor.generate_json(str(json_output))
         
         print("\n" + "=" * 70)

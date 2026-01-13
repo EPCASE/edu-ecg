@@ -15,7 +15,11 @@ Date: 2026-01-11
 # Configuration du PYTHONPATH AVANT tous les imports
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# Ajouter le root du projet (2 niveaux au-dessus de ce fichier)
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+# Ajouter aussi frontend/ pour les components
+sys.path.insert(0, str(project_root / "frontend"))
 
 # 🔧 CHARGER .env AVANT tous les autres imports
 from dotenv import load_dotenv
@@ -34,6 +38,8 @@ import base64
 from backend.services.llm_semantic_matcher import semantic_match, get_llm_stats
 from backend.services.llm_service import LLMService
 from backend.services.concept_decomposer import create_decomposer
+from backend.territory_resolver import get_territory_config, resolve_territories
+from components.territory_selector_ui import render_territory_selectors, check_territory_completeness
 
 # Configuration
 ECG_CASES_DIR = Path("data/ecg_cases")
@@ -111,6 +117,75 @@ def get_ontology_concepts():
                             })
     
     return concepts
+
+
+def _display_territory_selectors_for_annotations():
+    """Affiche les sélecteurs de territoire pour les annotations qui en ont besoin"""
+    if 'case_annotations' not in st.session_state or not st.session_state.case_annotations:
+        return
+    
+    # Initialiser territoire_selections si nécessaire
+    if 'territory_selections' not in st.session_state:
+        st.session_state.territory_selections = {}
+    
+    # Charger l'ontologie
+    ontology = load_ontology()
+    if not ontology:
+        return
+    
+    # Vérifier quels concepts nécessitent un territoire
+    concepts_with_territory = []
+    for annotation in st.session_state.case_annotations:
+        concept_name = annotation['concept']
+        config = get_territory_config(concept_name, ontology)
+        if config and config['show_territory_selector']:
+            concepts_with_territory.append((concept_name, config))
+    
+    # Afficher la section territoires si nécessaire
+    if concepts_with_territory:
+        st.markdown("---")
+        st.markdown("### 🗺️ Précision des Territoires")
+        st.success(f"📍 {len(concepts_with_territory)} concept(s) nécessitent une précision de territoire")
+        
+        # Afficher un sélecteur pour chaque concept
+        for concept_name, config in concepts_with_territory:
+            with st.expander(f"🗺️ {concept_name}", expanded=True):
+                # Afficher l'importance
+                importance = config.get('importance', 'optionnelle')
+                importance_emoji = {'critique': '🔴', 'importante': '🟠', 'optionnelle': '🟢'}
+                emoji = importance_emoji.get(importance, '⚪')
+                
+                st.caption(f"{emoji} Importance: **{importance}**")
+                
+                # Afficher les sélecteurs
+                territories, mirrors = render_territory_selectors(
+                    concept_name,
+                    ontology,
+                    key_prefix=f"ecg_import_{concept_name.replace(' ', '_')}"
+                )
+                
+                # Valider
+                is_complete, error_msg = check_territory_completeness(
+                    concept_name,
+                    territories,
+                    ontology
+                )
+                
+                if not is_complete:
+                    st.warning(error_msg)
+                else:
+                    # Afficher résumé si complet
+                    if territories:
+                        territory_str = ", ".join(territories)
+                        mirror_str = f" + {', '.join(mirrors)}" if mirrors else ""
+                        st.success(f"✅ Territoire: {territory_str}{mirror_str}")
+                
+                # Stocker dans session_state
+                st.session_state.territory_selections[concept_name] = {
+                    'territories': territories,
+                    'mirrors': mirrors,
+                    'importance': importance
+                }
 
 
 def generate_case_id():
@@ -353,6 +428,10 @@ def step_annotation():
     # Initialiser les annotations
     if 'case_annotations' not in st.session_state:
         st.session_state.case_annotations = []
+    
+    # Initialiser les sélections de territoires
+    if 'territory_selections' not in st.session_state:
+        st.session_state.territory_selections = {}
     
     # Deux modes d'annotation
     annotation_mode = st.radio(
@@ -804,6 +883,9 @@ def step_annotation():
                 if st.button("🗑️", key=f"delete_ann_{idx}"):
                     st.session_state.case_annotations.pop(idx)
                     st.rerun()
+        
+        # 🆕 AFFICHER LES SÉLECTEURS DE TERRITOIRE
+        _display_territory_selectors_for_annotations()
     
     # Navigation
     st.markdown("---")
@@ -903,6 +985,7 @@ def step_validation():
                 'num_ecg': len(st.session_state.uploaded_images),
                 'created_date': datetime.now().isoformat(),
                 'type': 'multi_ecg' if len(st.session_state.uploaded_images) > 1 else 'simple',
+                'territory_selections': st.session_state.get('territory_selections', {}),  # 🆕 TERRITOIRES
                 'metadata': {
                     'created_by': 'ecg_session_builder',
                     'version': '1.0'

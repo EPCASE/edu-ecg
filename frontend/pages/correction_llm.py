@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 import json
 import os
+from unidecode import unidecode
 
 # Ajouter project root au path pour imports
 project_root = Path(__file__).parent.parent.parent
@@ -504,7 +505,7 @@ def perform_correction(case_data, student_answer):
     with st.spinner("🤖 Correction en cours..."):
         try:
             # Étape 1: Extraction concepts LLM
-            st.info("🔍 Étape 1/4: Extraction des concepts...")
+            st.info("🔍 Étape 1/5: Extraction des concepts...")
             llm_service = LLMService()
             extraction_result = llm_service.extract_concepts(student_answer)
             student_concepts = extraction_result.get('concepts', [])
@@ -516,8 +517,18 @@ def perform_correction(case_data, student_answer):
             
             st.success(f"✅ {len(student_concepts)} concepts extraits")
             
-            # Étape 2: Validation des contradictions
-            st.info("🛡️ Étape 2/4: Validation des contradictions...")
+            # Étape 2: Récupération des territoires depuis le cas (si annotés)
+            st.info("🗺️ Étape 2/5: Vérification des territoires...")
+            
+            territory_selections = case_data.get('territory_selections', {})
+            
+            if territory_selections:
+                st.success(f"✅ {len(territory_selections)} territoire(s) annoté(s) dans le cas")
+            else:
+                st.info("ℹ️ Aucun territoire annoté dans ce cas")
+            
+            # Étape 3: Validation des contradictions
+            st.info("🛡️ Étape 3/5: Validation des contradictions...")
             
             # Extraire les noms de concepts
             concept_names = [c.get('text', '') for c in student_concepts if c.get('text')]
@@ -543,8 +554,8 @@ def perform_correction(case_data, student_answer):
             
             st.success(f"✅ Concepts validés")
             
-            # Étape 2: Récupérer concepts attendus
-            st.info("📊 Étape 2/3: Scoring avec ontologie...")
+            # Étape 4: Récupérer concepts attendus
+            st.info("📊 Étape 4/5: Scoring avec ontologie...")
             
             expected_concepts_raw = case_data.get('diagnosis', case_data.get('expected_concepts', []))
             
@@ -618,7 +629,54 @@ def perform_correction(case_data, student_answer):
                 for c in all_validated
             )
             bonus_diagnostic = 0.15 if has_diagnostic_principal else 0
-            percentage = min(100, base_percentage * (1 + bonus_diagnostic))
+            
+            # Bonus territoire - Vérifier si étudiant a mentionné les territoires attendus
+            bonus_territoire = 0.0
+            territory_matches = {}
+            
+            if territory_selections:
+                # Normaliser la réponse (minuscules + sans accents)
+                student_answer_normalized = unidecode(student_answer.lower())
+                total_territories = 0
+                matched_territories = 0
+                
+                for concept_name, selection in territory_selections.items():
+                    territories = selection.get('territories', [])
+                    mirrors = selection.get('mirrors', [])
+                    importance = selection.get('importance', 'optionnelle')
+                    
+                    concept_territories_found = []
+                    concept_mirrors_found = []
+                    
+                    # Vérifier chaque territoire (insensible à la casse ET aux accents)
+                    for terr in territories:
+                        total_territories += 1
+                        terr_normalized = unidecode(terr.lower())
+                        if terr_normalized in student_answer_normalized:
+                            matched_territories += 1
+                            concept_territories_found.append(terr)
+                    
+                    # Vérifier les miroirs
+                    for mirr in mirrors:
+                        mirr_normalized = unidecode(mirr.lower())
+                        if mirr_normalized in student_answer_normalized:
+                            concept_mirrors_found.append(mirr)
+                    
+                    territory_matches[concept_name] = {
+                        'expected_territories': territories,
+                        'expected_mirrors': mirrors,
+                        'found_territories': concept_territories_found,
+                        'found_mirrors': concept_mirrors_found,
+                        'importance': importance
+                    }
+                
+                # Calculer bonus (5% max si tous les territoires critiques sont trouvés)
+                if total_territories > 0:
+                    territory_score = matched_territories / total_territories
+                    bonus_territoire = territory_score * 0.05  # Max 5%
+            
+            # Score final avec bonus
+            percentage = min(100, base_percentage * (1 + bonus_diagnostic + bonus_territoire))
             
             st.success("✅ Correction terminée !")
             
@@ -628,7 +686,10 @@ def perform_correction(case_data, student_answer):
                 poids_valides, poids_attendus,
                 matched_concepts, auto_validated, expected_list,
                 match_details, concept_weights, llm_matches,
-                student_answer
+                student_answer,
+                territory_selections=territory_selections,
+                territory_matches=territory_matches,
+                bonus_territoire=bonus_territoire
             )
             
         except Exception as e:
@@ -642,7 +703,10 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                     poids_valides, poids_attendus,
                     matched_concepts, auto_validated, expected_list,
                     match_details, concept_weights, llm_matches,
-                    student_answer):
+                    student_answer,
+                    territory_selections=None,
+                    territory_matches=None,
+                    bonus_territoire=0.0):
     """Affiche les résultats de correction - Version POC enrichie"""
     
     # CSS pour cartes stylisées
@@ -704,6 +768,22 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
         </div>
         """, unsafe_allow_html=True)
     
+    # NOUVELLE carte bonus territoire
+    if territory_selections:
+        st.markdown("### 🗺️ Score Territoire")
+        col_terr1, col_terr2 = st.columns(2)
+        
+        with col_terr1:
+            bonus_terr_display = f"+{bonus_territoire*100:.1f}%" if bonus_territoire > 0 else "0%"
+            bonus_terr_color = "#28a745" if bonus_territoire > 0 else "#6c757d"
+            st.markdown(f"""
+            <div class="stat-card" style="background: linear-gradient(135deg, {bonus_terr_color} 0%, {bonus_terr_color}dd 100%);">
+                <div>Bonus Territoire</div>
+                <div class="stat-value">{bonus_terr_display}</div>
+                <div>{'🗺️ Territoires identifiés' if bonus_territoire > 0 else '⚪ Territoires manqués'}</div>
+            </div>
+            """, unsafe_allow_html=True)
+    
     with col3:
         exact_matches = len([c for c in matched_concepts if match_details.get(c, {}).get('type') == 'exact'])
         st.markdown(f"""
@@ -726,6 +806,77 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
         """, unsafe_allow_html=True)
     
     st.divider()
+    
+    # Afficher les territoires attendus vs trouvés
+    if territory_selections and territory_matches:
+        st.subheader("🗺️ Analyse des Territoires")
+        
+        for concept_name, selection in territory_selections.items():
+            match_info = territory_matches.get(concept_name, {})
+            
+            expected_territories = match_info.get('expected_territories', [])
+            expected_mirrors = match_info.get('expected_mirrors', [])
+            found_territories = match_info.get('found_territories', [])
+            found_mirrors = match_info.get('found_mirrors', [])
+            importance = match_info.get('importance', selection.get('importance', 'optionnelle'))
+            
+            # Calculer score pour ce concept
+            total_expected = len(expected_territories)
+            total_found = len(found_territories)
+            concept_score = (total_found / total_expected * 100) if total_expected > 0 else 0
+            
+            # Icône selon le score
+            if concept_score >= 100:
+                score_icon = "✅"
+                score_color = "#28a745"
+            elif concept_score >= 50:
+                score_icon = "🟡"
+                score_color = "#ffc107"
+            else:
+                score_icon = "❌"
+                score_color = "#dc3545"
+            
+            with st.expander(f"{score_icon} {concept_name} ({concept_score:.0f}%)", expanded=True):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.markdown("**📋 Territoires Attendus:**")
+                    if expected_territories:
+                        for terr in expected_territories:
+                            icon = "✅" if terr in found_territories else "❌"
+                            st.write(f"{icon} {terr}")
+                    else:
+                        st.info("Aucun territoire attendu")
+                    
+                    if expected_mirrors:
+                        st.markdown("**🔄 Miroirs Attendus:**")
+                        for mirr in expected_mirrors:
+                            icon = "✅" if mirr in found_mirrors else "❌"
+                            st.write(f"{icon} {mirr}")
+                
+                with col2:
+                    st.markdown("**✍️ Territoires Trouvés:**")
+                    if found_territories:
+                        for terr in found_territories:
+                            st.success(f"✅ {terr}")
+                    else:
+                        st.error("❌ Aucun territoire trouvé dans votre réponse")
+                    
+                    if found_mirrors:
+                        st.markdown("**🔄 Miroirs Trouvés:**")
+                        for mirr in found_mirrors:
+                            st.success(f"✅ {mirr}")
+                
+                # Afficher importance
+                importance_emoji = {'critique': '🔴', 'importante': '🟠', 'optionnelle': '🟢'}.get(importance, '⚪')
+                st.caption(f"{importance_emoji} Importance: **{importance}**")
+                
+                # Suggestion si territoires manquants
+                missing = [t for t in expected_territories if t not in found_territories]
+                if missing:
+                    st.warning(f"💡 Territoires manquants: {', '.join(missing)}")
+        
+        st.divider()
     
     # Détails par concept avec enrichissements POC
     st.subheader("🔍 Détails par Concept (Scoring Pondéré)")
