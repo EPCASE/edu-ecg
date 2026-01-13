@@ -38,12 +38,14 @@ class RDFOWLExtractor:
         self.territoire_electrodes = defaultdict(list)
         self.classe_territoires = defaultdict(list)  # IRI classe → [IRI territoire1, IRI territoire2, ...]
         self.classe_findings = defaultdict(list)  # 🆕 IRI classe → [IRI finding1, finding2, ...] (requiresFinding)
+        self.classe_excludes = defaultdict(list)  # 🆕 IRI classe → [ID exclus1, exclus2, ...] (annotation "exclut")
         
         # IRIs des propriétés (trouvées dans le fichier)
         self.hasweight_iri = "http://webprotege.stanford.edu/R91SX26q028zwTknzSKDZUj"
         self.haselectrode_iri = "http://webprotege.stanford.edu/RBNXrhQkzAvi9hGX9yqhyRF"
         self.hasterritory_iri = "http://webprotege.stanford.edu/R86MFl68gsSAS3kHPEgghC3"
         self.requiresfinding_iri = "http://webprotege.stanford.edu/R7w5XngTituGN8Nt6R834WB"  # 🆕 ecg:requiresFinding
+        self.excludes_iri = "http://webprotege.stanford.edu/Rgkbf3QYLEo9sJtKMJFyFW"  # 🆕 ecg:exclut (ObjectProperty)
         
     def load(self):
         """Charge le fichier OWL"""
@@ -325,6 +327,57 @@ class RDFOWLExtractor:
                     
         print(f"  ✅ {count} relations requiresFinding extraites")
     
+    def extract_excludes(self):
+        """Extrait les relations ecg:exclut (ObjectProperty restrictions)"""
+        print("\n🚫 Extraction relations d'exclusion (ecg:exclut ObjectProperty)...")
+        
+        count = 0
+        # Parcourir toutes les classes
+        for owl_class in self.root.findall('.//owl:Class', self.ns):
+            class_iri = owl_class.get('{%s}about' % self.ns['rdf'])
+            if not class_iri:
+                continue
+                
+            # Chercher les restrictions rdfs:subClassOf > owl:Restriction
+            for subclass in owl_class.findall('rdfs:subClassOf', self.ns):
+                restriction = subclass.find('owl:Restriction', self.ns)
+                if restriction is None:
+                    continue
+                    
+                # Vérifier si c'est une restriction exclut
+                on_property = restriction.find('owl:onProperty', self.ns)
+                if on_property is None:
+                    continue
+                    
+                property_iri = on_property.get('{%s}resource' % self.ns['rdf'])
+                if property_iri != self.excludes_iri:
+                    continue
+                    
+                # Récupérer la valeur (someValuesFrom)
+                some_values = restriction.find('owl:someValuesFrom', self.ns)
+                if some_values is None:
+                    continue
+                    
+                excluded_iri = some_values.get('{%s}resource' % self.ns['rdf'])
+                
+                # Stocker la relation
+                if excluded_iri:
+                    self.classe_excludes[class_iri].append(excluded_iri)
+                    count += 1
+                    
+        print(f"  ✅ {count} relations d'exclusion extraites")
+        
+        # Afficher quelques exemples
+        if self.classe_excludes:
+            print("\n  📋 Exemples d'exclusions trouvées:")
+            for class_iri, excludes_iris in list(self.classe_excludes.items())[:3]:
+                class_label = self.classes_labels.get(class_iri, {}).get('fr', 'Sans nom')
+                excluded_labels = []
+                for excluded_iri in excludes_iris:
+                    excluded_label = self.classes_labels.get(excluded_iri, {}).get('fr', 'Sans nom')
+                    excluded_labels.append(excluded_label)
+                print(f"     • {class_label}: exclut {', '.join(excluded_labels)}")
+    
     def generate_json(self, output_path="data/ontology_from_owl.json"):
         """Génère le fichier JSON final"""
         print(f"\n💾 Génération JSON: {output_path}")
@@ -426,11 +479,21 @@ class RDFOWLExtractor:
                     if territoire_name:
                         territoires_possibles.append(territoire_name)
             
+            # 🆕 CONSTRUIRE EXCLUSIONS depuis ObjectProperty "exclut"
+            excludes = []
+            if class_iri in self.classe_excludes:
+                for excluded_iri in self.classe_excludes[class_iri]:
+                    excluded_labels = self.classes_labels.get(excluded_iri, {})
+                    excluded_name = excluded_labels.get('fr', '')
+                    if excluded_name:
+                        excludes.append(excluded_name)
+            
             concept_mappings[concept_id] = {
                 "concept_name": label_fr,
                 "synonymes": all_synonymes,
                 "implications": implications,  # 🆕 Maintenant avec enfants hiérarchiques !
                 "territoires_possibles": territoires_possibles,  # 🆕 Territoires liés au concept !
+                "excludes": excludes,  # 🆕 Liste des concepts exclus (IDs)
                 "poids": weight,
                 "categorie": category
             }
@@ -444,11 +507,22 @@ class RDFOWLExtractor:
                 "electrodes": list(set(electrodes))  # Dédupliquer
             }
             
+        # 🆕 Construire la hiérarchie pour le JSON
+        hierarchy_map = {}
+        for child_iri, parent_iri in self.classes_hierarchy.items():
+            child_labels = self.classes_labels.get(child_iri, {})
+            parent_labels = self.classes_labels.get(parent_iri, {})
+            child_id = child_labels.get('fr', '').upper().replace(' ', '_').replace("'", '_')
+            parent_id = parent_labels.get('fr', '').upper().replace(' ', '_').replace("'", '_')
+            if child_id and parent_id:
+                hierarchy_map[child_id] = parent_id
+        
         # Structure finale
         output = {
             "concept_categories": concept_categories,
             "territoires_ecg": territoires_ecg,
             "concept_mappings": concept_mappings,
+            "concept_hierarchy": hierarchy_map,  # 🆕 Hiérarchie enfant → parent
             "scoring_rules": {
                 "bonus_diagnostic_principal": 0.15,
                 "formule": "(Σ poids validés) / (Σ poids attendus) × 100 + bonus"

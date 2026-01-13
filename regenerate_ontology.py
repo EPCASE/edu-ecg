@@ -13,7 +13,7 @@ from backend.rdf_owl_extractor import RDFOWLExtractor  # ✅ UTILISER rdf_owl_ex
 
 def main():
     # Chemins - Utilisation du fichier OWL externe
-    owl_path = Path(r"C:\Users\Administrateur\bmad\BrYOzRZIu7jQTwmfcGsi35.owl")  # ✅ Nouveau chemin
+    owl_path = Path("BrYOzRZIu7jQTwmfcGsi35.owl")  # ✅ Fichier OWL à la racine du projet
     json_output = Path("data/ontology_from_owl.json")
     
     print("🔄 RÉGÉNÉRATION DE L'ONTOLOGIE")
@@ -46,6 +46,7 @@ def main():
         extractor.extract_territoires()
         extractor.extract_concept_territoires()
         extractor.extract_requires_findings()
+        extractor.extract_excludes()  # 🆕 Extraction des exclusions depuis annotation "exclut"
         ontology_data = extractor.generate_json(str(json_output))
         
         print("\n" + "=" * 70)

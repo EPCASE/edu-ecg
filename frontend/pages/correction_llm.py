@@ -23,11 +23,14 @@ try:
     from backend.scoring_service_llm import SemanticScorer
     from backend.feedback_service import FeedbackService
     from backend.services.llm_semantic_matcher import semantic_match, get_match_type_emoji, get_match_type_label
+    from backend.services.annotation_validator import AnnotationValidator, validate_annotations, format_contradiction_for_ui
     LLM_AVAILABLE = True
     LLM_SEMANTIC_MATCHER_AVAILABLE = True
+    VALIDATOR_AVAILABLE = True
 except ImportError as e:
     LLM_AVAILABLE = False
     LLM_SEMANTIC_MATCHER_AVAILABLE = False
+    VALIDATOR_AVAILABLE = False
     import_error = str(e)
 
 # Charger ontologie pondérée OWL (prioritaire) ou fallback sur ancienne version
@@ -501,7 +504,7 @@ def perform_correction(case_data, student_answer):
     with st.spinner("🤖 Correction en cours..."):
         try:
             # Étape 1: Extraction concepts LLM
-            st.info("🔍 Étape 1/3: Extraction des concepts...")
+            st.info("🔍 Étape 1/4: Extraction des concepts...")
             llm_service = LLMService()
             extraction_result = llm_service.extract_concepts(student_answer)
             student_concepts = extraction_result.get('concepts', [])
@@ -512,6 +515,33 @@ def perform_correction(case_data, student_answer):
                 return
             
             st.success(f"✅ {len(student_concepts)} concepts extraits")
+            
+            # Étape 2: Validation des contradictions
+            st.info("🛡️ Étape 2/4: Validation des contradictions...")
+            
+            # Extraire les noms de concepts
+            concept_names = [c.get('text', '') for c in student_concepts if c.get('text')]
+            
+            # Valider
+            contradictions = validate_annotations(concept_names, ONTOLOGY_MAPPING)
+            
+            if contradictions:
+                st.warning(f"⚠️ {len(contradictions)} contradiction(s) détectée(s)")
+                
+                # Afficher les contradictions
+                with st.expander("🔴 Voir les contradictions détectées", expanded=True):
+                    for contradiction in contradictions:
+                        st.markdown(format_contradiction_for_ui(contradiction))
+                        st.markdown("---")
+                
+                # Proposer de continuer quand même
+                if not st.checkbox("Continuer la correction malgré les contradictions", key="continue_despite_contradictions"):
+                    st.info("💡 Corrigez d'abord les contradictions ci-dessus, puis relancez la correction.")
+                    return
+            else:
+                st.success("✅ Aucune contradiction détectée")
+            
+            st.success(f"✅ Concepts validés")
             
             # Étape 2: Récupérer concepts attendus
             st.info("📊 Étape 2/3: Scoring avec ontologie...")
