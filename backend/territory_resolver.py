@@ -18,14 +18,14 @@ def get_children_of_concept(concept_id: str, ontology: Dict) -> List[str]:
         ontology: Ontologie complète chargée depuis JSON
         
     Returns:
-        Liste des noms des concepts enfants
+        Liste des noms des concepts enfants directs
     """
     hierarchy = ontology.get('concept_hierarchy', {})
     concept_mappings = ontology.get('concept_mappings', {})
     
     children_names = []
     
-    # Parcourir la hiérarchie pour trouver les enfants
+    # Parcourir la hiérarchie pour trouver les enfants directs
     for child_id, parent_id in hierarchy.items():
         if parent_id == concept_id:
             child_data = concept_mappings.get(child_id, {})
@@ -34,6 +34,61 @@ def get_children_of_concept(concept_id: str, ontology: Dict) -> List[str]:
                 children_names.append(child_name)
     
     return sorted(children_names)
+
+
+def get_all_descendants_recursive(concept_id: str, ontology: Dict, visited: Optional[set] = None) -> List[str]:
+    """
+    Récupère TOUS les descendants d'un concept de manière récursive
+    
+    Descend dans toute la hiérarchie pour trouver les concepts "feuilles"
+    (ceux sans enfants) afin d'afficher uniquement les territoires finaux.
+    
+    Args:
+        concept_id: ID du concept parent (ex: "LOCALISATION_IDM")
+        ontology: Ontologie complète chargée depuis JSON
+        visited: Ensemble des IDs déjà visités (évite boucles infinies)
+        
+    Returns:
+        Liste des noms de tous les descendants (concepts feuilles uniquement)
+        
+    Exemple:
+        LOCALISATION_ESV
+          └─ VENTRICULE_DROIT
+              ├─ PAROI_LIBRE_DU_VENTRICULE_DROIT  ← feuille
+              └─ PAROI_INFÉRIEURE_DU_VENTRICULE_DROIT  ← feuille
+        
+        Retourne: ["Paroi inférieure du ventricule droit", "Paroi libre du ventricule droit"]
+        (sans "Ventricule droit" car c'est un parent intermédiaire)
+    """
+    if visited is None:
+        visited = set()
+    
+    # Éviter boucles infinies
+    if concept_id in visited:
+        return []
+    visited.add(concept_id)
+    
+    hierarchy = ontology.get('concept_hierarchy', {})
+    concept_mappings = ontology.get('concept_mappings', {})
+    
+    all_descendants = []
+    
+    # Trouver les enfants directs
+    direct_children_ids = [child_id for child_id, parent_id in hierarchy.items() if parent_id == concept_id]
+    
+    if not direct_children_ids:
+        # Pas d'enfants → c'est une feuille, ajouter son nom
+        concept_data = concept_mappings.get(concept_id, {})
+        concept_name = concept_data.get('concept_name')
+        if concept_name:
+            all_descendants.append(concept_name)
+    else:
+        # A des enfants → descendre récursivement dans chaque enfant
+        for child_id in direct_children_ids:
+            child_descendants = get_all_descendants_recursive(child_id, ontology, visited.copy())
+            all_descendants.extend(child_descendants)
+    
+    return sorted(list(set(all_descendants)))
 
 
 def resolve_territories(concept_data: Dict, ontology: Dict) -> Tuple[List[str], List[str]]:
@@ -83,15 +138,15 @@ def resolve_territories(concept_data: Dict, ontology: Dict) -> Tuple[List[str], 
                         break
                 
                 if miroir_terr_id:
-                    # Récupérer les enfants (ex: enfants de "Localisation IDM")
-                    children = get_children_of_concept(miroir_terr_id, ontology)
-                    territoires_miroir.extend(children)
+                    # Récupérer TOUS les descendants (récursif) au lieu des enfants directs
+                    descendants = get_all_descendants_recursive(miroir_terr_id, ontology)
+                    territoires_miroir.extend(descendants)
         
         else:
             # Pour les autres territoires (Localisation IDM, Localisation ESV, etc.)
-            # Récupérer les enfants directs
-            children = get_children_of_concept(territoire_id, ontology)
-            territoires_principaux.extend(children)
+            # Récupérer TOUS les descendants récursifs au lieu des enfants directs
+            descendants = get_all_descendants_recursive(territoire_id, ontology)
+            territoires_principaux.extend(descendants)
     
     # Dédupliquer et trier
     territoires_principaux = sorted(list(set(territoires_principaux)))
