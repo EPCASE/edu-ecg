@@ -630,9 +630,10 @@ def perform_correction(case_data, student_answer):
             )
             bonus_diagnostic = 0.15 if has_diagnostic_principal else 0
             
-            # Bonus territoire - Vérifier si étudiant a mentionné les territoires attendus
+            # Bonus territoire - Vérifier si étudiant a mentionné les territoires attendus OU leurs voisins
             bonus_territoire = 0.0
             territory_matches = {}
+            neighbor_matches = []
             
             if territory_selections:
                 # Normaliser la réponse (minuscules + sans accents)
@@ -647,14 +648,35 @@ def perform_correction(case_data, student_answer):
                     
                     concept_territories_found = []
                     concept_mirrors_found = []
+                    concept_neighbors_found = []
                     
                     # Vérifier chaque territoire (insensible à la casse ET aux accents)
                     for terr in territories:
                         total_territories += 1
                         terr_normalized = unidecode(terr.lower())
+                        
                         if terr_normalized in student_answer_normalized:
+                            # Territoire exact trouvé
                             matched_territories += 1
                             concept_territories_found.append(terr)
+                        else:
+                            # Territoire pas trouvé → chercher si un voisin est mentionné
+                            # Les voisins donnent les MÊMES points (tolérance anatomique)
+                            terr_data = concept_weights.get(terr.upper().replace(' ', '_').replace('-', '_'), {})
+                            voisins = terr_data.get('voisins', [])
+                            neighbor_found = False
+                            for voisin in voisins:
+                                voisin_normalized = unidecode(voisin.lower())
+                                if voisin_normalized in student_answer_normalized and voisin not in concept_neighbors_found:
+                                    # Voisin trouvé = MÊMES points que territoire exact
+                                    matched_territories += 1
+                                    concept_neighbors_found.append(voisin)
+                                    neighbor_matches.append({
+                                        'expected': terr,
+                                        'found_neighbor': voisin
+                                    })
+                                    neighbor_found = True
+                                    break
                     
                     # Vérifier les miroirs
                     for mirr in mirrors:
@@ -667,10 +689,11 @@ def perform_correction(case_data, student_answer):
                         'expected_mirrors': mirrors,
                         'found_territories': concept_territories_found,
                         'found_mirrors': concept_mirrors_found,
+                        'found_neighbors': concept_neighbors_found,
                         'importance': importance
                     }
                 
-                # Calculer bonus (5% max si tous les territoires critiques sont trouvés)
+                # Calculer bonus territoire (5% max - inclut territoires exacts + voisins)
                 if total_territories > 0:
                     territory_score = matched_territories / total_territories
                     bonus_territoire = territory_score * 0.05  # Max 5%
@@ -818,11 +841,12 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
             expected_mirrors = match_info.get('expected_mirrors', [])
             found_territories = match_info.get('found_territories', [])
             found_mirrors = match_info.get('found_mirrors', [])
+            found_neighbors = match_info.get('found_neighbors', [])
             importance = match_info.get('importance', selection.get('importance', 'optionnelle'))
             
-            # Calculer score pour ce concept
+            # Calculer score pour ce concept (territoires exacts + voisins acceptés)
             total_expected = len(expected_territories)
-            total_found = len(found_territories)
+            total_found = len(found_territories) + len(found_neighbors)
             concept_score = (total_found / total_expected * 100) if total_expected > 0 else 0
             
             # Icône selon le score
@@ -843,8 +867,19 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                     st.markdown("**📋 Territoires Attendus:**")
                     if expected_territories:
                         for terr in expected_territories:
-                            icon = "✅" if terr in found_territories else "❌"
-                            st.write(f"{icon} {terr}")
+                            if terr in found_territories:
+                                st.write(f"✅ {terr} (exact)")
+                            else:
+                                # Chercher si un voisin a été trouvé pour ce territoire
+                                neighbor_found = None
+                                for neighbor_match in neighbor_matches:
+                                    if neighbor_match['expected'] == terr:
+                                        neighbor_found = neighbor_match['found_neighbor']
+                                        break
+                                if neighbor_found:
+                                    st.write(f"🟡 {terr} → {neighbor_found} trouvé (voisin accepté ✓)")
+                                else:
+                                    st.write(f"❌ {terr}")
                     else:
                         st.info("Aucun territoire attendu")
                     
@@ -858,8 +893,11 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                     st.markdown("**✍️ Territoires Trouvés:**")
                     if found_territories:
                         for terr in found_territories:
-                            st.success(f"✅ {terr}")
-                    else:
+                            st.success(f"✅ {terr} (exact)")
+                    if found_neighbors:
+                        for neighbor in found_neighbors:
+                            st.success(f"🟡 {neighbor} (voisin - tolérance anatomique)")
+                    if not found_territories and not found_neighbors:
                         st.error("❌ Aucun territoire trouvé dans votre réponse")
                     
                     if found_mirrors:
@@ -872,7 +910,7 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                 st.caption(f"{importance_emoji} Importance: **{importance}**")
                 
                 # Suggestion si territoires manquants
-                missing = [t for t in expected_territories if t not in found_territories]
+                missing = [t for t in expected_territories if t not in found_territories and not any(nm['expected'] == t for nm in neighbor_matches)]
                 if missing:
                     st.warning(f"💡 Territoires manquants: {', '.join(missing)}")
         

@@ -149,13 +149,9 @@ def _display_territory_selectors_for_annotations():
         
         # Afficher un sélecteur pour chaque concept
         for concept_name, config in concepts_with_territory:
-            with st.expander(f"🗺️ {concept_name}", expanded=True):
-                # Afficher l'importance
-                importance = config.get('importance', 'optionnelle')
-                importance_emoji = {'critique': '🔴', 'importante': '🟠', 'optionnelle': '🟢'}
-                emoji = importance_emoji.get(importance, '⚪')
-                
-                st.caption(f"{emoji} Importance: **{importance}**")
+            is_required = config.get('is_required', False)
+            required_label = " (obligatoire)" if is_required else ""
+            with st.expander(f"🗺️ {concept_name}{required_label}", expanded=True):
                 
                 # Afficher les sélecteurs
                 territories, mirrors = render_territory_selectors(
@@ -183,9 +179,106 @@ def _display_territory_selectors_for_annotations():
                 # Stocker dans session_state
                 st.session_state.territory_selections[concept_name] = {
                     'territories': territories,
-                    'mirrors': mirrors,
-                    'importance': importance
+                    'mirrors': mirrors
                 }
+
+
+def _display_structure_selectors_for_annotations():
+    """Affiche les sélecteurs de structure anatomique pour échappement ventriculaire"""
+    if 'case_annotations' not in st.session_state or not st.session_state.case_annotations:
+        return
+    
+    # Initialiser structure_selections si nécessaire
+    if 'structure_selections' not in st.session_state:
+        st.session_state.structure_selections = {}
+    
+    # Charger l'ontologie
+    ontology = load_ontology()
+    if not ontology:
+        return
+    
+    concept_mappings = ontology.get('concept_mappings', {})
+    
+    # Vérifier quels concepts nécessitent une structure anatomique
+    concepts_with_structure = []
+    for annotation in st.session_state.case_annotations:
+        concept_name = annotation['concept']
+        concept_id = concept_name.upper().replace(' ', '_').replace('-', '_').replace("'", '_')
+        concept_data = concept_mappings.get(concept_id, {})
+        
+        # Vérifier si le concept a des origin_structures ET requires_morphology_inversion
+        has_origins = len(concept_data.get('origin_structures', [])) > 0
+        requires_inversion = concept_data.get('requires_morphology_inversion', False)
+        
+        if has_origins and requires_inversion:
+            concepts_with_structure.append((concept_name, concept_data))
+    
+    # Afficher la section structures si nécessaire
+    if concepts_with_structure:
+        st.markdown("---")
+        st.markdown("### 🏗️ Origine Anatomique & Morphologie")
+        st.success(f"⚡ {len(concepts_with_structure)} concept(s) nécessitent une précision d'origine")
+        
+        # Afficher un sélecteur pour chaque concept
+        for concept_name, concept_data in concepts_with_structure:
+            with st.expander(f"🏗️ {concept_name}", expanded=True):
+                st.caption("⚡ Ce concept nécessite une inversion de morphologie")
+                
+                # Importer le sélecteur de structure
+                try:
+                    from components.structure_selector import structure_selector_interface
+                    
+                    result = structure_selector_interface(
+                        concept_name=concept_name,
+                        key_prefix=f"ecg_import_{concept_name.replace(' ', '_')}",
+                        auto_add_morphology=True
+                    )
+                    
+                    if result:
+                        # Stocker dans session_state
+                        st.session_state.structure_selections[concept_name] = {
+                            'structure': result['selected_structure'],
+                            'morphology': result['calculated_morphology'],
+                            'explanation': result['explanation']
+                        }
+                        
+                        # Ajouter automatiquement la morphologie aux annotations
+                        if result['calculated_morphology']:
+                            # Vérifier si la morphologie n'est pas déjà dans les annotations
+                            morphology_exists = any(
+                                ann['concept'] == result['calculated_morphology']
+                                for ann in st.session_state.case_annotations
+                            )
+                            
+                            if not morphology_exists:
+                                st.info(f"💡 Annotation auto-ajoutée: **{result['calculated_morphology']}**")
+                                # Ajouter à la session pour sauvegarde
+                                if st.button(
+                                    f"➕ Ajouter '{result['calculated_morphology']}'",
+                                    key=f"add_morpho_{concept_name.replace(' ', '_')}"
+                                ):
+                                    st.session_state.case_annotations.append({
+                                        'concept': result['calculated_morphology'],
+                                        'type': 'auto_morphology',
+                                        'parent_concept': concept_name
+                                    })
+                                    st.rerun()
+                
+                except ImportError as e:
+                    st.error(f"❌ Module structure_selector non disponible: {e}")
+                    # Fallback simple
+                    origin_structures = concept_data.get('origin_structures', [])
+                    if origin_structures:
+                        selected = st.selectbox(
+                            "Origine anatomique:",
+                            options=origin_structures,
+                            key=f"fallback_structure_{concept_name.replace(' ', '_')}"
+                        )
+                        st.session_state.structure_selections[concept_name] = {
+                            'structure': selected,
+                            'morphology': None,
+                            'explanation': None
+                        }
 
 
 def generate_case_id():
@@ -260,6 +353,9 @@ def step_upload_ecg():
     """Étape 1: Upload des ECG"""
     st.markdown("### 📤 Étape 1: Importer les ECG")
     
+    # Info formats supportés
+    st.info("📷 **Formats supportés**: Images (PNG, JPG, JPEG, BMP, TIFF, WebP), PDF, captures d'écran mobile")
+    
     # Mode d'import
     import_mode = st.radio(
         "Mode d'import",
@@ -271,37 +367,96 @@ def step_upload_ecg():
     if import_mode == "📄 ECG Unique":
         uploaded_file = st.file_uploader(
             "Choisir un fichier ECG",
-            type=['png', 'jpg', 'jpeg', 'pdf'],
-            help="Formats supportés: PNG, JPG, JPEG, PDF"
+            type=['png', 'jpg', 'jpeg', 'pdf', 'bmp', 'tiff', 'tif', 'webp', 'heic'],
+            help="Tous formats d'images et PDF acceptés (y compris captures d'écran mobile)"
         )
         
         if uploaded_file:
             # Traiter l'image
-            if uploaded_file.type.startswith('image'):
-                image = Image.open(uploaded_file)
-                
-                # Afficher prévisualisation
-                st.image(image, caption="Prévisualisation", use_container_width=True)
-                
-                # Sauvegarder dans session state
-                if 'uploaded_images' not in st.session_state:
-                    st.session_state.uploaded_images = []
-                
-                if st.button("✅ Valider cet ECG", type="primary"):
-                    st.session_state.uploaded_images = [{
-                        'image': image,
-                        'filename': uploaded_file.name,
-                        'label': 'ECG_01'
-                    }]
-                    st.session_state.current_step = 2
-                    st.success("✅ ECG chargé avec succès!")
-                    st.rerun()
+            if uploaded_file.type.startswith('image') or uploaded_file.name.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tiff', '.tif', '.webp', '.heic')):
+                try:
+                    image = Image.open(uploaded_file)
+                    # Convertir en RGB si nécessaire (pour compatibilité)
+                    if image.mode not in ('RGB', 'L'):
+                        image = image.convert('RGB')
+                    
+                    # Afficher prévisualisation avec info dimensions
+                    col1, col2 = st.columns([3, 1])
+                    with col1:
+                        st.image(image, caption="Prévisualisation", use_container_width=True)
+                    with col2:
+                        st.metric("Largeur", f"{image.width}px")
+                        st.metric("Hauteur", f"{image.height}px")
+                        st.metric("Format", image.format or "Inconnu")
+                    
+                    # Sauvegarder dans session state
+                    if 'uploaded_images' not in st.session_state:
+                        st.session_state.uploaded_images = []
+                    
+                    if st.button("✅ Valider cet ECG", type="primary"):
+                        st.session_state.uploaded_images = [{
+                            'image': image,
+                            'filename': uploaded_file.name,
+                            'label': 'ECG_01'
+                        }]
+                        st.session_state.current_step = 2
+                        st.success("✅ ECG chargé avec succès!")
+                        st.rerun()
+                        
+                except Exception as e:
+                    st.error(f"❌ Erreur lors de l'ouverture de l'image: {str(e)}")
+                    st.info("💡 Essayez de convertir votre image en PNG ou JPEG")
             
             elif uploaded_file.type == 'application/pdf':
-                st.warning("📄 Support PDF en cours de développement - Veuillez utiliser une image")
+                try:
+                    # Essayer d'extraire les images du PDF avec pdf2image
+                    try:
+                        from pdf2image import convert_from_bytes
+                        
+                        # Convertir le PDF en images
+                        images = convert_from_bytes(uploaded_file.read(), dpi=300)
+                        
+                        if images:
+                            st.success(f"✅ {len(images)} page(s) extraite(s) du PDF")
+                            
+                            # Afficher toutes les pages
+                            for idx, img in enumerate(images):
+                                st.image(img, caption=f"Page {idx + 1}", use_container_width=True)
+                            
+                            # Sélectionner quelle page utiliser
+                            if len(images) > 1:
+                                page_num = st.selectbox(
+                                    "Sélectionner la page à utiliser",
+                                    range(1, len(images) + 1),
+                                    format_func=lambda x: f"Page {x}"
+                                )
+                                selected_image = images[page_num - 1]
+                            else:
+                                selected_image = images[0]
+                            
+                            if st.button("✅ Valider cet ECG", type="primary"):
+                                st.session_state.uploaded_images = [{
+                                    'image': selected_image,
+                                    'filename': uploaded_file.name.replace('.pdf', '.png'),
+                                    'label': 'ECG_01'
+                                }]
+                                st.session_state.current_step = 2
+                                st.success("✅ ECG extrait du PDF avec succès!")
+                                st.rerun()
+                        else:
+                            st.error("❌ Aucune image trouvée dans le PDF")
+                            
+                    except ImportError:
+                        st.error("❌ Le module pdf2image n'est pas installé")
+                        st.info("💡 Installez-le avec: `pip install pdf2image poppler-utils`")
+                        st.warning("📄 En attendant, exportez votre PDF en image (PNG/JPEG)")
+                        
+                except Exception as e:
+                    st.error(f"❌ Erreur lors du traitement du PDF: {str(e)}")
+                    st.info("💡 Essayez d'exporter le PDF en image PNG ou JPEG")
     
     else:  # Multi-ECG
-        st.info("💡 Vous pouvez ajouter plusieurs ECG pour créer un cas complexe")
+        st.info("💡 Vous pouvez ajouter plusieurs ECG pour créer un cas complexe (différents moments, dérivations, etc.)")
         
         # Initialiser la liste des images
         if 'uploaded_images' not in st.session_state:
@@ -310,40 +465,61 @@ def step_upload_ecg():
         # Uploader un nouvel ECG
         uploaded_file = st.file_uploader(
             f"Ajouter un ECG ({len(st.session_state.uploaded_images) + 1})",
-            type=['png', 'jpg', 'jpeg'],
-            key=f"upload_{len(st.session_state.uploaded_images)}"
+            type=['png', 'jpg', 'jpeg', 'pdf', 'bmp', 'tiff', 'tif', 'webp', 'heic'],
+            key=f"upload_{len(st.session_state.uploaded_images)}",
+            help="Tous formats d'images acceptés"
         )
         
         if uploaded_file:
-            image = Image.open(uploaded_file)
-            
-            col1, col2 = st.columns([2, 1])
-            
-            with col1:
-                st.image(image, caption="Prévisualisation", use_container_width=True)
-            
-            with col2:
-                ecg_label = st.text_input(
-                    "Libellé de cet ECG",
-                    value=f"ECG_{len(st.session_state.uploaded_images) + 1:02d}",
-                    key="ecg_label_input"
-                )
+            try:
+                # Traiter selon le type
+                if uploaded_file.type == 'application/pdf':
+                    try:
+                        from pdf2image import convert_from_bytes
+                        images = convert_from_bytes(uploaded_file.read(), dpi=300)
+                        image = images[0] if images else None
+                        if not image:
+                            st.error("❌ Impossible d'extraire l'image du PDF")
+                    except ImportError:
+                        st.error("❌ Module pdf2image non disponible - utilisez une image")
+                        image = None
+                else:
+                    image = Image.open(uploaded_file)
+                    if image.mode not in ('RGB', 'L'):
+                        image = image.convert('RGB')
                 
-                ecg_timing = st.selectbox(
-                    "Moment",
-                    ["Initial", "Post-traitement", "Contrôle", "Suivi"],
-                    key="ecg_timing_select"
-                )
-                
-                if st.button("➕ Ajouter cet ECG"):
-                    st.session_state.uploaded_images.append({
-                        'image': image,
-                        'filename': uploaded_file.name,
-                        'label': ecg_label,
-                        'timing': ecg_timing
-                    })
-                    st.success(f"✅ {ecg_label} ajouté!")
-                    st.rerun()
+                if image:
+                    col1, col2 = st.columns([2, 1])
+                    
+                    with col1:
+                        st.image(image, caption="Prévisualisation", use_container_width=True)
+                    
+                    with col2:
+                        ecg_label = st.text_input(
+                            "Libellé de cet ECG",
+                            value=f"ECG_{len(st.session_state.uploaded_images) + 1:02d}",
+                            key="ecg_label_input"
+                        )
+                        
+                        ecg_timing = st.selectbox(
+                            "Moment",
+                            ["Initial", "Post-traitement", "Contrôle", "Suivi"],
+                            key="ecg_timing_select"
+                        )
+                        
+                        if st.button("➕ Ajouter cet ECG"):
+                            st.session_state.uploaded_images.append({
+                                'image': image,
+                                'filename': uploaded_file.name,
+                                'label': ecg_label,
+                                'timing': ecg_timing
+                            })
+                            st.success(f"✅ {ecg_label} ajouté!")
+                            st.rerun()
+                            
+            except Exception as e:
+                st.error(f"❌ Erreur: {str(e)}")
+                st.info("💡 Essayez de convertir votre fichier en PNG ou JPEG")
         
         # Afficher les ECG ajoutés
         if st.session_state.uploaded_images:
@@ -382,6 +558,27 @@ def step_annotation():
             st.session_state.current_step = 1
             st.rerun()
         return
+    
+    # 📷 AFFICHAGE DES ECG IMPORTÉS
+    st.markdown("#### 📷 ECG(s) importé(s)")
+    
+    # Si un seul ECG, l'afficher directement
+    if len(st.session_state.uploaded_images) == 1:
+        ecg_data = st.session_state.uploaded_images[0]
+        st.image(ecg_data['image'], caption=ecg_data.get('label', 'ECG'), use_container_width=True)
+    
+    # Si plusieurs ECG, onglets pour les visualiser
+    else:
+        tab_labels = [img_data.get('label', f"ECG {i+1}") for i, img_data in enumerate(st.session_state.uploaded_images)]
+        tabs = st.tabs(tab_labels)
+        
+        for tab, img_data in zip(tabs, st.session_state.uploaded_images):
+            with tab:
+                st.image(img_data['image'], use_container_width=True)
+                if 'timing' in img_data:
+                    st.caption(f"⏱️ Moment: {img_data['timing']}")
+    
+    st.markdown("---")
     
     # Informations du cas
     st.markdown("#### 📋 Informations du cas")
@@ -865,7 +1062,7 @@ def step_annotation():
         st.markdown(f"**📋 Annotations ajoutées: {len(st.session_state.case_annotations)}**")
         
         for idx, annotation in enumerate(st.session_state.case_annotations):
-            col1, col2, col3, col4 = st.columns([3, 1, 1, 1])
+            col1, col2, col3, col4, col5 = st.columns([3, 1, 1, 2, 1])
             
             with col1:
                 st.write(f"**{annotation['concept']}**")
@@ -880,29 +1077,84 @@ def step_annotation():
                 st.write(f"⚖️ {annotation['coefficient']}")
             
             with col4:
+                # Déterminer la valeur par défaut selon la catégorie
+                category = annotation.get('category', '')
+                if category in ['DIAGNOSTIC_URGENT', 'DIAGNOSTIC_MAJEUR']:
+                    default_role = "🎯 Diagnostic validant"
+                else:
+                    default_role = "📝 Description"
+                
+                # Récupérer le rôle actuel ou utiliser le défaut
+                current_role = annotation.get('annotation_role', default_role)
+                
+                # Sélecteur de rôle
+                role = st.selectbox(
+                    "Rôle",
+                    ["🎯 Diagnostic validant", "📝 Description", "❌ Exclusion"],
+                    index=["🎯 Diagnostic validant", "📝 Description", "❌ Exclusion"].index(current_role),
+                    key=f"role_{idx}",
+                    label_visibility="collapsed"
+                )
+                
+                # Sauvegarder le rôle sélectionné
+                st.session_state.case_annotations[idx]['annotation_role'] = role
+                
+                # Warning si exclusion
+                if role == "❌ Exclusion":
+                    st.session_state.case_annotations[idx]['is_exclusion'] = True
+                else:
+                    st.session_state.case_annotations[idx]['is_exclusion'] = False
+            
+            with col5:
                 if st.button("🗑️", key=f"delete_ann_{idx}"):
                     st.session_state.case_annotations.pop(idx)
                     st.rerun()
         
         # 🆕 AFFICHER LES SÉLECTEURS DE TERRITOIRE
         _display_territory_selectors_for_annotations()
+        
+        # 🆕 AFFICHER LES SÉLECTEURS DE STRUCTURE ANATOMIQUE (échappement, etc.)
+        _display_structure_selectors_for_annotations()
     
     # Navigation
     st.markdown("---")
     col1, col2 = st.columns(2)
     
+    # Mode édition: navigation différente
+    is_editing = 'editing_case' in st.session_state and st.session_state.editing_case
+    
     with col1:
-        if st.button("◀ Retour à l'upload", use_container_width=True):
-            st.session_state.current_step = 1
-            st.rerun()
+        if is_editing:
+            # En mode édition, retour à la bibliothèque
+            if st.button("◀ Annuler et retourner à la bibliothèque", use_container_width=True):
+                st.session_state.editing_case = None
+                st.session_state.editing_case_dir = None
+                st.session_state.case_edit_loaded = None
+                st.session_state.uploaded_images = []
+                st.session_state.case_annotations = []
+                st.session_state.selected_page = 'cases'  # Retour à la bibliothèque
+                st.rerun()
+        else:
+            # En mode création, retour à l'upload
+            if st.button("◀ Retour à l'upload", use_container_width=True):
+                st.session_state.current_step = 1
+                st.rerun()
     
     with col2:
         if st.session_state.case_annotations:
-            if st.button("Valider le cas ▶", type="primary", use_container_width=True):
-                st.session_state.current_step = 3
-                st.rerun()
+            if is_editing:
+                # En mode édition, sauvegarder directement
+                if st.button("💾 Sauvegarder les modifications", type="primary", use_container_width=True):
+                    st.session_state.current_step = 3
+                    st.rerun()
+            else:
+                # En mode création, aller à la validation
+                if st.button("Valider le cas ▶", type="primary", use_container_width=True):
+                    st.session_state.current_step = 3
+                    st.rerun()
         else:
-            st.button("Valider le cas ▶", disabled=True, use_container_width=True)
+            button_label = "💾 Sauvegarder les modifications" if is_editing else "Valider le cas ▶"
+            st.button(button_label, disabled=True, use_container_width=True)
             st.caption("⚠️ Ajoutez au moins une annotation")
 
 
@@ -936,8 +1188,43 @@ def step_validation():
     st.markdown("---")
     st.markdown("#### 🏷️ Annotations expertes")
     
-    for annotation in st.session_state.case_annotations:
-        st.markdown(f"- **{annotation['concept']}** ({annotation['category']}) - Coeff: {annotation['coefficient']}")
+    # Interface de classification des diagnostics
+    st.markdown("##### 🎯 Classifiez vos diagnostics")
+    st.caption("Sélectionnez les diagnostics principaux (ceux qui doivent être impérativement identifiés)")
+    # Affichage groupé par rôle
+    st.markdown("##### 📋 Liste des annotations")
+    
+    # Grouper par rôle
+    validant_annotations = [ann for ann in st.session_state.case_annotations if ann.get('annotation_role', '📝 Description') == '🎯 Diagnostic validant']
+    description_annotations = [ann for ann in st.session_state.case_annotations if ann.get('annotation_role', '📝 Description') == '📝 Description']
+    exclusion_annotations = [ann for ann in st.session_state.case_annotations if ann.get('annotation_role', '📝 Description') == '❌ Exclusion']
+    
+    # Diagnostics validants
+    if validant_annotations:
+        st.markdown("**🎯 Diagnostics validants** (comptent pour 100% de la note)")
+        for annotation in validant_annotations:
+            # Vérifier si territoire manquant
+            territory_info = ""
+            if annotation.get('territoires_possibles'):
+                territories = st.session_state.territory_selections.get(annotation['concept'], {}).get('territories', [])
+                if territories:
+                    territory_info = f" - 🗺️ {', '.join(territories)}"
+                else:
+                    territory_info = " - ⚠️ Territoire manquant (-50% points)"
+            
+            st.markdown(f"- ⭐ **{annotation['concept']}** ({annotation['category']}){territory_info}")
+    
+    # Descriptions
+    if description_annotations:
+        st.markdown("**📝 Descriptions** (ne comptent pas dans le scoring)")
+        for annotation in description_annotations:
+            st.markdown(f"- **{annotation['concept']}** ({annotation['category']})")
+    
+    # Exclusions
+    if exclusion_annotations:
+        st.error("**❌ EXCLUSIONS** (Note automatique = 0/20)")
+        for annotation in exclusion_annotations:
+            st.markdown(f"- 🚫 **{annotation['concept']}** - Faute grave")
     
     # ECG
     st.markdown("---")
@@ -959,16 +1246,41 @@ def step_validation():
     
     with col2:
         if st.button("💾 Sauvegarder le cas", type="primary", use_container_width=True):
-            # Créer le cas
-            case_id = generate_case_id()
+            # Mode édition: réutiliser le case_id et le dossier existant
+            if 'editing_case' in st.session_state and st.session_state.editing_case:
+                case_id = st.session_state.editing_case.get('case_id')
+                case_dir = Path(st.session_state.editing_case_dir)
+                is_editing = True
+            else:
+                # Nouveau cas: générer un nouvel ID
+                case_id = generate_case_id()
+                is_editing = False
             
-            # Extraire les concepts des annotations pour expected_concepts
-            expected_concepts = [ann['concept'] for ann in st.session_state.case_annotations]
+            # 🆕 FILTRER LES ANNOTATIONS PAR RÔLE
+            # Seuls les diagnostics validants comptent dans expected_concepts
+            validant_annotations = [
+                ann for ann in st.session_state.case_annotations 
+                if ann.get('annotation_role', '📝 Description') == '🎯 Diagnostic validant'
+            ]
             
-            # Déterminer le diagnostic principal (premier concept ou concept avec plus grand coefficient)
+            exclusion_annotations = [
+                ann for ann in st.session_state.case_annotations 
+                if ann.get('annotation_role', '📝 Description') == '❌ Exclusion'
+            ]
+            
+            # expected_concepts = UNIQUEMENT les diagnostics validants
+            expected_concepts = [ann['concept'] for ann in validant_annotations]
+            
+            # Vérifier s'il y a des exclusions
+            has_exclusions = len(exclusion_annotations) > 0
+            
+            # Déterminer le diagnostic principal pour l'affichage
             diagnostic_principal = st.session_state.case_name
-            if st.session_state.case_annotations:
-                # Prendre le concept avec le plus grand coefficient
+            
+            if validant_annotations:
+                diagnostic_principal = validant_annotations[0]['concept']
+            elif st.session_state.case_annotations:
+                # Fallback: prendre le concept avec le plus grand coefficient
                 main_annotation = max(st.session_state.case_annotations, key=lambda x: x.get('coefficient', 1))
                 diagnostic_principal = main_annotation['concept']
             
@@ -978,8 +1290,9 @@ def step_validation():
                 'category': st.session_state.case_category,
                 'difficulty': st.session_state.case_difficulty,
                 'description': st.session_state.case_description,
-                'annotations': st.session_state.case_annotations,
-                'expected_concepts': expected_concepts,  # 🆕 Pour la correction
+                'annotations': st.session_state.case_annotations,  # Inclut annotation_role
+                'expected_concepts': expected_concepts,  # 🆕 UNIQUEMENT les diagnostics validants
+                'has_exclusions': has_exclusions,  # 🆕 Flag d'exclusion
                 'diagnostic_principal': diagnostic_principal,  # 🆕 Pour affichage
                 'clinical_context': st.session_state.case_description,  # 🆕 Alias
                 'num_ecg': len(st.session_state.uploaded_images),
@@ -995,22 +1308,44 @@ def step_validation():
             # Sauvegarder
             case_dir = save_case_to_disk(case_data, st.session_state.uploaded_images)
             
-            # Stocker dans session state pour la création de session
-            if 'validated_cases' not in st.session_state:
-                st.session_state.validated_cases = []
+            # Message de succès différent selon le mode
+            if is_editing:
+                st.success(f"✅ Cas mis à jour: {case_id}")
+                st.info(f"📁 Dossier: {case_dir}")
+                
+                # Reset du mode édition
+                st.session_state.editing_case = None
+                st.session_state.editing_case_dir = None
+                st.session_state.case_edit_loaded = None
+                st.session_state.uploaded_images = []
+                st.session_state.case_annotations = []
+                st.session_state.case_name = ''
+                st.session_state.case_description = ''
+                
+                # Auto-redirection vers la bibliothèque après 2 secondes
+                st.info("🔄 Redirection vers la bibliothèque...")
+                import time
+                time.sleep(2)
+                st.session_state.selected_page = 'cases'
+                st.rerun()
+            else:
+                # Stocker dans session state pour la création de session
+                if 'validated_cases' not in st.session_state:
+                    st.session_state.validated_cases = []
+                
+                st.session_state.validated_cases.append(case_data)
+                
+                st.success(f"✅ Cas sauvegardé: {case_id}")
+                st.info(f"📁 Dossier: {case_dir}")
+                
+                # Reset pour un nouveau cas
+                st.session_state.uploaded_images = []
+                st.session_state.case_annotations = []
+                st.session_state.case_name = ''
+                st.session_state.case_description = ''
+                
+                st.session_state.current_step = 4
             
-            st.session_state.validated_cases.append(case_data)
-            
-            st.success(f"✅ Cas sauvegardé: {case_id}")
-            st.info(f"📁 Dossier: {case_dir}")
-            
-            # Reset pour un nouveau cas
-            st.session_state.uploaded_images = []
-            st.session_state.case_annotations = []
-            st.session_state.case_name = ''
-            st.session_state.case_description = ''
-            
-            st.session_state.current_step = 4
             st.rerun()
 
 
@@ -1130,11 +1465,95 @@ def page_ecg_import():
     st.title("🎓 ECG Session Builder")
     st.markdown("*Créez des sessions de formation complètes en important et annotant vos ECG*")
     
+    # ✏️ MODE ÉDITION: Charger un cas existant
+    is_editing_mode = ('editing_case' in st.session_state and 
+                       st.session_state.editing_case is not None and
+                       st.session_state.editing_case != {})
+    
+    if is_editing_mode:
+        st.info("✏️ **Mode Édition** - Modification d'un cas existant")
+        
+        case_data = st.session_state.editing_case
+        case_dir = Path(st.session_state.editing_case_dir)
+        
+        # Afficher un résumé du cas en cours d'édition
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Nom du cas", case_data.get('name', 'N/A'))
+        with col2:
+            st.metric("Catégorie", case_data.get('category', 'N/A'))
+        with col3:
+            st.metric("Annotations", len(case_data.get('annotations', [])))
+        
+        # Charger les données dans session_state (une seule fois)
+        if 'case_edit_loaded' not in st.session_state:
+            st.session_state.case_name = case_data.get('name', '')
+            st.session_state.case_category = case_data.get('category', 'Troubles du Rythme')
+            st.session_state.case_difficulty = case_data.get('difficulty', '🟡 Intermédiaire')
+            st.session_state.case_description = case_data.get('description', '')
+            st.session_state.case_annotations = case_data.get('annotations', [])
+            st.session_state.territory_selections = case_data.get('territory_selections', {})
+            
+            # S'assurer que toutes les annotations ont un annotation_role
+            for ann in st.session_state.case_annotations:
+                if 'annotation_role' not in ann:
+                    # Définir par défaut selon la catégorie
+                    if ann.get('category') in ['DIAGNOSTIC_URGENT', 'DIAGNOSTIC_MAJEUR']:
+                        ann['annotation_role'] = '🎯 Diagnostic validant'
+                    else:
+                        ann['annotation_role'] = '📝 Description'
+            
+            # Charger les images ECG
+            uploaded_images = []
+            ecg_files = case_data.get('ecgs', [])
+            
+            for ecg_file in ecg_files:
+                img_path = case_dir / ecg_file['filename']
+                if img_path.exists():
+                    try:
+                        image = Image.open(img_path)
+                        uploaded_images.append({
+                            'image': image,
+                            'filename': ecg_file['filename'],
+                            'label': ecg_file.get('label', f"ECG_{ecg_file['index']}")
+                        })
+                    except Exception as e:
+                        st.error(f"❌ Erreur chargement image: {e}")
+            
+            st.session_state.uploaded_images = uploaded_images
+            st.session_state.case_edit_loaded = True
+            st.success(f"✅ {len(uploaded_images)} ECG chargé(s) depuis le cas existant")
+        
+        # Afficher un aperçu des ECG chargés
+        if st.session_state.get('uploaded_images'):
+            with st.expander("📷 Aperçu des ECG chargés", expanded=False):
+                for img_data in st.session_state.uploaded_images:
+                    st.image(img_data['image'], caption=img_data.get('label', 'ECG'), use_container_width=True)
+        
+        # Bouton pour annuler l'édition
+        if st.button("❌ Annuler l'édition et retourner à la bibliothèque"):
+            st.session_state.editing_case = None
+            st.session_state.editing_case_dir = None
+            st.session_state.case_edit_loaded = None
+            st.session_state.current_step = 1
+            st.session_state.uploaded_images = []
+            st.session_state.case_annotations = []
+            st.rerun()
+        
+        st.markdown("---")
+    
     # Initialiser l'étape
     if 'current_step' not in st.session_state:
         st.session_state.current_step = 1
     
-    # Barre de progression
+    # MODE ÉDITION: Affichage séparé sans workflow d'import
+    if is_editing_mode:
+        # Pas de barre de progression en mode édition
+        # Afficher directement l'interface d'édition
+        step_annotation()
+        return  # Sortir de la fonction pour ne pas afficher le workflow normal
+    
+    # WORKFLOW NORMAL: Barre de progression
     progress_steps = ["📤 Upload", "🏷️ Annotation", "✅ Validation", "📚 Session"]
     
     cols = st.columns(4)

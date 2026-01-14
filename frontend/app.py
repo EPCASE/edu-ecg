@@ -76,6 +76,14 @@ except ImportError as e:
     ECG_IMPORT_AVAILABLE = False
     ecg_import_error = str(e)
 
+# Import du module Edit ECG (NOUVEAU - Standalone Editor!)
+try:
+    from pages.ecg_edit import page_ecg_edit
+    ECG_EDIT_AVAILABLE = True
+except ImportError as e:
+    ECG_EDIT_AVAILABLE = False
+    ecg_edit_error = str(e)
+
 # Import des interfaces de correction LLM (LEGACY - SUPPRIMÉ)
 # Ces fonctions sont maintenant dans pages/correction_llm.py et pages/ecg_import.py
 LLM_CORRECTION_AVAILABLE = False  # Legacy module désactivé
@@ -327,6 +335,11 @@ def main_app_with_auth():
         
         if st.button("👥 Utilisateurs", type="primary" if st.session_state.selected_page == 'users' else "secondary", use_container_width=True):
             st.session_state.selected_page = 'users'
+        
+        st.markdown("### 🧪 Tests & Dev")
+        
+        if st.button("🗺️ Territory Selector", type="primary" if st.session_state.selected_page == 'territory_demo' else "secondary", use_container_width=True):
+            st.session_state.selected_page = 'territory_demo'
     
     # Routage des pages selon les permissions
     route_pages_with_auth(st.session_state.selected_page)
@@ -346,6 +359,13 @@ def route_pages_with_auth(page):
     
     elif page == 'cases':
         page_ecg_cases()
+    
+    elif page == 'edit':
+        if ECG_EDIT_AVAILABLE:
+            page_ecg_edit()
+        else:
+            st.error("❌ Module d'édition ECG non disponible")
+            st.info(f"💡 Erreur d'import: {ecg_edit_error if 'ecg_edit_error' in dir() else 'Module non trouvé'}")
     
     elif page == 'correction_llm':
         if CORRECTION_LLM_AVAILABLE:
@@ -371,6 +391,9 @@ def route_pages_with_auth(page):
     
     elif page == 'users':
         page_users_management_with_auth()
+    
+    elif page == 'territory_demo':
+        page_territory_demo()
 
 
 def page_users_management_with_auth():
@@ -682,12 +705,48 @@ def page_ecg_cases():
                 
                 st.divider()
                 
-                # Action button - Practice with correction_llm
-                if st.button("🎯 Pratiquer", key=f"practice_{case_dir.name}", use_container_width=True, type="primary"):
-                    # Redirect to correction_llm (unified page)
-                    st.session_state.selected_practice_case = case_data
-                    st.session_state.selected_page = 'correction_llm'
+                # Action buttons
+                col_a, col_b = st.columns(2)
+                
+                with col_a:
+                    if st.button("🎯 Pratiquer", key=f"practice_{case_dir.name}", use_container_width=True, type="primary"):
+                        # Redirect to correction_llm (unified page)
+                        st.session_state.selected_practice_case = case_data
+                        st.session_state.selected_page = 'correction_llm'
+                        st.rerun()
+                
+                with col_b:
+                    if st.button("✏️ Éditer", key=f"edit_{case_dir.name}", use_container_width=True):
+                        # Charger le cas pour édition dans ecg_edit
+                        st.session_state.editing_case_id = case_dir.name
+                        st.session_state.selected_page = 'edit'
+                        st.rerun()
+                
+                # Bouton de suppression avec confirmation
+                if st.button("🗑️ Supprimer", key=f"delete_{case_dir.name}", use_container_width=True):
+                    st.session_state.confirm_delete_case = str(case_dir)
                     st.rerun()
+                
+                # Popup de confirmation de suppression
+                if st.session_state.get('confirm_delete_case') == str(case_dir):
+                    st.warning("⚠️ Confirmer la suppression ?")
+                    col_yes, col_no = st.columns(2)
+                    
+                    with col_yes:
+                        if st.button("✅ Oui", key=f"confirm_yes_{case_dir.name}", use_container_width=True):
+                            try:
+                                # Supprimer le dossier et tout son contenu
+                                shutil.rmtree(case_dir)
+                                st.success(f"✅ Cas supprimé: {case_data.get('name', case_dir.name)}")
+                                st.session_state.confirm_delete_case = None
+                                st.rerun()
+                            except Exception as e:
+                                st.error(f"❌ Erreur lors de la suppression: {str(e)}")
+                    
+                    with col_no:
+                        if st.button("❌ Non", key=f"confirm_no_{case_dir.name}", use_container_width=True):
+                            st.session_state.confirm_delete_case = None
+                            st.rerun()
                 
                 st.markdown("---")
     
@@ -2490,6 +2549,165 @@ def create_ecg_session_from_dict(session_data):
     except Exception as e:
         st.error(f"Erreur lors de la création de la session : {e}")
         return False
+
+
+def page_territory_demo():
+    """Page de démonstration du Territory Selector"""
+    st.title("🗺️ Démonstration Territory Selector")
+    st.markdown("Test interactif du sélecteur de territoire contextuel")
+    
+    # Import des composants
+    try:
+        from components.territory_selector_ui import (
+            render_territory_selectors,
+            check_territory_completeness,
+            get_territory_selection_summary,
+            calculate_territory_bonus
+        )
+        from backend.territory_resolver import get_territory_config
+    except ImportError as e:
+        st.error(f"❌ Erreur d'import: {e}")
+        st.info("💡 Vérifiez que backend/territory_resolver.py et frontend/components/territory_selector_ui.py existent")
+        return
+    
+    # Charger l'ontologie
+    ontology_path = project_root / "data" / "ontology_from_owl.json"
+    if not ontology_path.exists():
+        st.error("❌ Ontologie non trouvée")
+        st.info(f"💡 Chemin attendu: {ontology_path}")
+        return
+    
+    with open(ontology_path, 'r', encoding='utf-8') as f:
+        ontology = json.load(f)
+    
+    st.markdown("---")
+    
+    # Sélection du concept à tester
+    st.markdown("### 1️⃣ Sélectionnez un concept")
+    
+    test_concepts = [
+        "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
+        "STEMI",
+        "NSTEMI",
+        "Hypertrophie VG",
+        "BAV 1"
+    ]
+    
+    selected_concept = st.selectbox(
+        "Concept à tester:",
+        options=test_concepts,
+        index=0
+    )
+    
+    st.markdown("---")
+    st.markdown("### 2️⃣ Sélecteur de territoire")
+    
+    # Afficher le sélecteur
+    territories, mirrors = render_territory_selectors(
+        selected_concept,
+        ontology,
+        key_prefix="demo"
+    )
+    
+    # Afficher ce qui a été capturé
+    st.markdown("---")
+    st.markdown("### 3️⃣ Résultats")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("**Territoires sélectionnés:**")
+        if territories:
+            for terr in territories:
+                st.write(f"📍 {terr}")
+        else:
+            st.info("Aucun territoire sélectionné")
+    
+    with col2:
+        st.markdown("**Miroirs sélectionnés:**")
+        if mirrors:
+            for mirr in mirrors:
+                st.write(f"🪞 {mirr}")
+        else:
+            st.info("Aucun miroir sélectionné")
+    
+    # Check complétude
+    st.markdown("---")
+    st.markdown("### 4️⃣ Validation")
+    
+    is_complete, error_msg = check_territory_completeness(
+        selected_concept,
+        territories,
+        ontology
+    )
+    
+    if is_complete:
+        st.success("✅ Sélection complète")
+    else:
+        st.error(f"❌ {error_msg}")
+    
+    # Résumé
+    summary = get_territory_selection_summary(selected_concept, territories, mirrors)
+    if summary:
+        st.info(f"📝 Résumé: {summary}")
+    
+    # Test scoring (simulation)
+    st.markdown("---")
+    st.markdown("### 5️⃣ Simulation Scoring")
+    
+    with st.expander("🧪 Simuler un matching avec réponse de référence"):
+        st.markdown("**Définir les territoires attendus:**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            config = get_territory_config(selected_concept, ontology)
+            
+            if config and config['territories']:
+                expected_terr = st.multiselect(
+                    "Territoires attendus:",
+                    options=config['territories'],
+                    default=config['territories'][:1],
+                    key="expected_territories"
+                )
+            else:
+                expected_terr = []
+                st.info("Pas de territoires disponibles")
+        
+        with col2:
+            if config and config['mirrors']:
+                expected_mirr = st.multiselect(
+                    "Miroirs attendus:",
+                    options=config['mirrors'],
+                    key="expected_mirrors"
+                )
+            else:
+                expected_mirr = []
+                st.info("Pas de miroirs disponibles")
+        
+        if expected_terr or expected_mirr:
+            bonus, explanation = calculate_territory_bonus(
+                selected_concept,
+                territories,
+                mirrors,
+                expected_terr,
+                expected_mirr,
+                ontology
+            )
+            
+            st.markdown("---")
+            st.markdown("**Résultat du scoring:**")
+            st.metric("Bonus territoire", f"+{bonus*100:.1f}%")
+            st.markdown(f"**Explication:** {explanation}")
+    
+    # Debug info
+    with st.expander("🔍 Debug - Configuration complète"):
+        config = get_territory_config(selected_concept, ontology)
+        if config:
+            st.json(config)
+        else:
+            st.info("Pas de configuration territoire pour ce concept")
+
 
 if __name__ == '__main__':
     main()
