@@ -557,19 +557,33 @@ def perform_correction(case_data, student_answer):
             # Étape 4: Récupérer concepts attendus
             st.info("📊 Étape 4/5: Scoring avec ontologie...")
             
-            # 🆕 CHARGER TOUTES LES ANNOTATIONS (pas seulement expected_concepts)
-            # Cela inclut les DESCRIPTEUR_ECG marqués comme "📝 Description"
+            # 🆕 CHARGER TOUTES LES ANNOTATIONS ET SÉPARER SCORING vs DESCRIPTIFS
+            # Les DESCRIPTEUR_ECG seront affichés mais PAS scorés
             annotations = case_data.get('annotations', [])
+            
+            expected_list = []  # Concepts à scorer (poids >= 2)
+            descriptive_concepts = []  # Concepts descriptifs (poids = 1, affichage seulement)
             
             if annotations:
                 # Nouveau format avec annotations détaillées
-                expected_list = []
                 for ann in annotations:
-                    # Inclure tous les concepts SAUF les exclusions
-                    if not ann.get('is_exclusion', False):
-                        concept_name = ann.get('concept', '')
-                        if concept_name:
-                            expected_list.append(concept_name)
+                    # Ignorer les exclusions
+                    if ann.get('is_exclusion', False):
+                        continue
+                    
+                    concept_name = ann.get('concept', '')
+                    if not concept_name:
+                        continue
+                    
+                    # Déterminer si c'est un concept à scorer ou descriptif
+                    annotation_role = ann.get('annotation_role', '')
+                    
+                    # Si marqué "📝 Description" → descriptif
+                    if annotation_role == '📝 Description':
+                        descriptive_concepts.append(concept_name)
+                    else:
+                        # Sinon → à scorer
+                        expected_list.append(concept_name)
             else:
                 # Fallback sur ancien format (expected_concepts ou diagnosis)
                 expected_concepts_raw = case_data.get('diagnosis', case_data.get('expected_concepts', []))
@@ -578,15 +592,14 @@ def perform_correction(case_data, student_answer):
                     st.warning("⚠️ Aucun concept attendu défini pour ce cas")
                     return
                 
-                # Convertir en liste de strings
-                expected_list = []
+                # Convertir en liste de strings (tout va dans expected_list)
                 for concept in expected_concepts_raw:
                     if isinstance(concept, str):
                         expected_list.append(concept)
                     elif isinstance(concept, dict):
                         expected_list.append(concept.get('text', ''))
             
-            # Étape 3: Matching avec ontologie
+            # Étape 5: Matching avec ontologie (SCORING uniquement avec scoring proportionnel des findings)
             matched_concepts = []
             match_details = {}
             concept_weights = {}
@@ -603,23 +616,122 @@ def perform_correction(case_data, student_answer):
                     concept_weights[expected] = {
                         'poids': owl_concept.get('poids', 1),
                         'categorie': owl_concept.get('categorie', 'DESCRIPTEUR_ECG'),
-                        'ontology_id': owl_concept.get('ontology_id', '')
+                        'ontology_id': owl_concept.get('ontology_id', ''),
+                        'implications': owl_concept.get('implications', [])
                     }
                 else:
-                    concept_weights[expected] = {'poids': 1, 'categorie': 'DESCRIPTEUR_ECG', 'ontology_id': ''}
+                    concept_weights[expected] = {'poids': 1, 'categorie': 'DESCRIPTEUR_ECG', 'ontology_id': '', 'implications': []}
                 
                 if match_found:
+                    # 🆕 SCORING À 3 NIVEAUX HIÉRARCHIQUE
+                    # Niveau 1 (100%): Concept exact (parent) ex: "BAV 2 Mobitz 1"
+                    # Niveau 2 (75%): Tous les findings OU concept enfant direct
+                    # Niveau 3 (50%): Findings partiels OU concept petit-enfant
+                    
+                    final_score_pct = score_pct
+                    
+                    # CHECK 1: Est-ce un match exact du concept parent?
+                    if match_type == 'exact':
+                        # ✅ NIVEAU 1: Concept exact → 100%
+                        final_score_pct = 100.0
+                    
+                    # CHECK 2: Est-ce un concept enfant (child/implication)?
+                    elif match_type in ['implication', 'child', 'parent_concept']:
+                        # Déterminer le niveau de relation
+                        if match_type == 'implication' or match_type == 'child':
+                            # ✅ NIVEAU 2: Concept enfant direct → 75%
+                            final_score_pct = 75.0
+                        elif match_type == 'parent_concept':
+                            # ✅ NIVEAU 3: Concept petit-enfant → 50%
+                            final_score_pct = 50.0
+                    
+                    # CHECK 3: Pour les autres types de match, vérifier les findings
+                    else:
+                        implications = concept_weights[expected].get('implications', [])
+                        
+                        if implications and len(implications) > 0:
+                            # Compter combien de findings sont mentionnés
+                            findings_found = 0
+                            findings_details = []
+                            
+                            for finding in implications:
+                                finding_match, _, _, _, _, _ = match_concept_with_ontology(
+                                    student_answer, finding, use_llm_semantic=False
+                                )
+                                if finding_match:
+                                    findings_found += 1
+                                    findings_details.append(f"✅ {finding}")
+                                else:
+                                    findings_details.append(f"❌ {finding}")
+                            
+                            # 🎯 SCORING FINDINGS HIÉRARCHIQUE :
+                            # - Tous les findings (2/2) = 75% (Niveau 2)
+                            # - Findings partiels (1/2) = 50% (Niveau 3)
+                            # - Aucun finding = 0%
+                            if findings_found > 0:
+                                findings_ratio = findings_found / len(implications)
+                                
+                                if findings_ratio == 1.0:
+                                    # ✅ NIVEAU 2: Tous les findings → 75%
+                                    proportional_score = 75.0
+                                else:
+                                    # ✅ NIVEAU 3: Findings partiels → 50%
+                                    proportional_score = 50.0
+                                
+                                final_score_pct = proportional_score
+                                
+                                # Stocker les détails
+                                if llm_result is None:
+                                    llm_result = {}
+                                llm_result['findings_analysis'] = {
+                                    'total_findings': len(implications),
+                                    'found_findings': findings_found,
+                                    'findings_details': findings_details,
+                                    'proportional_score': proportional_score
+                                }
+                    
                     matched_concepts.append(expected)
                     match_details[expected] = {
                         'type': match_type,
                         'matched_text': matched_text,
                         'poids': concept_weights[expected]['poids'],
-                        'categorie': concept_weights[expected]['categorie']
+                        'categorie': concept_weights[expected]['categorie'],
+                        'final_score': final_score_pct
                     }
-                    concept_scores[expected] = score_pct
+                    concept_scores[expected] = final_score_pct
                     
                     if llm_result:
                         llm_matches[expected] = llm_result
+            
+            # Matching pour concepts DESCRIPTIFS (affichage seulement, pas de scoring)
+            matched_descriptive = []
+            descriptive_match_details = {}
+            descriptive_weights = {}
+            
+            for desc_concept in descriptive_concepts:
+                match_found, match_type, matched_text, owl_concept, llm_result, score_pct = match_concept_with_ontology(
+                    student_answer, desc_concept, use_llm_semantic=True
+                )
+                
+                # Stocker info du concept descriptif
+                if owl_concept:
+                    descriptive_weights[desc_concept] = {
+                        'poids': owl_concept.get('poids', 1),
+                        'categorie': owl_concept.get('categorie', 'DESCRIPTEUR_ECG'),
+                        'ontology_id': owl_concept.get('ontology_id', '')
+                    }
+                else:
+                    descriptive_weights[desc_concept] = {'poids': 1, 'categorie': 'DESCRIPTEUR_ECG', 'ontology_id': ''}
+                
+                if match_found:
+                    matched_descriptive.append(desc_concept)
+                    descriptive_match_details[desc_concept] = {
+                        'type': match_type,
+                        'matched_text': matched_text,
+                        'poids': descriptive_weights[desc_concept]['poids'],
+                        'categorie': descriptive_weights[desc_concept]['categorie']
+                    }
+
             
             # Appliquer règles d'implication
             auto_validated = apply_implication_rules(matched_concepts, expected_list)
@@ -718,7 +830,7 @@ def perform_correction(case_data, student_answer):
             
             st.success("✅ Correction terminée !")
             
-            # Affichage résultats
+            # Affichage résultats (avec concepts descriptifs séparés)
             display_results(
                 percentage, base_percentage, bonus_diagnostic,
                 poids_valides, poids_attendus,
@@ -727,7 +839,11 @@ def perform_correction(case_data, student_answer):
                 student_answer,
                 territory_selections=territory_selections,
                 territory_matches=territory_matches,
-                bonus_territoire=bonus_territoire
+                bonus_territoire=bonus_territoire,
+                descriptive_concepts=descriptive_concepts,
+                matched_descriptive=matched_descriptive,
+                descriptive_match_details=descriptive_match_details,
+                descriptive_weights=descriptive_weights
             )
             
         except Exception as e:
@@ -744,8 +860,22 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                     student_answer,
                     territory_selections=None,
                     territory_matches=None,
-                    bonus_territoire=0.0):
-    """Affiche les résultats de correction - Version POC enrichie"""
+                    bonus_territoire=0.0,
+                    descriptive_concepts=None,
+                    matched_descriptive=None,
+                    descriptive_match_details=None,
+                    descriptive_weights=None):
+    """Affiche les résultats de correction - Version POC enrichie avec concepts descriptifs séparés"""
+    
+    # Initialiser valeurs par défaut
+    if descriptive_concepts is None:
+        descriptive_concepts = []
+    if matched_descriptive is None:
+        matched_descriptive = []
+    if descriptive_match_details is None:
+        descriptive_match_details = {}
+    if descriptive_weights is None:
+        descriptive_weights = {}
     
     # CSS pour cartes stylisées
     st.markdown("""
@@ -966,17 +1096,42 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
             llm_info = ""
             if expected in llm_matches:
                 llm_result = llm_matches[expected]
-                llm_confidence = llm_result.get('confidence', 0)
-                llm_explanation = llm_result.get('explanation', '')
-                llm_info = f"""<br>
-                <div style="background-color: #e7f3ff; padding: 8px; margin-top: 6px; border-radius: 4px; border-left: 3px solid #17a2b8;">
-                    🧠 <strong>LLM Semantic Matcher</strong> ({llm_confidence}% confiance)<br>
-                    {llm_explanation}
-                </div>"""
+                
+                # 🆕 Afficher analyse des findings si présente
+                findings_analysis = llm_result.get('findings_analysis')
+                if findings_analysis:
+                    total_f = findings_analysis['total_findings']
+                    found_f = findings_analysis['found_findings']
+                    score_f = findings_analysis['proportional_score']
+                    findings_list = findings_analysis['findings_details']
+                    
+                    findings_html = "<br>".join(findings_list)
+                    
+                    llm_info = f"""<br>
+                    <div style="background-color: #fff3cd; padding: 8px; margin-top: 6px; border-radius: 4px; border-left: 3px solid #ffc107;">
+                        📋 <strong>Analyse des Findings Requis</strong><br>
+                        Score: <strong>{score_f:.0f}%</strong> ({found_f}/{total_f} findings trouvés)<br>
+                        {findings_html}
+                        <br><small>💡 Scoring hiérarchique: Concept exact=100%, Tous findings/Enfant=75%, Partiels/Petit-enfant=50%</small>
+                    </div>"""
+                else:
+                    # Affichage LLM classique
+                    llm_confidence = llm_result.get('confidence', 0)
+                    llm_explanation = llm_result.get('explanation', '')
+                    if llm_confidence or llm_explanation:
+                        llm_info = f"""<br>
+                        <div style="background-color: #e7f3ff; padding: 8px; margin-top: 6px; border-radius: 4px; border-left: 3px solid #17a2b8;">
+                            🧠 <strong>LLM Semantic Matcher</strong> ({llm_confidence}% confiance)<br>
+                            {llm_explanation}
+                        </div>"""
+            
+            # Afficher le score final pour ce concept
+            final_score = details.get('final_score', 100.0)
+            score_display = f" ({final_score:.0f}%)" if final_score < 100 else ""
             
             st.markdown(f"""
             <div class="success-box" style="border-left-color: {color};">
-                {check_icon} <strong>{expected}</strong> - {poids} pts {icon}<br>
+                {check_icon} <strong>{expected}</strong> - {poids} pts {icon}{score_display}<br>
                 Type: {type_label} - Texte trouvé: "{matched_text}"<br>
                 <small>Catégorie: {categorie.replace('_', ' ')}</small>
                 {llm_info}
@@ -1009,6 +1164,58 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                 <br><small>Catégorie: {categorie.replace('_', ' ')}</small>
             </div>
             """, unsafe_allow_html=True)
+    
+    # ============================================================================
+    # NOUVELLE SECTION : CONCEPTS DESCRIPTIFS (Affichage seulement, pas de score)
+    # ============================================================================
+    if descriptive_concepts:
+        st.divider()
+        st.subheader("📝 Concepts Descriptifs (Non scorés)")
+        st.caption("Ces éléments descriptifs enrichissent votre réponse mais ne sont pas comptabilisés dans le score.")
+        
+        for desc_concept in descriptive_concepts:
+            weight_info = descriptive_weights.get(desc_concept, {})
+            poids = weight_info.get('poids', 1)
+            categorie = weight_info.get('categorie', 'DESCRIPTEUR_ECG')
+            
+            if desc_concept in matched_descriptive:
+                # Concept descriptif trouvé
+                details = descriptive_match_details.get(desc_concept, {})
+                match_type = details.get('type', 'exact')
+                matched_text = details.get('matched_text', desc_concept)
+                
+                check_icon = '✅' if match_type == 'exact' else '🔍'
+                type_label = {
+                    'exact': 'Match exact',
+                    'synonyme': 'Synonyme reconnu',
+                    'semantic': 'Match sémantique',
+                    'implication': 'Implication reconnue',
+                    'parent_concept': '⬆️ Concept parent (hiérarchie)'
+                }.get(match_type, 'Match')
+                
+                st.markdown(f"""
+                <div class="success-box" style="border-left-color: #66BB6A; background-color: #f0f9f0;">
+                    {check_icon} <strong>{desc_concept}</strong> 📝 (Descriptif)<br>
+                    Type: {type_label} - Texte trouvé: "{matched_text}"<br>
+                    <small>✅ Concept descriptif identifié - enrichit votre réponse</small>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                # Concept descriptif manquant
+                owl_concept = find_owl_concept(desc_concept)
+                suggestion = ""
+                if owl_concept and owl_concept.get('synonymes'):
+                    synonymes = owl_concept['synonymes']
+                    if synonymes:
+                        suggestion = f"<br><em>💡 Synonymes acceptés: {', '.join(synonymes[:3])}</em>"
+                
+                st.markdown(f"""
+                <div style="background-color: #fff8e1; border-left: 4px solid #FFA726; padding: 12px; margin: 8px 0; border-radius: 4px;">
+                    ℹ️ <strong>{desc_concept}</strong> 📝 (Descriptif)<br>
+                    Ce concept descriptif n'a pas été mentionné dans votre réponse{suggestion}
+                    <br><small>💡 Son absence n'affecte pas le score, mais l'ajouter enrichirait votre description</small>
+                </div>
+                """, unsafe_allow_html=True)
     
     # Stats ontologie
     if WEIGHTED_ONTOLOGY:
