@@ -155,7 +155,7 @@ def resolve_territories(concept_data: Dict, ontology: Dict) -> Tuple[List[str], 
     return territoires_principaux, territoires_miroir
 
 
-def should_show_territory_selector(concept_data: Dict) -> Tuple[bool, bool, str]:
+def should_show_territory_selector(concept_data: Dict) -> Tuple[bool, bool]:
     """
     Détermine si on doit afficher le sélecteur de territoire pour un concept
     
@@ -163,24 +163,21 @@ def should_show_territory_selector(concept_data: Dict) -> Tuple[bool, bool, str]
         concept_data: Données du concept
         
     Returns:
-        Tuple (show_selector, is_required, importance_level)
+        Tuple (show_selector, is_required)
         - show_selector: True si sélecteur doit être affiché
         - is_required: True si territoire obligatoire
-        - importance_level: "critique", "importante", "optionnelle", ou None
     """
+    # Si le concept a des territoires possibles, afficher le sélecteur
+    territoires_possibles = concept_data.get('territoires_possibles', [])
+    
+    # Afficher sélecteur si au moins un territoire est défini
+    show_selector = len(territoires_possibles) > 0
+    
+    # Vérifier si obligatoire via metadata (si elle existe)
     metadata = concept_data.get('territory_metadata')
+    is_required = metadata.get('required_territory', False) if metadata else False
     
-    if not metadata:
-        return False, False, None
-    
-    may_have_territory = metadata.get('may_have_territory', False)
-    importance = metadata.get('importance')
-    is_required = metadata.get('required_territory', False)
-    
-    # Afficher sélecteur si le concept peut avoir un territoire
-    show_selector = may_have_territory
-    
-    return show_selector, is_required, importance
+    return show_selector, is_required
 
 
 def should_show_mirror_selector(concept_data: Dict) -> bool:
@@ -216,7 +213,6 @@ def get_territory_config(concept_name: str, ontology: Dict) -> Optional[Dict]:
             'show_territory_selector': bool,
             'show_mirror_selector': bool,
             'is_required': bool,
-            'importance': str,
             'territories': List[str],
             'mirrors': List[str]
         }
@@ -239,7 +235,7 @@ def get_territory_config(concept_name: str, ontology: Dict) -> Optional[Dict]:
         return None
     
     # Vérifier si sélecteur nécessaire
-    show_territory, is_required, importance = should_show_territory_selector(concept_data)
+    show_territory, is_required = should_show_territory_selector(concept_data)
     show_mirror = should_show_mirror_selector(concept_data)
     
     if not show_territory:
@@ -248,12 +244,15 @@ def get_territory_config(concept_name: str, ontology: Dict) -> Optional[Dict]:
     # Résoudre les territoires
     territories, mirrors = resolve_territories(concept_data, ontology)
     
+    # Si aucun territoire résolu, ne pas afficher le sélecteur
+    if not territories and not mirrors:
+        return None
+    
     return {
         'concept_name': concept_data.get('concept_name'),
         'show_territory_selector': show_territory,
         'show_mirror_selector': show_mirror,
         'is_required': is_required,
-        'importance': importance,
         'territories': territories,
         'mirrors': mirrors
     }

@@ -39,32 +39,14 @@ def render_territory_selectors(
     selected_territories = None
     selected_mirrors = None
     
-    # Déterminer le style selon l'importance
-    importance = config.get('importance')
     is_required = config.get('is_required', False)
-    
-    # Émojis et couleurs selon importance
-    importance_emoji = {
-        'critique': '🔴',
-        'importante': '🟠',
-        'optionnelle': '🟢'
-    }
-    
-    importance_text = {
-        'critique': 'OBLIGATOIRE',
-        'importante': 'Recommandé',
-        'optionnelle': 'Optionnel'
-    }
-    
-    emoji = importance_emoji.get(importance, '⚪')
-    label_suffix = importance_text.get(importance, '')
     
     # Affichage du sélecteur de territoire principal
     if config['show_territory_selector']:
         territories = config['territories']
         
         if territories:
-            label = f"{emoji} Territoire {label_suffix}"
+            label = "🗺️ Territoire" + (" (obligatoire)" if is_required else "")
             help_text = f"Sélectionnez un ou plusieurs territoires touchés pour **{config['concept_name']}**"
             
             if is_required:
@@ -121,7 +103,7 @@ def check_territory_completeness(
     
     # Si territoire requis mais aucun sélectionné
     if config['is_required'] and not selected_territories:
-        return False, f"Le territoire est obligatoire pour **{config['concept_name']}** (importance: {config['importance']})"
+        return False, f"⚠️ Le territoire est obligatoire pour **{config['concept_name']}**"
     
     return True, None
 
