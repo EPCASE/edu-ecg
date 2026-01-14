@@ -40,6 +40,10 @@ class RDFOWLExtractor:
         self.classe_findings = defaultdict(list)  # 🆕 IRI classe → [IRI finding1, finding2, ...] (requiresFinding)
         self.classe_excludes = defaultdict(list)  # 🆕 IRI classe → [ID exclus1, exclus2, ...] (annotation "exclut")
         self.territory_metadata = {}  # 🆕 IRI classe → {importance, may_have_territory, may_have_mirror}
+        self.classe_voisins = defaultdict(list)  # 🆕 IRI classe → [IRI voisin1, voisin2, ...] (relation voisin)
+        self.classe_origin_structure = defaultdict(list)  # 🆕 IRI classe → [IRI structure1, structure2, ...] (hasOriginStructure)
+        self.classe_ecg_morphology = defaultdict(list)  # 🆕 IRI classe → [IRI morphology1, morphology2, ...] (hasECGMorphology)
+        self.classe_morphology_inversion = {}  # 🆕 IRI classe → bool (requires_morphology_inversion)
         
         # IRIs des propriétés (trouvées dans le fichier)
         self.hasweight_iri = "http://webprotege.stanford.edu/R91SX26q028zwTknzSKDZUj"
@@ -47,6 +51,10 @@ class RDFOWLExtractor:
         self.hasterritory_iri = "http://webprotege.stanford.edu/R86MFl68gsSAS3kHPEgghC3"
         self.requiresfinding_iri = "http://webprotege.stanford.edu/R7w5XngTituGN8Nt6R834WB"  # 🆕 ecg:requiresFinding
         self.excludes_iri = "http://webprotege.stanford.edu/Rgkbf3QYLEo9sJtKMJFyFW"  # 🆕 ecg:exclut (ObjectProperty)
+        self.voisin_iri = "http://webprotege.stanford.edu/RixvaKPBrDKpuR4W2Z7ppX"  # 🆕 ecg:voisin (ObjectProperty)
+        self.origin_structure_iri = "http://webprotege.stanford.edu/R8EpeA2cxOPJQ7nwwuht2D2"  # 🆕 hasOriginStructure
+        self.ecg_morphology_iri = "http://webprotege.stanford.edu/RBAc9OvdrWdtL7GDUKcc90J"  # 🆕 hasECGMorphology
+        self.morphology_inversion_iri = "http://webprotege.stanford.edu/RDHNwOilqvHGM16VJLMkaOh"  # 🆕 requires_morphology_inversion
         
         # 🆕 IRIs des annotation properties pour métadonnées territoire
         self.importance_territoire_iri = "http://webprotege.stanford.edu/RBiXCmVuqDW3Kzzg8N1v6i3"  # importanceTerritoire
@@ -384,6 +392,189 @@ class RDFOWLExtractor:
                     excluded_labels.append(excluded_label)
                 print(f"     • {class_label}: exclut {', '.join(excluded_labels)}")
     
+    def extract_neighbor_relations(self):
+        """
+        🆕 Extrait les relations de voisinage (ecg:voisin ObjectProperty)
+        Utilisé uniquement pour le scoring (bonus si territoire voisin mentionné)
+        """
+        print("\n🔗 Extraction relations de voisinage (ecg:voisin)...")
+        
+        count = 0
+        # Parcourir toutes les classes
+        for owl_class in self.root.findall('.//owl:Class', self.ns):
+            class_iri = owl_class.get('{%s}about' % self.ns['rdf'])
+            if not class_iri:
+                continue
+                
+            # Chercher les restrictions rdfs:subClassOf > owl:Restriction
+            for subclass in owl_class.findall('rdfs:subClassOf', self.ns):
+                restriction = subclass.find('owl:Restriction', self.ns)
+                if restriction is None:
+                    continue
+                    
+                # Vérifier si c'est une restriction voisin
+                on_property = restriction.find('owl:onProperty', self.ns)
+                if on_property is None:
+                    continue
+                    
+                property_iri = on_property.get('{%s}resource' % self.ns['rdf'])
+                if property_iri != self.voisin_iri:
+                    continue
+                    
+                # Récupérer la valeur (hasValue pour relation directe)
+                has_value = restriction.find('owl:hasValue', self.ns)
+                if has_value is None:
+                    # Essayer someValuesFrom si hasValue n'existe pas
+                    some_values = restriction.find('owl:someValuesFrom', self.ns)
+                    if some_values is None:
+                        continue
+                    neighbor_iri = some_values.get('{%s}resource' % self.ns['rdf'])
+                else:
+                    neighbor_iri = has_value.get('{%s}resource' % self.ns['rdf'])
+                
+                # Stocker la relation (bidirectionnelle)
+                if neighbor_iri:
+                    self.classe_voisins[class_iri].append(neighbor_iri)
+                    count += 1
+                    
+        print(f"  ✅ {count} relations de voisinage extraites")
+        
+        # Afficher quelques exemples
+        if self.classe_voisins:
+            print("\n  📋 Exemples de voisinages trouvés:")
+            for class_iri, neighbor_iris in list(self.classe_voisins.items())[:5]:
+                class_label = self.classes_labels.get(class_iri, {}).get('fr', 'Sans nom')
+                neighbor_labels = []
+                for neighbor_iri in neighbor_iris:
+                    neighbor_label = self.classes_labels.get(neighbor_iri, {}).get('fr', 'Sans nom')
+                    neighbor_labels.append(neighbor_label)
+                if neighbor_labels:
+                    print(f"     • {class_label} ↔ {', '.join(neighbor_labels)}")
+    
+    def extract_origin_structure(self):
+        """🆕 Extrait les relations hasOriginStructure (origine anatomique)"""
+        print("\n🏗️ Extraction hasOriginStructure (origine anatomique)...")
+        
+        count = 0
+        for owl_class in self.root.findall('.//owl:Class', self.ns):
+            class_iri = owl_class.get('{%s}about' % self.ns['rdf'])
+            if not class_iri:
+                continue
+                
+            # Chercher les restrictions rdfs:subClassOf > owl:Restriction
+            for subclass in owl_class.findall('rdfs:subClassOf', self.ns):
+                restriction = subclass.find('owl:Restriction', self.ns)
+                if restriction is None:
+                    continue
+                    
+                on_property = restriction.find('owl:onProperty', self.ns)
+                if on_property is None:
+                    continue
+                    
+                property_iri = on_property.get('{%s}resource' % self.ns['rdf'])
+                if property_iri != self.origin_structure_iri:
+                    continue
+                    
+                # Récupérer la structure d'origine
+                some_values = restriction.find('owl:someValuesFrom', self.ns)
+                if some_values is None:
+                    has_value = restriction.find('owl:hasValue', self.ns)
+                    if has_value is None:
+                        continue
+                    structure_iri = has_value.get('{%s}resource' % self.ns['rdf'])
+                else:
+                    structure_iri = some_values.get('{%s}resource' % self.ns['rdf'])
+                
+                if structure_iri:
+                    self.classe_origin_structure[class_iri].append(structure_iri)
+                    count += 1
+                    
+        print(f"  ✅ {count} relations hasOriginStructure extraites")
+        
+        # Afficher exemples
+        if self.classe_origin_structure:
+            print("\n  📋 Exemples d'origine anatomique:")
+            for class_iri, structure_iris in list(self.classe_origin_structure.items())[:5]:
+                class_label = self.classes_labels.get(class_iri, {}).get('fr', 'Sans nom')
+                structure_labels = [self.classes_labels.get(s, {}).get('fr', 'Sans nom') for s in structure_iris]
+                print(f"     • {class_label} → {', '.join(structure_labels)}")
+    
+    def extract_ecg_morphology(self):
+        """🆕 Extrait les relations hasECGMorphology (morphologie ECG)"""
+        print("\n📊 Extraction hasECGMorphology (morphologie ECG)...")
+        
+        count = 0
+        for owl_class in self.root.findall('.//owl:Class', self.ns):
+            class_iri = owl_class.get('{%s}about' % self.ns['rdf'])
+            if not class_iri:
+                continue
+                
+            # Chercher les restrictions rdfs:subClassOf > owl:Restriction
+            for subclass in owl_class.findall('rdfs:subClassOf', self.ns):
+                restriction = subclass.find('owl:Restriction', self.ns)
+                if restriction is None:
+                    continue
+                    
+                on_property = restriction.find('owl:onProperty', self.ns)
+                if on_property is None:
+                    continue
+                    
+                property_iri = on_property.get('{%s}resource' % self.ns['rdf'])
+                if property_iri != self.ecg_morphology_iri:
+                    continue
+                    
+                # Récupérer la morphologie
+                some_values = restriction.find('owl:someValuesFrom', self.ns)
+                if some_values is None:
+                    has_value = restriction.find('owl:hasValue', self.ns)
+                    if has_value is None:
+                        continue
+                    morphology_iri = has_value.get('{%s}resource' % self.ns['rdf'])
+                else:
+                    morphology_iri = some_values.get('{%s}resource' % self.ns['rdf'])
+                
+                if morphology_iri:
+                    self.classe_ecg_morphology[class_iri].append(morphology_iri)
+                    count += 1
+                    
+        print(f"  ✅ {count} relations hasECGMorphology extraites")
+        
+        # Afficher exemples
+        if self.classe_ecg_morphology:
+            print("\n  📋 Exemples de morphologie ECG:")
+            for class_iri, morphology_iris in list(self.classe_ecg_morphology.items())[:5]:
+                class_label = self.classes_labels.get(class_iri, {}).get('fr', 'Sans nom')
+                morphology_labels = [self.classes_labels.get(m, {}).get('fr', 'Sans nom') for m in morphology_iris]
+                print(f"     • {class_label} → {', '.join(morphology_labels)}")
+    
+    def extract_morphology_inversion(self):
+        """🆕 Extrait les annotations requires_morphology_inversion"""
+        print("\n🔄 Extraction requires_morphology_inversion...")
+        
+        count = 0
+        for owl_class in self.root.findall('.//owl:Class', self.ns):
+            class_iri = owl_class.get('{%s}about' % self.ns['rdf'])
+            if not class_iri:
+                continue
+            
+            # Chercher l'annotation requires_morphology_inversion
+            for annotation in owl_class.findall(f'{{http://webprotege.stanford.edu/}}RDHNwOilqvHGM16VJLMkaOh'):
+                value = annotation.text
+                if value and value.lower() in ['true', '1', 'yes']:
+                    self.classe_morphology_inversion[class_iri] = True
+                    count += 1
+                elif value:
+                    self.classe_morphology_inversion[class_iri] = False
+                    
+        print(f"  ✅ {count} annotations d'inversion trouvées")
+        
+        if self.classe_morphology_inversion:
+            print("\n  📋 Concepts avec inversion de morphologie:")
+            for class_iri, requires_inversion in self.classe_morphology_inversion.items():
+                if requires_inversion:
+                    class_label = self.classes_labels.get(class_iri, {}).get('fr', 'Sans nom')
+                    print(f"     • {class_label} (nécessite inversion)")
+    
     def extract_territory_metadata(self):
         """
         🆕 Extrait les métadonnées de territoire pour concepts (STEMI, ESV, etc.)
@@ -547,6 +738,15 @@ class RDFOWLExtractor:
                     if excluded_name:
                         excludes.append(excluded_name)
             
+            # 🆕 CONSTRUIRE VOISINS depuis ObjectProperty "voisin" (pour scoring seulement)
+            voisins = []
+            if class_iri in self.classe_voisins:
+                for voisin_iri in self.classe_voisins[class_iri]:
+                    voisin_labels = self.classes_labels.get(voisin_iri, {})
+                    voisin_name = voisin_labels.get('fr', '')
+                    if voisin_name:
+                        voisins.append(voisin_name)
+            
             # 🆕 CONSTRUIRE MÉTADONNÉES TERRITOIRE
             territory_metadata = None
             if class_iri in self.territory_metadata:
@@ -558,13 +758,38 @@ class RDFOWLExtractor:
                     "required_territory": metadata.get('importance') == 'critique'  # Dérivé automatiquement
                 }
             
+            # 🆕 CONSTRUIRE ORIGINE ANATOMIQUE depuis hasOriginStructure
+            origin_structures = []
+            if class_iri in self.classe_origin_structure:
+                for structure_iri in self.classe_origin_structure[class_iri]:
+                    structure_labels = self.classes_labels.get(structure_iri, {})
+                    structure_name = structure_labels.get('fr', '')
+                    if structure_name:
+                        origin_structures.append(structure_name)
+            
+            # 🆕 CONSTRUIRE MORPHOLOGIE ECG depuis hasECGMorphology
+            ecg_morphologies = []
+            if class_iri in self.classe_ecg_morphology:
+                for morphology_iri in self.classe_ecg_morphology[class_iri]:
+                    morphology_labels = self.classes_labels.get(morphology_iri, {})
+                    morphology_name = morphology_labels.get('fr', '')
+                    if morphology_name:
+                        ecg_morphologies.append(morphology_name)
+            
+            # 🆕 VÉRIFIER INVERSION DE MORPHOLOGIE
+            requires_morphology_inversion = self.classe_morphology_inversion.get(class_iri, False)
+            
             concept_mappings[concept_id] = {
                 "concept_name": label_fr,
                 "synonymes": all_synonymes,
                 "implications": implications,  # 🆕 Maintenant avec enfants hiérarchiques !
                 "territoires_possibles": territoires_possibles,  # 🆕 Territoires liés au concept !
                 "excludes": excludes,  # 🆕 Liste des concepts exclus (IDs)
+                "voisins": voisins,  # 🆕 Liste des territoires voisins (pour scoring bonus)
                 "territory_metadata": territory_metadata,  # 🆕 Métadonnées pour sélection territoire
+                "origin_structures": origin_structures,  # 🆕 Origines anatomiques (hasOriginStructure)
+                "ecg_morphologies": ecg_morphologies,  # 🆕 Morphologies ECG (hasECGMorphology)
+                "requires_morphology_inversion": requires_morphology_inversion,  # 🆕 Drapeau inversion
                 "poids": weight,
                 "categorie": category
             }
@@ -583,8 +808,8 @@ class RDFOWLExtractor:
         for child_iri, parent_iri in self.classes_hierarchy.items():
             child_labels = self.classes_labels.get(child_iri, {})
             parent_labels = self.classes_labels.get(parent_iri, {})
-            child_id = child_labels.get('fr', '').upper().replace(' ', '_').replace("'", '_')
-            parent_id = parent_labels.get('fr', '').upper().replace(' ', '_').replace("'", '_')
+            child_id = child_labels.get('fr', '').upper().replace(' ', '_').replace("'", '_').replace('-', '_')
+            parent_id = parent_labels.get('fr', '').upper().replace(' ', '_').replace("'", '_').replace('-', '_')
             if child_id and parent_id:
                 hierarchy_map[child_id] = parent_id
         
@@ -639,6 +864,9 @@ def main():
     extractor.extract_territoires()
     extractor.extract_concept_territoires()  # 🆕 NOUVEAU : Extraction hasTerritory
     extractor.extract_requires_findings()  # 🎯 NOUVEAU : Extraction ecg:requiresFinding
+    extractor.extract_origin_structure()  # 🆕 NOUVEAU : Extraction hasOriginStructure
+    extractor.extract_ecg_morphology()  # 🆕 NOUVEAU : Extraction hasECGMorphology
+    extractor.extract_morphology_inversion()  # 🆕 NOUVEAU : Extraction requires_morphology_inversion
     result = extractor.generate_json(output_path)
     
     # Résumé

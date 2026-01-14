@@ -47,7 +47,11 @@ def main():
         extractor.extract_concept_territoires()
         extractor.extract_requires_findings()
         extractor.extract_excludes()  # 🆕 Extraction des exclusions depuis annotation "exclut"
+        extractor.extract_neighbor_relations()  # 🆕 Extraction relations de voisinage (pour scoring)
         extractor.extract_territory_metadata()  # 🆕 Extraction métadonnées territoire (STEMI, etc.)
+        extractor.extract_origin_structure()  # 🆕 Extraction hasOriginStructure (structure anatomique d'origine)
+        extractor.extract_ecg_morphology()  # 🆕 Extraction hasECGMorphology (morphologie ECG)
+        extractor.extract_morphology_inversion()  # 🆕 Extraction requires_morphology_inversion (drapeau d'inversion)
         ontology_data = extractor.generate_json(str(json_output))
         
         print("\n" + "=" * 70)
