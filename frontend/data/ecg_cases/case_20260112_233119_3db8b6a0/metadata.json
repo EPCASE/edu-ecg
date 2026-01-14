@@ -1,0 +1,34 @@
+{
+  "case_id": "case_20260112_233119_3db8b6a0",
+  "name": "",
+  "category": "Troubles du Rythme",
+  "difficulty": "🟡 Intermédiaire",
+  "description": "",
+  "annotations": [
+    {
+      "concept": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
+      "category": "DIAGNOSTIC_URGENT",
+      "type": "expert",
+      "coefficient": 1.0
+    }
+  ],
+  "expected_concepts": [
+    "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST"
+  ],
+  "diagnostic_principal": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
+  "clinical_context": "",
+  "num_ecg": 1,
+  "created_date": "2026-01-12T23:31:19.731390",
+  "type": "simple",
+  "metadata": {
+    "created_by": "ecg_session_builder",
+    "version": "1.0"
+  },
+  "ecgs": [
+    {
+      "filename": "ecg_1.png",
+      "index": 1,
+      "type": "image/png"
+    }
+  ]
+}

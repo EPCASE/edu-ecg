@@ -1,0 +1,460 @@
+{
+  "ontology_version": "2.0-weighted",
+  "description": "Ontologie ECG enrichie avec hiérarchisation, poids cliniques et mapping territoires",
+  "creation_date": "2026-01-10",
+  "auteur": "Dr. Grégoire + GitHub Copilot BMAD",
+  "party_mode_decision": "Option A - Implémentation complète (12-15h)",
+  
+  "concept_categories": {
+    "DIAGNOSTIC_URGENT": {
+      "poids": 4,
+      "urgence": "immediate",
+      "delai_action": "<90 min",
+      "couleur_ui": "#D32F2F",
+      "description": "Diagnostics nécessitant action thérapeutique immédiate",
+      "exemples": ["STEMI", "FA rapide instable", "TV soutenue"]
+    },
+    "DIAGNOSTIC_MAJEUR": {
+      "poids": 3,
+      "urgence": "differee",
+      "delai_action": "<24h",
+      "couleur_ui": "#F57C00",
+      "description": "Diagnostics urgents nécessitant surveillance rapprochée",
+      "exemples": ["NSTEMI", "BAV2 Mobitz 2", "FA stable"]
+    },
+    "SIGNE_ECG_PATHOLOGIQUE": {
+      "poids": 2,
+      "urgence": "surveillance",
+      "delai_action": "<1 semaine",
+      "couleur_ui": "#FFA726",
+      "description": "Signes ECG pathologiques nécessitant surveillance",
+      "exemples": ["Sus-décalage ST", "Onde T négative", "BBG", "BBD"]
+    },
+    "DESCRIPTEUR_ECG": {
+      "poids": 1,
+      "urgence": "contexte",
+      "delai_action": "suivi routinier",
+      "couleur_ui": "#66BB6A",
+      "description": "Éléments descriptifs ou contextuels",
+      "exemples": ["QRS élargi", "Axe gauche", "HAG", "Repolarisation normale"]
+    }
+  },
+  
+  "territoires_ecg": {
+    "ANTEROSEPTAL": {
+      "electrodes": ["V1", "V2", "V3", "V4"],
+      "artere_principale": "IVA proximale",
+      "arteres_secondaires": [],
+      "synonymes": ["antérieur", "antéroseptal", "antéro-septal", "septal"],
+      "paroi_vg": "Septum + paroi antérieure VG",
+      "gravite": "Étendue, risque choc cardiogénique"
+    },
+    "APICAL": {
+      "electrodes": ["V4", "V5"],
+      "artere_principale": "IVA distale",
+      "arteres_secondaires": ["Circonflexe"],
+      "synonymes": ["apical", "antéro-apical"],
+      "paroi_vg": "Apex du ventricule gauche",
+      "gravite": "Modérée, territoire limité"
+    },
+    "LATERAL": {
+      "electrodes": ["V5", "V6", "DI", "AVL"],
+      "artere_principale": "Circonflexe",
+      "arteres_secondaires": ["Marginale"],
+      "synonymes": ["latéral", "apicolatéral", "apico-latéral"],
+      "paroi_vg": "Paroi latérale VG",
+      "gravite": "Variable selon étendue"
+    },
+    "INFERIEUR": {
+      "electrodes": ["DII", "DIII", "AVF"],
+      "artere_principale": "Coronaire droite",
+      "arteres_secondaires": ["Circonflexe (15% cas)"],
+      "synonymes": ["inférieur", "diaphragmatique", "basal"],
+      "paroi_vg": "Paroi inférieure/diaphragmatique VG",
+      "gravite": "Risque BAV, extension VD"
+    },
+    "POSTERIEUR": {
+      "electrodes": ["V7", "V8", "V9"],
+      "artere_principale": "Circonflexe",
+      "arteres_secondaires": ["CD distale"],
+      "synonymes": ["postérieur", "dorsal", "infero-postérieur"],
+      "paroi_vg": "Paroi postérieure VG",
+      "gravite": "Souvent manqué, miroir V1-V3"
+    }
+  },
+  
+  "concept_mappings": {
+    "stemi antéroseptal": {
+      "ontology_id": "STEMI_ANTEROSEPTAL",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4,
+      "territoire": "ANTEROSEPTAL",
+      "synonymes": ["stemi antérieur", "imi antérieur", "infarctus antéroseptal", "sca st+ antérieur"],
+      "implications": ["sus-décalage st v1-v4", "onde q v1-v4"],
+      "urgence_clinique": "Revascularisation <90min (angioplastie primaire ou thrombolyse)",
+      "pronostic": "Grave - Grand territoire, risque choc cardiogénique",
+      "note_pedagogique": "🚨 URGENCE VITALE - IVA proximale"
+    },
+    "nstemi": {
+      "ontology_id": "NSTEMI",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3,
+      "territoire": null,
+      "synonymes": ["infarctus non-st+", "sca non-st+", "imi non transmural", "angor instable sévère"],
+      "implications": ["onde t négative ischémique"],
+      "urgence_clinique": "Hospitalisation USI, stratification risque <24h",
+      "pronostic": "Sérieux - Ischémie sous-endocardique",
+      "note_pedagogique": "⚠️ Pas de sus-ST mais troponines +"
+    },
+    "bav 2 mobitz 2": {
+      "ontology_id": "BAV2_MOBITZ2",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3,
+      "territoire": null,
+      "synonymes": ["bav2 m2", "mobitz ii", "bav 2nd degré type 2"],
+      "implications": ["onde p bloquée soudaine", "pas d'allongement pr"],
+      "urgence_clinique": "Indication pacemaker urgente (risque BAV complet)",
+      "pronostic": "Grave - Évolution vers BAV3",
+      "note_pedagogique": "🚨 PACEMAKER URGENT - Bloc infra-hissien"
+    },
+    "fibrillation auriculaire": {
+      "ontology_id": "FA",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3,
+      "territoire": null,
+      "synonymes": ["fa", "acfa", "fibrillation atriale", "arythmie complète"],
+      "implications": ["absence onde p", "rythme irrégulier", "intervalles rr variables"],
+      "urgence_clinique": "Si rapide instable: cardioversion. Sinon: anticoagulation + contrôle FC",
+      "pronostic": "Variable - Risque thrombo-embolique (AVC)",
+      "note_pedagogique": "⚠️ Anticoagulation obligatoire si CHA2DS2-VASc ≥2"
+    },
+    
+    "sus-décalage st antérieur": {
+      "ontology_id": "SUS_ST_ANTERIEUR",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": "ANTEROSEPTAL",
+      "synonymes": ["sus-st antérieur", "élévation st v1-v4", "sus-décalage précordial"],
+      "implications": [],
+      "urgence_clinique": "Signe STEMI - Confirmer diagnostic, activer cathlab",
+      "pronostic": "Grave si persistant",
+      "note_pedagogique": "Critère STEMI: ≥2mm en V2-V3, ≥1mm ailleurs"
+    },
+    "onde q antéroseptal": {
+      "ontology_id": "ONDE_Q_ANTEROSEPTAL",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": "ANTEROSEPTAL",
+      "synonymes": ["onde q v1-v4", "q antérieure", "q pathologique antérieure"],
+      "implications": [],
+      "urgence_clinique": "Nécrose myocardique (séquelle ou aigu)",
+      "pronostic": "Séquelle définitive si ancien IDM",
+      "note_pedagogique": "Q pathologique: >40ms et >25% amplitude R"
+    },
+    "miroir inférieur": {
+      "ontology_id": "MIROIR_INFERIEUR",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": "INFERIEUR",
+      "synonymes": ["st- inférieur", "sous-décalage miroir inférieur", "image en miroir dii-diii-avf"],
+      "implications": ["st- inférieur"],
+      "urgence_clinique": "Confirme étendue STEMI antérieur",
+      "pronostic": "Indicateur d'ischémie étendue",
+      "note_pedagogique": "Miroir = image inverse de la lésion principale"
+    },
+    "onde t négative v4-v6": {
+      "ontology_id": "ONDE_T_NEG_V4V6",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": "LATERAL",
+      "synonymes": ["t- v4-v6", "t négative latérale", "t négative apicolatérale", "onde t inversée latérale"],
+      "implications": [],
+      "urgence_clinique": "Ischémie apicolatérale (circonflexe ou IVA distale)",
+      "pronostic": "Ischémie sous-endocardique",
+      "note_pedagogique": "V4-V6 = territoire LATERAL (circonflexe)"
+    },
+    "onde t négative dii": {
+      "ontology_id": "ONDE_T_NEG_DII",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": "INFERIEUR",
+      "synonymes": ["t- dii", "t négative inférieure", "t inversée territoire inférieur"],
+      "implications": [],
+      "urgence_clinique": "Extension ischémie territoire inférieur",
+      "pronostic": "Ischémie étendue multi-territoriale",
+      "note_pedagogique": "DII = territoire INFÉRIEUR (coronaire droite)"
+    },
+    "bav 1": {
+      "ontology_id": "BAV1",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": null,
+      "synonymes": ["bav premier degré", "pr > 200", "pr allongé"],
+      "implications": ["pr allongé"],
+      "urgence_clinique": "Surveillance, souvent bénin (sportifs, vagal)",
+      "pronostic": "Généralement bénin",
+      "note_pedagogique": "PR >200ms constant. Toutes les P conduites."
+    },
+    "bloc de branche gauche complet": {
+      "ontology_id": "BBG_COMPLET",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": null,
+      "synonymes": ["bbg complet", "lbbb complet", "bloc branche gauche"],
+      "implications": ["qrs larges >120ms", "absence onde q v5-v6"],
+      "urgence_clinique": "⚠️ Masque STEMI ! Critères Sgarbossa si douleur thoracique",
+      "pronostic": "Variable - Rechercher cardiopathie sous-jacente",
+      "note_pedagogique": "🚨 BBG masque infarctus - Critères Sgarbossa obligatoires"
+    },
+    "bloc de branche droit": {
+      "ontology_id": "BBD",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": null,
+      "synonymes": ["bbd", "rbbb", "bloc branche droite", "bloc de branche droit complet"],
+      "implications": ["qrs larges", "aspect rsr' v1"],
+      "urgence_clinique": "Souvent bénin si isolé. Rechercher cardiopathie.",
+      "pronostic": "Généralement bénin si asymptomatique",
+      "note_pedagogique": "rSR' en V1 typique. QRS ≥120ms."
+    },
+    "hémibloc antérieur gauche": {
+      "ontology_id": "HBAG",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": null,
+      "synonymes": ["hbag", "hémibloc gauche antérieur", "lafb", "déviation axiale gauche"],
+      "implications": ["axe gauche"],
+      "urgence_clinique": "Bénin isolé. Attention si associé BBD (risque BAV complet)",
+      "pronostic": "Bénin sauf si bifasciculaire",
+      "note_pedagogique": "Axe <-30°. Souvent avec BBD = bifasciculaire"
+    },
+    "tachycardie sinusale": {
+      "ontology_id": "TACHY_SINUSALE",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": null,
+      "synonymes": ["tachy", "tachycardie", "fc > 100"],
+      "implications": ["fréquence >100 bpm"],
+      "urgence_clinique": "Rechercher cause: fièvre, anémie, hypovolémie, stress, hyperthyroïdie",
+      "pronostic": "Dépend de la cause",
+      "note_pedagogique": "Rythme sinusal + FC >100 bpm"
+    },
+    
+    "rythme sinusal": {
+      "ontology_id": "RYTHME_SINUSAL",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["rs", "sinusal", "rythme sinusal régulier"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Normal",
+      "note_pedagogique": "Onde P avant chaque QRS, P+ en DII"
+    },
+    "fréquence normale": {
+      "ontology_id": "FC_NORMALE",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["fc normale", "60-100 bpm", "normocardie"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Normal",
+      "note_pedagogique": "60-100 bpm"
+    },
+    "pr normal": {
+      "ontology_id": "PR_NORMAL",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["pr 120-200", "intervalle pr normal"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Normal",
+      "note_pedagogique": "120-200ms"
+    },
+    "qrs fins": {
+      "ontology_id": "QRS_FINS",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["qrs < 120 ms", "qrs étroits", "qrs normaux"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Normal - Conduction intraventriculaire préservée",
+      "note_pedagogique": "QRS <120ms = conduction normale"
+    },
+    "axe normal": {
+      "ontology_id": "AXE_NORMAL",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["axe électrique normal", "axe entre -30 et +90"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Normal",
+      "note_pedagogique": "-30° à +90°"
+    },
+    "repolarisation normale": {
+      "ontology_id": "REPOL_NORMALE",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["repol normale", "st normal", "onde t normale", "pas de trouble repolarisation"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Normal",
+      "note_pedagogique": "ST isoélectrique, T positive en DII-V5-V6"
+    },
+    "qrs élargi": {
+      "ontology_id": "QRS_ELARGI",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["qrs larges", "qrs > 100 ms", "qrs modérément élargi"],
+      "implications": [],
+      "urgence_clinique": "Rechercher BBG/BBD incomplet ou HVG",
+      "pronostic": "Variable",
+      "note_pedagogique": "100-120ms = élargissement modéré"
+    },
+    "hypertrophie atriale gauche": {
+      "ontology_id": "HAG_ATRIAL",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["hag", "dilatation og", "og dilatée", "hypertrophie og"],
+      "implications": ["onde p élargie"],
+      "urgence_clinique": null,
+      "pronostic": "Contexte - Souvent valvulopathie mitrale",
+      "note_pedagogique": "Onde P ≥120ms. Contexte valvulaire ou IC."
+    },
+    "axe gauche": {
+      "ontology_id": "AXE_GAUCHE",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["déviation axiale gauche", "axe < -30"],
+      "implications": [],
+      "urgence_clinique": null,
+      "pronostic": "Variable - HBAG ou HVG",
+      "note_pedagogique": "Axe <-30° (souvent HBAG)"
+    },
+    "tachycardie": {
+      "ontology_id": "TACHYCARDIE",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1,
+      "territoire": null,
+      "synonymes": ["fc rapide", "fréquence élevée", "fc > 100"],
+      "implications": [],
+      "urgence_clinique": "Dépend du contexte",
+      "pronostic": "Variable",
+      "note_pedagogique": "FC >100 bpm (générique)"
+    },
+    
+    "bav 2 mobitz 1": {
+      "ontology_id": "BAV2_MOBITZ1",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2,
+      "territoire": null,
+      "synonymes": ["bav2 m1", "wenckebach", "luciani-wenckebach"],
+      "implications": ["onde p bloquée", "allongement du pr"],
+      "urgence_clinique": "Généralement bénin. Surveillance si symptomatique.",
+      "pronostic": "Bon - Bloc supra-hissien",
+      "note_pedagogique": "Allongement progressif PR → P bloquée (Wenckebach)"
+    }
+  },
+  
+  "implication_rules": {
+    "STEMI_ANTEROSEPTAL": {
+      "auto_validate": ["SUS_ST_ANTERIEUR"],
+      "description": "STEMI antéroseptal implique sus-décalage ST V1-V4",
+      "poids_bonus": 0
+    },
+    "NSTEMI": {
+      "auto_validate": ["ONDE_T_ISCHEMIQUE"],
+      "description": "NSTEMI implique onde T négative ischémique",
+      "poids_bonus": 0
+    },
+    "BAV2_MOBITZ1": {
+      "auto_validate": ["ONDE_P_BLOQUEE", "PR_ALLONGE"],
+      "description": "BAV2 Mobitz 1 implique onde P bloquée + allongement PR progressif",
+      "poids_bonus": 0
+    },
+    "BAV2_MOBITZ2": {
+      "auto_validate": ["ONDE_P_BLOQUEE_SOUDAINE", "PR_STABLE"],
+      "description": "BAV2 Mobitz 2 implique P bloquée soudaine sans allongement PR",
+      "poids_bonus": 0
+    },
+    "BAV1": {
+      "auto_validate": ["PR_ALLONGE"],
+      "description": "BAV1 implique PR allongé >200ms",
+      "poids_bonus": 0
+    },
+    "FA": {
+      "auto_validate": ["ABSENCE_ONDE_P", "RYTHME_IRREGULIER", "RR_VARIABLES"],
+      "description": "FA implique absence P + rythme irrégulier + RR variables",
+      "poids_bonus": 0
+    },
+    "BBG_COMPLET": {
+      "auto_validate": ["QRS_LARGES", "ABSENCE_Q_V5V6"],
+      "description": "BBG implique QRS larges + absence Q latéral",
+      "poids_bonus": 0
+    },
+    "BBD": {
+      "auto_validate": ["QRS_LARGES", "RSR_V1"],
+      "description": "BBD implique QRS larges + rSR' V1",
+      "poids_bonus": 0
+    },
+    "HBAG": {
+      "auto_validate": ["AXE_GAUCHE"],
+      "description": "HBAG implique axe gauche <-30°",
+      "poids_bonus": 0
+    },
+    "HAG_ATRIAL": {
+      "auto_validate": ["ONDE_P_ELARGIE"],
+      "description": "HAG implique onde P élargie ≥120ms",
+      "poids_bonus": 0
+    },
+    "TACHY_SINUSALE": {
+      "auto_validate": ["FC_TACHY"],
+      "description": "Tachycardie sinusale implique FC >100 bpm",
+      "poids_bonus": 0
+    }
+  },
+  
+  "scoring_rules": {
+    "version": "2.0-weighted",
+    "formule": "(Σ poids concepts validés) / (Σ poids concepts attendus) × 100",
+    "bonus_diagnostic_principal": {
+      "actif": true,
+      "condition": "Au moins 1 concept poids ≥3 identifié",
+      "bonus_pourcentage": 15,
+      "description": "Bonus +15% si diagnostic urgent/majeur identifié"
+    },
+    "penalite_diagnostic_manque": {
+      "actif": true,
+      "condition": "Diagnostic poids ≥3 manqué",
+      "penalite_pourcentage": 0,
+      "avertissement": "🚨 DIAGNOSTIC CRITIQUE MANQUÉ",
+      "description": "Feedback renforcé si diagnostic urgent manqué"
+    },
+    "seuils_validation": {
+      "excellent": 90,
+      "tres_bien": 80,
+      "bien": 70,
+      "passable": 60,
+      "insuffisant": 50
+    }
+  },
+  
+  "metadata": {
+    "total_concepts": 28,
+    "concepts_poids_4": 1,
+    "concepts_poids_3": 3,
+    "concepts_poids_2": 11,
+    "concepts_poids_1": 13,
+    "territoires_mappes": 5,
+    "regles_implications": 11,
+    "party_mode_vote": "5/5 agents - Consensus unanime"
+  }
+}

@@ -557,19 +557,34 @@ def perform_correction(case_data, student_answer):
             # Étape 4: Récupérer concepts attendus
             st.info("📊 Étape 4/5: Scoring avec ontologie...")
             
-            expected_concepts_raw = case_data.get('diagnosis', case_data.get('expected_concepts', []))
+            # 🆕 CHARGER TOUTES LES ANNOTATIONS (pas seulement expected_concepts)
+            # Cela inclut les DESCRIPTEUR_ECG marqués comme "📝 Description"
+            annotations = case_data.get('annotations', [])
             
-            if not expected_concepts_raw:
-                st.warning("⚠️ Aucun concept attendu défini pour ce cas")
-                return
-            
-            # Convertir en liste de strings
-            expected_list = []
-            for concept in expected_concepts_raw:
-                if isinstance(concept, str):
-                    expected_list.append(concept)
-                elif isinstance(concept, dict):
-                    expected_list.append(concept.get('text', ''))
+            if annotations:
+                # Nouveau format avec annotations détaillées
+                expected_list = []
+                for ann in annotations:
+                    # Inclure tous les concepts SAUF les exclusions
+                    if not ann.get('is_exclusion', False):
+                        concept_name = ann.get('concept', '')
+                        if concept_name:
+                            expected_list.append(concept_name)
+            else:
+                # Fallback sur ancien format (expected_concepts ou diagnosis)
+                expected_concepts_raw = case_data.get('diagnosis', case_data.get('expected_concepts', []))
+                
+                if not expected_concepts_raw:
+                    st.warning("⚠️ Aucun concept attendu défini pour ce cas")
+                    return
+                
+                # Convertir en liste de strings
+                expected_list = []
+                for concept in expected_concepts_raw:
+                    if isinstance(concept, str):
+                        expected_list.append(concept)
+                    elif isinstance(concept, dict):
+                        expected_list.append(concept.get('text', ''))
             
             # Étape 3: Matching avec ontologie
             matched_concepts = []
