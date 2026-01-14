@@ -380,6 +380,39 @@ def perform_llm_correction(case_data, student_text):
             # Étape 2: Scoring sémantique
             st.info("📊 Étape 2/3: Scoring avec ontologie...")
             
+            # 🆕 VÉRIFIER LES EXCLUSIONS D'ABORD
+            has_exclusions = case_data.get('has_exclusions', False)
+            
+            # Vérifier aussi dans les annotations (fallback pour anciens cas)
+            if not has_exclusions and 'annotations' in case_data:
+                for ann in case_data['annotations']:
+                    if ann.get('annotation_role') == '❌ Exclusion' or ann.get('is_exclusion', False):
+                        has_exclusions = True
+                        break
+            
+            if has_exclusions:
+                # Si exclusion présente → Note automatique = 0
+                st.error("❌ EXCLUSION DÉTECTÉE - Note automatique: 0/20")
+                st.warning("⚠️ Ce cas contient une annotation marquée comme 'Exclusion' (faute grave). La note est automatiquement 0.")
+                
+                # Créer un scoring_result avec score 0
+                from backend.scoring_service_llm import ScoringResult, ConceptMatch, MatchType
+                results['scoring_result'] = ScoringResult(
+                    total_score=0.0,
+                    max_score=20.0,
+                    percentage=0.0,
+                    matches=[],
+                    exact_matches=0,
+                    partial_matches=0,
+                    missing_concepts=0,
+                    extra_concepts=0,
+                    contradictions=0,
+                    category_scores={}
+                )
+                results['exclusion_penalty'] = True
+                results['success'] = True
+                return results
+            
             # Récupérer concepts attendus
             expected_concepts_raw = case_data.get('expected_concepts', [])
             
@@ -416,13 +449,20 @@ def perform_llm_correction(case_data, student_text):
                     # Déjà au bon format
                     expected_concepts.append(concept)
             
-            # Scoring (sans student_answer_full)
+            # Récupérer les annotations avec leurs territoires pour appliquer la pénalité
+            annotations = case_data.get('annotations', [])
+            territory_selections = case_data.get('territory_selections', {})
+            
+            # Scoring
             scorer = SemanticScorer()
             scoring_result = scorer.score(
                 student_concepts=student_concepts_llm,
-                expected_concepts=expected_concepts
+                expected_concepts=expected_concepts,
+                annotations=annotations,  # 🆕 Passer les annotations
+                territory_selections=territory_selections  # 🆕 Passer les territoires
             )
             results['scoring_result'] = scoring_result
+            results['annotations'] = annotations  # 🆕 Garder les annotations pour affichage
             
             st.success(f"✅ Score: {scoring_result.percentage:.1f}%")
             
@@ -529,17 +569,48 @@ def display_llm_correction_results(results):
     st.divider()
     
     with st.expander("🔍 Analyse Détaillée des Concepts", expanded=False):
+        st.markdown("#### 🎯 Diagnostics validants (comptent dans la note)")
+        
         for match in scoring_result.matches:
             match_type = match.match_type.value
             
             if match_type == 'exact':
-                st.success(f"✅ **{match.expected_concept}** - Correspondance exacte")
+                st.success(f"✅ **{match.expected_concept}** - Correspondance exacte ({match.score:.0f} points)")
             elif match_type == 'partial':
-                st.warning(f"⚠️ **{match.expected_concept}** - Correspondance partielle: {match.student_concept}")
+                st.warning(f"⚠️ **{match.expected_concept}** - Correspondance partielle: {match.student_concept} ({match.score:.0f} points)")
             elif match_type == 'missing':
-                st.error(f"❌ **{match.expected_concept}** - Non mentionné")
+                st.error(f"❌ **{match.expected_concept}** - Non mentionné (0 points)")
             elif match_type == 'child':
-                st.info(f"🔹 **{match.expected_concept}** - Implication validée via: {match.student_concept}")
+                st.info(f"🔹 **{match.expected_concept}** - Implication validée via: {match.student_concept} ({match.score:.0f} points)")
+        
+        # 🆕 AFFICHER LES DESCRIPTIONS (ne comptent pas dans la note)
+        if 'annotations' in correction_result:
+            description_annotations = [
+                ann for ann in correction_result['annotations']
+                if ann.get('annotation_role', '📝 Description') == '📝 Description'
+            ]
+            
+            if description_annotations:
+                st.markdown("---")
+                st.markdown("#### 📝 Descriptions (pour information, ne comptent pas dans la note)")
+                
+                for ann in description_annotations:
+                    # Vérifier si l'étudiant a mentionné ce concept
+                    concept_name = ann['concept']
+                    student_mentioned = False
+                    
+                    # Chercher dans les concepts extraits de l'étudiant
+                    if 'student_concepts' in correction_result:
+                        for student_concept in correction_result['student_concepts']:
+                            # Match simple (peut être amélioré)
+                            if concept_name.lower() in student_concept.get('text', '').lower():
+                                student_mentioned = True
+                                break
+                    
+                    if student_mentioned:
+                        st.info(f"ℹ️ **{concept_name}** - Mentionné (descriptif, pas de points)")
+                    else:
+                        st.caption(f"ℹ️ **{concept_name}** - Non mentionné (descriptif, pas obligatoire)")
 
 
 def display_expert_correction(case_data):

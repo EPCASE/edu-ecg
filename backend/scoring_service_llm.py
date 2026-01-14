@@ -1,10 +1,13 @@
 """
-🎯 Service de Scoring Sémantique avec LLM + Ontologie
-Compare réponse étudiant vs concepts attendus avec GPT-4o pour matching sémantique
+🎯 Service de Scoring Sémantique - Two-Stage Architecture
+Phase 1: LLM extraction (texte → IDs ontologie)
+Phase 2: Scoring déterministe (relations ontologiques)
 
 Auteur: Edu-ECG Team
-Date: 2026-01-10
-Version: 2.1 (LLM + Ontology-powered)
+Date: 2026-01-14
+Version: 3.0 (Two-stage: LLM extraction + Ontology scoring)
+
+BACKWARD COMPATIBLE: Garde l'interface SemanticScorer pour correction_llm.py
 """
 
 from typing import List, Dict, Optional
@@ -13,30 +16,41 @@ from enum import Enum
 import os
 import logging
 import json
-from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
-# Initialize OpenAI client for semantic matching
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-# Import ontology services
+# Import Two-Stage Architecture
 try:
-    from backend.ontology_service import OntologyService
-    _ontology = OntologyService()
-    logger.info("✅ Ontology service loaded")
+    from backend.scoring_service_two_stage import TwoStageScorer as _TwoStageScorer
+    from backend.scoring_service_two_stage import ScoringResult as _TwoStageScoringResult
+    TWO_STAGE_AVAILABLE = True
+    logger.info("✅ Two-Stage Architecture loaded (LLM extraction + Ontology scoring)")
 except Exception as e:
-    logger.warning(f"⚠️ Ontology service unavailable: {e}")
-    _ontology = None
+    TWO_STAGE_AVAILABLE = False
+    logger.warning(f"⚠️ Two-Stage unavailable, using legacy: {e}")
 
-# Import OWL relation resolver (replaces hardcoded implications)
-try:
-    from backend.services.ontology_relations import get_resolver
-    _owl_resolver = get_resolver()
-    logger.info("✅ OWL Relation Resolver loaded")
-except Exception as e:
-    logger.warning(f"⚠️ OWL Resolver unavailable: {e}")
-    _owl_resolver = None
+# Legacy imports (fallback si two-stage pas dispo)
+if not TWO_STAGE_AVAILABLE:
+    from openai import OpenAI
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    
+    # Import ontology services
+    try:
+        from backend.ontology_service import OntologyService
+        _ontology = OntologyService()
+        logger.info("✅ Ontology service loaded (legacy)")
+    except Exception as e:
+        logger.warning(f"⚠️ Ontology service unavailable: {e}")
+        _ontology = None
+    
+    # Import OWL relation resolver
+    try:
+        from backend.services.ontology_relations import get_resolver
+        _owl_resolver = get_resolver()
+        logger.info("✅ OWL Relation Resolver loaded (legacy)")
+    except Exception as e:
+        logger.warning(f"⚠️ OWL Resolver unavailable: {e}")
+        _owl_resolver = None
 
 
 class MatchType(Enum):
@@ -79,15 +93,16 @@ class ScoringResult:
 
 class SemanticScorer:
     """
-    Scoring sémantique avec GPT-4o
+    Scoring sémantique - NOW WITH TWO-STAGE ARCHITECTURE!
     
-    Utilise un LLM pour comprendre les équivalences sémantiques:
-    - "QRS fins" = "QRS normal"
-    - "fréquence normale" = "fréquence cardiaque normale"
-    - "pas d'anomalie de repolarisation" = "repolarisation normale"
+    Phase 1: LLM extrait concepts du texte → IDs ontologie
+    Phase 2: Scoring déterministe sur relations ontologiques
+    
+    BACKWARD COMPATIBLE: Garde l'ancienne interface pour correction_llm.py
     """
     
     def __init__(self):
+        """Initialize scorer avec two-stage architecture si disponible."""
         self.category_weights = {
             'rhythm': 1.2,
             'conduction': 1.1,
@@ -95,13 +110,57 @@ class SemanticScorer:
             'morphology': 0.9,
             'measurement': 0.8
         }
+        
+        # Utiliser Two-Stage si disponible
+        if TWO_STAGE_AVAILABLE:
+            self._scorer = _TwoStageScorer(extractor_type="gpt")
+            self._mode = "two-stage"
+            logger.info("✅ SemanticScorer using TWO-STAGE architecture")
+        else:
+            self._scorer = None
+            self._mode = "legacy"
+            logger.warning("⚠️ SemanticScorer using LEGACY mode (two-stage unavailable)")
     
     def score(
         self,
         student_concepts: List[Dict],
-        expected_concepts: List[Dict]
+        expected_concepts: List[Dict],
+        annotations: Optional[List[Dict]] = None,
+        territory_selections: Optional[Dict] = None
     ) -> ScoringResult:
-        """Score la réponse de l'étudiant avec matching sémantique LLM"""
+        """Score la réponse de l'étudiant.
+        
+        TWO-STAGE MODE (préféré):
+        1. LLM extrait concepts → IDs ontologie
+        2. Matching ontologique déterministe
+        
+        LEGACY MODE (fallback):
+        3. LLM compare chaque paire de concepts
+        
+        Args:
+            student_concepts: Concepts extraits de la réponse étudiant
+            expected_concepts: Concepts attendus
+            annotations: Annotations avec rôles (validant/description/exclusion)
+            territory_selections: Territoires sélectionnés
+        """
+        
+        # ===== TWO-STAGE MODE =====
+        if self._mode == "two-stage" and self._scorer:
+            try:
+                result = self._scorer.score(
+                    student_concepts,
+                    expected_concepts,
+                    annotations=annotations,
+                    territory_selections=territory_selections
+                )
+                logger.debug(f"✅ Two-stage scoring: {result.percentage:.0f}% ({result.total_tokens} tokens)")
+                return result
+            except Exception as e:
+                logger.error(f"❌ Two-stage failed: {e}, falling back to legacy")
+                # Continue vers legacy mode en cas d'erreur
+        
+        # ===== LEGACY MODE (inchangé pour compatibilité) =====
+        logger.info("Using LEGACY scoring mode")
         
         student_normalized = self._normalize_concepts(student_concepts)
         expected_normalized = self._normalize_concepts(expected_concepts)
@@ -152,8 +211,13 @@ class SemanticScorer:
                         category=expected_concept['category']
                     ))
         
-        # 3. Calculer score total
-        return self._calculate_total_score(matches, len(expected_normalized))
+        # 3. Calculer score total avec pénalités territoire
+        return self._calculate_total_score(
+            matches, 
+            len(expected_normalized),
+            annotations=annotations,
+            territory_selections=territory_selections
+        )
     
     def _normalize_concepts(self, concepts: List[Dict]) -> List[Dict]:
         """Normalise les concepts (lowercase, trim)"""
@@ -429,6 +493,33 @@ class SemanticScorer:
                 category=category
             )
         
+        # 🆕 1b. Match par inclusion (étudiant a donné PLUS de détails)
+        # Ex: Attendu "péricardite", Étudiant "péricardite sus-décalage inférieur"
+        # → L'étudiant a donné le diagnostic + localisation/précision
+        if expected_text in student_text:
+            # L'étudiant a donné le concept attendu + des détails supplémentaires
+            return ConceptMatch(
+                student_concept=student_text,
+                expected_concept=expected_text,
+                match_type=MatchType.EXACT,
+                score=100.0,
+                explanation=f"✅ Parfait ! Concept identifié avec précisions supplémentaires",
+                category=category
+            )
+        
+        # 1c. Match partiel inverse (étudiant a donné concept plus général)
+        # Ex: Attendu "STEMI antérieur", Étudiant "STEMI"
+        if student_text in expected_text:
+            # L'étudiant a donné le concept de base mais sans les détails attendus
+            return ConceptMatch(
+                student_concept=student_text,
+                expected_concept=expected_text,
+                match_type=MatchType.PARTIAL,
+                score=70.0,
+                explanation=f"⚠️ Concept correct mais manque de précision: '{student_text}' identifié, mais attendu '{expected_text}'",
+                category=category
+            )
+        
         # 2. Vérifier implications médicales (basées sur ontologie)
         # 2a. Étudiant → Attendu (ex: "BAV 1" implique "PR allongé")
         if self._check_medical_implication(student_text, expected_text):
@@ -462,23 +553,30 @@ Concept attendu: "{expected_text}"
 
 Détermine leur relation sémantique MÉDICALE:
 
-- EQUIVALENT: Synonymes ou équivalents (ex: "BAV 1" = "BAV de type 1", "QRS fins" = "QRS normaux")
+- EQUIVALENT: Synonymes ou équivalents
+  * "BAV 1" = "BAV de type 1" = "BAV du 1er degré"
+  * "QRS fins" = "QRS normaux"
+  * "Péricardite" = "Péricardite sus-décalage" (même diagnostic avec précision supplémentaire)
+  * Si le concept étudiant CONTIENT le concept attendu + détails → EQUIVALENT
 
 - CHILD: L'étudiant a donné un DIAGNOSTIC qui implique le SIGNE attendu
-  * Exemple: Étudiant dit "BAV 1" pour "PR allongé" attendu
-  * Exemple: Étudiant dit "BBG complet" pour "QRS larges" attendu
+  * Étudiant dit "BAV 1" pour "PR allongé" attendu
+  * Étudiant dit "BBG complet" pour "QRS larges" attendu
   * Le diagnostic EXPLIQUE le signe
 
-- PARENT: L'étudiant a donné un SIGNE pour un DIAGNOSTIC attendu
-  * Exemple: Étudiant dit "PR allongé" pour "BAV 1" attendu
-  * Exemple: Étudiant dit "onde P bloquée" pour "BAV 2 Mobitz 2" attendu
-  * Le signe est une CARACTÉRISTIQUE du diagnostic, mais incomplet
+- PARENT: L'étudiant a donné SEULEMENT un SIGNE pour un DIAGNOSTIC attendu
+  * Étudiant dit "PR allongé" pour "BAV 1" attendu (manque le diagnostic)
+  * Étudiant dit "onde P bloquée" pour "BAV 2" attendu (manque le diagnostic)
+  * ⚠️ NE PAS confondre avec "diagnostic + signe" qui est EQUIVALENT
 
 - SIBLING: Concepts reliés mais différents (ex: "QRS larges" vs "QRS fins")
 
 - DIFFERENT: Concepts totalement différents
 
-⚠️ ATTENTION: Si l'étudiant donne un SIGNE (onde P, QRS, PR, etc.) pour un DIAGNOSTIC attendu (BAV, BBG, FA, etc.), c'est PARENT (incomplet).
+⚠️ RÈGLES IMPORTANTES:
+1. Si l'étudiant donne le DIAGNOSTIC attendu + des détails (territoire, localisation) → EQUIVALENT, pas PARENT
+2. PARENT uniquement si l'étudiant donne SEULEMENT un signe SANS le diagnostic
+3. "Péricardite sus-décalage" contient "Péricardite" → EQUIVALENT
 
 Réponds UNIQUEMENT avec ce JSON:
 {{"relationship": "EQUIVALENT|CHILD|PARENT|SIBLING|DIFFERENT", "confidence": 0.0-1.0, "explanation": "courte explication en français"}}"""
@@ -591,9 +689,47 @@ Réponds UNIQUEMENT avec ce JSON:
     def _calculate_total_score(
         self,
         matches: List[ConceptMatch],
-        num_expected: int
+        num_expected: int,
+        annotations: Optional[List[Dict]] = None,
+        territory_selections: Optional[Dict] = None
     ) -> ScoringResult:
-        """Calcule le score total et les statistiques"""
+        """Calcule le score total et les statistiques
+        
+        Args:
+            matches: Liste des correspondances concept étudiant/attendu
+            num_expected: Nombre de concepts attendus
+            annotations: Annotations avec rôles (pour pénalité territoire)
+            territory_selections: Territoires sélectionnés par concept
+        """
+        
+        # 🆕 APPLIQUER PÉNALITÉ TERRITOIRE (-50% pour diagnostics validants sans territoire)
+        if annotations and territory_selections is not None:
+            for match in matches:
+                if match.expected_concept and match.score > 0:
+                    # Trouver l'annotation correspondante
+                    matching_annotation = None
+                    for ann in annotations:
+                        if ann['concept'] == match.expected_concept:
+                            matching_annotation = ann
+                            break
+                    
+                    if matching_annotation:
+                        # Vérifier si c'est un diagnostic validant
+                        is_validant = matching_annotation.get('annotation_role', '📝 Description') == '🎯 Diagnostic validant'
+                        
+                        # Vérifier si le concept nécessite un territoire
+                        has_territory_possibles = bool(matching_annotation.get('territoires_possibles'))
+                        
+                        if is_validant and has_territory_possibles:
+                            # Vérifier si un territoire a été sélectionné
+                            concept_name = match.expected_concept
+                            territories = territory_selections.get(concept_name, {}).get('territories', [])
+                            
+                            if not territories:
+                                # Pénalité -50%
+                                match.score = match.score * 0.5
+                                match.explanation += " ⚠️ Territoire manquant (-50%)"
+                                logger.info(f"Pénalité territoire appliquée à '{concept_name}': {match.score}")
         
         total_score = sum(m.score for m in matches if m.expected_concept)
         max_score = num_expected * 100.0

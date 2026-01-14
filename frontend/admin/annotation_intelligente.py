@@ -2,6 +2,7 @@
 """
 Composant d'annotation intelligent avec autocomplétion basée sur l'ontologie ECG
 Interface moderne avec tags cliquables et saisie prédictive
++ Intégration Territory Selector pour concepts nécessitant précision géographique
 """
 
 import streamlit as st
@@ -12,6 +13,7 @@ import sys
 # Ajout des chemins pour l'ontologie
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root / "backend"))
+sys.path.append(str(project_root / "frontend"))
 
 try:
     from correction_engine import OntologyCorrector
@@ -141,10 +143,108 @@ def annotation_intelligente_admin(key_suffix="", initial_tags=None):
                 ):
                     st.session_state[tags_key].remove(tag)
                     st.rerun()
+        
+        # Section territoire - VERSION FONCTIONNELLE
+        st.markdown("---")
+        _display_territory_selectors_for_tags(st.session_state[tags_key], key_suffix)
     else:
         st.info("💭 Aucun concept sélectionné. Commencez à taper pour voir les suggestions.")
     
     return st.session_state[tags_key]
+
+
+def _display_territory_selectors_for_tags(tags_list, key_suffix=""):
+    """
+    Affiche les sélecteurs de territoire pour les tags qui en nécessitent
+    
+    Args:
+        tags_list: Liste des tags sélectionnés
+        key_suffix: Suffixe pour les clés Streamlit
+    """
+    if not tags_list:
+        return
+        
+    try:
+        # Import des composants territory
+        from components.territory_selector_ui import (
+            render_territory_selectors,
+            check_territory_completeness,
+            get_territory_selection_summary
+        )
+        from backend.territory_resolver import get_territory_config
+        
+        # Charger l'ontologie OWL (même ontologie que le reste)
+        ontology_file = project_root / "data" / "ontology_from_owl.json"
+        
+        # Debug: vérifier si fichier existe
+        if not ontology_file.exists():
+            st.warning(f"⚠️ Ontologie OWL non trouvée: {ontology_file}")
+            return
+        
+        with open(ontology_file, 'r', encoding='utf-8') as f:
+            ontology = json.load(f)
+        
+        # Vérifier quels tags nécessitent un territoire
+        concepts_with_territory = []
+        for tag in tags_list:
+            config = get_territory_config(tag, ontology)
+            if config and config.get('show_territory_selector'):
+                concepts_with_territory.append((tag, config))
+        
+        if not concepts_with_territory:
+            return
+        
+        # Afficher les sélecteurs
+        st.markdown("### 🗺️ Précision des territoires")
+        st.info(f"📍 {len(concepts_with_territory)} concept(s) nécessitent une précision de territoire")
+        
+        for concept_name, config in concepts_with_territory:
+            with st.expander(f"📍 {concept_name}", expanded=True):
+                # Afficher importance
+                importance = config.get('importance', 'optionnelle')
+                importance_emoji = {'critique': '🔴', 'importante': '🟠', 'optionnelle': '🟢'}
+                emoji = importance_emoji.get(importance, '⚪')
+                st.caption(f"{emoji} Importance: **{importance}**")
+                
+                # Afficher les sélecteurs
+                territories, mirrors = render_territory_selectors(
+                    concept_name,
+                    ontology,
+                    key_prefix=f"annotation_{key_suffix}_{concept_name.replace(' ', '_')}"
+                )
+                
+                # Valider complétude
+                is_complete, error_msg = check_territory_completeness(
+                    concept_name,
+                    territories,
+                    ontology
+                )
+                
+                if not is_complete:
+                    st.warning(error_msg)
+                else:
+                    # Afficher résumé
+                    summary = get_territory_selection_summary(concept_name, territories, mirrors)
+                    if summary:
+                        st.success(f"✅ {summary}")
+                
+                # Stocker les territoires sélectionnés dans session_state
+                territory_key = f"territories_{key_suffix}_{concept_name}"
+                st.session_state[territory_key] = {
+                    'territories': territories,
+                    'mirrors': mirrors
+                }
+    
+    except ImportError as e:
+        st.error(f"❌ Module territoire non disponible: {e}")
+        import traceback
+        st.code(traceback.format_exc())
+    except Exception as e:
+        st.error(f"❌ Erreur territoire: {e}")
+        import traceback
+        st.code(traceback.format_exc())
+    except Exception as e:
+        st.error(f"❌ Erreur lors de l'affichage des territoires: {e}")
 
 def annotation_intelligente_etudiant(key_suffix="", max_suggestions=8):
     """
