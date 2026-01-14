@@ -6,7 +6,7 @@ Handles 4-step pipeline: NER → Mapping → Scoring → Feedback
 
 import logging
 import os
-from typing import List, Optional
+from typing import List
 from openai import OpenAI, OpenAIError
 from pydantic import BaseModel, ValidationError
 from dotenv import load_dotenv
@@ -29,7 +29,7 @@ class ExtractedConcept(BaseModel):
 
 class ConceptsList(BaseModel):
     """Pydantic model for structured output - list of concepts"""
-    concepts: List[ExtractedConcept]
+    concepts: List[ExtractedConcept]  # Use typing.List for Python 3.9 compatibility
 
 
 class LLMService:
@@ -38,16 +38,55 @@ class LLMService:
     NER_PROMPT = """Tu es un assistant médical expert en ECG. 
 Extrais tous les concepts médicaux liés à l'électrocardiogramme de la réponse de l'étudiant.
 
+**IMPORTANT**: Normalise les concepts vers les termes de l'ontologie ECG ci-dessous.
+Ignore les accents, majuscules, et variantes orthographiques. Détecte les acronymes et synonymes.
+
 **CAS SPÉCIAL**: Si l'étudiant dit "ECG normal", "tracé normal", "aucune anomalie" ou équivalent,
 extrais-le comme UN concept unique avec catégorie "global".
+
+ONTOLOGIE - TOP 50 CONCEPTS (utilise ces termes exacts ou leurs synonymes):
+- Diagnostic urgent (poids 4): STEMI, Embolie pulmonaire, Torsade de pointes, BAV complet, Fibrillation ventriculaire, Asystolie, Hyperkaliémie, Hypokaliémie, Tamponnade
+- Diagnostic majeur (poids 3): Fibrillation atriale (FA), BAV 2 Mobitz 2, Tachycardie ventriculaire (TV), Wolf malin, Syndrome du QT long, Syndrome de Brugada, Dysfonction sinusale, intoxication digitalique
+- Signes ECG (poids 2): BAV 1 (PR allongé), Bloc de branche droit (BBD/RBBB), Bloc de branche gauche (BBG/LBBB), Hypertrophie ventriculaire gauche (HVG), Flutter auriculaire, Tachycardie sinusale, Bradycardie sinusale
+
+SYNONYMES & ACRONYMES COURANTS:
+- "FA" ou "fibrillation auriculaire" → Fibrillation atriale
+- "BBG" ou "bloc branche gauche" → Bloc de branche gauche  
+- "BBD" ou "bloc branche droit" → Bloc de branche droit
+- "BAV 1" ou "PR allongé" → BAV 1er degré
+- "BAV 2 Mobitz 1" ou "Wenckebach" → BAV 2 Mobitz 1
+- "STEMI" ou "sus-décalage ST" → Syndrome coronarien à la phase aigue avec sus-décalage du segment ST
+- "NSTEMI" ou "sous-décalage ST" → Syndrome coronarien à la phase aigue sans élévation du segment ST
+- "HVG" ou "hypertrophie VG" → Hypertrophie ventriculaire gauche
+- "péricardite" ou "pericardite" → Péricardite
+
+EXEMPLES D'EXTRACTION:
+Input: "Rythme sinusal avec BAV 1 et BBG"
+Output: [
+  {text: "Rythme sinusal", category: "rhythm", confidence: 1.0},
+  {text: "BAV 1er degré", category: "conduction", confidence: 1.0},
+  {text: "Bloc de branche gauche", category: "conduction", confidence: 1.0}
+]
+
+Input: "FA rapide à 150 bpm"
+Output: [
+  {text: "Fibrillation atriale", category: "rhythm", confidence: 1.0},
+  {text: "Fréquence ventriculaire rapide", category: "measurement", confidence: 0.9}
+]
+
+Input: "Péricardite aiguë avec sus-décalage diffus"
+Output: [
+  {text: "Péricardite", category: "pathology", confidence: 1.0},
+  {text: "Sus-décalage du segment ST", category: "morphology", confidence: 0.95}
+]
 
 Catégories possibles:
 - global: diagnostic global (ECG normal, ECG pathologique, etc.)
 - rhythm: rythme cardiaque (sinusal, FA, flutter, etc.)
 - conduction: troubles de conduction (BAV, bloc de branche, etc.)
-- morphology: morphologie des ondes (onde P, QRS, onde T, etc.)
+- morphology: morphologie des ondes (onde P, QRS, onde T, segment ST, etc.)
 - measurement: mesures (fréquence, intervalles PR/QT, etc.)
-- pathology: pathologies (STEMI, hypertrophie, etc.)
+- pathology: pathologies (STEMI, hypertrophie, péricardite, etc.)
 
 Retourne chaque concept avec sa catégorie et un score de confiance (0-1)."""
 
