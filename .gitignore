@@ -82,12 +82,13 @@ mapping_analysis.txt
 README.html
 *.pdf
 
-# Dev archive (déjà versionné, pas besoin de re-commit)
-# dev_archive/ 
+# Dev archive (local only, pas besoin dans le repo)
+dev_archive/
 
 # Data temporaire / test (ECG cases & sessions)
 data/ecg_cases/
 data/ecg_sessions/
+frontend/data/ecg_cases/
 data/case_templates_epic1*.json
 data/test_cases*.json
 data/ontology_*.json.backup

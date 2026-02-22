@@ -1,13 +1,15 @@
 """
-🎯 Service de Scoring Sémantique - Two-Stage Architecture
-Phase 1: LLM extraction (texte → IDs ontologie)
-Phase 2: Scoring déterministe (relations ontologiques)
+🎯 Service de Scoring Sémantique ECG
+Scoring par LLM (GPT-4o-mini) avec support ontologie OWL
 
 Auteur: Edu-ECG Team
 Date: 2026-01-14
-Version: 3.0 (Two-stage: LLM extraction + Ontology scoring)
+Version: 3.1 (Legacy LLM scoring with annotation roles)
 
-BACKWARD COMPATIBLE: Garde l'interface SemanticScorer pour correction_llm.py
+RULES:
+- 📝 Description concepts: EXCLUDED from scoring entirely
+- 🎯 Diagnostic validant: scored (100% exact, 85% parent/signe→diag)
+- ❌ Exclusion: auto-fail if present
 """
 
 from typing import List, Dict, Optional
@@ -19,46 +21,35 @@ import json
 
 logger = logging.getLogger(__name__)
 
-# Import Two-Stage Architecture
-try:
-    from backend.scoring_service_two_stage import TwoStageScorer as _TwoStageScorer
-    from backend.scoring_service_two_stage import ScoringResult as _TwoStageScoringResult
-    TWO_STAGE_AVAILABLE = True
-    logger.info("✅ Two-Stage Architecture loaded (LLM extraction + Ontology scoring)")
-except Exception as e:
-    TWO_STAGE_AVAILABLE = False
-    logger.warning(f"⚠️ Two-Stage unavailable, using legacy: {e}")
+# OpenAI client
+from openai import OpenAI
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Legacy imports (fallback si two-stage pas dispo)
-if not TWO_STAGE_AVAILABLE:
-    from openai import OpenAI
-    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    
-    # Import ontology services
-    try:
-        from backend.ontology_service import OntologyService
-        _ontology = OntologyService()
-        logger.info("✅ Ontology service loaded (legacy)")
-    except Exception as e:
-        logger.warning(f"⚠️ Ontology service unavailable: {e}")
-        _ontology = None
-    
-    # Import OWL relation resolver
-    try:
-        from backend.services.ontology_relations import get_resolver
-        _owl_resolver = get_resolver()
-        logger.info("✅ OWL Relation Resolver loaded (legacy)")
-    except Exception as e:
-        logger.warning(f"⚠️ OWL Resolver unavailable: {e}")
-        _owl_resolver = None
+# Import ontology services
+try:
+    from backend.ontology_service import OntologyService
+    _ontology = OntologyService()
+    logger.info("✅ Ontology service loaded")
+except Exception as e:
+    logger.warning(f"⚠️ Ontology service unavailable: {e}")
+    _ontology = None
+
+# Import OWL relation resolver
+try:
+    from backend.services.ontology_relations import get_resolver
+    _owl_resolver = get_resolver()
+    logger.info("✅ OWL Relation Resolver loaded")
+except Exception as e:
+    logger.warning(f"⚠️ OWL Resolver unavailable: {e}")
+    _owl_resolver = None
 
 
 class MatchType(Enum):
     """Types de correspondance entre concepts"""
     EXACT = "exact"              # Correspondance parfaite
-    PARENT = "parent"            # Étudiant trop général
-    CHILD = "child"              # Étudiant trop spécifique (ou implication validée)
-    PARTIAL = "partial"          # Signe correct mais diagnostic incomplet
+    PARENT = "parent"            # Étudiant a donné un SIGNE pour DIAGNOSTIC attendu (85%)
+    CHILD = "child"              # Étudiant a donné un DIAGNOSTIC pour SIGNE attendu (0% - non demandé)
+    PARTIAL = "partial"          # Match partiel (PARENT avec score 85%)
     SIBLING = "sibling"          # Concepts frères
     CONTRADICTION = "contradiction"  # Concepts contradictoires
     MISSING = "missing"          # Concept attendu manquant
@@ -93,16 +84,16 @@ class ScoringResult:
 
 class SemanticScorer:
     """
-    Scoring sémantique - NOW WITH TWO-STAGE ARCHITECTURE!
+    Scoring sémantique ECG par LLM (GPT-4o-mini).
     
-    Phase 1: LLM extrait concepts du texte → IDs ontologie
-    Phase 2: Scoring déterministe sur relations ontologiques
-    
-    BACKWARD COMPATIBLE: Garde l'ancienne interface pour correction_llm.py
+    Compare concepts étudiants vs attendus avec support:
+    - Relations ontologiques (parent/child/sibling)
+    - Annotation roles (validant/description/exclusion)
+    - Territoires ECG
     """
     
     def __init__(self):
-        """Initialize scorer avec two-stage architecture si disponible."""
+        """Initialize scorer."""
         self.category_weights = {
             'rhythm': 1.2,
             'conduction': 1.1,
@@ -110,16 +101,7 @@ class SemanticScorer:
             'morphology': 0.9,
             'measurement': 0.8
         }
-        
-        # Utiliser Two-Stage si disponible
-        if TWO_STAGE_AVAILABLE:
-            self._scorer = _TwoStageScorer(extractor_type="gpt")
-            self._mode = "two-stage"
-            logger.info("✅ SemanticScorer using TWO-STAGE architecture")
-        else:
-            self._scorer = None
-            self._mode = "legacy"
-            logger.warning("⚠️ SemanticScorer using LEGACY mode (two-stage unavailable)")
+        logger.info("✅ SemanticScorer initialized")
     
     def score(
         self,
@@ -130,12 +112,8 @@ class SemanticScorer:
     ) -> ScoringResult:
         """Score la réponse de l'étudiant.
         
-        TWO-STAGE MODE (préféré):
-        1. LLM extrait concepts → IDs ontologie
-        2. Matching ontologique déterministe
-        
-        LEGACY MODE (fallback):
-        3. LLM compare chaque paire de concepts
+        Compare chaque concept étudiant aux concepts attendus via LLM.
+        Seuls les concepts 🎯 Diagnostic validant sont scorés.
         
         Args:
             student_concepts: Concepts extraits de la réponse étudiant
@@ -144,39 +122,33 @@ class SemanticScorer:
             territory_selections: Territoires sélectionnés
         """
         
-        # ===== TWO-STAGE MODE =====
-        if self._mode == "two-stage" and self._scorer:
-            try:
-                result = self._scorer.score(
-                    student_concepts,
-                    expected_concepts,
-                    annotations=annotations,
-                    territory_selections=territory_selections
-                )
-                logger.debug(f"✅ Two-stage scoring: {result.percentage:.0f}% ({result.total_tokens} tokens)")
-                return result
-            except Exception as e:
-                logger.error(f"❌ Two-stage failed: {e}, falling back to legacy")
-                # Continue vers legacy mode en cas d'erreur
-        
-        # ===== LEGACY MODE (inchangé pour compatibilité) =====
         logger.info("Using LEGACY scoring mode")
         
         student_normalized = self._normalize_concepts(student_concepts)
         expected_normalized = self._normalize_concepts(expected_concepts)
         
-        # 🎯 CAS SPÉCIAL: "ECG normal" valide TOUS les concepts normaux
+        # 🎯 FILTRER les concepts "📝 Description" - Ne noter QUE les "🎯 Diagnostic validant"
+        expected_validants = []
+        for concept in expected_normalized:
+            annotation_role = self._get_annotation_role(concept['text'], annotations)
+            if annotation_role != '📝 Description':
+                expected_validants.append(concept)
+            else:
+                logger.debug(f"⏭️ Concept descriptif ignoré (non noté): '{concept['text']}'")
+        
+        
+        # 🎯 CAS SPÉCIAL: "ECG normal" valide TOUS les concepts normaux validants
         if self._is_global_normal_statement(student_normalized):
-            return self._score_global_normal(expected_normalized)
+            return self._score_global_normal(expected_validants, annotations=annotations)
         
         matches = []
         matched_expected = set()
         
-        # 1. Matcher chaque concept étudiant
+        # 1. Matcher chaque concept étudiant contre les concepts VALIDANTS uniquement
         for student_concept in student_normalized:
             match = self._find_best_match(
                 student_concept,
-                expected_normalized,
+                expected_validants,  # ← Utiliser seulement les validants
                 matched_expected
             )
             matches.append(match)
@@ -184,37 +156,23 @@ class SemanticScorer:
             if match.expected_concept and match.score > 50:
                 matched_expected.add(match.expected_concept)
         
-        # 2. Concepts manquants - VÉRIFIER si impliqués par un diagnostic donné
-        for expected_concept in expected_normalized:
+        # 2. Concepts manquants - marquer comme MISSING (pas d'implication automatique)
+        for expected_concept in expected_validants:  # ← Utiliser seulement les validants
             if expected_concept['text'] not in matched_expected:
-                # Vérifier si un concept étudiant IMPLIQUE ce concept manquant
-                implied_by = self._check_if_implied(student_normalized, expected_concept['text'])
-                
-                if implied_by:
-                    # Concept validé par implication
-                    matches.append(ConceptMatch(
-                        student_concept=implied_by,
-                        expected_concept=expected_concept['text'],
-                        match_type=MatchType.CHILD,
-                        score=100.0,
-                        explanation=f"✅ Validé par implication: '{implied_by}' implique '{expected_concept['text']}'",
-                        category=expected_concept['category']
-                    ))
-                else:
-                    # Vraiment manquant
-                    matches.append(ConceptMatch(
-                        student_concept=None,
-                        expected_concept=expected_concept['text'],
-                        match_type=MatchType.MISSING,
-                        score=0.0,
-                        explanation=f"Concept manquant: {expected_concept['text']}",
-                        category=expected_concept['category']
-                    ))
+                # Concept vraiment manquant (pas de vérification d'implication)
+                matches.append(ConceptMatch(
+                    student_concept=None,
+                    expected_concept=expected_concept['text'],
+                    match_type=MatchType.MISSING,
+                    score=0.0,
+                    explanation=f"❌ Concept manquant: {expected_concept['text']}",
+                    category=expected_concept['category']
+                ))
         
-        # 3. Calculer score total avec pénalités territoire
+        # 3. Calculer score total avec pénalités territoire (seulement sur concepts validants)
         return self._calculate_total_score(
             matches, 
-            len(expected_normalized),
+            len(expected_validants),  # ← Nombre de validants uniquement
             annotations=annotations,
             territory_selections=territory_selections
         )
@@ -293,32 +251,56 @@ class SemanticScorer:
         
         return False
     
-    def _score_global_normal(self, expected_concepts: List[Dict]) -> ScoringResult:
+    def _score_global_normal(
+        self, 
+        expected_concepts: List[Dict],
+        annotations: Optional[List[Dict]] = None
+    ) -> ScoringResult:
         """
         Score une réponse "ECG normal" globale
         
+        RÈGLE IMPORTANTE: Seuls les concepts "🎯 Diagnostic validant" sont notés.
+        Les concepts "📝 Description" ne comptent PAS dans le score (exclus du calcul).
+        
         Logique:
-        - Si TOUS les concepts attendus sont "normaux" → 100%
-        - Si certains concepts sont pathologiques → score partiel avec explication
+        - Concepts "🎯 Diagnostic validant" normaux → 100% validés
+        - Concepts "📝 Description" → IGNORÉS (ne comptent pas dans le score)
+        - Concepts pathologiques → 0% (contradiction)
+        
+        Args:
+            expected_concepts: Concepts attendus
+            annotations: Annotations avec rôles (pour filtrer validant vs descriptif)
         """
         matches = []
+        num_validant_concepts = 0  # Compter seulement les concepts validants
         
         for expected in expected_concepts:
+            # Trouver le rôle de l'annotation
+            annotation_role = self._get_annotation_role(expected['text'], annotations)
+            
+            # 🎯 IGNORER les concepts "📝 Description" (ne pas les noter du tout)
+            if annotation_role == '📝 Description':
+                logger.debug(f"⏭️ Concept descriptif ignoré (non noté): '{expected['text']}'")
+                continue  # Passer au concept suivant sans l'ajouter aux matches
+            
+            # Compter seulement les concepts validants ou sans rôle défini
+            num_validant_concepts += 1
+            
             # Vérifier si le concept attendu est "normal"
             is_normal_concept = self._is_normal_concept(expected['text'])
             
             if is_normal_concept:
-                # Concept normal → validé par "ECG normal"
+                # Diagnostic validant normal → Validé par "ECG normal"
                 matches.append(ConceptMatch(
                     student_concept="ecg normal",
                     expected_concept=expected['text'],
                     match_type=MatchType.PARENT,
                     score=100.0,
-                    explanation=f"✅ Validé par 'ECG normal' (concept parent)",
+                    explanation="✅ Validé par 'ECG normal' (diagnostic global)",
                     category=expected['category']
                 ))
             else:
-                # Concept pathologique → manquant (l'étudiant aurait dû le préciser)
+                # Concept pathologique → contradiction
                 matches.append(ConceptMatch(
                     student_concept="ecg normal",
                     expected_concept=expected['text'],
@@ -328,7 +310,31 @@ class SemanticScorer:
                     category=expected['category']
                 ))
         
-        return self._calculate_total_score(matches, len(expected_concepts))
+        # Calculer le score sur le nombre de concepts VALIDANTS uniquement
+        return self._calculate_total_score(matches, num_validant_concepts)
+    
+    def _get_annotation_role(self, concept_text: str, annotations: Optional[List[Dict]]) -> Optional[str]:
+        """
+        Récupère le rôle d'annotation pour un concept donné
+        
+        Args:
+            concept_text: Texte du concept (normalisé en lowercase)
+            annotations: Liste des annotations avec leurs rôles
+            
+        Returns:
+            Rôle de l'annotation ('🎯 Diagnostic validant', '📝 Description', '❌ Exclusion')
+            ou None si pas d'annotation trouvée
+        """
+        if not annotations:
+            return None
+        
+        # Chercher l'annotation correspondante
+        for ann in annotations:
+            # Comparer en lowercase pour éviter problèmes de casse
+            if ann.get('concept', '').lower().strip() == concept_text.lower().strip():
+                return ann.get('annotation_role', '📝 Description')
+        
+        return None
     
     def _is_normal_concept(self, concept_text: str) -> bool:
         """
@@ -520,63 +526,149 @@ class SemanticScorer:
                 category=category
             )
         
-        # 2. Vérifier implications médicales (basées sur ontologie)
-        # 2a. Étudiant → Attendu (ex: "BAV 1" implique "PR allongé")
+        # 🆕 1d. Match par synonymes de l'ontologie OWL (DÉTERMINISTE - avant LLM)
+        # Ex: Attendu "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST"
+        #     Étudiant: "stemi inferieur" → "STEMI" est un synonyme → EQUIVALENT
+        if _owl_resolver:
+            expected_synonyms = _owl_resolver.get_synonyms(expected_text)
+            student_lower = student_text.lower().strip()
+            student_no_accent = student_lower
+            try:
+                from unidecode import unidecode as _unidecode
+                student_no_accent = _unidecode(student_lower)
+            except ImportError:
+                pass
+            
+            for syn in expected_synonyms:
+                syn_lower = syn.lower().strip()
+                syn_no_accent = syn_lower
+                try:
+                    syn_no_accent = _unidecode(syn_lower)
+                except Exception:
+                    pass
+                
+                # Synonyme exact ou étudiant contient le synonyme (+ localisation)
+                # "stemi inferieur" contient "stemi" → EQUIVALENT
+                if syn_lower == student_lower or syn_no_accent == student_no_accent:
+                    return ConceptMatch(
+                        student_concept=student_text,
+                        expected_concept=expected_text,
+                        match_type=MatchType.EXACT,
+                        score=100.0,
+                        explanation=f"✅ Synonyme reconnu (ontologie): '{student_text}' = '{syn}' = '{expected_text}'",
+                        category=category
+                    )
+                if syn_no_accent in student_no_accent or syn_lower in student_lower:
+                    # Étudiant a donné synonyme + localisation (ex: "stemi inferieur")
+                    return ConceptMatch(
+                        student_concept=student_text,
+                        expected_concept=expected_text,
+                        match_type=MatchType.EXACT,
+                        score=100.0,
+                        explanation=f"✅ Synonyme + précision: '{student_text}' contient '{syn}' (synonyme de '{expected_text}')",
+                        category=category
+                    )
+            
+            # Vérifier aussi les synonymes du concept étudiant → si un synonyme de l'étudiant matche l'attendu
+            student_synonyms = _owl_resolver.get_synonyms(student_text)
+            expected_lower = expected_text.lower().strip()
+            expected_no_accent = expected_lower
+            try:
+                expected_no_accent = _unidecode(expected_lower)
+            except Exception:
+                pass
+            
+            for syn in student_synonyms:
+                syn_lower = syn.lower().strip()
+                syn_no_accent = syn_lower
+                try:
+                    syn_no_accent = _unidecode(syn_lower)
+                except Exception:
+                    pass
+                
+                if syn_lower == expected_lower or syn_no_accent == expected_no_accent:
+                    return ConceptMatch(
+                        student_concept=student_text,
+                        expected_concept=expected_text,
+                        match_type=MatchType.EXACT,
+                        score=100.0,
+                        explanation=f"✅ Synonyme reconnu (ontologie): '{student_text}' ↔ '{syn}' = '{expected_text}'",
+                        category=category
+                    )
+        
+        # 2. Vérifier si l'étudiant a donné un DIAGNOSTIC pour un SIGNE attendu
+        # Ex: Attendu "PR allongé", Étudiant "BAV 1er degré"
+        # → "BAV 1" implique "PR allongé" mais ce n'est PAS ce qui est demandé
+        # → On veut "PR allongé" explicitement, pas un diagnostic parent
         if self._check_medical_implication(student_text, expected_text):
+            # L'étudiant a donné un diagnostic qui IMPLIQUE le signe attendu
+            # Mais on veut le signe, pas le diagnostic → MISSING
+            # Le diagnostic sera marqué EXTRA par ailleurs
             return ConceptMatch(
                 student_concept=student_text,
                 expected_concept=expected_text,
-                match_type=MatchType.CHILD,
-                score=100.0,
-                explanation=f"✅ Validé par implication médicale: '{student_text}' implique '{expected_text}'",
+                match_type=MatchType.MISSING,
+                score=0.0,
+                explanation=f"❌ Attendu '{expected_text}' mais reçu '{student_text}' (diagnostic parent non demandé)",
                 category=category
             )
         
-        # 2b. Attendu → Étudiant (ex: étudiant dit "PR allongé" pour "BAV 1")
-        # L'étudiant a donné un SIGNE au lieu du DIAGNOSTIC complet
+        # 3. Vérifier si l'étudiant a donné un SIGNE pour un DIAGNOSTIC attendu
+        # Ex: Attendu "BAV 1er degré", Étudiant "PR allongé"
+        # → L'étudiant a identifié un signe mais pas le diagnostic complet
         if self._check_medical_implication(expected_text, student_text):
+            # L'étudiant a donné un signe d'un diagnostic attendu
             return ConceptMatch(
                 student_concept=student_text,
                 expected_concept=expected_text,
                 match_type=MatchType.PARTIAL,
-                score=40.0,  # Score partiel
-                explanation=f"⚠️ Signe correct mais incomplet: '{student_text}' est un signe de '{expected_text}', mais pas le diagnostic complet",
+                score=85.0,  # Note dégradée (signe correct mais diagnostic incomplet)
+                explanation=f"⚠️ Signe identifié mais diagnostic incomplet: '{student_text}' est un signe de '{expected_text}'",
                 category=category
             )
         
-        # 3. Matching sémantique avec GPT-4o-mini
+        # 4. Matching sémantique avec GPT-4o-mini
         try:
             prompt = f"""Tu es un expert cardiologue. Compare ces deux concepts ECG:
 
 Concept étudiant: "{student_text}"
 Concept attendu: "{expected_text}"
 
-Détermine leur relation sémantique MÉDICALE:
+Détermine leur relation sémantique MÉDICALE avec RÈGLES STRICTES:
 
-- EQUIVALENT: Synonymes ou équivalents
+- EQUIVALENT: Synonymes, abréviations, acronymes, ou équivalents
   * "BAV 1" = "BAV de type 1" = "BAV du 1er degré"
   * "QRS fins" = "QRS normaux"
-  * "Péricardite" = "Péricardite sus-décalage" (même diagnostic avec précision supplémentaire)
-  * Si le concept étudiant CONTIENT le concept attendu + détails → EQUIVALENT
+  * "Péricardite" = "Péricardite sus-décalage" (même diagnostic avec précision)
+  * "STEMI" = "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST" (acronyme)
+  * "NSTEMI" = "Syndrome coronarien à la phase aigue sans élévation du segment ST" (acronyme)
+  * "FA" = "Fibrillation auriculaire" (acronyme)
+  * "BBG" = "Bloc de branche gauche" (acronyme)
+  * Si le concept étudiant est un ACRONYME du concept attendu → EQUIVALENT
+  * Si le concept étudiant CONTIENT le concept attendu + détails (localisation, précision) → EQUIVALENT
+  * Si le concept étudiant = concept attendu + localisation (ex: "STEMI inférieur") → EQUIVALENT
 
-- CHILD: L'étudiant a donné un DIAGNOSTIC qui implique le SIGNE attendu
+- PARENT: L'étudiant a donné un SIGNE pour un DIAGNOSTIC attendu
+  * Étudiant dit "PR allongé" pour "BAV 1" attendu
+  * Étudiant dit "QRS larges" pour "BBG complet" attendu
+  * L'étudiant identifie un signe mais PAS le diagnostic complet
+  * ⚠️ SCORING: 85% (note dégradée)
+
+- CHILD: L'étudiant a donné un DIAGNOSTIC pour un SIGNE attendu
   * Étudiant dit "BAV 1" pour "PR allongé" attendu
   * Étudiant dit "BBG complet" pour "QRS larges" attendu
-  * Le diagnostic EXPLIQUE le signe
-
-- PARENT: L'étudiant a donné SEULEMENT un SIGNE pour un DIAGNOSTIC attendu
-  * Étudiant dit "PR allongé" pour "BAV 1" attendu (manque le diagnostic)
-  * Étudiant dit "onde P bloquée" pour "BAV 2" attendu (manque le diagnostic)
-  * ⚠️ NE PAS confondre avec "diagnostic + signe" qui est EQUIVALENT
+  * ⚠️ SCORING: 0% (MISSING - on veut le signe, pas le diagnostic)
 
 - SIBLING: Concepts reliés mais différents (ex: "QRS larges" vs "QRS fins")
 
 - DIFFERENT: Concepts totalement différents
 
-⚠️ RÈGLES IMPORTANTES:
-1. Si l'étudiant donne le DIAGNOSTIC attendu + des détails (territoire, localisation) → EQUIVALENT, pas PARENT
-2. PARENT uniquement si l'étudiant donne SEULEMENT un signe SANS le diagnostic
-3. "Péricardite sus-décalage" contient "Péricardite" → EQUIVALENT
+⚠️ RÈGLES CRITIQUES:
+1. Si attendu = SIGNE et étudiant = DIAGNOSTIC qui implique ce signe → CHILD (0%)
+2. Si attendu = DIAGNOSTIC et étudiant = SIGNE de ce diagnostic → PARENT (85%)
+3. Si étudiant utilise un ACRONYME du concept attendu (STEMI, NSTEMI, FA, BBG, BBD, BAV, etc.) → EQUIVALENT (100%)
+4. Si étudiant = concept attendu + localisation/précision → EQUIVALENT (100%)
+5. On note EXACTEMENT ce qui est demandé, pas plus, pas moins
 
 Réponds UNIQUEMENT avec ce JSON:
 {{"relationship": "EQUIVALENT|CHILD|PARENT|SIBLING|DIFFERENT", "confidence": 0.0-1.0, "explanation": "courte explication en français"}}"""
@@ -607,26 +699,28 @@ Réponds UNIQUEMENT avec ce JSON:
                     category=category
                 )
             
-            elif relationship == 'CHILD' and confidence > 0.6:
-                return ConceptMatch(
-                    student_concept=student_text,
-                    expected_concept=expected_text,
-                    match_type=MatchType.CHILD,
-                    score=90.0,
-                    explanation=f"✅ Très bien ! {explanation}",
-                    category=category
-                )
-            
             elif relationship == 'PARENT' and confidence > 0.6:
-                # PARENT = L'étudiant a donné un SIGNE pour un DIAGNOSTIC attendu
-                # Ex: "onde P bloquée" pour "BAV 2 Mobitz 2"
-                # Score partiel car signe correct mais diagnostic incomplet
+                # PARENT = Étudiant a donné SIGNE pour DIAGNOSTIC attendu
+                # Ex: "PR allongé" pour "BAV 1" attendu
                 return ConceptMatch(
                     student_concept=student_text,
                     expected_concept=expected_text,
                     match_type=MatchType.PARTIAL,
-                    score=40.0,  # Score partiel cohérent avec requiresFindings inverse
-                    explanation=f"⚠️ Signe correct mais diagnostic incomplet : {explanation}",
+                    score=85.0,  # Note dégradée
+                    explanation=f"⚠️ Signe identifié mais diagnostic incomplet: {explanation}",
+                    category=category
+                )
+            
+            elif relationship == 'CHILD' and confidence > 0.6:
+                # CHILD = Étudiant a donné DIAGNOSTIC pour SIGNE attendu
+                # Ex: "BAV 1" pour "PR allongé" attendu
+                # → On veut le SIGNE, pas le diagnostic parent
+                return ConceptMatch(
+                    student_concept=student_text,
+                    expected_concept=expected_text,
+                    match_type=MatchType.MISSING,
+                    score=0.0,
+                    explanation=f"❌ Diagnostic parent donné mais signe attendu: {explanation}",
                     category=category
                 )
             

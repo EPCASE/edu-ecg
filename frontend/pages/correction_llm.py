@@ -624,15 +624,15 @@ def perform_correction(case_data, student_answer):
                 
                 if match_found:
                     # 🆕 SCORING À 3 NIVEAUX HIÉRARCHIQUE
-                    # Niveau 1 (100%): Concept exact (parent) ex: "BAV 2 Mobitz 1"
+                    # Niveau 1 (100%): Concept exact ou EQUIVALENT (synonyme/acronyme)
                     # Niveau 2 (75%): Tous les findings OU concept enfant direct
                     # Niveau 3 (50%): Findings partiels OU concept petit-enfant
                     
                     final_score_pct = score_pct
                     
-                    # CHECK 1: Est-ce un match exact du concept parent?
-                    if match_type == 'exact':
-                        # ✅ NIVEAU 1: Concept exact → 100%
+                    # CHECK 1: Score déjà à 100% (exact match, synonyme, ou EQUIVALENT LLM)?
+                    if score_pct >= 100.0 or match_type == 'exact':
+                        # ✅ NIVEAU 1: Concept exact/équivalent → 100%
                         final_score_pct = 100.0
                     
                     # CHECK 2: Est-ce un concept enfant (child/implication)?
@@ -645,7 +645,12 @@ def perform_correction(case_data, student_answer):
                             # ✅ NIVEAU 3: Concept petit-enfant → 50%
                             final_score_pct = 50.0
                     
-                    # CHECK 3: Pour les autres types de match, vérifier les findings
+                    # CHECK 3: Match partiel (signe pour diagnostic) → garder le score LLM (85%)
+                    elif match_type == 'partial' and score_pct > 0:
+                        # Le LLM a déjà attribué un score dégradé (85%), on le garde
+                        final_score_pct = score_pct
+                    
+                    # CHECK 4: Pour les autres types de match, vérifier les findings
                     else:
                         implications = concept_weights[expected].get('implications', [])
                         
@@ -840,6 +845,7 @@ def perform_correction(case_data, student_answer):
                 territory_selections=territory_selections,
                 territory_matches=territory_matches,
                 bonus_territoire=bonus_territoire,
+                neighbor_matches=neighbor_matches,
                 descriptive_concepts=descriptive_concepts,
                 matched_descriptive=matched_descriptive,
                 descriptive_match_details=descriptive_match_details,
@@ -861,6 +867,7 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
                     territory_selections=None,
                     territory_matches=None,
                     bonus_territoire=0.0,
+                    neighbor_matches=None,
                     descriptive_concepts=None,
                     matched_descriptive=None,
                     descriptive_match_details=None,
@@ -876,6 +883,8 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
         descriptive_match_details = {}
     if descriptive_weights is None:
         descriptive_weights = {}
+    if neighbor_matches is None:
+        neighbor_matches = []
     
     # CSS pour cartes stylisées
     st.markdown("""
@@ -1255,7 +1264,7 @@ def run_correction_for_case(student_annotations, expert_concepts, case_id):
     """
     try:
         from backend.services.llm_service import LLMService
-        from backend.services.scoring_service_llm import SemanticScorer
+        from backend.scoring_service_llm import SemanticScorer
         
         # Initialize services
         llm_service = LLMService()

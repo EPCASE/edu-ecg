@@ -686,11 +686,18 @@ class RDFOWLExtractor:
                 "poids": weight
             })
             
-            # Ajouter au mapping (fusionner avec synonymes existants + altLabels)
+            # Ajouter au mapping (fusionner avec synonymes existants + altLabels + labels EN)
             existing_concept = existing_synonymes.get(concept_id, {})
             
-            # Combiner synonymes : existants + altLabels de l'ontologie
+            # Combiner synonymes : existants + altLabels de l'ontologie + rdfs:label en
             all_synonymes = list(existing_concept.get('synonymes', []))
+            
+            # 🆕 Ajouter les rdfs:label EN comme synonymes (souvent des labels FR alternatifs mal étiquetés)
+            all_en_labels = [v for k, v in labels.items() if k != 'fr' and v and v != label_fr]
+            for en_label in all_en_labels:
+                if en_label not in all_synonymes:
+                    all_synonymes.append(en_label)
+            
             altlabels = self.classes_altlabels.get(class_iri, [])
             for altlabel in altlabels:
                 if altlabel not in all_synonymes and altlabel != label_fr:
