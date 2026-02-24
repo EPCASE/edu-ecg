@@ -96,3 +96,10 @@ data/epic1_ontology_mapping.json
 
 # Dataset EPIC1 (fichiers volumineux)
 data/epi1c_dataset/
+
+# Fichiers OWL (volumineux, source WebProtégé)
+*.owl
+
+# Scripts utilitaires temporaires
+_regen.py
+list_ontology.py

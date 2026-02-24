@@ -1,0 +1,37 @@
+{
+  "_description": "Enrichissements manuels de l'ontologie. Appliqués automatiquement après la génération depuis WebProtégé OWL. Ces corrections compensent les limitations de l'ontologie OWL (synonymes manquants, implications incorrectes). À terme, intégrer ces corrections dans WebProtégé directement.",
+  "_last_updated": "2026-01-11",
+  "_instructions": "Chaque entrée utilise le concept_id (ex: FAISCEAU_ACCESSOIRE_À_CONDUCTION_ANTÉROGRADE). Les opérations possibles sont: add_synonymes, add_implications, remove_implications, override_synonymes, override_implications.",
+
+  "enrichments": [
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_À_CONDUCTION_ANTÉROGRADE",
+      "reason": "Concept critique sans synonymes dans l'OWL. Les étudiants écrivent 'WPW', 'Pré-excitation', 'Voie accessoire' etc. Sans synonymes, le scorer ne peut pas matcher.",
+      "add_synonymes": [
+        "Faisceau accessoire",
+        "Voie accessoire",
+        "WPW",
+        "Wolff-Parkinson-White",
+        "Wolf-Parkinson-White",
+        "Pré-excitation ventriculaire",
+        "Préexcitation ventriculaire",
+        "Syndrome de WPW"
+      ],
+      "add_implications": [
+        "Préexcitation ventriculaire",
+        "PR court",
+        "Onde delta"
+      ]
+    },
+    {
+      "concept_id": "PRÉEXCITATION_VENTRICULAIRE",
+      "reason": "L'OWL définit 'Faisceau accessoire à conduction antérograde' comme implication, mais c'est l'inverse : le faisceau implique la préexcitation, pas le contraire. Cette implication erronée provoquait un score de 0% au lieu de 100% quand l'étudiant écrivait 'Préexcitation' et la réponse attendue était 'Faisceau accessoire'.",
+      "remove_implications": [
+        "Faisceau accessoire à conduction antérograde"
+      ],
+      "add_implications": [
+        "Onde delta"
+      ]
+    }
+  ]
+}

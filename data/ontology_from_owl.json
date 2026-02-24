@@ -185,6 +185,12 @@
           "poids": 3
         },
         {
+          "ontology_id": "MICROVOLTAGE",
+          "concept_name": "Microvoltage",
+          "label_en": "Low amplitude QRS",
+          "poids": 3
+        },
+        {
           "ontology_id": "SARCOIDOSE",
           "concept_name": "Sarcoidose",
           "label_en": "Sarcoidosis",
@@ -629,6 +635,12 @@
           "poids": 2
         },
         {
+          "ontology_id": "ESV_MONOMORPHE",
+          "concept_name": "ESV monomorphe",
+          "label_en": "ESV monomorphe",
+          "poids": 2
+        },
+        {
           "ontology_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
           "concept_name": "Bloc de branche gauche complet",
           "label_en": "Complete LBBB",
@@ -644,6 +656,12 @@
           "ontology_id": "ARYTHMIE_SINUSALE",
           "concept_name": "Arythmie sinusale",
           "label_en": "Respiratory sinus arrhythmia",
+          "poids": 2
+        },
+        {
+          "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
+          "concept_name": "Bloc de branche gauche",
+          "label_en": "Left bundle branch block",
           "poids": 2
         },
         {
@@ -812,6 +830,12 @@
           "ontology_id": "RÉPONSE_VENTRICULAIRE_LENTE",
           "concept_name": "Réponse ventriculaire lente",
           "label_en": "Slow ventricular response",
+          "poids": 2
+        },
+        {
+          "ontology_id": "BLOC_DE_BRANCHE_DROIT",
+          "concept_name": "Bloc de branche droit",
+          "label_en": "Right bundle branch block",
           "poids": 2
         },
         {
@@ -1025,12 +1049,6 @@
           "poids": 1
         },
         {
-          "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
-          "concept_name": "Bloc de branche gauche",
-          "label_en": "Left bundle branch block",
-          "poids": 1
-        },
-        {
           "ontology_id": "AVR",
           "concept_name": "AVR",
           "label_en": "AVR",
@@ -1205,6 +1223,12 @@
           "poids": 1
         },
         {
+          "ontology_id": "INFÉRIEUR",
+          "concept_name": "Inférieur",
+          "label_en": "Inférieur",
+          "poids": 1
+        },
+        {
           "ontology_id": "V2R",
           "concept_name": "V2R",
           "label_en": "V2R",
@@ -1214,6 +1238,12 @@
           "ontology_id": "LOCALISATION_FAISCEAU_ACCESSOIRE",
           "concept_name": "Localisation faisceau accessoire",
           "label_en": "Kent localization",
+          "poids": 1
+        },
+        {
+          "ontology_id": "ECHAPPEMENT_VENTRICULAIRE",
+          "concept_name": "Echappement ventriculaire",
+          "label_en": "Echappement ventriculaire",
           "poids": 1
         },
         {
@@ -1259,9 +1289,9 @@
           "poids": 1
         },
         {
-          "ontology_id": "RHYTME_RÉGULIER",
-          "concept_name": "Rhytme régulier",
-          "label_en": "Rhytme régulier",
+          "ontology_id": "RYTHME_RÉGULIER",
+          "concept_name": "rythme régulier",
+          "label_en": "rythme régulier",
           "poids": 1
         },
         {
@@ -1349,6 +1379,12 @@
           "poids": 1
         },
         {
+          "ontology_id": "BANDELETTE_MODÉRATRICE",
+          "concept_name": "Bandelette modératrice",
+          "label_en": "Bandelette modératrice",
+          "poids": 1
+        },
+        {
           "ontology_id": "AXE_NORMAL",
           "concept_name": "Axe normal",
           "label_en": "Axe normal",
@@ -1403,9 +1439,21 @@
           "poids": 1
         },
         {
+          "ontology_id": "LATÉRAL_DROIT",
+          "concept_name": "Latéral droit",
+          "label_en": "Right lateral",
+          "poids": 1
+        },
+        {
           "ontology_id": "LATÉRAL_GAUCHE",
           "concept_name": "Latéral gauche",
           "label_en": "Left lateral",
+          "poids": 1
+        },
+        {
+          "ontology_id": "RÉSEAU_DE_PURKINJE",
+          "concept_name": "Réseau de purkinje",
+          "label_en": "Purkinje network",
           "poids": 1
         },
         {
@@ -1475,6 +1523,12 @@
           "poids": 1
         },
         {
+          "ontology_id": "BRANCHE_DROITE",
+          "concept_name": "Branche droite",
+          "label_en": "Branche droite",
+          "poids": 1
+        },
+        {
           "ontology_id": "MUSCLE_PAPILLAIRE_ANTÉRO_LATÉRAL",
           "concept_name": "Muscle papillaire antéro-latéral",
           "label_en": "Antero-lateral papillary muscle",
@@ -1484,6 +1538,12 @@
           "ontology_id": "STIMULATION_BIVENTRICULAIRE",
           "concept_name": "Stimulation biventriculaire",
           "label_en": "Biventricular pacing",
+          "poids": 1
+        },
+        {
+          "ontology_id": "BRANCHE_GAUCHE",
+          "concept_name": "Branche gauche",
+          "label_en": "Branche gauche",
           "poids": 1
         },
         {
@@ -1535,12 +1595,6 @@
           "poids": 1
         },
         {
-          "ontology_id": "ESV_ATYPIQUE_DE_LA_CCVD",
-          "concept_name": "ESV atypique de la CCVD",
-          "label_en": "Atypical PVC from RVOT",
-          "poids": 1
-        },
-        {
           "ontology_id": "ABSENCE_D'ONDE_P",
           "concept_name": "Absence d'onde P",
           "label_en": "Absence d'onde P",
@@ -1550,6 +1604,12 @@
           "ontology_id": "SOUS_PQ",
           "concept_name": "sous-PQ",
           "label_en": "sous-PQ",
+          "poids": 1
+        },
+        {
+          "ontology_id": "ONDE_T_AMPLE",
+          "concept_name": "Onde T ample",
+          "label_en": "Onde T ample",
           "poids": 1
         },
         {
@@ -1586,6 +1646,12 @@
           "ontology_id": "TRÉMULATION_DE_LA_LIGNE_DE_BASE",
           "concept_name": "Trémulation de la ligne de base",
           "label_en": "Trémulation de la ligne de base",
+          "poids": 1
+        },
+        {
+          "ontology_id": "BRADYCARDIE",
+          "concept_name": "Bradycardie",
+          "label_en": "Bradycardie",
           "poids": 1
         },
         {
@@ -1631,12 +1697,6 @@
           "poids": 1
         },
         {
-          "ontology_id": "ECHAPPEMENT_VENTRICULAIRE",
-          "concept_name": "Echappement ventriculaire",
-          "label_en": "Echappement ventriculaire",
-          "poids": 1
-        },
-        {
           "ontology_id": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
           "concept_name": "Trouble de conduction intraventriculaire",
           "label_en": "Intraventricular conduction anomaly",
@@ -1673,21 +1733,21 @@
           "poids": 1
         },
         {
-          "ontology_id": "LATÉRAL_DROIT",
-          "concept_name": "Latéral droit",
-          "label_en": "Right lateral",
-          "poids": 1
-        },
-        {
-          "ontology_id": "BLOC_DE_BRANCHE_DROIT",
-          "concept_name": "Bloc de branche droit",
-          "label_en": "Right bundle branch block",
+          "ontology_id": "HÉMI_BRANCHE_ANTÉRIEURE_DROITE",
+          "concept_name": "hémi-branche antérieure droite",
+          "label_en": "hémi-branche antérieure droite",
           "poids": 1
         },
         {
           "ontology_id": "ABSENCE_D'ALLONGEMENT_DE_L'INTERVALLE_PR",
           "concept_name": "Absence d'allongement de l'intervalle PR",
           "label_en": "Absence d'allongement de l'intervalle PR",
+          "poids": 1
+        },
+        {
+          "ontology_id": "HÉMI_BRANCHE_ANTÉRIEURE_GAUCHE",
+          "concept_name": "hémi-branche antérieure gauche",
+          "label_en": "hémi-branche antérieure gauche",
           "poids": 1
         },
         {
@@ -1721,14 +1781,14 @@
     "CIRCONFÉRENTIEL": {
       "nom": "Circonférentiel",
       "electrodes": [
-        "V3",
-        "AVF",
-        "V5",
-        "V4",
-        "AVL",
-        "DII",
-        "V6",
         "V2",
+        "V6",
+        "V4",
+        "AVF",
+        "DII",
+        "V5",
+        "AVL",
+        "V3",
         "V1"
       ]
     },
@@ -1759,23 +1819,24 @@
     "PERTE_DES_ONDE_Q_SEPTALES": {
       "nom": "Perte des onde Q septales",
       "electrodes": [
-        "V1"
+        "V5",
+        "V6"
       ]
     },
     "VENTRICULE_DROIT": {
       "nom": "Ventricule droit",
       "electrodes": [
         "V2R",
-        "V3R",
-        "V1"
+        "V1",
+        "V3R"
       ]
     },
     "LATÉRAL": {
       "nom": "Latéral",
       "electrodes": [
         "DI",
-        "V6",
-        "AVL"
+        "AVL",
+        "V6"
       ]
     },
     "ALLONGEMENT_PROGRESSIF_DE_L'INTERVALLE_PR": {
@@ -1799,27 +1860,27 @@
     "APICALE": {
       "nom": "Apicale",
       "electrodes": [
-        "V4",
-        "V3"
+        "V3",
+        "V4"
       ]
     },
     "ANTÉRIEUR": {
       "nom": "Antérieur",
       "electrodes": [
-        "V1",
         "V3",
-        "V2"
+        "V2",
+        "V1"
       ]
     },
     "POSTÉRIEUR": {
       "nom": "Postérieur",
       "electrodes": [
+        "V9",
         "AVF",
         "V8",
         "DII",
-        "V9",
-        "DIII",
-        "V7"
+        "V7",
+        "DIII"
       ]
     },
     "DÉVIATION_AXIALE": {
@@ -2003,7 +2064,9 @@
     "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE": {
       "concept_name": "Tachycardie ventriculaire polymorphe",
       "synonymes": [
-        "Polymorphic ventricular tachycardia"
+        "Polymorphic ventricular tachycardia",
+        "Polymorphic VT",
+        "TV polymorphe"
       ],
       "implications": [
         "Tachycardie ventriculaire bidirectionnelle",
@@ -2067,6 +2130,22 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
+    "MICROVOLTAGE": {
+      "concept_name": "Microvoltage",
+      "synonymes": [
+        "Low amplitude QRS"
+      ],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 3,
+      "categorie": "DIAGNOSTIC_MAJEUR"
+    },
     "BLOC_DE_BRANCHE": {
       "concept_name": "Bloc de branche",
       "synonymes": [
@@ -2114,7 +2193,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -2455,7 +2539,9 @@
     "EXTRASYSTOLE_ATRIALE": {
       "concept_name": "Extrasystole atriale",
       "synonymes": [
-        "Premature atrial contraction"
+        "Premature atrial contraction",
+        "ESA",
+        "PAC"
       ],
       "implications": [
         "ESA monomorphes multiples"
@@ -2598,7 +2684,9 @@
       ],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Hyperkaliémie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -2697,12 +2785,13 @@
         "QRS",
         "Une onde P bloquée",
         "Perte des onde Q septales",
+        "Bradycardie",
         "Allongement progressif de l'intervalle PR",
         "PR allongé",
         "Onde epsilon",
         "segment ST",
         "Absence de QRS",
-        "Rhytme régulier",
+        "rythme régulier",
         "Déviation axiale",
         "Dissociation atrio-ventriculaire",
         "Toit d'usine",
@@ -2744,9 +2833,12 @@
     "DYSFONCTION_SINUSALE": {
       "concept_name": "Dysfonction sinusale",
       "synonymes": [
-        "Sinus node dysfunction"
+        "Sinus node dysfunction",
+        "SND"
       ],
       "implications": [
+        "Bradycardie sinusale",
+        "Rythme sinusal",
         "Bloc sino-atrial",
         "Paralysie sinusale"
       ],
@@ -2762,24 +2854,53 @@
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
+    "ESV_MONOMORPHE": {
+      "concept_name": "ESV monomorphe",
+      "synonymes": [
+        "Extrasystole ventriculaire monomorphe"
+      ],
+      "implications": [],
+      "territoires_possibles": [
+        "localisation ESV"
+      ],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 2,
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE"
+    },
     "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST": {
       "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
       "synonymes": [
         "Infarctus à la phase aiguës avec sus-décalage du segment ST",
         "SCA-ST +",
         "STEMI",
-        "Syndrome coronarien sans sus-décalage"
+        "Syndrome coronarien avec sus-décalage"
       ],
       "implications": [
         "Sous-décalage du segment ST",
         "Sus-décalage du segment ST"
       ],
       "territoires_possibles": [
+        "Miroir",
         "Localisation IDM"
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": "critique",
+        "may_have_territory": true,
+        "may_have_mirror": true,
+        "required_territory": true
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -2807,7 +2928,9 @@
       ],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Hypercalcémie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -2871,7 +2994,9 @@
     "ANOMALIE_DES_ONDES_T": {
       "concept_name": "Anomalie des ondes T",
       "synonymes": [
-        "T-wave anomaly"
+        "T-wave anomaly",
+        "$ T-wave anomaly",
+        "Inversion $ des ondes T"
       ],
       "implications": [
         "Alternance des ondes T",
@@ -2935,7 +3060,9 @@
     "PRÉEXCITATION_VENTRICULAIRE_PAR_FIBRE_DE_MAHAÏM": {
       "concept_name": "Préexcitation ventriculaire par fibre de Mahaïm",
       "synonymes": [
-        "Mahaim fiber ventricular preexcitation"
+        "Mahaim fiber ventricular preexcitation",
+        "Guiraudon-Klein fiber ventricular preexcitation",
+        "Préexcitation ventriculaire par fibre de Guiraudon-Klein"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -2967,9 +3094,12 @@
     "ARYTHMIE_SINUSALE": {
       "concept_name": "Arythmie sinusale",
       "synonymes": [
-        "Respiratory sinus arrhythmia"
+        "Respiratory sinus arrhythmia",
+        "Arythmie sinusale respiratoire"
       ],
-      "implications": [],
+      "implications": [
+        "Rythme sinusal"
+      ],
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
@@ -2994,14 +3124,18 @@
         "Bloc de branche gauche incomplet"
       ],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Bloc de branche droit"
+      ],
       "voisins": [],
       "territory_metadata": null,
-      "origin_structures": [],
+      "origin_structures": [
+        "Bloc de branche gauche"
+      ],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
-      "poids": 1,
-      "categorie": "DESCRIPTEUR_ECG"
+      "poids": 2,
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
     "EXTRASYSTOLE_VENTRICULAIRE": {
       "concept_name": "Extrasystole ventriculaire",
@@ -3012,6 +3146,7 @@
       ],
       "implications": [
         "Doublet ventriculaire",
+        "ESV monomorphe",
         "Multiples ESV monomorphes",
         "Extrasystoles ventriculaires polymorphes",
         "Triplet ventriculaire"
@@ -3021,7 +3156,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -3104,7 +3244,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -3133,9 +3278,13 @@
     "AMYLOSE": {
       "concept_name": "Amylose",
       "synonymes": [
-        "Amyloidosis"
+        "Amyloidosis",
+        "Cardiopathie amyloide"
       ],
-      "implications": [],
+      "implications": [
+        "Microvoltage",
+        "Perte des onde Q septales"
+      ],
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
@@ -3171,7 +3320,6 @@
       ],
       "implications": [
         "Portion basale du ventricule gauche",
-        "Muscle papillaire",
         "Paroi inférieure du ventricule gauche",
         "Paroi latérale du ventricule gauche",
         "Portion médiale du ventricule gauche",
@@ -3230,6 +3378,8 @@
         "Sinus bradycardia"
       ],
       "implications": [
+        "Bradycardie",
+        "Rythme sinusal",
         "Insuffisance chronotrope"
       ],
       "territoires_possibles": [],
@@ -3261,7 +3411,9 @@
     "INSUFFISANCE_CHRONOTROPE": {
       "concept_name": "Insuffisance chronotrope",
       "synonymes": [],
-      "implications": [],
+      "implications": [
+        "Rythme sinusal"
+      ],
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
@@ -3453,7 +3605,9 @@
     "TACHYCARDIE_ATRIALE": {
       "concept_name": "Tachycardie atriale",
       "synonymes": [
-        "Atrial tachycardia"
+        "Atrial tachycardia",
+        "AT",
+        "TA"
       ],
       "implications": [
         "Flutter atrial"
@@ -3491,7 +3645,10 @@
     "TACHYCARDIE_ATRIALE_FOCALE": {
       "concept_name": "Tachycardie atriale focale",
       "synonymes": [
-        "Ectopic atrial tachycardia"
+        "Ectopic atrial tachycardia",
+        "AT",
+        "TAF",
+        "Tachycardie atriale ectopique"
       ],
       "implications": [
         "Organisée"
@@ -3516,7 +3673,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Postérieur gauche",
+        "Postéro-septal droit"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -3532,7 +3692,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Anterieur gauche",
+        "Mid-septal"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -3561,7 +3724,9 @@
       "synonymes": [
         "Sub-endocardial ischemia"
       ],
-      "implications": [],
+      "implications": [
+        "Onde T ample"
+      ],
       "territoires_possibles": [
         "Localisation IDM"
       ],
@@ -3577,7 +3742,8 @@
     "BAV_2_MOBITZ_1": {
       "concept_name": "BAV 2 Mobitz 1",
       "synonymes": [
-        "Mobitz 1 type 2 AV block"
+        "Mobitz 1 type 2 AV block",
+        "BAV2M1"
       ],
       "implications": [
         "Une onde P bloquée",
@@ -3613,6 +3779,7 @@
         "Sub-endocardial lesion",
         "$ ST-segment depression",
         "ST-segment depression",
+        "Sous-décalage du segment ST",
         "Sous-décalage du segment ST $"
       ],
       "implications": [],
@@ -3631,7 +3798,8 @@
     "RYTHME_IDIOVENTRICULAIRE_ACCÉLÉRÉ": {
       "concept_name": "Rythme idioventriculaire accéléré",
       "synonymes": [
-        "Accelerated idioventricular rhythm"
+        "Accelerated idioventricular rhythm",
+        "RIVA"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -3767,7 +3935,7 @@
         "Infarctus à la phase aigue sans élevation du segment ST",
         "NSTEMI",
         "SCA sans ST +",
-        "Syndrome coronarien ST +"
+        "Syndrome coronarien ST -"
       ],
       "implications": [
         "Sous-décalage du segment ST",
@@ -3779,7 +3947,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": false,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -3799,7 +3972,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -3858,13 +4036,17 @@
         "Normal ECG"
       ],
       "implications": [
+        "Rythme sinusal",
         "Pas d'anomalie de le repolarisation",
         "PR normal",
         "Onde P normale",
         "QRS normal"
       ],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Trouble de repolarisation",
+        "Arrhythmie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -3877,7 +4059,7 @@
       "concept_name": "Tachycardie jonctionelle",
       "synonymes": [],
       "implications": [
-        "Rhytme régulier",
+        "rythme régulier",
         "Tachycardie jonctionelle utilisant une voie accessoire",
         "Tachycardie jonctionnelle ectopique",
         "Tachycardie jonctionnelle par réentrée intra-nodale"
@@ -4046,7 +4228,9 @@
       ],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Hyponatrémie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -4055,10 +4239,25 @@
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
+    "INFÉRIEUR": {
+      "concept_name": "Inférieur",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "EXTRASYSTOLES_VENTRICULAIRES_POLYMORPHES": {
       "concept_name": "Extrasystoles ventriculaires polymorphes",
       "synonymes": [
-        "Polymorphic premature ventricular complex"
+        "Polymorphic premature ventricular complex",
+        "ESV polymorphes"
       ],
       "implications": [],
       "territoires_possibles": [
@@ -4066,7 +4265,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -4095,6 +4299,7 @@
       "concept_name": "Rythme d'échappement jonctionnel",
       "synonymes": [
         "Junctional escape rhythm",
+        "RIJA",
         "Rythme jonctionnel"
       ],
       "implications": [],
@@ -4166,6 +4371,26 @@
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "ECHAPPEMENT_VENTRICULAIRE": {
+      "concept_name": "Echappement ventriculaire",
+      "synonymes": [],
+      "implications": [
+        "Rythme d'échappement jonctionnel"
+      ],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [
+        "Ventricule"
+      ],
+      "ecg_morphologies": [
+        "Bloc de branche"
+      ],
+      "requires_morphology_inversion": true,
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
@@ -4274,7 +4499,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Antéro-septal",
+        "Latéral gauche"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -4312,11 +4540,11 @@
       "concept_name": "Cardiopathie ischémique",
       "synonymes": [
         "Ischemic cardiomyopathy",
-        "Présence d'onde Q",
         "Séquelle d'infarctus"
       ],
       "implications": [
-        "Anévrysme ventriculaire"
+        "Anévrysme ventriculaire",
+        "Séquelle de nécrose"
       ],
       "territoires_possibles": [
         "Localisation IDM"
@@ -4360,7 +4588,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -4395,6 +4628,7 @@
         "Latéral",
         "Apicale",
         "Antérieur",
+        "Inférieur",
         "Postérieur",
         "Septal"
       ],
@@ -4419,15 +4653,20 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
-    "RHYTME_RÉGULIER": {
-      "concept_name": "Rhytme régulier",
+    "RYTHME_RÉGULIER": {
+      "concept_name": "rythme régulier",
       "synonymes": [],
       "implications": [],
       "territoires_possibles": [],
@@ -4478,7 +4717,9 @@
       "synonymes": [
         "Sinus arrest"
       ],
-      "implications": [],
+      "implications": [
+        "Asystolie"
+      ],
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
@@ -4507,7 +4748,12 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": true,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -4712,7 +4958,8 @@
     "TRIGÉMINISME_ATRIALE": {
       "concept_name": "Trigéminisme atriale",
       "synonymes": [
-        "Atrial trigeminy"
+        "Atrial trigeminy",
+        "ESA trigéminée"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -4749,7 +4996,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Postéro-septal gauche",
+        "Latéral gauche"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -4978,7 +5228,9 @@
       ],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Hypokaliémie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -4994,7 +5246,9 @@
         "$ T-waves inversion",
         "Inversion des ondes T $"
       ],
-      "implications": [],
+      "implications": [
+        "Onde T négative"
+      ],
       "territoires_possibles": [
         "Localisation IDM"
       ],
@@ -5037,7 +5291,9 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Latéral droit"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -5048,7 +5304,9 @@
     "MUSCLE_PAPILLAIRE": {
       "concept_name": "Muscle papillaire",
       "synonymes": [
-        "Papillary muscle"
+        "Papillary muscle",
+        "Mitral pillar",
+        "Pillier mitral"
       ],
       "implications": [
         "Muscle papillaire antéro-latéral",
@@ -5094,6 +5352,20 @@
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
+    "BANDELETTE_MODÉRATRICE": {
+      "concept_name": "Bandelette modératrice",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "AXE_NORMAL": {
       "concept_name": "Axe normal",
       "synonymes": [
@@ -5138,7 +5410,6 @@
       "implications": [
         "Arythmie sinusale",
         "Bradycardie sinusale",
-        "Rythme sinusal",
         "Rythmes ectopique",
         "Tachycardie supra-ventriculaire",
         "Tachycardie ventriculaire"
@@ -5156,7 +5427,9 @@
     "FIBRILLATION_VENTRICULAIRE": {
       "concept_name": "Fibrillation ventriculaire",
       "synonymes": [
-        "Ventricular fibrillation"
+        "Ventricular fibrillation",
+        "FV",
+        "VF"
       ],
       "implications": [
         "Désorganisée"
@@ -5242,7 +5515,8 @@
     "EXTRASYSTOLE_ATRIALE_BIGÉMINÉE": {
       "concept_name": "Extrasystole atriale bigéminée",
       "synonymes": [
-        "Atrial bigeminy"
+        "Atrial bigeminy",
+        "ESA bigéminée"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -5292,7 +5566,9 @@
       "synonymes": [],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Bradycardie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -5348,6 +5624,25 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
+    "LATÉRAL_DROIT": {
+      "concept_name": "Latéral droit",
+      "synonymes": [
+        "Right lateral"
+      ],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [
+        "Antéro-latéral droit",
+        "Inférieur droit"
+      ],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "LATÉRAL_GAUCHE": {
       "concept_name": "Latéral gauche",
       "synonymes": [
@@ -5356,7 +5651,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Anterieur gauche",
+        "Postérieur gauche"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -5367,7 +5665,8 @@
     "FLUTTER_ATRIAL": {
       "concept_name": "Flutter atrial",
       "synonymes": [
-        "Atrial flutter"
+        "Atrial flutter",
+        "AFl"
       ],
       "implications": [
         "Organisée",
@@ -5386,10 +5685,54 @@
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
+    "BLOC_DE_BRANCHE_DROIT": {
+      "concept_name": "Bloc de branche droit",
+      "synonymes": [
+        "Right bundle branch block",
+        "BBD",
+        "RBBB"
+      ],
+      "implications": [
+        "BBD incomplet",
+        "Bloc de branche droit complet"
+      ],
+      "territoires_possibles": [],
+      "excludes": [
+        "Bloc de branche gauche"
+      ],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [
+        "Branche droite"
+      ],
+      "ecg_morphologies": [
+        "Bloc de branche droit"
+      ],
+      "requires_morphology_inversion": false,
+      "poids": 2,
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE"
+    },
+    "RÉSEAU_DE_PURKINJE": {
+      "concept_name": "Réseau de purkinje",
+      "synonymes": [
+        "Purkinje network"
+      ],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "BAV_2_MOBITZ_2": {
       "concept_name": "BAV 2 Mobitz 2",
       "synonymes": [
-        "Mobitz 2 type 2 AV block"
+        "Mobitz 2 type 2 AV block",
+        "BAV2M2"
       ],
       "implications": [
         "Une onde P bloquée",
@@ -5447,7 +5790,9 @@
         "Dissociation atrio-ventriculaire"
       ],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "PR normal"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -5609,7 +5954,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Antéro-septal",
+        "Postéro-septal droit"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -5638,7 +5986,9 @@
       ],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Hypocalcémie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -5729,6 +6079,20 @@
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
+    "BRANCHE_DROITE": {
+      "concept_name": "Branche droite",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "MUSCLE_PAPILLAIRE_ANTÉRO_LATÉRAL": {
       "concept_name": "Muscle papillaire antéro-latéral",
       "synonymes": [
@@ -5795,12 +6159,34 @@
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
+    },
+    "BRANCHE_GAUCHE": {
+      "concept_name": "Branche gauche",
+      "synonymes": [],
+      "implications": [
+        "hémi-branche antérieure droite",
+        "hémi-branche antérieure gauche"
+      ],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
     },
     "MUSCLE_PAPILLAIRE_POSTERO_MEDIAL": {
       "concept_name": "Muscle papillaire postero-medial",
@@ -5877,7 +6263,9 @@
     "TACHYCARDIE_VENTRICULAIRE": {
       "concept_name": "Tachycardie ventriculaire",
       "synonymes": [
-        "Ventricular tachycardia"
+        "Ventricular tachycardia",
+        "TV",
+        "VT"
       ],
       "implications": [
         "Complexe de fusion",
@@ -5923,7 +6311,8 @@
       "concept_name": "Onde T",
       "synonymes": [],
       "implications": [
-        "Onde T négative"
+        "Onde T négative",
+        "Onde T ample"
       ],
       "territoires_possibles": [],
       "excludes": [],
@@ -5947,7 +6336,9 @@
         "Déviation axiale gauche"
       ],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Bloc fasciculaire postérieur gauche"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -5964,7 +6355,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
+      "voisins": [
+        "Latéral droit",
+        "Postéro-septal droit"
+      ],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -5992,11 +6386,11 @@
     "CHAMBRE_DE_CHASSE_DU_VENTRICULE_DROIT": {
       "concept_name": "Chambre de chasse du ventricule droit",
       "synonymes": [
-        "Right ventricle outflow track"
+        "Right ventricle outflow track",
+        "CCVD",
+        "RVOT"
       ],
-      "implications": [
-        "ESV atypique de la CCVD"
-      ],
+      "implications": [],
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
@@ -6086,7 +6480,12 @@
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": null,
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": false
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -6096,7 +6495,9 @@
     "CARDIOMYOPATHIE_HYPERTROPHIQUE": {
       "concept_name": "Cardiomyopathie hypertrophique",
       "synonymes": [
-        "Hypertrophic cardiomyopathy"
+        "Hypertrophic cardiomyopathy",
+        "CMH",
+        "HCM"
       ],
       "implications": [
         "Cardiomyopathie hypertrophique apicale"
@@ -6153,14 +6554,19 @@
       ],
       "implications": [
         "PR court",
-        "Faisceau accessoire à conduction antérograde"
+        "Onde delta"
       ],
       "territoires_possibles": [
         "Localisation faisceau accessoire"
       ],
       "excludes": [],
       "voisins": [],
-      "territory_metadata": null,
+      "territory_metadata": {
+        "importance": "critique",
+        "may_have_territory": true,
+        "may_have_mirror": false,
+        "required_territory": true
+      },
       "origin_structures": [],
       "ecg_morphologies": [],
       "requires_morphology_inversion": false,
@@ -6175,23 +6581,10 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
-      "voisins": [],
-      "territory_metadata": null,
-      "origin_structures": [],
-      "ecg_morphologies": [],
-      "requires_morphology_inversion": false,
-      "poids": 1,
-      "categorie": "DESCRIPTEUR_ECG"
-    },
-    "ESV_ATYPIQUE_DE_LA_CCVD": {
-      "concept_name": "ESV atypique de la CCVD",
-      "synonymes": [
-        "Atypical PVC from RVOT"
+      "voisins": [
+        "Postéro-septal gauche",
+        "Inférieur droit"
       ],
-      "implications": [],
-      "territoires_possibles": [],
-      "excludes": [],
-      "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
       "ecg_morphologies": [],
@@ -6201,11 +6594,25 @@
     },
     "FAISCEAU_ACCESSOIRE_À_CONDUCTION_ANTÉROGRADE": {
       "concept_name": "Faisceau accessoire à conduction antérograde",
-      "synonymes": [],
-      "implications": [
-        "Wolf malin"
+      "synonymes": [
+        "Faisceau accessoire",
+        "Voie accessoire",
+        "WPW",
+        "Wolff-Parkinson-White",
+        "Wolf-Parkinson-White",
+        "Pré-excitation ventriculaire",
+        "Préexcitation ventriculaire",
+        "Syndrome de WPW"
       ],
-      "territoires_possibles": [],
+      "implications": [
+        "Wolf malin",
+        "Préexcitation ventriculaire",
+        "PR court",
+        "Onde delta"
+      ],
+      "territoires_possibles": [
+        "Localisation faisceau accessoire"
+      ],
       "excludes": [],
       "voisins": [],
       "territory_metadata": null,
@@ -6220,7 +6627,9 @@
       "synonymes": [],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Onde P normale"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -6263,6 +6672,20 @@
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
+    "ONDE_T_AMPLE": {
+      "concept_name": "Onde T ample",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "DÉSORGANISÉE": {
       "concept_name": "Désorganisée",
       "synonymes": [],
@@ -6270,7 +6693,9 @@
         "Trémulation de la ligne de base"
       ],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "Organisée"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -6284,7 +6709,9 @@
       "synonymes": [],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "rythme régulier"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -6296,7 +6723,9 @@
     "FLUTTER_DROIT_TYPIQUE": {
       "concept_name": "Flutter droit typique",
       "synonymes": [
-        "CTI-dependent atrial flutter"
+        "CTI-dependent atrial flutter",
+        "Flutter atrial dépendant de l'ICT",
+        "Flutter commun"
       ],
       "implications": [
         "Organisée",
@@ -6358,7 +6787,8 @@
       "concept_name": "BAV de type 2",
       "synonymes": [
         "Type 2 AV block",
-        "BAV 2"
+        "BAV 2",
+        "BAV2"
       ],
       "implications": [
         "BAV 2 Mobitz 1"
@@ -6379,6 +6809,22 @@
       "implications": [],
       "territoires_possibles": [],
       "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "BRADYCARDIE": {
+      "concept_name": "Bradycardie",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [
+        "Tachycardie"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -6447,6 +6893,7 @@
         "Type 1 AV block",
         "BAV 1",
         "BAV I",
+        "BAV1",
         "Bloc AV du premier degré",
         "Bloc auriculo-ventriculaire du 1er degré"
       ],
@@ -6488,7 +6935,9 @@
     "FLUTTER_ATRIAL_ANTIHORAIRE_DÉPENDANT_DE_L'ICT": {
       "concept_name": "Flutter atrial antihoraire dépendant de l'ICT",
       "synonymes": [
-        "Counter-clockwise CTI-dependent flutter"
+        "Counter-clockwise CTI-dependent flutter",
+        "CCW common flutter",
+        "Flutter commun antihoraire"
       ],
       "implications": [
         "Toit d'usine",
@@ -6514,7 +6963,9 @@
       ],
       "implications": [],
       "territoires_possibles": [],
-      "excludes": [],
+      "excludes": [
+        "PR normal"
+      ],
       "voisins": [],
       "territory_metadata": null,
       "origin_structures": [],
@@ -6537,22 +6988,6 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
-    "ECHAPPEMENT_VENTRICULAIRE": {
-      "concept_name": "Echappement ventriculaire",
-      "synonymes": [],
-      "implications": [
-        "Rythme d'échappement jonctionnel"
-      ],
-      "territoires_possibles": [],
-      "excludes": [],
-      "voisins": [],
-      "territory_metadata": null,
-      "origin_structures": [],
-      "ecg_morphologies": [],
-      "requires_morphology_inversion": false,
-      "poids": 1,
-      "categorie": "DESCRIPTEUR_ECG"
-    },
     "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE": {
       "concept_name": "Trouble de conduction intraventriculaire",
       "synonymes": [
@@ -6562,8 +6997,7 @@
         "Bloc de branche",
         "Aberration ventriculaire",
         "Bloc intraventriculaire aspécifique",
-        "Bloc fasciculaire",
-        "Séquelle de nécrose"
+        "Bloc fasciculaire"
       ],
       "territoires_possibles": [],
       "excludes": [],
@@ -6578,7 +7012,9 @@
     "FLUTTER_ATRIAL_HORAIRE_DÉPENDANT_DE_L'ICT": {
       "concept_name": "Flutter atrial horaire dépendant de l'ICT",
       "synonymes": [
-        "Clockwise CTI-dependent flutter"
+        "Clockwise CTI-dependent flutter",
+        "CW common flutter",
+        "Flutter commun horaire"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -6723,33 +7159,10 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
-    "LATÉRAL_DROIT": {
-      "concept_name": "Latéral droit",
-      "synonymes": [
-        "Right lateral"
-      ],
+    "HÉMI_BRANCHE_ANTÉRIEURE_DROITE": {
+      "concept_name": "hémi-branche antérieure droite",
+      "synonymes": [],
       "implications": [],
-      "territoires_possibles": [],
-      "excludes": [],
-      "voisins": [],
-      "territory_metadata": null,
-      "origin_structures": [],
-      "ecg_morphologies": [],
-      "requires_morphology_inversion": false,
-      "poids": 1,
-      "categorie": "DESCRIPTEUR_ECG"
-    },
-    "BLOC_DE_BRANCHE_DROIT": {
-      "concept_name": "Bloc de branche droit",
-      "synonymes": [
-        "Right bundle branch block",
-        "BBD",
-        "RBBB"
-      ],
-      "implications": [
-        "BBD incomplet",
-        "Bloc de branche droit complet"
-      ],
       "territoires_possibles": [],
       "excludes": [],
       "voisins": [],
@@ -6762,6 +7175,20 @@
     },
     "ABSENCE_D'ALLONGEMENT_DE_L'INTERVALLE_PR": {
       "concept_name": "Absence d'allongement de l'intervalle PR",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "excludes": [],
+      "voisins": [],
+      "territory_metadata": null,
+      "origin_structures": [],
+      "ecg_morphologies": [],
+      "requires_morphology_inversion": false,
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "HÉMI_BRANCHE_ANTÉRIEURE_GAUCHE": {
+      "concept_name": "hémi-branche antérieure gauche",
       "synonymes": [],
       "implications": [],
       "territoires_possibles": [],
@@ -6820,7 +7247,8 @@
     "FLUTTER_ATRIAL_ATYPIQUE": {
       "concept_name": "Flutter atrial atypique",
       "synonymes": [
-        "Atypical atrial flutter"
+        "Atypical atrial flutter",
+        "TA"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -6838,7 +7266,9 @@
     "TACHYCARDIE_JONCTIONNELLE_PAR_RÉENTRÉE_INTRA_NODALE": {
       "concept_name": "Tachycardie jonctionnelle par réentrée intra-nodale",
       "synonymes": [
-        "Atrioventricular nodal reentrant tachycardia"
+        "Atrioventricular nodal reentrant tachycardia",
+        "AVNRT",
+        "RIN"
       ],
       "implications": [
         "Tachycardie jonctionnelle par réentrée intra-nodale typique",
@@ -6863,7 +7293,6 @@
     "ASPECT_DE_BRUGADA_DE_TYPE_3": "ASPECT_DE_BRUGADA",
     "ABSENCE_D_ONDE_P": "DESCRIPTION_ECG",
     "SEPTUM_INTERVENTRICULAIRE": "LOCALISATION_ESV",
-    "MUSCLE_PAPILLAIRE": "VENTRICULE_GAUCHE",
     "TROUBLE_DE_REPOLARISATION": "CONCEPTS_ECG",
     "SOUS_PQ": "DESCRIPTION_ECG",
     "CIRCONFÉRENTIEL": "LOCALISATION_IDM",
@@ -6875,7 +7304,7 @@
     "BLOC_INTERATRIAL": "TROUBLE_DE_CONDUCTION_INTRA_ATRIAL",
     "COMPLEXE_DE_FUSION": "EVÉNEMENTS_ECTOPIQUES",
     "V2_HAUT": "DÉRIVATIONS_SPÉCIFIQUES",
-    "MICROVOLTAGE": "TROUBLES_DE_LA_DÉPOLARISATION",
+    "MICROVOLTAGE": "TROUBLE_DE_LA_DÉPOLARISATION",
     "BLOC_DE_BRANCHE": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
     "SARCOIDOSE": "INFILTRATIVE",
     "DOUBLET_VENTRICULAIRE": "EXTRASYSTOLE_VENTRICULAIRE",
@@ -6904,6 +7333,7 @@
     "PROBLÈME_DE_VITESSE_DE_DÉFILEMENT": "INTERFÉRENCE_EXTRA_CARDIAQUE",
     "ALTERNANCE_DES_ONDES_T": "ANOMALIE_DES_ONDES_T",
     "AVF": "PÉRIPHÉRIQUES",
+    "ONDE_T_AMPLE": "ONDE_T",
     "PAROI_LIBRE_DU_VENTRICULE_DROIT": "VENTRICULE_DROIT",
     "ASPECT_DE_BRUGADA": "ONDE_J",
     "ANOMALIE_DE_DURÉE_DU_QT": "TROUBLE_DE_REPOLARISATION",
@@ -6920,6 +7350,7 @@
     "FLUTTER_DROIT_TYPIQUE": "FLUTTER_ATRIAL",
     "TROUBLE_DE_CONDUCTION_INTRA_ATRIAL": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITÉ",
     "DYSFONCTION_SINUSALE": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITÉ",
+    "ESV_MONOMORPHE": "EXTRASYSTOLE_VENTRICULAIRE",
     "MOYEN": "POIDS",
     "QRS": "DESCRIPTION_ECG",
     "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST": "INFARCTUS_DU_MYOCARDE_À_LA_PHASE_AIGUE",
@@ -6950,6 +7381,7 @@
     "VEINE_PULMONAIRE_DROITE_SUPÉRIEURE": "VEINES_PULMONAIRES",
     "SURDÉTECTION": "STIMULATION",
     "AMYLOSE": "INFILTRATIVE",
+    "BRADYCARDIE": "DESCRIPTION_ECG",
     "BLOC_DE_BRANCHE_GAUCHE_INCOMPLET": "BLOC_DE_BRANCHE_GAUCHE",
     "VENTRICULE_GAUCHE": "LOCALISATION_ESV",
     "VENTRICULE_DROIT": "LOCALISATION_ESV",
@@ -6962,7 +7394,7 @@
     "V2": "DÉRIVATIONS_PRÉCORDIALES",
     "VOLTAGE": "CONCEPTS_ECG",
     "PR_COURT": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITÉ",
-    "RYTHME_SINUSAL": "ARRHYTHMIE",
+    "RYTHME_SINUSAL": "ECG_NORMAL",
     "INTOXICATION_DIGITALIQUE": "DIGITALIQUES",
     "HYPONATRÉMIE": "SODIUM",
     "RYTHMES_ECTOPIQUE": "ARRHYTHMIE",
@@ -7007,7 +7439,7 @@
     "SEGMENT_ST": "DESCRIPTION_ECG",
     "QRS_>_120_MS": "QRS_LARGE",
     "SODIUM": "MÉTABOLIQUE",
-    "TROUBLES_DE_LA_DÉPOLARISATION": "CONCEPTS_ECG",
+    "TROUBLE_DE_LA_DÉPOLARISATION": "CONCEPTS_ECG",
     "V6": "DÉRIVATIONS_PRÉCORDIALES",
     "ECG_NORMAL": "CONCEPTS_ECG",
     "TACHYCARDIE_JONCTIONELLE": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
@@ -7021,6 +7453,7 @@
     "HÉMOCHROMATOSE": "INFILTRATIVE",
     "REPOLARISATION_PRÉCOCE": "ONDE_J",
     "HYPERNATRÉMIE": "SODIUM",
+    "INFÉRIEUR": "LOCALISATION_IDM",
     "MAJEUR": "POIDS",
     "VENTRICULE": "ANATOMIE",
     "EXTRASYSTOLES_VENTRICULAIRES_POLYMORPHES": "EXTRASYSTOLE_VENTRICULAIRE",
@@ -7048,11 +7481,11 @@
     "CARDIOPATHIE_ISCHÉMIQUE": "ISCHÉMIQUE",
     "PR_NORMAL": "ECG_NORMAL",
     "SUS_DÉCALAGE_DU_SEGMENT_ST": "SEGMENT_ST",
-    "HYPERTROPHIE_ATRIALE_DROITE": "TROUBLES_DE_LA_DÉPOLARISATION",
+    "HYPERTROPHIE_ATRIALE_DROITE": "TROUBLE_DE_LA_DÉPOLARISATION",
     "LOCALISATION_IDM": "TOPOGRAPHIE",
     "ONDE_J": "TROUBLE_DE_REPOLARISATION",
     "BIGEMINISME_VENTRICULAIRE": "MULTIPLES_ESV_MONOMORPHES",
-    "RHYTME_RÉGULIER": "DESCRIPTION_ECG",
+    "RYTHME_RÉGULIER": "DESCRIPTION_ECG",
     "SALVE_ESA": "ESA_MONOMORPHES_MULTIPLES",
     "ONDE_P_VOLTÉE": "HYPERTROPHIE_ATRIALE_DROITE",
     "PARALYSIE_SINUSALE": "DYSFONCTION_SINUSALE",
@@ -7065,7 +7498,7 @@
     "PERTE_DE_CAPTURE_VENTRICULAIRE": "PERTE_DE_CAPTURE",
     "QRS_NORMAL": "ECG_NORMAL",
     "V3": "DÉRIVATIONS_PRÉCORDIALES",
-    "HYPERTROPHIE_VENTRICULAIRE_DROITE": "TROUBLES_DE_LA_DÉPOLARISATION",
+    "HYPERTROPHIE_VENTRICULAIRE_DROITE": "TROUBLE_DE_LA_DÉPOLARISATION",
     "INDICE_DE_SOKOLOW_>_35_MM": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
     "\"WANDERING_PACEMAKER\"": "RYTHMES_ECTOPIQUE",
     "CHAMBRE_DE_CHASSE_DU_VENTRICULE_GAUCHE": "CHAMBRE_DE_CHASSE",
@@ -7094,11 +7527,13 @@
     "ANTÉRO_LATÉRAL_DROIT": "LOCALISATION_FAISCEAU_ACCESSOIRE",
     "DESCRIPTIF": "POIDS",
     "ISCHÉMIQUE": "PATHOLOGIE",
+    "MUSCLE_PAPILLAIRE": "VENTRICULE",
     "STIMULATION_EN_FENÊTRE_DE_SÉCURITÉ": "STIMULATION",
     "CARDIOMYOPATHIE_HYPERTROPHIQUE_APICALE": "CARDIOMYOPATHIE_HYPERTROPHIQUE",
     "ONDE_U_NORMALE": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+    "BANDELETTE_MODÉRATRICE": "VENTRICULE",
     "AXE_NORMAL": "QRS_NORMAL",
-    "HYPERTROPHIE_VENTRICULAIRE_GAUCHE": "TROUBLES_DE_LA_DÉPOLARISATION",
+    "HYPERTROPHIE_VENTRICULAIRE_GAUCHE": "TROUBLE_DE_LA_DÉPOLARISATION",
     "ARRHYTHMIE": "RYTHME",
     "DÉVIATION_AXIALE_DROITE": "DÉVIATION_AXIALE",
     "ALTERNANCE_DES_QRS": "TAMPONNADE",
@@ -7127,6 +7562,7 @@
     "FILTRE_PASSE_BANDE_INADAPTÉ": "INTERFÉRENCE_EXTRA_CARDIAQUE",
     "V1_HAUT": "DÉRIVATIONS_SPÉCIFIQUES",
     "BAV_COMPLET": "BAV_DE_HAUT_GRADE",
+    "HÉMI_BRANCHE_ANTÉRIEURE_DROITE": "BRANCHE_GAUCHE",
     "BLOC_INTRAVENTRICULAIRE_ASPÉCIFIQUE": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
     "V7": "DÉRIVATIONS_PRÉCORDIALES",
     "VALVE_D_EUSTACHE": "OREILLETTE_DROITE",
@@ -7136,7 +7572,7 @@
     "TAMPONNADE": "PERICARDITE",
     "PORTION_MÉDIALE_DU_VENTRICULE_GAUCHE": "VENTRICULE_GAUCHE",
     "DIII": "PÉRIPHÉRIQUES",
-    "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITÉ": "TROUBLES_DE_LA_DÉPOLARISATION",
+    "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITÉ": "TROUBLE_DE_LA_DÉPOLARISATION",
     "BLOC_FASCICULAIRE": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
     "MID_SEPTAL": "LOCALISATION_FAISCEAU_ACCESSOIRE",
     "V1": "DÉRIVATIONS_PRÉCORDIALES",
@@ -7147,9 +7583,11 @@
     "INTERFÉRENCE_EXTRA_CARDIAQUE": "CONCEPTS_ECG",
     "CRISTA_TERMINALIS": "OREILLETTE_DROITE",
     "RYTHME_ATRIAL_ECTOPIQUE": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+    "HÉMI_BRANCHE_ANTÉRIEURE_GAUCHE": "BRANCHE_GAUCHE",
     "DÉVIATION_AXIALE_GAUCHE": "DÉVIATION_AXIALE",
     "ONDE_J_D_OSBORN": "ONDE_J",
     "TACHYCARDIE_VENTRICULAIRE_CATHÉCHOLAMINERGIQUE": "GÉNÉTIQUE",
+    "BRANCHE_DROITE": "VENTRICULE",
     "MUSCLE_PAPILLAIRE_ANTÉRO_LATÉRAL": "MUSCLE_PAPILLAIRE",
     "TACHYCARDIE_SUPRA_VENTRICULAIRE": "ARRHYTHMIE",
     "FLUTTER_ATRIAL_ATYPIQUE": "FLUTTER_ATRIAL",
@@ -7157,6 +7595,7 @@
     "STIMULATION_BIVENTRICULAIRE": "STIMULATION_VENTRICULAIRE",
     "THÉRAPIE_D_UN_DÉFIBRILLATEUR": "STIMULATION",
     "TRIPLET_VENTRICULAIRE": "EXTRASYSTOLE_VENTRICULAIRE",
+    "BRANCHE_GAUCHE": "VENTRICULE",
     "MUSCLE_PAPILLAIRE_POSTERO_MEDIAL": "MUSCLE_PAPILLAIRE",
     "TACHYCARDIE_JONCTIONNELLE_PAR_RÉENTRÉE_INTRA_NODALE": "TACHYCARDIE_JONCTIONELLE",
     "CARDIOVERSION_ÉLECTRIQUE": "THÉRAPIE_D_UN_DÉFIBRILLATEUR",
@@ -7177,13 +7616,12 @@
     "SYNDROME_DE_REPOLARISATION_PRÉCOCE": "GÉNÉTIQUE",
     "IMPRÉGNATION_DIGITALIQUE": "DIGITALIQUES",
     "PAROI_ANTÉRIEURE_DU_VENTRICULE_GAUCHE": "VENTRICULE_GAUCHE",
-    "SÉQUELLE_DE_NÉCROSE": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+    "SÉQUELLE_DE_NÉCROSE": "CARDIOPATHIE_ISCHÉMIQUE",
     "CARDIOMYOPATHIE_HYPERTROPHIQUE": "PATHOLOGIE",
     "STIMULATION_ANTITACHYCARDIQUE": "STIMULATION",
     "V9": "DÉRIVATIONS_PRÉCORDIALES",
     "PRÉEXCITATION_VENTRICULAIRE": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITÉ",
-    "POSTÉRO_SEPTAL_DROIT": "LOCALISATION_FAISCEAU_ACCESSOIRE",
-    "ESV_ATYPIQUE_DE_LA_CCVD": "CHAMBRE_DE_CHASSE_DU_VENTRICULE_DROIT"
+    "POSTÉRO_SEPTAL_DROIT": "LOCALISATION_FAISCEAU_ACCESSOIRE"
   },
   "scoring_rules": {
     "bonus_diagnostic_principal": 0.15,
@@ -7192,7 +7630,7 @@
   "metadata": {
     "source": "WebProtégé OWL Ontology",
     "extraction_date": "2026-01-10",
-    "total_concepts": 280,
+    "total_concepts": 290,
     "total_territoires": 22
   }
 }

@@ -513,22 +513,9 @@ class SemanticScorer:
                 category=category
             )
         
-        # 1c. Match partiel inverse (étudiant a donné concept plus général)
-        # Ex: Attendu "STEMI antérieur", Étudiant "STEMI"
-        if student_text in expected_text:
-            # L'étudiant a donné le concept de base mais sans les détails attendus
-            return ConceptMatch(
-                student_concept=student_text,
-                expected_concept=expected_text,
-                match_type=MatchType.PARTIAL,
-                score=70.0,
-                explanation=f"⚠️ Concept correct mais manque de précision: '{student_text}' identifié, mais attendu '{expected_text}'",
-                category=category
-            )
-        
-        # 🆕 1d. Match par synonymes de l'ontologie OWL (DÉTERMINISTE - avant LLM)
-        # Ex: Attendu "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST"
-        #     Étudiant: "stemi inferieur" → "STEMI" est un synonyme → EQUIVALENT
+        # 🆕 1c. Match par synonymes de l'ontologie OWL (DÉTERMINISTE - avant inclusion partielle)
+        # DOIT être avant l'inclusion partielle car "Faisceau accessoire" est un synonyme
+        # de "Faisceau accessoire à conduction antérograde" → 100%, pas 70%
         if _owl_resolver:
             expected_synonyms = _owl_resolver.get_synonyms(expected_text)
             student_lower = student_text.lower().strip()
@@ -595,6 +582,20 @@ class SemanticScorer:
                         explanation=f"✅ Synonyme reconnu (ontologie): '{student_text}' ↔ '{syn}' = '{expected_text}'",
                         category=category
                     )
+        
+        # 1d. Match partiel inverse (étudiant a donné concept plus général)
+        # Ex: Attendu "STEMI antérieur", Étudiant "STEMI"
+        # ⚠️ APRÈS les synonymes pour ne pas capturer "Faisceau accessoire" → 70% alors que c'est un synonyme → 100%
+        if student_text in expected_text:
+            # L'étudiant a donné le concept de base mais sans les détails attendus
+            return ConceptMatch(
+                student_concept=student_text,
+                expected_concept=expected_text,
+                match_type=MatchType.PARTIAL,
+                score=70.0,
+                explanation=f"⚠️ Concept correct mais manque de précision: '{student_text}' identifié, mais attendu '{expected_text}'",
+                category=category
+            )
         
         # 2. Vérifier si l'étudiant a donné un DIAGNOSTIC pour un SIGNE attendu
         # Ex: Attendu "PR allongé", Étudiant "BAV 1er degré"

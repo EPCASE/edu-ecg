@@ -10,6 +10,7 @@ Date: 2026-01-11
 
 from pathlib import Path
 from backend.rdf_owl_extractor import RDFOWLExtractor  # ✅ UTILISER rdf_owl_extractor (pas owl_to_json_converter!)
+from apply_ontology_enrichments import apply_enrichments, validate_enrichments  # 🆕 Enrichissements manuels
 
 def main():
     # Chemins - Utilisation du fichier OWL externe
@@ -88,6 +89,25 @@ def main():
         
         print(f"   • Concepts avec synonymes: {concepts_with_synonyms}")
         print(f"   • Total synonymes: {total_synonyms}")
+        print()
+        
+        # 🆕 ÉTAPE 2: Appliquer les enrichissements manuels
+        print("=" * 70)
+        enrichments_path = Path("data/ontology_enrichments.json")
+        if enrichments_path.exists():
+            stats = apply_enrichments(
+                ontology_path=str(json_output),
+                enrichments_path=str(enrichments_path)
+            )
+            print()
+            # Validation finale
+            validate_enrichments(
+                ontology_path=str(json_output),
+                enrichments_path=str(enrichments_path)
+            )
+        else:
+            print("ℹ️  Pas de fichier d'enrichissements (data/ontology_enrichments.json)")
+        
         print()
         print("💡 L'ontologie a été mise à jour. Relancez votre application pour utiliser la nouvelle version.")
         
