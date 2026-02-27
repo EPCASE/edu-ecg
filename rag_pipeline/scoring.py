@@ -190,6 +190,66 @@ def apply_implication_rules(
 # Scoring complet d'une réponse
 # ---------------------------------------------------------------------------
 
+def _build_reverse_implications() -> Dict[str, List[str]]:
+    """
+    Construit un index inversé : concept_enfant → [concept_parent_1, ...]
+
+    L'ontologie stocke : PARENT.implications = [enfant1, enfant2, ...].
+    Cette fonction produit : enfant1 → [PARENT], enfant2 → [PARENT], ...
+
+    Utilité : quand l'étudiant donne un signe (enfant), retrouver le
+    diagnostic (parent) qu'il supporte partiellement.
+
+    La traversée est **récursive** (multi-niveau, profondeur max 3) :
+      ESV → Multiples ESV → Bigéminisme
+      ⇒ reverse[Bigéminisme] = [Multiples ESV, ESV]
+    """
+    ontology = _get_ontology()
+    concept_mappings = ontology.get("concept_mappings", {})
+
+    # Étape 1 : reverse direct (1 niveau)
+    direct_reverse: Dict[str, Set[str]] = {}
+    for oid, mapping in concept_mappings.items():
+        for impl_name in mapping.get("implications", []):
+            impl_owl = find_owl_concept(impl_name)
+            if impl_owl:
+                impl_id = impl_owl["ontology_id"]
+                direct_reverse.setdefault(impl_id, set()).add(oid)
+
+    # Étape 2 : propager récursivement (max 3 niveaux)
+    full_reverse: Dict[str, Set[str]] = {k: set(v) for k, v in direct_reverse.items()}
+    max_depth = 3
+    for _depth in range(1, max_depth):
+        changed = False
+        for child_id, parent_ids in list(full_reverse.items()):
+            for parent_id in list(parent_ids):
+                grandparent_ids = direct_reverse.get(parent_id, set())
+                for gp_id in grandparent_ids:
+                    if gp_id not in full_reverse[child_id]:
+                        full_reverse[child_id].add(gp_id)
+                        changed = True
+        if not changed:
+            break
+
+    # Convertir en listes
+    reverse: Dict[str, List[str]] = {k: list(v) for k, v in full_reverse.items()}
+
+    n_extra = sum(
+        len(full_reverse.get(k, set()) - direct_reverse.get(k, set()))
+        for k in full_reverse
+    )
+    logger.info(
+        f"  ↪ Index inversé implications (récursif) : "
+        f"{len(reverse)} enfants → parents (+{n_extra} relations multi-niveaux)"
+    )
+    return reverse
+
+
+# Score partiel quand l'étudiant donne un concept hiérarchiquement relié
+SCORE_CHILD_MATCH = 90.0   # Étudiant plus spécifique (enfant du concept golden)
+SCORE_PARENT_MATCH = 40.0  # Étudiant donne un signe pour un diagnostic attendu
+
+
 def score_student_response(
     found_ids: List[str],
     found_statuts: Dict[str, str],
@@ -202,8 +262,18 @@ def score_student_response(
     Le scoring prend en compte :
       - Le poids de chaque concept (1=descripteur, 2=signe, 3=majeur, 4=urgent)
       - Le statut de l'entité (present=100%, hypothese=80%)
-      - Les règles d'implication automatique
+      - **Matching hiérarchique** (PARENT / CHILD via implications OWL)
+      - Les règles d'implication automatique (forward)
       - Un bonus de +15% si un diagnostic majeur (poids≥3) est trouvé
+
+    Niveaux de matching (par priorité décroissante) :
+      1. **EXACT**  — l'ID trouvé est l'ID attendu → 100% (ou 80% si hypothèse)
+      2. **CHILD**  — l'ID trouvé est un enfant (impliqué) du golden → 90%
+         Ex : étudiant écrit "flutter atrial antihoraire" → golden = "flutter droit typique"
+      3. **PARENT** — l'ID trouvé est un parent (le golden est dans ses implications) → 40%
+         Ex : étudiant écrit "sus-décalage du segment ST" → golden = "SCA ST+"
+      4. **IMPLICATION** — un concept déjà matché implique le golden → 100% (auto-validé)
+      5. **MISSING** — aucune correspondance → 0%
 
     Args:
         found_ids:     Liste des ontology_id trouvés par le pipeline RAG
@@ -214,14 +284,21 @@ def score_student_response(
     Returns:
         Dict avec score_brut_pct, bonus_diag_pct, score_final_pct,
         poids_valides, poids_attendus, matched_expected, missing_expected,
-        auto_validated.
+        auto_validated, partial_matches.
     """
+    ontology = _get_ontology()
+    concept_mappings = ontology.get("concept_mappings", {})
     found_id_set = set(found_ids)
 
-    # --- Matching direct ---
-    matched_concepts = []
-    concept_weights = {}
-    concept_scores = {}
+    # Index inversé pour matching hiérarchique
+    reverse_implications = _build_reverse_implications()
+
+    # --- Phase 1 : Matching direct (EXACT) ---
+    matched_concepts: List[str] = []
+    concept_weights: Dict[str, int] = {}
+    concept_scores: Dict[str, float] = {}
+    match_types: Dict[str, str] = {}  # gname → "exact" / "child" / "parent" / "implication"
+    partial_matches: List[Dict] = []
 
     for gname, gid in zip(golden_names, golden_ids):
         owl = find_owl_concept(gname)
@@ -233,9 +310,89 @@ def score_student_response(
             if statut in ("present", "hypothese"):
                 matched_concepts.append(gname)
                 concept_scores[gname] = 100.0 if statut == "present" else 80.0
+                match_types[gname] = "exact"
 
-    # --- Implications automatiques ---
+    # --- Phase 2 : Matching hiérarchique (CHILD / PARENT) pour les non matchés ---
+    already_matched = set(matched_concepts)
+
+    for gname, gid in zip(golden_names, golden_ids):
+        if gname in already_matched:
+            continue
+
+        owl_golden = find_owl_concept(gname)
+        if not owl_golden:
+            continue
+
+        golden_implications = owl_golden.get("implications", [])
+        # IDs des concepts impliqués par le golden (ses enfants/descendants)
+        # Traversée récursive pour couvrir les petits-enfants
+        golden_child_ids: Set[str] = set()
+        queue = list(golden_implications)
+        visited_names: Set[str] = set()
+        while queue:
+            impl_name = queue.pop(0)
+            if impl_name in visited_names:
+                continue
+            visited_names.add(impl_name)
+            impl_owl = find_owl_concept(impl_name)
+            if impl_owl:
+                golden_child_ids.add(impl_owl["ontology_id"])
+                # Ajouter les sous-implications (enfants de l'enfant)
+                for sub_impl in impl_owl.get("implications", []):
+                    if sub_impl not in visited_names:
+                        queue.append(sub_impl)
+
+        best_score = 0.0
+        best_type = ""
+        best_found_id = ""
+
+        for fid in found_id_set:
+            statut = found_statuts.get(fid, "present")
+            if statut not in ("present", "hypothese"):
+                continue
+
+            # 2a. CHILD : l'étudiant a trouvé un concept qui est un enfant du golden
+            #     (le golden implique ce concept → l'étudiant est plus spécifique)
+            if fid in golden_child_ids:
+                s = SCORE_CHILD_MATCH * (1.0 if statut == "present" else 0.8)
+                if s > best_score:
+                    best_score = s
+                    best_type = "child"
+                    best_found_id = fid
+
+            # 2b. PARENT : l'étudiant a trouvé un concept dont le golden est un enfant
+            #     (le concept trouvé implique d'autres choses, le golden en fait partie)
+            #     Ex: étudiant dit "sus-décalage ST" et golden est "SCA ST+"
+            #     → SCA ST+ a comme implication "sus-décalage ST"
+            #     → donc sus-décalage est un enfant de SCA → reverse: sus-décalage.parents = [SCA]
+            if fid in reverse_implications:
+                parent_ids = reverse_implications[fid]
+                if gid in parent_ids:
+                    s = SCORE_PARENT_MATCH * (1.0 if statut == "present" else 0.8)
+                    if s > best_score:
+                        best_score = s
+                        best_type = "parent"
+                        best_found_id = fid
+
+        if best_score > 0:
+            matched_concepts.append(gname)
+            concept_scores[gname] = best_score
+            match_types[gname] = best_type
+            partial_matches.append({
+                "golden_name": gname,
+                "golden_id": gid,
+                "found_id": best_found_id,
+                "match_type": best_type,
+                "score_pct": best_score,
+            })
+            logger.info(
+                f"   🔗 {best_type.upper()} match : {best_found_id} → {gname} ({best_score:.0f}%)"
+            )
+
+    # --- Phase 3 : Implications automatiques (forward) ---
     auto_validated = apply_implication_rules(matched_concepts, golden_names)
+    for av in auto_validated:
+        match_types[av] = "implication"
     all_validated = set(matched_concepts) | auto_validated
 
     # --- Score pondéré ---
@@ -261,6 +418,8 @@ def score_student_response(
         "matched_expected": list(all_validated),
         "missing_expected": [g for g in golden_names if g not in all_validated],
         "auto_validated": list(auto_validated),
+        "partial_matches": partial_matches,
+        "match_types": match_types,
     }
 
 

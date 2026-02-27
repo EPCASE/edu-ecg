@@ -207,7 +207,88 @@ def resolve_term_to_ontology(
             }
 
     # --- Étape 2 : Juge LLM (QCM) ---
-    return _juge_llm(terme_brut, contexte_phrase, top_k_candidates)
+    juge_result = _juge_llm(terme_brut, contexte_phrase, top_k_candidates)
+
+    # --- Étape 3 : Fallback sous-termes si le Juge renvoie NONE ---
+    # Quand un terme composé comme "ESV infundibulaire droite postéroseptale"
+    # échoue, on tente chaque sous-terme individuellement pour récupérer
+    # le concept principal (ex: "ESV" → EXTRASYSTOLE_VENTRICULAIRE).
+    if juge_result["ontology_id"] == "NONE":
+        subterm_result = _fallback_subtokens(terme_brut, contexte_phrase)
+        if subterm_result is not None:
+            return subterm_result
+
+    return juge_result
+
+
+def _fallback_subtokens(
+    terme_brut: str,
+    contexte_phrase: str,
+) -> Optional[Dict]:
+    """
+    Fallback : quand le Juge renvoie NONE sur un terme composé,
+    on isole chaque sous-terme et retente un Search + coupe-circuit.
+
+    Seuls les matchs **exacts** (is_exact_match=True) sont acceptés.
+    On privilégie le sous-terme avec le poids clinique le plus élevé.
+
+    Ex: "ESV infundibulaire droite postéroseptale"
+        → sous-termes: ["ESV", "infundibulaire", "droite", "postéroseptale"]
+        → "ESV" exact-match EXTRASYSTOLE_VENTRICULAIRE (poids=2) ✅
+
+    Returns:
+        Dict résolution si un sous-terme matche, ou None.
+    """
+    # Importer ici pour éviter circular import au module-level
+    from hybrid_search import HybridSearchEngine
+
+    words = terme_brut.split()
+    if len(words) <= 1:
+        return None  # Terme simple, pas de sous-termes à essayer
+
+    # Lazy-load du moteur (on réutilise un singleton si possible)
+    if not hasattr(_fallback_subtokens, "_engine"):
+        try:
+            index_dir = str(Path(__file__).parent / "rag_index")
+            _fallback_subtokens._engine = HybridSearchEngine(index_dir)
+        except Exception:
+            return None
+
+    engine = _fallback_subtokens._engine
+    best_match = None
+    best_poids = -1
+
+    for word in words:
+        if len(word) <= 1:
+            continue
+        candidates = engine.search_top_k(word, k=3)
+        if not candidates:
+            continue
+        c1 = candidates[0]
+        if c1.get("is_exact_match", False):
+            poids = c1.get("poids", 1)
+            if poids > best_poids:
+                best_poids = poids
+                best_match = c1
+
+    if best_match is not None:
+        logger.info(
+            f"🔄 Fallback sous-terme : '{terme_brut}' → "
+            f"{best_match['ontology_id']} (via sous-terme exact, poids={best_poids})"
+        )
+        return {
+            "ontology_id": best_match["ontology_id"],
+            "concept_name": best_match["concept_name"],
+            "method": "fallback_subterm",
+            "justification": (
+                f"Terme composé '{terme_brut}' non résolu par le Juge. "
+                f"Sous-terme '{best_match['surface_form']}' matche exactement "
+                f"{best_match['ontology_id']}."
+            ),
+            "candidats_soumis": 0,
+        }
+
+    return None
 
 
 def _juge_llm(
