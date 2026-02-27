@@ -8,7 +8,7 @@
 
 ---
 
-## � Vue d'ensemble
+## 🎯 Vue d'ensemble
 
 Ce dépôt contient le **pipeline RAG neurosymbolique 5 briques** pour l'évaluation
 automatique de réponses étudiantes en lecture d'ECG, adossé à une ontologie OWL
@@ -18,15 +18,12 @@ de 289 concepts ECG.
 
 | Brique | Module | Description |
 |--------|--------|-------------|
-| � 1 | `ontology_index.py` | Index vectoriel dense + BM25 depuis l'ontologie OWL |
+|  1 | `ontology_index.py` | Index vectoriel dense + BM25 depuis l'ontologie OWL |
 | 🧱 2 | `ner_extractor.py` | NER clinique via GPT-4o (entités + statuts + diagnostics) |
 | 🧱 3 | `hybrid_search.py` | Recherche hybride Dense + BM25 + Reciprocal Rank Fusion |
 | 🧱 4 | `neurosymbolic_judge.py` | Juge neurosymbolique — coupe-circuit + GPT-4o-mini QCM |
 | 🧱 5 | `scoring.py` | Scoring pondéré avec implications et bonus diagnostique |
 
-### 🎨 **Visualiseur ECG Avancé**
-- **Zoom fluide** : molette souris + slider (0.25x - 5x)
-- **Navigation pan** : clic-glisser pour explorer l'ECG
 ### Benchmark v2 — 62.4% (médiane 86.2%)
 
 | Métrique | Valeur |
