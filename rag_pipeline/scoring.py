@@ -360,14 +360,15 @@ def score_student_response(
                     best_type = "child"
                     best_found_id = fid
 
-            # 2b. PARENT : l'étudiant a trouvé un concept dont le golden est un enfant
-            #     (le concept trouvé implique d'autres choses, le golden en fait partie)
-            #     Ex: étudiant dit "sus-décalage ST" et golden est "SCA ST+"
-            #     → SCA ST+ a comme implication "sus-décalage ST"
-            #     → donc sus-décalage est un enfant de SCA → reverse: sus-décalage.parents = [SCA]
-            if fid in reverse_implications:
-                parent_ids = reverse_implications[fid]
-                if gid in parent_ids:
+            # 2b. PARENT : l'étudiant a trouvé un concept plus général (parent)
+            #     que le golden attendu (enfant/plus spécifique).
+            #     Ex: étudiant dit "BBG" et golden est "BBG complet"
+            #     → BBG implique BBG_COMPLET → BBG est parent de BBG_COMPLET
+            #     → reverse[BBG_COMPLET] contient BBG
+            #     Vérif : le concept trouvé (fid) est-il un parent du golden (gid) ?
+            if gid in reverse_implications:
+                parent_ids = reverse_implications[gid]
+                if fid in parent_ids:
                     s = SCORE_PARENT_MATCH * (1.0 if statut == "present" else 0.8)
                     if s > best_score:
                         best_score = s

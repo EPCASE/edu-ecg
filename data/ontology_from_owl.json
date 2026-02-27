@@ -1703,6 +1703,12 @@
           "poids": 1
         },
         {
+          "ontology_id": "ECHAPPEMENT",
+          "concept_name": "Echappement",
+          "label_en": "Echappement",
+          "poids": 1
+        },
+        {
           "ontology_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
           "concept_name": "Dissociation atrio-ventriculaire",
           "label_en": "Dissociation atrio-ventriculaire",
@@ -1775,15 +1781,15 @@
     "CIRCONFÉRENTIEL": {
       "nom": "Circonférentiel",
       "electrodes": [
-        "V5",
-        "AVF",
-        "V4",
-        "V2",
+        "V6",
         "AVL",
-        "V3",
-        "DII",
+        "V4",
         "V1",
-        "V6"
+        "AVF",
+        "V3",
+        "V5",
+        "DII",
+        "V2"
       ]
     },
     "ONDE_T_NÉGATIVE": {
@@ -1828,8 +1834,8 @@
     "LATÉRAL": {
       "nom": "Latéral",
       "electrodes": [
-        "AVL",
         "V6",
+        "AVL",
         "DI"
       ]
     },
@@ -1862,19 +1868,19 @@
       "nom": "Antérieur",
       "electrodes": [
         "V1",
-        "V3",
-        "V2"
+        "V2",
+        "V3"
       ]
     },
     "POSTÉRIEUR": {
       "nom": "Postérieur",
       "electrodes": [
-        "V8",
-        "AVF",
         "V7",
-        "DII",
         "V9",
-        "DIII"
+        "DIII",
+        "DII",
+        "V8",
+        "AVF"
       ]
     },
     "DÉVIATION_AXIALE": {
@@ -2028,6 +2034,8 @@
     "BLOC_INTERATRIAL": {
       "concept_name": "Bloc interatrial",
       "synonymes": [
+        "Bloc inter-auriculaire",
+        "Bloc interauriculaire",
         "Onde P biphasique en inférieur"
       ],
       "implications": [],
@@ -2374,7 +2382,8 @@
     "ABSENCE_D'ONDE_Q_PATHOLOGIQUE": {
       "concept_name": "Absence d'onde Q pathologique",
       "synonymes": [
-        "Onde Q physiologique"
+        "Onde Q physiologique",
+        "Pas d'onde Q"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -2486,6 +2495,8 @@
     "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST": {
       "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
       "synonymes": [
+        "SCA ST +",
+        "SCA ST+",
         "SCA-ST +",
         "STEMI",
         "Syndrome coronarien avec sus-décalage"
@@ -2537,7 +2548,9 @@
     },
     "VOLTAGE_DU_QRS_NORMAL": {
       "concept_name": "Voltage du QRS normal",
-      "synonymes": [],
+      "synonymes": [
+        "normovolté"
+      ],
       "implications": [],
       "territoires_possibles": [],
       "poids": 1,
@@ -2634,6 +2647,7 @@
       "concept_name": "Extrasystole ventriculaire",
       "synonymes": [
         "ESV",
+        "Extra-systole ventriculaire",
         "PVC"
       ],
       "implications": [
@@ -2689,7 +2703,9 @@
     },
     "TRIGÉMINISME_VENTRICULAIRE": {
       "concept_name": "Trigéminisme ventriculaire",
-      "synonymes": [],
+      "synonymes": [
+        "Trigéminisme"
+      ],
       "implications": [],
       "territoires_possibles": [
         "localisation ESV"
@@ -2700,6 +2716,7 @@
     "PERTE_DES_ONDE_Q_SEPTALES": {
       "concept_name": "Perte des onde Q septales",
       "synonymes": [
+        "Rabotage de l'onde R",
         "Rabotage de l'onde R en antérieur"
       ],
       "implications": [],
@@ -2832,7 +2849,10 @@
     },
     "RYTHME_SINUSAL": {
       "concept_name": "Rythme sinusal",
-      "synonymes": [],
+      "synonymes": [
+        "RS",
+        "sinusal"
+      ],
       "implications": [
         "Morphologie onde P sinusale",
         "Normocarde"
@@ -2971,7 +2991,10 @@
     "BAV_2_MOBITZ_1": {
       "concept_name": "BAV 2 Mobitz 1",
       "synonymes": [
-        "BAV2M1"
+        "BAV 2 type 1",
+        "BAV2M1",
+        "Bloc auriculo-ventriculaire du 2ème degré type 1",
+        "Mobitz I"
       ],
       "implications": [
         "Une onde P bloquée",
@@ -3296,7 +3319,8 @@
       "concept_name": "Rythme d'échappement jonctionnel",
       "synonymes": [
         "RIJA",
-        "Rythme jonctionnel"
+        "Rythme jonctionnel",
+        "échappement jonctionnel"
       ],
       "implications": [],
       "territoires_possibles": [],
@@ -3327,9 +3351,7 @@
         "Rythme d'échappement ventriculaire",
         "Rythme idioventriculaire"
       ],
-      "implications": [
-        "Rythme d'échappement jonctionnel"
-      ],
+      "implications": [],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -3533,6 +3555,7 @@
       "synonymes": [
         "Acute MI",
         "IDM",
+        "Infarctus du myocarde",
         "SCA",
         "Syndrome coronarien aigu"
       ],
@@ -3965,8 +3988,12 @@
     },
     "STIMULATION_VD": {
       "concept_name": "Stimulation VD",
-      "synonymes": [],
-      "implications": [],
+      "synonymes": [
+        "Stimulation ventriculaire droite"
+      ],
+      "implications": [
+        "Pacemaker"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -4084,7 +4111,9 @@
     "BAV_2_MOBITZ_2": {
       "concept_name": "BAV 2 Mobitz 2",
       "synonymes": [
+        "BAV 2 type 2",
         "BAV2M2",
+        "Bloc auriculo-ventriculaire du 2ème degré type 2",
         "Mobitz II"
       ],
       "implications": [
@@ -4114,8 +4143,11 @@
     "BAV_COMPLET": {
       "concept_name": "BAV complet",
       "synonymes": [
+        "BAV III",
         "BAV de troisieme degré",
         "BAV de type 3",
+        "BAV3",
+        "Bloc auriculo-ventriculaire complet",
         "Complete AV block"
       ],
       "implications": [
@@ -4249,8 +4281,12 @@
     },
     "STIMULATION_VG": {
       "concept_name": "Stimulation VG",
-      "synonymes": [],
-      "implications": [],
+      "synonymes": [
+        "Stimulation ventriculaire gauche"
+      ],
+      "implications": [
+        "Pacemaker"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -4323,8 +4359,17 @@
     },
     "STIMULATION_BIVENTRICULAIRE": {
       "concept_name": "Stimulation biventriculaire",
-      "synonymes": [],
-      "implications": [],
+      "synonymes": [
+        "BiV pacing",
+        "Biventricular resynchronisation",
+        "Pacing BiV",
+        "Resynchronisation biventriculaire",
+        "Resynchronisation cardiaque",
+        "Stimulation ventriculaire gauche cardiaque"
+      ],
+      "implications": [
+        "Pacemaker"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -4683,7 +4728,7 @@
       "synonymes": [],
       "implications": [
         "Rythme idioventriculaire accéléré",
-        "Echappement ventriculaire",
+        "Echappement",
         "\"Wandering pacemaker\""
       ],
       "territoires_possibles": [],
@@ -4823,6 +4868,19 @@
       "implications": [
         "Déviation axiale droite",
         "Déviation axiale gauche"
+      ],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "ECHAPPEMENT": {
+      "concept_name": "Echappement",
+      "synonymes": [
+        "rythme d'échappement"
+      ],
+      "implications": [
+        "Rythme d'échappement jonctionnel",
+        "Echappement ventriculaire"
       ],
       "territoires_possibles": [],
       "poids": 1,
@@ -4978,7 +5036,7 @@
   "metadata": {
     "source": "WebProtégé OWL Ontology",
     "extraction_date": "2026-01-10",
-    "total_concepts": 289,
+    "total_concepts": 290,
     "total_territoires": 22
   }
 }
