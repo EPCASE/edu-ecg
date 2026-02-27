@@ -12,8 +12,8 @@ from pathlib import Path
 from backend.rdf_owl_extractor import RDFOWLExtractor  # ✅ UTILISER rdf_owl_extractor (pas owl_to_json_converter!)
 
 def main():
-    # Chemins - Utilisation du fichier OWL externe
-    owl_path = Path(r"C:\Users\Administrateur\bmad\BrYOzRZIu7jQTwmfcGsi35.owl")  # ✅ Nouveau chemin
+    # Chemins - Utilisation du fichier OWL local (dans ECG lecture)
+    owl_path = Path(r"C:\Users\Administrateur\bmad\ECG lecture\BrYOzRZIu7jQTwmfcGsi35.owl")
     json_output = Path("data/ontology_from_owl.json")
     
     print("🔄 RÉGÉNÉRATION DE L'ONTOLOGIE")

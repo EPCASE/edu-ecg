@@ -60,9 +60,25 @@ backups/
 # Analysis & Scripts temporaires
 analyze_*.py
 test_*.py
+!rag_pipeline/test_*.py
 extract_*.py
 cleanup_*.ps1
 cleanup_*.bat
+
+# RAG Pipeline — fichiers volumineux binaires
+*.npy
+rag_pipeline/rag_index/embeddings.npy
+rag_pipeline/rag_index/documents.json
+rag_pipeline/rag_index/metadata.json
+
+# OWL (géré séparément via WebProtégé)
+*.owl
+
+# Scripts temporaires de migration
+_regen.py
+_merge_synonymes.py
+list_ontology.py
+nettoyage_fichiers_inutiles.py
 
 # Documentation temporaire (markdown session notes)
 SESSION_RECAP_*.md

@@ -1,10 +1,11 @@
 """
-🔍 Module de Correction LLM - Version Intégrée
-Adapté depuis correction_llm_poc.py pour intégration dans app.py
+🔍 Module de Correction LLM - Version Neurosymbolique (RAG)
+Refactorisé pour utiliser l'architecture RAG Ontologique (Briques 2-3-4)
+au lieu de l'ancien SemanticScorer + matching itératif.
 
-Auteur: Edu-ECG Team + BMAD Agents (Party Mode)
-Date: 2026-01-11
-Version: 2.0 - Production Ready
+Auteur: Edu-ECG Team + BMAD Agents
+Date: 2026-02-25
+Version: 3.0 - RAG Neurosymbolique
 """
 
 import streamlit as st
@@ -13,21 +14,20 @@ from pathlib import Path
 import json
 import os
 
-# Ajouter project root au path pour imports
+# Ajouter project root et RAG ontologique au path pour imports
 project_root = Path(__file__).parent.parent.parent
+rag_root = project_root.parent / "RAG ontologique"
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(rag_root))
 
-# Imports backend services
+# Imports RAG Neurosymbolique (Briques 2, 3, 4)
 try:
-    from backend.services.llm_service import LLMService
-    from backend.scoring_service_llm import SemanticScorer
-    from backend.feedback_service import FeedbackService
-    from backend.services.llm_semantic_matcher import semantic_match, get_match_type_emoji, get_match_type_label
+    from ner_extractor import extract_clinical_terms, NERExtraction
+    from hybrid_search import HybridSearchEngine
+    from neurosymbolic_judge import resolve_term_to_ontology
     LLM_AVAILABLE = True
-    LLM_SEMANTIC_MATCHER_AVAILABLE = True
 except ImportError as e:
     LLM_AVAILABLE = False
-    LLM_SEMANTIC_MATCHER_AVAILABLE = False
     import_error = str(e)
 
 # Charger ontologie pondérée OWL (prioritaire) ou fallback sur ancienne version
@@ -128,113 +128,10 @@ def find_owl_concept(concept_text):
     }
 
 
-def match_concept_with_ontology(student_text, expected_concept, use_llm_semantic=True):
-    """
-    Vérifie si le texte étudiant correspond au concept attendu
-    en utilisant l'ontologie OWL pondérée (synonymes + labels)
-    
-    Returns: (match_found, match_type, matched_text, owl_concept, llm_result, score_percentage)
-    """
-    student_lower = student_text.lower()
-    concept_lower = expected_concept.lower()
-    
-    # Dictionnaire de synonymes supplémentaires
-    EXTRA_SYNONYMS = {
-        "BAV 2 Mobitz 1": ["BAV2M1", "BAV 2 M1", "bav2 mobitz 1", "bav 2m1", "mobitz 1", "mobitz I", "wenckebach"],
-        "BAV 2 Mobitz 2": ["BAV2M2", "BAV 2 M2", "bav2 mobitz 2", "bav 2m2", "mobitz 2", "mobitz II"],
-        "BAV de type 1": ["BAV1", "BAV 1", "bav de type 1", "bav i", "bav premier degré"],
-        "Rythme sinusal": ["sinusal", "RS", "rythme sinus", "sinusale"],
-        "QRS fins": ["QRS fin", "QRS normal", "qrs normaux"],
-        "QRS normal": ["QRS fins", "QRS fin", "qrs normaux"],
-        "Bloc de branche gauche": ["BBG", "bbg complet"],
-        "Bloc de branche droit": ["BBD", "bbd complet"],
-        "Bloc fasciculaire antérieur gauche": ["HBAG", "hémibloc antérieur gauche", "hemibloc antérieur gauche"],
-    }
-    
-    # Trouver le concept dans l'ontologie OWL
-    owl_concept = find_owl_concept(expected_concept)
-    
-    # PHASE 0 : UTILISER SemanticScorer pour scoring hiérarchique
-    try:
-        scorer = SemanticScorer()
-        student_concept_dict = {'text': student_text, 'category': 'unknown'}
-        expected_concept_dict = {'text': expected_concept, 'category': owl_concept.get('categorie', 'unknown') if owl_concept else 'unknown'}
-        
-        match_result = scorer._compare_concepts_llm(student_concept_dict, expected_concept_dict)
-        
-        if match_result.score > 0:
-            match_type_map = {
-                'exact': 'exact',
-                'child': 'implication',
-                'partial': 'partial',
-                'parent': 'parent_concept',
-                'sibling': 'semantic_sibling'
-            }
-            
-            return (
-                True,
-                match_type_map.get(match_result.match_type.value, 'semantic'),
-                match_result.student_concept,
-                owl_concept,
-                {'explanation': match_result.explanation, 'score': match_result.score},
-                match_result.score
-            )
-    except Exception as e:
-        print(f"⚠️ SemanticScorer error: {e}, falling back to legacy matching")
-    
-    # PHASE 1 : MATCHING DÉTERMINISTE
-    if concept_lower in student_lower:
-        return (True, 'exact', expected_concept, owl_concept, None, 100.0)
-    
-    # Vérifier synonymes supplémentaires
-    if expected_concept in EXTRA_SYNONYMS:
-        for syn in EXTRA_SYNONYMS[expected_concept]:
-            if syn.lower() in student_lower:
-                return (True, 'synonyme', syn, owl_concept, None, 100.0)
-    
-    # Vérifier synonymes de l'ontologie OWL
-    if owl_concept and owl_concept.get('synonymes'):
-        for synonyme in owl_concept['synonymes']:
-            if synonyme.lower() in student_lower:
-                return (True, 'synonyme', synonyme, owl_concept, None, 100.0)
-    
-    # Vérifier ontology_id
-    if owl_concept:
-        ontology_id = owl_concept.get('ontology_id', '').lower().replace('_', ' ')
-        if ontology_id in student_lower:
-            return (True, 'ontology_id', owl_concept.get('ontology_id'), owl_concept, None, 100.0)
-    
-    # PHASE 2 : MATCHING SÉMANTIQUE LLM
-    if use_llm_semantic and LLM_SEMANTIC_MATCHER_AVAILABLE:
-        try:
-            ontology_context = None
-            if owl_concept:
-                ontology_context = {
-                    'id': owl_concept.get('ontology_id'),
-                    'name': owl_concept.get('concept_name'),
-                    'synonyms': owl_concept.get('synonymes', []),
-                    'category': owl_concept.get('categorie'),
-                    'implications': owl_concept.get('implications', []),
-                    'weight': owl_concept.get('poids', 1)
-                }
-            
-            llm_result = semantic_match(student_text, expected_concept, ontology_context)
-            
-            if llm_result.get('match'):
-                return (
-                    True, 
-                    f"semantic_{llm_result.get('match_type')}", 
-                    student_text, 
-                    owl_concept, 
-                    llm_result,
-                    100.0
-                )
-        
-        except Exception as e:
-            print(f"⚠️ Erreur LLM semantic matcher : {e}")
-            pass
-    
-    return (False, None, None, owl_concept, None, 0.0)
+# match_concept_with_ontology — SUPPRIMÉE (remplacée par le pipeline RAG Neurosymbolique)
+# L'ancien matching itératif (EXTRA_SYNONYMS, SemanticScorer, LLM semantic_match)
+# est remplacé par : extract_clinical_terms → HybridSearchEngine → resolve_term_to_ontology
+
 
 
 def apply_implication_rules(matched_concepts, all_expected_concepts):
@@ -496,111 +393,130 @@ def page_correction_llm():
 
 
 def perform_correction(case_data, student_answer):
-    """Effectue la correction et affiche les résultats"""
+    """Effectue la correction via le pipeline RAG Neurosymbolique et affiche les résultats"""
     
-    with st.spinner("🤖 Correction en cours..."):
+    with st.spinner("🤖 Correction Neurosymbolique en cours..."):
         try:
-            # Étape 1: Extraction concepts LLM
-            st.info("🔍 Étape 1/3: Extraction des concepts...")
-            llm_service = LLMService()
-            extraction_result = llm_service.extract_concepts(student_answer)
-            student_concepts = extraction_result.get('concepts', [])
-            
-            if not student_concepts:
+            # Initialiser le moteur de recherche hybride (Brique 3 — chargé une seule fois)
+            moteur_recherche = HybridSearchEngine()
+
+            # ─── Étape 1 : Extraction NER (Brique 2) ─────────────────────────
+            st.info("🔍 Étape 1/3: Extraction des concepts (GPT-4o)...")
+            extraction_result = extract_clinical_terms(student_answer)
+
+            if not extraction_result.entites:
                 st.error("❌ Aucun concept médical trouvé dans votre réponse")
                 st.info("💡 Décrivez les éléments ECG observés (rythme, ondes, intervalles, etc.)")
                 return
-            
-            st.success(f"✅ {len(student_concepts)} concepts extraits")
-            
-            # Étape 2: Récupérer concepts attendus
-            st.info("📊 Étape 2/3: Scoring avec ontologie...")
-            
-            expected_concepts_raw = case_data.get('diagnosis', case_data.get('expected_concepts', []))
-            
+
+            st.success(f"✅ {len(extraction_result.entites)} concepts extraits")
+
+            # ─── Étape 2 : Matching RAG (Briques 3 & 4) ──────────────────────
+            st.info("📊 Étape 2/3: Recherche dans l'ontologie locale (RAG + QCM)...")
+
+            student_matched_ids = {}     # {ontology_id: statut}
+            student_match_details = {}   # {ontology_id: terme_brut}
+            student_match_method = {}    # {ontology_id: method (coupe_circuit/juge_llm)}
+
+            for entite in extraction_result.entites:
+                candidats = moteur_recherche.search_top_k(entite.terme_brut)
+                resolution = resolve_term_to_ontology(
+                    entite.terme_brut, entite.contexte_phrase, candidats
+                )
+
+                matched_id = resolution["ontology_id"]
+                if matched_id != "NONE":
+                    student_matched_ids[matched_id] = entite.statut
+                    student_match_details[matched_id] = entite.terme_brut
+                    student_match_method[matched_id] = resolution["method"]
+
+            # ─── Étape 3 : Le Pont avec l'ancien scoring (Adaptateur) ────────
+            st.info("⚖️ Étape 3/3: Calcul du score...")
+
+            expected_concepts_raw = case_data.get(
+                'diagnosis', case_data.get('expected_concepts', [])
+            )
             if not expected_concepts_raw:
                 st.warning("⚠️ Aucun concept attendu défini pour ce cas")
                 return
-            
-            # Convertir en liste de strings
-            expected_list = []
-            for concept in expected_concepts_raw:
-                if isinstance(concept, str):
-                    expected_list.append(concept)
-                elif isinstance(concept, dict):
-                    expected_list.append(concept.get('text', ''))
-            
-            # Étape 3: Matching avec ontologie
+
+            expected_list = [
+                c if isinstance(c, str) else c.get('text', '')
+                for c in expected_concepts_raw
+            ]
+
             matched_concepts = []
             match_details = {}
             concept_weights = {}
             concept_scores = {}
-            llm_matches = {}
-            
+            llm_matches = {}   # Vide pour compatibilité display_results
+
             for expected in expected_list:
-                match_found, match_type, matched_text, owl_concept, llm_result, score_pct = match_concept_with_ontology(
-                    student_answer, expected, use_llm_semantic=True
-                )
-                
-                # Stocker le poids du concept
-                if owl_concept:
-                    concept_weights[expected] = {
-                        'poids': owl_concept.get('poids', 1),
-                        'categorie': owl_concept.get('categorie', 'DESCRIPTEUR_ECG'),
-                        'ontology_id': owl_concept.get('ontology_id', '')
-                    }
-                else:
-                    concept_weights[expected] = {'poids': 1, 'categorie': 'DESCRIPTEUR_ECG', 'ontology_id': ''}
-                
-                if match_found:
-                    matched_concepts.append(expected)
-                    match_details[expected] = {
-                        'type': match_type,
-                        'matched_text': matched_text,
-                        'poids': concept_weights[expected]['poids'],
-                        'categorie': concept_weights[expected]['categorie']
-                    }
-                    concept_scores[expected] = score_pct
-                    
-                    if llm_result:
-                        llm_matches[expected] = llm_result
-            
-            # Appliquer règles d'implication
+                owl_concept = find_owl_concept(expected)
+                expected_id = owl_concept.get('ontology_id') if owl_concept else None
+
+                # Préparer les poids
+                concept_weights[expected] = {
+                    'poids': owl_concept.get('poids', 1) if owl_concept else 1,
+                    'categorie': owl_concept.get('categorie', 'DESCRIPTEUR_ECG') if owl_concept else 'DESCRIPTEUR_ECG',
+                    'ontology_id': expected_id,
+                }
+
+                # Vérification du match via les IDs ontologiques
+                if expected_id and expected_id in student_matched_ids:
+                    statut = student_matched_ids[expected_id]
+
+                    # PIÈGE DE LA NÉGATION : on ne valide que si l'étudiant
+                    # affirme ("present") ou suspecte ("hypothese") le concept.
+                    # Un statut "absent" signifie qu'il a explicitement nié
+                    # ce concept → on ne donne PAS les points.
+                    if statut in ("present", "hypothese"):
+                        matched_concepts.append(expected)
+                        method = student_match_method.get(expected_id, "rag")
+                        match_details[expected] = {
+                            'type': 'exact' if statut == "present" else 'hypothese',
+                            'matched_text': student_match_details.get(expected_id, ''),
+                            'poids': concept_weights[expected]['poids'],
+                            'categorie': concept_weights[expected]['categorie'],
+                        }
+                        # Affirme → 100% | Hypothèse → 80%
+                        concept_scores[expected] = 100.0 if statut == "present" else 80.0
+
+            # ─── Règles d'implication (inchangé) ─────────────────────────────
             auto_validated = apply_implication_rules(matched_concepts, expected_list)
             all_validated = set(matched_concepts) | auto_validated
-            
-            # Calcul score pondéré
+
+            # ─── Calcul du score pondéré (inchangé) ──────────────────────────
             poids_valides = sum(
                 concept_weights.get(concept, {}).get('poids', 1) * (concept_scores.get(concept, 100.0) / 100.0)
                 for concept in all_validated
             )
-            
             poids_attendus = sum(
                 concept_weights.get(concept, {}).get('poids', 1)
                 for concept in expected_list
             )
-            
+
             base_percentage = (poids_valides / poids_attendus * 100) if poids_attendus > 0 else 0
-            
-            # Bonus diagnostic
+
+            # Bonus diagnostic principal
             has_diagnostic_principal = any(
-                concept_weights.get(c, {}).get('poids', 1) >= 3 
+                concept_weights.get(c, {}).get('poids', 1) >= 3
                 for c in all_validated
             )
             bonus_diagnostic = 0.15 if has_diagnostic_principal else 0
             percentage = min(100, base_percentage * (1 + bonus_diagnostic))
-            
+
             st.success("✅ Correction terminée !")
-            
-            # Affichage résultats
+
+            # ─── Affichage (inchangé) ────────────────────────────────────────
             display_results(
                 percentage, base_percentage, bonus_diagnostic,
                 poids_valides, poids_attendus,
                 matched_concepts, auto_validated, expected_list,
                 match_details, concept_weights, llm_matches,
-                student_answer
+                student_answer,
             )
-            
+
         except Exception as e:
             st.error(f"❌ Erreur lors de la correction: {e}")
             import traceback
@@ -803,6 +719,7 @@ def display_results(percentage, base_percentage, bonus_diagnostic,
 def run_correction_for_case(student_annotations, expert_concepts, case_id):
     """
     🎯 Helper function to run correction within exercise sessions
+    Uses the RAG Neurosymbolic pipeline (Briques 2-3-4).
     
     Args:
         student_annotations: List of student annotation strings
@@ -813,52 +730,40 @@ def run_correction_for_case(student_annotations, expert_concepts, case_id):
         dict with correction results (score, correct_concepts, missing_concepts, extra_concepts)
     """
     try:
-        from backend.services.llm_service import LLMService
-        from backend.services.scoring_service_llm import SemanticScorer
+        moteur = HybridSearchEngine()
+        student_text = " ".join(student_annotations)
         
-        # Initialize services
-        llm_service = LLMService()
-        scorer = SemanticScorer()
+        # Extraction NER
+        extraction = extract_clinical_terms(student_text)
         
-        # Match student annotations to ontology
-        matched_student = []
-        for ann in student_annotations:
-            match_result = match_concept_with_ontology(ann, ONTOLOGY_MAPPING, llm_service)
-            if match_result and match_result.get('matched_concepts'):
-                matched_student.extend(match_result['matched_concepts'])
+        # Resolution RAG
+        student_ids = set()
+        for entite in extraction.entites:
+            candidats = moteur.search_top_k(entite.terme_brut)
+            resolution = resolve_term_to_ontology(
+                entite.terme_brut, entite.contexte_phrase, candidats
+            )
+            if resolution["ontology_id"] != "NONE" and entite.statut in ("present", "hypothese"):
+                student_ids.add(resolution["ontology_id"])
         
-        # Match expert concepts to ontology
-        matched_expert = []
+        # Resolution des concepts experts vers IDs
+        expert_ids = set()
         for concept in expert_concepts:
-            match_result = match_concept_with_ontology(concept, ONTOLOGY_MAPPING, llm_service)
-            if match_result and match_result.get('matched_concepts'):
-                matched_expert.extend(match_result['matched_concepts'])
+            owl = find_owl_concept(concept)
+            if owl:
+                expert_ids.add(owl.get('ontology_id'))
         
-        # Calculate score
-        if not matched_expert:
-            return {
-                'score': 0,
-                'correct_concepts': [],
-                'missing_concepts': [],
-                'extra_concepts': matched_student
-            }
+        correct = list(student_ids & expert_ids)
+        missing = list(expert_ids - student_ids)
+        extra = list(student_ids - expert_ids)
         
-        # Find overlaps
-        student_set = set(matched_student)
-        expert_set = set(matched_expert)
-        
-        correct = list(student_set.intersection(expert_set))
-        missing = list(expert_set - student_set)
-        extra = list(student_set - expert_set)
-        
-        # Score = correct / total expected
-        score = (len(correct) / len(expert_set)) * 100 if expert_set else 0
+        score = (len(correct) / len(expert_ids) * 100) if expert_ids else 0
         
         return {
             'score': score,
             'correct_concepts': correct,
             'missing_concepts': missing,
-            'extra_concepts': extra
+            'extra_concepts': extra,
         }
         
     except Exception as e:
@@ -867,7 +772,7 @@ def run_correction_for_case(student_annotations, expert_concepts, case_id):
             'error': str(e),
             'correct_concepts': [],
             'missing_concepts': [],
-            'extra_concepts': []
+            'extra_concepts': [],
         }
 
 
