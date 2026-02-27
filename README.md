@@ -1,122 +1,101 @@
-# 🫀 Edu-ECG – Plateforme d'enseignement interactif de l'électrocardiogramme
+# 🫀 Edu-ECG — Pipeline RAG Neurosymbolique pour l'évaluation ECG
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)](#)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Benchmark](https://img.shields.io/badge/Benchmark-62.4%25-orange.svg)](#)
 
-**📋 Projet Original** : Créé en décembre 2024 | **👨‍💻 Auteur** : Grégoire Massoullié | **🏛️ Institution** : EPCASE
-
----
-
-## 🌐 **Accès Direct - Application Web**
-
-**🎯 Pour les utilisateurs (étudiants/enseignants) :**
-- ✅ **AUCUNE installation** requise
-- ✅ **Accès web direct** : http://localhost:8501
-- ✅ **Compatible tous navigateurs** (Chrome, Firefox, Safari, Edge)
-- ✅ **Interface responsive** : PC, tablette, mobile
+**📋 Branche** : `RAGontologique` | **👨‍💻 Auteur** : Grégoire Massoullié | **🏛️ Institution** : EPCASE
 
 ---
 
-## 🎯 **Vue d'ensemble**
+## � Vue d'ensemble
 
-**Edu-ECG** Inventions l'apprentissage de l'électrocardiogramme avec :
+Ce dépôt contient le **pipeline RAG neurosymbolique 5 briques** pour l'évaluation
+automatique de réponses étudiantes en lecture d'ECG, adossé à une ontologie OWL
+de 289 concepts ECG.
 
-### 🧠 **Correction Intelligente**
-- **281 concepts ECG** organisés par ontologie médicale
-- **Autocomplétion intelligente** avec suggestions en temps réel
-- **Scoring nuancé** : reconnaît les réponses partiellement correctes
-- **Feedback pédagogique** : suggestions constructives et comparaisons expert/étudiant
+### Architecture en 5 briques
+
+| Brique | Module | Description |
+|--------|--------|-------------|
+| � 1 | `ontology_index.py` | Index vectoriel dense + BM25 depuis l'ontologie OWL |
+| 🧱 2 | `ner_extractor.py` | NER clinique via GPT-4o (entités + statuts + diagnostics) |
+| 🧱 3 | `hybrid_search.py` | Recherche hybride Dense + BM25 + Reciprocal Rank Fusion |
+| 🧱 4 | `neurosymbolic_judge.py` | Juge neurosymbolique — coupe-circuit + GPT-4o-mini QCM |
+| 🧱 5 | `scoring.py` | Scoring pondéré avec implications et bonus diagnostique |
 
 ### 🎨 **Visualiseur ECG Avancé**
 - **Zoom fluide** : molette souris + slider (0.25x - 5x)
 - **Navigation pan** : clic-glisser pour explorer l'ECG
-- **Outil de mesure** : caliper intégré pour intervalles et amplitudes
-- **Mode plein écran** : présentation immersive
-- **Grille ECG** : superposition 5mm/25mm
+### Benchmark v2 — 62.4% (médiane 86.2%)
 
-### 📱 **Interface Moderne**
-- **Design épuré** : navigation sidebar intuitive
-- **Mode dev actif** : accès admin anonyme par défaut
-- **Authentification optionnelle** : connexion dans la sidebar
-- **Multi-rôles** : admin, expert, étudiant
-
-### 🎓 **Workflow Pédagogique**
-1. **Expert** : Import ECG → Annotation avec ontologie → Création sessions
-2. **Étudiant** : Consultation cas → Annotation guidée → Feedback intelligent
-3. **Suivi** : Analytics détaillés, progression, scores
-
-### 🎓 **Session Builder** (NOUVEAU)
-**Interface complète pour créer des sessions de formation en minutes**
-- **📤 Import intelligent** : ECG simple ou multi-ECG (évolution temporelle)
-- **🏷️ Annotation assistée par LLM** : 3000 concepts détectés automatiquement
-- **🔍 Recherche rapide** : Recherche instantanée dans l'ontologie (0ms)
-- **📚 Création de sessions** : Workflow guidé en 4 étapes
-
-**Accès :** http://localhost:8502  
-**Documentation :** [`docs/SESSION_BUILDER_QUICKSTART.md`](docs/SESSION_BUILDER_QUICKSTART.md)
-
-**Performance :**
-- ⏱️ **1-2 min** pour créer un cas complet
-- 🚀 **Cache Redis** : 70% des requêtes instantanées
-- 🎯 **5-15 concepts** détectés automatiquement
-- 💰 **Gratuit** avec mode Recherche Rapide
+| Métrique | Valeur |
+|----------|--------|
+| Score moyen | **62.4%** |
+| Score médian | **86.2%** |
+| Cas > 80% | 30/73 |
+| Cas à 0% | 18/73 (frontière score brut 0 → pas de bonus) |
 
 ---
 
-## 🚀 **Démarrage Rapide**
-
-### Installation (administrateur uniquement)
+## 🚀 Démarrage rapide
 
 ```bash
-# 1. Cloner le projet
+# 1. Cloner et passer sur la branche RAG
 git clone https://github.com/EPCASE/edu-ecg.git
 cd edu-ecg
+git checkout RAGontologique
 
 # 2. Installer les dépendances
 pip install -r requirements.txt
 
-# 3. Lancer l'application
-streamlit run frontend/app.py
+# 3. Configurer la clé OpenAI
+export OPENAI_API_KEY="sk-..."
+
+# 4. Tester le scoring
+cd rag_pipeline
+python scoring.py
 ```
-
-### Accès utilisateurs
-- Ouvrir **http://localhost:8501** dans le navigateur
-- Mode développement actif (admin par défaut)
-- Connexion optionnelle via sidebar
-
-### Identifiants démo
-- **Admin** : admin/admin123
-- **Expert** : expert/expert123  
-- **Étudiant** : etudiant/etudiant123
 
 ---
 
-## 📁 **Structure du Projet**
+## 📁 Structure du projet
+
 ```
-ECG lecture/
-├── frontend/                      # Interface utilisateur
-│   ├── app.py                    # Application principale
-│   ├── pages_ecg_cases.py        # Page cas ECG
-│   ├── auth_system.py            # Authentification
-│   ├── correction_engine.py      # Moteur ontologique
-│   ├── advanced_ecg_viewer.py    # Visualiseur avancé
-│   ├── annotation_components.py  # Composants annotation
-│   └── admin/                    # Modules administration
-│       └── smart_ecg_importer_simple.py
-├── data/                         # Données
-│   ├── ecg_cases/               # Base de cas ECG
-│   ├── ecg_sessions/            # Sessions d'exercices
-│   ├── ontology.json            # Ontologie ECG
-│   └── users.json               # Base utilisateurs
-├── backend/                      # Logique métier
-├── deploy_to_github.bat         # Script déploiement
-└── requirements.txt             # Dépendances Python
+├── rag_pipeline/                  # Pipeline RAG 5 briques
+│   ├── ontology_index.py         # 🧱 1 — Index vectoriel + BM25
+│   ├── ner_extractor.py          # 🧱 2 — NER clinique GPT-4o
+│   ├── hybrid_search.py          # 🧱 3 — Recherche hybride RRF
+│   ├── neurosymbolic_judge.py    # 🧱 4 — Juge neurosymbolique
+│   ├── scoring.py                # 🧱 5 — Scoring pondéré
+│   ├── test_brique1.py           # Tests unitaires
+│   ├── test_brique2.py
+│   ├── test_brique3.py
+│   ├── test_brique4.py
+│   ├── rag_index/                # Index pré-calculé
+│   │   ├── metadata_ontologie.json
+│   │   └── bm25_corpus.json
+│   └── README.md                 # Architecture détaillée
+├── data/
+│   └── ontology_from_owl.json    # Ontologie OWL → JSON (289 concepts)
+├── backend/
+│   ├── __init__.py
+│   └── rdf_owl_extractor.py      # Extracteur OWL → JSON
+├── regenerate_ontology.py         # Script de regénération ontologie
+├── requirements.txt               # Dépendances Python
+├── LICENSE
+└── README.md                      # Ce fichier
 ```
 
+---
+
+## 📖 Documentation détaillée
+
+Voir [`rag_pipeline/README.md`](rag_pipeline/README.md) pour l'architecture complète,
+la stratégie de scoring et les pistes d'amélioration.
+
 <div align="center">
-🫀 Edu-ECG - Transformer l'apprentissage de l'électrocardiographie
+🫀 Edu-ECG RAG Pipeline — Évaluation neurosymbolique des compétences ECG
 
 Développé avec ❤️ pour l'éducation médicale
 </div>
