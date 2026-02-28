@@ -1,269 +1,160 @@
 # 🧠 Pipeline RAG Neurosymbolique — Évaluation ECG
 
-> **Branche** : `RAGontologique`  
-> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg)  
-> **Date** : Février 2026
+> Module de correction automatique d'interprétations ECG par pipeline RAG neurosymbolique.  
+> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `RAGontologique`
+
+---
 
 ## Vue d'ensemble
 
-Pipeline hybride **ontologie + LLMs** pour évaluer automatiquement les interprétations ECG d'étudiants en médecine. L'architecture repose sur 5 briques séquentielles qui combinent raisonnement symbolique (ontologie OWL) et inférence neuronale (GPT-4o / GPT-4o-mini).
+Le pipeline transforme le **texte libre d'un étudiant** en médecine en une **note structurée avec feedback pédagogique**, en 6 briques enchaînées :
 
 ```
-Texte étudiant ──→ [Brique 2: NER] ──→ [Brique 3: Search] ──→ [Brique 4: Juge] ──→ Score
-                    GPT-4o              Dense+BM25+RRF          Coupe-circuit +
-                    Structured          sur index vectoriel     GPT-4o-mini QCM
-                    Outputs             ontologique
+Texte étudiant → NER → Recherche Hybride → Juge Neurosymbolique → Scoring → Rapport + Feedback
 ```
 
-### Résultats Benchmark
-
-| Métrique | v1 | v2 | Delta |
-|---|---|---|---|
-| **Score moyen** | 48.9% | **62.4%** | +13.5 pts |
-| **Score médian** | 50.0% | **86.2%** | +36.2 pts |
-| Cas parfaits (100%) | — | 29/73 | |
-| Cas à 0% | — | 18/73 | |
-
-*Benchmark sur 5 cardiologues × 15 cas ECG (73 évaluations exploitables).*
+**Score moyen sur 15 cas × 7 étudiants : ~92%** | Latence : ~3-5s/cas
 
 ---
 
-## Architecture en 5 Briques
+## 🧱 Les 6 briques
 
-### 🧱 Brique 1 — Socle Symbolique & Vectoriel (`ontology_index.py`)
+| # | Brique | Fichier | Méthode |
+|---|--------|---------|---------|
+| 1 | **Socle ontologique** | `ontology_index.py` | OWL → embeddings + BM25 (411 docs, 180 concepts) |
+| 2 | **Extraction NER** | `ner_extractor.py` | GPT-4o + Structured Outputs (Pydantic) |
+| 3 | **Recherche hybride** | `hybrid_search.py` | Dense (cosinus) + BM25 + RRF fusion |
+| 4 | **Juge neurosymbolique** | `neurosymbolic_judge.py` | Coupe-circuit (~60%) + GPT-4o-mini (~30%) |
+| 5 | **Scoring ensembliste** | `scoring.py` | Dégressif par génération ontologique (90/80/70/60%) |
+| 6 | **Rapport + Feedback** | `candidate_report.py` | Orchestration + feedback GPT basé cours SFC |
 
-**Rôle** : Transformer l'ontologie OWL en base vectorielle locale pour recherche instantanée en RAM.
+### Fichiers complémentaires (Brique 6)
 
-**Entrée** : `ontology_from_owl.json` (289 concepts, 202 synonymes, extraits de l'OWL via `rdf_owl_extractor.py`)
+| Fichier | Rôle |
+|---------|------|
+| `pedagogical_feedback.py` | Génération du commentaire pédagogique GPT-4o-mini |
+| `edn_knowledge_base.py` | 30+ entrées du cours SFC Item 231 (rangs A/B/C) |
 
-**Sortie** :
-- `vecteurs_ontologie.npy` — matrice 491×1536 (float32, text-embedding-3-small)
-- `metadata_ontologie.json` — registre index ↔ document avec ontology_id, surface_form, catégorie, poids
-- `bm25_corpus.json` — corpus tokenisé pour BM25
+### Scripts d'export
 
-**Chaque concept** génère N documents indexés :
-- Le nom canonique (`"Fibrillation atriale"`)
-- Chaque synonyme (`"FA"`, `"ACFA"`, `"Fibrillation auriculaire"`)
-
-**Normalisation** : accents supprimés, lowercase, espaces normalisés → permet le matching exact.
-
----
-
-### 🧱 Brique 2 — Extracteur NER (`ner_extractor.py`)
-
-**Rôle** : Extraire toutes les entités cliniques du texte libre d'un étudiant.
-
-**Modèle** : `gpt-4o-2024-08-06` avec **Structured Outputs** (schéma Pydantic garanti)
-
-**Stratégie d'interaction LLM** :
-
-Le prompt système impose une **extraction pure sans normalisation** :
-- Les termes sont extraits tels quels (fautes d'orthographe incluses : `"tachi supra"` → `"tachi supra"`)
-- Le périmètre couvre l'ECG au sens large : morphologie, rythme, diagnostics, **diagnostics étiologiques** (hyperkaliémie, embolie pulmonaire, amylose…), stimulation cardiaque
-- Chaque entité porte un **statut clinique** : `present` / `absent` / `hypothese`
-
-```python
-class ClinicalEntity(BaseModel):
-    terme_brut: str          # "tachi supra" (tel quel)
-    statut: Literal["present", "absent", "hypothese"]
-    contexte_phrase: str     # phrase d'origine complète
-```
-
-**Pourquoi ce design** : L'extraction brute délègue toute la normalisation au Search (Brique 3) et la décision au Juge (Brique 4). Cela évite le double jeu de devinettes (GPT-4o qui essaierait de mapper directement vers l'ontologie).
+| Fichier | Rôle |
+|---------|------|
+| `generate_html_report.py` | Rapport HTML standalone avec images base64 |
+| `export_corrections_json.py` | Export JSON pour la page Streamlit Corrections |
 
 ---
 
-### 🧱 Brique 3 — Recherche Hybride (`hybrid_search.py`)
-
-**Rôle** : Pour chaque terme NER brut, trouver les Top-K concepts ontologiques les plus proches.
-
-**Deux moteurs combinés** :
-1. **Dense (sémantique)** : embedding du terme via `text-embedding-3-small` → cosinus avec la matrice de Brique 1
-2. **Sparse (lexical)** : BM25Okapi sur les surface_forms normalisées → excellent pour les acronymes (`"BBG"`, `"FA"`, `"TV"`)
-
-**Fusion** : **Reciprocal Rank Fusion (RRF)** avec boost BM25 pour les acronymes courts (≤5 chars).
-
-**Flag `is_exact_match`** : si la forme normalisée du terme query correspond exactement à une surface_form indexée → flag booléen transmis à la Brique 4 pour le coupe-circuit.
-
-```python
-moteur.search_top_k("FA", k=5)
-# → [{"ontology_id": "FIBRILLATION_ATRIALE", "is_exact_match": True, ...}, ...]
-```
-
----
-
-### 🧱 Brique 4 — Le Juge Neurosymbolique (`neurosymbolic_judge.py`)
-
-**Rôle** : Décision finale — relier un terme brut à un `ontology_id` ou `"NONE"`.
-
-**Pipeline en 2 étapes** :
-
-#### Étape 1 : Coupe-Circuit (bypass LLM)
-Si le candidat n°1 a `is_exact_match=True` → retour immédiat de son `ontology_id`.
-
-**⚡ ~42% des résolutions passent par le coupe-circuit** (0 token LLM, latence ~0ms).
-
-**Garde-fou spécificité** : si le match exact est un descripteur générique (poids=1) ET qu'un concept plus spécifique (poids>1, même préfixe d'ID) existe dans le Top-K → le coupe-circuit est **annulé** et le Juge LLM est invoqué.
-
-> Exemple : `"Tachycardie"` match exact `TACHYCARDIE` (p=1), mais `TACHYCARDIE_VENTRICULAIRE` (p=4) est candidat #2 → le Juge décide avec le contexte.
-
-#### Étape 2 : Juge LLM (QCM)
-Le Top-K est présenté à `gpt-4o-mini` sous forme de **QCM** (Question à Choix Multiple). Le LLM doit choisir un ID parmi les candidats ou répondre `"NONE"`.
-
-**Stratégie d'interaction LLM** :
-
-Le prompt système encode 4 règles strictes par ordre de priorité :
-
-1. **Contexte** : analyser le terme ET sa phrase d'origine
-2. **Options only** : choisir UNIQUEMENT parmi les candidats fournis
-3. **Spécificité maximale** : toujours préférer le concept le plus spécifique (enfant > parent)
-4. **Diagnostic > Descripteur** : préférer les diagnostics (poids≥3) sur les descripteurs/territoires
+## 📂 Structure
 
 ```
-Candidats de l'ontologie proposés :
-- Flutter droit typique (ID: FLUTTER_DROIT_TYPIQUE) [catégorie: DIAGNOSTIC_MAJEUR, poids: 3]
-- Flutter atrial (ID: FLUTTER_ATRIAL) [catégorie: SIGNE_ECG_PATHOLOGIQUE, poids: 2]
-- Flutter atrial atypique (ID: FLUTTER_ATRIAL_ATYPIQUE) [catégorie: DIAGNOSTIC_MAJEUR, poids: 3]
-```
-
-**Réponse structurée** (Pydantic) :
-```python
-class ConceptMatching(BaseModel):
-    id_ontologie: str     # "FLUTTER_DROIT_TYPIQUE" ou "NONE"
-    justification: str    # "Flutter typique → concept spécifique..."
-```
-
-**Validation** : si le LLM renvoie un ID absent des candidats → forçage `NONE`.
-
----
-
-### 🧱 Brique 5 — Scoring (`correction_llm.py`)
-
-**Rôle** : Comparer les IDs ontologiques trouvés vs le Golden Set expert.
-
-**Scoring pondéré** :
-- Chaque concept du golden set a un **poids** (1 = descripteur, 2 = signe, 3 = diagnostic majeur, 4 = diagnostic urgent)
-- Score = Σ(poids_validés) / Σ(poids_attendus) × 100
-- **Bonus diagnostic** : +15% si au moins un concept de poids ≥ 3 est trouvé
-- **Statut hypothèse** : pondéré à 80% au lieu de 100%
-- **Implications automatiques** : si un concept parent est trouvé, certains enfants sont automatiquement validés (ex: `BAV_COMPLET` implique `BAV`)
-
----
-
-## Stratégie d'Interaction Ontologie ↔ LLMs
-
-### Principe fondamental : **séparation des responsabilités**
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    ONTOLOGIE (symbolique)                           │
-│  • Source de vérité : 289 concepts, poids, catégories, synonymes   │
-│  • Index vectoriel : 491 documents (embeddings 1536-dim)           │
-│  • Règles d'implication : inférence déterministe                   │
-│  • Normalisation de texte : matching exact sans ambiguïté           │
-└──────────────────────────┬──────────────────────────────────────────┘
-                           │
-                     Candidats Top-K
-                     + métadonnées
-                     (poids, catégorie,
-                      is_exact_match)
-                           │
-┌──────────────────────────▼──────────────────────────────────────────┐
-│                      LLMs (neuronal)                                │
-│  • Brique 2 (GPT-4o) : extraction NER brute — AUCUNE ontologie     │
-│  • Brique 4 (GPT-4o-mini) : QCM contraint — ontologie comme garde  │
-│                                                                      │
-│  Le LLM ne voit JAMAIS l'ontologie complète.                        │
-│  Il voit uniquement les Top-K candidats pré-filtrés.                │
-│  Il ne peut PAS inventer un ID — validation post-LLM stricte.       │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Les 3 interactions clés
-
-| Interaction | Qui → Qui | Mécanisme | Objectif |
-|---|---|---|---|
-| **NER → Search** | LLM → Ontologie | Terme brut → embedding → cosinus + BM25 | Trouver des candidats (tolérance aux fautes) |
-| **Search → Juge** | Ontologie → LLM | Top-K candidats (avec poids/catégorie) → QCM | Décision clinique contextuelle |
-| **Coupe-circuit** | Ontologie seule | Matching exact normalisé → bypass LLM | Rapidité + déterminisme (42% des cas) |
-
-### Pourquoi cette architecture ?
-
-1. **Le LLM n'a pas accès à l'ontologie complète** → il ne peut pas halluciner un concept inexistant
-2. **Le coupe-circuit est déterministe** → même entrée = même sortie, pas de variabilité LLM
-3. **Le scoring est symbolique** → poids/catégories gérés par l'ontologie OWL, pas par le LLM
-4. **Le NER est découplé** → l'extraction brute est indépendante de l'ontologie, ce qui rend le pipeline robuste aux mises à jour de l'OWL
-5. **Le Juge voit les métadonnées** → poids et catégorie guident le LLM vers le bon choix sans hardcoder de règles
-
-### Garde-fous contre les erreurs LLM
-
-| Garde-fou | Couche | Mécanisme |
-|---|---|---|
-| **Structured Outputs** | Brique 2 & 4 | Schéma Pydantic garanti par l'API OpenAI |
-| **Validation post-LLM** | Brique 4 | L'ID renvoyé doit être dans les candidats soumis |
-| **Coupe-circuit garde-fou** | Brique 4 | Annule le bypass si un concept plus spécifique existe |
-| **Implication rules** | Brique 5 | Validation automatique de concepts implicites |
-| **Forçage NONE** | Brique 4 | Si ID invalide → NONE (plutôt qu'un faux positif) |
-
----
-
-## Fichiers du pipeline
-
-```
-RAG ontologique/
-├── ontology_index.py          # Brique 1 — Construction index vectoriel
+rag_pipeline/
+├── ontology_index.py          # Brique 1 — Indexation ontologie
 ├── ner_extractor.py           # Brique 2 — NER GPT-4o
-├── hybrid_search.py           # Brique 3 — Recherche hybride Dense+BM25+RRF
-├── neurosymbolic_judge.py     # Brique 4 — Juge neurosymbolique
-├── rag_index/                 # Index pré-calculé (491 documents × 1536 dims)
+├── hybrid_search.py           # Brique 3 — Recherche Dense + BM25 + RRF
+├── neurosymbolic_judge.py     # Brique 4 — Coupe-circuit + Juge LLM
+├── scoring.py                 # Brique 5 — Scoring dégressif
+├── candidate_report.py        # Brique 6 — Orchestrateur + rapport
+├── pedagogical_feedback.py    # Brique 6 — Feedback GPT + cours SFC
+├── edn_knowledge_base.py      # Brique 6 — Knowledge base Item 231
+├── generate_html_report.py    # Export HTML (rapport complet)
+├── export_corrections_json.py # Export JSON (pour Streamlit)
+├── ARCHITECTURE_PIPELINE.md   # Doc architecture détaillée (Mermaid)
+├── rag_index/                 # Index vectoriels pré-calculés
 │   ├── vecteurs_ontologie.npy
 │   ├── metadata_ontologie.json
 │   └── bm25_corpus.json
-├── tests/
-│   └── benchmark_evaluation.ipynb  # Benchmark complet (5 participants × 15 cas)
-├── test_brique1.py            # Tests unitaires
-├── test_brique2.py
-├── test_brique3.py
-├── test_brique4.py
-└── SUGGESTIONS_ONTOLOGIE_2026-02-26.md  # Suggestions d'enrichissement
-
-ECG lecture/
-├── BrYOzRZIu7jQTwmfcGsi35.owl         # Ontologie OWL source (WebProtégé)
-├── data/ontology_from_owl.json          # Ontologie JSON (289 concepts, 202 synonymes)
-├── regenerate_ontology.py               # Script de régénération JSON depuis OWL
-├── backend/rdf_owl_extractor.py         # Extracteur OWL → JSON
-└── frontend/pages/correction_llm.py     # Scoring de production (Brique 5)
+└── tests/
+    ├── test_scoring_quick.py
+    ├── benchmark_evaluation.ipynb
+    └── visualisation_espace_latent.ipynb
 ```
 
 ---
 
-## Modèles utilisés
+## 🚀 Usage rapide
 
-| Modèle | Usage | Coût approx. |
-|---|---|---|
-| `text-embedding-3-small` | Embeddings index + requêtes (1536 dims) | ~$0.02/1M tokens |
-| `gpt-4o-2024-08-06` | NER Structured Outputs (Brique 2) | ~$2.50/1M input |
-| `gpt-4o-mini` | Juge QCM (Brique 4) | ~$0.15/1M input |
+### Corriger un texte étudiant (Python)
 
----
+```python
+from candidate_report import generate_candidate_report
 
-## Exécution
+report = generate_candidate_report(
+    student_text="fibrillation atriale qrs fins tachycardie",
+    golden_names=["Fibrillation atriale"],
+    golden_ids=["FIBRILLATION_ATRIALE"],
+    golden_roles=["validant"],
+    with_feedback=True,
+)
+
+print(f"Score : {report.score_final_pct:.0f}%")
+print(report.feedback_pedagogique.texte)
+```
+
+### Exporter les corrections pour Streamlit
 
 ```bash
-# 1. Régénérer l'ontologie JSON depuis l'OWL
-cd "ECG lecture"
-python regenerate_ontology.py
-
-# 2. Reconstruire l'index vectoriel
-cd "RAG ontologique"
-python ontology_index.py
-
-# 3. Lancer le benchmark
-# → Ouvrir tests/benchmark_evaluation.ipynb et exécuter les cellules 1→4
+python export_corrections_json.py                      # 7 étudiants, avec feedback
+python export_corrections_json.py --no-feedback        # Sans feedback GPT (plus rapide)
+python export_corrections_json.py --students ECG-WY55  # Un seul étudiant
 ```
 
-## Prérequis
+---
 
-- Python 3.12+
-- `OPENAI_API_KEY` dans un fichier `.env`
-- Packages : `openai`, `numpy`, `pydantic`, `python-dotenv`, `pandas`, `tqdm`
+## 🔗 Dépendances externes
+
+| Ressource | Localisation | Usage |
+|-----------|-------------|-------|
+| `.env` (clé OpenAI) | `ECG lecture/.env` | API GPT-4o, GPT-4o-mini, embeddings |
+| `ontology_from_owl.json` | `ECG lecture/data/` | Ontologie ECG (180 concepts) |
+| `goldenset/` | `ECG evaluation/goldenset/` | 15 cas annotés par expert |
+| CSV étudiants | `ECG evaluation/` | Réponses des 7 étudiants |
+| Images ECG | `ECG collector/images/` | 15 PNG pour le rapport HTML |
+
+---
+
+## 🏗️ Stratégie d'interaction Ontologie ↔ LLMs
+
+### Principe fondamental : séparation des responsabilités
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│              ONTOLOGIE (symbolique)                           │
+│  • Source de vérité : 180 concepts, poids, catégories        │
+│  • Index vectoriel : 411 documents (embeddings 1536-dim)     │
+│  • Normalisation de texte : matching exact sans ambiguïté    │
+└───────────────────────┬──────────────────────────────────────┘
+                        │ Candidats Top-K + métadonnées
+┌───────────────────────▼──────────────────────────────────────┐
+│                 LLMs (neuronal)                               │
+│  • Brique 2 (GPT-4o) : extraction NER brute                 │
+│  • Brique 4 (GPT-4o-mini) : QCM contraint sur Top-K         │
+│  • Brique 6 (GPT-4o-mini) : feedback pédagogique            │
+│  Le LLM ne voit JAMAIS l'ontologie complète.                 │
+│  Il ne peut PAS inventer un ID — validation post-LLM.        │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Garde-fous
+
+| Garde-fou | Couche | Mécanisme |
+|---|---|---|
+| Structured Outputs | Brique 2 & 4 | Schéma Pydantic garanti par l'API OpenAI |
+| Validation post-LLM | Brique 4 | L'ID renvoyé doit être dans les candidats soumis |
+| Coupe-circuit spécificité | Brique 4 | Annule le bypass si concept plus spécifique existe |
+| Scoring dégressif | Brique 5 | Pénalisation progressive par génération ontologique |
+| Forçage NONE | Brique 4 | Si ID invalide → NONE plutôt qu'un faux positif |
+
+---
+
+## 📖 Documentation détaillée
+
+→ **[ARCHITECTURE_PIPELINE.md](ARCHITECTURE_PIPELINE.md)** — Architecture complète avec 15 diagrammes Mermaid (flowcharts, sequence diagrams, pie charts).
+
+---
+
+## Stack technique
+
+- Python 3.14 | OpenAI GPT-4o + GPT-4o-mini | text-embedding-3-small
+- NumPy · Pydantic · BM25Okapi · python-dotenv · pandas · tqdm
+- Ontologie OWL ECG (~180 concepts, 4 catégories pondérées)
+- Cours SFC Item 231 — Référentiel CNEC 2e édition (30+ entrées EDN)

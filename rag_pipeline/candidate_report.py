@@ -41,6 +41,11 @@ from scoring import (
     SCORE_GENERATION_FLOOR,
     _score_for_generation,
 )
+from pedagogical_feedback import (
+    generate_pedagogical_feedback,
+    format_feedback_html,
+    PedagogicalFeedback,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -115,6 +120,9 @@ class CandidateReport:
 
     # Section 4 : Découvertes additionnelles
     decouvertes: List[DecouverteDetail] = field(default_factory=list)
+
+    # Section 5 : Feedback pédagogique (cours SFC)
+    feedback_pedagogique: Optional[PedagogicalFeedback] = None
 
     # Statistiques méthodes
     n_coupe_circuit: int = 0
@@ -200,6 +208,7 @@ def generate_candidate_report(
     golden_roles: List[str],
     diagnostic_principal: str = "",
     moteur: Optional[HybridSearchEngine] = None,
+    with_feedback: bool = True,
 ) -> CandidateReport:
     """
     Exécute le pipeline complet et construit un CandidateReport.
@@ -211,6 +220,8 @@ def generate_candidate_report(
         golden_roles:         "validant" ou "descripteur" pour chaque concept.
         diagnostic_principal: Diagnostic principal du cas (pour affichage).
         moteur:               HybridSearchEngine pré-initialisé (optionnel).
+        with_feedback:        Si True (défaut), génère le feedback pédagogique GPT.
+                              Mettre à False pour les benchmarks/tests rapides.
 
     Returns:
         CandidateReport complet.
@@ -350,6 +361,15 @@ def generate_candidate_report(
                 statut=dec["statut"],
             ))
 
+        # ═══════════════════════════════════════════════════════════════
+        # Brique 6 : Feedback pédagogique (cours SFC, Item 231)
+        # ═══════════════════════════════════════════════════════════════
+        if with_feedback:
+            try:
+                report.feedback_pedagogique = generate_pedagogical_feedback(report)
+            except Exception as fb_err:
+                logger.warning(f"Feedback pédagogique indisponible : {fb_err}")
+
     except Exception as e:
         report.erreur = str(e)[:200]
 
@@ -451,6 +471,17 @@ def format_report_text(report: CandidateReport) -> str:
         for dec in report.decouvertes:
             cat_label = dec.categorie.replace("_", " ").capitalize()
             lines.append(f"   🟢 {dec.concept_name}  ({cat_label})")
+
+    # ─── Section 5 : Feedback pédagogique ─────────────────────────────
+    if report.feedback_pedagogique and report.feedback_pedagogique.texte:
+        lines.append(f"\n{'─'*W}")
+        lines.append(
+            f"🎓 SECTION 5 — Commentaire pédagogique (Item 231, SFC)"
+        )
+        lines.append(f"{'─'*W}")
+        if report.feedback_pedagogique.has_critical_miss:
+            lines.append("   ⚠️  ATTENTION : un concept de Rang A (indispensable) a été manqué.\n")
+        lines.append(report.feedback_pedagogique.texte)
 
     # ─── Footer ───────────────────────────────────────────────────────────
     lines.append(f"\n{'═'*W}")
@@ -649,6 +680,10 @@ def format_report_html(report: CandidateReport) -> str:
             """)
 
         html_parts.append("</div>")
+
+    # ─── Section 5 : Feedback pédagogique ─────────────────────────────
+    if report.feedback_pedagogique and report.feedback_pedagogique.texte:
+        html_parts.append(format_feedback_html(report.feedback_pedagogique))
 
     # ─── Footer ───────────────────────────────────────────────────────
     html_parts.append(f"""
