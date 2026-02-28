@@ -3,7 +3,7 @@
 > **Projet** : edu-ecg / EPCASE  
 > **Branche** : `RAGontologique`  
 > **Date** : 2026-02-28  
-> **Auteur** : BMad Team
+> **Auteur** : Grégoire Massoullié
 
 ---
 
@@ -624,5 +624,5 @@ sequenceDiagram
 
 ---
 
-> *Ce document est auto-généré et reflète l'état du pipeline au 2026-02-28.*  
+> *Ce document est auto-généré et reflète l'état du pipeline au 2026-02-28. Oui... enfin j'ai relu hein...*  
 > *Diagrammes au format Mermaid — rendus par GitHub, VS Code, ou tout viewer Markdown compatible.*
