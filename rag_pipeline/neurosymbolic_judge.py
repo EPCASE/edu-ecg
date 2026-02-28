@@ -341,7 +341,7 @@ def _juge_llm(
     )
 
     result = response.choices[0].message.parsed
-    chosen_id = result.id_ontologie.strip()
+    chosen_id = result.id_ontologie.strip().upper()  # .upper() car GPT-4o-mini renvoie parfois du MixedCase
     justification = result.justification.strip()
 
     # Validation : le LLM doit renvoyer un ID valide ou "NONE"

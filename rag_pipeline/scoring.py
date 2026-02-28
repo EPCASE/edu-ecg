@@ -37,9 +37,9 @@ def _get_ontology() -> Dict:
     """Charge l'ontologie JSON une seule fois."""
     global _ONTOLOGY
     if _ONTOLOGY is None:
+        # Source unique : ECG lecture/data/ontology_from_owl.json
+        # (générée par regenerate_ontology.py depuis le fichier OWL)
         candidates = [
-            Path(__file__).parent / "data" / "ontology_from_owl.json",
-            Path(__file__).parent.parent / "data" / "ontology_from_owl.json",
             Path(__file__).parent.parent / "ECG lecture" / "data" / "ontology_from_owl.json",
         ]
         for p in candidates:
@@ -190,31 +190,34 @@ def apply_implication_rules(
 # Scoring complet d'une réponse
 # ---------------------------------------------------------------------------
 
-def _build_reverse_implications() -> Dict[str, List[str]]:
+def _build_reverse_implications() -> Tuple[Dict[str, List[str]], Dict[str, Dict[str, int]]]:
     """
     Construit un index inversé : concept_enfant → [concept_parent_1, ...]
+    + un index de profondeur : concept_enfant → {parent_id: generation}
 
     L'ontologie stocke : PARENT.implications = [enfant1, enfant2, ...].
     Cette fonction produit : enfant1 → [PARENT], enfant2 → [PARENT], ...
 
     Utilité : quand l'étudiant donne un signe (enfant), retrouver le
-    diagnostic (parent) qu'il supporte partiellement.
+    diagnostic (parent) qu'il supporte partiellement, avec la distance.
 
     La traversée est **récursive** (multi-niveau, profondeur max 3) :
       ESV → Multiples ESV → Bigéminisme
-      ⇒ reverse[Bigéminisme] = [Multiples ESV, ESV]
+      ⇒ reverse[Bigéminisme] = {Multiples ESV: 1, ESV: 2}
     """
     ontology = _get_ontology()
     concept_mappings = ontology.get("concept_mappings", {})
 
-    # Étape 1 : reverse direct (1 niveau)
+    # Étape 1 : reverse direct (1 niveau) + profondeur
     direct_reverse: Dict[str, Set[str]] = {}
+    depth_map: Dict[str, Dict[str, int]] = {}  # child_id → {parent_id: generation}
     for oid, mapping in concept_mappings.items():
         for impl_name in mapping.get("implications", []):
             impl_owl = find_owl_concept(impl_name)
             if impl_owl:
                 impl_id = impl_owl["ontology_id"]
                 direct_reverse.setdefault(impl_id, set()).add(oid)
+                depth_map.setdefault(impl_id, {})[oid] = 1  # Gen 1 = parent direct
 
     # Étape 2 : propager récursivement (max 3 niveaux)
     full_reverse: Dict[str, Set[str]] = {k: set(v) for k, v in direct_reverse.items()}
@@ -227,6 +230,9 @@ def _build_reverse_implications() -> Dict[str, List[str]]:
                 for gp_id in grandparent_ids:
                     if gp_id not in full_reverse[child_id]:
                         full_reverse[child_id].add(gp_id)
+                        # Profondeur = profondeur du parent + 1
+                        gen = depth_map.get(child_id, {}).get(parent_id, 1) + 1
+                        depth_map.setdefault(child_id, {})[gp_id] = gen
                         changed = True
         if not changed:
             break
@@ -242,12 +248,32 @@ def _build_reverse_implications() -> Dict[str, List[str]]:
         f"  ↪ Index inversé implications (récursif) : "
         f"{len(reverse)} enfants → parents (+{n_extra} relations multi-niveaux)"
     )
-    return reverse
+    return reverse, depth_map
 
 
-# Score partiel quand l'étudiant donne un concept hiérarchiquement relié
-SCORE_CHILD_MATCH = 90.0   # Étudiant plus spécifique (enfant du concept golden)
-SCORE_PARENT_MATCH = 40.0  # Étudiant donne un signe pour un diagnostic attendu
+# ---------------------------------------------------------------------------
+# Score dégressif par distance générationnelle (CHILD et PARENT)
+# ---------------------------------------------------------------------------
+# Plus l'étudiant est loin du concept validant dans l'arbre ontologique,
+# moins il a de points. Le score décroît de 10% par génération.
+#
+# Exemples (CHILD — étudiant cite un descendant du golden) :
+#   Gen 1 : étudiant dit "Absence d'onde P" pour golden "FA"          → 90%
+#   Gen 2 : étudiant dit un sous-signe d'un signe de FA               → 80%
+#   Gen 3+: encore plus indirect                                       → 70%, 60% (plancher)
+#
+# Exemples (PARENT — étudiant cite un ancêtre du golden) :
+#   Gen 1 : étudiant dit "BBG" pour golden "BBG complet"              → 90%
+#   Gen 2 : étudiant dit une catégorie très large                      → 80%
+#   Gen 3+: encore plus vague                                          → 70%, 60% (plancher)
+#
+SCORE_BY_GENERATION = {1: 90.0, 2: 80.0, 3: 70.0}  # Gen → score %
+SCORE_GENERATION_FLOOR = 60.0  # Plancher pour gen 4+
+
+
+def _score_for_generation(generation: int) -> float:
+    """Retourne le score % pour une distance générationnelle donnée."""
+    return SCORE_BY_GENERATION.get(generation, SCORE_GENERATION_FLOOR)
 
 
 def score_student_response(
@@ -265,8 +291,8 @@ def score_student_response(
 
     Niveaux de matching (par priorité décroissante) :
       1. **EXACT**  — l'ID trouvé est l'ID attendu → 100% (ou 80% si hypothèse)
-      2. **CHILD**  — l'ID trouvé est un enfant (impliqué) du golden → 90%
-      3. **PARENT** — l'ID trouvé est un parent du golden → 40%
+      2. **CHILD**  — l'ID trouvé est un descendant du golden → 90/80/70/60% selon génération
+      3. **PARENT** — l'ID trouvé est un ancêtre du golden → 90/80/70/60% selon génération
       4. **IMPLICATION** — un concept déjà matché implique le golden → 100% (auto-validé)
       5. **MISSING** — aucune correspondance → 0%
 
@@ -287,8 +313,8 @@ def score_student_response(
     concept_mappings = ontology.get("concept_mappings", {})
     found_id_set = set(found_ids)
 
-    # Index inversé pour matching hiérarchique
-    reverse_implications = _build_reverse_implications()
+    # Index inversé pour matching hiérarchique (+ profondeur)
+    reverse_implications, reverse_depths = _build_reverse_implications()
 
     # --- Phase 1 : Matching direct (EXACT) ---
     matched_concepts: List[str] = []
@@ -322,22 +348,26 @@ def score_student_response(
 
         golden_implications = owl_golden.get("implications", [])
         # IDs des concepts impliqués par le golden (ses enfants/descendants)
-        # Traversée récursive pour couvrir les petits-enfants
-        golden_child_ids: Set[str] = set()
-        queue = list(golden_implications)
+        # Traversée BFS récursive avec tracking de la PROFONDEUR (génération)
+        # golden_child_depths[ontology_id] = distance générationnelle (1 = enfant direct)
+        golden_child_depths: Dict[str, int] = {}
+        queue: List[Tuple[str, int]] = [(name, 1) for name in golden_implications]
         visited_names: Set[str] = set()
         while queue:
-            impl_name = queue.pop(0)
+            impl_name, depth = queue.pop(0)
             if impl_name in visited_names:
                 continue
             visited_names.add(impl_name)
             impl_owl = find_owl_concept(impl_name)
             if impl_owl:
-                golden_child_ids.add(impl_owl["ontology_id"])
-                # Ajouter les sous-implications (enfants de l'enfant)
+                impl_id = impl_owl["ontology_id"]
+                # Garder la profondeur minimale (chemin le plus court)
+                if impl_id not in golden_child_depths or depth < golden_child_depths[impl_id]:
+                    golden_child_depths[impl_id] = depth
+                # Ajouter les sous-implications (enfants de l'enfant) à gen+1
                 for sub_impl in impl_owl.get("implications", []):
                     if sub_impl not in visited_names:
-                        queue.append(sub_impl)
+                        queue.append((sub_impl, depth + 1))
 
         best_score = 0.0
         best_type = ""
@@ -348,28 +378,28 @@ def score_student_response(
             if statut not in ("present", "hypothese"):
                 continue
 
-            # 2a. CHILD : l'étudiant a trouvé un concept qui est un enfant du golden
-            #     (le golden implique ce concept → l'étudiant est plus spécifique)
-            if fid in golden_child_ids:
-                s = SCORE_CHILD_MATCH * (1.0 if statut == "present" else 0.8)
+            # 2a. CHILD : l'étudiant a trouvé un concept qui est un descendant du golden
+            #     Score dégressif par génération : gen1=90%, gen2=80%, gen3=70%, gen4+=60%
+            if fid in golden_child_depths:
+                generation = golden_child_depths[fid]
+                base_score = _score_for_generation(generation)
+                s = base_score * (1.0 if statut == "present" else 0.8)
                 if s > best_score:
                     best_score = s
-                    best_type = "child"
+                    best_type = f"child_gen{generation}"
                     best_found_id = fid
 
-            # 2b. PARENT : l'étudiant a trouvé un concept plus général (parent)
-            #     que le golden attendu (enfant/plus spécifique).
-            #     Ex: étudiant dit "BBG" et golden est "BBG complet"
-            #     → BBG implique BBG_COMPLET → BBG est parent de BBG_COMPLET
-            #     → reverse[BBG_COMPLET] contient BBG
-            #     Vérif : le concept trouvé (fid) est-il un parent du golden (gid) ?
+            # 2b. PARENT : l'étudiant a trouvé un concept plus général (ancêtre)
+            #     Score dégressif par génération : gen1=90%, gen2=80%, gen3=70%, gen4+=60%
             if gid in reverse_implications:
                 parent_ids = reverse_implications[gid]
                 if fid in parent_ids:
-                    s = SCORE_PARENT_MATCH * (1.0 if statut == "present" else 0.8)
+                    generation = reverse_depths.get(gid, {}).get(fid, 1)
+                    base_score = _score_for_generation(generation)
+                    s = base_score * (1.0 if statut == "present" else 0.8)
                     if s > best_score:
                         best_score = s
-                        best_type = "parent"
+                        best_type = f"parent_gen{generation}"
                         best_found_id = fid
 
         if best_score > 0:
@@ -393,6 +423,39 @@ def score_student_response(
         match_types[av] = "implication"
     all_validated = set(matched_concepts) | auto_validated
 
+    # --- Phase 3b : Logique ensembliste — Séparer attendus vs découvertes ---
+    # all_expected_concepts = l'ensemble des concepts du Golden Set (barème prof)
+    all_expected_set = set(golden_names)
+
+    # 1. Ce que l'étudiant a validé ET qui était attendu par le prof
+    concepts_valides_attendus = all_validated.intersection(all_expected_set)
+
+    # 2. Ce que l'étudiant a validé de justesse (vrai sur l'ECG) MAIS non exigé
+    #    → concepts trouvés par le pipeline RAG dont l'ontology_id n'est pas dans le golden set
+    #    On reconstruit la liste à partir des found_ids non couverts par le golden
+    golden_id_set = set(golden_ids)
+    decouvertes_additionnelles_ids = found_id_set - golden_id_set
+    decouvertes_additionnelles = []
+    for did in decouvertes_additionnelles_ids:
+        statut = found_statuts.get(did, "present")
+        if statut not in ("present", "hypothese"):
+            continue  # Ignorer les concepts niés par l'étudiant
+        # Retrouver le concept_name depuis l'ontologie
+        if did in concept_mappings:
+            cname = concept_mappings[did].get("concept_name", did)
+            cat = concept_mappings[did].get("categorie", "DESCRIPTEUR_ECG")
+            decouvertes_additionnelles.append({
+                "ontology_id": did,
+                "concept_name": cname,
+                "categorie": cat,
+                "statut": statut,
+            })
+
+    logger.info(
+        f"   📊 Attendus validés: {len(concepts_valides_attendus)}/{len(all_expected_set)}, "
+        f"Découvertes additionnelles: {len(decouvertes_additionnelles)}"
+    )
+
     # --- Classer validants vs descripteurs ---
     if golden_roles is None:
         golden_roles = ["validant"] * len(golden_names)
@@ -403,12 +466,14 @@ def score_student_response(
     validant_names = [g for g in golden_names if concept_roles[g] == "validant"]
     descripteur_names = [g for g in golden_names if concept_roles[g] == "descripteur"]
 
-    validant_matched = [g for g in validant_names if g in all_validated]
-    validant_missing = [g for g in validant_names if g not in all_validated]
-    descripteur_matched = [g for g in descripteur_names if g in all_validated]
-    descripteur_missing = [g for g in descripteur_names if g not in all_validated]
+    validant_matched = [g for g in validant_names if g in concepts_valides_attendus]
+    validant_missing = [g for g in validant_names if g not in concepts_valides_attendus]
+    descripteur_matched = [g for g in descripteur_names if g in concepts_valides_attendus]
+    descripteur_missing = [g for g in descripteur_names if g not in concepts_valides_attendus]
 
-    # --- Score = moyenne des % de note des diagnostics VALIDANTS ---
+    # --- Score STRICT = basé uniquement sur concepts_valides_attendus ---
+    # Les découvertes additionnelles ne rapportent AUCUN point (pas de bonus)
+    # mais ne font PAS perdre de points non plus.
     # Chaque validant matché contribue son % (exact=100, child=90, parent=40, impl=100)
     # Les validants manqués contribuent 0%
     if len(validant_names) > 0:
@@ -420,11 +485,14 @@ def score_student_response(
 
     return {
         "score_final_pct": round(min(100, final_pct), 1),
-        "matched_expected": list(all_validated),
-        "missing_expected": [g for g in golden_names if g not in all_validated],
+        "matched_expected": list(concepts_valides_attendus),
+        "missing_expected": [g for g in golden_names if g not in concepts_valides_attendus],
         "auto_validated": list(auto_validated),
         "partial_matches": partial_matches,
         "match_types": match_types,
+        # Logique ensembliste — attendus vs découvertes
+        "concepts_valides_attendus": list(concepts_valides_attendus),
+        "decouvertes_additionnelles": decouvertes_additionnelles,
         # Détails validants / descripteurs
         "validant_total": len(validant_names),
         "validant_found": len(validant_matched),

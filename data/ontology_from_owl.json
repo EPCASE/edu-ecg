@@ -221,12 +221,6 @@
           "poids": 3
         },
         {
-          "ontology_id": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
-          "concept_name": "Tachycardie ventriculaire non-soutenue",
-          "label_en": "Non-sustained ventricular tachycardia",
-          "poids": 3
-        },
-        {
           "ontology_id": "QT_COURT",
           "concept_name": "QT court",
           "label_en": "Short QT",
@@ -386,12 +380,6 @@
           "ontology_id": "HYPERNATRÉMIE",
           "concept_name": "Hypernatrémie",
           "label_en": "Hypernatremia",
-          "poids": 3
-        },
-        {
-          "ontology_id": "EXTRASYSTOLES_VENTRICULAIRES_POLYMORPHES",
-          "concept_name": "Extrasystoles ventriculaires polymorphes",
-          "label_en": "Polymorphic premature ventricular complex",
           "poids": 3
         },
         {
@@ -605,21 +593,9 @@
           "poids": 2
         },
         {
-          "ontology_id": "ESV_MONOMORPHE",
-          "concept_name": "ESV monomorphe",
-          "label_en": "ESV monomorphe",
-          "poids": 2
-        },
-        {
           "ontology_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
           "concept_name": "Bloc de branche gauche complet",
           "label_en": "Complete LBBB",
-          "poids": 2
-        },
-        {
-          "ontology_id": "MULTIPLES_ESV_MONOMORPHES",
-          "concept_name": "Multiples ESV monomorphes",
-          "label_en": "Multiple monomorphic PVCs",
           "poids": 2
         },
         {
@@ -863,14 +839,14 @@
           "poids": 2
         },
         {
-          "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE_DÉPENDANT_DE_L'ICT",
-          "concept_name": "Flutter atrial antihoraire dépendant de l'ICT",
+          "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+          "concept_name": "Flutter atrial antihoraire",
           "label_en": "Counter-clockwise CTI-dependent flutter",
           "poids": 2
         },
         {
-          "ontology_id": "FLUTTER_ATRIAL_HORAIRE_DÉPENDANT_DE_L'ICT",
-          "concept_name": "Flutter atrial horaire dépendant de l'ICT",
+          "ontology_id": "FLUTTER_ATRIAL_HORAIRE",
+          "concept_name": "Flutter atrial horaire",
           "label_en": "Clockwise CTI-dependent flutter",
           "poids": 2
         },
@@ -1583,9 +1559,33 @@
           "poids": 1
         },
         {
+          "ontology_id": "INTERPOLÉ",
+          "concept_name": "Interpolé",
+          "label_en": "Interpolé",
+          "poids": 1
+        },
+        {
+          "ontology_id": "MONOMORPHE",
+          "concept_name": "monomorphe",
+          "label_en": "monomorphe",
+          "poids": 1
+        },
+        {
+          "ontology_id": "POLYMORPHE",
+          "concept_name": "polymorphe",
+          "label_en": "polymorphe",
+          "poids": 1
+        },
+        {
           "ontology_id": "ONDE_T_AMPLE",
           "concept_name": "Onde T ample",
           "label_en": "Onde T ample",
+          "poids": 1
+        },
+        {
+          "ontology_id": "SOUTENU",
+          "concept_name": "soutenu",
+          "label_en": "soutenu",
           "poids": 1
         },
         {
@@ -1616,6 +1616,12 @@
           "ontology_id": "BAV_DE_TYPE_2",
           "concept_name": "BAV de type 2",
           "label_en": "Type 2 AV block",
+          "poids": 1
+        },
+        {
+          "ontology_id": "NON_SOUTENU",
+          "concept_name": "Non soutenu",
+          "label_en": "Non soutenu",
           "poids": 1
         },
         {
@@ -1673,9 +1679,21 @@
           "poids": 1
         },
         {
+          "ontology_id": "ASPECT_DE_RETARD_GAUCHE",
+          "concept_name": "Aspect de retard gauche",
+          "label_en": "Aspect de retard gauche",
+          "poids": 1
+        },
+        {
           "ontology_id": "LOCALISATION_FAISCEAU_ACCESSOIRE",
           "concept_name": "Localisation faisceau accessoire",
           "label_en": "Kent localization",
+          "poids": 1
+        },
+        {
+          "ontology_id": "ASPECT_DE_RETARD_DROIT",
+          "concept_name": "Aspect de retard droit",
+          "label_en": "Aspect de retard droit",
           "poids": 1
         },
         {
@@ -1700,6 +1718,12 @@
           "ontology_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
           "concept_name": "Dissociation atrio-ventriculaire",
           "label_en": "Dissociation atrio-ventriculaire",
+          "poids": 1
+        },
+        {
+          "ontology_id": "REPOS_COMPENSATEUR",
+          "concept_name": "Repos compensateur",
+          "label_en": "Repos compensateur",
           "poids": 1
         },
         {
@@ -1769,15 +1793,15 @@
     "CIRCONFÉRENTIEL": {
       "nom": "Circonférentiel",
       "electrodes": [
-        "V3",
-        "V2",
         "DII",
-        "V6",
         "AVF",
+        "V1",
+        "V2",
+        "V6",
         "V5",
-        "AVL",
         "V4",
-        "V1"
+        "V3",
+        "AVL"
       ]
     },
     "ONDE_T_NÉGATIVE": {
@@ -1814,17 +1838,17 @@
     "VENTRICULE_DROIT": {
       "nom": "Ventricule droit",
       "electrodes": [
+        "V1",
         "V3R",
-        "V2R",
-        "V1"
+        "V2R"
       ]
     },
     "LATÉRAL": {
       "nom": "Latéral",
       "electrodes": [
-        "DI",
+        "V6",
         "AVL",
-        "V6"
+        "DI"
       ]
     },
     "ALLONGEMENT_PROGRESSIF_DE_L'INTERVALLE_PR": {
@@ -1855,20 +1879,20 @@
     "ANTÉRIEUR": {
       "nom": "Antérieur",
       "electrodes": [
-        "V3",
         "V1",
-        "V2"
+        "V2",
+        "V3"
       ]
     },
     "POSTÉRIEUR": {
       "nom": "Postérieur",
       "electrodes": [
-        "V7",
-        "V9",
-        "V8",
         "DII",
         "AVF",
-        "DIII"
+        "V7",
+        "DIII",
+        "V8",
+        "V9"
       ]
     },
     "DÉVIATION_AXIALE": {
@@ -2011,10 +2035,7 @@
         "Polymorphic VT",
         "TV polymorphe"
       ],
-      "implications": [
-        "Tachycardie ventriculaire bidirectionnelle",
-        "Torsade de pointes"
-      ],
+      "implications": [],
       "territoires_possibles": [],
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
@@ -2049,7 +2070,9 @@
     },
     "MICROVOLTAGE": {
       "concept_name": "Microvoltage",
-      "synonymes": [],
+      "synonymes": [
+        "micro voltage"
+      ],
       "implications": [],
       "territoires_possibles": [],
       "poids": 3,
@@ -2148,20 +2171,6 @@
       "territoires_possibles": [],
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
-    },
-    "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE": {
-      "concept_name": "Tachycardie ventriculaire non-soutenue",
-      "synonymes": [
-        "NSVT",
-        "TV non-soutenue",
-        "TVNS"
-      ],
-      "implications": [],
-      "territoires_possibles": [
-        "localisation ESV"
-      ],
-      "poids": 3,
-      "categorie": "DIAGNOSTIC_MAJEUR"
     },
     "PORTION_BASALE_DU_VENTRICULE_GAUCHE": {
       "concept_name": "Portion basale du ventricule gauche",
@@ -2286,6 +2295,8 @@
         "PAC"
       ],
       "implications": [
+        "Interpolé",
+        "Repos compensateur",
         "ESA monomorphes multiples"
       ],
       "territoires_possibles": [],
@@ -2343,7 +2354,9 @@
     "PAROI_LIBRE_DU_VENTRICULE_DROIT": {
       "concept_name": "Paroi libre du ventricule droit",
       "synonymes": [],
-      "implications": [],
+      "implications": [
+        "Aspect de retard gauche"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -2405,7 +2418,9 @@
     "CONTINUITÉ_MITRO_AORTIQUE": {
       "concept_name": "Continuité mitro-aortique",
       "synonymes": [],
-      "implications": [],
+      "implications": [
+        "Aspect de retard droit"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -2416,11 +2431,16 @@
       "implications": [
         "Absence d'onde P",
         "sous-PQ",
+        "Interpolé",
+        "monomorphe",
+        "polymorphe",
         "onde U",
+        "soutenu",
         "Désorganisée",
         "Irrégulier",
         "QRS",
         "Une onde P bloquée",
+        "Non soutenu",
         "Perte des onde Q septales",
         "Bradycardie",
         "Allongement progressif de l'intervalle PR",
@@ -2429,9 +2449,11 @@
         "Onde epsilon",
         "segment ST",
         "Absence de QRS",
+        "Aspect de retard gauche",
         "rythme régulier",
         "Déviation axiale",
         "Dissociation atrio-ventriculaire",
+        "Repos compensateur",
         "Toit d'usine",
         "Organisée",
         "Tachycardie",
@@ -2469,18 +2491,6 @@
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
     },
-    "ESV_MONOMORPHE": {
-      "concept_name": "ESV monomorphe",
-      "synonymes": [
-        "Extrasystole ventriculaire monomorphe"
-      ],
-      "implications": [],
-      "territoires_possibles": [
-        "localisation ESV"
-      ],
-      "poids": 2,
-      "categorie": "SIGNE_ECG_PATHOLOGIQUE"
-    },
     "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST": {
       "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
       "synonymes": [
@@ -2488,7 +2498,8 @@
         "SCA ST+",
         "SCA-ST +",
         "STEMI",
-        "Syndrome coronarien avec sus-décalage"
+        "Syndrome coronarien avec sus-décalage",
+        "infarctus st+"
       ],
       "implications": [
         "Courant de lésion sous-épicardique"
@@ -2519,7 +2530,9 @@
     "PAROI_INFÉRIEURE_DU_VENTRICULE_DROIT": {
       "concept_name": "Paroi inférieure du ventricule droit",
       "synonymes": [],
-      "implications": [],
+      "implications": [
+        "Aspect de retard gauche"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -2573,19 +2586,6 @@
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
-    "MULTIPLES_ESV_MONOMORPHES": {
-      "concept_name": "Multiples ESV monomorphes",
-      "synonymes": [],
-      "implications": [
-        "Trigéminisme ventriculaire",
-        "Bigeminisme ventriculaire"
-      ],
-      "territoires_possibles": [
-        "localisation ESV"
-      ],
-      "poids": 2,
-      "categorie": "SIGNE_ECG_PATHOLOGIQUE"
-    },
     "PRÉEXCITATION_VENTRICULAIRE_PAR_FIBRE_DE_MAHAÏM": {
       "concept_name": "Préexcitation ventriculaire par fibre de Mahaïm",
       "synonymes": [
@@ -2624,6 +2624,7 @@
         "LBBB"
       ],
       "implications": [
+        "Aspect de retard gauche",
         "Bloc de branche gauche complet",
         "Bloc de branche gauche incomplet"
       ],
@@ -2640,9 +2641,8 @@
       ],
       "implications": [
         "Doublet ventriculaire",
-        "ESV monomorphe",
-        "Multiples ESV monomorphes",
-        "Extrasystoles ventriculaires polymorphes",
+        "Trigéminisme ventriculaire",
+        "Bigeminisme ventriculaire",
         "Triplet ventriculaire"
       ],
       "territoires_possibles": [
@@ -2740,6 +2740,7 @@
       "concept_name": "Ventricule gauche",
       "synonymes": [],
       "implications": [
+        "Aspect de retard gauche",
         "Portion basale du ventricule gauche",
         "Paroi inférieure du ventricule gauche",
         "Paroi latérale du ventricule gauche",
@@ -2754,6 +2755,7 @@
       "concept_name": "Ventricule droit",
       "synonymes": [],
       "implications": [
+        "Aspect de retard gauche",
         "Paroi libre du ventricule droit",
         "Paroi inférieure du ventricule droit"
       ],
@@ -3270,18 +3272,6 @@
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
-    },
-    "EXTRASYSTOLES_VENTRICULAIRES_POLYMORPHES": {
-      "concept_name": "Extrasystoles ventriculaires polymorphes",
-      "synonymes": [
-        "ESV polymorphes"
-      ],
-      "implications": [],
-      "territoires_possibles": [
-        "localisation ESV"
-      ],
-      "poids": 3,
-      "categorie": "DIAGNOSTIC_MAJEUR"
     },
     "HYPERTROPHIE_ATRIALE_GAUCHE": {
       "concept_name": "Hypertrophie atriale gauche",
@@ -3907,9 +3897,12 @@
       "concept_name": "Arrhythmie",
       "synonymes": [],
       "implications": [
+        "Tachycardie ventriculaire polymorphe",
         "Arythmie sinusale",
         "Bradycardie sinusale",
         "Rythmes ectopique",
+        "Torsade de pointes",
+        "Fibrillation ventriculaire",
         "Tachycardie supra-ventriculaire",
         "Tachycardie ventriculaire"
       ],
@@ -3954,7 +3947,8 @@
         "Stimulation ventriculaire droite"
       ],
       "implications": [
-        "Pacemaker"
+        "Pacemaker",
+        "Aspect de retard gauche"
       ],
       "territoires_possibles": [],
       "poids": 1,
@@ -4055,6 +4049,7 @@
         "RBBB"
       ],
       "implications": [
+        "Aspect de retard droit",
         "BBD incomplet",
         "Bloc de branche droit complet"
       ],
@@ -4247,7 +4242,8 @@
         "Stimulation ventriculaire gauche"
       ],
       "implications": [
-        "Pacemaker"
+        "Pacemaker",
+        "Aspect de retard gauche"
       ],
       "territoires_possibles": [],
       "poids": 1,
@@ -4404,16 +4400,19 @@
       "implications": [
         "Complexe de fusion",
         "Capture supraventriculaire",
+        "soutenu",
+        "Non soutenu",
         "QRS large",
-        "Tachycardie ventriculaire polymorphe",
-        "Tachycardie ventriculaire non-soutenue",
+        "Tachycardie",
         "Tachycardie par réentrée de branche à branche",
         "Tachycardie ventriculaire infundibulaire",
+        "Tachycardie ventriculaire bidirectionnelle",
         "Tachycardie ventriculaire cicatricielle",
-        "Fibrillation ventriculaire",
         "Tachycardie ventriculaire fasciculaire"
       ],
-      "territoires_possibles": [],
+      "territoires_possibles": [
+        "localisation ESV"
+      ],
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
@@ -4474,14 +4473,19 @@
         "CCVD",
         "RVOT"
       ],
-      "implications": [],
+      "implications": [
+        "Aspect de retard gauche"
+      ],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
     "STIMULATION_ATRIALE": {
       "concept_name": "Stimulation atriale",
-      "synonymes": [],
+      "synonymes": [
+        "Electroentrainement atrial",
+        "Rythme atrial électroentrainé"
+      ],
       "implications": [],
       "territoires_possibles": [],
       "poids": 1,
@@ -4574,6 +4578,22 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
+    "INTERPOLÉ": {
+      "concept_name": "Interpolé",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "MONOMORPHE": {
+      "concept_name": "monomorphe",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "ESA_MONOMORPHES_MULTIPLES": {
       "concept_name": "ESA monomorphes multiples",
       "synonymes": [],
@@ -4586,9 +4606,29 @@
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
     },
+    "POLYMORPHE": {
+      "concept_name": "polymorphe",
+      "synonymes": [
+        "multifocale"
+      ],
+      "implications": [],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "ONDE_T_AMPLE": {
       "concept_name": "Onde T ample",
       "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "SOUTENU": {
+      "concept_name": "soutenu",
+      "synonymes": [
+        "prolongé"
+      ],
       "implications": [],
       "territoires_possibles": [],
       "poids": 1,
@@ -4626,8 +4666,8 @@
       ],
       "implications": [
         "Organisée",
-        "Flutter atrial antihoraire dépendant de l'ICT",
-        "Flutter atrial horaire dépendant de l'ICT"
+        "Flutter atrial antihoraire",
+        "Flutter atrial horaire"
       ],
       "territoires_possibles": [],
       "poids": 2,
@@ -4664,6 +4704,18 @@
       "implications": [
         "BAV 2 Mobitz 1"
       ],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
+    "NON_SOUTENU": {
+      "concept_name": "Non soutenu",
+      "synonymes": [
+        "NS",
+        "TVNS",
+        "en salve"
+      ],
+      "implications": [],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -4745,10 +4797,11 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
-    "FLUTTER_ATRIAL_ANTIHORAIRE_DÉPENDANT_DE_L'ICT": {
-      "concept_name": "Flutter atrial antihoraire dépendant de l'ICT",
+    "FLUTTER_ATRIAL_ANTIHORAIRE": {
+      "concept_name": "Flutter atrial antihoraire",
       "synonymes": [
         "CCW common flutter",
+        "Flutter atrial anti-horaire",
         "Flutter commun antihoraire"
       ],
       "implications": [
@@ -4778,6 +4831,20 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
+    "ASPECT_DE_RETARD_GAUCHE": {
+      "concept_name": "Aspect de retard gauche",
+      "synonymes": [
+        "Aspect de bloc de branche gauche",
+        "Retard gauche",
+        "retard G"
+      ],
+      "implications": [
+        "Aspect de retard droit"
+      ],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "LOCALISATION_FAISCEAU_ACCESSOIRE": {
       "concept_name": "Localisation faisceau accessoire",
       "synonymes": [
@@ -4799,6 +4866,18 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
+    "ASPECT_DE_RETARD_DROIT": {
+      "concept_name": "Aspect de retard droit",
+      "synonymes": [
+        "aspect de bloc de branche droit",
+        "retard D",
+        "retard droit"
+      ],
+      "implications": [],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
+    },
     "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE": {
       "concept_name": "Trouble de conduction intraventriculaire",
       "synonymes": [],
@@ -4812,8 +4891,8 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
-    "FLUTTER_ATRIAL_HORAIRE_DÉPENDANT_DE_L'ICT": {
-      "concept_name": "Flutter atrial horaire dépendant de l'ICT",
+    "FLUTTER_ATRIAL_HORAIRE": {
+      "concept_name": "Flutter atrial horaire",
       "synonymes": [
         "CW common flutter",
         "Flutter commun horaire"
@@ -4865,6 +4944,14 @@
       "territoires_possibles": [],
       "poids": 2,
       "categorie": "SIGNE_ECG_PATHOLOGIQUE"
+    },
+    "REPOS_COMPENSATEUR": {
+      "concept_name": "Repos compensateur",
+      "synonymes": [],
+      "implications": [],
+      "territoires_possibles": [],
+      "poids": 1,
+      "categorie": "DESCRIPTEUR_ECG"
     },
     "ONDE_U_NORMALE": {
       "concept_name": "Onde U normale",
@@ -4997,7 +5084,7 @@
   "metadata": {
     "source": "WebProtégé OWL Ontology",
     "extraction_date": "2026-01-10",
-    "total_concepts": 288,
+    "total_concepts": 292,
     "total_territoires": 22
   }
 }

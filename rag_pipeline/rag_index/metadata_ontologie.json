@@ -186,6 +186,22 @@
     },
     {
       "ontology_id": "BLOC_INTERATRIAL",
+      "surface_form": "Bloc inter-auriculaire",
+      "source_type": "synonym",
+      "concept_name": "Bloc interatrial",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "BLOC_INTERATRIAL",
+      "surface_form": "Bloc interauriculaire",
+      "source_type": "synonym",
+      "concept_name": "Bloc interatrial",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "BLOC_INTERATRIAL",
       "surface_form": "Onde P biphasique en inférieur",
       "source_type": "synonym",
       "concept_name": "Bloc interatrial",
@@ -212,6 +228,14 @@
       "ontology_id": "MICROVOLTAGE",
       "surface_form": "Microvoltage",
       "source_type": "canonical",
+      "concept_name": "Microvoltage",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3
+    },
+    {
+      "ontology_id": "MICROVOLTAGE",
+      "surface_form": "micro voltage",
+      "source_type": "synonym",
       "concept_name": "Microvoltage",
       "categorie": "DIAGNOSTIC_MAJEUR",
       "poids": 3
@@ -295,38 +319,6 @@
       "concept_name": "Capture supraventriculaire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
-    },
-    {
-      "ontology_id": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
-      "surface_form": "Tachycardie ventriculaire non-soutenue",
-      "source_type": "canonical",
-      "concept_name": "Tachycardie ventriculaire non-soutenue",
-      "categorie": "DIAGNOSTIC_MAJEUR",
-      "poids": 3
-    },
-    {
-      "ontology_id": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
-      "surface_form": "NSVT",
-      "source_type": "synonym",
-      "concept_name": "Tachycardie ventriculaire non-soutenue",
-      "categorie": "DIAGNOSTIC_MAJEUR",
-      "poids": 3
-    },
-    {
-      "ontology_id": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
-      "surface_form": "TV non-soutenue",
-      "source_type": "synonym",
-      "concept_name": "Tachycardie ventriculaire non-soutenue",
-      "categorie": "DIAGNOSTIC_MAJEUR",
-      "poids": 3
-    },
-    {
-      "ontology_id": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
-      "surface_form": "TVNS",
-      "source_type": "synonym",
-      "concept_name": "Tachycardie ventriculaire non-soutenue",
-      "categorie": "DIAGNOSTIC_MAJEUR",
-      "poids": 3
     },
     {
       "ontology_id": "PORTION_BASALE_DU_VENTRICULE_GAUCHE",
@@ -609,6 +601,14 @@
       "poids": 1
     },
     {
+      "ontology_id": "ABSENCE_D'ONDE_Q_PATHOLOGIQUE",
+      "surface_form": "Pas d'onde Q",
+      "source_type": "synonym",
+      "concept_name": "Absence d'onde Q pathologique",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "ESV_ÉPICARDIQUE",
       "surface_form": "ESV épicardique",
       "source_type": "canonical",
@@ -673,25 +673,25 @@
       "poids": 3
     },
     {
-      "ontology_id": "ESV_MONOMORPHE",
-      "surface_form": "ESV monomorphe",
-      "source_type": "canonical",
-      "concept_name": "ESV monomorphe",
-      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
-      "poids": 2
-    },
-    {
-      "ontology_id": "ESV_MONOMORPHE",
-      "surface_form": "Extrasystole ventriculaire monomorphe",
-      "source_type": "synonym",
-      "concept_name": "ESV monomorphe",
-      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
-      "poids": 2
-    },
-    {
       "ontology_id": "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST",
       "surface_form": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
       "source_type": "canonical",
+      "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST",
+      "surface_form": "SCA ST +",
+      "source_type": "synonym",
+      "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST",
+      "surface_form": "SCA ST+",
+      "source_type": "synonym",
       "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
       "categorie": "DIAGNOSTIC_URGENT",
       "poids": 4
@@ -715,6 +715,14 @@
     {
       "ontology_id": "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST",
       "surface_form": "Syndrome coronarien avec sus-décalage",
+      "source_type": "synonym",
+      "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "SYNDROME_CORONARIEN_À_LA_PHASE_AIGUE_AVEC_SUS_DÉCALAGE_DU_SEGMENT_ST",
+      "surface_form": "infarctus st+",
       "source_type": "synonym",
       "concept_name": "Syndrome coronarien à la phase aigue avec sus-décalage du segment ST",
       "categorie": "DIAGNOSTIC_URGENT",
@@ -756,6 +764,14 @@
       "ontology_id": "VOLTAGE_DU_QRS_NORMAL",
       "surface_form": "Voltage du QRS normal",
       "source_type": "canonical",
+      "concept_name": "Voltage du QRS normal",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "VOLTAGE_DU_QRS_NORMAL",
+      "surface_form": "normovolté",
+      "source_type": "synonym",
       "concept_name": "Voltage du QRS normal",
       "categorie": "DESCRIPTEUR_ECG",
       "poids": 1
@@ -805,14 +821,6 @@
       "surface_form": "cLBBB",
       "source_type": "synonym",
       "concept_name": "Bloc de branche gauche complet",
-      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
-      "poids": 2
-    },
-    {
-      "ontology_id": "MULTIPLES_ESV_MONOMORPHES",
-      "surface_form": "Multiples ESV monomorphes",
-      "source_type": "canonical",
-      "concept_name": "Multiples ESV monomorphes",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
@@ -906,6 +914,14 @@
     },
     {
       "ontology_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "surface_form": "Extra-systole ventriculaire",
+      "source_type": "synonym",
+      "concept_name": "Extrasystole ventriculaire",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "EXTRASYSTOLE_VENTRICULAIRE",
       "surface_form": "PVC",
       "source_type": "synonym",
       "concept_name": "Extrasystole ventriculaire",
@@ -985,9 +1001,25 @@
       "poids": 2
     },
     {
+      "ontology_id": "TRIGÉMINISME_VENTRICULAIRE",
+      "surface_form": "Trigéminisme",
+      "source_type": "synonym",
+      "concept_name": "Trigéminisme ventriculaire",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
       "ontology_id": "PERTE_DES_ONDE_Q_SEPTALES",
       "surface_form": "Perte des onde Q septales",
       "source_type": "canonical",
+      "concept_name": "Perte des onde Q septales",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "PERTE_DES_ONDE_Q_SEPTALES",
+      "surface_form": "Rabotage de l'onde R",
+      "source_type": "synonym",
       "concept_name": "Perte des onde Q septales",
       "categorie": "DESCRIPTEUR_ECG",
       "poids": 1
@@ -1132,6 +1164,22 @@
       "ontology_id": "RYTHME_SINUSAL",
       "surface_form": "Rythme sinusal",
       "source_type": "canonical",
+      "concept_name": "Rythme sinusal",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "RYTHME_SINUSAL",
+      "surface_form": "RS",
+      "source_type": "synonym",
+      "concept_name": "Rythme sinusal",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "RYTHME_SINUSAL",
+      "surface_form": "sinusal",
+      "source_type": "synonym",
       "concept_name": "Rythme sinusal",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
@@ -1298,7 +1346,31 @@
     },
     {
       "ontology_id": "BAV_2_MOBITZ_1",
+      "surface_form": "BAV 2 type 1",
+      "source_type": "synonym",
+      "concept_name": "BAV 2 Mobitz 1",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3
+    },
+    {
+      "ontology_id": "BAV_2_MOBITZ_1",
       "surface_form": "BAV2M1",
+      "source_type": "synonym",
+      "concept_name": "BAV 2 Mobitz 1",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3
+    },
+    {
+      "ontology_id": "BAV_2_MOBITZ_1",
+      "surface_form": "Bloc auriculo-ventriculaire du 2ème degré type 1",
+      "source_type": "synonym",
+      "concept_name": "BAV 2 Mobitz 1",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3
+    },
+    {
+      "ontology_id": "BAV_2_MOBITZ_1",
+      "surface_form": "Mobitz I",
       "source_type": "synonym",
       "concept_name": "BAV 2 Mobitz 1",
       "categorie": "DIAGNOSTIC_MAJEUR",
@@ -1330,6 +1402,22 @@
     },
     {
       "ontology_id": "COURANT_DE_LÉSION_SOUS_ENDOCARDIQUE",
+      "surface_form": "ST moins",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-endocardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ENDOCARDIQUE",
+      "surface_form": "ST-",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-endocardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ENDOCARDIQUE",
       "surface_form": "ST-segment depression",
       "source_type": "synonym",
       "concept_name": "Courant de lésion sous-endocardique",
@@ -1347,6 +1435,14 @@
     {
       "ontology_id": "COURANT_DE_LÉSION_SOUS_ENDOCARDIQUE",
       "surface_form": "Sous-décalage du segment ST $",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-endocardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ENDOCARDIQUE",
+      "surface_form": "sous décalage",
       "source_type": "synonym",
       "concept_name": "Courant de lésion sous-endocardique",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
@@ -1402,6 +1498,38 @@
     },
     {
       "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
+      "surface_form": "ST +",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-épicardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
+      "surface_form": "ST plus",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-épicardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
+      "surface_form": "ST surelevé",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-épicardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
+      "surface_form": "ST+",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-épicardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
       "surface_form": "ST-segment elevation",
       "source_type": "synonym",
       "concept_name": "Courant de lésion sous-épicardique",
@@ -1419,6 +1547,14 @@
     {
       "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
       "surface_form": "Sus-décalage du segment ST $",
+      "source_type": "synonym",
+      "concept_name": "Courant de lésion sous-épicardique",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "COURANT_DE_LÉSION_SOUS_ÉPICARDIQUE",
+      "surface_form": "sus-décalage",
       "source_type": "synonym",
       "concept_name": "Courant de lésion sous-épicardique",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
@@ -1511,38 +1647,6 @@
       "concept_name": "Syndrome coronarien à la phase aigue sans élévation du segment ST",
       "categorie": "DIAGNOSTIC_URGENT",
       "poids": 4
-    },
-    {
-      "ontology_id": "SOUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "Sous-décalage du segment ST",
-      "source_type": "canonical",
-      "concept_name": "Sous-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
-      "ontology_id": "SOUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "ST -",
-      "source_type": "synonym",
-      "concept_name": "Sous-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
-      "ontology_id": "SOUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "ST moins",
-      "source_type": "synonym",
-      "concept_name": "Sous-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
-      "ontology_id": "SOUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "sous-décalage",
-      "source_type": "synonym",
-      "concept_name": "Sous-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
     },
     {
       "ontology_id": "SEGMENT_ST",
@@ -1729,22 +1833,6 @@
       "poids": 1
     },
     {
-      "ontology_id": "EXTRASYSTOLES_VENTRICULAIRES_POLYMORPHES",
-      "surface_form": "Extrasystoles ventriculaires polymorphes",
-      "source_type": "canonical",
-      "concept_name": "Extrasystoles ventriculaires polymorphes",
-      "categorie": "DIAGNOSTIC_MAJEUR",
-      "poids": 3
-    },
-    {
-      "ontology_id": "EXTRASYSTOLES_VENTRICULAIRES_POLYMORPHES",
-      "surface_form": "ESV polymorphes",
-      "source_type": "synonym",
-      "concept_name": "Extrasystoles ventriculaires polymorphes",
-      "categorie": "DIAGNOSTIC_MAJEUR",
-      "poids": 3
-    },
-    {
       "ontology_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
       "surface_form": "Hypertrophie atriale gauche",
       "source_type": "canonical",
@@ -1771,6 +1859,14 @@
     {
       "ontology_id": "RYTHME_D'ÉCHAPPEMENT_JONCTIONNEL",
       "surface_form": "Rythme jonctionnel",
+      "source_type": "synonym",
+      "concept_name": "Rythme d'échappement jonctionnel",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 3
+    },
+    {
+      "ontology_id": "RYTHME_D'ÉCHAPPEMENT_JONCTIONNEL",
+      "surface_form": "échappement jonctionnel",
       "source_type": "synonym",
       "concept_name": "Rythme d'échappement jonctionnel",
       "categorie": "DIAGNOSTIC_MAJEUR",
@@ -1953,38 +2049,6 @@
       "poids": 1
     },
     {
-      "ontology_id": "SUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "Sus-décalage du segment ST",
-      "source_type": "canonical",
-      "concept_name": "Sus-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
-      "ontology_id": "SUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "ST +",
-      "source_type": "synonym",
-      "concept_name": "Sus-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
-      "ontology_id": "SUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "ST plus",
-      "source_type": "synonym",
-      "concept_name": "Sus-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
-      "ontology_id": "SUS_DÉCALAGE_DU_SEGMENT_ST",
-      "surface_form": "Sus-décalage",
-      "source_type": "synonym",
-      "concept_name": "Sus-décalage du segment ST",
-      "categorie": "DESCRIPTEUR_ECG",
-      "poids": 1
-    },
-    {
       "ontology_id": "HYPERTROPHIE_ATRIALE_DROITE",
       "surface_form": "Hypertrophie atriale droite",
       "source_type": "canonical",
@@ -2099,6 +2163,14 @@
     {
       "ontology_id": "INFARCTUS_DU_MYOCARDE_À_LA_PHASE_AIGUE",
       "surface_form": "IDM",
+      "source_type": "synonym",
+      "concept_name": "Infarctus du myocarde à la phase aigue",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "INFARCTUS_DU_MYOCARDE_À_LA_PHASE_AIGUE",
+      "surface_form": "Infarctus du myocarde",
       "source_type": "synonym",
       "concept_name": "Infarctus du myocarde à la phase aigue",
       "categorie": "DIAGNOSTIC_URGENT",
@@ -2649,6 +2721,14 @@
       "poids": 1
     },
     {
+      "ontology_id": "STIMULATION_VD",
+      "surface_form": "Stimulation ventriculaire droite",
+      "source_type": "synonym",
+      "concept_name": "Stimulation VD",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "STIMULATION_INAPPROPRIÉE",
       "surface_form": "Stimulation inappropriée",
       "source_type": "canonical",
@@ -2794,7 +2874,23 @@
     },
     {
       "ontology_id": "BAV_2_MOBITZ_2",
+      "surface_form": "BAV 2 type 2",
+      "source_type": "synonym",
+      "concept_name": "BAV 2 Mobitz 2",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "BAV_2_MOBITZ_2",
       "surface_form": "BAV2M2",
+      "source_type": "synonym",
+      "concept_name": "BAV 2 Mobitz 2",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "BAV_2_MOBITZ_2",
+      "surface_form": "Bloc auriculo-ventriculaire du 2ème degré type 2",
       "source_type": "synonym",
       "concept_name": "BAV 2 Mobitz 2",
       "categorie": "DIAGNOSTIC_URGENT",
@@ -2834,6 +2930,14 @@
     },
     {
       "ontology_id": "BAV_COMPLET",
+      "surface_form": "BAV III",
+      "source_type": "synonym",
+      "concept_name": "BAV complet",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "BAV_COMPLET",
       "surface_form": "BAV de troisieme degré",
       "source_type": "synonym",
       "concept_name": "BAV complet",
@@ -2843,6 +2947,22 @@
     {
       "ontology_id": "BAV_COMPLET",
       "surface_form": "BAV de type 3",
+      "source_type": "synonym",
+      "concept_name": "BAV complet",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "BAV_COMPLET",
+      "surface_form": "BAV3",
+      "source_type": "synonym",
+      "concept_name": "BAV complet",
+      "categorie": "DIAGNOSTIC_URGENT",
+      "poids": 4
+    },
+    {
+      "ontology_id": "BAV_COMPLET",
+      "surface_form": "Bloc auriculo-ventriculaire complet",
       "source_type": "synonym",
       "concept_name": "BAV complet",
       "categorie": "DIAGNOSTIC_URGENT",
@@ -3001,6 +3121,14 @@
       "poids": 1
     },
     {
+      "ontology_id": "STIMULATION_VG",
+      "surface_form": "Stimulation ventriculaire gauche",
+      "source_type": "synonym",
+      "concept_name": "Stimulation VG",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "RYTHME_ATRIAL_ECTOPIQUE",
       "surface_form": "Rythme atrial ectopique",
       "source_type": "canonical",
@@ -3092,6 +3220,54 @@
       "ontology_id": "STIMULATION_BIVENTRICULAIRE",
       "surface_form": "Stimulation biventriculaire",
       "source_type": "canonical",
+      "concept_name": "Stimulation biventriculaire",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_BIVENTRICULAIRE",
+      "surface_form": "BiV pacing",
+      "source_type": "synonym",
+      "concept_name": "Stimulation biventriculaire",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_BIVENTRICULAIRE",
+      "surface_form": "Biventricular resynchronisation",
+      "source_type": "synonym",
+      "concept_name": "Stimulation biventriculaire",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_BIVENTRICULAIRE",
+      "surface_form": "Pacing BiV",
+      "source_type": "synonym",
+      "concept_name": "Stimulation biventriculaire",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_BIVENTRICULAIRE",
+      "surface_form": "Resynchronisation biventriculaire",
+      "source_type": "synonym",
+      "concept_name": "Stimulation biventriculaire",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_BIVENTRICULAIRE",
+      "surface_form": "Resynchronisation cardiaque",
+      "source_type": "synonym",
+      "concept_name": "Stimulation biventriculaire",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_BIVENTRICULAIRE",
+      "surface_form": "Stimulation ventriculaire gauche cardiaque",
+      "source_type": "synonym",
       "concept_name": "Stimulation biventriculaire",
       "categorie": "DESCRIPTEUR_ECG",
       "poids": 1
@@ -3281,6 +3457,22 @@
       "poids": 1
     },
     {
+      "ontology_id": "STIMULATION_ATRIALE",
+      "surface_form": "Electroentrainement atrial",
+      "source_type": "synonym",
+      "concept_name": "Stimulation atriale",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "STIMULATION_ATRIALE",
+      "surface_form": "Rythme atrial électroentrainé",
+      "source_type": "synonym",
+      "concept_name": "Stimulation atriale",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "SYNDROME_DE_REPOLARISATION_PRÉCOCE",
       "surface_form": "Syndrome de repolarisation précoce",
       "source_type": "canonical",
@@ -3377,6 +3569,22 @@
       "poids": 1
     },
     {
+      "ontology_id": "INTERPOLÉ",
+      "surface_form": "Interpolé",
+      "source_type": "canonical",
+      "concept_name": "Interpolé",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "MONOMORPHE",
+      "surface_form": "monomorphe",
+      "source_type": "canonical",
+      "concept_name": "monomorphe",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "ESA_MONOMORPHES_MULTIPLES",
       "surface_form": "ESA monomorphes multiples",
       "source_type": "canonical",
@@ -3385,10 +3593,42 @@
       "poids": 2
     },
     {
+      "ontology_id": "POLYMORPHE",
+      "surface_form": "polymorphe",
+      "source_type": "canonical",
+      "concept_name": "polymorphe",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "POLYMORPHE",
+      "surface_form": "multifocale",
+      "source_type": "synonym",
+      "concept_name": "polymorphe",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "ONDE_T_AMPLE",
       "surface_form": "Onde T ample",
       "source_type": "canonical",
       "concept_name": "Onde T ample",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "SOUTENU",
+      "surface_form": "soutenu",
+      "source_type": "canonical",
+      "concept_name": "soutenu",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "SOUTENU",
+      "surface_form": "prolongé",
+      "source_type": "synonym",
+      "concept_name": "soutenu",
       "categorie": "DESCRIPTEUR_ECG",
       "poids": 1
     },
@@ -3513,6 +3753,38 @@
       "poids": 1
     },
     {
+      "ontology_id": "NON_SOUTENU",
+      "surface_form": "Non soutenu",
+      "source_type": "canonical",
+      "concept_name": "Non soutenu",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "NON_SOUTENU",
+      "surface_form": "NS",
+      "source_type": "synonym",
+      "concept_name": "Non soutenu",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "NON_SOUTENU",
+      "surface_form": "TVNS",
+      "source_type": "synonym",
+      "concept_name": "Non soutenu",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "NON_SOUTENU",
+      "surface_form": "en salve",
+      "source_type": "synonym",
+      "concept_name": "Non soutenu",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "TRÉMULATION_DE_LA_LIGNE_DE_BASE",
       "surface_form": "Trémulation de la ligne de base",
       "source_type": "canonical",
@@ -3625,26 +3897,34 @@
       "poids": 1
     },
     {
-      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE_DÉPENDANT_DE_L'ICT",
-      "surface_form": "Flutter atrial antihoraire dépendant de l'ICT",
+      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+      "surface_form": "Flutter atrial antihoraire",
       "source_type": "canonical",
-      "concept_name": "Flutter atrial antihoraire dépendant de l'ICT",
+      "concept_name": "Flutter atrial antihoraire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
     {
-      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE_DÉPENDANT_DE_L'ICT",
+      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
       "surface_form": "CCW common flutter",
       "source_type": "synonym",
-      "concept_name": "Flutter atrial antihoraire dépendant de l'ICT",
+      "concept_name": "Flutter atrial antihoraire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
     {
-      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE_DÉPENDANT_DE_L'ICT",
+      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+      "surface_form": "Flutter atrial anti-horaire",
+      "source_type": "synonym",
+      "concept_name": "Flutter atrial antihoraire",
+      "categorie": "SIGNE_ECG_PATHOLOGIQUE",
+      "poids": 2
+    },
+    {
+      "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
       "surface_form": "Flutter commun antihoraire",
       "source_type": "synonym",
-      "concept_name": "Flutter atrial antihoraire dépendant de l'ICT",
+      "concept_name": "Flutter atrial antihoraire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
@@ -3681,6 +3961,38 @@
       "poids": 1
     },
     {
+      "ontology_id": "ASPECT_DE_RETARD_GAUCHE",
+      "surface_form": "Aspect de retard gauche",
+      "source_type": "canonical",
+      "concept_name": "Aspect de retard gauche",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ASPECT_DE_RETARD_GAUCHE",
+      "surface_form": "Aspect de bloc de branche gauche",
+      "source_type": "synonym",
+      "concept_name": "Aspect de retard gauche",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ASPECT_DE_RETARD_GAUCHE",
+      "surface_form": "Retard gauche",
+      "source_type": "synonym",
+      "concept_name": "Aspect de retard gauche",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ASPECT_DE_RETARD_GAUCHE",
+      "surface_form": "retard G",
+      "source_type": "synonym",
+      "concept_name": "Aspect de retard gauche",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "LOCALISATION_FAISCEAU_ACCESSOIRE",
       "surface_form": "Localisation faisceau accessoire",
       "source_type": "canonical",
@@ -3697,6 +4009,38 @@
       "poids": 1
     },
     {
+      "ontology_id": "ASPECT_DE_RETARD_DROIT",
+      "surface_form": "Aspect de retard droit",
+      "source_type": "canonical",
+      "concept_name": "Aspect de retard droit",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ASPECT_DE_RETARD_DROIT",
+      "surface_form": "aspect de bloc de branche droit",
+      "source_type": "synonym",
+      "concept_name": "Aspect de retard droit",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ASPECT_DE_RETARD_DROIT",
+      "surface_form": "retard D",
+      "source_type": "synonym",
+      "concept_name": "Aspect de retard droit",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ASPECT_DE_RETARD_DROIT",
+      "surface_form": "retard droit",
+      "source_type": "synonym",
+      "concept_name": "Aspect de retard droit",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
       "ontology_id": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
       "surface_form": "Trouble de conduction intraventriculaire",
       "source_type": "canonical",
@@ -3705,26 +4049,26 @@
       "poids": 1
     },
     {
-      "ontology_id": "FLUTTER_ATRIAL_HORAIRE_DÉPENDANT_DE_L'ICT",
-      "surface_form": "Flutter atrial horaire dépendant de l'ICT",
+      "ontology_id": "FLUTTER_ATRIAL_HORAIRE",
+      "surface_form": "Flutter atrial horaire",
       "source_type": "canonical",
-      "concept_name": "Flutter atrial horaire dépendant de l'ICT",
+      "concept_name": "Flutter atrial horaire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
     {
-      "ontology_id": "FLUTTER_ATRIAL_HORAIRE_DÉPENDANT_DE_L'ICT",
+      "ontology_id": "FLUTTER_ATRIAL_HORAIRE",
       "surface_form": "CW common flutter",
       "source_type": "synonym",
-      "concept_name": "Flutter atrial horaire dépendant de l'ICT",
+      "concept_name": "Flutter atrial horaire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
     {
-      "ontology_id": "FLUTTER_ATRIAL_HORAIRE_DÉPENDANT_DE_L'ICT",
+      "ontology_id": "FLUTTER_ATRIAL_HORAIRE",
       "surface_form": "Flutter commun horaire",
       "source_type": "synonym",
-      "concept_name": "Flutter atrial horaire dépendant de l'ICT",
+      "concept_name": "Flutter atrial horaire",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
     },
@@ -3733,6 +4077,22 @@
       "surface_form": "Déviation axiale",
       "source_type": "canonical",
       "concept_name": "Déviation axiale",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ECHAPPEMENT",
+      "surface_form": "Echappement",
+      "source_type": "canonical",
+      "concept_name": "Echappement",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
+    },
+    {
+      "ontology_id": "ECHAPPEMENT",
+      "surface_form": "rythme d'échappement",
+      "source_type": "synonym",
+      "concept_name": "Echappement",
       "categorie": "DESCRIPTEUR_ECG",
       "poids": 1
     },
@@ -3767,6 +4127,14 @@
       "concept_name": "ST normal",
       "categorie": "SIGNE_ECG_PATHOLOGIQUE",
       "poids": 2
+    },
+    {
+      "ontology_id": "REPOS_COMPENSATEUR",
+      "surface_form": "Repos compensateur",
+      "source_type": "canonical",
+      "concept_name": "Repos compensateur",
+      "categorie": "DESCRIPTEUR_ECG",
+      "poids": 1
     },
     {
       "ontology_id": "ONDE_U_NORMALE",
@@ -3931,11 +4299,11 @@
   ],
   "embedding_model": "text-embedding-3-small",
   "embedding_dims": 1536,
-  "total_concepts": 289,
-  "total_documents": 491,
+  "total_concepts": 292,
+  "total_documents": 537,
   "stats": {
-    "canonical": 289,
-    "synonym": 202,
+    "canonical": 292,
+    "synonym": 245,
     "implication": 0,
     "skipped_empty": 0
   },

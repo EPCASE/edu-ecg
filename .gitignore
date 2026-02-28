@@ -61,6 +61,7 @@ backups/
 analyze_*.py
 test_*.py
 !rag_pipeline/test_*.py
+!rag_pipeline/tests/test_*.py
 extract_*.py
 cleanup_*.ps1
 cleanup_*.bat

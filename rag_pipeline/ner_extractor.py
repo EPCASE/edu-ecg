@@ -59,23 +59,38 @@ SYSTEM_PROMPT = """
 Tu es un expert en lecture d'ECG. Ton rôle est d'extraire toutes les entités cliniques, rythmiques et morphologiques du texte rédigé par un étudiant en médecine.
 
 RÈGLES STRICTES :
-1. EXTRACTION PURE : N'essaie JAMAIS de corriger ou normaliser le terme. Garde les fautes orthographiques et les abréviations telles quelles (ex: si l'étudiant écrit "tachi supra", extrais "tachi supra").
+1. EXTRACTION PURE : N'essaie JAMAIS de corriger ou normaliser l'orthographe du terme (ex: si l'étudiant écrit "tachi supra", extrais "tachi supra"). 
+   -> EXCEPTION UNIQUE : Les valeurs numériques (voir Règle 5).
 
 2. PÉRIMÈTRE ECG — LARGE : Extrais TOUS les termes liés à l'interprétation du tracé ECG. Cela inclut :
    a. Les descriptions morphologiques et rythmiques (ex: "ondes T", "BBD", "tachycardie", "microvoltage", "sous-décalage ST").
    b. Les diagnostics et syndromes affirmés ou suspectés à partir du tracé (ex: "syndrome coronarien", "péricardite", "Brugada").
-   c. Les diagnostics ÉTIOLOGIQUES déduits de l'ECG : ce sont les pathologies que l'étudiant conclut en lisant le tracé, même si ce ne sont pas des signes ECG au sens strict. Exemples :
+   c. Les diagnostics ÉTIOLOGIQUES déduits de l'ECG : ce sont les pathologies que l'étudiant conclut en lisant le tracé. Exemples :
       - "hyperkaliémie", "hypokaliémie", "hypercalcémie" (troubles ioniques)
       - "amylose", "hypothermie", "embolie pulmonaire"
       - "intoxication digitalique", "tamponnade"
       - "dysplasie arythmogène du ventricule droit"
    d. Les concepts de stimulation cardiaque (ex: "pacemaker", "stimulation", "pace", "AAI", "DDD").
-   IGNORE UNIQUEMENT le contexte clinique purement anamnestique du patient (âge, poids, "adressé pour douleur thoracique") qui n'est PAS une conclusion tirée de l'ECG.
+   -> IGNORE UNIQUEMENT le contexte clinique purement anamnestique du patient (âge, poids, "adressé pour douleur thoracique") qui n'est PAS une conclusion tirée de l'ECG.
 
 3. STATUT CLINIQUE : Pour chaque terme, détermine son statut :
    - "present" : le concept est affirmé par l'étudiant.
    - "absent" : le concept est explicitement nié ou écarté (ex: "pas de BBD", "sans FA").
    - "hypothese" : le concept est suspecté ou incertain (ex: "suspi d'infarctus", "peut-être une amylose").
+   
+4. GESTION DES ADJECTIFS ET MODIFICATEURS (MÉTHODE LEGO) : 
+   Tu dois distinguer deux situations pour le groupement sémantique :
+   a) Les ondes et segments simples : Garde l'adjectif attaché à l'onde (ex: extrais l'entité complète "Onde T symétrique", "PR long", "Sus-décalage V1").
+   b) Les troubles du rythme et extrasystoles : Tu dois IMPÉRATIVEMENT séparer le diagnostic principal de ses adjectifs descriptifs (durée, séquence, morphologie globale) pour en faire des entités cliniques distinctes.
+      -> Exemples de modificateurs à extraire SEULS : "monomorphe", "polymorphe", "soutenu", "non soutenu", "en salve", "isolée", "bigéminée", "trigéminée".
+      -> EXEMPLE D'APPLICATION : Si l'étudiant écrit "Salves non soutenues d'ESV polymorphes", tu dois extraire 4 entités distinctes : {"terme_brut": "Salve"}, {"terme_brut": "non soutenues"}, {"terme_brut": "ESV"}, {"terme_brut": "polymorphes"}. Ne crée JAMAIS de terme fusionné comme "ESV polymorphe".
+
+5. TRADUCTION CLINIQUE DES MESURES : Les espaces de recherche ne comprennent pas les chiffres. Si l'étudiant donne une valeur numérique brute, ne l'extrais JAMAIS telle quelle dans `terme_brut`. Tu dois la traduire en conclusion clinique standardisée, tout en gardant la valeur d'origine dans `contexte_phrase`.
+Applique STRICTEMENT ces règles de conversion pour générer le `terme_brut` :
+   - Fréquence (bpm, /min) : <60 -> "Bradycardie", 60-100 -> "Normocarde", >100 -> "Tachycardie"
+   - QRS : <120 ms -> "QRS fins", >=120 ms -> "QRS large"
+   - PR : <120 ms -> "PR court", 120-200 ms -> "PR normal", >200 ms -> "PR allongé"
+   - Axe (degrés) : entre -30 et 90 -> "Axe normal", <-30 -> "Déviation axiale gauche", >90 -> "Déviation axiale droite"
 """.strip()
 
 # Modèle OpenAI compatible Structured Outputs
