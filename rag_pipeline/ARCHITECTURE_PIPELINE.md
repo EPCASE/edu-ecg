@@ -34,12 +34,12 @@ flowchart LR
 
     subgraph Pipeline RAG Neurosymbolique
         direction TB
-        B1[🧱 Brique 1\nSocle Ontologique\n+ Vectoriel]
-        B2[🧱 Brique 2\nExtraction NER\nGPT-4o]
-        B3[🧱 Brique 3\nRecherche Hybride\nDense + BM25 + RRF]
-        B4[🧱 Brique 4\nJuge Neurosymbolique\nCoupe-Circuit + GPT-4o-mini]
-        B5[🧱 Brique 5\nScoring Ensembliste\nDégressif par génération]
-        B6[🧱 Brique 6\nRapport Candidat\n+ Feedback SFC]
+        B1["🧱 Brique 1<br/>Socle Ontologique<br/>+ Vectoriel"]
+        B2["🧱 Brique 2<br/>Extraction NER<br/>GPT-4o"]
+        B3["🧱 Brique 3<br/>Recherche Hybride<br/>Dense + BM25 + RRF"]
+        B4["🧱 Brique 4<br/>Juge Neurosymbolique<br/>Coupe-Circuit + GPT-4o-mini"]
+        B5["🧱 Brique 5<br/>Scoring Ensembliste<br/>Dégressif par génération"]
+        B6["🧱 Brique 6<br/>Rapport Candidat<br/>+ Feedback SFC"]
     end
 
     subgraph Sortie
@@ -93,10 +93,10 @@ Transformer l'ontologie ECG (fichier OWL) en une **base vectorielle locale** exp
 ```mermaid
 graph TD
     subgraph Catégories pondérées
-        DU[🔴 DIAGNOSTIC_URGENT\npoids = 4]
-        DM[🟠 DIAGNOSTIC_MAJEUR\npoids = 3]
-        DH[🟡 DIAGNOSTIC_HORS_CATEG\npoids = 2]
-        DESC[⚪ DESCRIPTEUR_ECG\npoids = 1]
+        DU["🔴 DIAGNOSTIC_URGENT<br/>poids = 4"]
+        DM["🟠 DIAGNOSTIC_MAJEUR<br/>poids = 3"]
+        DH["🟡 DIAGNOSTIC_HORS_CATEG<br/>poids = 2"]
+        DESC["⚪ DESCRIPTEUR_ECG<br/>poids = 1"]
     end
 
     subgraph Exemples de concepts
@@ -143,19 +143,19 @@ Extraire du texte libre de l'étudiant une **liste structurée de concepts médi
 ```mermaid
 flowchart LR
     subgraph Entrée
-        T["📝 «fibrillation atriale\nqrs fins tachycardie»"]
+        T["📝 «fibrillation atriale<br/>qrs fins tachycardie»"]
     end
 
     subgraph "Brique 2 — NER (GPT-4o)"
         direction TB
-        P[System Prompt\nPérimètre ECG strict]
-        SO[Structured Outputs\nPydantic Schema]
+        P["System Prompt<br/>Périmètre ECG strict"]
+        SO["Structured Outputs<br/>Pydantic Schema"]
     end
 
     subgraph Sortie
-        E1["✓ present\n«fibrillation atriale»"]
-        E2["✓ present\n«qrs fins»"]
-        E3["✓ present\n«tachycardie»"]
+        E1["✓ present<br/>«fibrillation atriale»"]
+        E2["✓ present<br/>«qrs fins»"]
+        E3["✓ present<br/>«tachycardie»"]
     end
 
     T --> P
@@ -209,24 +209,24 @@ flowchart TB
         direction LR
 
         subgraph Dense
-            EMB["Embedding\ntext-embedding-3-small"]
-            COS["Cosinus\nvs matrice 411×1536"]
-            RD["Ranking Dense\nTop-30"]
+            EMB["Embedding<br/>text-embedding-3-small"]
+            COS["Cosinus<br/>vs matrice 411×1536"]
+            RD["Ranking Dense<br/>Top-30"]
         end
 
         subgraph Sparse
-            TOK["Tokenisation\nnormalize + split"]
-            BM25["BM25Okapi\nscoring lexical"]
-            RS["Ranking Sparse\nTop-30"]
+            TOK["Tokenisation<br/>normalize + split"]
+            BM25["BM25Okapi<br/>scoring lexical"]
+            RS["Ranking Sparse<br/>Top-30"]
         end
 
-        RRF["⚡ Reciprocal Rank Fusion\nRRF(k=60)\n+ boost acronyme ×1.5"]
+        RRF["⚡ Reciprocal Rank Fusion<br/>RRF(k=60)<br/>+ boost acronyme ×1.5"]
     end
 
     subgraph Sortie
-        C1["🥇 TACHYCARDIE_SUPRAVENTRICULAIRE\nscore: 0.89"]
-        C2["🥈 TACHYCARDIE_JONCTIONNELLE\nscore: 0.72"]
-        C3["🥉 TACHYCARDIE\nscore: 0.65"]
+        C1["🥇 TACHYCARDIE_SUPRAVENTRICULAIRE<br/>score: 0.89"]
+        C2["🥈 TACHYCARDIE_JONCTIONNELLE<br/>score: 0.72"]
+        C3["🥉 TACHYCARDIE<br/>score: 0.65"]
     end
 
     Q --> EMB --> COS --> RD
@@ -270,20 +270,20 @@ Décider l'**ontology_id final** pour chaque terme brut, à partir des Top-K can
 flowchart TB
     subgraph Entrée
         T["terme_brut + contexte"]
-        C["Top-K candidats\n(Brique 3)"]
+        C["Top-K candidats<br/>(Brique 3)"]
     end
 
     subgraph "Brique 4 — Juge Neurosymbolique"
-        D{Candidats\ndisponibles ?}
-        EM{Candidat #1\nis_exact_match ?}
-        GF{Garde-fou\nspécificité ?}
-        CC["⚡ Coupe-Circuit\nRésolution immédiate\n(bypass LLM)"]
-        LLM["🧠 Juge LLM\nGPT-4o-mini\nQCM structuré"]
+        D{Candidats<br/>disponibles ?}
+        EM{Candidat #1<br/>is_exact_match ?}
+        GF{Garde-fou<br/>spécificité ?}
+        CC["⚡ Coupe-Circuit<br/>Résolution immédiate<br/>(bypass LLM)"]
+        LLM["🧠 Juge LLM<br/>GPT-4o-mini<br/>QCM structuré"]
     end
 
     subgraph Sortie
-        OID["ontology_id\n+ justification"]
-        NONE["NONE\n(aucun match)"]
+        OID["ontology_id<br/>+ justification"]
+        NONE["NONE<br/>(aucun match)"]
     end
 
     T --> D
@@ -292,8 +292,8 @@ flowchart TB
     D -->|Oui| EM
     EM -->|Oui| GF
     EM -->|Non| LLM
-    GF -->|"Pas de concept\nplus spécifique"| CC
-    GF -->|"Concept plus\nspécifique existe"| LLM
+    GF -->|"Pas de concept<br/>plus spécifique"| CC
+    GF -->|"Concept plus<br/>spécifique existe"| LLM
     CC --> OID
     LLM --> OID
     LLM --> NONE
@@ -330,23 +330,23 @@ Comparer les `ontology_id` trouvés par le pipeline (Briques 2-4) au **Golden Se
 ```mermaid
 flowchart TB
     subgraph Entrées
-        F["IDs trouvés\npar le pipeline"]
-        G["Golden Set\n(IDs + rôles)"]
+        F["IDs trouvés<br/>par le pipeline"]
+        G["Golden Set<br/>(IDs + rôles)"]
     end
 
     subgraph "Brique 5 — Scoring Ensembliste"
         direction TB
 
-        P1["Phase 1 — Match EXACT\nID trouvé = ID golden\n→ 100% (ou 80% si hypothèse)"]
-        P2["Phase 2 — Match HIÉRARCHIQUE\nCHILD : étudiant cite un descendant\nPARENT : étudiant cite un ancêtre\n→ Score dégressif par génération"]
-        P3["Phase 3 — IMPLICATIONS\nSi concept matché implique un golden\n→ 100% auto-validé"]
-        P4["Phase 4 — LOGIQUE ENSEMBLISTE\nSéparer validants vs descripteurs\nvs découvertes additionnelles"]
-        CALC["Calcul final\nMoyenne des % validants"]
+        P1["Phase 1 — Match EXACT<br/>ID trouvé = ID golden<br/>→ 100% (ou 80% si hypothèse)"]
+        P2["Phase 2 — Match HIÉRARCHIQUE<br/>CHILD : étudiant cite un descendant<br/>PARENT : étudiant cite un ancêtre<br/>→ Score dégressif par génération"]
+        P3["Phase 3 — IMPLICATIONS<br/>Si concept matché implique un golden<br/>→ 100% auto-validé"]
+        P4["Phase 4 — LOGIQUE ENSEMBLISTE<br/>Séparer validants vs descripteurs<br/>vs découvertes additionnelles"]
+        CALC["Calcul final<br/>Moyenne des % validants"]
     end
 
     subgraph Sortie
         SC["📊 Score final %"]
-        DET["Détail par validant\n+ match_type + explication"]
+        DET["Détail par validant<br/>+ match_type + explication"]
     end
 
     F --> P1
@@ -371,18 +371,18 @@ L'étudiant reçoit un **score partiel** si son concept est proche mais pas exac
 ```mermaid
 graph TD
     subgraph "Exemple : Golden = Fibrillation atriale"
-        FA["🎯 Fibrillation atriale\n(golden validant)"]
-        AbsP["Absence onde P sinusale\n(enfant gen 1)"]
-        Irr["Rythme irrégulier\n(enfant gen 1)"]
-        Trem["Trémulation ligne de base\n(enfant gen 1)"]
+        FA["🎯 Fibrillation atriale<br/>(golden validant)"]
+        AbsP["Absence onde P sinusale<br/>(enfant gen 1)"]
+        Irr["Rythme irrégulier<br/>(enfant gen 1)"]
+        Trem["Trémulation ligne de base<br/>(enfant gen 1)"]
 
-        TSV["Tachycardie supraventriculaire\n(parent gen 1)"]
+        TSV["Tachycardie supraventriculaire<br/>(parent gen 1)"]
     end
 
-    FA -->|"implique\n(child gen1)"| AbsP
-    FA -->|"implique\n(child gen1)"| Irr
-    FA -->|"implique\n(child gen1)"| Trem
-    TSV -->|"implique\n(parent gen1)"| FA
+    FA -->|"implique<br/>(child gen1)"| AbsP
+    FA -->|"implique<br/>(child gen1)"| Irr
+    FA -->|"implique<br/>(child gen1)"| Trem
+    TSV -->|"implique<br/>(parent gen1)"| FA
 ```
 
 | Distance | Type | Score | Exemple |
@@ -417,9 +417,9 @@ graph LR
     end
 
     subgraph Résultat
-        V["✅ Validants matchés\nFA → 100%"]
-        D["⬜ Descripteurs\nRepol précoce → non trouvé"]
-        DEC["🟢 Découvertes\nTachycardie, QRS fins\n(vrais, hors barème, 0 pts)"]
+        V["✅ Validants matchés<br/>FA → 100%"]
+        D["⬜ Descripteurs<br/>Repol précoce → non trouvé"]
+        DEC["🟢 Découvertes<br/>Tachycardie, QRS fins<br/>(vrais, hors barème, 0 pts)"]
     end
 
     S1 --> V
@@ -449,19 +449,19 @@ flowchart TB
     subgraph "Brique 6 — Rapport & Feedback"
         direction TB
 
-        ORCH["🎼 Orchestrateur\ncandidate_report.py\nEnchaîne Briques 2→5"]
+        ORCH["🎼 Orchestrateur<br/>candidate_report.py<br/>Enchaîne Briques 2→5"]
 
         subgraph "Rapport structuré"
-            S1["🔍 Section 1\nConcepts extraits\n(terme → ontology_id)"]
-            S2["📊 Section 2\nNote & détail\n(score par validant)"]
-            S3["📝 Section 3\nDescripteurs\n(non notés)"]
-            S4["🟢 Section 4\nDécouvertes\n(hors barème)"]
+            S1["🔍 Section 1<br/>Concepts extraits<br/>(terme → ontology_id)"]
+            S2["📊 Section 2<br/>Note & détail<br/>(score par validant)"]
+            S3["📝 Section 3<br/>Descripteurs<br/>(non notés)"]
+            S4["🟢 Section 4<br/>Découvertes<br/>(hors barème)"]
         end
 
         subgraph "Feedback pédagogique"
-            KB["📚 Knowledge Base\nedn_knowledge_base.py\n30+ entrées SFC"]
-            FB["🎓 Feedback GPT\npedagogical_feedback.py\nCitations cours SFC"]
-            S5["🎓 Section 5\nCommentaire pédagogique"]
+            KB["📚 Knowledge Base<br/>edn_knowledge_base.py<br/>30+ entrées SFC"]
+            FB["🎓 Feedback GPT<br/>pedagogical_feedback.py<br/>Citations cours SFC"]
+            S5["🎓 Section 5<br/>Commentaire pédagogique"]
         end
     end
 
@@ -546,28 +546,28 @@ pie title Méthodes de résolution (Brique 4)
 ```mermaid
 graph TB
     subgraph "Intelligence Artificielle"
-        GPT4o["GPT-4o\n(NER — Brique 2)"]
-        GPT4oMini["GPT-4o-mini\n(Juge — Brique 4)\n(Feedback — Brique 6)"]
-        EMB["text-embedding-3-small\n(Recherche — Brique 3)"]
+        GPT4o["GPT-4o<br/>(NER — Brique 2)"]
+        GPT4oMini["GPT-4o-mini<br/>(Juge — Brique 4)<br/>(Feedback — Brique 6)"]
+        EMB["text-embedding-3-small<br/>(Recherche — Brique 3)"]
     end
 
     subgraph "Composants Symboliques"
-        OWL["Ontologie OWL\n~180 concepts ECG"]
-        BM25["BM25Okapi\n(recherche lexicale)"]
+        OWL["Ontologie OWL<br/>~180 concepts ECG"]
+        BM25["BM25Okapi<br/>(recherche lexicale)"]
         RRF["Reciprocal Rank Fusion"]
-        IMPL["Règles d'implication\n(forward + reverse)"]
+        IMPL["Règles d'implication<br/>(forward + reverse)"]
     end
 
     subgraph "Infrastructure"
         PY["Python 3.14"]
-        NP["NumPy\n(matrice embeddings)"]
-        PD["Pydantic\n(Structured Outputs)"]
+        NP["NumPy<br/>(matrice embeddings)"]
+        PD["Pydantic<br/>(Structured Outputs)"]
         OAI["openai SDK"]
     end
 
     subgraph "Frontend"
-        ST["Streamlit\n(app web)"]
-        NB["Jupyter Notebook\n(démo / benchmark)"]
+        ST["Streamlit<br/>(app web)"]
+        NB["Jupyter Notebook<br/>(démo / benchmark)"]
     end
 
     GPT4o --> PD
