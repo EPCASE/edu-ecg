@@ -1,98 +1,160 @@
-# 🫀 Edu-ECG — Pipeline RAG Neurosymbolique pour l'évaluation ECG
+# 🧠 Pipeline RAG Neurosymbolique — Évaluation ECG
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![Benchmark](https://img.shields.io/badge/Benchmark-62.4%25-orange.svg)](#)
-
-**📋 Branche** : `RAGontologique` | **👨‍💻 Auteur** : Grégoire Massoullié | **🏛️ Institution** : EPCASE
+> Module de correction automatique d'interprétations ECG par pipeline RAG neurosymbolique.  
+> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `RAGontologique`
 
 ---
 
-## 🎯 Vue d'ensemble
+## Vue d'ensemble
 
-Ce dépôt contient le **pipeline RAG neurosymbolique 5 briques** pour l'évaluation
-automatique de réponses étudiantes en lecture d'ECG, adossé à une ontologie OWL
-de 289 concepts ECG.
+Le pipeline transforme le **texte libre d'un étudiant** en médecine en une **note structurée avec feedback pédagogique**, en 6 briques enchaînées :
 
-### Architecture en 5 briques
+```
+Texte étudiant → NER → Recherche Hybride → Juge Neurosymbolique → Scoring → Rapport + Feedback
+```
 
-| Brique | Module | Description |
-|--------|--------|-------------|
-|  1 | `ontology_index.py` | Index vectoriel dense + BM25 depuis l'ontologie OWL |
-| 🧱 2 | `ner_extractor.py` | NER clinique via GPT-4o (entités + statuts + diagnostics) |
-| 🧱 3 | `hybrid_search.py` | Recherche hybride Dense + BM25 + Reciprocal Rank Fusion |
-| 🧱 4 | `neurosymbolic_judge.py` | Juge neurosymbolique — coupe-circuit + GPT-4o-mini QCM |
-| 🧱 5 | `scoring.py` | Scoring pondéré avec implications et bonus diagnostique |
-
-### Benchmark v2 — 62.4% (médiane 86.2%)
-
-| Métrique | Valeur |
-|----------|--------|
-| Score moyen | **62.4%** |
-| Score médian | **86.2%** |
-| Cas > 80% | 30/73 |
-| Cas à 0% | 18/73 (frontière score brut 0 → pas de bonus) |
+**Score moyen sur 15 cas × 7 étudiants : ~92%** | Latence : ~3-5s/cas
 
 ---
 
-## 🚀 Démarrage rapide
+## 🧱 Les 6 briques
+
+| # | Brique | Fichier | Méthode |
+|---|--------|---------|---------|
+| 1 | **Socle ontologique** | `ontology_index.py` | OWL → embeddings + BM25 (411 docs, 180 concepts) |
+| 2 | **Extraction NER** | `ner_extractor.py` | GPT-4o + Structured Outputs (Pydantic) |
+| 3 | **Recherche hybride** | `hybrid_search.py` | Dense (cosinus) + BM25 + RRF fusion |
+| 4 | **Juge neurosymbolique** | `neurosymbolic_judge.py` | Coupe-circuit (~60%) + GPT-4o-mini (~30%) |
+| 5 | **Scoring ensembliste** | `scoring.py` | Dégressif par génération ontologique (90/80/70/60%) |
+| 6 | **Rapport + Feedback** | `candidate_report.py` | Orchestration + feedback GPT basé cours SFC |
+
+### Fichiers complémentaires (Brique 6)
+
+| Fichier | Rôle |
+|---------|------|
+| `pedagogical_feedback.py` | Génération du commentaire pédagogique GPT-4o-mini |
+| `edn_knowledge_base.py` | 30+ entrées du cours SFC Item 231 (rangs A/B/C) |
+
+### Scripts d'export
+
+| Fichier | Rôle |
+|---------|------|
+| `generate_html_report.py` | Rapport HTML standalone avec images base64 |
+| `export_corrections_json.py` | Export JSON pour la page Streamlit Corrections |
+
+---
+
+## 📂 Structure
+
+```
+rag_pipeline/
+├── ontology_index.py          # Brique 1 — Indexation ontologie
+├── ner_extractor.py           # Brique 2 — NER GPT-4o
+├── hybrid_search.py           # Brique 3 — Recherche Dense + BM25 + RRF
+├── neurosymbolic_judge.py     # Brique 4 — Coupe-circuit + Juge LLM
+├── scoring.py                 # Brique 5 — Scoring dégressif
+├── candidate_report.py        # Brique 6 — Orchestrateur + rapport
+├── pedagogical_feedback.py    # Brique 6 — Feedback GPT + cours SFC
+├── edn_knowledge_base.py      # Brique 6 — Knowledge base Item 231
+├── generate_html_report.py    # Export HTML (rapport complet)
+├── export_corrections_json.py # Export JSON (pour Streamlit)
+├── ARCHITECTURE_PIPELINE.md   # Doc architecture détaillée (Mermaid)
+├── rag_index/                 # Index vectoriels pré-calculés
+│   ├── vecteurs_ontologie.npy
+│   ├── metadata_ontologie.json
+│   └── bm25_corpus.json
+└── tests/
+    ├── test_scoring_quick.py
+    ├── benchmark_evaluation.ipynb
+    └── visualisation_espace_latent.ipynb
+```
+
+---
+
+## 🚀 Usage rapide
+
+### Corriger un texte étudiant (Python)
+
+```python
+from candidate_report import generate_candidate_report
+
+report = generate_candidate_report(
+    student_text="fibrillation atriale qrs fins tachycardie",
+    golden_names=["Fibrillation atriale"],
+    golden_ids=["FIBRILLATION_ATRIALE"],
+    golden_roles=["validant"],
+    with_feedback=True,
+)
+
+print(f"Score : {report.score_final_pct:.0f}%")
+print(report.feedback_pedagogique.texte)
+```
+
+### Exporter les corrections pour Streamlit
 
 ```bash
-# 1. Cloner et passer sur la branche RAG
-git clone https://github.com/EPCASE/edu-ecg.git
-cd edu-ecg
-git checkout RAGontologique
-
-# 2. Installer les dépendances
-pip install -r requirements.txt
-
-# 3. Configurer la clé OpenAI
-export OPENAI_API_KEY="sk-..."
-
-# 4. Tester le scoring
-cd rag_pipeline
-python scoring.py
+python export_corrections_json.py                      # 7 étudiants, avec feedback
+python export_corrections_json.py --no-feedback        # Sans feedback GPT (plus rapide)
+python export_corrections_json.py --students ECG-WY55  # Un seul étudiant
 ```
 
 ---
 
-## 📁 Structure du projet
+## 🔗 Dépendances externes
+
+| Ressource | Localisation | Usage |
+|-----------|-------------|-------|
+| `.env` (clé OpenAI) | `ECG lecture/.env` | API GPT-4o, GPT-4o-mini, embeddings |
+| `ontology_from_owl.json` | `ECG lecture/data/` | Ontologie ECG (180 concepts) |
+| `goldenset/` | `ECG evaluation/goldenset/` | 15 cas annotés par expert |
+| CSV étudiants | `ECG evaluation/` | Réponses des 7 étudiants |
+| Images ECG | `ECG collector/images/` | 15 PNG pour le rapport HTML |
+
+---
+
+## 🏗️ Stratégie d'interaction Ontologie ↔ LLMs
+
+### Principe fondamental : séparation des responsabilités
 
 ```
-├── rag_pipeline/                  # Pipeline RAG 5 briques
-│   ├── ontology_index.py         # 🧱 1 — Index vectoriel + BM25
-│   ├── ner_extractor.py          # 🧱 2 — NER clinique GPT-4o
-│   ├── hybrid_search.py          # 🧱 3 — Recherche hybride RRF
-│   ├── neurosymbolic_judge.py    # 🧱 4 — Juge neurosymbolique
-│   ├── scoring.py                # 🧱 5 — Scoring pondéré
-│   ├── test_brique1.py           # Tests unitaires
-│   ├── test_brique2.py
-│   ├── test_brique3.py
-│   ├── test_brique4.py
-│   ├── rag_index/                # Index pré-calculé
-│   │   ├── metadata_ontologie.json
-│   │   └── bm25_corpus.json
-│   └── README.md                 # Architecture détaillée
-├── data/
-│   └── ontology_from_owl.json    # Ontologie OWL → JSON (289 concepts)
-├── backend/
-│   ├── __init__.py
-│   └── rdf_owl_extractor.py      # Extracteur OWL → JSON
-├── regenerate_ontology.py         # Script de regénération ontologie
-├── requirements.txt               # Dépendances Python
-├── LICENSE
-└── README.md                      # Ce fichier
+┌──────────────────────────────────────────────────────────────┐
+│              ONTOLOGIE (symbolique)                           │
+│  • Source de vérité : 180 concepts, poids, catégories        │
+│  • Index vectoriel : 411 documents (embeddings 1536-dim)     │
+│  • Normalisation de texte : matching exact sans ambiguïté    │
+└───────────────────────┬──────────────────────────────────────┘
+                        │ Candidats Top-K + métadonnées
+┌───────────────────────▼──────────────────────────────────────┐
+│                 LLMs (neuronal)                               │
+│  • Brique 2 (GPT-4o) : extraction NER brute                 │
+│  • Brique 4 (GPT-4o-mini) : QCM contraint sur Top-K         │
+│  • Brique 6 (GPT-4o-mini) : feedback pédagogique            │
+│  Le LLM ne voit JAMAIS l'ontologie complète.                 │
+│  Il ne peut PAS inventer un ID — validation post-LLM.        │
+└──────────────────────────────────────────────────────────────┘
 ```
+
+### Garde-fous
+
+| Garde-fou | Couche | Mécanisme |
+|---|---|---|
+| Structured Outputs | Brique 2 & 4 | Schéma Pydantic garanti par l'API OpenAI |
+| Validation post-LLM | Brique 4 | L'ID renvoyé doit être dans les candidats soumis |
+| Coupe-circuit spécificité | Brique 4 | Annule le bypass si concept plus spécifique existe |
+| Scoring dégressif | Brique 5 | Pénalisation progressive par génération ontologique |
+| Forçage NONE | Brique 4 | Si ID invalide → NONE plutôt qu'un faux positif |
 
 ---
 
 ## 📖 Documentation détaillée
 
-Voir [`rag_pipeline/README.md`](rag_pipeline/README.md) pour l'architecture complète,
-la stratégie de scoring et les pistes d'amélioration.
+→ **[rag_pipeline/ARCHITECTURE_PIPELINE.md](rag_pipeline/ARCHITECTURE_PIPELINE.md)** — Architecture complète avec 15 diagrammes Mermaid (flowcharts, sequence diagrams, pie charts).
 
-<div align="center">
-🫀 Edu-ECG RAG Pipeline — Évaluation neurosymbolique des compétences ECG
+---
 
-Développé avec ❤️ pour l'éducation médicale
-</div>
+## Stack technique
+
+- Python 3.14 | OpenAI GPT-4o + GPT-4o-mini | text-embedding-3-small
+- NumPy · Pydantic · BM25Okapi · python-dotenv · pandas · tqdm
+- Ontologie OWL ECG (~180 concepts, 4 catégories pondérées)
+- Cours SFC Item 231 — Référentiel CNEC 2e édition (30+ entrées EDN)
