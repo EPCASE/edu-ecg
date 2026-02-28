@@ -255,23 +255,18 @@ def score_student_response(
     found_statuts: Dict[str, str],
     golden_names: List[str],
     golden_ids: List[str],
+    golden_roles: Optional[List[str]] = None,
 ) -> Dict:
     """
-    Score pondéré d'une réponse étudiant vs le golden set.
+    Score d'une réponse étudiant vs le golden set.
 
-    Le scoring prend en compte :
-      - Le poids de chaque concept (1=descripteur, 2=signe, 3=majeur, 4=urgent)
-      - Le statut de l'entité (present=100%, hypothese=80%)
-      - **Matching hiérarchique** (PARENT / CHILD via implications OWL)
-      - Les règles d'implication automatique (forward)
-      - Un bonus de +15% si un diagnostic majeur (poids≥3) est trouvé
+    **Score = moyenne des % des diagnostics VALIDANTS matchés.**
+    Les concepts descripteurs sont trackés séparément (non inclus dans la note).
 
     Niveaux de matching (par priorité décroissante) :
       1. **EXACT**  — l'ID trouvé est l'ID attendu → 100% (ou 80% si hypothèse)
       2. **CHILD**  — l'ID trouvé est un enfant (impliqué) du golden → 90%
-         Ex : étudiant écrit "flutter atrial antihoraire" → golden = "flutter droit typique"
-      3. **PARENT** — l'ID trouvé est un parent (le golden est dans ses implications) → 40%
-         Ex : étudiant écrit "sus-décalage du segment ST" → golden = "SCA ST+"
+      3. **PARENT** — l'ID trouvé est un parent du golden → 40%
       4. **IMPLICATION** — un concept déjà matché implique le golden → 100% (auto-validé)
       5. **MISSING** — aucune correspondance → 0%
 
@@ -280,11 +275,13 @@ def score_student_response(
         found_statuts: Dict {ontology_id: statut} ("present"/"hypothese"/"absent")
         golden_names:  Liste des concept_name attendus (golden set)
         golden_ids:    Liste des ontology_id attendus (golden set)
+        golden_roles:  Liste des rôles ("validant"/"descripteur") pour chaque concept.
+                       Si None, tous sont considérés comme validants.
 
     Returns:
-        Dict avec score_brut_pct, bonus_diag_pct, score_final_pct,
-        poids_valides, poids_attendus, matched_expected, missing_expected,
-        auto_validated, partial_matches.
+        Dict avec score_final_pct (validants uniquement), matched/missing,
+        validant_found/validant_total, descripteur_found/descripteur_total,
+        match_types, partial_matches.
     """
     ontology = _get_ontology()
     concept_mappings = ontology.get("concept_mappings", {})
@@ -396,31 +393,47 @@ def score_student_response(
         match_types[av] = "implication"
     all_validated = set(matched_concepts) | auto_validated
 
-    # --- Score pondéré ---
-    poids_valides = sum(
-        concept_weights.get(c, 1) * (concept_scores.get(c, 100.0) / 100.0)
-        for c in all_validated
-    )
-    poids_attendus = sum(concept_weights.get(c, 1) for c in golden_names)
+    # --- Classer validants vs descripteurs ---
+    if golden_roles is None:
+        golden_roles = ["validant"] * len(golden_names)
+    concept_roles: Dict[str, str] = {}
+    for gname, role in zip(golden_names, golden_roles):
+        concept_roles[gname] = role
 
-    base_pct = (poids_valides / poids_attendus * 100) if poids_attendus > 0 else 0
+    validant_names = [g for g in golden_names if concept_roles[g] == "validant"]
+    descripteur_names = [g for g in golden_names if concept_roles[g] == "descripteur"]
 
-    # --- Bonus diagnostic principal (poids ≥ 3) ---
-    has_diag = any(concept_weights.get(c, 1) >= 3 for c in all_validated)
-    bonus = 0.15 if has_diag else 0
-    final_pct = min(100, base_pct * (1 + bonus))
+    validant_matched = [g for g in validant_names if g in all_validated]
+    validant_missing = [g for g in validant_names if g not in all_validated]
+    descripteur_matched = [g for g in descripteur_names if g in all_validated]
+    descripteur_missing = [g for g in descripteur_names if g not in all_validated]
+
+    # --- Score = moyenne des % de note des diagnostics VALIDANTS ---
+    # Chaque validant matché contribue son % (exact=100, child=90, parent=40, impl=100)
+    # Les validants manqués contribuent 0%
+    if len(validant_names) > 0:
+        score_sum = sum(concept_scores.get(v, 100.0) for v in validant_matched)
+        # Les manqués contribuent 0
+        final_pct = score_sum / len(validant_names)
+    else:
+        final_pct = 100.0  # Pas de validant demandé = OK par défaut
 
     return {
-        "score_brut_pct": round(base_pct, 1),
-        "bonus_diag_pct": round(bonus * 100, 0),
-        "score_final_pct": round(final_pct, 1),
-        "poids_valides": round(poids_valides, 1),
-        "poids_attendus": round(poids_attendus, 1),
+        "score_final_pct": round(min(100, final_pct), 1),
         "matched_expected": list(all_validated),
         "missing_expected": [g for g in golden_names if g not in all_validated],
         "auto_validated": list(auto_validated),
         "partial_matches": partial_matches,
         "match_types": match_types,
+        # Détails validants / descripteurs
+        "validant_total": len(validant_names),
+        "validant_found": len(validant_matched),
+        "validant_matched": validant_matched,
+        "validant_missing": validant_missing,
+        "descripteur_total": len(descripteur_names),
+        "descripteur_found": len(descripteur_matched),
+        "descripteur_matched": descripteur_matched,
+        "descripteur_missing": descripteur_missing,
     }
 
 

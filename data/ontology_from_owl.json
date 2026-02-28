@@ -1163,12 +1163,6 @@
           "poids": 1
         },
         {
-          "ontology_id": "SOUS_DÉCALAGE_DU_SEGMENT_ST",
-          "concept_name": "Sous-décalage du segment ST",
-          "label_en": "Sous-décalage du segment ST",
-          "poids": 1
-        },
-        {
           "ontology_id": "SEGMENT_ST",
           "concept_name": "segment ST",
           "label_en": "segment ST",
@@ -1262,12 +1256,6 @@
           "ontology_id": "PR_NORMAL",
           "concept_name": "PR normal",
           "label_en": "PR normal",
-          "poids": 1
-        },
-        {
-          "ontology_id": "SUS_DÉCALAGE_DU_SEGMENT_ST",
-          "concept_name": "Sus-décalage du segment ST",
-          "label_en": "Sus-décalage du segment ST",
           "poids": 1
         },
         {
@@ -1781,15 +1769,15 @@
     "CIRCONFÉRENTIEL": {
       "nom": "Circonférentiel",
       "electrodes": [
+        "V3",
+        "V2",
+        "DII",
         "V6",
+        "AVF",
+        "V5",
         "AVL",
         "V4",
-        "V1",
-        "AVF",
-        "V3",
-        "V5",
-        "DII",
-        "V2"
+        "V1"
       ]
     },
     "ONDE_T_NÉGATIVE": {
@@ -1819,24 +1807,24 @@
     "PERTE_DES_ONDE_Q_SEPTALES": {
       "nom": "Perte des onde Q septales",
       "electrodes": [
-        "V6",
-        "V5"
+        "V5",
+        "V6"
       ]
     },
     "VENTRICULE_DROIT": {
       "nom": "Ventricule droit",
       "electrodes": [
         "V3R",
-        "V1",
-        "V2R"
+        "V2R",
+        "V1"
       ]
     },
     "LATÉRAL": {
       "nom": "Latéral",
       "electrodes": [
-        "V6",
+        "DI",
         "AVL",
-        "DI"
+        "V6"
       ]
     },
     "ALLONGEMENT_PROGRESSIF_DE_L'INTERVALLE_PR": {
@@ -1867,9 +1855,9 @@
     "ANTÉRIEUR": {
       "nom": "Antérieur",
       "electrodes": [
+        "V3",
         "V1",
-        "V2",
-        "V3"
+        "V2"
       ]
     },
     "POSTÉRIEUR": {
@@ -1877,10 +1865,10 @@
       "electrodes": [
         "V7",
         "V9",
-        "DIII",
-        "DII",
         "V8",
-        "AVF"
+        "DII",
+        "AVF",
+        "DIII"
       ]
     },
     "DÉVIATION_AXIALE": {
@@ -2436,6 +2424,7 @@
         "Perte des onde Q septales",
         "Bradycardie",
         "Allongement progressif de l'intervalle PR",
+        "Miroir",
         "PR allongé",
         "Onde epsilon",
         "segment ST",
@@ -2502,8 +2491,7 @@
         "Syndrome coronarien avec sus-décalage"
       ],
       "implications": [
-        "Sous-décalage du segment ST",
-        "Sus-décalage du segment ST"
+        "Courant de lésion sous-épicardique"
       ],
       "territoires_possibles": [
         "Miroir",
@@ -3016,9 +3004,12 @@
       "concept_name": "Courant de lésion sous-endocardique",
       "synonymes": [
         "$ ST-segment depression",
+        "ST moins",
+        "ST-",
         "ST-segment depression",
         "Sous-décalage du segment ST",
-        "Sous-décalage du segment ST $"
+        "Sous-décalage du segment ST $",
+        "sous décalage"
       ],
       "implications": [],
       "territoires_possibles": [
@@ -3061,9 +3052,14 @@
       "concept_name": "Courant de lésion sous-épicardique",
       "synonymes": [
         "$ ST-segment elevation",
+        "ST +",
+        "ST plus",
+        "ST surelevé",
+        "ST+",
         "ST-segment elevation",
         "Sus-décalage du segment ST",
-        "Sus-décalage du segment ST $"
+        "Sus-décalage du segment ST $",
+        "sus-décalage"
       ],
       "implications": [],
       "territoires_possibles": [
@@ -3112,7 +3108,7 @@
         "Syndrome coronarien ST -"
       ],
       "implications": [
-        "Sous-décalage du segment ST",
+        "Courant de lésion sous-épicardique",
         "ECG normal",
         "Ischémie sous-épicardique"
       ],
@@ -3122,28 +3118,10 @@
       "poids": 4,
       "categorie": "DIAGNOSTIC_URGENT"
     },
-    "SOUS_DÉCALAGE_DU_SEGMENT_ST": {
-      "concept_name": "Sous-décalage du segment ST",
-      "synonymes": [
-        "ST -",
-        "ST moins",
-        "sous-décalage"
-      ],
-      "implications": [],
-      "territoires_possibles": [
-        "Localisation IDM"
-      ],
-      "poids": 1,
-      "categorie": "DESCRIPTEUR_ECG"
-    },
     "SEGMENT_ST": {
       "concept_name": "segment ST",
       "synonymes": [],
-      "implications": [
-        "Miroir",
-        "Sous-décalage du segment ST",
-        "Sus-décalage du segment ST"
-      ],
+      "implications": [],
       "territoires_possibles": [],
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
@@ -3458,20 +3436,6 @@
       "poids": 1,
       "categorie": "DESCRIPTEUR_ECG"
     },
-    "SUS_DÉCALAGE_DU_SEGMENT_ST": {
-      "concept_name": "Sus-décalage du segment ST",
-      "synonymes": [
-        "ST +",
-        "ST plus",
-        "Sus-décalage"
-      ],
-      "implications": [],
-      "territoires_possibles": [
-        "Localisation IDM"
-      ],
-      "poids": 1,
-      "categorie": "DESCRIPTEUR_ECG"
-    },
     "HYPERTROPHIE_ATRIALE_DROITE": {
       "concept_name": "Hypertrophie atriale droite",
       "synonymes": [],
@@ -3753,9 +3717,7 @@
     "ANÉVRYSME_VENTRICULAIRE": {
       "concept_name": "Anévrysme ventriculaire",
       "synonymes": [],
-      "implications": [
-        "Sus-décalage du segment ST"
-      ],
+      "implications": [],
       "territoires_possibles": [],
       "poids": 3,
       "categorie": "DIAGNOSTIC_MAJEUR"
@@ -4416,7 +4378,6 @@
       "synonymes": [],
       "implications": [
         "sous-PQ",
-        "Sus-décalage du segment ST",
         "ST normal",
         "Tamponnade"
       ],
@@ -5036,7 +4997,7 @@
   "metadata": {
     "source": "WebProtégé OWL Ontology",
     "extraction_date": "2026-01-10",
-    "total_concepts": 290,
+    "total_concepts": 288,
     "total_territoires": 22
   }
 }
