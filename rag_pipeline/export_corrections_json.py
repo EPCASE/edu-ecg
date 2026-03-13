@@ -126,6 +126,8 @@ def main():
     parser.add_argument("--output", type=str, default=None)
     parser.add_argument("--no-feedback", action="store_true", default=False,
                         help="Désactiver le feedback pédagogique GPT (plus rapide)")
+    parser.add_argument("--force", action="store_true", default=False,
+                        help="Recalculer même si le JSON existe déjà")
     args = parser.parse_args()
 
     print("=" * 60)
@@ -147,28 +149,43 @@ def main():
         students = {k: v for k, v in students.items() if k in args.students}
         print(f"   📌 Filtré → {len(students)} étudiants")
 
+    # Filtrer les étudiants sans réponse
+    students = {k: v for k, v in students.items() if any(txt.strip() for txt in v.values())}
+    print(f"   📝 {len(students)} étudiants avec au moins 1 réponse")
+
+    # Mode incrémental : ignorer ceux déjà calculés (sauf --force)
+    corrections_dir = COLLECTOR_ROOT / "corrections" / "students"
+    corrections_dir.mkdir(parents=True, exist_ok=True)
+
+    if not args.force:
+        already_done = set()
+        for f in corrections_dir.glob("ECG-*.json"):
+            already_done.add(f.stem)
+        skipped = {k for k in students if k in already_done}
+        if skipped:
+            print(f"   ⏭️  {len(skipped)} déjà calculés (--force pour recalculer) : {', '.join(sorted(skipped))}")
+            students = {k: v for k, v in students.items() if k not in already_done}
+
     # 3. Évaluer
     with_feedback = not args.no_feedback
-    print(f"\n🔄 Évaluation de {len(students)} étudiants × 15 cas...")
+    print(f"\n🔄 Évaluation de {len(students)} étudiants...")
     print(f"   Feedback pédagogique : {'✅ Activé (GPT + cours SFC)' if with_feedback else '❌ Désactivé'}")
     t_global = time.time()
 
-    export_data = {
-        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "pipeline_version": "RAG Neurosymbolique v1.0",
-        "students": {},
-        "golden": {},
-    }
-
-    # Golden set simplifié
+    # ── Golden set : écrire une seule fois ────────────────────────────
+    golden_path = COLLECTOR_ROOT / "corrections" / "golden.json"
+    golden_export = {}
     for cas_num, cas_info in golden.items():
-        export_data["golden"][str(cas_num)] = {
+        golden_export[str(cas_num)] = {
             "diagnostic_principal": cas_info["diagnostic_principal"],
             "category": cas_info.get("category", ""),
             "annotations": cas_info.get("annotations", []),
         }
+    with open(golden_path, "w", encoding="utf-8") as f:
+        json.dump(golden_export, f, ensure_ascii=False, indent=2)
+    print(f"   📄 Golden set → {golden_path.name} ({golden_path.stat().st_size / 1024:.0f} Ko)")
 
-    # Évaluation par étudiant
+    # ── Évaluation par étudiant (1 JSON chacun) ──────────────────────
     for i, (code, responses) in enumerate(students.items(), 1):
         print(f"   [{i}/{len(students)}] 👤 {code}...", end="", flush=True)
         t0 = time.time()
@@ -189,30 +206,31 @@ def main():
         avg = sum(scores) / len(scores) if scores else 0
         dt = time.time() - t0
 
-        export_data["students"][code] = {
+        student_data = {
+            "code": code,
+            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "pipeline_version": "RAG Neurosymbolique v1.0",
             "average": round(avg, 1),
             "nb_answered": len(scores),
             "cases": cases_data,
         }
 
-        print(f" ✅ {avg:.0f}% ({dt:.1f}s)")
+        # Écrire le JSON individuel
+        student_path = corrections_dir / f"{code}.json"
+        with open(student_path, "w", encoding="utf-8") as f:
+            json.dump(student_data, f, ensure_ascii=False, indent=2)
+
+        size_kb = student_path.stat().st_size / 1024
+        print(f" ✅ {avg:.0f}% ({dt:.1f}s) → {student_path.name} ({size_kb:.0f} Ko)")
 
     total_time = time.time() - t_global
     print(f"\n   ⏱️ Total : {total_time:.1f}s")
 
-    # 4. Écrire le JSON
-    if args.output:
-        output_path = Path(args.output)
-    else:
-        output_path = COLLECTOR_ROOT / "corrections" / "data.json"
-
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(export_data, f, ensure_ascii=False, indent=2)
-
-    size_kb = output_path.stat().st_size / 1024
-    print(f"\n✅ JSON écrit : {output_path}")
-    print(f"   📏 Taille : {size_kb:.0f} Ko")
+    # ── Résumé ────────────────────────────────────────────────────────
+    all_files = list(corrections_dir.glob("ECG-*.json"))
+    total_size = sum(f.stat().st_size for f in all_files) / 1024
+    print(f"\n✅ {len(all_files)} corrections dans : {corrections_dir}")
+    print(f"   📏 Taille totale : {total_size:.0f} Ko")
 
 
 if __name__ == "__main__":
