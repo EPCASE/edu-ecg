@@ -55,6 +55,13 @@ class ConceptMatching(BaseModel):
             "au terme de l'étudiant, ou pourquoi aucun ne correspond."
         )
     )
+    confiance: int = Field(
+        default=50,
+        description=(
+            "Niveau de confiance de 0 à 100 dans le choix effectué. "
+            "100 = certitude absolue, 0 = pure conjecture."
+        )
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -126,6 +133,31 @@ def _get_client() -> OpenAI:
 
 
 # ---------------------------------------------------------------------------
+# Helper — Résumé compact des candidats pour stockage
+# ---------------------------------------------------------------------------
+
+def _extract_candidats_resume(top_k_candidates: List[Dict]) -> List[Dict]:
+    """
+    Extrait un résumé compact des Top-K candidats pour stockage dans le rapport.
+    
+    On garde uniquement les champs utiles à l'analyse (pas les métadonnées
+    lourdes comme source_type ou categorie qui sont dans l'ontologie).
+    """
+    resume = []
+    for c in top_k_candidates:
+        resume.append({
+            "ontology_id": c["ontology_id"],
+            "concept_name": c["concept_name"],
+            "surface_form": c["surface_form"],
+            "rrf_score": c.get("rrf_score", 0.0),
+            "cosine_score": c.get("cosine_score", 0.0),
+            "bm25_score": c.get("bm25_score", 0.0),
+            "is_exact_match": c.get("is_exact_match", False),
+        })
+    return resume
+
+
+# ---------------------------------------------------------------------------
 # Fonction principale — Brique 4
 # ---------------------------------------------------------------------------
 
@@ -154,6 +186,8 @@ def resolve_term_to_ontology(
           - method         : str — "coupe_circuit" ou "juge_llm" ou "no_candidates"
           - justification  : str — explication du choix
           - candidats_soumis: int — nombre de candidats soumis au juge
+          - top_k_candidats: list — les Top-K candidats avec scores (rrf, cosine, bm25)
+          - llm_confiance  : int — confiance auto-évaluée par le LLM (0-100), -1 si coupe-circuit
     """
     # --- Cas trivial : pas de candidats ---
     if not top_k_candidates:
@@ -164,6 +198,8 @@ def resolve_term_to_ontology(
             "method": "no_candidates",
             "justification": "Aucun candidat retourné par la recherche hybride.",
             "candidats_soumis": 0,
+            "top_k_candidats": [],
+            "llm_confiance": -1,
         }
 
     # --- Étape 1 : Coupe-circuit (exact match) ---
@@ -195,6 +231,8 @@ def resolve_term_to_ontology(
                 f"⚡ Coupe-circuit : '{terme_brut}' → "
                 f"{candidat_1['ontology_id']} (\"{candidat_1['surface_form']}\")"
             )
+            # Extraire un résumé compact des candidats pour stockage
+            candidats_resume = _extract_candidats_resume(top_k_candidates)
             return {
                 "ontology_id": candidat_1["ontology_id"],
                 "concept_name": candidat_1["concept_name"],
@@ -204,6 +242,8 @@ def resolve_term_to_ontology(
                     f"'{normalize_text(terme_brut)}' == surface_form du concept."
                 ),
                 "candidats_soumis": 0,
+                "top_k_candidats": candidats_resume,
+                "llm_confiance": -1,  # Pas de LLM, match déterministe
             }
 
     # --- Étape 2 : Juge LLM (QCM) ---
@@ -216,8 +256,13 @@ def resolve_term_to_ontology(
     if juge_result["ontology_id"] == "NONE":
         subterm_result = _fallback_subtokens(terme_brut, contexte_phrase)
         if subterm_result is not None:
+            # Enrichir le fallback avec les candidats du terme original
+            subterm_result["top_k_candidats"] = _extract_candidats_resume(top_k_candidates)
+            subterm_result["llm_confiance"] = juge_result.get("llm_confiance", -1)
             return subterm_result
 
+    # Enrichir le résultat du juge avec les candidats
+    juge_result["top_k_candidats"] = _extract_candidats_resume(top_k_candidates)
     return juge_result
 
 
@@ -343,6 +388,7 @@ def _juge_llm(
     result = response.choices[0].message.parsed
     chosen_id = result.id_ontologie.strip().upper()  # .upper() car GPT-4o-mini renvoie parfois du MixedCase
     justification = result.justification.strip()
+    confiance = result.confiance
 
     # Validation : le LLM doit renvoyer un ID valide ou "NONE"
     if chosen_id != "NONE" and chosen_id not in valid_ids:
@@ -376,6 +422,7 @@ def _juge_llm(
         "method": "juge_llm",
         "justification": justification,
         "candidats_soumis": len(candidates),
+        "llm_confiance": confiance,
     }
 
 

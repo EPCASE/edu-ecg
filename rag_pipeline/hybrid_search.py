@@ -316,6 +316,10 @@ class HybridSearchEngine:
         # C. Fusion RRF
         fused = self._fuse_rrf(dense_results, sparse_results, k=k)
 
+        # Index rapide des scores individuels par index de document
+        dense_by_idx = {idx: score for idx, score in dense_results}
+        sparse_by_idx = {idx: score for idx, score in sparse_results}
+
         # D. Formatage de la sortie
         results = []
         for idx, rrf_score in fused:
@@ -332,6 +336,8 @@ class HybridSearchEngine:
                 "categorie": doc["categorie"],
                 "poids": doc["poids"],
                 "rrf_score": round(rrf_score, 6),
+                "cosine_score": round(dense_by_idx.get(idx, 0.0), 6),
+                "bm25_score": round(sparse_by_idx.get(idx, 0.0), 4),
                 "is_exact_match": exact,
             })
 

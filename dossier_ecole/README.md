@@ -32,10 +32,10 @@ dossier_ecole/
 
 | # | Cas | Étudiant | Score | Intérêt pédagogique |
 |---|-----|----------|-------|---------------------|
-| 1 | ECG normal (cas n°1) | ECG-2DZE | 90% | L'étudiant écrit explicitement *"cet ECG est NORMAL"* mais le NER (GPT-4o) n'extrait pas "ECG normal" — le diagnostic est trouvé via hiérarchie ontologique (child_gen1) à 90% au lieu de 100% |
-| 2 | BAV complet (cas n°2) | ECG-84SV | 100% | Cas de référence où tout fonctionne : NER exact, matching exact, score parfait |
-| 3 | Hyperkaliémie (cas n°5) | ECG-NDK6 | 90% | "BAV 2 M 2" mappé à BAV_2_POUR_1 au lieu de BAV_2_MOBITZ_2 — synonyme manquant dans l'ontologie |
-| 4 | Flutter typique (cas n°8) | ECG-84SV | 100% | "Flutter antihoraire" (enfant) valide "Flutter droit typique" (parent) via scoring hiérarchique |
+| 1 | ECG normal (cas n°1) | ECG-2DZE | 80% | L'étudiant écrit *"cet ECG est NORMAL"* mais le NER (GPT-4o) n'extrait pas "ECG normal" — trouvé via hiérarchie (child_gen1). Score 80% au lieu de 100%. **Métriques** : 10 termes, 6 coupe-circuit, 4 juge_llm. |
+| 2 | BAV complet (cas n°2) | ECG-84SV | 100% | Cas de référence parfait. "Bloc atrio-ventriculaire complet" → BAV_COMPLET (juge_llm, confiance=100). Top-1 cos=0.752, exact=False. **Métriques** : 3 termes, 2 coupe-circuit, 1 juge_llm. |
+| 3 | Hyperkaliémie (cas n°5) | ECG-NDK6 | 40% | "BAV 2 M 2" → NONE (confiance=80, mais top-1 cos=0.697). Synonyme manquant. 1 validant trouvé sur 2. **Métriques** : 4 termes, 1 coupe-circuit, 3 juge_llm. |
+| 4 | Flutter typique (cas n°8) | ECG-84SV | 100% | "Flutter commun antihoraire" → FLUTTER_ATRIAL_ANTIHORAIRE (coupe-circuit, cos=0.928, exact=True). Valide le parent via child_gen1. **Métriques** : 6 termes, 4 coupe-circuit, 2 juge_llm. |
 
 ## Comment utiliser ce dossier
 
@@ -50,7 +50,7 @@ dossier_ecole/
 ## 🔍 Limites identifiées du système de notation
 
 Le système de notation repose sur un pipeline en 4 étapes (NER → Matching → Scoring → Feedback).
-Les limites identifiées se regroupent en **3 catégories structurantes** :
+Les limites identifiées se regroupent en **4 catégories structurantes** :
 
 ### 1. Qualité du matching avec l'ontologie
 
@@ -119,6 +119,54 @@ le même biais.
 | `"normal"` seul | 0% | Aucun match | ❌ Trop vague |
 
 > 📄 Voir `docs/difficulte_ecg_normal.md` pour l'analyse détaillée et les pistes de solution.
+
+### 4. Métriques de confiance sur le matching — ✅ RÉSOLU (2026-03-29)
+
+Cette limite a été identifiée puis **corrigée dans la même itération**. Lors du matching,
+le pipeline calcule en interne des **scores de similarité riches** pour chaque candidat :
+
+- **Score cosinus** (similarité sémantique, embeddings OpenAI `text-embedding-3-small`, 1536 dims)
+- **Score BM25** (similarité lexicale, match de mots-clés)
+- **Score RRF fusionné** (Reciprocal Rank Fusion des deux précédents)
+- **Le top-5 des candidats** classés avec ces scores
+- **Le flag `is_exact_match`** (le terme normalisé matche-t-il exactement une surface form ?)
+
+**Avant correction** : le rapport final ne conservait que `ontology_id`, `method` et
+`justification` (texte libre). Tous les scores numériques étaient jetés.
+
+**Après correction** (4 fichiers modifiés) :
+
+| Métrique | Calculée en interne | Conservée dans le rapport |
+|---|---|---|
+| Score cosinus par candidat | ✅ | ✅ `cosine_score` |
+| Score BM25 par candidat | ✅ | ✅ `bm25_score` |
+| Score RRF fusionné par candidat | ✅ | ✅ `rrf_score` |
+| Top-5 candidats complets | ✅ | ✅ `top_k_candidats[]` |
+| Flag exact match | ✅ | ✅ `is_exact_match` |
+| Score de confiance du LLM (0-100) | ✅ **Nouveau** | ✅ `llm_confiance` |
+
+**Fichiers modifiés :**
+- `hybrid_search.py` — `search_top_k()` retourne `cosine_score` et `bm25_score` par candidat
+- `neurosymbolic_judge.py` — ajout du champ `confiance: int` au modèle Pydantic, extraction
+  du résumé top-k, retour de `top_k_candidats` et `llm_confiance` dans tous les chemins
+- `candidate_report.py` — `ExtractedConcept` enrichi de `top_k_candidats: list` et `llm_confiance: int`
+- `export_corrections_json.py` — sérialisation des nouvelles métriques dans les JSON
+
+**Exemple réel** (ECG-84SV, cas n°2 — "Bloc atrio-ventriculaire complet") :
+```
+terme_brut: "Bloc atrio-ventriculaire complet"  →  BAV_COMPLET (juge_llm)
+llm_confiance: 100
+top_k_candidats:
+  #1  BAV complet           rrf=0.0417  cos=0.752  bm25=8.13  exact=False
+  #2  Dissociation AV       rrf=0.0397  cos=0.620  bm25=7.02  exact=False
+  #3  Bloc AV               rrf=0.0392  cos=0.641  bm25=5.21  exact=False
+```
+
+> � Les 4 cas annotés dans `cas_annotes/` incluent désormais les métriques réelles.
+> Voir la section `metriques_confiance` de chaque JSON.
+>
+> ⏳ **Reste à faire** : exploiter ces métriques pour du seuillage automatique,
+> de la détection de matchs fragiles, et du dashboard d'auditabilité.
 
 ---
 

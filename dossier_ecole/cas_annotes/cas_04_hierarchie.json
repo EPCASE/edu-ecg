@@ -33,12 +33,56 @@
     "etape_1_ner": {
       "description": "Extraction des termes cliniques",
       "termes_extraits": [
-        {"terme_brut": "Flutter commun antihoraire", "note": "Match exact coupe-circuit → synonyme de FLUTTER_ATRIAL_ANTIHORAIRE"},
-        {"terme_brut": "conduction en 3:1", "note": "Non reconnu par l'ontologie — aucun concept correspondant"},
-        {"terme_brut": "Normocarde", "note": "Inféré de 'fc 75/min' — match exact"},
-        {"terme_brut": "QRS fins", "note": "Match exact coupe-circuit"},
-        {"terme_brut": "Axe normal", "note": "Match exact coupe-circuit"},
-        {"terme_brut": "trouble de la repolarisation", "note": "Négation détectée, statut absent"}
+        {
+          "terme_brut": "Flutter commun antihoraire",
+          "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+          "concept_name": "Flutter atrial antihoraire",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'flutter commun antihoraire' == surface_form du concept.",
+          "note_technique": "'Flutter commun antihoraire' est un synonyme enregistré dans l'ontologie pour FLUTTER_ATRIAL_ANTIHORAIRE. Le coupe-circuit le trouve instantanément.",
+          "metriques_confiance": {
+            "llm_confiance": -1,
+            "top_k_candidats": [
+              {"concept_name": "Flutter atrial antihoraire", "rrf_score": 0.0417, "cosine_score": 0.9276, "bm25_score": 12.21, "is_exact_match": true},
+              {"concept_name": "Flutter droit typique", "rrf_score": 0.0407, "cosine_score": 0.6359, "bm25_score": 8.64, "is_exact_match": false},
+              {"concept_name": "Flutter atrial antihoraire (syn)", "rrf_score": 0.0401, "cosine_score": 0.5723, "bm25_score": 8.13, "is_exact_match": true},
+              {"concept_name": "Flutter atrial horaire", "rrf_score": 0.0395, "cosine_score": 0.7051, "bm25_score": 7.23, "is_exact_match": false},
+              {"concept_name": "Flutter droit typique (syn)", "rrf_score": 0.0390, "cosine_score": 0.4610, "bm25_score": 7.23, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Match exact solide : cosine=0.928, rang 1, exact=True. Aucune ambiguïté. Le parent Flutter droit typique apparaît en rang 2 (cos=0.636), confirmant la relation ontologique."
+          }
+        },
+        {
+          "terme_brut": "conduction en 3:1",
+          "note": "Non reconnu par l'ontologie — aucun concept correspondant",
+          "metriques_confiance": {
+            "llm_confiance": 90,
+            "top_k_candidats": [
+              {"concept_name": "Faisceau accessoire à conduction antérograde", "rrf_score": 0.0405, "cosine_score": 0.5248, "bm25_score": 3.40, "is_exact_match": false},
+              {"concept_name": "Trouble de conduction intraventriculaire", "rrf_score": 0.0403, "cosine_score": 0.5095, "bm25_score": 3.40, "is_exact_match": false},
+              {"concept_name": "Trouble de conduction intra-atrial", "rrf_score": 0.0385, "cosine_score": 0.5150, "bm25_score": 2.98, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Tous les candidats ont des cosines faibles (<0.53) et aucun exact_match. Le LLM retourne NONE avec confiance=90 : correct, car le ratio de conduction n'est pas un concept ontologique."
+          }
+        },
+        {"terme_brut": "Normocarde", "note": "Inféré de 'fc 75/min' — match exact", "metriques_confiance": {"llm_confiance": -1, "top_1": {"cosine_score": 0.929, "bm25_score": 8.10, "is_exact_match": true}}},
+        {"terme_brut": "QRS fins", "note": "Match exact coupe-circuit", "metriques_confiance": {"llm_confiance": -1, "top_1": {"cosine_score": 0.714, "bm25_score": 10.66, "is_exact_match": true}}},
+        {"terme_brut": "Axe normal", "note": "Match exact coupe-circuit", "metriques_confiance": {"llm_confiance": -1, "top_1": {"cosine_score": 0.660, "bm25_score": 9.79, "is_exact_match": true}}},
+        {
+          "terme_brut": "trouble de la repolarisation",
+          "note": "Négation détectée, statut absent",
+          "metriques_confiance": {
+            "llm_confiance": 90,
+            "top_k_candidats": [
+              {"concept_name": "Trouble de conduction intraventriculaire", "rrf_score": 0.0409, "cosine_score": 0.563, "bm25_score": 5.86, "is_exact_match": false},
+              {"concept_name": "Syndrome de repolarisation précoce", "rrf_score": 0.0407, "cosine_score": 0.629, "bm25_score": 5.59, "is_exact_match": false},
+              {"concept_name": "Repolarisation précoce", "rrf_score": 0.0406, "cosine_score": 0.670, "bm25_score": 5.57, "is_exact_match": false},
+              {"concept_name": "Pas d'anomalie de le repolarisation", "rrf_score": 0.0401, "cosine_score": 0.748, "bm25_score": 4.90, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Le bon concept (Pas d'anomalie de le repolarisation, cos=0.748) est rang 4 par RRF mais a le meilleur cosine. Le LLM le choisit correctement avec confiance=90, en tenant compte du statut 'absent'."
+          }
+        }
       ]
     },
 

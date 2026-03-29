@@ -39,9 +39,27 @@
     "etape_1_ner": {
       "description": "Extraction des termes cliniques",
       "termes_extraits": [
-        {"terme_brut": "Bloc atrio-ventriculaire complet", "note": "Synonyme de BAV complet — non trouvé par coupe-circuit, envoyé au LLM"},
-        {"terme_brut": "échappement ventriculaire", "note": "Match exact coupe-circuit"},
-        {"terme_brut": "Bradycardie", "note": "Inféré du contexte '50/min' par le LLM"}
+        {
+          "terme_brut": "Bloc atrio-ventriculaire complet",
+          "note": "Synonyme de BAV complet — non trouvé par coupe-circuit, envoyé au LLM",
+          "metriques_confiance": {
+            "llm_confiance": 100,
+            "top_k_candidats": [
+              {"concept_name": "BAV complet", "cosine_score": 0.752, "bm25_score": 8.13, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Le LLM identifie correctement BAV complet avec confiance maximale (100). Le cosine est modeste (0.752) car l'embedding du synonyme 'Bloc atrio-ventriculaire complet' diffère de la surface form 'BAV complet'."
+          }
+        },
+        {
+          "terme_brut": "Échappement ventriculaire",
+          "note": "Match exact coupe-circuit",
+          "metriques_confiance": {"llm_confiance": -1, "top_1": {"cosine_score": 0.888, "bm25_score": 7.69, "is_exact_match": true}}
+        },
+        {
+          "terme_brut": "Bradycardie",
+          "note": "Inféré du contexte '50/min' par le LLM",
+          "metriques_confiance": {"llm_confiance": -1, "top_1": {"cosine_score": 0.834, "bm25_score": 7.39, "is_exact_match": true}}
+        }
       ]
     },
 
@@ -55,7 +73,13 @@
           "method": "juge_llm",
           "statut": "present",
           "justification": "Le terme de l'étudiant 'Bloc atrio-ventriculaire complet' correspond exactement au concept de 'BAV complet', qui est un diagnostic urgent. C'est la correspondance la plus spécifique sur la pathologie décrite.",
-          "note_technique": "Le coupe-circuit échoue car 'bloc atrio-ventriculaire complet' n'est pas un synonyme enregistré de BAV_COMPLET. Le LLM fait le rapprochement sémantique."
+          "note_technique": "Le coupe-circuit échoue car 'bloc atrio-ventriculaire complet' n'est pas un synonyme enregistré de BAV_COMPLET. Le LLM fait le rapprochement sémantique.",
+          "metriques_confiance": {
+            "llm_confiance": 100,
+            "cosine_score": 0.752,
+            "bm25_score": 8.13,
+            "commentaire_metriques": "Confiance LLM maximale malgré un cosine modeste — le juge sémantique compense le gap embedding."
+          }
         },
         {
           "terme_brut": "Échappement ventriculaire",

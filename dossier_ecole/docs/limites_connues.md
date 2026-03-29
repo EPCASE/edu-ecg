@@ -63,6 +63,35 @@ Pour un étudiant typique avec 5 cas et ~7 termes par cas :
 - Latence totale : 30-60 secondes
 - Coût estimé : ~0.10€ par étudiant
 
+### 2.3 Métriques de confiance sur le matching — ✅ RÉSOLU (2026-03-29)
+**Criticité : ~~🔴 Élevée~~ → ✅ Corrigé**
+
+Le moteur de recherche hybride calcule en interne des **scores riches** pour chaque candidat
+(similarité cosinus sur embeddings 1536-dim, score BM25 lexical, score RRF fusionné), et le
+top-5 des candidats est soumis au juge LLM. **Ces scores sont maintenant conservés** dans
+le rapport final.
+
+**Correction implémentée** (4 fichiers modifiés le 2026-03-29) :
+- `hybrid_search.py` → `search_top_k()` retourne `cosine_score` et `bm25_score` par candidat
+- `neurosymbolic_judge.py` → champ `confiance: int` (0-100) ajouté au modèle Pydantic du juge,
+  extraction résumé top-k, retour `top_k_candidats` et `llm_confiance` dans tous les chemins
+- `candidate_report.py` → `ExtractedConcept` enrichi de `top_k_candidats: list` et `llm_confiance: int`
+- `export_corrections_json.py` → sérialisation des nouvelles métriques dans les JSON
+
+**Données disponibles par concept extrait :**
+| Champ | Type | Description |
+|---|---|---|
+| `top_k_candidats` | list[5] | Top-5 candidats avec rrf_score, cosine_score, bm25_score, is_exact_match |
+| `llm_confiance` | int (0-100) | Score de confiance du juge LLM (-1 si coupe-circuit) |
+
+**Validation** : Les 39 exports étudiants (4.5 Mo total) contiennent les métriques.
+Voir les cas annotés `cas_annotes/*.json` pour des exemples avec données réelles.
+
+**Reste à faire** : Exploiter ces métriques pour :
+- Seuillage automatique (rejeter les matchs cosine < 0.5)
+- Détection LLM vs vecteur (le LLM choisit le rang 4 au lieu du rang 1 → alerte)
+- Dashboard d'auditabilité
+
 ---
 
 ## 3. Scoring — Calcul du Score
@@ -127,12 +156,14 @@ affecte le scoring dégressif de manière non uniforme.
 
 ## Synthèse des axes de développement proposés
 
-| # | Axe | Criticité | Complexité | Type de projet |
-|---|-----|-----------|------------|----------------|
-| 1 | Inférence de diagnostic implicite | 🔴 | Moyenne | Stage/Projet |
-| 2 | Enrichissement automatique des synonymes | 🔴 | Moyenne | Stage/Projet |
-| 3 | Évaluation systématique (métriques) | 🟠 | Faible | TP/Mini-projet |
-| 4 | Exploitation des requiresFinding | 🟠 | Moyenne | Stage/Projet |
-| 5 | Visualisation de l'espace sémantique | 🟡 | Faible | TP/Mini-projet |
-| 6 | Réduction de la dépendance au LLM | 🟠 | Élevée | Stage long |
-| 7 | Interface d'annotation collaborative | 🟡 | Moyenne | Projet |
+| # | Axe | Criticité | Complexité | Type de projet | Statut |
+|---|-----|-----------|------------|----------------|--------|
+| 1 | Inférence de diagnostic implicite | 🔴 | Moyenne | Stage/Projet | ⏳ Ouvert |
+| 2 | Enrichissement automatique des synonymes | 🔴 | Moyenne | Stage/Projet | ⏳ Ouvert |
+| 3 | **Métriques de confiance matching** | ~~🔴~~ | Faible | TP/Mini-projet | ✅ Résolu |
+| 4 | Évaluation systématique (métriques) | 🟠 | Faible | TP/Mini-projet | ⏳ Ouvert |
+| 5 | Exploitation des requiresFinding | 🟠 | Moyenne | Stage/Projet | ⏳ Ouvert |
+| 6 | Visualisation de l'espace sémantique | 🟡 | Faible | TP/Mini-projet | ⏳ Ouvert |
+| 7 | Réduction de la dépendance au LLM | 🟠 | Élevée | Stage long | ⏳ Ouvert |
+| 8 | Interface d'annotation collaborative | 🟡 | Moyenne | Projet | ⏳ Ouvert |
+| 9 | **Exploitation des métriques** (seuillage, alertes, dashboard) | 🟠 | Faible | TP/Mini-projet | ⏳ Ouvert |

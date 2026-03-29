@@ -62,6 +62,9 @@ class ExtractedConcept:
     concept_name: str          # Nom canonique dans l'ontologie
     method: str                # coupe_circuit / juge_llm / fallback_subterm / no_candidates
     justification: str         # Explication de la résolution
+    # --- Métriques de confiance (NEW) ---
+    top_k_candidats: list = field(default_factory=list)   # Top-K candidats avec scores
+    llm_confiance: int = -1    # Confiance LLM auto-évaluée (0-100), -1 si coupe-circuit
 
 
 @dataclass
@@ -103,6 +106,7 @@ class CandidateReport:
     texte_etudiant: str
     latence_s: float
     erreur: Optional[str] = None
+    commentaire_correcteur: str = ""
 
     # Section 1 : Concepts extraits
     concepts_extraits: List[ExtractedConcept] = field(default_factory=list)
@@ -209,6 +213,7 @@ def generate_candidate_report(
     diagnostic_principal: str = "",
     moteur: Optional[HybridSearchEngine] = None,
     with_feedback: bool = True,
+    commentaire_correcteur: str = "",
 ) -> CandidateReport:
     """
     Exécute le pipeline complet et construit un CandidateReport.
@@ -232,6 +237,7 @@ def generate_candidate_report(
         diagnostic_principal=diagnostic_principal,
         texte_etudiant=texte_etudiant,
         latence_s=0.0,
+        commentaire_correcteur=commentaire_correcteur,
     )
 
     if not texte_etudiant or texte_etudiant.strip() in ("", "nan"):
@@ -268,6 +274,8 @@ def generate_candidate_report(
                 concept_name=resolution.get("concept_name", ""),
                 method=method,
                 justification=resolution.get("justification", ""),
+                top_k_candidats=resolution.get("top_k_candidats", []),
+                llm_confiance=resolution.get("llm_confiance", -1),
             )
             report.concepts_extraits.append(concept)
 

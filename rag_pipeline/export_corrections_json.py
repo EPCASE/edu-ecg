@@ -41,7 +41,7 @@ from typing import Dict, List, Optional, Tuple
 SCRIPT_DIR   = Path(__file__).parent.resolve()
 PROJECT_ROOT = Path(r"C:\Users\Administrateur\bmad\ECG lecture")
 EVAL_ROOT    = Path(r"C:\Users\Administrateur\bmad\ECG evaluation")
-RAG_ROOT     = SCRIPT_DIR
+RAG_ROOT     = Path(r"C:\Users\Administrateur\bmad\RAG ontologique")
 COLLECTOR_ROOT = Path(r"C:\Users\Administrateur\ECG collector")
 
 CSV_DEFAULT  = EVAL_ROOT / "ECG_Collector_Data - responses(1).csv"
@@ -78,6 +78,8 @@ def report_to_dict(report: Optional[CandidateReport]) -> Optional[dict]:
                 "concept_name": c.concept_name,
                 "method": c.method,
                 "justification": c.justification,
+                "top_k_candidats": c.top_k_candidats,
+                "llm_confiance": c.llm_confiance,
             }
             for c in report.concepts_extraits
         ],
@@ -179,6 +181,7 @@ def main():
         golden_export[str(cas_num)] = {
             "diagnostic_principal": cas_info["diagnostic_principal"],
             "category": cas_info.get("category", ""),
+            "commentaire_correcteur": cas_info.get("commentaire_correcteur", ""),
             "annotations": cas_info.get("annotations", []),
         }
     with open(golden_path, "w", encoding="utf-8") as f:

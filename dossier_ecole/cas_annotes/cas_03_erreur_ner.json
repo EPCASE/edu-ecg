@@ -1,9 +1,10 @@
 {
   "_meta": {
-    "titre": "Cas 3 — Hyperkaliémie + BAV : erreur NER sur synonyme manquant",
-    "interet": "L'étudiant écrit 'BAV 2 M 2' (abréviation courante pour BAV 2ème degré Mobitz 2). Le NER ne reconnaît pas cette abréviation et le LLM la mappe incorrectement à BAV_2_POUR_1 au lieu de BAV_2_MOBITZ_2. Synonyme manquant dans l'ontologie.",
-    "difficulte": "NER — synonyme manquant dans l'ontologie",
-    "date_annotation": "2026-03-29"
+    "titre": "Cas 3 — Hyperkaliémie + BAV : synonyme manquant, LLM refuse le mapping",
+    "interet": "L'étudiant écrit 'BAV 2 M 2' (abréviation courante pour BAV 2ème degré Mobitz 2). Le coupe-circuit ne reconnaît pas cette abréviation. Le LLM juge (GPT-4o-mini) reconnaît que 'BAV 2 M 2' fait référence à Mobitz 2, mais refuse de mapper car le concept BAV_2_MOBITZ_2 n'est pas dans les candidats top-k → NONE. Résultat : BAV de haut grade missing, score 40% au lieu de 100%.",
+    "difficulte": "Ontologie — synonyme manquant + LLM trop conservateur",
+    "date_annotation": "2026-03-29",
+    "date_revision": "2026-03-29 — mise à jour post re-export avec métriques de confiance. CHANGEMENT DE COMPORTEMENT : le LLM ne mappe plus à BAV_2_POUR_1 mais à NONE."
   },
 
   "golden_set": {
@@ -39,9 +40,50 @@
     "etape_1_ner": {
       "description": "Extraction des termes cliniques",
       "termes_extraits": [
-        {"terme_brut": "BAV 2 M 2", "note": "Abréviation non reconnue par le coupe-circuit. Envoyée au LLM qui la confond avec BAV 2/1."},
-        {"terme_brut": "Onde T amples et symétriques", "note": "Descripteur ECG reconnu par le LLM"},
-        {"terme_brut": "hyperkaliémie", "note": "Match exact coupe-circuit. Statut hypothèse (précédé de '?')."}
+        {
+          "terme_brut": "BAV 2 M 2",
+          "note": "Abréviation non reconnue par le coupe-circuit. Le LLM reconnaît Mobitz 2 mais refuse de mapper car pas de candidat exact.",
+          "metriques_confiance": {
+            "llm_confiance": 80,
+            "top_k_candidats": [
+              {"concept_name": "BAV de type 2", "surface_form": "BAV 2", "cosine_score": 0.697, "bm25_score": 4.52, "is_exact_match": false},
+              {"concept_name": "BAV 2 pour 1", "surface_form": "BAV 2:1", "cosine_score": 0.640, "bm25_score": 4.52, "is_exact_match": false},
+              {"concept_name": "BAV de type 1", "surface_form": "BAV 1", "cosine_score": 0.594, "bm25_score": 4.52, "is_exact_match": false},
+              {"concept_name": "BAV de type 1", "surface_form": "BAV I", "cosine_score": 0.581, "bm25_score": 4.52, "is_exact_match": false},
+              {"concept_name": "BAV 2 pour 1", "surface_form": "BAV 2 pour 1", "cosine_score": 0.659, "bm25_score": 3.64, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Le meilleur candidat (BAV de type 2, cos=0.697) est le parent hiérarchique correct mais pas assez spécifique. Le LLM refuse de mapper avec confiance=80, jugeant qu'aucun candidat ne correspond à 'Mobitz 2'. Ironie : le concept BAV_2_MOBITZ_2 existe dans l'ontologie mais n'apparaît pas dans le top-k car ses surface forms ne matchent pas 'BAV 2 M 2'."
+          }
+        },
+        {
+          "terme_brut": "ondes T amples",
+          "note": "Descripteur ECG reconnu par le LLM → ANOMALIE_DES_ONDES_T",
+          "metriques_confiance": {
+            "llm_confiance": 90,
+            "top_k_candidats": [
+              {"concept_name": "Anomalie des ondes T", "surface_form": "Inversion des ondes T", "cosine_score": 0.471, "bm25_score": 4.43, "is_exact_match": false},
+              {"concept_name": "Anomalie des ondes T", "surface_form": "Anomalie des ondes T", "cosine_score": 0.503, "bm25_score": 4.43, "is_exact_match": false},
+              {"concept_name": "Alternance des ondes T", "cosine_score": 0.510, "bm25_score": 4.43, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Le LLM choisit ANOMALIE_DES_ONDES_T (confiance 90). Les cosines sont modestes (<0.51) car 'ondes T amples' est une description spécifique, pas un nom de concept exact."
+          }
+        },
+        {
+          "terme_brut": "symétriques",
+          "note": "Adjectif isolé — aucun match dans l'ontologie",
+          "metriques_confiance": {
+            "llm_confiance": 90,
+            "top_k_candidats": [
+              {"concept_name": "polymorphe", "cosine_score": 0.459, "bm25_score": 0.0, "is_exact_match": false}
+            ],
+            "commentaire_metriques": "Le LLM choisit NONE (confiance 90). Tous les cosines <0.46 et aucun BM25 match. Le terme 'symétriques' est un qualificatif qui devrait idéalement rester attaché à 'ondes T amples'."
+          }
+        },
+        {
+          "terme_brut": "hyperkaliémie",
+          "note": "Match exact coupe-circuit. Statut hypothèse (précédé de '?').",
+          "metriques_confiance": {"llm_confiance": -1, "top_1": {"cosine_score": 0.824, "bm25_score": 8.10, "is_exact_match": true}}
+        }
       ]
     },
 
@@ -50,20 +92,36 @@
       "concepts_resolus": [
         {
           "terme_brut": "BAV 2 M 2",
-          "ontology_id": "BAV_2_POUR_1",
-          "concept_name": "BAV 2 pour 1",
+          "ontology_id": "NONE",
+          "concept_name": "",
           "method": "juge_llm",
           "statut": "present",
-          "justification": "Le terme 'BAV 2 M 2' se réfère à un bloc auriculo-ventriculaire de type 2, qui est généralement associé à un besoin de diagnostic, et le candidat 'BAV 2 pour 1' est le plus approprié en tant que diagnostic majeur.",
-          "annotation_humaine_inline": "⚠️ ERREUR LLM — Le LLM confond 'M 2' (Mobitz type 2) avec un ratio de conduction '2:1'. Le bon concept est BAV_2_MOBITZ_2, pas BAV_2_POUR_1. L'abréviation 'BAV 2 M 2' est courante en clinique pour BAV 2ème degré Mobitz 2."
+          "justification": "Le terme 'BAV 2 M 2' apparaît ambigu. Le LLM reconnaît qu'il fait référence à Mobitz 2, mais les options disponibles ne font pas mention de Mobitz 2 spécifiquement — seules les options BAV 2 pour 1 sont présentes dans le top-k. Le LLM refuse de faire une inférence et choisit NONE.",
+          "annotation_humaine_inline": "⚠️ ERREUR PIPELINE — Le concept BAV_2_MOBITZ_2 existe dans l'ontologie mais n'apparaît pas dans les candidats car ses synonymes (BAV 2 Mobitz 2, BAV II Mobitz II) ne sont pas enregistrés. Le LLM fait le bon raisonnement (refuser BAV_2_POUR_1) mais n'a pas accès au bon concept.",
+          "metriques_confiance": {
+            "llm_confiance": 80,
+            "top_1_cosine": 0.697,
+            "commentaire": "BAV de type 2 (cos=0.697) est le parent hiérarchique mais le LLM refuse — bon réflexe mais résultat faux."
+          },
+          "historique_v1": "Dans l'annotation initiale, le LLM mappait BAV 2 M 2 → BAV_2_POUR_1 (erreur de confusion M2/2:1). Le re-export montre un LLM plus conservateur qui refuse de mapper → NONE."
         },
         {
-          "terme_brut": "Onde T amples et symétriques",
-          "ontology_id": "ONDE_T_AMPLE",
-          "concept_name": "Onde T ample",
+          "terme_brut": "ondes T amples",
+          "ontology_id": "ANOMALIE_DES_ONDES_T",
+          "concept_name": "Anomalie des ondes T",
           "method": "juge_llm",
           "statut": "present",
-          "justification": "L'étudiant mentionne spécifiquement des 'ondes T amples et symétriques', ce qui correspond directement au candidat 'Onde T ample', qui est le plus spécifique par rapport à la description fournie."
+          "justification": "Les 'ondes T amples' décrivent une anomalie des ondes T. Le LLM choisit le concept le plus approprié parmi les candidats.",
+          "metriques_confiance": {"llm_confiance": 90, "top_1_cosine": 0.503}
+        },
+        {
+          "terme_brut": "symétriques",
+          "ontology_id": "NONE",
+          "concept_name": "",
+          "method": "juge_llm",
+          "statut": "present",
+          "justification": "Adjectif descriptif sans correspondance dans l'ontologie. Devrait idéalement rester attaché au terme 'ondes T amples'.",
+          "metriques_confiance": {"llm_confiance": 90}
         },
         {
           "terme_brut": "hyperkaliémie",
@@ -77,7 +135,7 @@
     },
 
     "etape_3_scoring": {
-      "description": "Comparaison avec le golden set",
+      "description": "Comparaison avec le golden set. L'hyperkaliémie est trouvée en exact match. Le BAV de haut grade est MISSING car 'BAV 2 M 2' → NONE.",
       "validant_details": [
         {
           "golden_name": "Hyperkaliémie",
@@ -90,22 +148,23 @@
         {
           "golden_name": "BAV de haut grade",
           "golden_id": "BAV_DE_HAUT_GRADE",
-          "found": true,
-          "score_pct": 100.0,
-          "match_type": "child_gen1",
-          "found_via_name": "BAV 2 pour 1",
-          "explication": "BAV_2_POUR_1 est un enfant de BAV_DE_HAUT_GRADE dans l'ontologie. Score 100% (child match). MAIS : le concept extrait est FAUX — l'étudiant voulait dire BAV_2_MOBITZ_2, pas BAV_2_POUR_1.",
-          "ERREUR_MASQUEE": "Le scoring donne quand même 100% parce que BAV_2_POUR_1 est aussi un enfant de BAV_DE_HAUT_GRADE. L'erreur NER est masquée par le scoring hiérarchique."
+          "found": false,
+          "score_pct": 0.0,
+          "match_type": "missing",
+          "explication": "BAV de haut grade non trouvé. 'BAV 2 M 2' a été mappé à NONE par le LLM — le concept BAV_2_MOBITZ_2 (enfant de BAV_DE_HAUT_GRADE) n'apparaît pas dans les candidats.",
+          "historique_v1": "Dans l'annotation initiale, BAV 2 M 2 → BAV_2_POUR_1 (aussi enfant de BAV_DE_HAUT_GRADE) → score 100% par hiérarchie. L'erreur de mapping était masquée par le scoring hiérarchique."
         }
       ],
-      "score_final_pct": 90.0,
-      "note": "90% car moyenne des 2 validants : (100 + 100) / 2 = 100, mais la formule pondérée donne 90%."
+      "score_final_pct": 40.0,
+      "formule_scoring": "Avec 2 validants (poids 3 chacun) : Hyperkaliémie=100%, BAV haut grade=0%. Score pondéré = (100×3 + 0×3) / (3+3) = 50%, mais la formule complète incluant les descripteurs et découvertes donne 40%.",
+      "note_changement": "DÉGRADATION v1→v2 : Score passé de 90% à 40%. La cause est le changement de comportement du LLM juge qui refuse désormais de mapper 'BAV 2 M 2' (NONE au lieu de BAV_2_POUR_1). Le résultat v2 est plus honnête (pas de faux positif) mais pénalise injustement l'étudiant."
     }
   },
 
   "annotation_humaine": {
-    "verdict_global": "ERREUR",
-    "commentaire_global": "Le score final (90%) est acceptable mais le concept extrait est FAUX. 'BAV 2 M 2' devrait être BAV_2_MOBITZ_2, pas BAV_2_POUR_1. L'erreur est masquée car les deux sont des enfants du même parent (BAV de haut grade). C'est un faux positif structurel.",
+    "verdict_global": "ERREUR — pénalité excessive",
+    "commentaire_global": "Le score final (40%) est très pénalisant. L'étudiant a correctement identifié un BAV de type 2 Mobitz 2 (écrit 'BAV 2 M 2') mais le pipeline ne le reconnaît pas. Le LLM fait le bon raisonnement (refuser BAV_2_POUR_1 qui est faux) mais le concept correct (BAV_2_MOBITZ_2) n'est pas dans les candidats. Score humain attendu : 90-100%.",
+    "note_changement_v1_v2": "V1 : BAV 2 M 2 → BAV_2_POUR_1 (erreur LLM masquée par hiérarchie → 90%). V2 : BAV 2 M 2 → NONE (LLM plus conservateur → 40%). Paradoxalement, le LLM v2 est plus correct dans son raisonnement mais le résultat est pire pour l'étudiant.",
     "annotations_par_concept": [
       {
         "concept_attendu": "Hyperkaliémie",
@@ -118,12 +177,13 @@
       {
         "concept_attendu": "BAV de haut grade",
         "verdict": "ERREUR",
-        "score_pipeline": 100.0,
+        "score_pipeline": 0.0,
         "score_humain_attendu": 100.0,
         "type_erreur": "SYNONYME_MANQUANT",
-        "commentaire": "Le concept extrait (BAV_2_POUR_1) est faux, même si le score est correct par chance. La cause racine est l'absence du synonyme 'BAV 2 M 2' pour BAV_2_MOBITZ_2 dans l'ontologie.",
-        "pourquoi_manque": "L'ontologie ne contient pas le synonyme 'BAV 2 M 2' ni 'BAV2M2' pour le concept BAV_2_MOBITZ_2. Le coupe-circuit ne trouve pas de match exact, et le LLM interprète 'M 2' comme un ratio (2/1) au lieu de 'Mobitz 2'.",
-        "correction_proposee": "Ajouter les synonymes ['BAV 2 M 2', 'BAV2M2', 'BAV 2 Mobitz 2', 'BAV2 Mobitz2'] au concept BAV_2_MOBITZ_2."
+        "commentaire": "Le pipeline ne trouve pas le BAV de haut grade car 'BAV 2 M 2' → NONE. La cause racine est l'absence du synonyme 'BAV 2 M 2' pour BAV_2_MOBITZ_2 dans l'ontologie. Le concept BAV_2_MOBITZ_2 (enfant de BAV_DE_HAUT_GRADE) existe mais n'apparaît pas dans le top-k des candidats.",
+        "pourquoi_manque": "L'ontologie ne contient pas le synonyme 'BAV 2 M 2' ni 'BAV2M2' pour le concept BAV_2_MOBITZ_2. Le coupe-circuit ne trouve pas de match exact. La recherche hybride remonte BAV_DE_TYPE_2 (cos=0.697) et BAV_2_POUR_1 (cos=0.640) mais pas BAV_2_MOBITZ_2.",
+        "correction_proposee": "Ajouter les synonymes ['BAV 2 M 2', 'BAV2M2', 'BAV 2 Mobitz 2', 'BAV2 Mobitz2', 'BAV II Mobitz II'] au concept BAV_2_MOBITZ_2.",
+        "historique_v1": "Dans la version précédente, le LLM mappait à BAV_2_POUR_1 (confusion M2/2:1) ce qui donnait un score de 90% par hiérarchie. Le faux positif était masqué."
       }
     ]
   },
