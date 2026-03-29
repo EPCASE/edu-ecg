@@ -1,0 +1,137 @@
+{
+  "_meta": {
+    "titre": "Cas 3 — Hyperkaliémie + BAV : erreur NER sur synonyme manquant",
+    "interet": "L'étudiant écrit 'BAV 2 M 2' (abréviation courante pour BAV 2ème degré Mobitz 2). Le NER ne reconnaît pas cette abréviation et le LLM la mappe incorrectement à BAV_2_POUR_1 au lieu de BAV_2_MOBITZ_2. Synonyme manquant dans l'ontologie.",
+    "difficulte": "NER — synonyme manquant dans l'ontologie",
+    "date_annotation": "2026-03-29"
+  },
+
+  "golden_set": {
+    "cas_number": 5,
+    "category": "Troubles du Rythme",
+    "difficulty": "🟢 Débutant",
+    "diagnostic_principal": "Hyperkaliémie + BAV de haut grade",
+    "commentaire_correcteur": "",
+    "annotations_expert": [
+      {
+        "concept": "Hyperkaliémie",
+        "category": "DIAGNOSTIC_URGENT",
+        "role": "🎯 Diagnostic validant",
+        "poids_ontologie": 3
+      },
+      {
+        "concept": "BAV de haut grade",
+        "category": "DIAGNOSTIC_MAJEUR",
+        "role": "🎯 Diagnostic validant",
+        "poids_ontologie": 3
+      }
+    ],
+    "expected_concepts": ["Hyperkaliémie", "BAV de haut grade"]
+  },
+
+  "reponse_etudiant": {
+    "code": "ECG-NDK6",
+    "texte_brut": "BAV 2 M 2 avec ondes T amples et symétriques : hyperkaliémie ?",
+    "commentaire": "L'étudiant utilise l'abréviation 'BAV 2 M 2' très courante en pratique clinique pour désigner le BAV 2ème degré Mobitz 2. Le point d'interrogation après hyperkaliémie est correctement géré comme statut 'hypothèse'."
+  },
+
+  "pipeline_trace": {
+    "etape_1_ner": {
+      "description": "Extraction des termes cliniques",
+      "termes_extraits": [
+        {"terme_brut": "BAV 2 M 2", "note": "Abréviation non reconnue par le coupe-circuit. Envoyée au LLM qui la confond avec BAV 2/1."},
+        {"terme_brut": "Onde T amples et symétriques", "note": "Descripteur ECG reconnu par le LLM"},
+        {"terme_brut": "hyperkaliémie", "note": "Match exact coupe-circuit. Statut hypothèse (précédé de '?')."}
+      ]
+    },
+
+    "etape_2_matching": {
+      "description": "Mise en correspondance avec l'ontologie. Deux méthodes : coupe-circuit (match exact déterministe) ou juge LLM (arbitrage sémantique GPT-4).",
+      "concepts_resolus": [
+        {
+          "terme_brut": "BAV 2 M 2",
+          "ontology_id": "BAV_2_POUR_1",
+          "concept_name": "BAV 2 pour 1",
+          "method": "juge_llm",
+          "statut": "present",
+          "justification": "Le terme 'BAV 2 M 2' se réfère à un bloc auriculo-ventriculaire de type 2, qui est généralement associé à un besoin de diagnostic, et le candidat 'BAV 2 pour 1' est le plus approprié en tant que diagnostic majeur.",
+          "annotation_humaine_inline": "⚠️ ERREUR LLM — Le LLM confond 'M 2' (Mobitz type 2) avec un ratio de conduction '2:1'. Le bon concept est BAV_2_MOBITZ_2, pas BAV_2_POUR_1. L'abréviation 'BAV 2 M 2' est courante en clinique pour BAV 2ème degré Mobitz 2."
+        },
+        {
+          "terme_brut": "Onde T amples et symétriques",
+          "ontology_id": "ONDE_T_AMPLE",
+          "concept_name": "Onde T ample",
+          "method": "juge_llm",
+          "statut": "present",
+          "justification": "L'étudiant mentionne spécifiquement des 'ondes T amples et symétriques', ce qui correspond directement au candidat 'Onde T ample', qui est le plus spécifique par rapport à la description fournie."
+        },
+        {
+          "terme_brut": "hyperkaliémie",
+          "ontology_id": "HYPERKALIÉMIE",
+          "concept_name": "Hyperkaliémie",
+          "method": "coupe_circuit",
+          "statut": "hypothese",
+          "justification": "Match exact normalisé : 'hyperkaliemie' == surface_form du concept. Statut 'hypothese' car précédé de '?' dans la phrase de l'étudiant."
+        }
+      ]
+    },
+
+    "etape_3_scoring": {
+      "description": "Comparaison avec le golden set",
+      "validant_details": [
+        {
+          "golden_name": "Hyperkaliémie",
+          "golden_id": "HYPERKALIÉMIE",
+          "found": true,
+          "score_pct": 100.0,
+          "match_type": "exact",
+          "explication": "Match exact. L'étudiant a bien identifié l'hyperkaliémie."
+        },
+        {
+          "golden_name": "BAV de haut grade",
+          "golden_id": "BAV_DE_HAUT_GRADE",
+          "found": true,
+          "score_pct": 100.0,
+          "match_type": "child_gen1",
+          "found_via_name": "BAV 2 pour 1",
+          "explication": "BAV_2_POUR_1 est un enfant de BAV_DE_HAUT_GRADE dans l'ontologie. Score 100% (child match). MAIS : le concept extrait est FAUX — l'étudiant voulait dire BAV_2_MOBITZ_2, pas BAV_2_POUR_1.",
+          "ERREUR_MASQUEE": "Le scoring donne quand même 100% parce que BAV_2_POUR_1 est aussi un enfant de BAV_DE_HAUT_GRADE. L'erreur NER est masquée par le scoring hiérarchique."
+        }
+      ],
+      "score_final_pct": 90.0,
+      "note": "90% car moyenne des 2 validants : (100 + 100) / 2 = 100, mais la formule pondérée donne 90%."
+    }
+  },
+
+  "annotation_humaine": {
+    "verdict_global": "ERREUR",
+    "commentaire_global": "Le score final (90%) est acceptable mais le concept extrait est FAUX. 'BAV 2 M 2' devrait être BAV_2_MOBITZ_2, pas BAV_2_POUR_1. L'erreur est masquée car les deux sont des enfants du même parent (BAV de haut grade). C'est un faux positif structurel.",
+    "annotations_par_concept": [
+      {
+        "concept_attendu": "Hyperkaliémie",
+        "verdict": "OK",
+        "score_pipeline": 100.0,
+        "score_humain_attendu": 100.0,
+        "type_erreur": null,
+        "commentaire": "Match exact, pas de problème."
+      },
+      {
+        "concept_attendu": "BAV de haut grade",
+        "verdict": "ERREUR",
+        "score_pipeline": 100.0,
+        "score_humain_attendu": 100.0,
+        "type_erreur": "SYNONYME_MANQUANT",
+        "commentaire": "Le concept extrait (BAV_2_POUR_1) est faux, même si le score est correct par chance. La cause racine est l'absence du synonyme 'BAV 2 M 2' pour BAV_2_MOBITZ_2 dans l'ontologie.",
+        "pourquoi_manque": "L'ontologie ne contient pas le synonyme 'BAV 2 M 2' ni 'BAV2M2' pour le concept BAV_2_MOBITZ_2. Le coupe-circuit ne trouve pas de match exact, et le LLM interprète 'M 2' comme un ratio (2/1) au lieu de 'Mobitz 2'.",
+        "correction_proposee": "Ajouter les synonymes ['BAV 2 M 2', 'BAV2M2', 'BAV 2 Mobitz 2', 'BAV2 Mobitz2'] au concept BAV_2_MOBITZ_2."
+      }
+    ]
+  },
+
+  "piste_amelioration": {
+    "titre": "Enrichissement automatique des synonymes",
+    "description": "Développer un outil de suggestion automatique de synonymes à partir de l'analyse des termes étudiants non reconnus par le coupe-circuit. Utiliser les termes qui passent par le LLM comme candidats à l'ajout dans l'ontologie.",
+    "difficulte_technique": "Moyenne — pipeline d'enrichissement semi-automatique avec validation humaine",
+    "impact": "Élevé — réduit la dépendance au LLM (coûteux et lent) et améliore la précision"
+  }
+}

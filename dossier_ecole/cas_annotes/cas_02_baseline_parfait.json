@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "titre": "Cas 2 — BAV complet : baseline parfait",
+    "interet": "Cas de référence démontrant que le pipeline fonctionne correctement quand les termes de l'étudiant sont bien couverts par l'ontologie. Match exact sur le diagnostic validant, extraction du descripteur associé.",
+    "difficulte": "aucune — cas nominal",
+    "date_annotation": "2026-03-29"
+  },
+
+  "golden_set": {
+    "cas_number": 2,
+    "category": "Troubles du Rythme",
+    "difficulty": "🟢 Débutant",
+    "diagnostic_principal": "BAV complet",
+    "commentaire_correcteur": "",
+    "annotations_expert": [
+      {
+        "concept": "BAV complet",
+        "category": "DIAGNOSTIC_URGENT",
+        "role": "🎯 Diagnostic validant",
+        "poids_ontologie": 3
+      },
+      {
+        "concept": "Echappement ventriculaire",
+        "category": "DESCRIPTEUR_ECG",
+        "role": "📝 Description",
+        "poids_ontologie": 1
+      }
+    ],
+    "expected_concepts": ["BAV complet"]
+  },
+
+  "reponse_etudiant": {
+    "code": "ECG-84SV",
+    "texte_brut": "Bloc atrio-ventriculaire complet, échappement ventriculaire à environ 50/min",
+    "commentaire": "Réponse concise et précise. Utilise le terme complet 'bloc atrio-ventriculaire complet' (synonyme de BAV complet) et mentionne l'échappement avec la fréquence."
+  },
+
+  "pipeline_trace": {
+    "etape_1_ner": {
+      "description": "Extraction des termes cliniques",
+      "termes_extraits": [
+        {"terme_brut": "Bloc atrio-ventriculaire complet", "note": "Synonyme de BAV complet — non trouvé par coupe-circuit, envoyé au LLM"},
+        {"terme_brut": "échappement ventriculaire", "note": "Match exact coupe-circuit"},
+        {"terme_brut": "Bradycardie", "note": "Inféré du contexte '50/min' par le LLM"}
+      ]
+    },
+
+    "etape_2_matching": {
+      "description": "Mise en correspondance avec l'ontologie. Deux méthodes : coupe-circuit (match exact déterministe) ou juge LLM (arbitrage sémantique GPT-4).",
+      "concepts_resolus": [
+        {
+          "terme_brut": "Bloc atrio-ventriculaire complet",
+          "ontology_id": "BAV_COMPLET",
+          "concept_name": "BAV complet",
+          "method": "juge_llm",
+          "statut": "present",
+          "justification": "Le terme de l'étudiant 'Bloc atrio-ventriculaire complet' correspond exactement au concept de 'BAV complet', qui est un diagnostic urgent. C'est la correspondance la plus spécifique sur la pathologie décrite.",
+          "note_technique": "Le coupe-circuit échoue car 'bloc atrio-ventriculaire complet' n'est pas un synonyme enregistré de BAV_COMPLET. Le LLM fait le rapprochement sémantique."
+        },
+        {
+          "terme_brut": "Échappement ventriculaire",
+          "ontology_id": "ECHAPPEMENT_VENTRICULAIRE",
+          "concept_name": "Echappement ventriculaire",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'echappement ventriculaire' == surface_form du concept."
+        },
+        {
+          "terme_brut": "Bradycardie",
+          "ontology_id": "BRADYCARDIE",
+          "concept_name": "Bradycardie",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'bradycardie' == surface_form du concept.",
+          "note_technique": "Terme inféré par le segmenteur/LLM à partir du contexte '50/min'. Non écrit littéralement par l'étudiant."
+        }
+      ]
+    },
+
+    "etape_3_scoring": {
+      "description": "Comparaison avec le golden set",
+      "validant_details": [
+        {
+          "golden_name": "BAV complet",
+          "golden_id": "BAV_COMPLET",
+          "found": true,
+          "score_pct": 100.0,
+          "match_type": "exact",
+          "found_via_name": "",
+          "explication": "Correspondance exacte entre le concept extrait et le concept attendu."
+        }
+      ],
+      "descripteur_details": [
+        {
+          "golden_name": "Echappement ventriculaire",
+          "golden_id": "ECHAPPEMENT_VENTRICULAIRE",
+          "found": true,
+          "match_type": "exact"
+        }
+      ],
+      "decouvertes": [
+        {
+          "concept_name": "Bradycardie",
+          "ontology_id": "BRADYCARDIE",
+          "categorie": "DESCRIPTEUR_ECG",
+          "note": "Concept pertinent mentionné par l'étudiant mais non attendu dans le golden set — compté comme découverte positive."
+        }
+      ],
+      "score_final_pct": 100.0
+    }
+  },
+
+  "annotation_humaine": {
+    "verdict_global": "OK",
+    "commentaire_global": "Le pipeline fonctionne parfaitement. Le diagnostic validant est trouvé (exact match), le descripteur est identifié, et un concept pertinent supplémentaire (bradycardie) est signalé comme découverte.",
+    "annotations_par_concept": [
+      {
+        "concept_attendu": "BAV complet",
+        "verdict": "OK",
+        "score_pipeline": 100.0,
+        "score_humain_attendu": 100.0,
+        "type_erreur": null,
+        "commentaire": "Match parfait. Le LLM identifie correctement que 'Bloc atrio-ventriculaire complet' = BAV complet."
+      }
+    ]
+  },
+
+  "piste_amelioration": {
+    "titre": "Aucune amélioration nécessaire",
+    "description": "Ce cas illustre le fonctionnement nominal du pipeline. Il sert de cas de référence pour valider qu'il n'y a pas de régression.",
+    "difficulte_technique": "N/A",
+    "impact": "N/A — cas de contrôle"
+  }
+}

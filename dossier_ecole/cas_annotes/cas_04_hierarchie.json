@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "titre": "Cas 4 — Flutter typique : scoring hiérarchique parent/enfant",
+    "interet": "L'étudiant identifie 'Flutter commun antihoraire' (concept enfant) alors que le golden set attend 'Flutter droit typique' (concept parent). Le scoring hiérarchique reconnaît la relation parent-enfant dans l'ontologie et attribue 100%.",
+    "difficulte": "scoring hiérarchique — relation ontologique",
+    "date_annotation": "2026-03-29"
+  },
+
+  "golden_set": {
+    "cas_number": 8,
+    "category": "Troubles du Rythme",
+    "difficulty": "🟢 Débutant",
+    "diagnostic_principal": "Flutter droit typique",
+    "commentaire_correcteur": "",
+    "annotations_expert": [
+      {
+        "concept": "Flutter droit typique",
+        "category": "DIAGNOSTIC_MAJEUR",
+        "role": "🎯 Diagnostic validant",
+        "poids_ontologie": 2
+      }
+    ],
+    "expected_concepts": ["Flutter droit typique"]
+  },
+
+  "reponse_etudiant": {
+    "code": "ECG-84SV",
+    "texte_brut": "Flutter commun antihoraire, conduction en 3:1, fc 75/min, QRS fins, axe physiologique, pas de trouble de la repolarisation",
+    "commentaire": "Réponse riche et détaillée. L'étudiant utilise 'Flutter commun antihoraire' qui est un sous-type plus spécifique de 'Flutter droit typique'. Il ajoute des descripteurs pertinents (conduction 3:1, QRS fins, axe normal)."
+  },
+
+  "pipeline_trace": {
+    "etape_1_ner": {
+      "description": "Extraction des termes cliniques",
+      "termes_extraits": [
+        {"terme_brut": "Flutter commun antihoraire", "note": "Match exact coupe-circuit → synonyme de FLUTTER_ATRIAL_ANTIHORAIRE"},
+        {"terme_brut": "conduction en 3:1", "note": "Non reconnu par l'ontologie — aucun concept correspondant"},
+        {"terme_brut": "Normocarde", "note": "Inféré de 'fc 75/min' — match exact"},
+        {"terme_brut": "QRS fins", "note": "Match exact coupe-circuit"},
+        {"terme_brut": "Axe normal", "note": "Match exact coupe-circuit"},
+        {"terme_brut": "trouble de la repolarisation", "note": "Négation détectée, statut absent"}
+      ]
+    },
+
+    "etape_2_matching": {
+      "description": "Mise en correspondance avec l'ontologie. Deux méthodes : coupe-circuit (match exact déterministe) ou juge LLM (arbitrage sémantique GPT-4).",
+      "concepts_resolus": [
+        {
+          "terme_brut": "Flutter commun antihoraire",
+          "ontology_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+          "concept_name": "Flutter atrial antihoraire",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'flutter commun antihoraire' == surface_form du concept.",
+          "note_technique": "'Flutter commun antihoraire' est un synonyme enregistré dans l'ontologie pour FLUTTER_ATRIAL_ANTIHORAIRE. Le coupe-circuit le trouve instantanément."
+        },
+        {
+          "terme_brut": "conduction en 3:1",
+          "ontology_id": "NONE",
+          "concept_name": "",
+          "method": "juge_llm",
+          "statut": "present",
+          "justification": "Le terme 'conduction en 3:1' ne correspond directement à aucun des candidats, car il évoque une caractéristique spécifique de conduction observée lors de troubles du rythme comme le flutter, mais sans un diagnostic correspondant. Les candidats disponibles ne décrivent pas ce type de conduction spécifique.",
+          "note_technique": "Le LLM retourne correctement NONE : le ratio de conduction n'est pas un concept de l'ontologie. C'est un descripteur numérique non modélisé."
+        },
+        {
+          "terme_brut": "Normocarde",
+          "ontology_id": "NORMOCARDE",
+          "concept_name": "Normocarde",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'normocarde' == surface_form du concept."
+        },
+        {
+          "terme_brut": "QRS fins",
+          "ontology_id": "QRS_FINS",
+          "concept_name": "QRS fins",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'qrs fins' == surface_form du concept."
+        },
+        {
+          "terme_brut": "Axe normal",
+          "ontology_id": "AXE_NORMAL",
+          "concept_name": "Axe normal",
+          "method": "coupe_circuit",
+          "statut": "present",
+          "justification": "Match exact normalisé : 'axe normal' == surface_form du concept."
+        },
+        {
+          "terme_brut": "trouble de la repolarisation",
+          "ontology_id": "PAS_D'ANOMALIE_DE_LE_REPOLARISATION",
+          "concept_name": "Pas d'anomalie de le repolarisation",
+          "method": "juge_llm",
+          "statut": "absent",
+          "justification": "Le terme 'trouble de la repolarisation' mentionné dans le contexte indique explicitement l'absence de ce trouble, ce qui correspond à l'ontologie 'Pas d'anomalie de la repolarisation'.",
+          "note_technique": "Le segmenteur détecte la négation 'pas de' et marque le statut 'absent'. Le LLM fait le rapprochement sémantique avec le concept négatif de l'ontologie."
+        }
+      ]
+    },
+
+    "etape_3_scoring": {
+      "description": "Comparaison avec le golden set — scoring hiérarchique",
+      "logique_scoring": {
+        "concept_attendu": "FLUTTER_DROIT_TYPIQUE (poids=2)",
+        "concept_extrait": "FLUTTER_ATRIAL_ANTIHORAIRE (poids=1)",
+        "relation_ontologie": "FLUTTER_ATRIAL_ANTIHORAIRE est enfant (gen1) de FLUTTER_DROIT_TYPIQUE",
+        "regle_appliquee": "CHILD match: l'étudiant a donné un sous-type → base_score = 100% (car c'est un vrai sous-type, pas un composant)",
+        "poids_guard": "Non déclenché car fid_poids=1 mais golden_poids=2 (seuil >= 3)",
+        "score_final": "100%"
+      },
+      "validant_details": [
+        {
+          "golden_name": "Flutter droit typique",
+          "golden_id": "FLUTTER_DROIT_TYPIQUE",
+          "found": true,
+          "score_pct": 100.0,
+          "match_type": "child_gen1",
+          "found_via_name": "Flutter atrial antihoraire",
+          "explication": "Le sous-type 'Flutter atrial antihoraire' valide le diagnostic parent 'Flutter droit typique' à 100%."
+        }
+      ],
+      "score_final_pct": 100.0
+    }
+  },
+
+  "annotation_humaine": {
+    "verdict_global": "OK",
+    "commentaire_global": "Le scoring hiérarchique fonctionne parfaitement ici. L'étudiant donne un diagnostic plus précis (sous-type) que ce qui est attendu, et le pipeline le reconnaît correctement grâce à la relation parent-enfant dans l'ontologie.",
+    "annotations_par_concept": [
+      {
+        "concept_attendu": "Flutter droit typique",
+        "verdict": "OK",
+        "score_pipeline": 100.0,
+        "score_humain_attendu": 100.0,
+        "type_erreur": null,
+        "commentaire": "Le scoring hiérarchique est la bonne approche. Un étudiant qui identifie un sous-type plus spécifique démontre une meilleure connaissance et ne devrait pas être pénalisé."
+      }
+    ],
+    "note_pedagogique": "Ce cas illustre l'importance de l'ontologie : sans la relation FLUTTER_ATRIAL_ANTIHORAIRE → FLUTTER_DROIT_TYPIQUE, le pipeline ne pourrait pas faire ce rapprochement et l'étudiant aurait 0%."
+  },
+
+  "piste_amelioration": {
+    "titre": "Couverture des ratios de conduction",
+    "description": "Le terme 'conduction en 3:1' n'est pas couvert par l'ontologie. C'est un descripteur ECG légitime qui pourrait être ajouté pour enrichir la correction.",
+    "difficulte_technique": "Faible — ajout de concepts descripteurs",
+    "impact": "Faible — n'affecte pas le scoring validant mais enrichit le feedback"
+  }
+}
