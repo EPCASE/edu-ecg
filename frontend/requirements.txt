@@ -1,0 +1,24 @@
+# Frontend Requirements - Streamlit + Visualization
+# Generated: 2026-01-10
+
+# UI Framework
+streamlit>=1.30.0
+
+# Data Visualization
+plotly>=5.18.0
+pandas>=2.1.4
+
+# HTTP Client
+requests>=2.31.0
+
+# Authentication (frontend)
+streamlit-authenticator>=0.2.3
+
+# PDF Display (optional)
+PyPDF2>=3.0.1
+
+# PDF Processing (images + text extraction)
+PyMuPDF>=1.23.0
+
+# Utilities
+python-dotenv>=1.0.0

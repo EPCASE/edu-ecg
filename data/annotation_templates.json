@@ -1,0 +1,58 @@
+{
+  "ecg_normal": {
+    "name": "ECG Normal",
+    "description": "Template pour ECG normal",
+    "category": "Normal",
+    "annotations": [
+      {
+        "concept": "Rythme sinusal",
+        "type": "expert",
+        "coefficient": 1.0
+      },
+      {
+        "concept": "Fréquence normale",
+        "type": "expert",
+        "coefficient": 1.0
+      },
+      {
+        "concept": "Axe normal",
+        "type": "expert",
+        "coefficient": 0.8
+      },
+      {
+        "concept": "Pas d'anomalie de repolarisation",
+        "type": "expert",
+        "coefficient": 0.8
+      }
+    ],
+    "created_date": "2025-07-26T02:14:24.608284"
+  },
+  "infarctus_stemi": {
+    "name": "Infarctus STEMI",
+    "description": "Template pour infarctus STEMI",
+    "category": "Infarctus",
+    "annotations": [
+      {
+        "concept": "Sus-décalage ST",
+        "type": "expert",
+        "coefficient": 1.0
+      },
+      {
+        "concept": "Ondes Q de nécrose",
+        "type": "expert",
+        "coefficient": 0.9
+      },
+      {
+        "concept": "Miroir",
+        "type": "expert",
+        "coefficient": 0.7
+      },
+      {
+        "concept": "Territoire coronaire",
+        "type": "expert",
+        "coefficient": 0.8
+      }
+    ],
+    "created_date": "2025-07-26T02:14:24.608290"
+  }
+}
