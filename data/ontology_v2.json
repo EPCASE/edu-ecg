@@ -598,6 +598,9 @@
         "UNE_ONDE_P_BLOQUEE",
         "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR"
       ],
+      "supports": [
+        "BAV_2_POUR_1"
+      ],
       "synonymes": [
         "BAV 2 type 1",
         "BAV2M1",
@@ -618,6 +621,9 @@
         "UNE_ONDE_P_BLOQUEE",
         "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR"
       ],
+      "supports": [
+        "BAV_2_POUR_1"
+      ],
       "synonymes": [
         "BAV 2 M 2",
         "BAV 2 type 2",
@@ -626,8 +632,7 @@
         "Mobitz II"
       ],
       "parents": [
-        "BAV_DE_TYPE_2",
-        "BAV_DE_HAUT_GRADE"
+        "BAV_DE_TYPE_2"
       ]
     },
     "BAV_2_POUR_1": {
@@ -669,8 +674,7 @@
         "Complete AV block"
       ],
       "parents": [
-        "BLOC_AURICULO_VENTRICULAIRE",
-        "BAV_DE_HAUT_GRADE"
+        "BLOC_AURICULO_VENTRICULAIRE"
       ]
     },
     "BAV_DE_HAUT_GRADE": {
@@ -681,7 +685,10 @@
       "type": "finding",
       "supports": [
         "IRREGULIER",
-        "BRADYCARDIE"
+        "BRADYCARDIE",
+        "BAV_2_MOBITZ_2",
+        "BAV_COMPLET",
+        "BAV_2_POUR_1"
       ],
       "has_qualifiers": [
         "UNE_ONDE_P_BLOQUEE"
@@ -694,8 +701,6 @@
         "BLOC_AURICULO_VENTRICULAIRE"
       ],
       "children": [
-        "BAV_2_MOBITZ_2",
-        "BAV_COMPLET",
         "BAV_2_POUR_1"
       ]
     },
@@ -1423,6 +1428,7 @@
         "INTERVALLE_QT",
         "RYTHME",
         "FREQUENCE",
+        "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
         "SEGMENT_ST",
         "ONDE_P",
         "ONDE_J",
@@ -1524,7 +1530,8 @@
         "BRADYCARDIE_SINUSALE"
       ],
       "has_qualifiers": [
-        "RYTHME_SINUSAL"
+        "RYTHME_SINUSAL",
+        "BRADYCARDIE"
       ],
       "synonymes": [
         "SND"
@@ -1679,7 +1686,6 @@
       "children": [
         "TROUBLE_DE_REPOLARISATION",
         "STIMULATION",
-        "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
         "EVENEMENTS_ECTOPIQUES",
         "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE",
         "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL",
@@ -1745,6 +1751,7 @@
       "poids": 2,
       "type": "qualifier",
       "has_qualifiers": [
+        "BRADYCARDIE",
         "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
         "ECHAPPEMENT_VENTRICULAIRE",
         "RYTHME_REGULIER"
@@ -1814,6 +1821,9 @@
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
       "type": "finding",
+      "has_qualifiers": [
+        "IRREGULIER"
+      ],
       "parents": [
         "ECG_PAS_NORMAL"
       ],
@@ -1849,6 +1859,7 @@
         "REPOS_COMPENSATEUR"
       ],
       "has_qualifiers": [
+        "IRREGULIER",
         "OREILLETTES",
         "PREMATURE"
       ],
@@ -1874,6 +1885,9 @@
         "ABSENCE_D_ONDE_P",
         "QRS_LARGE",
         "PREMATURE"
+      ],
+      "has_qualifiers": [
+        "IRREGULIER"
       ],
       "synonymes": [
         "ESV",
@@ -1961,7 +1975,8 @@
         "ABSENCE_D_ONDE_P",
         "DESORGANISEE",
         "IRREGULIER",
-        "TREMULATION_DE_LA_LIGNE_DE_BASE"
+        "TREMULATION_DE_LA_LIGNE_DE_BASE",
+        "FREQUENCE"
       ],
       "synonymes": [
         "AF",
@@ -1983,7 +1998,8 @@
       "has_qualifiers": [
         "POLYMORPHE",
         "DESORGANISEE",
-        "QRS_LARGE"
+        "QRS_LARGE",
+        "TACHYCARDIE"
       ],
       "synonymes": [
         "FV",
@@ -2107,7 +2123,7 @@
       "concept_name": "Frequence",
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
-      "type": "finding",
+      "type": "qualifier",
       "synonymes": [
         "frequence cardiaque"
       ],
@@ -2125,7 +2141,7 @@
       "concept_name": "Frequence normale",
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
-      "type": "finding",
+      "type": "qualifier",
       "synonymes": [
         "Normocarde"
       ],
@@ -2445,6 +2461,9 @@
       ],
       "parents": [
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE"
+      ],
+      "has_qualifiers": [
+        "BRADYCARDIE"
       ]
     },
     "INTERFERENCE_EXTRA_CARDIAQUE": {
@@ -2808,6 +2827,45 @@
         "ONDE_P_NORMALE"
       ]
     },
+    "MUSCLE_PAPILLAIRE": {
+      "concept_name": "Muscle papillaire",
+      "concept_name_en": "Papillary muscle",
+      "categorie": "TOPOGRAPHIE",
+      "poids": 2,
+      "type": "topography",
+      "synonymes": [
+        "Mitral pillar",
+        "Pillier mitral"
+      ],
+      "parents": [
+        "VENTRICULE_GAUCHE",
+        "VENTRICULE"
+      ],
+      "children": [
+        "MUSCLE_PAPILLAIRE_ANTERO_LATERAL",
+        "MUSCLE_PAPILLAIRE_POSTERO_MEDIAL"
+      ]
+    },
+    "MUSCLE_PAPILLAIRE_ANTERO_LATERAL": {
+      "concept_name": "Muscle papillaire antéro-latéral",
+      "concept_name_en": "Antero-lateral papillary muscle",
+      "categorie": "TOPOGRAPHIE",
+      "poids": 2,
+      "type": "topography",
+      "parents": [
+        "MUSCLE_PAPILLAIRE"
+      ]
+    },
+    "MUSCLE_PAPILLAIRE_POSTERO_MEDIAL": {
+      "concept_name": "Muscle papillaire postero-medial",
+      "concept_name_en": "Postero-medial papillary muscle",
+      "categorie": "TOPOGRAPHIE",
+      "poids": 2,
+      "type": "topography",
+      "parents": [
+        "MUSCLE_PAPILLAIRE"
+      ]
+    },
     "MEDICAMENTS": {
       "concept_name": "Médicaments",
       "concept_name_en": "Drugs",
@@ -3156,6 +3214,9 @@
       "requires": [
         "ABSENCE_D_ONDE_P"
       ],
+      "supports": [
+        "ASYSTOLIE"
+      ],
       "parents": [
         "DYSFONCTION_SINUSALE"
       ]
@@ -3232,7 +3293,7 @@
         "Repolarisation normale"
       ],
       "parents": [
-        "ECG_PAS_NORMAL"
+        "DESCRIPTION_ECG"
       ]
     },
     "PATHOLOGIE": {
@@ -3940,18 +4001,22 @@
     },
     "STIMULATION": {
       "concept_name": "Stimulation",
-      "concept_name_en": "Pacing",
+      "concept_name_en": "Device",
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
       "type": "finding",
       "parents": [
-        "STIMULATION"
+        "ECG_PAS_NORMAL"
       ],
       "children": [
-        "STIMULATION_EN_FENETRE_DE_SECURITE",
-        "STIMULATION_INAPPROPRIEE",
-        "STIMULATION_VENTRICULAIRE",
-        "STIMULATION_ATRIALE"
+        "PACEMAKER",
+        "SOUS_DETECTION",
+        "SURDETECTION",
+        "TACHYCARDIE_PAR_REENTREE_ELECTRONIQUE",
+        "DEFIBRILLATEUR",
+        "EFFET_CHATTERJEE",
+        "PERTE_DE_CAPTURE",
+        "STIMULATION"
       ]
     },
     "STIMULATION_VD": {
@@ -4352,6 +4417,7 @@
       "poids": 3,
       "type": "qualifier",
       "supports": [
+        "FREQUENCE",
         "MODE_DE_CONDUCTION_AV"
       ],
       "has_qualifiers": [
@@ -4455,6 +4521,9 @@
       "categorie": "DIAGNOSTIC_MOYEN",
       "poids": 3,
       "type": "qualifier",
+      "has_qualifiers": [
+        "TACHYCARDIE"
+      ],
       "has_qualifier_families": [
         "QUALIFICATEUR_EPISODE"
       ],
@@ -4665,7 +4734,9 @@
         "QT_LONG"
       ],
       "has_qualifiers": [
-        "DESORGANISEE"
+        "POLYMORPHE",
+        "DESORGANISEE",
+        "TACHYCARDIE"
       ],
       "parents": [
         "ARYTHMIE_VENTRICULAIRE"
@@ -5522,6 +5593,9 @@
       "LOCALISATION_IDM",
       "LOCALISATION_FAISCEAU_ACCESSOIRE",
       "MID_SEPTAL",
+      "MUSCLE_PAPILLAIRE",
+      "MUSCLE_PAPILLAIRE_ANTERO_LATERAL",
+      "MUSCLE_PAPILLAIRE_POSTERO_MEDIAL",
       "PAROI_ANTERIEURE_DU_VENTRICULE_GAUCHE",
       "PAROI_INFERIEURE_DU_VENTRICULE_DROIT",
       "PAROI_INFERIEURE_DU_VENTRICULE_GAUCHE",
@@ -5562,55 +5636,55 @@
     "LOCALISATION_FAISCEAU_ACCESSOIRE": {
       "label": "Localisation faisceau accessoire",
       "sous_territoires": [
-        "Antéro-latéral droit",
-        "Anterieur gauche",
-        "Antéro-septal",
         "Mid-septal",
         "Postéro-septal droit",
-        "Postérieur gauche",
+        "Antéro-septal",
         "Latéral gauche",
-        "Postéro-septal gauche",
+        "Antéro-latéral droit",
+        "Anterieur gauche",
+        "Postérieur gauche",
         "Latéral droit",
+        "Postéro-septal gauche",
         "Inférieur droit"
       ]
     },
     "LOCALISATION_IDM": {
       "label": "Localisation IDM",
       "sous_territoires": [
-        "Ventricule droit",
         "Latéral",
-        "Inférieur",
-        "Postérieur",
-        "Circonférentiel",
         "Septal",
-        "Paroi inférieure du ventricule droit",
         "Paroi libre du ventricule droit",
+        "Ventricule droit",
+        "Circonférentiel",
         "Apicale",
-        "Antérieur"
+        "Inférieur",
+        "Paroi inférieure du ventricule droit",
+        "Antérieur",
+        "Postérieur"
       ]
     },
     "LOCALISATION_ESV": {
       "label": "localisation ESV",
       "sous_territoires": [
-        "ESV épicardique",
-        "Ventricule droit",
-        "Ventricule gauche",
-        "Muscle papillaire",
-        "Septum interventriculaire",
-        "Continuité mitro-aortique",
-        "Paroi libre du ventricule droit",
-        "Paroi inférieure du ventricule droit",
-        "Paroi antérieure du ventricule gauche",
-        "Portion médiale du ventricule gauche",
-        "Chambre de chasse du ventricule droit",
-        "Chambre de chasse",
-        "Paroi latérale du ventricule gauche",
-        "Apex",
-        "Portion basale du ventricule gauche",
-        "Muscle papillaire antéro-latéral",
         "Muscle papillaire postero-medial",
-        "Chambre de chasse du ventricule gauche",
-        "Paroi inférieure du ventricule gauche"
+        "Ventricule gauche",
+        "Ventricule droit",
+        "ESV épicardique",
+        "Paroi inférieure du ventricule gauche",
+        "Paroi inférieure du ventricule droit",
+        "Continuité mitro-aortique",
+        "Muscle papillaire antéro-latéral",
+        "Portion médiale du ventricule gauche",
+        "Paroi latérale du ventricule gauche",
+        "Chambre de chasse du ventricule droit",
+        "Apex",
+        "Paroi libre du ventricule droit",
+        "Muscle papillaire",
+        "Paroi antérieure du ventricule gauche",
+        "Septum interventriculaire",
+        "Portion basale du ventricule gauche",
+        "Chambre de chasse",
+        "Chambre de chasse du ventricule gauche"
       ]
     }
   },
@@ -5633,17 +5707,17 @@
     "version": "2.0",
     "source": "BrYOzRZIu7jQTwmfcGsi35.owl",
     "generated_by": "convert_owl_to_v2.py",
-    "total_concepts": 327,
+    "total_concepts": 330,
     "total_patterns": 49,
-    "total_findings": 151,
-    "total_qualifiers": 90,
-    "total_topography": 37,
+    "total_findings": 149,
+    "total_qualifiers": 92,
+    "total_topography": 40,
     "total_qualifier_families": 6,
-    "total_synonymes": 275,
+    "total_synonymes": 277,
     "total_requires_relations": 66,
-    "total_supports_relations": 38,
+    "total_supports_relations": 45,
     "total_excludes_relations": 42,
     "total_hidden": 55,
-    "skipped_reference_concepts": 70
+    "skipped_reference_concepts": 67
   }
 }

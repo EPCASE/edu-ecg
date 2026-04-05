@@ -274,11 +274,23 @@ def expand_found_concepts(found_ids: List[str]) -> SemanticResult:
             contextual_qualifiers.add(fam_q)
 
     # Phase 1c : Classer les concepts restants par contexte
+    # Un concept peut etre a la fois finding ET qualifier (double role).
+    # Ex: TACHYCARDIE est has_qualifiers de TSV (qualifier) ET requires de TV (finding).
     for cid in remaining:
-        if cid in contextual_findings:
+        is_finding = cid in contextual_findings
+        is_qualifier = cid in contextual_qualifiers
+
+        if is_finding and is_qualifier:
+            # Double role : present dans les deux listes
             result.findings.append(cid)
-        elif cid in contextual_qualifiers:
             result.qualifiers.append(cid)
+        elif is_finding:
+            result.findings.append(cid)
+        elif is_qualifier:
+            # Qualifier contextuel mais aussi disponible comme finding
+            # pour satisfaire les requires d'autres patterns
+            result.qualifiers.append(cid)
+            result.findings.append(cid)
         else:
             # Pas lie a un pattern trouve -> type ontologique par defaut
             ctype = get_concept_type(cid)

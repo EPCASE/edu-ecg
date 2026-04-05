@@ -34,6 +34,111 @@ from semantic_layer import (
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
+# Hierarchy helpers (parent ↔ child navigation)
+# ---------------------------------------------------------------------------
+
+def get_all_ancestors(concept_id: str, max_depth: int = 5) -> Dict[str, int]:
+    """Return {ancestor_id: distance} for a concept. Distance 1 = direct parent."""
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+    result: Dict[str, int] = {}
+
+    def _walk(cid: str, depth: int):
+        if depth > max_depth:
+            return
+        c = concepts.get(cid)
+        if not c:
+            return
+        for pid in c.get("parents", []):
+            if pid not in result or depth < result[pid]:
+                result[pid] = depth
+                _walk(pid, depth + 1)
+
+    _walk(concept_id, 1)
+    return result
+
+
+def get_all_descendants(concept_id: str, max_depth: int = 5) -> Dict[str, int]:
+    """Return {descendant_id: distance} for a concept. Distance 1 = direct child."""
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+    result: Dict[str, int] = {}
+
+    def _walk(cid: str, depth: int):
+        if depth > max_depth:
+            return
+        c = concepts.get(cid)
+        if not c:
+            return
+        for chid in c.get("children", []):
+            if chid not in result or depth < result[chid]:
+                result[chid] = depth
+                _walk(chid, depth + 1)
+
+    _walk(concept_id, 1)
+    return result
+
+
+def hierarchical_match(found_id: str, expected_id: str) -> Optional[Dict]:
+    """Check if found_id is a parent or child of expected_id.
+    Returns dict with match_type and distance, or None."""
+    if found_id == expected_id:
+        return {"match_type": "exact", "distance": 0}
+
+    # Is found a parent of expected? (student less specific)
+    ancestors_of_expected = get_all_ancestors(expected_id)
+    if found_id in ancestors_of_expected:
+        return {"match_type": "parent", "distance": ancestors_of_expected[found_id]}
+
+    # Is found a child of expected? (student more specific)
+    descendants_of_expected = get_all_descendants(expected_id)
+    if found_id in descendants_of_expected:
+        return {"match_type": "child", "distance": descendants_of_expected[found_id]}
+
+    # Are they siblings? (same parent)
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+    parents_found = set(concepts.get(found_id, {}).get("parents", []))
+    parents_expected = set(concepts.get(expected_id, {}).get("parents", []))
+    common_parents = parents_found & parents_expected
+    if common_parents:
+        return {"match_type": "sibling", "distance": 2, "common_parent": sorted(common_parents)[0]}
+
+    return None
+
+
+def supports_match(found_id: str, expected_id: str) -> Optional[Dict]:
+    """Check if found_id appears in the requires/supports/has_qualifiers
+    of expected_id or any of its ancestors (walking up the tree).
+    
+    Use case: golden=FA, student says "tachycardie" → TACHYCARDIE is in
+    has_qualifiers of TSV (parent of FA) → match_type="supports".
+    """
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+
+    # Collect expected + all its ancestors
+    targets = {expected_id: 0}
+    targets.update(get_all_ancestors(expected_id))
+
+    # Check requires, has_qualifiers, supports (in priority order)
+    RELATIONS = ["requires", "has_qualifiers", "supports"]
+
+    for target_id, distance in targets.items():
+        c = concepts.get(target_id, {})
+        for rel in RELATIONS:
+            if found_id in c.get(rel, []):
+                return {
+                    "match_type": "supports",
+                    "relation": rel,
+                    "via": target_id,
+                    "distance": distance,
+                }
+
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Scoring weights (from ontology_v2.json scoring_rules)
 # ---------------------------------------------------------------------------
 
@@ -287,7 +392,11 @@ def compare_with_golden_set(
     found_ids: List[str],
     expected_ids: List[str],
 ) -> Dict:
-    """Compare la reponse etudiant avec le golden set expert."""
+    """Compare la reponse etudiant avec le golden set expert.
+    
+    Includes hierarchical matching: if a student finds a parent/child/sibling
+    of an expected concept, it counts as a partial match.
+    """
     # Normaliser les cles (accents pipeline V1 vs cles V2 sans accents)
     found_ids = [normalize_key(fid) for fid in found_ids]
     expected_ids = [normalize_key(eid) for eid in expected_ids]
@@ -295,31 +404,93 @@ def compare_with_golden_set(
     found_set = set(found_ids)
     expected_set = set(expected_ids)
 
-    matched = found_set & expected_set
-    missed = expected_set - found_set
-    extra = found_set - expected_set
+    # --- Exact matches ---
+    matched_exact = found_set & expected_set
+    remaining_expected = expected_set - matched_exact
+    remaining_found = found_set - matched_exact
 
+    # --- Implicit matches (via semantic expansion) ---
     student_score = score_student_response_v2(found_ids, expected_ids)
-
     implicit_matches = set()
     if student_score.semantic_result:
         for pid in student_score.semantic_result.implicit_patterns:
-            if pid in expected_set:
+            if pid in remaining_expected:
                 implicit_matches.add(pid)
+    remaining_expected -= implicit_matches
+
+    # --- Hierarchical matches (parent/child/sibling) ---
+    matched_hierarchical = []  # list of {found, expected, match_type, distance}
+    hier_found_used = set()
+    hier_expected_used = set()
+
+    # Try to match remaining expected with remaining found via hierarchy
+    # Prioritize closer matches (distance=1 first)
+    candidates = []
+    for eid in remaining_expected:
+        for fid in remaining_found:
+            hm = hierarchical_match(fid, eid)
+            if hm is not None:
+                candidates.append({
+                    "found": fid,
+                    "expected": eid,
+                    **hm,
+                })
+    # Sort: prefer exact type matches, then by distance
+    type_priority = {"child": 0, "parent": 1, "sibling": 2}
+    candidates.sort(key=lambda x: (type_priority.get(x["match_type"], 9), x["distance"]))
+
+    for c in candidates:
+        if c["found"] in hier_found_used or c["expected"] in hier_expected_used:
+            continue
+        matched_hierarchical.append(c)
+        hier_found_used.add(c["found"])
+        hier_expected_used.add(c["expected"])
+
+    remaining_expected -= hier_expected_used
+    remaining_found -= hier_found_used
+
+    # --- Supports matches (found is in requires/supports of expected or ancestor) ---
+    matched_supports = []
+    sup_found_used = set()
+    sup_expected_used = set()
+
+    sup_candidates = []
+    for eid in remaining_expected:
+        for fid in remaining_found:
+            sm = supports_match(fid, eid)
+            if sm is not None:
+                sup_candidates.append({"found": fid, "expected": eid, **sm})
+    # Prefer requires over supports, then closer distance
+    rel_priority = {"requires": 0, "supports": 1}
+    sup_candidates.sort(key=lambda x: (rel_priority.get(x["relation"], 9), x["distance"]))
+
+    for c in sup_candidates:
+        if c["found"] in sup_found_used or c["expected"] in sup_expected_used:
+            continue
+        matched_supports.append(c)
+        sup_found_used.add(c["found"])
+        sup_expected_used.add(c["expected"])
+
+    remaining_expected -= sup_expected_used
+    remaining_found -= sup_found_used
 
     return {
-        "matched_exact": sorted(matched),
+        "matched_exact": sorted(matched_exact),
         "matched_implicit": sorted(implicit_matches),
-        "missed": sorted(missed - implicit_matches),
-        "extra": sorted(extra),
+        "matched_hierarchical": matched_hierarchical,
+        "matched_supports": matched_supports,
+        "missed": sorted(remaining_expected),
+        "extra": sorted(remaining_found),
         "student_score": student_score.to_dict(),
         "counts": {
             "expected": len(expected_ids),
             "found": len(found_ids),
-            "matched_exact": len(matched),
+            "matched_exact": len(matched_exact),
             "matched_implicit": len(implicit_matches),
-            "missed": len(missed - implicit_matches),
-            "extra": len(extra),
+            "matched_hierarchical": len(matched_hierarchical),
+            "matched_supports": len(matched_supports),
+            "missed": len(remaining_expected),
+            "extra": len(remaining_found),
         },
     }
 
