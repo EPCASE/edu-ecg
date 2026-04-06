@@ -795,7 +795,8 @@
       ],
       "synonymes": [
         "BBGc",
-        "cLBBB"
+        "cLBBB",
+        "Bloc de branche gauche complet"
       ],
       "parents": [
         "BLOC_DE_BRANCHE_GAUCHE"
@@ -1677,7 +1678,6 @@
       "requires": [
         "RYTHME_SINUSAL",
         "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
-        "PAS_DE_TROUBLE_DE_LA_DEPOLARISATION",
         "PR_NORMAL",
         "QRS_NORMAL",
         "FREQUENCE_NORMALE"
@@ -3459,7 +3459,9 @@
       "type": "qualifier",
       "synonymes": [
         "Rabotage de l'onde R",
-        "Rabotage de l'onde R en antérieur"
+        "Rabotage de l'onde R en antérieur",
+        "onde R rabotée en antérieur",
+        "onde R rabotée"
       ],
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
@@ -3713,7 +3715,8 @@
         "QRS_FINS"
       ],
       "has_qualifiers": [
-        "MORPHOLOGIE_DU_QRS_NORMALE"
+        "MORPHOLOGIE_DU_QRS_NORMALE",
+        "PAS_DE_TROUBLE_DE_LA_DEPOLARISATION"
       ],
       "excludes": [
         "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
@@ -3805,7 +3808,9 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "QS antérieur"
+        "QS antérieur",
+        "onde R rabotée",
+        "onde R rabotée en antérieur"
       ],
       "parents": [
         "PRESENCE_D_ONDE_Q_PATHOLOGIQUE"

@@ -9,15 +9,25 @@ Principe :
     Score = Σ score(concept_i) / N concepts golden
 
     Pour chaque concept attendu :
-    1. Trouvé exact (ou synonyme) dans found_ids          → 1.0
-    2. Non trouvé, mais a requires → nb_req_trouvés / nb_req   (0..1)
+    1.  Trouvé exact (ou synonyme) dans found_ids         → 1.0
+    1b. Un enfant (descendant) trouvé dans found_ids       → 1.0
+        (plus spécifique que l'attendu → mérite tous les points)
+    1c. Un parent trouvé dans found_ids :
+        - parent direct (distance 1)                       → 2/3
+        - parent éloigné (distance ≥ 2)                    → 1/3
+        Ce score sert de plancher ; on continue à vérifier
+        requires/qualifiers/supports et on garde le MAX.
+    2.  Non trouvé, mais a requires → nb_req_trouvés / nb_req   (0..1)
        - Si un require n'est pas trouvé, on vérifie récursivement ses
          propres requires/qualifiers/supports (profondeur max 2).
          Ex: QRS_FINS trouvé → QRS_NORMAL reçoit 0.5 (1/2 sub-requires).
-    3. Non trouvé, pas de requires, has_qualifiers trouvés → 2/3
-    4. Non trouvé, pas de requires, supports trouvés       → 1/3
-    5. Un excludes ou excludes_families trouvé              → 0 (écrase tout)
-    6. Rien                                                → 0
+    3.  Non trouvé, pas de requires, has_qualifiers trouvés → 2/3
+    4.  Non trouvé, pas de requires, supports trouvés       → 1/3
+    5.  Un excludes ou excludes_families trouvé             → 0 (écrase tout)
+    6.  Rien                                               → 0
+
+    On ne cumule PAS les sources : on prend toujours le score max
+    (enfant > parent+1 > qualifier > parent+2 > support).
 
 Conversion des négations :
     Les concepts avec statut "absent" sont convertis en concepts positifs
@@ -68,6 +78,75 @@ class ConceptScore:
     supports_found: List[str] = field(default_factory=list)
     # Pour exclusion
     excluded_by: str = ""
+
+
+# ---------------------------------------------------------------------------
+# Lookup de concepts (V2-compatible, remplace scoring_v1.find_owl_concept)
+# ---------------------------------------------------------------------------
+
+def find_owl_concept(concept_text: str) -> Optional[Dict]:
+    """
+    Cherche un concept dans l'ontologie V2 par son label français.
+
+    Stratégie de recherche (par ordre de priorité) :
+      1. Match exact sur concept_name (case-insensitive)
+      2. Match exact sur un synonyme
+      3. Match partiel (contient / est contenu dans)
+
+    Args:
+        concept_text: Le texte du concept (ex: "Fibrillation atriale", "BBG")
+
+    Returns:
+        dict avec ontology_id, concept_name, poids, categorie, synonymes.
+        Retourne un dict par défaut (poids=1) si non trouvé.
+    """
+    onto = _get_ontology_v2()
+    concepts = onto.get("concepts", {})
+    concept_lower = concept_text.lower().strip()
+
+    # 1. Recherche exacte par concept_name
+    for cid, cdata in concepts.items():
+        if cdata.get("concept_name", "").lower().strip('"') == concept_lower:
+            return {
+                "ontology_id": cid,
+                "concept_name": cdata.get("concept_name", "").strip('"'),
+                "poids": cdata.get("poids", 1),
+                "categorie": cdata.get("categorie", "DESCRIPTEUR_ECG"),
+                "synonymes": cdata.get("synonymes", []),
+            }
+
+    # 2. Recherche par synonymes
+    for cid, cdata in concepts.items():
+        synonymes = [s.lower() for s in cdata.get("synonymes", [])]
+        if concept_lower in synonymes:
+            return {
+                "ontology_id": cid,
+                "concept_name": cdata.get("concept_name", "").strip('"'),
+                "poids": cdata.get("poids", 1),
+                "categorie": cdata.get("categorie", "DESCRIPTEUR_ECG"),
+                "synonymes": cdata.get("synonymes", []),
+            }
+
+    # 3. Recherche partielle (contient)
+    for cid, cdata in concepts.items():
+        cname = cdata.get("concept_name", "").lower().strip('"')
+        if concept_lower in cname or cname in concept_lower:
+            return {
+                "ontology_id": cid,
+                "concept_name": cdata.get("concept_name", "").strip('"'),
+                "poids": cdata.get("poids", 1),
+                "categorie": cdata.get("categorie", "DESCRIPTEUR_ECG"),
+                "synonymes": cdata.get("synonymes", []),
+            }
+
+    # Pas trouvé → dict par défaut
+    return {
+        "ontology_id": concept_text.upper().replace(" ", "_"),
+        "concept_name": concept_text,
+        "poids": 1,
+        "categorie": "DESCRIPTEUR_ECG",
+        "synonymes": [],
+    }
 
 
 @dataclass
@@ -220,6 +299,55 @@ def _check_excludes(
     return None
 
 
+def _get_all_parents_recursive(concept_id: str, max_depth: int = 3) -> Dict[str, int]:
+    """
+    Retourne tous les ancêtres d'un concept avec leur distance.
+    {parent_id: distance} où distance = 1 pour parent direct, 2 pour grand-parent, etc.
+    """
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+    result: Dict[str, int] = {}
+
+    def _walk(cid: str, depth: int):
+        if depth > max_depth:
+            return
+        c = concepts.get(cid, {})
+        for parent in c.get("parents", []):
+            if parent not in result or depth < result[parent]:
+                result[parent] = depth
+                _walk(parent, depth + 1)
+
+    _walk(concept_id, 1)
+    return result
+
+
+def _find_child_in_found(concept_id: str, found_set: Set[str]) -> Optional[str]:
+    """
+    Vérifie si un enfant (descendant) du concept attendu est dans found_set.
+    Un enfant est plus spécifique → mérite les points complets.
+    Retourne le premier enfant trouvé, ou None.
+    """
+    children = _get_all_children_recursive(concept_id, max_depth=3)
+    hit = found_set & children
+    return sorted(hit)[0] if hit else None
+
+
+def _find_parent_in_found(concept_id: str, found_set: Set[str]) -> Tuple[Optional[str], int]:
+    """
+    Vérifie si un parent (ancêtre) du concept attendu est dans found_set.
+    Retourne (parent_id, distance) du parent le plus proche trouvé, ou (None, 0).
+    Distance 1 = parent direct (→ 2/3), distance 2+ = grand-parent (→ 1/3).
+    """
+    parents = _get_all_parents_recursive(concept_id, max_depth=3)
+    best_parent = None
+    best_dist = 999
+    for pid, dist in parents.items():
+        if pid in found_set and dist < best_dist:
+            best_parent = pid
+            best_dist = dist
+    return (best_parent, best_dist) if best_parent else (None, 0)
+
+
 # ---------------------------------------------------------------------------
 # Recursive sub-require scoring
 # ---------------------------------------------------------------------------
@@ -316,6 +444,33 @@ def _score_one_concept(
         cs.detail = "Trouvé exact"
         return cs
 
+    # ── 1b. Un enfant (plus spécifique) trouvé ? → score complet ──
+    child_hit = _find_child_in_found(neid, found_set)
+    if child_hit:
+        cs.match_type = "exact"
+        cs.score = 1.0
+        cs.detail = f"Enfant trouvé: {child_hit}"
+        return cs
+
+    # ── 1c. Un parent (plus générique) trouvé ? ───────────────────
+    #   parent +1 (direct) → 2/3,  parent +2 (éloigné) → 1/3
+    parent_hit, parent_dist = _find_parent_in_found(neid, found_set)
+    if parent_hit:
+        if parent_dist <= 1:
+            parent_score = 2.0 / 3.0
+            cs.match_type = "qualifier"
+            cs.detail = f"Parent direct trouvé: {parent_hit} (dist={parent_dist})"
+        else:
+            parent_score = 1.0 / 3.0
+            cs.match_type = "support"
+            cs.detail = f"Parent éloigné trouvé: {parent_hit} (dist={parent_dist})"
+        # On garde ce score comme plancher, mais on continue à vérifier
+        # requires/qualifiers/supports qui pourraient donner mieux
+        # (on ne cumule pas, on prend le max)
+        parent_cs_score = round(parent_score, 4)
+    else:
+        parent_cs_score = 0.0
+
     # ── 2. A des requires_findings ? ───────────────────────────────
     requires = c.get("requires", [])
     if requires:
@@ -338,14 +493,32 @@ def _score_one_concept(
                     missing.append(r)
 
         ratio = partial_credit / len(requires)
+        req_score = round(ratio, 4)
 
-        cs.match_type = "requires"
-        cs.score = round(ratio, 4)
-        cs.requires_total = len(requires)
-        cs.requires_found = len(satisfied)
-        cs.requires_satisfied = satisfied
-        cs.requires_missing = missing
-        cs.detail = f"{partial_credit:.1f}/{len(requires)} requires"
+        # Prendre le max entre requires et parent hierarchy
+        if req_score >= parent_cs_score:
+            cs.match_type = "requires"
+            cs.score = req_score
+            cs.requires_total = len(requires)
+            cs.requires_found = len(satisfied)
+            cs.requires_satisfied = satisfied
+            cs.requires_missing = missing
+            cs.detail = f"{partial_credit:.1f}/{len(requires)} requires"
+        elif parent_cs_score > 0:
+            cs.score = parent_cs_score
+            # match_type and detail already set from parent block above
+            if parent_cs_score >= 2.0 / 3.0:
+                cs.match_type = "qualifier"
+            else:
+                cs.match_type = "support"
+        else:
+            cs.match_type = "requires"
+            cs.score = req_score
+            cs.requires_total = len(requires)
+            cs.requires_found = len(satisfied)
+            cs.requires_satisfied = satisfied
+            cs.requires_missing = missing
+            cs.detail = f"{partial_credit:.1f}/{len(requires)} requires"
         return cs
 
     # ── 3. has_qualifiers trouvés ? ────────────────────────────────
@@ -360,23 +533,37 @@ def _score_one_concept(
                 qualifiers.append(child)
     qual_found = [q for q in qualifiers if normalize_key(q) in found_set]
     if qual_found:
-        cs.match_type = "qualifier"
-        cs.score = 2.0 / 3.0
-        cs.qualifiers_found = qual_found
-        cs.detail = f"Qualifiers: {', '.join(qual_found)}"
+        qual_score = 2.0 / 3.0
+        if qual_score >= parent_cs_score:
+            cs.match_type = "qualifier"
+            cs.score = qual_score
+            cs.qualifiers_found = qual_found
+            cs.detail = f"Qualifiers: {', '.join(qual_found)}"
+        else:
+            cs.score = parent_cs_score
         return cs
 
     # ── 4. supports trouvés ? ──────────────────────────────────────
     supports = c.get("supports", [])
     sup_found = [s for s in supports if normalize_key(s) in found_set]
     if sup_found:
-        cs.match_type = "support"
-        cs.score = 1.0 / 3.0
-        cs.supports_found = sup_found
-        cs.detail = f"Supports: {', '.join(sup_found)}"
+        sup_score = 1.0 / 3.0
+        if sup_score >= parent_cs_score:
+            cs.match_type = "support"
+            cs.score = sup_score
+            cs.supports_found = sup_found
+            cs.detail = f"Supports: {', '.join(sup_found)}"
+        else:
+            cs.score = parent_cs_score
         return cs
 
-    # ── 5. Rien ────────────────────────────────────────────────────
+    # ── 5. Parent hierarchy comme filet de sécurité ────────────────
+    if parent_cs_score > 0:
+        cs.score = parent_cs_score
+        # match_type and detail already set from parent block
+        return cs
+
+    # ── 6. Rien ────────────────────────────────────────────────────
     cs.match_type = "missed"
     cs.score = 0.0
     cs.detail = "Non trouvé"

@@ -139,10 +139,20 @@ def _build_student_summary(report) -> str:
         status = "TROUVÉ" if vd.found else "MANQUÉ"
         entry = get_edn_entry(vd.golden_id)
         rang = f" [Rang EDN : {entry.rang_edn}]" if entry else ""
-        if vd.found and vd.match_type == "exact":
+        if vd.match_type == "exact":
             parts.append(f"  ✅ {vd.golden_name} — {status} (exact, 100%){rang}")
-        elif vd.found:
-            parts.append(f"  🟠 {vd.golden_name} — {status} via « {vd.found_via_name} » ({vd.match_type}, {vd.score_pct:.0f}%){rang}")
+        elif vd.match_type == "requires":
+            sat = ", ".join(vd.requires_satisfied) if hasattr(vd, 'requires_satisfied') and vd.requires_satisfied else "?"
+            parts.append(f"  � {vd.golden_name} — {status} (requires, {vd.score_pct:.0f}% — trouvés: {sat}){rang}")
+        elif vd.match_type == "qualifier":
+            quals = ", ".join(vd.qualifiers_found) if hasattr(vd, 'qualifiers_found') and vd.qualifiers_found else "?"
+            parts.append(f"  🔶 {vd.golden_name} — {status} (qualifier, {vd.score_pct:.0f}% — via: {quals}){rang}")
+        elif vd.match_type == "support":
+            sups = ", ".join(vd.supports_found) if hasattr(vd, 'supports_found') and vd.supports_found else "?"
+            parts.append(f"  🔹 {vd.golden_name} — {status} (support, {vd.score_pct:.0f}% — via: {sups}){rang}")
+        elif vd.match_type == "excluded":
+            excl = vd.excluded_by if hasattr(vd, 'excluded_by') and vd.excluded_by else "?"
+            parts.append(f"  🚫 {vd.golden_name} — EXCLU (contredit par: {excl}){rang}")
         else:
             parts.append(f"  ❌ {vd.golden_name} — {status}{rang}")
 
@@ -169,49 +179,55 @@ def _build_student_summary(report) -> str:
 SYSTEM_PROMPT = """Tu es un professeur de cardiologie bienveillant et pédagogue qui corrige l'interprétation ECG d'un étudiant en médecine préparant les EDN.
 
 Tu disposes :
-1. Du résultat de l'évaluation automatique (concepts trouvés/manqués, score)
+1. Du résultat de l'évaluation automatique (concepts trouvés/manqués, score V3 ontologique)
 2. D'extraits du cours SFC officiel (Item 231 — Chapitre 15) pertinents pour ce cas
 3. D'un éventuel commentaire du correcteur humain (expert) sur ce cas
 
-Ta mission est de rédiger un COMMENTAIRE PÉDAGOGIQUE personnalisé en français, structuré OBLIGATOIREMENT en **3 parties** avec les titres exacts suivants :
+Le scoring V3 utilise des relations ontologiques pour évaluer la réponse :
+- **exact** (100%) : le concept attendu est directement identifié
+- **requires** (proportionnel) : certains critères constitutifs du concept ont été trouvés
+- **qualifier** (67%) : un élément qualifiant le concept a été identifié
+- **support** (33%) : un élément de soutien indirect a été trouvé
+- **excluded** (0%) : un concept contradictoire a été identifié, invalidant la réponse
+- **missed** (0%) : rien de pertinent n'a été trouvé
+
+Ta mission est de rédiger un COMMENTAIRE PÉDAGOGIQUE personnalisé en français, structuré OBLIGATOIREMENT en **2 parties** avec les titres exacts suivants :
 
 ---
 
 ## 1. Référence au cours
 
-Pour chaque concept clé de ce cas (trouvé ou manqué), cite la référence au cours SFC :
+Pour les concepts clés de ce cas, cite la référence au cours SFC. Procède dans cet ordre de priorité :
+1. **Concepts validants** (diagnostics notés) : trouvés ou manqués, cite le cours et le rang EDN
+2. **Concepts descripteurs** (signes attendus) : s'ils sont manqués, rappelle le cours
+3. **Concepts erronés** (excluded) : si un concept trouvé par l'étudiant est contradictoire avec un attendu, CITE-LE EXPLICITEMENT et explique le conflit en citant le cours
+
+Pour chaque concept cité :
 - Rappelle le **rang de connaissance EDN** (A = indispensable, B = important, C = complémentaire)
 - Cite le cours SFC entre guillemets : 📖 « extrait du cours » — (Item 231, SFC)
-- Mentionne les points clés à retenir pour ce concept
 - Si le concept est de rang A, insiste sur son caractère indispensable aux EDN
+
+Sois CONCIS : ne cite que les concepts les plus importants (max 3-4 rappels de cours).
 
 ## 2. Votre interprétation
 
-Analyse personnalisée de la copie de l'étudiant :
-- **Ce que vous avez bien identifié** : féliciter les concepts trouvés, surtout les correspondances exactes et les découvertes pertinentes
-- **Ce que vous avez manqué** : pour chaque concept manqué, expliquer clairement ce qui était attendu et pourquoi c'est important
-- Si des concepts ont été trouvés de manière partielle (ancêtre/descendant), expliquer la nuance
-- Mentionner les pièges classiques liés à ce cas (à partir du cours SFC)
-
-## 3. Conseil du correcteur
-
-Cette section intègre le regard expert du correcteur humain :
-- Si un commentaire du correcteur est fourni, le reprendre et le développer en le reliant au cours SFC
-- Donner un conseil concret et actionnable pour progresser, basé sur les erreurs spécifiques de l'étudiant
-- Rappeler les sections du cours SFC à réviser en priorité, avec citations pertinentes
-- Si le score est élevé, encourager et proposer d'aller plus loin
+Analyse personnalisée COURTE de la copie de l'étudiant :
+- Si le score est élevé (≥80%) : une phrase de félicitation courte et sincère
+- Si le score n'est pas 100% : explique CLAIREMENT et BRIÈVEMENT pourquoi (quels concepts manqués/partiels), sans paraphraser la section 1
+- Si des concepts sont **erronés (excluded)**, signale-le comme point d'attention
+- Si des découvertes pertinentes ont été faites hors barème, mentionne-les brièvement (preuve de compétence)
+- Si un **commentaire du correcteur** est fourni, intègre-le ici comme conseil expert : reprends-le, développe-le en 1-2 phrases en le reliant au cours SFC
+- Si le commentaire du correcteur est vide et le score < 100%, donne un conseil concret en 1 phrase
+- Si le score est 100%, encourage à aller plus loin (ex: "Vous pourriez approfondir...")
 
 ---
 
 ## Règles :
 - Ton bienveillant mais exigeant, comme un bon PU qui veut que ses étudiants réussissent
 - TOUJOURS citer le cours SFC quand tu fais un rappel (entre guillemets avec source)
-- Respecter STRICTEMENT les 3 titres de section (## 1. Référence au cours / ## 2. Votre interprétation / ## 3. Conseil du correcteur)
-- Si le score est 100%, féliciter chaleureusement dans la partie 2 et approfondir dans la partie 3
-- Si le score est 0%, ne pas accabler mais être clair sur ce qui manque
-- Mentionner les découvertes pertinentes comme preuve de compétence (partie 2)
+- Respecter STRICTEMENT les 2 titres de section (## 1. Référence au cours / ## 2. Votre interprétation)
 - Ne PAS répéter le score numérique (il est déjà affiché ailleurs)
-- Rester CONCIS : 200-400 mots maximum au total
+- Rester CONCIS : 150-300 mots maximum au total
 - Le commentaire est au format texte simple (pas de HTML), avec des emojis si pertinent
 """
 
@@ -267,7 +283,7 @@ def generate_pedagogical_feedback(
     # Appel GPT
     correcteur_section = ""
     if commentaire_correcteur and commentaire_correcteur.strip():
-        correcteur_section = f"\n\nCOMMENTAIRE DU CORRECTEUR HUMAIN (expert) :\n« {commentaire_correcteur.strip()} »\n(Intègre ce commentaire dans la partie 3 « Conseil du correcteur ».)"
+        correcteur_section = f"\n\nCOMMENTAIRE DU CORRECTEUR HUMAIN (expert) :\n« {commentaire_correcteur.strip()} »\n(Intègre ce commentaire dans la partie 2 « Votre interprétation » comme conseil expert.)"
 
     user_message = f"""Voici l'évaluation d'un étudiant sur un cas ECG.
 
@@ -275,7 +291,7 @@ def generate_pedagogical_feedback(
 
 {course_context}{correcteur_section}
 
-Rédige le commentaire pédagogique en 3 parties (## 1. Référence au cours / ## 2. Votre interprétation / ## 3. Conseil du correcteur)."""
+Rédige le commentaire pédagogique en 2 parties (## 1. Référence au cours / ## 2. Votre interprétation)."""
 
     try:
         client = OpenAI()
@@ -370,12 +386,12 @@ def format_feedback_html(feedback: PedagogicalFeedback) -> str:
     sections = re.split(r'##\s*\d+\.\s*', feedback.texte)
     section_titles = re.findall(r'##\s*\d+\.\s*(.+)', feedback.texte)
 
-    section_icons = ["📖", "🔍", "💡"]
-    section_colors = ["#5C6BC0", "#FF9800", "#4CAF50"]
+    section_icons = ["📖", "🔍"]
+    section_colors = ["#5C6BC0", "#FF9800"]
 
     sections_html = ""
-    if len(section_titles) >= 3 and len(sections) >= 4:
-        for idx in range(3):
+    if len(section_titles) >= 2 and len(sections) >= 3:
+        for idx in range(2):
             title = section_titles[idx].strip()
             content = sections[idx + 1].strip()
             content_html = content.replace("\n\n", "</p><p>").replace("\n", "<br>")

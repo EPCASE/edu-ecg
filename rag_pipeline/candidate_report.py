@@ -1,11 +1,11 @@
 """
-📋 Module de Rapport Candidat — Feedback structuré après évaluation
-====================================================================
+📋 Module de Rapport Candidat — Feedback structuré après évaluation (V3)
+=========================================================================
 Orchestre le pipeline complet (Briques 2→5) sur le texte d'un candidat
 et génère un rapport pédagogique clair :
 
   1. 🔍 Analyse du texte — concepts extraits par le pipeline IA
-  2. 📊 Note & explication — score dégressif par génération, détail par validant
+  2. 📊 Note & explication — scoring V3 ontologique (requires/qualifier/support/excludes)
   3. 📝 Éléments descriptifs — concepts vrais ajoutés par le candidat (découvertes)
 
 Utilisation :
@@ -13,15 +13,13 @@ Utilisation :
 
     report = generate_candidate_report(
         texte_etudiant="fibrillation atriale qrs fins",
-        golden_names=["Fibrillation atriale", "Repolarisation précoce"],
         golden_ids=["FIBRILLATION_ATRIALE", "REPOLARISATION_PRÉCOCE"],
-        golden_roles=["validant", "descripteur"],
         diagnostic_principal="Fibrillation atriale",
     )
     print(format_report_text(report))
 
 Auteur : BMad Team
-Date   : 2026-02-28
+Date   : 2026-04-06  (V3 — scoring ontologique)
 """
 
 from __future__ import annotations
@@ -35,13 +33,13 @@ from typing import Dict, List, Optional
 from ner_extractor import extract_clinical_terms, ClinicalEntity
 from hybrid_search import HybridSearchEngine
 from neurosymbolic_judge import resolve_term_to_ontology
-from scoring import (
-    score_student_response,
-    find_owl_concept,
-    SCORE_BY_GENERATION,
-    SCORE_GENERATION_FLOOR,
-    _score_for_generation,
+from scoring_v3 import (
+    score_student_response_v3,
+    ScoringResultV3,
+    ConceptScore,
+    build_negation_map,
 )
+from semantic_layer import get_concept, normalize_key, _get_ontology_v2
 from pedagogical_feedback import (
     generate_pedagogical_feedback,
     format_feedback_html,
@@ -123,15 +121,20 @@ class ExtractedConcept:
 
 @dataclass
 class ValidantDetail:
-    """Détail du scoring pour un diagnostic validant attendu."""
+    """Détail du scoring V3 pour un concept golden attendu."""
     golden_name: str
     golden_id: str
     found: bool
     score_pct: float           # 0..100
-    match_type: str            # exact / child_gen1 / parent_gen2 / implication / missing
-    found_via_id: str          # ID du concept étudiant qui a matché (ou "")
-    found_via_name: str        # Nom du concept étudiant qui a matché (ou "")
+    match_type: str            # exact / requires / qualifier / support / excluded / missed
+    detail: str                # Détail V3 (ex: "2/3 requires")
     explication: str           # Phrase d'explication pour le candidat
+    # V3 specifics
+    requires_satisfied: list = field(default_factory=list)
+    requires_missing: list = field(default_factory=list)
+    qualifiers_found: list = field(default_factory=list)
+    supports_found: list = field(default_factory=list)
+    excluded_by: str = ""
 
 
 @dataclass
@@ -207,52 +210,60 @@ def _get_engine() -> HybridSearchEngine:
 # Helpers
 # ──────────────────────────────────────────────────────────────────────────────
 
-def _explain_match_type(match_type: str, found_name: str, golden_name: str) -> str:
-    """Génère une explication lisible pour le candidat."""
-    if match_type == "exact":
-        return f"✅ Vous avez identifié « {golden_name} » — correspondance exacte."
+def _explain_match_type_v3(cs: ConceptScore) -> str:
+    """Génère une explication lisible V3 pour le candidat."""
+    name = cs.concept_name
+    pct = f"{cs.score * 100:.0f}%"
 
-    if match_type.startswith("child_gen"):
-        gen = match_type.replace("child_gen", "")
-        score = _score_for_generation(int(gen))
+    if cs.match_type == "exact":
+        return f"✅ Vous avez identifié « {name} » — correspondance exacte ({pct})."
+
+    if cs.match_type == "requires":
+        sat = cs.requires_satisfied or []
+        mis = cs.requires_missing or []
+        found_str = ", ".join(sat) if sat else "aucun"
+        miss_str = ", ".join(mis) if mis else "aucun"
         return (
-            f"🟠 Vous avez mentionné « {found_name} » qui est un signe/sous-type "
-            f"de « {golden_name} » (descendant génération {gen} → {score:.0f}%)."
+            f"� « {name} » partiellement validé ({pct}) — "
+            f"critères trouvés : {found_str} ; manquants : {miss_str}."
         )
 
-    if match_type.startswith("parent_gen"):
-        gen = match_type.replace("parent_gen", "")
-        score = _score_for_generation(int(gen))
+    if cs.match_type == "qualifier":
+        quals = ", ".join(cs.qualifiers_found) if cs.qualifiers_found else "?"
         return (
-            f"🔴 Vous avez mentionné « {found_name} » qui est un concept plus général "
-            f"que « {golden_name} » (ancêtre génération {gen} → {score:.0f}%)."
+            f"🔶 « {name} » reconnu via qualifier ({pct}) — "
+            f"élément(s) qualifiant(s) trouvé(s) : {quals}."
         )
 
-    if match_type == "implication":
+    if cs.match_type == "support":
+        sups = ", ".join(cs.supports_found) if cs.supports_found else "?"
         return (
-            f"🔵 « {golden_name} » est auto-validé par implication logique "
-            f"(un autre concept trouvé l'implique)."
+            f"� « {name} » partiellement supporté ({pct}) — "
+            f"élément(s) de soutien : {sups}."
         )
 
-    # missing
-    return f"❌ « {golden_name} » n'a pas été identifié dans votre réponse."
+    if cs.match_type == "excluded":
+        return (
+            f"� « {name} » exclu ({pct}) — "
+            f"la présence de « {cs.excluded_by} » contredit ce diagnostic."
+        )
+
+    # missed
+    return f"❌ « {name} » n'a pas été identifié dans votre réponse."
 
 
-def _match_type_label(mt: str) -> str:
-    """Label court lisible pour un match_type."""
-    if mt == "exact":
-        return "Exact (100%)"
-    if mt.startswith("child_gen"):
-        gen = mt.replace("child_gen", "")
-        score = _score_for_generation(int(gen))
-        return f"Descendant gen{gen} ({score:.0f}%)"
-    if mt.startswith("parent_gen"):
-        gen = mt.replace("parent_gen", "")
-        score = _score_for_generation(int(gen))
-        return f"Ancêtre gen{gen} ({score:.0f}%)"
-    if mt == "implication":
-        return "Implication (100%)"
-    return "Manquant (0%)"
+def _match_type_label_v3(mt: str, score: float) -> str:
+    """Label court lisible pour un match_type V3."""
+    pct = f"{score * 100:.0f}%"
+    labels = {
+        "exact": f"Exact ({pct})",
+        "requires": f"Requires ({pct})",
+        "qualifier": f"Qualifier ({pct})",
+        "support": f"Support ({pct})",
+        "excluded": f"Exclu ({pct})",
+        "missed": f"Manquant ({pct})",
+    }
+    return labels.get(mt, f"{mt} ({pct})")
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -261,30 +272,42 @@ def _match_type_label(mt: str) -> str:
 
 def generate_candidate_report(
     texte_etudiant: str,
-    golden_names: List[str],
-    golden_ids: List[str],
-    golden_roles: List[str],
+    golden_names: List[str] = None,
+    golden_ids: List[str] = None,
+    golden_roles: List[str] = None,
     diagnostic_principal: str = "",
     moteur: Optional[HybridSearchEngine] = None,
     with_feedback: bool = True,
     commentaire_correcteur: str = "",
 ) -> CandidateReport:
     """
-    Exécute le pipeline complet et construit un CandidateReport.
+    Exécute le pipeline complet et construit un CandidateReport (V3).
 
     Args:
         texte_etudiant:       Texte libre du candidat.
-        golden_names:         Noms des concepts attendus (golden set).
-        golden_ids:           IDs ontologiques correspondants.
+        golden_names:         Noms des concepts attendus (golden set). Optionnel si golden_ids fournis.
+        golden_ids:           IDs ontologiques attendus (golden set).
         golden_roles:         "validant" ou "descripteur" pour chaque concept.
+                              Si None, tous sont considérés comme validants.
         diagnostic_principal: Diagnostic principal du cas (pour affichage).
         moteur:               HybridSearchEngine pré-initialisé (optionnel).
         with_feedback:        Si True (défaut), génère le feedback pédagogique GPT.
                               Mettre à False pour les benchmarks/tests rapides.
+        commentaire_correcteur: Commentaire libre du correcteur humain.
 
     Returns:
         CandidateReport complet.
     """
+    golden_ids = golden_ids or []
+    golden_names = golden_names or []
+    golden_roles = golden_roles or ["validant"] * len(golden_ids)
+
+    # Résoudre les noms depuis l'ontologie V2 si non fournis
+    if golden_ids and not golden_names:
+        for gid in golden_ids:
+            c = get_concept(normalize_key(gid))
+            golden_names.append(c.get("concept_name", gid) if c else gid)
+
     engine = moteur or _get_engine()
 
     report = CandidateReport(
@@ -346,85 +369,106 @@ def generate_candidate_report(
         report.n_no_candidates = methods.count("no_candidates")
 
         # ═══════════════════════════════════════════════════════════════
-        # Brique 5 : Scoring ensembliste
+        # Brique 5 : Scoring V3 ontologique
         # ═══════════════════════════════════════════════════════════════
-        scoring = score_student_response(
-            found_ids=list(student_matched_ids.keys()),
-            found_statuts=student_matched_ids,
-            golden_names=golden_names,
-            golden_ids=golden_ids,
-            golden_roles=golden_roles,
+        # Séparer présents et absents
+        found_ids = [oid for oid, st in student_matched_ids.items()
+                     if st in ("present", "hypothese")]
+        absent_ids = [oid for oid, st in student_matched_ids.items()
+                      if st == "absent"]
+
+        # Seuls les validants sont scorés en V3
+        validant_ids = [gid for gid, role in zip(golden_ids, golden_roles)
+                        if role == "validant"]
+
+        v3_result: ScoringResultV3 = score_student_response_v3(
+            found_ids=found_ids,
+            expected_ids=validant_ids,
+            absent_ids=absent_ids,
         )
 
-        report.score_final_pct = scoring["score_final_pct"]
+        report.score_final_pct = v3_result.score_pct
 
-        # ─── Construire le détail des validants ──────────────────────
-        report.nb_validants_attendus = scoring["validant_total"]
-        report.nb_validants_trouves = scoring["validant_found"]
+        # ─── Construire le détail des validants (V3) ─────────────────
+        report.nb_validants_attendus = len(validant_ids)
+        report.nb_validants_trouves = v3_result.n_exact + v3_result.n_requires + v3_result.n_qualifier + v3_result.n_support
 
-        # Index rapide partial_matches par golden_name
-        partial_by_golden = {}
-        for pm in scoring.get("partial_matches", []):
-            partial_by_golden[pm["golden_name"]] = pm
-
-        # Index rapide : concept_name → ontology_id depuis les concepts extraits
-        id_to_name = {}
-        for c in report.concepts_extraits:
-            if c.ontology_id != "NONE":
-                id_to_name[c.ontology_id] = c.concept_name or c.terme_brut
-
-        # Construire validant_details
+        # Index golden_id → golden_name
+        id_to_golden_name = {}
         for gname, gid, role in zip(golden_names, golden_ids, golden_roles):
-            if role != "validant":
-                continue
+            if role == "validant":
+                id_to_golden_name[normalize_key(gid)] = gname
 
-            mt = scoring.get("match_types", {}).get(gname, "missing")
-            found = gname in scoring.get("concepts_valides_attendus", [])
-            pm = partial_by_golden.get(gname)
-            found_id = pm["found_id"] if pm else ""
-            found_name = id_to_name.get(found_id, found_id)
-            score_pct = pm["score_pct"] if pm else (100.0 if mt == "exact" else 0.0)
-
-            # Pour les validants auto-validés par implication
-            if mt == "implication" and not pm:
-                score_pct = 100.0
-                found = True
-
+        for cs in v3_result.concept_scores:
+            gname = id_to_golden_name.get(cs.concept_id, cs.concept_name)
+            found = cs.match_type not in ("missed", "excluded")
             report.validant_details.append(ValidantDetail(
                 golden_name=gname,
-                golden_id=gid,
+                golden_id=cs.concept_id,
                 found=found,
-                score_pct=score_pct,
-                match_type=mt,
-                found_via_id=found_id,
-                found_via_name=found_name,
-                explication=_explain_match_type(mt, found_name, gname),
+                score_pct=round(cs.score * 100, 1),
+                match_type=cs.match_type,
+                detail=cs.detail,
+                explication=_explain_match_type_v3(cs),
+                requires_satisfied=cs.requires_satisfied,
+                requires_missing=cs.requires_missing,
+                qualifiers_found=cs.qualifiers_found,
+                supports_found=cs.supports_found,
+                excluded_by=cs.excluded_by,
             ))
 
         # ─── Construire le détail des descripteurs ───────────────────
-        report.nb_descripteurs_attendus = scoring["descripteur_total"]
-        report.nb_descripteurs_trouves = scoring["descripteur_found"]
+        descripteur_ids = [gid for gid, role in zip(golden_ids, golden_roles)
+                          if role == "descripteur"]
+        found_set = {normalize_key(fid) for fid in found_ids}
+        # Ajouter les positifs issus de négations converties
+        for _, pos_id in v3_result.negation_conversions:
+            found_set.add(pos_id)
 
+        report.nb_descripteurs_attendus = len(descripteur_ids)
+        n_desc_found = 0
         for gname, gid, role in zip(golden_names, golden_ids, golden_roles):
             if role != "descripteur":
                 continue
-            mt = scoring.get("match_types", {}).get(gname, "missing")
-            found = gname in scoring.get("concepts_valides_attendus", [])
+            nid = normalize_key(gid)
+            # Exact match
+            found = nid in found_set
+            match_type = "exact" if found else "missed"
+            # Child match (enfant plus spécifique trouvé → compte comme trouvé)
+            if not found:
+                from scoring_v3 import _find_child_in_found, _find_parent_in_found
+                child_hit = _find_child_in_found(nid, found_set)
+                if child_hit:
+                    found = True
+                    match_type = "exact"  # enfant = credit complet
+                else:
+                    # Parent match (parent trouvé → partiel)
+                    parent_hit, parent_dist = _find_parent_in_found(nid, found_set)
+                    if parent_hit:
+                        found = True
+                        match_type = "qualifier" if parent_dist <= 1 else "support"
+            if found:
+                n_desc_found += 1
             report.descripteur_details.append(DescripteurDetail(
                 golden_name=gname,
                 golden_id=gid,
                 found=found,
-                match_type=mt,
+                match_type=match_type,
             ))
+        report.nb_descripteurs_trouves = n_desc_found
 
         # ─── Découvertes additionnelles ──────────────────────────────
-        for dec in scoring.get("decouvertes_additionnelles", []):
-            report.decouvertes.append(DecouverteDetail(
-                concept_name=dec["concept_name"],
-                ontology_id=dec["ontology_id"],
-                categorie=dec["categorie"],
-                statut=dec["statut"],
-            ))
+        golden_id_set = {normalize_key(gid) for gid in golden_ids}
+        onto = _get_ontology_v2()
+        for fid in found_set - golden_id_set:
+            c = onto["concepts"].get(fid, {})
+            if c:
+                report.decouvertes.append(DecouverteDetail(
+                    concept_name=c.get("concept_name", fid),
+                    ontology_id=fid,
+                    categorie=c.get("type", "DESCRIPTEUR_ECG"),
+                    statut="present",
+                ))
 
         # ═══════════════════════════════════════════════════════════════
         # Brique 6 : Feedback pédagogique (cours SFC, Item 231)
@@ -487,16 +531,16 @@ def format_report_text(report: CandidateReport) -> str:
     )
     lines.append(f"{'─'*W}")
 
-    # Rappel du barème
-    lines.append(f"   Barème : Exact=100% | Gen1=90% | Gen2=80% | Gen3=70% | Gen4+={SCORE_GENERATION_FLOOR:.0f}% | Hypothèse=×0.8\n")
+    # Rappel du barème V3
+    lines.append(f"   Barème V3 : Exact=100% | Requires=proportionnel | Qualifier=67% | Support=33% | Exclu/Manqué=0%\n")
 
     for vd in report.validant_details:
         score_str = f"{vd.score_pct:5.1f}%"
         lines.append(f"   {vd.explication}")
-        if vd.found and vd.match_type != "exact":
-            lines.append(f"          → Score pour ce validant : {score_str}")
-        elif not vd.found:
-            lines.append(f"          → Score pour ce validant : 0.0%")
+        if vd.match_type not in ("exact", "missed", "excluded"):
+            lines.append(f"          → Score pour ce concept : {score_str}")
+        elif vd.match_type in ("missed", "excluded"):
+            lines.append(f"          → Score pour ce concept : {score_str}")
 
     # Score final
     lines.append(f"\n   ══ NOTE FINALE : {report.score_final_pct:.1f}% ══")
@@ -608,7 +652,7 @@ def format_report_html(report: CandidateReport) -> str:
             {score_emoji} {score_label} — {report.nb_validants_trouves}/{report.nb_validants_attendus} diagnostics validants
         </div>
         <div style="font-size:12px; color:#666; margin-top:4px;">
-            Barème : Exact=100% | Gen1=90% | Gen2=80% | Gen3=70% | Hypothèse=×0.8
+            Barème V3 : Exact=100% | Requires=proportionnel | Qualifier=67% | Support=33%
         </div>
     </div>
     """)
@@ -660,21 +704,15 @@ def format_report_html(report: CandidateReport) -> str:
     """)
 
     for vd in report.validant_details:
-        if vd.match_type == "exact":
-            color = "#4CAF50"
-            icon = "✅"
-        elif vd.match_type.startswith("child"):
-            color = "#FF9800"
-            icon = "🟠"
-        elif vd.match_type.startswith("parent"):
-            color = "#F44336"
-            icon = "🔴"
-        elif vd.match_type == "implication":
-            color = "#2196F3"
-            icon = "🔵"
-        else:
-            color = "#9E9E9E"
-            icon = "❌"
+        mt_colors = {
+            "exact": ("#4CAF50", "✅"),
+            "requires": ("#1565C0", "📊"),
+            "qualifier": ("#FF9800", "🔶"),
+            "support": ("#00BCD4", "🔹"),
+            "excluded": ("#F44336", "�"),
+            "missed": ("#9E9E9E", "❌"),
+        }
+        color, icon = mt_colors.get(vd.match_type, ("#9E9E9E", "❌"))
 
         score_bar_width = min(100, max(0, vd.score_pct))
         html_parts.append(f"""
@@ -687,9 +725,26 @@ def format_report_html(report: CandidateReport) -> str:
             <div style="background:#1a1a1a; border-radius:4px; height:6px; margin:6px 0;">
                 <div style="background:{color}; width:{score_bar_width}%; height:100%; border-radius:4px;"></div>
             </div>
-            <div style="color:#aaa; font-size:13px;">{vd.explication}</div>
-        </div>
-        """)
+            <div style="color:#aaa; font-size:13px;">{vd.explication}</div>""")
+        # V3 detail: requires/qualifiers/supports
+        if vd.requires_satisfied or vd.requires_missing:
+            sat_html = ", ".join(vd.requires_satisfied) if vd.requires_satisfied else ""
+            mis_html = ", ".join(vd.requires_missing) if vd.requires_missing else ""
+            detail_parts = []
+            if sat_html:
+                detail_parts.append(f'<span style="color:#4CAF50;">✓ {sat_html}</span>')
+            if mis_html:
+                detail_parts.append(f'<span style="color:#F44336;">✗ {mis_html}</span>')
+            html_parts.append(f'<div style="font-size:12px; color:#888; margin-top:4px; padding-left:8px;">{" | ".join(detail_parts)}</div>')
+        elif vd.qualifiers_found:
+            q_html = ", ".join(vd.qualifiers_found)
+            html_parts.append(f'<div style="font-size:12px; color:#FF9800; margin-top:4px; padding-left:8px;">via qualifier: {q_html}</div>')
+        elif vd.supports_found:
+            s_html = ", ".join(vd.supports_found)
+            html_parts.append(f'<div style="font-size:12px; color:#00BCD4; margin-top:4px; padding-left:8px;">via support: {s_html}</div>')
+        elif vd.excluded_by:
+            html_parts.append(f'<div style="font-size:12px; color:#F44336; margin-top:4px; padding-left:8px;">exclu par: {vd.excluded_by}</div>')
+        html_parts.append("</div>")
 
     html_parts.append("</div>")
 

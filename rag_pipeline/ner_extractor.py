@@ -110,6 +110,39 @@ Applique STRICTEMENT ces règles de conversion pour générer le `terme_brut` :
    - QRS : <120 ms -> "QRS fins", >=120 ms -> "QRS large"
    - PR : <120 ms -> "PR court", 120-200 ms -> "PR normal", >200 ms -> "PR allongé"
    - Axe (degrés) : entre -30 et 90 -> "Axe normal", <-30 -> "Déviation axiale gauche", >90 -> "Déviation axiale droite"
+
+6. EXPANSION DES ABRÉVIATIONS ECG : Quand l'étudiant utilise une abréviation ECG standard et connue, tu DOIS l'expanser dans `terme_brut` en forme longue française. L'objectif est que les espaces de recherche puissent retrouver le concept.
+   Applique STRICTEMENT ces expansions (liste non exhaustive) :
+     - "RS" ou "rs" → "Rythme sinusal"
+     - "FA" ou "fa" → "Fibrillation atriale"
+     - "HBAG" → "Hémibloc antérieur gauche"
+     - "HBPG" → "Hémibloc postérieur gauche"
+     - "ESV" → "Extrasystole ventriculaire"
+     - "ESA" ou "ESSV" → "Extrasystole supraventriculaire"
+     - "TV" → "Tachycardie ventriculaire"
+     - "TSV" → "Tachycardie supraventriculaire"
+     - "FV" → "Fibrillation ventriculaire"
+     - "BAV" ou "BBG" ou "BBD" → pas besoin de le faire car c'est déjà une abréviation très courante
+     - "IDM" → "Infarctus du myocarde"
+     - "SCA" → "Syndrome coronarien aigu"
+     - "HVG" → "Hypertrophie ventriculaire gauche"
+     - "HVD" → "Hypertrophie ventriculaire droite"
+     - "HAG" → "Hypertrophie atriale gauche"
+     - "HAD" → "Hypertrophie atriale droite"
+     - "WPW" → "Wolff-Parkinson-White"
+     - "EP" ou "embolie pulmonaire" (garder tel quel si déjà en forme longue)
+     - "QTc" → "QT corrigé"
+   Si l'abréviation N'EST PAS dans cette liste et que tu n'es pas sûr de sa signification ECG, garde-la telle quelle.
+   
+   ATTENTION : cette règle NE S'APPLIQUE PAS aux noms d'ondes/segments (P, QRS, ST, T, U, R, S, Q) ni aux dérivations (V1-V6, D1-D3, aVR, aVL, aVF).
+
+7. REFORMULATION MORPHOLOGIQUE LÉGÈRE : Si l'étudiant utilise une forme adjectivale ou passive d'un concept ECG connu, tu peux reformuler en forme nominale standard dans `terme_brut`, à condition que le sens soit strictement identique.
+   Exemples :
+     - "onde R rabotée en antérieur" → "Rabotage de l'onde R en antérieur"
+     - "onde R rabottée" → "Rabotage de l'onde R"
+     - "QT allongé" → "Allongement du QT" (ou garder "QT allongé", les deux sont acceptés)
+   
+   NE JAMAIS inventer un concept qui n'existe pas. En cas de doute, garder la formulation de l'étudiant.
 """.strip()
 
 # Modèle OpenAI compatible Structured Outputs
