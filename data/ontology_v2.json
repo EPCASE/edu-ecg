@@ -4342,7 +4342,10 @@
         "MIROIR",
         "LOCALISATION_IDM"
       ],
-      "mayhaveterritory": true
+      "mayhaveterritory": true,
+      "implies": [
+        "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+      ]
     },
     "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST": {
       "concept_name": "Syndrome coronarien à la phase aigue sans élévation du segment ST",
