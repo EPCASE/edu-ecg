@@ -87,7 +87,7 @@ RÈGLES STRICTES (par ordre de priorité) :
 4. SPÉCIFICITÉ MAXIMALE (quand le terme est qualifié) : si le terme de l'étudiant contient des précisions, choisis le concept le plus spécifique qui correspond à ces précisions.
    Exemples :
    - "Flutter typique" → FLUTTER_DROIT_TYPIQUE (pas FLUTTER_ATRIAL qui est le parent générique)
-   - "Bloc de branche gauche complet" → BBG_COMPLET (pas BLOC_DE_BRANCHE_GAUCHE)
+   - "Bloc de branche gauche complet" → BLOC_DE_BRANCHE_GAUCHE_COMPLET (pas BLOC_DE_BRANCHE_GAUCHE)
    - "Mobitz 2" → BAV_2_MOBITZ_2 (pas BAV qui est trop vague)
    - "Tachycardie ventriculaire" → TACHYCARDIE_VENTRICULAIRE (le terme contient "ventriculaire")
 
@@ -219,7 +219,7 @@ def resolve_term_to_ontology(
             "llm_confiance": -1,
         }
 
-    # --- Étape 1 : Coupe-circuit (exact match = PRIORITAIRE) ---
+    # --- Étape 1 : Coupe-circuit (exact match = PRIORITAIRE) [correctif C1] ---
     # Si le terme brut de l'étudiant matche exactement une surface_form
     # de l'ontologie → c'est ce concept, sans exception.
     # Philosophie : l'étudiant a écrit ce qu'il voulait dire.
@@ -227,19 +227,35 @@ def resolve_term_to_ontology(
     # S'il voulait dire "Tachycardie ventriculaire", il l'aurait écrit.
     # C'est au scoring (Brique 5) de relier TACHYCARDIE aux patterns
     # via les relations requires/supports de l'ontologie.
-    candidat_1 = top_k_candidates[0]
-    if candidat_1.get("is_exact_match", False):
+    #
+    # C1 : on ne se limite PLUS à top_k[0]. La fusion RRF classe parfois le
+    # PARENT générique en tête (fort signal lexical "BBG") alors que l'ENFANT
+    # exact ("BBG complet") est en position #1-2 avec is_exact_match=True et
+    # n'était jamais examiné. On scanne donc TOUS les candidats à la recherche
+    # d'un match exact, et on retient le PLUS SPÉCIFIQUE (surface_form la plus
+    # longue en tokens ; égalité → meilleur rrf_score). Quand un seul candidat
+    # est exact (cas majoritaire), le comportement est identique à l'ancien.
+    exact_candidates = [
+        c for c in top_k_candidates if c.get("is_exact_match", False)
+    ]
+    if exact_candidates:
+        def _specificite(c: Dict):
+            sf = normalize_text(c.get("surface_form", ""))
+            n_tokens = len(sf.split()) if sf else 0
+            return (n_tokens, c.get("rrf_score", 0.0))
+
+        candidat_exact = max(exact_candidates, key=_specificite)
         logger.info(
-            f"⚡ Coupe-circuit : '{terme_brut}' → "
-            f"{candidat_1['ontology_id']} (\"{candidat_1['surface_form']}\")"
+            f"⚡ Coupe-circuit [C1] : '{terme_brut}' → "
+            f"{candidat_exact['ontology_id']} (\"{candidat_exact['surface_form']}\")"
         )
         candidats_resume = _extract_candidats_resume(top_k_candidates)
         return {
-            "ontology_id": candidat_1["ontology_id"],
-            "concept_name": candidat_1["concept_name"],
+            "ontology_id": candidat_exact["ontology_id"],
+            "concept_name": candidat_exact["concept_name"],
             "method": "coupe_circuit",
             "justification": (
-                f"Match exact normalisé : "
+                f"Match exact normalisé (C1, candidat le plus spécifique) : "
                 f"'{normalize_text(terme_brut)}' == surface_form du concept."
             ),
             "candidats_soumis": 0,

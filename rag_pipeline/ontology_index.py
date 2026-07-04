@@ -583,7 +583,7 @@ if __name__ == "__main__":
     )
     
     # Chemins par défaut
-    ontology_path = str(Path(__file__).parent.parent / "ECG lecture" / "data" / "ontology_from_owl.json")
+    ontology_path = str(Path(__file__).parent.parent / "ECG lecture" / "data" / "ontology_v2.json")
     index_dir = str(Path(__file__).parent / "rag_index")
     
     print(f"\n📥 Ontologie : {ontology_path}")

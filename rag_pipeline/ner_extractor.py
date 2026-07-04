@@ -103,7 +103,8 @@ RÈGLES STRICTES :
    b) Les troubles du rythme et extrasystoles : Tu dois IMPÉRATIVEMENT séparer le diagnostic principal de ses adjectifs descriptifs (durée, séquence, morphologie globale) pour en faire des entités cliniques distinctes.
       -> Exemples de modificateurs à extraire SEULS : "monomorphe", "polymorphe", "soutenu", "non soutenu", "en salve", "isolée", "bigéminée", "trigéminée".
       -> EXEMPLE D'APPLICATION : Si l'étudiant écrit "Salves non soutenues d'ESV polymorphes", tu dois extraire 4 entités distinctes : {"terme_brut": "Salve"}, {"terme_brut": "non soutenues"}, {"terme_brut": "ESV"}, {"terme_brut": "polymorphes"}. Ne crée JAMAIS de terme fusionné comme "ESV polymorphe".
-
+    -> exception, pour les modificateurs de durée (ex: "BBD complet", "BAV complet", "BAV 2 Mobitz 2") qui peuvent être extraits en même temps que le diagnostic principal, car ils font partie intégrante du concept clinique.
+    
 5. TRADUCTION CLINIQUE DES MESURES : Les espaces de recherche ne comprennent pas les chiffres. Si l'étudiant donne une valeur numérique brute, ne l'extrais JAMAIS telle quelle dans `terme_brut`. Tu dois la traduire en conclusion clinique standardisée, tout en gardant la valeur d'origine dans `contexte_phrase`.
 Applique STRICTEMENT ces règles de conversion pour générer le `terme_brut` :
    - Fréquence (bpm, /min) : <60 -> "Bradycardie", 60-100 -> "Normocarde", >100 -> "Tachycardie"

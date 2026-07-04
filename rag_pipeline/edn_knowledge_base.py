@@ -97,7 +97,6 @@ EDN_ENTRIES: List[EDNEntry] = [
         ontology_ids=[
             "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
             "BLOC_DE_BRANCHE_GAUCHE",
-            "BBG_COMPLET",
         ],
         rang_edn="A",
         titre_cours="I.B.1 — Bloc complet de branche gauche",

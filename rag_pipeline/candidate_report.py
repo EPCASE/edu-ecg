@@ -27,6 +27,7 @@ from __future__ import annotations
 import logging
 import re
 import time
+import unicodedata
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
@@ -59,18 +60,77 @@ _NEG_PREFIX_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Marqueurs de HEDGING (incertitude) — correctif C2.
+# Quand l'un précède immédiatement le terme dans la MÊME proposition, le statut
+# 'present' devient 'hypothese' (ex : « en faveur d'un flutter », « d'allure
+# BAV 2 », « évocateur de WPW », « probable TV »). L'expert annote 'hypothese'
+# dans ces cas — on s'aligne pour ne pas sur-affirmer un concept validant.
+_HEDGE_MARKERS = (
+    "en faveur d", "évocateur de", "évocatrice de", "évocateur d",
+    "évocatrice d", "evocateur de", "evocatrice de", "évoque", "evoque",
+    "évoquant", "evoquant", "faisant évoquer", "faisant evoquer",
+    "pouvant évoquer", "pouvant evoquer", "pouvant faire évoquer",
+    "faire évoquer", "faire evoquer", "d'allure", "d’allure", "d'aspect",
+    "d’aspect", "probable", "probablement", "compatible avec",
+    "suspicion de", "suspect de", "en rapport avec un",
+)
+# Fenêtre serrée : le marqueur doit être proche du terme (même proposition).
+_HEDGE_WINDOW = 30
+
+
+def _strip_accents_lower(s: str) -> str:
+    s = unicodedata.normalize("NFKD", s or "")
+    s = "".join(c for c in s if not unicodedata.combining(c))
+    return s.lower()
+
+
+def _is_hedged_in_context(terme_brut: str, contexte_phrase: str) -> bool:
+    """
+    Correctif C2 : True si le terme, dans son contexte, est précédé (fenêtre
+    serrée, même proposition) d'un marqueur d'incertitude.
+
+    On raisonne sur le contexte_phrase (déjà localisé à la phrase d'origine du
+    terme par le NER), pas sur tout le texte, pour éviter d'attraper un hedge
+    qui qualifie un autre concept. On exige l'absence de séparateur de clause
+    (. ; ,) entre le marqueur et le terme.
+    """
+    ctx = _strip_accents_lower(contexte_phrase)
+    tb = _strip_accents_lower(terme_brut).strip()
+    markers = [_strip_accents_lower(m) for m in _HEDGE_MARKERS]
+    if not ctx or not tb:
+        return False
+    key = tb if tb in ctx else (tb.split()[0] if tb.split() else "")
+    if not key or key not in ctx:
+        return False
+    idx = ctx.find(key)
+    while idx >= 0:
+        window = ctx[max(0, idx - _HEDGE_WINDOW):idx]
+        hedged = False
+        for mk in markers:
+            pos = window.rfind(mk)
+            if pos >= 0 and not re.search(r"[.;,]", window[pos + len(mk):]):
+                hedged = True
+                break
+        if not hedged:
+            return False  # une occurrence non hedgée => on n'abaisse pas
+        idx = ctx.find(key, idx + 1)
+    return True
+
 
 def _fix_negation(entite: ClinicalEntity) -> ClinicalEntity:
     """
-    Filet de sécurité : si le NER a raté la négation, on la détecte
-    via regex et on corrige statut + terme_brut.
+    Filet de sécurité : si le NER a raté la négation ou le hedging, on les
+    détecte via regex et on corrige statut + terme_brut.
 
-    Deux cas couverts :
+    Trois cas couverts :
       1. terme_brut = "Pas de trouble de repolarisation" + statut="present"
          → terme_brut = "trouble de repolarisation", statut = "absent"
       2. terme_brut = "trouble de repolarisation" + statut="present"
          mais contexte_phrase contient "Pas de trouble de repolarisation"
          → statut = "absent"
+      3. [C2] terme_brut = "flutter" + statut="present" mais le contexte dit
+         "en faveur d'un flutter" / "d'allure ..." / "évocateur de ..."
+         → statut = "hypothese"
     """
     # Cas 1 : la négation est dans le terme_brut lui-même
     m = _NEG_PREFIX_RE.match(entite.terme_brut)
@@ -102,6 +162,17 @@ def _fix_negation(entite: ClinicalEntity) -> ClinicalEntity:
                 f"(trouvé dans contexte : '{neg_in_ctx.group()}')"
             )
             entite.statut = "absent"
+            return entite
+
+    # Cas 3 [C2] : hedging → present devient hypothese
+    if entite.statut == "present" and _is_hedged_in_context(
+        entite.terme_brut, entite.contexte_phrase
+    ):
+        logger.info(
+            f"🔧 Fix hedging (C2) : '{entite.terme_brut}' "
+            f"[present] → [hypothese]  (marqueur d'incertitude dans le contexte)"
+        )
+        entite.statut = "hypothese"
 
     return entite
 
