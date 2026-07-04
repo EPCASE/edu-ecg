@@ -112,3 +112,12 @@ data/epic1_ontology_mapping.json
 
 # Dataset EPIC1 (fichiers volumineux)
 data/epi1c_dataset/
+
+# Backups horodatés (alignement pipeline / correctifs ontologie)
+*.bak_*
+*_bak_align
+*.20[0-9][0-9]_bak_*
+
+# _standalone = paquet distribuable AVEC SON PROPRE dépôt git
+# (ne jamais imbriquer : versionné séparément)
+_standalone/
