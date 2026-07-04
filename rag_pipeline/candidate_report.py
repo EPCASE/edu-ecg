@@ -313,6 +313,12 @@ def _explain_match_type_v3(cs: ConceptScore) -> str:
             f"élément(s) de soutien : {sups}."
         )
 
+    if cs.match_type == "implies":
+        return (
+            f"🔗 « {name} » validé par implication clinique ({pct}) — "
+            f"un signe que vous avez décrit l'implique physiopathologiquement."
+        )
+
     if cs.match_type == "excluded":
         return (
             f"� « {name} » exclu ({pct}) — "
@@ -331,6 +337,7 @@ def _match_type_label_v3(mt: str, score: float) -> str:
         "requires": f"Requires ({pct})",
         "qualifier": f"Qualifier ({pct})",
         "support": f"Support ({pct})",
+        "implies": f"Implication ({pct})",
         "excluded": f"Exclu ({pct})",
         "missed": f"Manquant ({pct})",
     }
@@ -462,7 +469,7 @@ def generate_candidate_report(
 
         # ─── Construire le détail des validants (V3) ─────────────────
         report.nb_validants_attendus = len(validant_ids)
-        report.nb_validants_trouves = v3_result.n_exact + v3_result.n_requires + v3_result.n_qualifier + v3_result.n_support
+        report.nb_validants_trouves = v3_result.n_exact + v3_result.n_requires + v3_result.n_qualifier + v3_result.n_support + v3_result.n_implies
 
         # Index golden_id → golden_name
         id_to_golden_name = {}
@@ -780,6 +787,7 @@ def format_report_html(report: CandidateReport) -> str:
             "requires": ("#1565C0", "📊"),
             "qualifier": ("#FF9800", "🔶"),
             "support": ("#00BCD4", "🔹"),
+            "implies": ("#7E57C2", "🔗"),
             "excluded": ("#F44336", "�"),
             "missed": ("#9E9E9E", "❌"),
         }

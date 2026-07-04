@@ -162,6 +162,7 @@ class ScoringResultV3:
     n_support: int = 0
     n_excluded: int = 0
     n_missed: int = 0
+    n_implies: int = 0
     # Négations converties
     negation_conversions: List[Tuple[str, str]] = field(default_factory=list)
 
@@ -332,6 +333,40 @@ def _find_child_in_found(concept_id: str, found_set: Set[str]) -> Optional[str]:
     return sorted(hit)[0] if hit else None
 
 
+# Crédit accordé quand un ANTÉCÉDENT clinique (relation `implies`) est trouvé.
+# 1.0 aujourd'hui : l'implication physiopathologique est certaine (ex. sus-
+# décalage ST ⟺ courant de lésion sous-épicardique). Pour MODULER plus tard
+# (traiter l'implication comme une inférence, < 1.0), abaisser cette constante :
+# le crédit rejoindra alors la logique du max (parent/requires/qualifier) —
+# voir la note au point 1d de `_score_one_concept`.
+IMPLIES_CREDIT = 1.0
+
+
+def _find_antecedent_in_found(concept_id: str, found_set: Set[str]) -> Optional[str]:
+    """
+    Vérifie si un ANTÉCÉDENT clinique du concept attendu est dans found_set,
+    via la relation déclarative `implies` de l'ontologie : un concept trouvé
+    dont les `implies` contiennent `concept_id` IMPLIQUE ce dernier.
+
+    Ex. : found = {SYNDROME_CORONARIEN_..._AVEC_SUS_DECALAGE_...} et
+          SYNDROME_CORONARIEN_... a `implies: [COURANT_DE_LESION_SOUS_EPICARDIQUE]`
+          → COURANT_DE_LESION_SOUS_EPICARDIQUE est crédité.
+
+    Moteur GÉNÉRIQUE : aucun couple codé en dur, tout est lu dans l'ontologie.
+    Retourne l'ID de l'antécédent trouvé, ou None.
+    """
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+    for fid in found_set:
+        fc = concepts.get(fid)
+        if not fc:
+            continue
+        for tgt in fc.get("implies", []) or []:
+            if normalize_key(tgt) == concept_id:
+                return fid
+    return None
+
+
 def _find_parent_in_found(concept_id: str, found_set: Set[str]) -> Tuple[Optional[str], int]:
     """
     Vérifie si un parent (ancêtre) du concept attendu est dans found_set.
@@ -450,6 +485,21 @@ def _score_one_concept(
         cs.match_type = "exact"
         cs.score = 1.0
         cs.detail = f"Enfant trouvé: {child_hit}"
+        return cs
+
+    # ── 1d. Un ANTÉCÉDENT clinique (relation `implies`) trouvé ? ──
+    #   Le signe extrait implique le concept attendu (ex. sus-décalage ST
+    #   ⟹ courant de lésion). Crédit = IMPLIES_CREDIT (1.0 aujourd'hui).
+    #   NB : à IMPLIES_CREDIT = 1.0 on court-circuite (comme un enfant) ;
+    #   si un jour IMPLIES_CREDIT < 1.0, transformer ce bloc en plancher
+    #   `implies_score` intégré à la logique du max ci-dessous (parent/
+    #   requires/qualifier/support), pour ne créditer `implies` que s'il
+    #   fait mieux que les autres sources.
+    antecedent_hit = _find_antecedent_in_found(neid, found_set)
+    if antecedent_hit and IMPLIES_CREDIT >= 1.0:
+        cs.match_type = "implies"
+        cs.score = 1.0
+        cs.detail = f"Impliqué par: {antecedent_hit}"
         return cs
 
     # ── 1c. Un parent (plus générique) trouvé ? ───────────────────
@@ -628,6 +678,8 @@ def score_student_response_v3(
             result.n_qualifier += 1
         elif cs.match_type == "support":
             result.n_support += 1
+        elif cs.match_type == "implies":
+            result.n_implies += 1
         elif cs.match_type == "excluded":
             result.n_excluded += 1
         else:
@@ -646,6 +698,7 @@ def format_v3_summary(result: ScoringResultV3) -> str:
         f"Score V3 : {result.score_pct:.1f}% ({result.total_score:.2f}/{result.max_possible_score:.0f})",
         f"  exact={result.n_exact} requires={result.n_requires} "
         f"qualifier={result.n_qualifier} support={result.n_support} "
+        f"implies={result.n_implies} "
         f"excluded={result.n_excluded} missed={result.n_missed}",
     ]
     if result.negation_conversions:
@@ -657,6 +710,7 @@ def format_v3_summary(result: ScoringResultV3) -> str:
         icon = {
             "exact": "✅", "requires": "📊", "qualifier": "🔶",
             "support": "🔹", "excluded": "🚫", "missed": "❌",
+            "implies": "🔗",
         }.get(cs.match_type, "?")
         lines.append(
             f"  {icon} {cs.concept_name:40s} → {cs.score:.2f}  [{cs.match_type}] {cs.detail}"
