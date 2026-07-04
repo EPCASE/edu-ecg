@@ -1,7 +1,7 @@
 {
   "concepts": {
     "WANDERING_PACEMAKER": {
-      "concept_name": "\"Wandering pacemaker\"",
+      "concept_name": "Wandering pacemaker",
       "concept_name_en": "Wandering pacemaker",
       "categorie": "DIAGNOSTIC_MAJEUR",
       "poids": 4,
@@ -103,11 +103,6 @@
       "requires": [
         "PAS_D_ANOMALIE_DE_LE_REPOLARISATION"
       ],
-      "excludes": [
-        "ISCHEMIE_SOUS_ENDOCARDIQUE",
-        "ISCHEMIE_SOUS_EPICARDIQUE",
-        "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE"
-      ],
       "parents": [
         "ISCHEMIQUE"
       ]
@@ -133,8 +128,7 @@
       "poids": 2,
       "type": "pattern",
       "excludes": [
-        "MORPHOLOGIE_ANORMALE_DU_QRS",
-        "SEQUELLE_DE_NECROSE"
+        "MORPHOLOGIE_ANORMALE_DU_QRS"
       ],
       "synonymes": [
         "Onde Q physiologique",
@@ -591,19 +585,38 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
+        "Axe cardiaque normal",
+        "Axe du coeur normal",
         "Axe entre -30 et 90 degré",
         "Axe physiologique du QRS",
         "QRS normoaxé",
         "axe normal",
-        "axe gauche physiologique",
-        "axe physiologique",
-        "axe du QRS normal"
-      ],
-      "excludes_families": [
-        "DEVIATION_AXIALE"
+        "axe physiologique"
       ],
       "parents": [
         "AXE_DU_QRS"
+      ]
+    },
+    "BAV": {
+      "concept_name": "BAV",
+      "concept_name_en": "Type 2 AV block",
+      "categorie": "DESCRIPTION_ECG",
+      "poids": 2,
+      "type": "finding",
+      "has_qualifiers": [
+        "UNE_ONDE_P_BLOQUEE"
+      ],
+      "synonymes": [
+        "BAV 2",
+        "BAV2",
+        "Bloc atrioventriculaire de type 2"
+      ],
+      "parents": [
+        "BLOC_AURICULO_VENTRICULAIRE"
+      ],
+      "children": [
+        "BAV_2_MOBITZ_1",
+        "BAV_2_MOBITZ_2"
       ]
     },
     "BAV_2_MOBITZ_1": {
@@ -622,11 +635,12 @@
       "synonymes": [
         "BAV 2 type 1",
         "BAV2M1",
+        "Bloc atrioventriculaire de du 2ème degré type 1",
         "Bloc auriculo-ventriculaire du 2ème degré type 1",
         "Mobitz I"
       ],
       "parents": [
-        "BAV_DE_TYPE_2"
+        "BAV"
       ]
     },
     "BAV_2_MOBITZ_2": {
@@ -650,7 +664,7 @@
         "Mobitz II"
       ],
       "parents": [
-        "BAV_DE_TYPE_2"
+        "BAV"
       ]
     },
     "BAV_2_POUR_1": {
@@ -662,6 +676,7 @@
         "UNE_ONDE_P_BLOQUEE"
       ],
       "synonymes": [
+        "BAV 2/1",
         "BAV 2:1"
       ],
       "parents": [
@@ -688,6 +703,7 @@
         "BAV de troisieme degré",
         "BAV de type 3",
         "BAV3",
+        "Bloc atrioventriculaire de type 3",
         "Bloc auriculo-ventriculaire complet",
         "Complete AV block"
       ],
@@ -713,7 +729,8 @@
       ],
       "synonymes": [
         "BAV de haut degré",
-        "BAV haut degré"
+        "BAV haut degré",
+        "Bloc atrioventriculaire de haut degré"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -739,31 +756,11 @@
         "BAV I",
         "BAV1",
         "Bloc AV du premier degré",
+        "Bloc atrioventriculaire de type 1",
         "Bloc auriculo-ventriculaire du 1er degré"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
-      ]
-    },
-    "BAV_DE_TYPE_2": {
-      "concept_name": "BAV de type 2",
-      "concept_name_en": "Type 2 AV block",
-      "categorie": "DESCRIPTION_ECG",
-      "poids": 2,
-      "type": "finding",
-      "has_qualifiers": [
-        "UNE_ONDE_P_BLOQUEE"
-      ],
-      "synonymes": [
-        "BAV 2",
-        "BAV2"
-      ],
-      "parents": [
-        "BLOC_AURICULO_VENTRICULAIRE"
-      ],
-      "children": [
-        "BAV_2_MOBITZ_1",
-        "BAV_2_MOBITZ_2"
       ]
     },
     "BBD_INCOMPLET": {
@@ -779,27 +776,6 @@
       ],
       "parents": [
         "BLOC_DE_BRANCHE_DROIT"
-      ]
-    },
-    "BBG_COMPLET": {
-      "concept_name": "BBG complet",
-      "concept_name_en": "Complet left bundle branch block",
-      "categorie": "DIAGNOSTIC_MOYEN",
-      "poids": 3,
-      "type": "qualifier",
-      "supports": [
-        "QRS__120_MS"
-      ],
-      "has_qualifiers": [
-        "QRS_LARGE"
-      ],
-      "synonymes": [
-        "BBGc",
-        "cLBBB",
-        "Bloc de branche gauche complet"
-      ],
-      "parents": [
-        "BLOC_DE_BRANCHE_GAUCHE"
       ]
     },
     "BBG_INCOMPLET": {
@@ -855,13 +831,14 @@
       "type": "finding",
       "synonymes": [
         "Atrio-ventricular block",
-        "BAV"
+        "BAV",
+        "Bloc atrioventriculaire"
       ],
       "parents": [
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE"
       ],
       "children": [
-        "BAV_DE_TYPE_2",
+        "BAV",
         "BAV_DE_TYPE_1",
         "BAV_COMPLET",
         "BAV_DE_HAUT_GRADE"
@@ -941,7 +918,7 @@
     },
     "BLOC_DE_BRANCHE_DROIT_COMPLET": {
       "concept_name": "Bloc de branche droit complet",
-      "concept_name_en": "Complet right bundle branh block",
+      "concept_name_en": "Complet right bundle branch block",
       "categorie": "DIAGNOSTIC_MAJEUR",
       "poids": 4,
       "type": "pattern",
@@ -981,7 +958,7 @@
         "BLOC_DE_BRANCHE"
       ],
       "children": [
-        "BBG_COMPLET",
+        "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
         "BBG_INCOMPLET"
       ],
       "origin_structure": [
@@ -989,6 +966,27 @@
       ],
       "origin_territory": [
         "BRANCHE_GAUCHE"
+      ]
+    },
+    "BLOC_DE_BRANCHE_GAUCHE_COMPLET": {
+      "concept_name": "Bloc de branche gauche complet",
+      "concept_name_en": "Complet left bundle branch block",
+      "categorie": "DIAGNOSTIC_MOYEN",
+      "poids": 3,
+      "type": "qualifier",
+      "supports": [
+        "QRS__120_MS"
+      ],
+      "has_qualifiers": [
+        "QRS_LARGE"
+      ],
+      "synonymes": [
+        "BBG complet",
+        "BBGc",
+        "cLBBB"
+      ],
+      "parents": [
+        "BLOC_DE_BRANCHE_GAUCHE"
       ]
     },
     "BLOC_FASCICULAIRE": {
@@ -1338,6 +1336,7 @@
         "UNE_ONDE_P_BLOQUEE",
         "PAUSE",
         "DISSOCIATION_ATRIO_VENTRICULAIRE",
+        "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
         "MODE_DE_CONDUCTION_AV"
       ],
       "hide": 1
@@ -1420,7 +1419,7 @@
       "poids": 2,
       "type": "pattern",
       "requires": [
-        "BBG_COMPLET"
+        "BLOC_DE_BRANCHE_GAUCHE_COMPLET"
       ],
       "parents": [
         "ANOMALIES_DU_SEGMENT_ST"
@@ -1678,17 +1677,19 @@
       "requires": [
         "RYTHME_SINUSAL",
         "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
-        "PR_NORMAL",
-        "QRS_NORMAL",
+        "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
         "FREQUENCE_NORMALE"
+      ],
+      "has_qualifiers": [
+        "QRS_NORMAL"
       ],
       "excludes_families": [
         "TROUBLE_DE_REPOLARISATION",
+        "STIMULATION",
+        "EVENEMENTS_ECTOPIQUES",
         "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE",
         "ARYTHMIE",
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
-        "STIMULATION",
-        "EVENEMENTS_ECTOPIQUES",
         "INTERFERENCE_EXTRA_CARDIAQUE"
       ],
       "synonymes": [
@@ -1734,7 +1735,6 @@
       ],
       "has_qualifiers": [
         "ISOLE",
-        "OREILLETTES",
         "PREMATURE"
       ],
       "parents": [
@@ -1889,7 +1889,6 @@
       ],
       "has_qualifiers": [
         "IRREGULIER",
-        "OREILLETTES",
         "PREMATURE"
       ],
       "synonymes": [
@@ -1914,6 +1913,9 @@
         "ABSENCE_D_ONDE_P",
         "QRS_LARGE",
         "PREMATURE"
+      ],
+      "supports": [
+        "REPOS_COMPENSATEUR"
       ],
       "has_qualifiers": [
         "IRREGULIER"
@@ -2874,8 +2876,7 @@
         "Pillier mitral"
       ],
       "parents": [
-        "VENTRICULE_GAUCHE",
-        "VENTRICULE"
+        "VENTRICULE_GAUCHE"
       ],
       "children": [
         "MUSCLE_PAPILLAIRE_ANTERO_LATERAL",
@@ -3323,16 +3324,13 @@
       ]
     },
     "PAS_D_ANOMALIE_DE_LE_REPOLARISATION": {
-      "concept_name": "Pas d'anomalie de le repolarisation",
+      "concept_name": "Pas d'anomalie de la repolarisation",
       "categorie": "DIAGNOSTIC_MOYEN",
       "poids": 3,
       "type": "pattern",
       "requires": [
         "ONDE_T_NORMALES",
         "ST_NORMAL"
-      ],
-      "excludes": [
-        "TROUBLE_DE_REPOLARISATION"
       ],
       "has_qualifiers": [
         "ONDE_U_NORMALE"
@@ -3344,20 +3342,20 @@
         "DESCRIPTION_ECG"
       ]
     },
-    "PAS_DE_TROUBLE_DE_LA_DEPOLARISATION": {
-      "concept_name": "Pas de trouble de la dépolarisation",
-      "categorie": "DIAGNOSTIC_MOYEN",
-      "poids": 3,
+    "PAS_DE_TROUBLES_DE_LA_CONDUCTION": {
+      "concept_name": "Pas de troubles de la conduction",
+      "categorie": "DESCRIPTION_ECG",
+      "poids": 2,
       "type": "pattern",
-      "excludes": [
-        "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE"
+      "requires": [
+        "PR_NORMAL",
+        "QRS_FINS"
       ],
       "synonymes": [
-        "Absence de trouble de la dépolarisation",
-        "Dépolarisation normale"
+        "Absence d'anomalies de la conduction"
       ],
       "parents": [
-        "DESCRIPTION_ECG"
+        "CONDUCTION"
       ]
     },
     "PATHOLOGIE": {
@@ -3457,12 +3455,6 @@
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
       "type": "qualifier",
-      "synonymes": [
-        "Rabotage de l'onde R",
-        "Rabotage de l'onde R en antérieur",
-        "onde R rabotée en antérieur",
-        "onde R rabotée"
-      ],
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
       ],
@@ -3634,7 +3626,7 @@
       "poids": 4,
       "type": "finding",
       "has_qualifiers": [
-        "BBG_COMPLET"
+        "BLOC_DE_BRANCHE_GAUCHE_COMPLET"
       ],
       "synonymes": [
         "Guiraudon-Klein fiber ventricular preexcitation",
@@ -3715,8 +3707,8 @@
         "QRS_FINS"
       ],
       "has_qualifiers": [
-        "MORPHOLOGIE_DU_QRS_NORMALE",
-        "PAS_DE_TROUBLE_DE_LA_DEPOLARISATION"
+        "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "MORPHOLOGIE_DU_QRS_NORMALE"
       ],
       "excludes": [
         "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
@@ -3809,8 +3801,9 @@
       "type": "finding",
       "synonymes": [
         "QS antérieur",
-        "onde R rabotée",
-        "onde R rabotée en antérieur"
+        "Rabotage de l'onde R en antérieur",
+        "Trou électrique antérieur",
+        "onde R rabotée"
       ],
       "parents": [
         "PRESENCE_D_ONDE_Q_PATHOLOGIQUE"
@@ -4094,9 +4087,7 @@
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
       "type": "finding",
-      "parents": [
-        "STIMULATION"
-      ],
+      "parents": [],
       "children": [
         "STIMULATION_EN_FENETRE_DE_SECURITE",
         "STIMULATION_INAPPROPRIEE",
@@ -4605,7 +4596,6 @@
         "TACHYCARDIE"
       ],
       "parents": [
-        "NOEUD_AV",
         "TACHYCARDIE_SUPRA_VENTRICULAIRE"
       ],
       "children": [
@@ -4765,7 +4755,7 @@
         "BLOC_DE_BRANCHE"
       ],
       "supports": [
-        "BBG_COMPLET",
+        "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
         "QRS_LARGE",
         "BLOC_DE_BRANCHE_DROIT_COMPLET"
       ],
@@ -5126,11 +5116,6 @@
     },
     "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE": {
       "concept_name": "Trouble de la dépolarisation ventriculaire",
-      "synonymes": [
-        "trouble de la dépolarisation",
-        "trouble de dépolarisation",
-        "anomalie de la dépolarisation"
-      ],
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
       "type": "finding",
@@ -5149,17 +5134,15 @@
       "categorie": "DESCRIPTION_ECG",
       "poids": 2,
       "type": "pattern",
-      "synonymes": [
-        "Trouble de la repolarisation",
-        "Anomalie de la repolarisation",
-        "Anomalie de repolarisation"
-      ],
       "requires": [
         "ANOMALIE_DES_ONDES_T"
       ],
       "excludes": [
         "ST_NORMAL",
         "ONDE_U_NORMALE"
+      ],
+      "synonymes": [
+        "Trouble de la repolarisation"
       ],
       "parents": [
         "ECG_PAS_NORMAL"
@@ -5547,6 +5530,14 @@
     }
   },
   "qualifier_families": {
+    "ONDE_P_ANORMALE": {
+      "family_name": "Onde P anormale",
+      "members": [
+        "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+        "ONDE_P_PROLONGEE",
+        "ONDE_P_AMPLE"
+      ]
+    },
     "BLOC_DE_BRANCHE": {
       "family_name": "Bloc de branche",
       "members": [
@@ -5697,7 +5688,7 @@
       "ASPECT_EN_SELLE_DE_CHEVAL",
       "AXE_DU_QRS",
       "AXE_NORMAL_DU_QRS",
-      "BAV_DE_TYPE_2",
+      "BAV",
       "BLOC_AURICULO_VENTRICULAIRE",
       "BLOC_DE_BRANCHE",
       "BLOC_FASCICULAIRE",
@@ -5753,6 +5744,7 @@
       "PR_COURT",
       "PR_NORMAL",
       "PACEMAKER",
+      "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
       "PAUSE",
       "PERTE_DE_CAPTURE",
       "PERTE_DES_ONDE_Q_SEPTALES",
@@ -5818,12 +5810,12 @@
       "ARTEFACTE",
       "ARYTHMIE_SINUSALE",
       "BBD_INCOMPLET",
-      "BBG_COMPLET",
       "BBG_INCOMPLET",
       "BIGEMINISME_VENTRICULAIRE",
       "BIGEMINISME_ATRIALE",
       "BLOC_DE_BRANCHE_DROIT",
       "BLOC_DE_BRANCHE_GAUCHE",
+      "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
       "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
       "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
       "BLOC_INTERATRIAL",
@@ -5952,55 +5944,55 @@
     "LOCALISATION_FAISCEAU_ACCESSOIRE": {
       "label": "Localisation faisceau accessoire",
       "sous_territoires": [
+        "Postérieur gauche",
         "Latéral gauche",
+        "Antéro-septal",
         "Postéro-septal droit",
         "Latéral droit",
-        "Antéro-septal",
-        "Inférieur droit",
         "Mid-septal",
+        "Antéro-latéral droit",
         "Anterieur gauche",
-        "Postéro-septal gauche",
-        "Postérieur gauche",
-        "Antéro-latéral droit"
+        "Inférieur droit",
+        "Postéro-septal gauche"
       ]
     },
     "LOCALISATION_IDM": {
       "label": "Localisation IDM",
       "sous_territoires": [
+        "Septal",
+        "Paroi inférieure du ventricule droit",
+        "Antérieur",
+        "Inférieur",
         "Ventricule droit",
         "Apicale",
         "Circonférentiel",
-        "Inférieur",
-        "Latéral",
-        "Postérieur",
-        "Septal",
-        "Paroi inférieure du ventricule droit",
         "Paroi libre du ventricule droit",
-        "Antérieur"
+        "Latéral",
+        "Postérieur"
       ]
     },
     "LOCALISATION_ESV": {
       "label": "localisation ESV",
       "sous_territoires": [
-        "Paroi antérieure du ventricule gauche",
-        "Septum interventriculaire",
-        "Apex",
-        "Paroi latérale du ventricule gauche",
-        "Chambre de chasse",
-        "Paroi inférieure du ventricule droit",
-        "Chambre de chasse du ventricule gauche",
-        "Ventricule droit",
         "Muscle papillaire postero-medial",
-        "Muscle papillaire",
-        "Ventricule gauche",
-        "ESV épicardique",
-        "Chambre de chasse du ventricule droit",
-        "Portion basale du ventricule gauche",
+        "Paroi latérale du ventricule gauche",
         "Portion médiale du ventricule gauche",
-        "Continuité mitro-aortique",
-        "Paroi libre du ventricule droit",
+        "Paroi inférieure du ventricule droit",
         "Muscle papillaire antéro-latéral",
-        "Paroi inférieure du ventricule gauche"
+        "Muscle papillaire",
+        "Chambre de chasse du ventricule droit",
+        "Ventricule gauche",
+        "Chambre de chasse",
+        "Portion basale du ventricule gauche",
+        "Chambre de chasse du ventricule gauche",
+        "Continuité mitro-aortique",
+        "Paroi antérieure du ventricule gauche",
+        "ESV épicardique",
+        "Paroi inférieure du ventricule gauche",
+        "Ventricule droit",
+        "Apex",
+        "Paroi libre du ventricule droit",
+        "Septum interventriculaire"
       ]
     }
   },
@@ -6023,15 +6015,15 @@
     "version": "2.0",
     "source": "BrYOzRZIu7jQTwmfcGsi35.owl",
     "generated_by": "convert_owl_to_v2.py",
-    "total_concepts": 344,
-    "total_patterns": 52,
+    "total_concepts": 345,
+    "total_patterns": 53,
     "total_findings": 146,
     "total_qualifiers": 106,
     "total_topography": 40,
-    "total_qualifier_families": 6,
-    "total_synonymes": 302,
-    "total_requires_relations": 68,
-    "total_supports_relations": 47,
+    "total_qualifier_families": 7,
+    "total_synonymes": 316,
+    "total_requires_relations": 69,
+    "total_supports_relations": 48,
     "total_excludes_relations": 43,
     "total_hidden": 55,
     "skipped_reference_concepts": 55
