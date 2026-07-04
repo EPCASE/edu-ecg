@@ -3356,6 +3356,9 @@
       ],
       "parents": [
         "CONDUCTION"
+      ],
+      "negation_of": [
+        "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE"
       ]
     },
     "PATHOLOGIE": {

@@ -66,7 +66,7 @@ class ConceptScore:
     concept_name: str = ""
     score: float = 0.0
     max_score: float = 1.0
-    match_type: str = "missed"  # exact | requires | qualifier | support | excluded | missed
+    match_type: str = "missed"  # exact | requires | qualifier | support | implies | negation | excluded | missed
     detail: str = ""
     # Pour requires
     requires_total: int = 0
@@ -163,6 +163,7 @@ class ScoringResultV3:
     n_excluded: int = 0
     n_missed: int = 0
     n_implies: int = 0
+    n_negation: int = 0
     # Négations converties
     negation_conversions: List[Tuple[str, str]] = field(default_factory=list)
 
@@ -367,6 +368,41 @@ def _find_antecedent_in_found(concept_id: str, found_set: Set[str]) -> Optional[
     return None
 
 
+# Crédit accordé quand un concept négatif attendu est validé par la NÉGATION
+# explicite de son pôle positif (relation déclarative `negation_of`). 1.0 :
+# dire « pas de trouble de la conduction » vaut nommer « Pas de troubles de la
+# conduction ». Pour MODULER plus tard (< 1.0), abaisser cette constante ; le
+# bloc 1e de `_score_one_concept` devra alors devenir un plancher intégré au max.
+NEGATION_CREDIT = 1.0
+
+
+def _find_negated_pole_in_absent(concept_id: str, absent_set: Set[str]) -> Optional[str]:
+    """
+    Vérifie si le concept NÉGATIF attendu `concept_id` a l'un de ses pôles
+    positifs (champ déclaratif `negation_of`) dans l'ensemble des concepts
+    extraits avec statut 'absent'. Sémantique : l'étudiant a dit « pas de X »
+    (X est extrait 'absent'), or `concept_id` EST « Pas de X » → il est validé.
+
+    Ex. : concept_id = PAS_DE_TROUBLES_DE_LA_CONDUCTION, dont
+          `negation_of: [TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE]`, et
+          l'étudiant a « pas de trouble de la conduction » (le pôle positif est
+          extrait 'absent') → PAS_DE_TROUBLES_DE_LA_CONDUCTION est crédité.
+
+    Moteur GÉNÉRIQUE : aucun couple codé en dur ; les paires vivent dans
+    l'ontologie (`negation_of`), validées et mesurées. Retourne l'ID du pôle
+    positif nié trouvé, ou None.
+    """
+    onto = _get_ontology_v2()
+    concepts = onto["concepts"]
+    c = concepts.get(concept_id)
+    if not c:
+        return None
+    for pole in c.get("negation_of", []) or []:
+        if normalize_key(pole) in absent_set:
+            return normalize_key(pole)
+    return None
+
+
 def _find_parent_in_found(concept_id: str, found_set: Set[str]) -> Tuple[Optional[str], int]:
     """
     Vérifie si un parent (ancêtre) du concept attendu est dans found_set.
@@ -450,9 +486,13 @@ def _score_sub_require(
 def _score_one_concept(
     expected_id: str,
     found_set: Set[str],
+    absent_set: Optional[Set[str]] = None,
 ) -> ConceptScore:
     """
     Calcule le score d'UN concept golden par rapport aux found_ids.
+
+    `absent_set` : concepts extraits avec statut 'absent' (l'étudiant a nié
+    « pas de X »). Sert au crédit déclaratif `negation_of` (bloc 1e).
     """
     onto = _get_ontology_v2()
     concepts = onto["concepts"]
@@ -501,6 +541,20 @@ def _score_one_concept(
         cs.score = 1.0
         cs.detail = f"Impliqué par: {antecedent_hit}"
         return cs
+
+    # ── 1e. Concept NÉGATIF validé par négation explicite (`negation_of`) ──
+    #   L'étudiant a dit « pas de X » (X extrait 'absent') et le concept
+    #   attendu EST « Pas de X ». Crédit = NEGATION_CREDIT (1.0 aujourd'hui).
+    #   Moteur générique : les paires vivent dans l'ontologie (`negation_of`).
+    #   NB : même logique de court-circuit que 1d ; si NEGATION_CREDIT < 1.0 un
+    #   jour, transformer ce bloc en plancher intégré au max ci-dessous.
+    if absent_set and NEGATION_CREDIT >= 1.0:
+        negated_pole = _find_negated_pole_in_absent(neid, absent_set)
+        if negated_pole:
+            cs.match_type = "negation"
+            cs.score = 1.0
+            cs.detail = f"Nié explicitement: pas de {negated_pole}"
+            return cs
 
     # ── 1c. Un parent (plus générique) trouvé ? ───────────────────
     #   parent +1 (direct) → 2/3,  parent +2 (éloigné) → 1/3
@@ -649,6 +703,12 @@ def score_student_response_v3(
     # Normaliser les found_ids
     found_set = {normalize_key(fid) for fid in found_ids}
 
+    # Ensemble des concepts niés ('absent'), normalisés — sert au crédit
+    # déclaratif `negation_of` (bloc 1e de _score_one_concept). Séparé du
+    # mécanisme heuristique ci-dessous (build_negation_map) qui, lui, injecte
+    # des positifs dans found_set.
+    absent_set = {normalize_key(aid) for aid in (absent_ids or [])}
+
     # Convertir les absents en positifs et les ajouter aux found_ids
     if absent_ids:
         conversions = convert_absents_to_positive(absent_ids)
@@ -659,7 +719,7 @@ def score_student_response_v3(
 
     # Scorer chaque concept golden
     for eid in expected_ids:
-        cs = _score_one_concept(eid, found_set)
+        cs = _score_one_concept(eid, found_set, absent_set)
         result.concept_scores.append(cs)
 
     # Agrégation : chaque concept vaut 1/N
@@ -680,6 +740,8 @@ def score_student_response_v3(
             result.n_support += 1
         elif cs.match_type == "implies":
             result.n_implies += 1
+        elif cs.match_type == "negation":
+            result.n_negation += 1
         elif cs.match_type == "excluded":
             result.n_excluded += 1
         else:
@@ -698,7 +760,7 @@ def format_v3_summary(result: ScoringResultV3) -> str:
         f"Score V3 : {result.score_pct:.1f}% ({result.total_score:.2f}/{result.max_possible_score:.0f})",
         f"  exact={result.n_exact} requires={result.n_requires} "
         f"qualifier={result.n_qualifier} support={result.n_support} "
-        f"implies={result.n_implies} "
+        f"implies={result.n_implies} negation={result.n_negation} "
         f"excluded={result.n_excluded} missed={result.n_missed}",
     ]
     if result.negation_conversions:
@@ -710,7 +772,7 @@ def format_v3_summary(result: ScoringResultV3) -> str:
         icon = {
             "exact": "✅", "requires": "📊", "qualifier": "🔶",
             "support": "🔹", "excluded": "🚫", "missed": "❌",
-            "implies": "🔗",
+            "implies": "🔗", "negation": "🚭",
         }.get(cs.match_type, "?")
         lines.append(
             f"  {icon} {cs.concept_name:40s} → {cs.score:.2f}  [{cs.match_type}] {cs.detail}"
