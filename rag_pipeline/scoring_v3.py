@@ -335,12 +335,13 @@ def _find_child_in_found(concept_id: str, found_set: Set[str]) -> Optional[str]:
 
 
 # Crédit accordé quand un ANTÉCÉDENT clinique (relation `implies`) est trouvé.
-# 1.0 aujourd'hui : l'implication physiopathologique est certaine (ex. sus-
-# décalage ST ⟺ courant de lésion sous-épicardique). Pour MODULER plus tard
-# (traiter l'implication comme une inférence, < 1.0), abaisser cette constante :
-# le crédit rejoindra alors la logique du max (parent/requires/qualifier) —
-# voir la note au point 1d de `_score_one_concept`.
-IMPLIES_CREDIT = 1.0
+# GELÉ À 0.0 (Option A, découplage de la brique scoring) : l'axiome `implies`
+# reste DÉCLARÉ dans l'ontologie (actif pour la MESURE, cf. metrics_validants),
+# mais son crédit au barème LIVE est neutralisé tant qu'un barème multi-niveaux
+# (2e cycle → rythmologue) n'est pas une décision produit tranchée. À >= 1.0 le
+# bloc 1d de `_score_one_concept` court-circuite (comme un enfant) ; à 0.0 il est
+# ignoré proprement (aucun match_type "implies" émis). Kill-switch réversible.
+IMPLIES_CREDIT = 0.0
 
 
 def _find_antecedent_in_found(concept_id: str, found_set: Set[str]) -> Optional[str]:
@@ -369,11 +370,13 @@ def _find_antecedent_in_found(concept_id: str, found_set: Set[str]) -> Optional[
 
 
 # Crédit accordé quand un concept négatif attendu est validé par la NÉGATION
-# explicite de son pôle positif (relation déclarative `negation_of`). 1.0 :
-# dire « pas de trouble de la conduction » vaut nommer « Pas de troubles de la
-# conduction ». Pour MODULER plus tard (< 1.0), abaisser cette constante ; le
-# bloc 1e de `_score_one_concept` devra alors devenir un plancher intégré au max.
-NEGATION_CREDIT = 1.0
+# explicite de son pôle positif (relation déclarative `negation_of`).
+# GELÉ À 0.0 (Option A, découplage de la brique scoring) : l'axiome `negation_of`
+# reste DÉCLARÉ dans l'ontologie (actif pour la MESURE), mais son crédit au barème
+# LIVE est neutralisé. NB : la lecture sémantique de la négation par le LLM (NER →
+# statut `absent`) reste 100 % active en AMONT — seul le crédit barème est gelé.
+# À >= 1.0 le bloc 1e court-circuite ; à 0.0 il est ignoré proprement. Réversible.
+NEGATION_CREDIT = 0.0
 
 
 def _find_negated_pole_in_absent(concept_id: str, absent_set: Set[str]) -> Optional[str]:
