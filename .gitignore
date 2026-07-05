@@ -121,3 +121,7 @@ data/epi1c_dataset/
 # _standalone = paquet distribuable AVEC SON PROPRE dépôt git
 # (ne jamais imbriquer : versionné séparément)
 _standalone/
+
+# ecg-online = app autonome en ligne (Flask + GPT-4o), SON PROPRE dépôt git
+# (versionnée séparément, embarque 156 Mo de tracés PNG ; cf. ARCHITECTURE.md §12)
+ecg-online/

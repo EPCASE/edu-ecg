@@ -7,9 +7,9 @@ avant toute évolution (notamment la future refonte de la métrique avec
 pénalité des faux positifs).
 
 ⚠️ Ces tests décrivent le comportement TEL QU'IL EST aujourd'hui, y compris
-   ses limites connues (cf. AUDIT.md). Un test qui « documente une limite »
-   est marqué par un commentaire LIMITE:. Quand la métrique sera corrigée,
-   ces tests-là devront être mis à jour intentionnellement.
+   ses limites connues (cf. ARCHITECTURE.md §13, Audit). Un test qui « documente
+   une limite » est marqué par un commentaire LIMITE:. Quand la métrique sera
+   corrigée, ces tests-là devront être mis à jour intentionnellement.
 
 Aucun appel réseau / LLM : 100% déterministe.
 Lancement :
@@ -136,9 +136,9 @@ class TestCasLimites:
         assert cs.match_type == "missed"
 
     def test_concepts_hors_golden_sont_ignores(self):
-        # LIMITE CONNUE (cf. AUDIT.md §4) : les concepts trouvés qui ne sont pas
-        # dans le golden n'affectent PAS le score. Un seul concept correct parmi
-        # beaucoup de bruit donne quand même 100%.
+        # LIMITE CONNUE (cf. ARCHITECTURE.md §13.4) : les concepts trouvés qui ne
+        # sont pas dans le golden n'affectent PAS le score. Un seul concept correct
+        # parmi beaucoup de bruit donne quand même 100%.
         # Ce test FIGE cette limite : sa modification future sera intentionnelle.
         pct = _pct(
             ["FIBRILLATION_ATRIALE", "TACHYCARDIE_VENTRICULAIRE",
@@ -180,7 +180,7 @@ class TestNegation:
         assert len(nm) > 0
 
     def test_absent_trouble_repol_se_convertit(self):
-        # LIMITE CONNUE (cf. AUDIT.md) : "pas de trouble de repolarisation"
+        # LIMITE CONNUE (cf. ARCHITECTURE.md §13.3) : "pas de trouble de repolarisation"
         # se mappe vers ECG_NORMAL. Résultat : un étudiant qui écrit UNIQUEMENT
         # "pas de trouble de repolarisation" obtient 100% sur un cas ECG normal.
         conv = scoring_v3.convert_absents_to_positive(["TROUBLE_DE_REPOLARISATION"])

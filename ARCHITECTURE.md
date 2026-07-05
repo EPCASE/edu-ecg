@@ -1,14 +1,19 @@
-# 🏗️ ARCHITECTURE — Edu-ECG : Pipeline RAG Neurosymbolique pour l'Évaluation d'Interprétations ECG
+# 🏗️ DOCUMENTATION — Edu-ECG : Pipeline RAG Neurosymbolique + App de correction ECG
 
-> **Projet** : Edu-ECG  
-> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `RAGontologiqueV2`  
-> **Date** : Avril 2026  
-> **Version** : V3 (Scoring V3, NER V2, Feedback V2)
+> **Projet** : Edu-ECG
+> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `feat/align-canonical-and-onto-fixes`
+> **Date** : Juillet 2026
+> **Version** : V3 (Scoring V3, NER V2, Feedback V2) + App en ligne `ecg-online` (GPT-4o)
+>
+> 📌 **Document unique et centralisé.** Il fusionne l'ancienne `ARCHITECTURE.md`,
+> l'`AUDIT.md`, la `REANNOTATION_WEBPROTEGE.md` et le *Rapport de relecture —
+> Optimisation de l'ontologie*. C'est la référence à jour du projet.
 
 ---
 
 ## Table des matières
 
+**Partie A — Architecture du pipeline**
 1. [Objectif du projet](#1-objectif-du-projet)
 2. [Positionnement scientifique et pédagogique](#2-positionnement-scientifique-et-pédagogique)
 3. [Analyse de l'ontologie ECG](#3-analyse-de-lontologie-ecg)
@@ -20,6 +25,16 @@
 9. [Forces](#9-forces)
 10. [Faiblesses et axes d'amélioration](#10-faiblesses-et-axes-damélioration)
 11. [Métriques actuelles](#11-métriques-actuelles)
+
+**Partie B — Application en ligne `ecg-online`**
+12. [App autonome de correction ouverte (GPT-4o)](#12-app-autonome-de-correction-ouverte-gpt-4o)
+
+**Partie C — Audit de robustesse**
+13. [Audit — robustesse des résultats](#13-audit--robustesse-des-résultats)
+
+**Partie D — Ontologie : réannotation & OWL**
+14. [Réannotation WebProtégé & patch OWL](#14-réannotation-webprotégé--patch-owl)
+15. [Rapport de relecture — synthèse et décisions](#15-rapport-de-relecture--synthèse-et-décisions)
 
 ---
 
@@ -563,14 +578,25 @@ Pour 43 étudiants × 15 cas = 645 évaluations → **~$13 total**.
 ## 8. Structure du projet
 
 ```
-ECG lecture/                          # Repo git principal (branche RAGontologiqueV2)
-├── ARCHITECTURE.md                   # ← CE FICHIER
+ECG lecture/                          # Repo git principal (edu-ecg)
+├── ARCHITECTURE.md                   # ← CE FICHIER (documentation centralisée A→D)
 ├── README.md                         # Documentation d'usage du pipeline
-├── BrYOzRZIu7jQTwmfcGsi35.owl       # Ontologie OWL source (WebProtégé)
-├── BrYOzRZIu7jQTwmfcGsi35V1.owl     # Version antérieure de l'OWL
+├── BrYOzRZIu7jQTwmfcGsi35.owl        # Ontologie OWL source (WebProtégé)
+├── BrYOzRZIu7jQTwmfcGsi35V1.owl      # Version antérieure de l'OWL
+├── BrYOzRZIu7jQTwmfcGsi35_patched_*.owl  # OWL patché (à réimporter) — cf. §14
+├── patch_ontology_owl.py             # Génère l'OWL patché (synonymes + excludes)
 ├── convert_owl_to_v2.py              # Convertisseur OWL → JSON V2
 ├── regenerate_ontology.py            # Script de régénération ontologie
-├── requirements.txt                  # Dépendances Python
+├── requirements.txt                  # Dépendances Python (pipeline)
+│
+├── ecg-online/                       # ★ APP AUTONOME EN LIGNE (Partie B) ★
+│   ├── app/                          #   grader.py, server.py, cases_repo.py
+│   ├── frontend/                     #   index.html, style.css, app.js
+│   ├── data/                         #   cases.json (75 cas) + ecg_images/ (108 PNG)
+│   ├── scripts/                      #   extraction docx/pdf → cases.json
+│   ├── run.py, Procfile, runtime.txt #   local + Scalingo
+│   ├── README.md, ROADMAP.md         #   doc & plan de route
+│   └── requirements.txt              #   dépendances app (Flask, openai, gunicorn)
 │
 ├── backend/
 │   └── rdf_owl_extractor.py          # Parseur RDF/XML de l'OWL (V1)
@@ -579,7 +605,7 @@ ECG lecture/                          # Repo git principal (branche RAGontologiq
 │   ├── ontology_from_owl.json        # Ontologie V1 (289 concepts, historique)
 │   └── ontology_v2.json              # Ontologie V2 (345 concepts) ← RUNTIME
 │
-├── rag_pipeline/                     # ★ CŒUR DU PIPELINE RAG ★
+├── rag_pipeline/                     # ★ CŒUR DU PIPELINE RAG (Partie A) ★
 │   ├── ontology_index.py             # Brique 0 — Index vectoriel + BM25
 │   ├── ner_extractor.py              # Brique 2 — NER GPT-4o
 │   ├── hybrid_search.py              # Brique 3 — Recherche hybride
@@ -589,34 +615,22 @@ ECG lecture/                          # Repo git principal (branche RAGontologiq
 │   ├── candidate_report.py           # Brique 6 — Orchestrateur + rapport
 │   ├── pedagogical_feedback.py       # Brique 6 — Feedback GPT
 │   ├── edn_knowledge_base.py         # Brique 6 — Knowledge base EDN/SFC
-│   ├── generate_html_report.py       # Export HTML standalone
-│   ├── export_corrections_json.py    # Export JSON pour Streamlit
-│   ├── ARCHITECTURE_PIPELINE.md      # Documentation technique
-│   └── rag_index/                    # Index pré-calculés
-│       ├── vecteurs_ontologie.npy    # Matrice 658×1536 (float32)
-│       ├── metadata_ontologie.json   # Registre documents
-│       └── bm25_corpus.json          # Corpus BM25
+│   ├── tests/test_scoring_v3.py      # 18 tests de non-régression (cf. §13)
+│   └── rag_index/                    # Index pré-calculés (npy + metadata + BM25)
 │
 ├── frontend/
-│   └── pages/
-│       └── correction_llm.py         # Page Streamlit corrections
+│   └── pages/correction_llm.py       # Page Streamlit corrections
 │
 └── dossier_ecole/                    # Dossier académique (rapports, schémas)
 
 ECG collector/                        # Application de collecte Streamlit
 ├── app.py                            # Interface de saisie (50 participants × 15 cas)
-├── corrections/students/             # 43 fichiers ECG-*.json (réponses étudiants)
-└── images/                           # 15 images ECG
+├── corrections/students/             # réponses étudiants (ECG-*.json) + golden.json
+└── images/                           # images ECG
 
 ECG evaluation/                       # Notebooks d'analyse et de benchmark
-├── 01_Evaluation_Pipeline.ipynb      # Pipeline d'évaluation complet
-├── 02_Scoring_Sandbox.ipynb          # Tests unitaires du scoring
-├── 03_Evaluation_Publication.ipynb   # Métriques pour publication
-├── 05_Scoring_V2.ipynb               # Scoring V2 (historique)
-├── 06_Rapports_Etudiants.ipynb       # Génération des rapports
+├── 01_Evaluation_Pipeline.ipynb …    # pipeline, sandbox, publication, rapports
 ├── goldenset/                        # 15 cas ECG annotés par expert
-│   └── case_*/metadata.json          # Annotations : concept, rôle, coefficient
-├── rapports_v2/                      # Rapports HTML générés
 └── results/                          # Résultats benchmark (CSV)
 ```
 
@@ -755,3 +769,318 @@ Le pipeline fonctionne en **batch** (notebooks ou scripts CLI). Pas d'API REST n
 ---
 
 *Document généré le 2026-04-22 — Version V3 du pipeline (Scoring V3, NER V2, Feedback V2)*
+
+---
+
+# Partie B — Application en ligne `ecg-online`
+
+## 12. App autonome de correction ouverte (GPT-4o)
+
+> **Nouveau (juillet 2026).** Dépôt applicatif **autonome** et déployable sur
+> Scalingo, situé dans `ECG lecture/ecg-online/`. Il transforme le projet de
+> *pipeline d'évaluation batch* en *plateforme d'entraînement en ligne* : un
+> étudiant lit un ECG, rédige une interprétation **en texte libre**, et GPT-4o la
+> corrige (score + commentaire). Voir `ecg-online/README.md` et `ecg-online/ROADMAP.md`.
+
+### 12.1 Positionnement vs pipeline neurosymbolique
+
+| | Pipeline neurosymbolique (Partie A) | App `ecg-online` (Partie B) |
+|---|---|---|
+| But | Évaluer un corpus, mesurer, publier | Entraîner l'étudiant en ligne, feedback immédiat |
+| Correction | NER→RAG→Juge→Scoring V3 (déterministe) | GPT-4o direct, ancré sur l'interprétation de référence |
+| Banque | 15 cas golden annotés | **75 cas** extraits de l'ouvrage (tracés + interprétations) |
+| Dépendances | 4 workspaces + index RAG | **Autonome** (Flask + OpenAI, 1 clé) |
+| Reproductibilité | 100 % (scoring symbolique) | dépend de GPT (temperature 0) |
+| Déploiement | notebooks / CLI | Scalingo (`Procfile`, gunicorn) |
+
+➡️ Les deux sont **complémentaires** : l'app délivre la valeur pédagogique
+immédiate ; le pipeline reste la référence de mesure et la future source d'un
+**scoring hybride** (cf. §13-15 et `ecg-online/ROADMAP.md` Phase 2).
+
+### 12.2 Banque de 75 cas
+
+Extraite de l'ouvrage ECG de référence (Word + PDF) via `ecg-online/scripts/`
+(`extract_cases.py`, `compile_ecg_pdf.py`, `build_cases_json.py`). Sortie :
+`ecg-online/data/cases.json` — **75 cas, 75/75 avec tracé et interprétation**.
+
+Répartition des familles :
+`rythme 25 · conduction 21 · ischémie 12 · hypertrophie 4 · péricarde 3 ·
+normal 2 · génétique 2 · embolie 2 · métabolique 2 · technique 1 · infiltratif 1`
+
+Contrat de données (par cas) : `num, titre, famille, patient, contexte,
+qcm{question,options,reponses}, interpretation_ref, second_trace, commentaires,
+referentiel, images[]`.
+
+### 12.3 Architecture applicative
+
+```
+Frontend (HTML/CSS/JS)  ──► Flask API (app/server.py) ──► grader GPT-4o (app/grader.py)
+  sélecteur de cas            /api/cases, /api/case/<n>       function calling « rendre_correction »
+  visualiseur de tracé        /api/grade  (score+comment)     ancré sur interpretation_ref
+  zone de réponse libre       /images/<f> (tracés PNG)        barème progressif + équivalences
+  résultat animé              cases_repo.py (expurge la réf)  cliniques (cf. §15)
+```
+
+- **`app/grader.py`** — cœur IA. Renvoie un JSON structuré : `score`,
+  `score_diagnostic`, `score_descriptif`, `correspondance` (exacte/acceptable/
+  partielle/incorrecte), `type_erreur` (aucune/étudiant/incomplet/formulation),
+  `elements_trouves/manques/errones`, `commentaire`. Le prompt intègre les règles
+  du rapport de relecture (§15) : crédit partiel, équivalences cliniques, règle
+  « ECG normal », valorisation des négations.
+- **`app/cases_repo.py`** — accès banque + **expurgation** : l'interprétation de
+  référence n'est jamais renvoyée avant que l'étudiant ait soumis sa réponse.
+- **`app/server.py`** — API REST + service du front + des images.
+
+### 12.4 Comportement validé (tests end-to-end)
+
+| Scénario | Score obtenu | Correspondance | Type |
+|----------|:-----------:|----------------|------|
+| « ECG normal » explicite sur cas normal | 100 | exacte | aucune |
+| SCA décrit (sus-ST + miroir + Pardee) sans nommer | 70 | partielle | incomplet |
+| « ECG normal » affirmé sur un STEMI | **30** (plafonné) | incorrecte | étudiant |
+
+### 12.5 Lancer / déployer
+
+```powershell
+cd "ECG lecture\ecg-online"
+python -m venv .venv ; .\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+Copy-Item .env.example .env   # renseigner OPENAI_API_KEY
+python run.py                 # http://localhost:5000
+```
+
+Scalingo : `git push scalingo main` (détecte `requirements.txt` + `runtime.txt`,
+lance le `web:` du `Procfile`). Aucune base de données (banque = JSON versionné).
+
+---
+
+# Partie C — Audit de robustesse
+
+## 13. Audit — robustesse des résultats
+
+> Repris de l'ancien `AUDIT.md` (juillet 2026). Périmètre : `ECG lecture`,
+> `RAG ontologique`, `ECG collector`, `ECG evaluation`.
+
+### 13.0 Note de méthode (honnêteté intellectuelle)
+
+Le chiffre « **taux d'hallucination 63,7 %** » **ne doit pas être lu comme « 2
+concepts sur 3 sont des inventions »**. Il compare *tous* les concepts extraits au
+golden **de scoring**, qui ne liste que 1 à 3 concepts « qui comptent » par cas.
+Les concepts cliniquement **vrais mais non listés** (« QRS fins », « PR normal »)
+sont comptés à tort comme faux positifs.
+
+➡️ La vraie conclusion : **« on est aujourd'hui incapable de distinguer une vraie
+erreur d'une bonne observation non listée »**. C'est le problème central de
+robustesse ; sa solution est méthodologique (golden d'extraction, §13.4).
+
+### 13.1 Synthèse exécutive
+
+| Dimension | Note | Commentaire |
+|-----------|:----:|-------------|
+| Pertinence du besoin | 🟢 9/10 | Vrai vide : évaluation de texte libre ECG, ancrée EDN Item 231 |
+| Architecture | 🟢 8/10 | Neurosymbolique rigoureux, garde-fous réels |
+| Choix techniques | 🟡 6/10 | Bonnes briques ; dette (4 workspaces, ~50 scripts jetables), tout-OpenAI |
+| **Robustesse des résultats** | 🟠 **4/10** | **Métrique = rappel déguisé ; pas de golden d'extraction ; golden mono-expert** |
+| Reproductibilité | 🟡 5/10 | Scoring déterministe ✅, mais chiffres incohérents entre docs & dépendance API |
+| Maintenabilité | 🟡 5/10 | Duplication `RAG ontologique` ↔ `ECG lecture/rag_pipeline` |
+
+**Verdict** : colonne vertébrale conceptuelle **solide**. Le point bloquant n'est
+**pas** l'architecture, mais la **chaîne de mesure** : tant qu'un *golden
+d'extraction* n'existe pas, aucun chiffre de précision/rappel n'est fiable.
+
+### 13.2 Le cœur du sujet : la métrique de score
+
+Le `scoring_v3` calcule `score_pct = Σ score(concept_attendu_i) / N_attendus × 100`.
+➡️ C'est un **rappel pondéré cliniquement**. Il **n'intègre pas** les concepts en trop.
+
+**Ce qui fonctionne déjà (crédit partiel ontologique)** ✅ :
+
+| Situation | Score | Interprétation |
+|-----------|:-----:|----------------|
+| Concept exact | 100 % | match direct |
+| **Enfant** trouvé (plus précis) | 100 % | `BBD complet` crédite `BBD` |
+| **Parent direct** (plus vague) | 66,7 % | `BBD` crédite partiellement `BBD complet` |
+| 1/4 `requires` satisfait | 25 % | `Rythme sinusal` → `ECG normal` |
+| Concept **exclu** présent | 0 % | garde-fou : `FA` annule `ECG normal` |
+
+**Ce qui manque** : le scoring ne traite pas les **concepts hors-golden**. Deux cas
+s'y cachent — vrai-mais-non-listé (inoffensif) vs cliniquement-faux (dangereux) —
+et **on ne peut pas les séparer automatiquement** aujourd'hui.
+
+### 13.3 Limite : négation trop généreuse ⚠️
+
+`absent("trouble de repolarisation")` se convertit en `ECG_NORMAL`. Un étudiant
+écrivant **uniquement** « pas de trouble de repolarisation » obtient **100 %** sur
+un cas ECG normal. ➡️ Une négation isolée ne devrait pas valider un diagnostic
+composite entier.
+
+### 13.4 🎯 Recommandation centrale : le « golden d'extraction »
+
+Il faut **deux golden sets** de natures différentes :
+
+| | Golden **de scoring** (existant) | Golden **d'extraction** (à créer) |
+|---|---|---|
+| Contenu | Concepts qui comptent pour la **note** (1-3/cas) | **Tous** les concepts réellement présents |
+| Sert à | Noter l'étudiant | **Mesurer la lecture du texte par le pipeline** |
+| Statut | ✅ `ECG collector/corrections/golden.json` | ❌ **manquant** |
+
+**Protocole** : annoter ~50 réponses (tous concepts présents + statut), double
+annotation sur ~15 (Kappa de Cohen), rejouer le pipeline → **P/R/F1 réels**.
+➡️ **Préalable P0** avant toute refonte de métrique.
+
+### 13.5 Risques de robustesse
+
+| Réf | Risque | Priorité |
+|-----|--------|:--------:|
+| R1 | **Golden mono-expert & étroit** (15 cas, 1 expert) | 🔴 P0/P1 |
+| R2 | **Chiffres incohérents entre docs** (92 % / 62,4 % / 42 % / 85,1 %) | 🔴 P0 |
+| R3 | Tests : désormais `tests/test_scoring_v3.py` (18 tests) ; reste négation/semantic | 🟡 P1 |
+| R4 | Juge LLM non validé indépendamment | 🟡 P1 |
+| R5 | Erreurs non tracées par brique (pas d'ablation) | 🟡 P1 |
+| R6 | Dépendance totale OpenAI | 🟡 P1 |
+| R7 | Négation trop généreuse (§13.3) | 🟡 P1 |
+
+### 13.6 Feuille de route priorisée (robustesse)
+
+**🔴 P0** — golden d'extraction (~50 annotés + Kappa) ; recalcul P/R/F1 réels ;
+unifier les chiffres (une source de vérité versionnée) ; ✅ tests scoring (fait).
+**🟡 P1** — étendre le golden de scoring (≥2 experts) ; refondre la métrique (note
+exactitude + note fiabilité pondérée gravité) ; corriger la négation ; ablation par
+brique ; couvrir semantic_layer & négation en tests.
+**🟢 P2** — monorepo & nettoyage ; fallback local (sentence-transformers + Mistral) ;
+panel multi-juges + score de confiance ; (option) SNOMED + raisonneur OWL.
+
+---
+
+# Partie D — Ontologie : réannotation & OWL
+
+## 14. Réannotation WebProtégé & patch OWL
+
+> Fusion de `REANNOTATION_WEBPROTEGE.md` + patch OWL de juillet 2026.
+
+### 14.1 Fichiers OWL
+
+| Fichier | Rôle |
+|---------|------|
+| `BrYOzRZIu7jQTwmfcGsi35.owl` | Ontologie OWL source (WebProtégé, 401 classes, 345 concepts) |
+| `BrYOzRZIu7jQTwmfcGsi35V1.owl` | Version antérieure |
+| `BrYOzRZIu7jQTwmfcGsi35_patched_AAAA-MM-JJ.owl` | **OWL patché** (généré par `patch_ontology_owl.py`) — à réimporter dans WebProtégé |
+| `patch_ontology_owl.py` | Applique les correctifs (synonymes + excludes_families) et produit l'OWL patché + `_patch_owl_report.txt` |
+| `convert_owl_to_v2.py` | Convertisseur OWL → `data/ontology_v2.json` (runtime) |
+
+### 14.2 Patch OWL de juillet 2026 (synonymes ajoutés)
+
+Généré automatiquement par `patch_ontology_owl.py` (IRIs réels, XML validé) :
+
+| Concept (IRI) | Synonymes `skos:altLabel` ajoutés |
+|---------------|-----------------------------------|
+| Flutter droit typique `R8Qu5zTeQYBDtJy6ntEW9Zt` | CTI-dépendant, flutter antihoraire typique |
+| BBD complet `R9vRCWTeo81VmDBWIWkUUV2` | BBD + QRS large, BBD complet rSR', aspect rSR' + QRS large |
+| SCA ST+ `R8WlYgdeyMoXnCoJOPfL6ie` | IDM ST+, infarctus avec sus-décalage, onde de Pardee, courant de lésion sous-épicardique territorial |
+| Microvoltage `R7QyGgxIXK3MePvmNUhlkYG` | bas voltage, faible voltage, petits QRS, QRS de petite amplitude, QRS très petits, microvolté |
+| Stimulation atriale `RuLDUWeiujYnS4rjWXWoSd` | électro-entraîné à l'étage atrial, spike auriculaire, pacemaker atrial, rythme stimulé atrial |
+| Stimulation ventriculaire `Rsw8UNDCSH098dExZ6ZXdz` | spike ventriculaire, QRS stimulés larges, rythme pacé ventriculaire |
+| ECG normal `RB5yWtPR1F86Bu5TIAoqFe5` | tracé sans anomalie significative |
+| Faisceau accessoire/WPW `R0NX2vKfgeRaBNOeCyd8Mu` | PR court + onde delta |
+
+➡️ **8 concepts modifiés**, 685 `skos:altLabel` au total, XML bien formé.
+**Reproduire** : `python patch_ontology_owl.py` (n'écrase pas la source).
+
+### 14.3 Réannotations antérieures (V3.1) — déjà appliquées / à vérifier
+
+- **ECG_NORMAL.excludes_families** : 7 familles (dont TROUBLES_DE_CONDUCTION,
+  STIMULATION, EVENEMENTS_ECTOPIQUES, INTERFERENCE_EXTRA_CARDIAQUE). ✅ vérifié
+  présent dans l'OWL courant.
+- **TROUBLE_DE_REPOLARISATION** : + synonyme « Trouble de la repolarisation ».
+- **AXE_NORMAL_DU_QRS** : + « axe gauche physiologique », « axe physiologique »,
+  « Axe du cœur normal », « Axe cardiaque normal ».
+- **BLOC_INTERATRIAL** : `has_qualifier_families: [ONDE_P_ANORMALE]`.
+- Propriété `has_qualifier_families` (IRI `R8vQ8mX6hV4s7wN4eSTlvaF`) supportée par
+  le convertisseur et `scoring_v3.py`.
+
+### 14.4 Procédure de mise à jour de l'ontologie
+
+```powershell
+cd "ECG lecture"
+# 1. (option) régénérer un OWL patché depuis les correctifs
+python patch_ontology_owl.py
+# 2. importer l'OWL patché dans WebProtégé, ré-exporter l'OWL « propre »
+# 3. régénérer le JSON runtime
+python convert_owl_to_v2.py           # -> data/ontology_v2.json
+# 4. reconstruire l'index RAG (rag_pipeline/ontology_index.py)
+```
+
+### 14.5 Checklist WebProtégé
+
+- [ ] Importer `BrYOzRZIu7jQTwmfcGsi35_patched_*.owl` (8 concepts enrichis, §14.2)
+- [ ] Vérifier ECG_NORMAL : 7 `excludes_families`
+- [ ] Vérifier les synonymes V3.1 (§14.3)
+- [ ] Vérifier la property `has_qualifier_families`
+- [ ] Ré-exporter l'OWL + régénérer `ontology_v2.json` + index RAG
+
+---
+
+## 15. Rapport de relecture — synthèse et décisions
+
+> Synthèse du *Rapport de relecture — Optimisation de l'ontologie et de l'algorithme
+> de correction ECG* (arbitrage humain des FN/FP sur 43 étudiants × 15 cas).
+
+### 15.1 Diagnostic
+
+Le nouveau pipeline GPT **détecte bien mieux** diagnostics et concepts. Mais la
+relecture humaine montre que **les FN/FP bruts surestiment les erreurs** : la
+plupart ne sont **pas** des erreurs cliniques de l'étudiant ni de GPT, mais des
+problèmes **d'ontologie, de règles d'inférence ou de scoring** (logique trop
+binaire, négations mal valorisées, granularité, mapping des synonymes).
+
+### 15.2 Cas reclassés après arbitrage (extraits)
+
+| Cas | Problème réel | Nature |
+|-----|---------------|--------|
+| 4H0K/DFLC/WY55 cas 12 | mapping « infarctus ST+ » → `SCA ST+` incomplet | ontologie/agrégation |
+| 87P4 cas 1 | « normal » seul doit valider ECG normal | scoring trop rude |
+| IDXQ cas 8 | « flutter commun isthmique » = flutter droit typique | granularité |
+| ITB8 cas 7 | BBD + QRS 140 ms → BBD complet | inférence |
+| K05S cas 4 | « QRS très fins et petits » = microvoltage | synonymes |
+| U8SA cas 14 | ESV décrite non nommée → crédit **partiel** | scoring progressif |
+| VQFO cas 6 | « électro-entraîné » atrial mal détecté | synonymes/inférence |
+
+### 15.3 Décisions appliquées (juillet 2026)
+
+**Dans l'app `ecg-online` (grader GPT, §12.3)** — implémenté :
+- ✅ **Crédit partiel progressif** (barème ESV type).
+- ✅ **Équivalences cliniques** : flutter, BBD/BBG complet, WPW, SCA ST+,
+  microvoltage, stimulation atriale/ventriculaire.
+- ✅ **Valorisation des négations** pertinentes.
+- ✅ **Règle « ECG normal »** (explicite OU ≥4 critères ; bloquée si patho explicite).
+- ✅ **Deux scores séparés** : `score_diagnostic` + `score_descriptif`.
+- ✅ **Typage de l'écart** : aucune / étudiant / incomplet / formulation +
+  niveau de `correspondance` (exacte/acceptable/partielle/incorrecte).
+
+**Dans l'ontologie OWL (§14.2)** — implémenté :
+- ✅ Synonymes flutter, BBD complet, SCA ST+, microvoltage, stimulation, WPW.
+
+**À porter dans le scoring symbolique `scoring_v3.py` (Partie A)** — backlog :
+- [ ] Relations parent-enfant « X + qualifiant → forme complète » (BBD/BBG complet).
+- [ ] Crédit partiel paramétrable (indice isolé < description < nommé).
+- [ ] Négation isolée ne validant pas un diagnostic composite entier (§13.3).
+- [ ] Règle d'inférence « ECG normal » symétrique de celle du grader.
+
+### 15.4 Priorités d'amélioration (rappel)
+
+1. mieux **valoriser les réponses négatives** ;
+2. **scoring partiel** ;
+3. **formaliser les relations parent-enfant** ;
+4. **enrichir les synonymes** descriptifs ;
+5. **règles d'inférence** BBD complet, SCA ST+, flutter droit typique, microvoltage, stimulation ;
+6. **distinguer erreurs étudiant vs erreurs algorithme**.
+
+➡️ Après arbitrage, **le pipeline est meilleur que ne le suggèrent les FN/FP bruts**.
+Le problème n'est plus le modèle GPT, mais la **couche de décision** (ontologie,
+règles, agrégation, notation).
+
+---
+
+*Document centralisé — dernière mise à jour : 2026-07-05. Fusionne Architecture V3,
+Audit, Réannotation WebProtégé, patch OWL et Rapport de relecture. App `ecg-online`
+autonome (GPT-4o) ajoutée en Partie B.*
