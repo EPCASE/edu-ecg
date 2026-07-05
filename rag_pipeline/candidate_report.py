@@ -41,6 +41,7 @@ from scoring_v3 import (
     build_negation_map,
 )
 from semantic_layer import get_concept, normalize_key, _get_ontology_v2
+from pattern_inference import PatternInferencer
 from pedagogical_feedback import (
     generate_pedagogical_feedback,
     format_feedback_html,
@@ -277,6 +278,18 @@ def _get_engine() -> HybridSearchEngine:
     return _engine
 
 
+_inferencer: Optional[PatternInferencer] = None
+
+
+def _get_inferencer() -> PatternInferencer:
+    """Moteur generique d'inference d'extraction (concepts-verdict flagges
+    `infer_from_requires` dans l'ontologie). Singleton."""
+    global _inferencer
+    if _inferencer is None:
+        _inferencer = PatternInferencer(_get_ontology_v2().get("concepts", {}))
+    return _inferencer
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Helpers
 # ──────────────────────────────────────────────────────────────────────────────
@@ -452,6 +465,38 @@ def generate_candidate_report(
         report.n_juge_llm = methods.count("juge_llm")
         report.n_fallback = methods.count("fallback_subterm")
         report.n_no_candidates = methods.count("no_candidates")
+
+        # ═══════════════════════════════════════════════════════════════
+        # Brique 2.5 : Inférence d'EXTRACTION des concepts-verdict
+        # ═══════════════════════════════════════════════════════════════
+        # "Trouver l'ECG normal" est du ressort de l'EXTRACTION, pas du barème
+        # (le scoring jugera si c'est correct). Moteur GÉNÉRIQUE : lit le flag
+        # déclaratif `infer_from_requires` dans l'ontologie ; conclut un verdict
+        # (ex. ECG_NORMAL) quand assez de ses `requires` sont satisfaits ET
+        # qu'aucune `excludes_families` n'est présente. Aucun ID codé en dur.
+        _found_now = [oid for oid, st in student_matched_ids.items()
+                      if st in ("present", "hypothese")]
+        _absent_now = [oid for oid, st in student_matched_ids.items()
+                       if st == "absent"]
+        for inf in _get_inferencer().infer(_found_now, _absent_now):
+            inf_id = inf["ontology_id"]
+            if inf_id in student_matched_ids:
+                continue  # déjà extrait par le NER
+            c = get_concept(normalize_key(inf_id))
+            report.concepts_extraits.append(ExtractedConcept(
+                terme_brut=f"[inféré] {inf['n_requires']}/{inf['n_total']} critères",
+                statut="present",
+                ontology_id=inf_id,
+                concept_name=(c or {}).get("concept_name", inf_id),
+                method="pattern_inference",
+                justification=(
+                    f"Verdict inféré : {inf['n_requires']}/{inf['n_total']} "
+                    f"critères requis satisfaits, aucune famille pathologique présente."
+                ),
+                top_k_candidats=[],
+                llm_confiance=-1,
+            ))
+            student_matched_ids[inf_id] = "present"
 
         # ═══════════════════════════════════════════════════════════════
         # Brique 5 : Scoring V3 ontologique

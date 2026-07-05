@@ -1690,7 +1690,15 @@
         "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE",
         "ARYTHMIE",
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
-        "INTERFERENCE_EXTRA_CARDIAQUE"
+        "INTERFERENCE_EXTRA_CARDIAQUE",
+        "PATHOLOGIE",
+        "ANOMALIES_DU_SEGMENT_ST",
+        "VOLTAGE_DU_QRS_ANORMAL",
+        "MORPHOLOGIE_ANORMALE_DU_QRS",
+        "ANOMALIE_DE_DUREE_DU_QT",
+        "ONDE_P_ANORMALE",
+        "PR_ANORMAL",
+        "ANOMALIE_DES_ONDES_T"
       ],
       "synonymes": [
         "ECG physiologique",
@@ -1700,7 +1708,10 @@
       ],
       "parents": [
         "CONCEPTS_ECG"
-      ]
+      ],
+      "infer_from_requires": {
+        "min_satisfied": 2
+      }
     },
     "ECG_PAS_NORMAL": {
       "concept_name": "ECG pas normal",
@@ -2744,7 +2755,7 @@
         "microvoltage du QRS"
       ],
       "parents": [
-        "VOLTAGE_DU_QRS"
+        "VOLTAGE_DU_QRS_ANORMAL"
       ],
       "origin_structure": [
         "VENTRICULE"
@@ -3340,6 +3351,9 @@
       ],
       "parents": [
         "DESCRIPTION_ECG"
+      ],
+      "negation_of": [
+        "TROUBLE_DE_REPOLARISATION"
       ]
     },
     "PAS_DE_TROUBLES_DE_LA_CONDUCTION": {
@@ -5267,7 +5281,6 @@
         "PRESENCE_DE_QRS"
       ],
       "children": [
-        "MICROVOLTAGE",
         "VOLTAGE_DU_QRS_NORMAL",
         "VOLTAGE_DU_QRS_ANORMAL"
       ],
@@ -5282,7 +5295,8 @@
         "VOLTAGE_DU_QRS"
       ],
       "children": [
-        "INDICE_DE_SOKOLOW__35_MM"
+        "INDICE_DE_SOKOLOW__35_MM",
+        "MICROVOLTAGE"
       ]
     },
     "VOLTAGE_DU_QRS_NORMAL": {
