@@ -35,7 +35,8 @@
       "type": "qualifier",
       "synonymes": [
         "2 pour 1",
-        "conduction en 2 pour 1"
+        "conduction en 2 pour 1",
+        "conduction 2/1"
       ],
       "parents": [
         "MODE_DE_CONDUCTION_AV"
@@ -187,7 +188,8 @@
         "PERTE_DES_ONDE_Q_SEPTALES"
       ],
       "synonymes": [
-        "Cardiopathie amyloide"
+        "Cardiopathie amyloide",
+        "Amylose cardiaque"
       ],
       "parents": [
         "INFILTRATIVE"
@@ -220,7 +222,12 @@
       "synonymes": [
         "$ T-wave anomaly",
         "Inversion $ des ondes T",
-        "Onde T anormale"
+        "Onde T anormale",
+        "Ondes T amples",
+        "Ondes T amples et pointues",
+        "Ondes T amples pointues",
+        "Ondes T négatives",
+        "Ondes T symétriques"
       ],
       "parents": [
         "ONDE_T"
@@ -280,6 +287,9 @@
         "V2",
         "V3",
         "V1"
+      ],
+      "synonymes": [
+        "territoire antérieur"
       ]
     },
     "ANTERO_LATERAL_DROIT": {
@@ -591,7 +601,9 @@
         "Axe physiologique du QRS",
         "QRS normoaxé",
         "axe normal",
-        "axe physiologique"
+        "axe physiologique",
+        "Axer normal",
+        "axe des QRS normal"
       ],
       "parents": [
         "AXE_DU_QRS"
@@ -637,7 +649,8 @@
         "BAV2M1",
         "Bloc atrioventriculaire de du 2ème degré type 1",
         "Bloc auriculo-ventriculaire du 2ème degré type 1",
-        "Mobitz I"
+        "Mobitz I",
+        "BAV2 Mobitz I"
       ],
       "parents": [
         "BAV"
@@ -661,7 +674,10 @@
         "BAV 2 type 2",
         "BAV2M2",
         "Bloc auriculo-ventriculaire du 2ème degré type 2",
-        "Mobitz II"
+        "Mobitz II",
+        "BAV 2 M2",
+        "BAV Mobitz II",
+        "BAV2 Mobitz 2"
       ],
       "parents": [
         "BAV"
@@ -705,7 +721,8 @@
         "BAV3",
         "Bloc atrioventriculaire de type 3",
         "Bloc auriculo-ventriculaire complet",
-        "Complete AV block"
+        "Complete AV block",
+        "BAV 3"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -730,7 +747,8 @@
       "synonymes": [
         "BAV de haut degré",
         "BAV haut degré",
-        "Bloc atrioventriculaire de haut degré"
+        "Bloc atrioventriculaire de haut degré",
+        "BAV de haut degré à conduction variable"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -757,7 +775,11 @@
         "BAV1",
         "Bloc AV du premier degré",
         "Bloc atrioventriculaire de type 1",
-        "Bloc auriculo-ventriculaire du 1er degré"
+        "Bloc auriculo-ventriculaire du 1er degré",
+        "BAV 1 degre",
+        "BAV du 1er degré",
+        "BAV du premier degre",
+        "BAV du premier degrès"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -786,7 +808,8 @@
       "type": "qualifier",
       "synonymes": [
         "BBGi",
-        "iLBBB"
+        "iLBBB",
+        "BBG imcomplet"
       ],
       "parents": [
         "BLOC_DE_BRANCHE_GAUCHE"
@@ -860,6 +883,9 @@
       ],
       "parents": [
         "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+      ],
+      "synonymes": [
+        "Bifasciculaire"
       ]
     },
     "BLOC_DE_BRANCHE": {
@@ -952,7 +978,9 @@
       ],
       "synonymes": [
         "BBG",
-        "LBBB"
+        "LBBB",
+        "Blocs de branchement gauche",
+        "bloc gauche"
       ],
       "parents": [
         "BLOC_DE_BRANCHE"
@@ -1027,7 +1055,8 @@
       "synonymes": [
         "HBAG",
         "Hémibloc antérieur gauche",
-        "LAFB"
+        "LAFB",
+        "Bloc fasciculaire ant gauche"
       ],
       "parents": [
         "BLOC_FASCICULAIRE"
@@ -1311,6 +1340,9 @@
       "type": "finding",
       "parents": [
         "EVENEMENTS_ECTOPIQUES"
+      ],
+      "synonymes": [
+        "Probable complexe de fusion"
       ]
     },
     "CONCEPTS_ECG": {
@@ -1379,7 +1411,8 @@
         "ST-segment depression",
         "Sous-décalage du segment ST",
         "Sous-décalage du segment ST $",
-        "sous décalage"
+        "sous décalage",
+        "Sous décalage ST"
       ],
       "parents": [
         "ANOMALIES_DU_SEGMENT_ST"
@@ -1486,7 +1519,9 @@
       "type": "qualifier",
       "synonymes": [
         "Pas de conduction entre les oreillettes et les ventricules",
-        "absence de conduction atrio-ventriculaire"
+        "absence de conduction atrio-ventriculaire",
+        "Dissociation atrioventriculaire",
+        "Dissociation auriculo-ventriculaire"
       ],
       "parents": [
         "CONDUCTION"
@@ -1659,7 +1694,8 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "axe gauche"
+        "axe gauche",
+        "Axe hyper gauche"
       ],
       "parents": [
         "DEVIATION_AXIALE"
@@ -1750,6 +1786,9 @@
       ],
       "parents": [
         "EXTRASYSTOLE_ATRIALE"
+      ],
+      "synonymes": [
+        "ESV monomorphe"
       ]
     },
     "ESA_MONOMORPHES_MULTIPLES": {
@@ -1904,7 +1943,8 @@
       ],
       "synonymes": [
         "ESA",
-        "PAC"
+        "PAC",
+        "Extrasystole supraventriculaire"
       ],
       "parents": [
         "ARYTHMIE_ATRIALE"
@@ -1990,7 +2030,8 @@
         "Préexcitation ventriculaire $",
         "Voie accessoire",
         "WPW",
-        "Wolff-Parkinson-White"
+        "Wolff-Parkinson-White",
+        "voie accessoire type Kent"
       ],
       "parents": [
         "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE"
@@ -2078,7 +2119,8 @@
       "synonymes": [
         "CCW common flutter",
         "Flutter atrial anti-horaire",
-        "Flutter commun antihoraire"
+        "Flutter commun antihoraire",
+        "Flutter atrial commun anti-horaire"
       ],
       "parents": [
         "FLUTTER_DROIT_TYPIQUE"
@@ -2150,7 +2192,8 @@
         "Flutter commun",
         "Flutter droit commun",
         "Flutter isthmique",
-        "Flutter typique"
+        "Flutter typique",
+        "Flutter droit"
       ],
       "parents": [
         "TACHYCARDIE_ATRIALE"
@@ -2188,7 +2231,8 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "Normocarde"
+        "Normocarde",
+        "fréquence cardiaque normale"
       ],
       "parents": [
         "FREQUENCE"
@@ -2243,6 +2287,9 @@
       ],
       "parents": [
         "POTASSIUM"
+      ],
+      "synonymes": [
+        "Hyperkaliémie sévère"
       ]
     },
     "HYPERNATREMIE": {
@@ -2715,7 +2762,10 @@
         "POSTERIEUR",
         "SEPTAL"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "localisation infundibulaire"
+      ]
     },
     "LOCALISATION_FAISCEAU_ACCESSOIRE": {
       "concept_name": "Localisation faisceau accessoire",
@@ -2752,7 +2802,9 @@
       "synonymes": [
         "QRS de faible amplitude",
         "micro voltage",
-        "microvoltage du QRS"
+        "microvoltage du QRS",
+        "microvoltage diffus",
+        "microvoltage périphérique"
       ],
       "parents": [
         "VOLTAGE_DU_QRS_ANORMAL"
@@ -2781,6 +2833,9 @@
       ],
       "territoires_possibles": [
         "LOCALISATION_IDM"
+      ],
+      "synonymes": [
+        "image en miroir"
       ]
     },
     "MODE_DE_CONDUCTION_AV": {
@@ -2817,6 +2872,9 @@
         "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
         "ALTERNANCE_DES_QRS",
         "QRS_FRAGMENTE"
+      ],
+      "synonymes": [
+        "Forme anormale des QRS"
       ]
     },
     "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE": {
@@ -2845,7 +2903,10 @@
         "MORPHOLOGIE_ANORMALE_DU_QRS",
         "MORPHOLOGIE_DU_QRS_NORMALE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "Empattement pied QRS"
+      ]
     },
     "MORPHOLOGIE_DU_QRS_NORMALE": {
       "concept_name": "Morphologie du QRS normale",
@@ -2874,6 +2935,9 @@
       "type": "finding",
       "parents": [
         "ONDE_P_NORMALE"
+      ],
+      "synonymes": [
+        "Onde P sinusale"
       ]
     },
     "MUSCLE_PAPILLAIRE": {
@@ -3019,7 +3083,8 @@
       "type": "qualifier",
       "synonymes": [
         "Grande onde P",
-        "Onde P > 2.5 mm"
+        "Onde P > 2.5 mm",
+        "onde amble"
       ],
       "parents": [
         "ONDE_P_ANORMALE"
@@ -3096,7 +3161,13 @@
       "origin_structure": [
         "VENTRICULE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "Onde T amples symétriques",
+        "Onde T haute",
+        "Onde T isoélectrique",
+        "Onde T symétrique"
+      ]
     },
     "ONDE_T_AMPLE": {
       "concept_name": "Onde T ample",
@@ -3105,6 +3176,9 @@
       "type": "qualifier",
       "parents": [
         "ANOMALIE_DES_ONDES_T"
+      ],
+      "synonymes": [
+        "onde T ample et symétrique"
       ]
     },
     "ONDE_T_APLATIE": {
@@ -3141,6 +3215,9 @@
       ],
       "electrode": [
         "DERIVATIONS_ECG"
+      ],
+      "synonymes": [
+        "Onde T négative isolée"
       ]
     },
     "ONDE_U_NORMALE": {
@@ -3199,7 +3276,8 @@
       ],
       "synonymes": [
         "PR > 200 ms",
-        "PR prolongé"
+        "PR prolongé",
+        "temps d'inscription allongé"
       ],
       "parents": [
         "PR_ANORMAL"
@@ -3347,7 +3425,8 @@
         "ONDE_U_NORMALE"
       ],
       "synonymes": [
-        "Repolarisation normale"
+        "Repolarisation normale",
+        "repolarisation appropriée"
       ],
       "parents": [
         "DESCRIPTION_ECG"
@@ -3403,6 +3482,9 @@
       "type": "finding",
       "parents": [
         "CONDUCTION"
+      ],
+      "synonymes": [
+        "Pause compensatoire"
       ]
     },
     "PERICARDITE": {
@@ -3669,7 +3751,10 @@
         "VENTRICULE",
         "RESEAU_DE_PURKINJE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "QRS spontané"
+      ]
     },
     "QRS__120_MS": {
       "concept_name": "QRS > 120 ms",
@@ -3686,7 +3771,8 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "QRS < 120 ms"
+        "QRS < 120 ms",
+        "QRS fines"
       ],
       "parents": [
         "DUREE_DU_QRS"
@@ -3700,6 +3786,9 @@
       "type": "finding",
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
+      ],
+      "synonymes": [
+        "Fragmentation des QRS"
       ]
     },
     "QRS_LARGE": {
@@ -3774,7 +3863,8 @@
       ],
       "synonymes": [
         "QT non allongé",
-        "QT pas allongé"
+        "QT pas allongé",
+        "QTc normal"
       ],
       "parents": [
         "INTERVALLE_QT"
@@ -3943,7 +4033,9 @@
       ],
       "synonymes": [
         "RS",
-        "sinusal"
+        "sinusal",
+        "Rythme sinusal régulier",
+        "activité sinusal"
       ],
       "parents": [
         "CONCEPTS_ECG"
@@ -4166,7 +4258,11 @@
       "type": "finding",
       "synonymes": [
         "Electroentrainement atrial",
-        "Rythme atrial électroentrainé"
+        "Rythme atrial électroentrainé",
+        "Stimulation atriale unipolaire",
+        "Stimulation atriale unipolaire permanente",
+        "stimulation auriculaire",
+        "stimulation unipolaire atriale"
       ],
       "parents": [
         "STIMULATION"
@@ -4350,7 +4446,8 @@
         "SCA-ST +",
         "STEMI",
         "Syndrome coronarien avec sus-décalage",
-        "infarctus st+"
+        "infarctus st+",
+        "Syndrome coronarien aigu ST+"
       ],
       "parents": [
         "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
@@ -4651,7 +4748,8 @@
       "type": "qualifier",
       "synonymes": [
         "AVRT",
-        "TJ utilisant une voie accessoire"
+        "TJ utilisant une voie accessoire",
+        "Tachycardie par rentrée utilisant une voie accesoire"
       ],
       "parents": [
         "TACHYCARDIE_JONCTIONELLE"
@@ -4817,7 +4915,8 @@
       ],
       "synonymes": [
         "SVT",
-        "TSV"
+        "TSV",
+        "Tachycardie supra ventriculaire organisée"
       ],
       "parents": [
         "ARYTHMIE_ATRIALE"
@@ -4871,7 +4970,9 @@
       ],
       "synonymes": [
         "TV",
-        "VT"
+        "VT",
+        "axe en faveur d'une Tachycardie ventriculaire",
+        "tachycardie ventriculiare"
       ],
       "parents": [
         "ARYTHMIE_VENTRICULAIRE"
@@ -5005,7 +5106,8 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "Dent de scie"
+        "Dent de scie",
+        "Toiture d'usine"
       ],
       "parents": [
         "QUALIFICATION_PATTERN"
@@ -5132,7 +5234,10 @@
         "TROUBLE_DE_CONDUCTION_INTRA_ATRIAL",
         "HYPERTROPHIE_ATRIALE_DROITE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "anomalie de la dépolarisation auriculaire"
+      ]
     },
     "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE": {
       "concept_name": "Trouble de la dépolarisation ventriculaire",
@@ -5162,7 +5267,14 @@
         "ONDE_U_NORMALE"
       ],
       "synonymes": [
-        "Trouble de la repolarisation"
+        "Trouble de la repolarisation",
+        "Aplatissement de la repolarisation",
+        "Repolarisation difficile à interpréter",
+        "repolarisation difficilement identifiable",
+        "trouble de la re polarisation",
+        "trouble de la repolarisation ventriculaire",
+        "trouble repo",
+        "trouble secondaire de la repolarisation"
       ],
       "parents": [
         "ECG_PAS_NORMAL"
@@ -5176,7 +5288,8 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "trouble de la conduction"
+        "trouble de la conduction",
+        "trouble de conduction"
       ],
       "parents": [
         "ECG_PAS_NORMAL"
@@ -5209,7 +5322,8 @@
       "type": "qualifier",
       "synonymes": [
         "onde P bloquée",
-        "onde P bloquées"
+        "onde P bloquées",
+        "Onde P parfois bloquée"
       ],
       "parents": [
         "CONDUCTION"
@@ -5418,6 +5532,9 @@
       "type": "qualifier",
       "parents": [
         "QUALIFICATION_D_ORGANISATION"
+      ],
+      "synonymes": [
+        "Aspect monomorphe"
       ]
     },
     "ONDE_U": {
