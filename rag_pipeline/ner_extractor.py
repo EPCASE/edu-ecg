@@ -144,6 +144,8 @@ Applique STRICTEMENT ces règles de conversion pour générer le `terme_brut` :
      - "QT allongé" → "Allongement du QT" (ou garder "QT allongé", les deux sont acceptés)
    
    NE JAMAIS inventer un concept qui n'existe pas. En cas de doute, garder la formulation de l'étudiant.
+
+8. FRAGMENT ISOLÉ — EXTRACTION OBLIGATOIRE : Si le texte de l'étudiant est un fragment court (un ou quelques mots) correspondant à un terme ECG isolé — par exemple "inversion électrode", "microvoltage", "BBD", "sus-décalage ST" — tu DOIS l'extraire comme une entité. Ne renvoie JAMAIS une liste `entites` vide lorsqu'un terme clinique ECG est présent, même sans phrase complète ni contexte. Le `contexte_phrase` peut alors être identique au `terme_brut`.
 """.strip()
 
 # Modèle OpenAI compatible Structured Outputs
@@ -217,6 +219,33 @@ def extract_clinical_terms(texte_etudiant: str) -> NERExtraction:
     )
 
     result = response.choices[0].message.parsed
+
+    # Garde-fou : l'API peut renvoyer None (refus/erreur de parsing).
+    if result is None:
+        result = NERExtraction(entites=[])
+
+    # Filet de sécurité — FRAGMENT ISOLÉ :
+    # Sur une saisie très courte (ex: "inversion électrode"), GPT-4o renvoie
+    # parfois une liste vide de façon non déterministe. Dans ce cas, on
+    # synthétise une entité à partir du texte brut pour ne jamais perdre
+    # un terme clinique isolé.
+    if not result.entites:
+        texte_nettoye = texte_etudiant.strip()
+        nb_mots = len(texte_nettoye.split())
+        if texte_nettoye and nb_mots <= 6:
+            logger.warning(
+                "⚠️ NER vide sur fragment court — synthèse d'une entité "
+                f"depuis le texte brut : « {texte_nettoye} »"
+            )
+            result = NERExtraction(
+                entites=[
+                    ClinicalEntity(
+                        terme_brut=texte_nettoye,
+                        statut="present",
+                        contexte_phrase=texte_nettoye,
+                    )
+                ]
+            )
 
     logger.info(f"✅ {len(result.entites)} entités extraites")
     for ent in result.entites:

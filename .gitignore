@@ -125,3 +125,12 @@ _standalone/
 # ecg-online = app autonome en ligne (Flask + GPT-4o), SON PROPRE dépôt git
 # (versionnée séparément, embarque 156 Mo de tracés PNG ; cf. ARCHITECTURE.md §12)
 ecg-online/
+
+# Archivage de nettoyage (fichiers scratch/debug déplacés, réversible via manifest)
+_ARCHIVE_2026-07-06/
+_ARCHIVE_MANIFEST_GLOBAL.json
+_do_archive.py
+_dryrun_archive.py
+_DRYRUN_ARCHIVE.txt
+_INVENTAIRE_CLEANUP.txt
+_run_virtual_75.log
