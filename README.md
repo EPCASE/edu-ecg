@@ -3,6 +3,8 @@
 > Module de correction automatique d'interprétations ECG par pipeline RAG neurosymbolique.  
 > **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `RAGontologique`
 
+> 📋 Voir **[`AUDITS.md`](./AUDITS.md)** pour l'index des documents d'audit (robustesse scientifique, architecture/repo, choix technologiques) et runbooks.
+
 ---
 
 ## Vue d'ensemble

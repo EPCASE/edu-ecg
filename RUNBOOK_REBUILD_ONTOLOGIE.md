@@ -1,7 +1,12 @@
-# PARTIE B — Rebuild sûr de l'ontologie depuis un `.owl` réannoté
+# RUNBOOK — Rebuild sûr de l'ontologie depuis un `.owl` réannoté
 
+> ⚠️ **Renommé le 2026-07-29** (ex-`PART_B_RUNBOOK.md`) : le nom « Partie B »
+> entrait en collision avec le terme « Partie B » utilisé dans `ARCHITECTURE.md`
+> pour désigner l'app `ecg-online` (sans rapport avec ce runbook). Voir `AUDITS.md`
+> pour la vue d'ensemble des documents d'audit/runbook du repo.
+>
 > **But** : réintégrer un `.owl` réannoté (hiérarchie corrigée dans WebProtégé)
-> **sans perdre** la couche d'enrichissement qui fait vivre la décision « B »
+> **sans perdre** la couche d'enrichissement qui fait vivre la décision « ECG normal »
 > (inférence `ECG_NORMAL`, cohérence par `excludes_families`, polarité `negation_of`).
 
 ---
@@ -25,13 +30,13 @@ par `rebuild_ontology_from_owl.py`, qui **réapplique** cette couche.
 
 ---
 
-## 1. Les fichiers de la Partie B
+## 1. Les fichiers du rebuild ontologie
 
 | Fichier | Rôle |
 |---|---|
 | `convert_owl_to_v2.py` | Convertisseur OWL → JSON. **Rendu déterministe** (voir §4). |
 | `_build_overlay.py` | Capture la couche d'enrichissement dans `onto_overlay.json`. |
-| `onto_overlay.json` | **Artefact versionné** = tout le « savoir Partie B » hors OWL. |
+| `onto_overlay.json` | **Artefact versionné** = tout le « savoir d'enrichissement » hors OWL. |
 | `rebuild_ontology_from_owl.py` | **Le script à lancer.** Convertit + réapplique l'overlay + valide + écrit (backups). |
 | `validate_golden_coherence.py` | (côté données) signale/retire un `ECG_NORMAL` incohérent dans le golden. |
 
@@ -58,7 +63,7 @@ $env:PYTHONUTF8 = 1
 # → lire attentivement la section [2/4] :
 #    ~ « .owl réannoté prime »  = le reannotage a changé ce champ (attendu, OK)
 #    ↺ « restauration édit curados » = le .owl n'a pas touché, on garde l'édit
-#    [!] « concept Partie B ABSENT du .owl » = ALERTE : un ID a changé (voir §5)
+#    [!] « concept overlay ABSENT du .owl » = ALERTE : un ID a changé (voir §5)
 # → la section [3/4] DOIT afficher : « ✓ tous les garde-fous passent »
 
 # (B) APPLY : écrit les 3 copies runtime, chacune avec backup horodaté
@@ -115,7 +120,7 @@ plus `PYTHONHASHSEED=0`.
 
 ## 5. Si un ID de concept a changé au reannotage
 
-Le rebuild le signale : `[!] concept Partie B ABSENT du .owl : <ID>`.
+Le rebuild le signale : `[!] concept overlay ABSENT du .owl : <ID>`.
 Cela veut dire qu'un concept portant `infer_from_requires` / `negation_of` /
 un `requires` curados a été **renommé** (donc sa clé a changé). Deux options :
 
