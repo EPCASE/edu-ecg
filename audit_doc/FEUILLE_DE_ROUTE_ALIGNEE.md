@@ -1,5 +1,11 @@
 # 🗺️ Feuille de route alignée — Cible vs état réel (2026-07-29)
 
+> 🔒 **Document figé le 2026-07-30.** Palier 1 et Palier 2 (décrits ci-dessous)
+> sont **terminés et mergés sur `main`** (`ecg-online`, commit `e6a7180`).
+> Pour la suite du travail (ex-"Palier 3"), se référer désormais à
+> `roadmap_scientifique_2026.md` (section "Séquence retenue"), plus précis et
+> plus complet. Ne plus mettre à jour ce fichier — cf. `audit_doc/README.md`.
+
 > Complète `ECG_Online_Architecture_Cible_Feuille_de_Route.md` (le document de
 > cadrage stratégique) en le **confrontant au code réel** du dépôt
 > `ecg-online/`, pour obtenir un plan **actionnable immédiatement**, pas

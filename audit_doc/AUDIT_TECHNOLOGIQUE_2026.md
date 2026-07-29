@@ -1,5 +1,9 @@
 # 🔬 Audit technologique — Possibilités et limites (2026)
 
+> 🔒 **Figé le 2026-07-30** — conclusions reprises dans P7 (réduction de la
+> dépendance technologique) de `roadmap_scientifique_2026.md` (document
+> actif). Voir `audit_doc/README.md` (index).
+
 > Objet : répondre, **avec des chiffres mesurés sur ce projet** (pas des généralités),
 > aux 5 questions posées : fine-tuning, passage déterministe, autonomie locale,
 > intégration ontologie↔LLM, et validité du choix neurosymbolique.

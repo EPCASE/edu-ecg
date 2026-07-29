@@ -1,10 +1,14 @@
 # ECG Online — Architecture cible et feuille de route scientifique
 
+> 🔒 **Document figé le 2026-07-30.** Son contenu scientifique est repris,
+> affiné et priorisé dans `roadmap_scientifique_2026.md` (document actif).
+> Ne plus mettre à jour ce fichier — cf. `audit_doc/README.md`.
+
 **Document de travail pour le développement de la nouvelle architecture**  
 **Statut :** version de cadrage  
 **Date :** 29 juillet 2026  
 **Projet :** ECG Online — correction automatisée de réponses libres en électrocardiographie  
-**Objectif principal :** fiabiliser le moteur de correction, poursuivre la constitution du corpus annoté, puis produire une validation scientifique publiable et préparer le déploiement multicentrique.
+**Objectif principal :** déployer une version alpha formative et encadrée tout en fiabilisant le moteur de correction, poursuivre la constitution d’un corpus versionné, puis produire une validation scientifique publiable et préparer un déploiement multicentrique durable.
 
 ---
 
@@ -39,9 +43,11 @@ La cible technologique est une architecture hybride :
 
 Les priorités doivent rester hiérarchisées.
 
-## Priorité 1 — Fiabiliser l’architecture
+## Priorité 1 — Fiabiliser l’architecture sans interrompre l’usage réel
 
-Avant d’ajouter de nouvelles fonctionnalités, il faut stabiliser :
+La fiabilisation de l’architecture et l’utilisation de la plateforme doivent progresser en parallèle. Il ne faut ni attendre une architecture définitive avant toute mise à disposition, ni laisser l’alpha évoluer sans cadre technique.
+
+Avant d’ajouter de nouvelles fonctionnalités majeures, il faut stabiliser :
 
 - les contrats de données ;
 - le pipeline de correction ;
@@ -52,7 +58,16 @@ Avant d’ajouter de nouvelles fonctionnalités, il faut stabiliser :
 - la sécurité ;
 - la reproductibilité.
 
-## Priorité 2 — Poursuivre la collecte
+## Priorité 2 — Déployer une alpha encadrée et poursuivre la collecte
+
+La version alpha doit être proposée progressivement à des étudiants de plusieurs facultés comme **outil formatif expérimental**, avec :
+
+- une correction indicative ;
+- l’accès systématique au corrigé enseignant ;
+- un mécanisme de signalement ;
+- un support humain ;
+- aucune utilisation certificative ;
+- une information claire sur l’utilisation scientifique éventuelle des données.
 
 Le projet doit continuer à recueillir :
 
@@ -105,6 +120,162 @@ Dans un second temps, le projet doit tester :
 - le temps d’apprentissage ;
 - l’acceptabilité ;
 - l’effet du feedback automatique.
+
+
+---
+
+## 2.1. Décision stratégique — Alpha et développement en parallèle
+
+La trajectoire du projet ne doit pas être conçue comme une séquence rigide :
+
+```text
+Architecture parfaite
+        ↓
+Collecte
+        ↓
+Validation
+        ↓
+Déploiement
+```
+
+La stratégie retenue est une progression à **deux voies parallèles** :
+
+```text
+                    ┌────────────────────────────────────┐
+                    │ Voie A — Alpha formative en usage │
+                    │ étudiants, support, signalements  │
+                    └─────────────────┬──────────────────┘
+                                      │
+                                      ▼
+Réponses réelles ─────────────► Corpus versionné ◄──────────── Relectures expertes
+                                      ▲
+                                      │
+                    ┌─────────────────┴──────────────────┐
+                    │ Voie B — Recherche et ingénierie  │
+                    │ architecture, modèles, validation │
+                    └────────────────────────────────────┘
+```
+
+Les deux voies se nourrissent mutuellement :
+
+- l’usage réel révèle les formulations, erreurs et cas limites ;
+- les signalements alimentent la curation et l’apprentissage actif ;
+- les améliorations techniques peuvent être rejouées sur les réponses antérieures ;
+- les annotations expertes transforment progressivement la collecte en corpus scientifique ;
+- les nouvelles versions peuvent être comparées sans perdre l’historique.
+
+### 2.1.1. Statut de la version alpha
+
+La plateforme alpha est :
+
+- un outil d’entraînement ;
+- un prototype de recherche ;
+- une source de données pédagogiques ;
+- un dispositif d’amélioration continue.
+
+Elle n’est pas :
+
+- un outil de certification ;
+- un dispositif de classement ;
+- une source unique de vérité ;
+- un substitut à l’enseignant ;
+- un correcteur dont la note peut être utilisée dans le cursus.
+
+Le message utilisateur doit rester explicite :
+
+> **La correction automatisée est expérimentale et indicative. Le corrigé enseignant constitue la référence. Toute correction discutable peut être signalée.**
+
+### 2.1.2. Déploiement par vagues
+
+#### Vague 1 — Alpha contrôlée
+
+Public : quelques dizaines d’étudiants et enseignants partenaires.
+
+Objectifs :
+
+- détecter les bugs ;
+- vérifier la qualité de la collecte ;
+- tester le support ;
+- stabiliser l’interface ;
+- identifier les erreurs manifestes du correcteur ;
+- vérifier la capacité à rejouer les réponses.
+
+#### Vague 2 — Facultés partenaires
+
+Public : plusieurs promotions ou facultés disposant d’un référent local.
+
+Objectifs :
+
+- diversifier les formulations ;
+- mesurer l’acceptabilité ;
+- comparer les usages entre établissements ;
+- constituer une première validation externe ;
+- organiser la contribution d’enseignants référents.
+
+#### Vague 3 — Diffusion nationale
+
+La diffusion nationale n’est envisagée qu’après vérification de critères minimaux :
+
+- collecte fiable ;
+- versionnement complet ;
+- support dimensionné ;
+- information et gouvernance des données ;
+- sécurité minimale ;
+- file de revue des signalements ;
+- capacité de suivi des erreurs ;
+- stabilité suffisante de la plateforme.
+
+### 2.1.3. Support humain et curation
+
+Le support doit devenir une composante structurée du système.
+
+Chaque signalement doit pouvoir créer une entrée de revue contenant :
+
+- la réponse brute ;
+- le cas ;
+- la correction automatique ;
+- les concepts extraits ;
+- la version du moteur ;
+- le motif du signalement ;
+- la décision de l’expert ;
+- l’éventuelle correction du barème, du mapping, de l’ontologie ou du code ;
+- le statut final du signalement.
+
+Les signalements constituent une forme d’apprentissage actif : ils permettent de concentrer le temps expert sur les situations où le système ou l’utilisateur détecte une difficulté.
+
+La validation scientifique ne doit toutefois pas reposer uniquement sur les votes étudiants. Les étudiants peuvent signaler une incompréhension, mais la vérité de terrain reste établie par les experts.
+
+### 2.1.4. Garde-fous minimaux dès l’alpha
+
+Avant toute diffusion élargie, même expérimentale :
+
+- afficher le caractère indicatif de la correction ;
+- présenter le corrigé enseignant après la réponse ;
+- permettre le signalement ;
+- conserver la réponse brute ;
+- enregistrer la version exacte du pipeline ;
+- ne pas mélanger les résultats de versions différentes ;
+- ne pas basculer silencieusement vers un autre correcteur ;
+- gérer explicitement l’échec ou l’abstention ;
+- limiter les données personnelles ;
+- informer les utilisateurs de la finalité de la collecte ;
+- prévoir une procédure de revue et de correction.
+
+### 2.1.5. Principe organisationnel
+
+L’alpha ne doit pas devenir un produit national maintenu par une seule personne.
+
+La montée en charge doit s’accompagner progressivement de :
+
+- référents enseignants dans les facultés partenaires ;
+- annotateurs experts ;
+- soutien technique ;
+- gouvernance de l’ontologie ;
+- procédure de tri des signalements ;
+- responsabilité claire sur les données ;
+- calendrier de releases.
+
+L’objectif est de transformer un prototype individuel en **infrastructure collaborative de recherche et de pédagogie**.
 
 ---
 
@@ -886,6 +1057,24 @@ La cible doit être PostgreSQL avec :
 - niveau d’étude différent ;
 - formulations non vues.
 
+## 12.6. Signalements et apprentissage actif
+
+Les corrections contestées et les concepts mal compris doivent alimenter une file de curation priorisée.
+
+Priorités de revue :
+
+1. erreur clinique potentiellement grave ;
+2. contradiction entre note et feedback ;
+3. concept validant non reconnu ;
+4. négation ou hypothèse mal interprétée ;
+5. concept absent de l’ontologie ;
+6. formulation récurrente mal résolue ;
+7. problème purement rédactionnel du feedback.
+
+Chaque correction experte doit être conservée comme nouvelle donnée annotée et reliée à la version du moteur ayant produit l’erreur.
+
+Le corpus issu des signalements doit être distingué du corpus de validation aléatoire, car il surreprésente volontairement les cas difficiles.
+
 ---
 
 # 13. Manuel d’annotation
@@ -1109,23 +1298,40 @@ La CI doit exécuter :
 
 # 17. Sécurité et déploiement
 
-## 17.1. Avant diffusion multicentrique
+## 17.1. Socle minimal pour l’alpha
 
-- authentification ;
+- information claire sur le caractère expérimental ;
+- aucune utilisation certificative ;
+- conservation séparée de la réponse et de la prédiction ;
+- versionnement du pipeline ;
+- mécanisme de signalement ;
+- limitation de la taille des réponses ;
+- rate limiting minimal ;
+- protection de la curation ;
+- secrets hors URL ;
+- sauvegarde régulière ;
+- pseudonymisation ;
+- politique de conservation ;
+- contact de support identifié.
+
+## 17.2. Avant diffusion nationale ou multicentrique large
+
+- authentification institutionnelle lorsque nécessaire ;
 - rôles ;
-- rate limiting ;
 - CORS contrôlé ;
 - protection CSRF ;
-- secrets hors URL ;
 - journal d’audit ;
 - chiffrement ;
-- sauvegardes ;
+- sauvegardes automatisées ;
 - monitoring ;
 - politique de rétention ;
 - information des utilisateurs ;
-- gouvernance des accès.
+- gouvernance des accès ;
+- séparation des facultés ;
+- procédure de gestion des incidents ;
+- organisation de la revue des signalements.
 
-## 17.2. Modes de déploiement
+## 17.3. Modes de déploiement
 
 ### Mode recherche centralisé
 
@@ -1270,14 +1476,20 @@ L’article ne doit pas être soumis avant d’avoir :
 - [ ] audit automatisé de l’ontologie ;
 - [ ] audit automatisé des goldens.
 
-### Collecte
+### Collecte et alpha encadrée
 
 - [ ] conserver toutes les réponses brutes ;
 - [ ] conserver les versions du pipeline ;
 - [ ] stocker les concepts détectés ;
 - [ ] stocker les erreurs et abstentions ;
 - [ ] documenter le dictionnaire de données ;
-- [ ] préparer la migration PostgreSQL.
+- [ ] préparer la migration PostgreSQL ;
+- [ ] afficher le statut expérimental de la correction ;
+- [ ] garantir l’accès au corrigé enseignant ;
+- [ ] structurer le mécanisme de signalement ;
+- [ ] créer une file de revue experte ;
+- [ ] identifier les premiers enseignants partenaires ;
+- [ ] définir les critères de passage de la vague 1 à la vague 2.
 
 ## P1 — Validation scientifique
 
@@ -1308,18 +1520,35 @@ L’article ne doit pas être soumis avant d’avoir :
 - [ ] comparaison cloud/local ;
 - [ ] paquet Docker.
 
-## P3 — Déploiement multicentrique
+## P3 — Déploiement alpha progressif et multicentrique
 
-- [ ] authentification institutionnelle ;
-- [ ] base multi-tenant ;
+### Vague 1 — Alpha contrôlée
+
+- [ ] recruter un premier groupe d’étudiants ;
+- [ ] désigner les référents enseignants ;
+- [ ] organiser le support ;
+- [ ] suivre les bugs et signalements ;
+- [ ] vérifier la qualité de la collecte ;
+- [ ] produire un bilan de stabilité.
+
+### Vague 2 — Facultés partenaires
+
+- [ ] pilote dans une deuxième faculté ;
 - [ ] gestion des facultés ;
 - [ ] gouvernance de l’ontologie ;
-- [ ] gestion des versions ;
+- [ ] gestion stricte des versions ;
 - [ ] tableau de bord enseignant ;
+- [ ] protocole commun de support et de curation.
+
+### Vague 3 — Diffusion élargie
+
+- [ ] authentification institutionnelle si nécessaire ;
+- [ ] base multi-tenant ;
 - [ ] monitoring ;
 - [ ] documentation de déploiement ;
 - [ ] conformité RGPD ;
-- [ ] pilote dans une deuxième faculté.
+- [ ] procédure d’incident ;
+- [ ] gouvernance interuniversitaire.
 
 ## P4 — Étude pédagogique
 
@@ -1336,8 +1565,11 @@ L’article ne doit pas être soumis avant d’avoir :
 
 # 21. Plan des six prochaines semaines
 
-## Semaine 1 — Stabilisation
+## Semaine 1 — Stabilisation et cadrage de l’alpha
 
+- rédiger le message utilisateur sur le statut expérimental ;
+- définir le canal de support et le circuit des signalements ;
+- identifier le premier groupe d’étudiants et les référents ;
 - corriger les conflits golden restants ;
 - créer les tests absents ;
 - geler `ontology_v1.0.0` ;
@@ -1352,16 +1584,19 @@ L’article ne doit pas être soumis avant d’avoir :
 - supprimer le fallback silencieux ;
 - créer les états d’abstention.
 
-## Semaine 3 — Traçabilité
+## Semaine 3 — Traçabilité et préparation de la vague 1
 
 - versionner chaque sortie ;
 - ajouter `response_id` et `prediction_id` ;
 - journaliser les méthodes de résolution ;
 - permettre le replay ;
-- exporter un rapport par réponse.
+- exporter un rapport par réponse ;
+- tester le parcours complet avec les référents de la vague 1.
 
-## Semaine 4 — Collecte
+## Semaine 4 — Collecte et ouverture contrôlée
 
+- ouvrir l’alpha au premier groupe contrôlé ;
+- suivre quotidiennement les erreurs techniques et signalements ;
 - auditer les colonnes actuelles ;
 - définir le modèle PostgreSQL ;
 - écrire les migrations ;
@@ -1586,18 +1821,27 @@ Réponse :
 
 **Produire d’abord un article de validation technologique, puis un article pédagogique.**
 
+## Décision I
+
+**Déployer l’alpha de manière encadrée pendant la fiabilisation, et non après l’achèvement de toute la validation.**
+
+## Décision J
+
+**Utiliser le support et les signalements comme mécanisme de curation, sans les confondre avec la vérité de terrain experte.**
+
 ---
 
 # 27. Prochaine action immédiate
 
-La prochaine étape du projet est de lancer un sprint de fiabilisation avec quatre livrables :
+La prochaine étape du projet est de lancer simultanément un sprint de fiabilisation et la préparation de la première vague alpha, avec cinq livrables :
 
 1. **un objet de sortie structuré et versionné** ;
 2. **un scoring indépendant et entièrement testé** ;
 3. **une abstention explicite en cas d’échec ou d’incertitude** ;
-4. **une collecte séparant réponse brute, prédiction et annotation experte**.
+4. **une collecte séparant réponse brute, prédiction et annotation experte** ;
+5. **un dispositif alpha encadré : information, support, signalement et référents**.
 
-Ces quatre éléments permettent ensuite de poursuivre la collecte sans perdre de données, de rejouer toutes les réponses avec les futures architectures et de préparer une validation scientifique solide.
+Ces éléments permettent de poursuivre la collecte réelle sans perdre de données, de rejouer toutes les réponses avec les futures architectures et de préparer une validation scientifique solide pendant que l’outil commence à être utilisé.
 
 ---
 
@@ -1606,21 +1850,25 @@ Ces quatre éléments permettent ensuite de poursuivre la collecte sans perdre d
 La trajectoire recommandée est la suivante :
 
 ```text
-Fiabiliser l’architecture
-        ↓
-Poursuivre une collecte versionnée
-        ↓
-Construire le gold standard expert
-        ↓
-Comparer plusieurs architectures
-        ↓
-Valider extraction, linking et scoring
-        ↓
-Produire l’article technologique
-        ↓
-Déployer dans plusieurs facultés
-        ↓
-Tester l’impact pédagogique
+┌─────────────────────────────┐        ┌──────────────────────────────┐
+│ Fiabiliser l’architecture   │        │ Déployer l’alpha encadrée   │
+│ et versionner les sorties   │        │ support + signalements      │
+└──────────────┬──────────────┘        └──────────────┬───────────────┘
+               └──────────────────┬───────────────────┘
+                                  ▼
+                     Poursuivre une collecte versionnée
+                                  ↓
+                     Construire le gold standard expert
+                                  ↓
+                     Comparer plusieurs architectures
+                                  ↓
+                     Valider extraction, linking et scoring
+                                  ↓
+                     Produire l’article technologique
+                                  ↓
+                     Étendre le réseau de facultés
+                                  ↓
+                     Tester l’impact pédagogique
 ```
 
 Le projet doit désormais être conduit comme :
@@ -1630,8 +1878,8 @@ Le projet doit désormais être conduit comme :
 - un futur corpus clinique textuel ;
 - un programme de validation scientifique.
 
-La priorité n’est pas d’ajouter rapidement un nouveau modèle.
+La priorité n’est pas d’ajouter rapidement un nouveau modèle ni d’attendre une version parfaite avant tout usage.
 
-La priorité est de rendre chaque réponse, chaque concept, chaque score et chaque erreur :
+La priorité est de faire progresser simultanément l’usage réel, la qualité des données et la robustesse de l’architecture, en rendant chaque réponse, chaque concept, chaque score et chaque erreur :
 
 > **traçable, rejouable, testable et publiable.**

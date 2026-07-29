@@ -1,5 +1,11 @@
 # 🔬 AUDIT — Edu-ECG : Pipeline RAG Neurosymbolique
 
+> 🔒 **Figé le 2026-07-30** — document historique (chiffres/diagnostic
+> d'origine). Pour la suite du travail, voir `roadmap_scientifique_2026.md`
+> (document actif) et `audit_doc/README.md` (index). Les chiffres ici servent
+> de base à P0.3 (source de vérité unique des métriques) mais ne doivent plus
+> être cités comme état courant sans revérification.
+
 > **Périmètre** : `ECG lecture`, `RAG ontologique`, `ECG collector`, `ECG evaluation`
 > **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — branche `RAGontologiqueV2`
 > **Date** : Juillet 2026

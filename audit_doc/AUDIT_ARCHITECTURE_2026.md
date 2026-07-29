@@ -1,5 +1,10 @@
 # 🏗️ AUDIT ARCHITECTURE, GÉNÉRICITÉ & HYGIÈNE DE REPO — 2026-07-29
 
+> 🔒 **Figé le 2026-07-30** — constat + recommandations, aucune action
+> destructive exécutée. À reprendre seulement si un chantier de nettoyage
+> repo est explicitement décidé. Voir `roadmap_scientifique_2026.md` (actif)
+> et `audit_doc/README.md` (index).
+
 > **Périmètre** : les 4 workspaces (`ECG lecture`, `RAG ontologique`, `ECG evaluation`, `ECG collector`).
 > **Distinct de** `AUDIT.md` (qui porte sur la robustesse scientifique du scoring/extraction — toujours
 > valide, non remis en cause ici).

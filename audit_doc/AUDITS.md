@@ -1,5 +1,10 @@
 # 📋 Index des documents d'audit & runbooks
 
+> 🔒 **Figé le 2026-07-30** — remplacé comme point d'entrée par
+> `audit_doc/README.md`. Gardé pour le détail "angle par document" ci-dessous,
+> toujours valide, mais consulter `README.md` d'abord pour savoir quel
+> document est encore actif.
+
 > Point d'entrée unique pour s'y retrouver parmi les documents `AUDIT*.md` et
 > runbooks à la racine du repo. Chacun couvre un **angle distinct**, ce ne sont
 > **pas des doublons**.
