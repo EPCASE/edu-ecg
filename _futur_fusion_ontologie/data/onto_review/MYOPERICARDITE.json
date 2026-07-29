@@ -1,0 +1,25 @@
+{
+  "id": "MYOPERICARDITE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "concept_retenu": {
+    "id": "MYOPERICARDITE",
+    "concept_name": "Myopéricardite",
+    "type": "pattern",
+    "parents": [
+      "PERICARDITE",
+      "PATHOLOGIE"
+    ],
+    "requires": [
+      "MYOCARDITE",
+      "PERICARDITE"
+    ],
+    "synonymes": [
+      "atteinte combinée du myocarde et du péricarde",
+      "myopéricardite"
+    ]
+  },
+  "motif": "Diagnostic composite mais cliniquement nommé et réutilisable, correspondant à une entité pathologique distincte combinant myocardite et péricardite.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

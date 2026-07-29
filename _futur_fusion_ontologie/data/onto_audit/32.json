@@ -1,0 +1,327 @@
+{
+  "num": 32,
+  "titre": "pause post-réductionnelle",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "tachycardie irrégulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "tachycardie irrégulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "QRS larges"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RAPIDE",
+      "statut": "present",
+      "surface": "l’activité atriale est rapide"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "POLYMORPHE",
+      "statut": "present",
+      "surface": "l’activité atriale est rapide, polymorphe, anarchique"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DESORGANISEE",
+      "statut": "present",
+      "surface": "anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "activité atriale anarchique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "statut": "present",
+      "surface": "aspect de trémulation de la ligne de base"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "FA conduite",
+      "synonymes_a_ajouter": [
+        "FA conduite"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "fibrillation auriculaire paroxystique",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire paroxystique",
+        "FA paroxystique",
+        "fibrillation atriale paroxystique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "une tachycardie supra-ventriculaire au début du tracé"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "aspect de bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche droite complet",
+        "bloc de branche droite complet"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "même aspect de bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche droite",
+        "bloc de branche droite"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "statut": "present",
+      "surface": "l’arythmie atriale se réduit pendant l’enregistrement"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAUSE",
+      "statut": "present",
+      "surface": "pause de plus de 2 secondes"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "statut": "present",
+      "surface": "pendant la pause, aucune activité atriale n’est identifiable",
+      "synonymes_a_ajouter": [
+        "aucune activité atriale n’est identifiable",
+        "absence d’activité atriale identifiable"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_P_PRESENTE",
+      "statut": "present",
+      "surface": "onde P suivie d’un complexe QRS"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PRESENCE_DE_QRS",
+      "statut": "present",
+      "surface": "onde P suivie d’un complexe QRS"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "reprise d’une activité sinusale normale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "activité sinusale normale",
+      "synonymes_a_ajouter": [
+        "activité sinusale normale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale révélée à la réduction"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "pause post-réductionnelle",
+      "nouveau_concept": {
+        "id_suggere": "PAUSE_POST_REDUCTIONNELLE",
+        "concept_name": "Pause post-réductionnelle",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE",
+          "PAUSE"
+        ],
+        "requires": [
+          "PAUSE",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "synonymes": [
+          "pause post-réductionnelle",
+          "pause au moment de la réduction",
+          "pause survenant à la réduction",
+          "pause survenant à l’arrêt du trouble du rythme atrial"
+        ],
+        "poids": 5,
+        "justification": "Le diagnostic central du cas est une pause survenant lors de la réduction d’une arythmie atriale, rattachée à une dysfonction sinusale/maladie de l’oreillette."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "pause sinusale post-réductionnelle",
+      "nouveau_concept": {
+        "id_suggere": "PAUSE_SINUSALE_POST_REDUCTIONNELLE",
+        "concept_name": "Pause sinusale post-réductionnelle",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "PAUSE_POST_REDUCTIONNELLE",
+          "DYSFONCTION_SINUSALE"
+        ],
+        "requires": [
+          "PAUSE",
+          "ABSENCE_D_ONDE_P",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "synonymes": [
+          "pause sinusale post-réductionnelle",
+          "pauses sinusales survenant à l’arrêt du trouble du rythme atrial",
+          "sidération du nœud sinusal après réduction"
+        ],
+        "poids": 5,
+        "justification": "La réponse du QCM et le référentiel EDN précisent que la pause est sinusale, sans activité atriale identifiable, après arrêt du trouble du rythme atrial."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "maladie de l’oreillette",
+      "nouveau_concept": {
+        "id_suggere": "MALADIE_DE_L_OREILLETTE",
+        "concept_name": "Maladie de l’oreillette",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "requires": [
+          "DYSFONCTION_SINUSALE",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "synonymes": [
+          "maladie de l’oreillette",
+          "maladie rythmique de l’oreillette"
+        ],
+        "poids": 4,
+        "justification": "Le commentaire pédagogique nomme explicitement cette entité associant épisodes de fibrillation auriculaire et pauses post-réductionnelles."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome brady-tachy",
+      "nouveau_concept": {
+        "id_suggere": "SYNDROME_BRADY_TACHY",
+        "concept_name": "Syndrome brady-tachy",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "requires": [
+          "BRADYCARDIE",
+          "TACHYCARDIE_SUPRA_VENTRICULAIRE"
+        ],
+        "synonymes": [
+          "syndrome brady-tachy",
+          "syndrome brady tachy",
+          "syndrome bradycardie-tachycardie"
+        ],
+        "poids": 3,
+        "justification": "Cité dans le référentiel EDN comme un type de maladie rythmique de l’oreillette à distinguer des pauses post-réductionnelles."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "une tachycardie ventriculaire au début du tracé"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "statut": "absent",
+      "surface": "une tachycardie jonctionnelle au début du tracé"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV",
+      "statut": "absent",
+      "surface": "une pause sur BAV paroxystique"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le texte associe l’aspect de bloc de branche droit complet à des QRS larges ; la complétude du bloc nécessite un QRS ≥ 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "parents",
+      "cible": "ASPECT_DE_RETARD_DROIT",
+      "justification": "La formulation « aspect de bloc de branche droite complet » relève morphologiquement d’un aspect de retard droit, déjà représenté comme qualificateur de morphologie anormale du QRS."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "justification": "Dans le QCM, la FA conduite avec activité atriale rapide correspond à une tachycardie supra-ventriculaire au début du tracé."
+    },
+    {
+      "concept_id": "PAUSE",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Le cas explique que les pauses post-réductionnelles traduisent une dysfonction sinusale révélée à la réduction."
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "supports",
+      "cible": "PAUSE",
+      "justification": "La dysfonction sinusale se manifeste ici par une pause sinusale après réduction de l’arythmie atriale."
+    },
+    {
+      "concept_id": "PAUSE",
+      "relation": "excludes",
+      "cible": "BAV",
+      "justification": "Le QCM oppose la pause sinusale post-réductionnelle à une pause sur BAV paroxystique, non retenue dans ce cas."
+    }
+  ],
+  "synthese": "Le trou majeur est l’absence d’un concept dédié aux pauses post-réductionnelles, en particulier sinusales, pourtant diagnostic central du cas. Le lexique doit aussi mieux couvrir les formulations cardiologiques usuelles autour de la FA paroxystique, de l’activité atriale anarchique et du bloc de branche droit complet formulé au féminin (« branche droite »).",
+  "error": null
+}

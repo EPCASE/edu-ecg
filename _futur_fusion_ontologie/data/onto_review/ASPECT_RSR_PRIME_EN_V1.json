@@ -1,0 +1,20 @@
+{
+  "id": "ASPECT_RSR_PRIME_EN_V1",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ASPECT_RSR_PRIME",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "DERIVATION_V1",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "motif": "Le libellé combine une morphologie QRS utile avec une localisation en V1 ; en v1 on conserve le finding morphologique atomique et on ignore le territoire.",
+  "principe": "D1, T1, C1",
+  "territoire_ignore_v1": "V1"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "BAV_5_POUR_1",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Le BAV 5/1 est un BAV de haut grade qualifié par un mode de conduction AV 5 pour 1; par cohérence avec les qualifiers 2/1 à 4/1 existants, il faut composer plutôt que multiplier les BAV n/1.",
+  "decomposition": [
+    {
+      "id": "BAV_DE_HAUT_GRADE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "5_1",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

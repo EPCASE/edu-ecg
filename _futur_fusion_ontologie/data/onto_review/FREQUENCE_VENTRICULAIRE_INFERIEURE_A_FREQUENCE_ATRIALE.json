@@ -1,0 +1,20 @@
+{
+  "id": "FREQUENCE_VENTRICULAIRE_INFERIEURE_A_FREQUENCE_ATRIALE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C5",
+  "motif": "La formulation est comparative et phrastique; l'information utile est une dissociation/conduction AV anormale avec réponse ventriculaire lente, déjà composable avec des concepts existants.",
+  "decomposition": [
+    {
+      "id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "REPONSE_VENTRICULAIRE_LENTE",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

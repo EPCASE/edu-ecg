@@ -1,0 +1,434 @@
+{
+  "num": 49,
+  "titre": "fibrillation atriale et bloc de branche",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une tachycardie irrégulière"
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie irrégulière / très irrégulière"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "à QRS larges"
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS > 120 ms"
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS larges, monomorphes / caractère monomorphe des complexes QRS"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "Bloc de branche droite complet"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc de branche associé / FA avec bloc de branche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "FA avec bloc de branche",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_AVEC_BLOC_DE_BRANCHE",
+        "concept_name": "Fibrillation atriale avec bloc de branche",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "TACHYCARDIE_SUPRA_VENTRICULAIRE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "BLOC_DE_BRANCHE",
+          "QRS_LARGE",
+          "IRREGULIER"
+        ],
+        "synonymes": [
+          "FA avec bloc de branche",
+          "Fibrillation auriculaire avec bloc de branche",
+          "Fibrillation atriale à QRS larges par bloc de branche"
+        ],
+        "poids": 4,
+        "justification": "Diagnostic composite explicitement retenu dans le cas : FA associée à un bloc de branche responsable des QRS larges."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect rsR' en V1",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RSR_PRIME_EN_V1",
+        "concept_name": "Aspect rsR' en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "rsR' en V1",
+          "aspect rSR' en V1",
+          "aspect rsR prime en V1"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique ECG cité pour étayer le bloc de branche droit complet."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde S large en V6 et DI",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_LARGE_EN_DERIVATIONS_LATERALES",
+        "concept_name": "Onde S large en dérivations latérales",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde S large en V6 et DI",
+          "S large en DI et V6",
+          "onde S terminale large en dérivations latérales"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique cité pour le diagnostic de bloc de branche droit complet."
+      }
+    },
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une trémulation de la ligne de base"
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une activité atriale rapide"
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "activité atriale ... irrégulière"
+    },
+    {
+      "concept_id": "DESORGANISEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale ... anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "activité anarchique",
+        "activité atriale anarchique"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation atriale / fibrillation auriculaire / FA",
+      "synonymes_a_ajouter": [
+        "Fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "TORSADES_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "éliminer les diagnostics de torsade de pointes"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "éliminer les diagnostics de ... fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "CARDIOVERSION_ELECTRIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "choc électrique programmé / tachycardie réduite par choc électrique",
+      "synonymes_a_ajouter": [
+        "choc électrique programmé",
+        "choc électrique",
+        "réduction par choc électrique"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme sinusal"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "même aspect de bloc de branche droite complet / aspect des complexes QRS identique à celui observé en tachycardie",
+      "nouveau_concept": {
+        "id_suggere": "MEME_MORPHOLOGIE_QRS_EN_TACHYCARDIE_ET_RYTHME_SINUSAL",
+        "concept_name": "Même morphologie des QRS en tachycardie et en rythme sinusal",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS"
+        ],
+        "requires": [
+          "TACHYCARDIE",
+          "RYTHME_SINUSAL",
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect des QRS identique en tachycardie et en rythme sinusal",
+          "même aspect de bloc de branche après réduction",
+          "même morphologie QRS après cardioversion"
+        ],
+        "poids": 3,
+        "justification": "Le cas utilise la comparaison des QRS avant/après réduction comme élément ECG en faveur d'une TSV avec bloc de branche préexistant."
+      }
+    },
+    {
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie supraventriculaire",
+      "synonymes_a_ajouter": [
+        "tachycardie supraventriculaire"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "hypertrophie auriculaire gauche / « hypertrophie » auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "Hypertrophie auriculaire gauche",
+        "HAG auriculaire",
+        "\"hypertrophie\" auriculaire gauche"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PROLONGEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P de durée allongée (>120 ms)",
+      "synonymes_a_ajouter": [
+        "onde P de durée allongée",
+        "durée de l'onde P allongée",
+        "onde P allongée >120 ms"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde P ... bifide en DI, DII et aVL",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_BIFIDE",
+        "concept_name": "Onde P bifide",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "P bifide",
+          "onde P bifide en DI DII aVL",
+          "onde P bifide en dérivations latérales"
+        ],
+        "poids": 3,
+        "justification": "Morphologie de l'onde P explicitement citée comme argument d'hypertrophie auriculaire gauche."
+      }
+    },
+    {
+      "concept_id": "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activation auriculaire anormale et perturbée",
+      "synonymes_a_ajouter": [
+        "activation auriculaire anormale",
+        "activation auriculaire perturbée",
+        "activation auriculaire anormale et perturbée"
+      ]
+    },
+    {
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "épisodes d'arythmie atriale"
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "extrasystoles atriales précoces"
+    },
+    {
+      "concept_id": "PREMATURE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "précoces",
+      "synonymes_a_ajouter": [
+        "précoce",
+        "précoces",
+        "prématurée",
+        "prématurées"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "phénomène P/T",
+      "nouveau_concept": {
+        "id_suggere": "PHENOMENE_P_T",
+        "concept_name": "Phénomène P/T",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "EVENEMENTS_ECTOPIQUES"
+        ],
+        "requires": [
+          "EXTRASYSTOLE_ATRIALE",
+          "PREMATURE"
+        ],
+        "synonymes": [
+          "P/T",
+          "phénomène P sur T",
+          "extrasystole atriale sur onde T"
+        ],
+        "poids": 3,
+        "justification": "Mentionné comme mécanisme déclencheur d'arythmie atriale dans le commentaire pédagogique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "provenant des veines pulmonaires",
+      "nouveau_concept": {
+        "id_suggere": "VEINES_PULMONAIRES",
+        "concept_name": "Veines pulmonaires",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "origine veines pulmonaires",
+          "provenant des veines pulmonaires",
+          "foyer des veines pulmonaires"
+        ],
+        "poids": 2,
+        "justification": "Topographie d'origine des extrasystoles atriales précoces citée dans le texte."
+      }
+    },
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "séquelle d'infarctus"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hypertrophie ventriculaire gauche / HVG"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le texte définit le BBD complet par QRS > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "has_qualifiers",
+      "cible": "ASPECT_DE_RETARD_DROIT",
+      "justification": "Un BBD complet est un aspect de retard droit complet."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "requires",
+      "cible": "IRREGULIER",
+      "justification": "Dans le cas, l'irrégularité est un critère central de la FA."
+    },
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "La trémulation de la ligne de base est citée comme argument en faveur de la FA."
+    },
+    {
+      "concept_id": "DESORGANISEE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "L'activité atriale anarchique/désorganisée soutient le diagnostic de FA."
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "relation": "excludes",
+      "cible": "TORSADES_DE_POINTES",
+      "justification": "Le texte indique que le caractère monomorphe des QRS permet d'éliminer la torsade de pointes."
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le texte indique que le caractère monomorphe des QRS permet d'éliminer la fibrillation ventriculaire."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "relation": "requires",
+      "cible": "ONDE_P_PROLONGEE",
+      "justification": "Le cas lie l'HAG à une onde P de durée allongée >120 ms."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "relation": "has_qualifiers",
+      "cible": "PREMATURE",
+      "justification": "Le commentaire décrit des extrasystoles atriales précoces comme gâchettes."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "Dans la hiérarchie, la FA est déjà une TSV ; le diagnostic de TSV après réduction confirme l'origine supraventriculaire de la tachycardie."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour les diagnostics majeurs (FA, BBD complet, TSV, HAG), mais il manque des critères morphologiques fins du BBD complet et de l'HAG, ainsi qu'un libellé composite « FA avec bloc de branche ». Plusieurs formulations pédagogiques courantes nécessitent des synonymes : fibrillation auriculaire, hypertrophie auriculaire gauche, choc électrique programmé, tachycardie supraventriculaire.",
+  "error": null
+}

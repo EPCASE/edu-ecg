@@ -1,0 +1,8 @@
+{
+  "id": "AMPLITUDE_ONDE_P_INFERIEURE_SUPERIEURE_A_DI",
+  "verdict": "REJETER",
+  "classe": "description",
+  "motif": "Ce concept n'existe que comme comparaison d'amplitude entre dérivations/territoires, dimension topographique ignorée en v1, et n'ajoute pas un finding atomique distinct de l'onde P ample existante.",
+  "principe": "T1, C2",
+  "territoire_ignore_v1": "inférieur, DI, DII, DIII"
+}

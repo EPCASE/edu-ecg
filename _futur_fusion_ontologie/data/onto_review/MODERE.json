@@ -1,0 +1,18 @@
+{
+  "id": "MODERE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "C1",
+  "concept_retenu": {
+    "id": "MODERE",
+    "concept_name": "Modéré",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "modérée"
+    ]
+  },
+  "motif": "Modificateur transverse de degré/intensité, à créer comme qualifier réutilisable plutôt que concept monolithique."
+}

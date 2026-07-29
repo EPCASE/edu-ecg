@@ -1,0 +1,231 @@
+{
+  "num": 1,
+  "titre": "inversion des électrodes",
+  "famille": "technique",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INVERSION_D_ELECTRODES",
+      "statut": "present",
+      "surface": "inversion des électrodes des 2 bras",
+      "synonymes_a_ajouter": [
+        "inversion des électrodes des 2 bras",
+        "inversion de 2 électrodes frontales",
+        "inversion des électrodes des poignets",
+        "inversion poignet droit poignet gauche",
+        "inversion bras gauche bras droit",
+        "inversion électrodes bras droit bras gauche",
+        "inversion des électrodes périphériques"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INVERSION_D_ELECTRODES",
+      "statut": "present",
+      "surface": "tracé caractéristique d’inversion de 2 électrodes frontales"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "fréquence normale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "rythme paraissant sinusal",
+      "synonymes_a_ajouter": [
+        "rythme paraissant sinusal",
+        "rythme apparemment sinusal"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "chaque onde P suivie d’un complexe QRS",
+      "synonymes_a_ajouter": [
+        "chaque onde P suivie d’un complexe QRS",
+        "chaque onde P suivie d'un QRS",
+        "une onde P suivie d’un QRS"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "intervalle PR normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "complexes QRS fins"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "intervalle QT normal"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "la dérivation DI est inversée",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_DI_INVERSEE",
+        "concept_name": "Dérivation DI inversée",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "INVERSION_D_ELECTRODES"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DI inversée",
+          "dérivation I inversée",
+          "dérivation DI négative",
+          "aspect négatif en DI"
+        ],
+        "poids": 4,
+        "justification": "Le cas insiste sur le signe ECG spécifique de l’inversion bras droit/bras gauche : DI inversée."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde P, complexe QRS et onde T négatifs",
+      "nouveau_concept": {
+        "id_suggere": "P_QRS_T_NEGATIFS_EN_DI",
+        "concept_name": "Ondes P, QRS et T négatifs en DI",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "DERIVATION_DI_INVERSEE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "ondes P QRS T négatives en DI",
+          "P QRS T négatifs en DI",
+          "les ondes P les complexes QRS et les ondes T sont négatifs en DI"
+        ],
+        "poids": 5,
+        "justification": "Formulation centrale et répétée du cas ; aucun concept existant ne représente la négativité conjointe de P, QRS et T en DI."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "onde T négatifs"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "statut": "present",
+      "surface": "pseudo-aspect de déviation axiale droite"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "statut": "present",
+      "surface": "pseudo-aspect de déviation axiale droite",
+      "synonymes_a_ajouter": [
+        "pseudo-aspect de déviation axiale droite",
+        "pseudo déviation axiale droite"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "present",
+      "surface": "pseudo-aspect ... de trouble de la repolarisation latérale",
+      "synonymes_a_ajouter": [
+        "trouble de la repolarisation latérale",
+        "pseudo-aspect de trouble de la repolarisation latérale",
+        "pseudo trouble de la repolarisation latérale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "LATERAL",
+      "statut": "present",
+      "surface": "latérale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "progression normale de l'onde R dans les dérivations précordiales",
+      "nouveau_concept": {
+        "id_suggere": "PROGRESSION_NORMALE_DE_L_ONDE_R",
+        "concept_name": "Progression normale de l'onde R",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS_NORMALE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "progression normale de l'onde R",
+          "progression normale de R en précordiales",
+          "progression normale de l'onde R dans les dérivations précordiales"
+        ],
+        "poids": 4,
+        "justification": "Signe explicitement utilisé pour soutenir l’inversion d’électrodes des membres plutôt qu’une dextrocardie."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECG_NORMAL",
+      "statut": "present",
+      "surface": "tracé normal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ECG_NORMAL",
+      "statut": "present",
+      "surface": "aspect qui peut paraitre normal",
+      "synonymes_a_ajouter": [
+        "aspect qui peut paraitre normal",
+        "tracé paraissant normal",
+        "aspect apparemment normal"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "INVERSION_D_ELECTRODES",
+      "relation": "supports",
+      "cible": "DERIVATION_DI_INVERSEE",
+      "justification": "Dans ce cas, DI inversée est le signe diagnostique majeur d’une inversion d’électrodes frontales."
+    },
+    {
+      "concept_id": "INVERSION_D_ELECTRODES",
+      "relation": "supports",
+      "cible": "P_QRS_T_NEGATIFS_EN_DI",
+      "justification": "Le texte répète que P, QRS et T négatifs en DI caractérisent l’inversion des électrodes des deux bras."
+    },
+    {
+      "concept_id": "INVERSION_D_ELECTRODES",
+      "relation": "supports",
+      "cible": "PROGRESSION_NORMALE_DE_L_ONDE_R",
+      "justification": "La progression normale de R en précordiales oriente vers l’inversion des électrodes périphériques plutôt que vers une anomalie anatomique globale."
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "relation": "supports",
+      "cible": "INVERSION_D_ELECTRODES",
+      "justification": "Le pseudo-aspect de déviation axiale droite est décrit comme conséquence trompeuse de l’inversion des électrodes des bras."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "has_qualifiers",
+      "cible": "LATERAL",
+      "justification": "Le cas mentionne explicitement un trouble de la repolarisation latérale."
+    }
+  ],
+  "synthese": "L’ontologie couvre les éléments ECG généraux du tracé et le diagnostic global d’inversion d’électrodes, mais pas les signes lexicaux déterminants de ce cas : DI inversée et P-QRS-T négatifs en DI. Il faut aussi enrichir les synonymes d’inversion des électrodes pour les formulations bras/poignets/électrodes frontales utilisées par Pierre.",
+  "error": null
+}

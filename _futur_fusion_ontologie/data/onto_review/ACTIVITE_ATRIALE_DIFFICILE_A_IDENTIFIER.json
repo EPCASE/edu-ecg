@@ -1,0 +1,19 @@
+{
+  "id": "ACTIVITE_ATRIALE_DIFFICILE_A_IDENTIFIER",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, C6, D1",
+  "motif": "Formulation phrastique d'incertitude/visibilité portant sur l'activité atriale ou l'onde P, à représenter par l'atome onde P/activité atriale et un qualifier réutilisable d'incertitude plutôt qu'un finding dédié.",
+  "decomposition": [
+    {
+      "id": "ONDE_P",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "DOUTEUX",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

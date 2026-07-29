@@ -1,0 +1,35 @@
+{
+  "id": "PAUSE_SINUSALE_POST_REDUCTIONNELLE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1",
+  "motif": "Le concept fusionne le finding pause, le mécanisme/contexte sinusal et le contexte post-réductionnel ; ces dimensions doivent rester composées via des atomes existants ou réutilisables.",
+  "decomposition": [
+    {
+      "id": "PAUSE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ABSENCE_D_ONDE_P",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "DYSFONCTION_SINUSALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "POST_REDUCTIONNEL",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "requires",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

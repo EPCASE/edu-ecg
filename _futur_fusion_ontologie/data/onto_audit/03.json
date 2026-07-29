@@ -1,0 +1,450 @@
+{
+  "num": 3,
+  "titre": "ECG normal",
+  "famille": "normal",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "ECG_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "électrocardiogramme strictement normal / ECG strictement normal",
+      "synonymes_a_ajouter": [
+        "ECG strictement normal",
+        "électrocardiogramme strictement normal"
+      ]
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "La fréquence cardiaque est de 70 bpm environ / fréquence cardiaque normale de repos de l’adulte est entre 50 et 100 bpm",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque de 70 bpm",
+        "fréquence cardiaque entre 50 et 100 bpm",
+        "fréquence cardiaque normale de repos"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rythme sinusal normal",
+      "synonymes_a_ajouter": [
+        "rythme sinusal normal"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "L’activité atriale provient du nœud sinusal (ondes P positives en DI, DII, V3-V6 et négatives en aVR)",
+      "synonymes_a_ajouter": [
+        "activité atriale provenant du nœud sinusal",
+        "ondes P positives en DI, DII, V3-V6 et négatives en aVR",
+        "onde P positive en D2, D3, aVF"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "Chaque complexe QRS est précédé d’une onde P / une onde P avant chaque QRS"
+    },
+    {
+      "concept_id": "PRESENCE_DE_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "Chaque onde P est suivie d’un complexe QRS / un QRS après chaque onde P"
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Chaque onde P est suivie d’un complexe QRS ; chaque complexe QRS est précédé d’une onde P",
+      "synonymes_a_ajouter": [
+        "une onde P devant chaque QRS et un QRS derrière chaque onde P",
+        "chaque onde P est suivie d’un QRS",
+        "chaque QRS est précédé d’une onde P"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "Il n’y a pas de signes d’hypertrophie auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire gauche"
+      ]
+    },
+    {
+      "concept_id": "DUREE_ONDE_P__120_MS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durée de l’onde P < 110 ms",
+      "synonymes_a_ajouter": [
+        "durée de l’onde P < 110 ms",
+        "onde P < 110 ms",
+        "P < 110 ms"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "ni de signes d’hypertrophie auriculaire droite",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire droite"
+      ]
+    },
+    {
+      "concept_id": "VOLTAGE_DE_L_ONDE_P__2_5_MM",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P < 2.5 mm en DII",
+      "synonymes_a_ajouter": [
+        "onde P < 2.5 mm en DII",
+        "amplitude de l’onde P < 2.5 mm en DII"
+      ]
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "La durée de l’intervalle PR est fixe et normale (entre 120 et 200 ms) / PR normal 170 ms",
+      "synonymes_a_ajouter": [
+        "intervalle PR normal",
+        "durée de l’intervalle PR normale",
+        "PR normal 170 ms"
+      ]
+    },
+    {
+      "concept_id": "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR est fixe",
+      "synonymes_a_ajouter": [
+        "PR fixe",
+        "intervalle PR fixe"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Les QRS sont fins (durée < 100 ms) / QRS fins 80 ms",
+      "synonymes_a_ajouter": [
+        "QRS < 100 ms",
+        "durée du QRS < 100 ms",
+        "QRS fins 80 ms"
+      ]
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "axe normal (complexes QRS positifs en DI et aVF donc axe entre 0 et 90°)",
+      "synonymes_a_ajouter": [
+        "axe entre 0 et 90°",
+        "QRS positifs en DI et aVF",
+        "complexes QRS positifs en DI et aVF"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "Il n’y a pas de signes d’hypertrophie ventriculaire gauche / indice de Sokolow < 35 mm",
+      "synonymes_a_ajouter": [
+        "hypertrophie ventriculaire gauche",
+        "indice de Sokolow < 35 mm"
+      ]
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "ni de signes de microvoltage",
+      "synonymes_a_ajouter": [
+        "signes de microvoltage"
+      ]
+    },
+    {
+      "concept_id": "VOLTAGE_DU_QRS_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "au moins une dérivation périphérique avec des complexes QRS dépassant 5 mm ... au moins une dérivation précordiale avec des complexes QRS dépassant 10 mm",
+      "synonymes_a_ajouter": [
+        "complexes QRS dépassant 5 mm en périphérique",
+        "complexes QRS dépassant 10 mm en précordial",
+        "QRS > 5 mm en dérivation périphérique",
+        "QRS > 10 mm en dérivation précordiale"
+      ]
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Il n’y a pas d’onde Q profonde compatible avec une onde Q de nécrose ; onde q physiologique en V5-V6",
+      "synonymes_a_ajouter": [
+        "pas d’onde Q profonde",
+        "absence d’onde Q de nécrose",
+        "onde q physiologique en V5-V6"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "onde Q profonde compatible avec une onde Q de nécrose"
+    },
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "ondes Q en faveur d’une séquelle d’infarctus / séquelle d’infarctus antéro-septal",
+      "synonymes_a_ajouter": [
+        "séquelle d’infarctus",
+        "séquelle d’infarctus antéro-septal"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "Il n’y a pas de sus-décalage significatif",
+      "synonymes_a_ajouter": [
+        "sus-décalage significatif"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "Il n’y a pas de sous-décalage significatif",
+      "synonymes_a_ajouter": [
+        "sous-décalage significatif"
+      ]
+    },
+    {
+      "concept_id": "ST_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "segment ST normal"
+    },
+    {
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’absence de troubles de la repolarisation (segment ST, ondes T) / Repolarisation normale",
+      "synonymes_a_ajouter": [
+        "absence de troubles de la repolarisation",
+        "absence d’anomalie de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NORMALES",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "La polarité des ondes T est normale ... L’amplitude des ondes T est normale",
+      "synonymes_a_ajouter": [
+        "polarité des ondes T normale",
+        "amplitude des ondes T normale",
+        "ondes T positives dans toutes les dérivations sauf en aVR et en D3 isolément"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T négatives dans les 2 dérivations attendues, aVR et V1",
+      "synonymes_a_ajouter": [
+        "ondes T négatives en aVR et V1",
+        "ondes T négatives dans les dérivations attendues"
+      ]
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "La mesure de l’intervalle QT est normale (mesuré à 400 ms, corrigé à 420 ms) / QT 442 ms avec QTc 452 ms",
+      "synonymes_a_ajouter": [
+        "intervalle QT normal",
+        "QT mesuré normal",
+        "QT corrigé normal",
+        "QTc 420 ms",
+        "QTc 452 ms"
+      ]
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’absence de troubles de la conduction (espace PR, largeur des QRS, chaque onde P est-elle suivie d'un QRS ?)",
+      "synonymes_a_ajouter": [
+        "absence de troubles de la conduction",
+        "absence de trouble de conduction"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme sinusal normal / Rythme sinusal régulier"
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de troubles du rythme (fréquence cardiaque, extrasystoles, arythmie supraventriculaire ou ventriculaire…)"
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de troubles du rythme (fréquence cardiaque, extrasystoles, arythmie supraventriculaire ou ventriculaire…)"
+    },
+    {
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence de troubles du rythme ... arythmie supraventriculaire",
+      "synonymes_a_ajouter": [
+        "arythmie supraventriculaire"
+      ]
+    },
+    {
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de troubles du rythme ... arythmie ventriculaire"
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "bradycardie sinusale du sportif",
+      "synonymes_a_ajouter": [
+        "bradycardie sinusale du sportif"
+      ]
+    },
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "arythmie sinusale respiratoire"
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "un hémibloc antérieur gauche",
+      "synonymes_a_ajouter": [
+        "hémibloc antérieur gauche"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une hypertrophie ventriculaire droite",
+      "synonymes_a_ajouter": [
+        "hypertrophie ventriculaire droite"
+      ]
+    },
+    {
+      "concept_id": "ONDE_DELTA",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "présence d’une onde delta"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "FREQUENCE_NORMALE",
+      "justification": "Le cas définit la normalité par fréquence normale, rythme sinusal normal, conduction, dépolarisation et repolarisation normales."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le tracé strictement normal inclut un rythme sinusal normal."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "PR_NORMAL",
+      "justification": "La normalité impose un PR entre 120 et 200 ms."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "La normalité impose des QRS fins."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "AXE_NORMAL_DU_QRS",
+      "justification": "La normalité impose un axe QRS normal."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "QT_NORMAL",
+      "justification": "La normalité impose un QT/QTc normal."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "ST_NORMAL",
+      "justification": "La normalité impose l'absence de sus- ou sous-décalage ST significatif."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "ONDE_T_NORMALES",
+      "justification": "La normalité impose polarité et amplitude normales des ondes T."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "requires",
+      "cible": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "justification": "Le référentiel distingue l'origine sinusale par la morphologie/axe des ondes P."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Le rythme sinusal normal est défini par une onde P devant chaque QRS et un QRS derrière chaque onde P."
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "relation": "supports",
+      "cible": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "justification": "Le texte rattache l'absence de trouble de conduction au PR normal et aux QRS fins."
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "relation": "supports",
+      "cible": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "justification": "Le texte rattache l'absence de trouble de conduction à la largeur normale des QRS."
+    },
+    {
+      "concept_id": "ST_NORMAL",
+      "relation": "supports",
+      "cible": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "justification": "Le texte définit la repolarisation normale par ST normal et ondes T normales."
+    },
+    {
+      "concept_id": "ONDE_T_NORMALES",
+      "relation": "supports",
+      "cible": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "justification": "Le texte définit la repolarisation normale par ST normal et ondes T normales."
+    }
+  ],
+  "synthese": "Le catalogue couvre globalement le cas d'ECG normal, mais il manque surtout des synonymes de normalité formulés comme dans le cas (rythme sinusal normal, critères chiffrés PR/QRS/QT, absence de sus/sous-décalage, hypertrophie auriculaire). La hiérarchie gagnerait à expliciter ECG_NORMAL comme un pattern composite requires fréquence normale, rythme sinusal avec conduction 1/1, conduction/dépolarisation/repolarisation normales.",
+  "error": null
+}

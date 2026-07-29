@@ -1,0 +1,20 @@
+{
+  "id": "ATTEINTE_TRITRONCULAIRE_SEVERE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "C1, C2, D1",
+  "territoire_ignore_v1": "",
+  "motif": "Le concept combine le diagnostic d'atteinte tritronculaire avec un degré de sévérité ; 'sévère' doit être un qualifier transverse plutôt qu'un concept monolithique.",
+  "decomposition": [
+    {
+      "id": "ATTEINTE_TRITRONCULAIRE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "SEVERE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

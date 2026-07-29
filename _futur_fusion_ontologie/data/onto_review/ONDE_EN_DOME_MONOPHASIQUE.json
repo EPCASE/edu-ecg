@@ -1,0 +1,24 @@
+{
+  "id": "ONDE_EN_DOME_MONOPHASIQUE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C2",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "EN_DOME",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "MONOPHASIQUE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "motif": "Expression morphologique composée d'un sus-décalage ST existant avec des qualificatifs de forme ; il faut composer plutôt que créer un concept monolithique."
+}

@@ -1,0 +1,301 @@
+{
+  "num": 46,
+  "titre": "tachycardie jonctionnelle antidromique sur voie accessoire",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie régulière à QRS larges",
+      "nouveau_concept": {
+        "id_suggere": "TACHYCARDIE_A_QRS_LARGES",
+        "concept_name": "Tachycardie à QRS larges",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "TACHYCARDIE"
+        ],
+        "requires": [
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "tachycardie à QRS large",
+          "tachycardie à QRS larges",
+          "tachycardie régulière à QRS larges",
+          "tachycardie à complexes QRS larges"
+        ],
+        "poids": 4,
+        "justification": "Descripteur central du premier tracé, utilisé pour le diagnostic différentiel TV versus tachycardie antidromique."
+      }
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie"
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "régulière"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "complexes QRS larges",
+        "complexes QRS élargis"
+      ]
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "monomorphes"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale difficile à individualiser (possibilité ... oreillette dans la branche ascendante de l'onde T)",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_MASQUEE_DANS_ONDE_T",
+        "concept_name": "Activité atriale masquée dans l'onde T",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P"
+        ],
+        "requires": [
+          "ONDE_T"
+        ],
+        "synonymes": [
+          "activité atriale difficile à individualiser",
+          "activité atriale masquée dans l'onde T",
+          "onde P dans l'onde T",
+          "oreillette dans la branche ascendante de l'onde T"
+        ],
+        "poids": 3,
+        "justification": "Le cas décrit une activité atriale non individualisable, possiblement superposée à l'onde T."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "rapport VA 1/1",
+      "nouveau_concept": {
+        "id_suggere": "RAPPORT_VA_1_1",
+        "concept_name": "Rapport ventriculo-atrial 1/1",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [],
+        "synonymes": [
+          "rapport VA 1/1",
+          "rapport ventriculo-atrial 1/1",
+          "conduction VA 1/1",
+          "relation VA 1 pour 1"
+        ],
+        "poids": 3,
+        "justification": "Le catalogue contient 1/1 pour la conduction AV, mais pas pour la relation ventriculo-atriale rétrograde explicitement citée."
+      }
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "FA / fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "torsade de pointes"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "concept_id": "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle antidromique sur voie accessoire / tachycardie antidromique sur voie accessoire",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle antidromique sur voie accessoire",
+        "tachycardie antidromique sur voie accessoire",
+        "tachycardie antidromique utilisant une voie accessoire",
+        "tachycardie antidromique"
+      ]
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "voie accessoire avec ... aspect majeur de pré-excitation / pré-excitation évidente / syndrome de Wolff–Parkinson–White",
+      "synonymes_a_ajouter": [
+        "aspect majeur de pré-excitation",
+        "pré-excitation évidente",
+        "syndrome de Wolff-Parkinson-White",
+        "syndrome de Wolff–Parkinson–White"
+      ]
+    },
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardies orthodromiques / épisodes de tachycardie orthodromique (QRS fins)",
+      "synonymes_a_ajouter": [
+        "tachycardie orthodromique",
+        "tachycardie orthodromique sur voie accessoire",
+        "tachycardie orthodromique utilisant une voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "concept_id": "PR_COURT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR court < 120 ms",
+      "synonymes_a_ajouter": [
+        "intervalle PR court",
+        "intervalle PR court < 120 ms",
+        "PR court < 120 ms"
+      ]
+    },
+    {
+      "concept_id": "ONDE_DELTA",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde delta au début du complexe QRS",
+      "synonymes_a_ajouter": [
+        "onde delta au début du complexe QRS",
+        "onde delta initiale"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation en rapport avec la pré-excitation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation",
+        "troubles de la repolarisation en rapport avec la pré-excitation"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "reprise d'un rythme sinusal"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "La tachycardie s’arrête brutalement au moment de la manœuvre vagale",
+      "nouveau_concept": {
+        "id_suggere": "ARRET_DE_TACHYCARDIE_PAR_MANOEUVRE_VAGALE",
+        "concept_name": "Arrêt de tachycardie par manœuvre vagale",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "TACHYCARDIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "arrêt de la tachycardie par manœuvre vagale",
+          "tachycardie arrêtée par massage sinocarotidien",
+          "arrêt brutal au moment de la manœuvre vagale"
+        ],
+        "poids": 2,
+        "justification": "Le second tracé documente l'arrêt brutal de la tachycardie lors du massage sinocarotidien, information ECG/diagnostique non représentée."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "Pierre indique que le caractère régulier de la tachycardie élimine la FA."
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "relation": "excludes",
+      "cible": "TORSADE_DE_POINTES",
+      "justification": "Pierre indique que le caractère monomorphe des QRS élimine la torsade de pointes."
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Pierre indique que le caractère monomorphe des QRS élimine la fibrillation ventriculaire."
+    },
+    {
+      "concept_id": "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "requires",
+      "cible": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "justification": "La tachycardie antidromique décrite utilise une voie/faisceau accessoire avec conduction antérograde."
+    },
+    {
+      "concept_id": "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "has_qualifiers",
+      "cible": "QRS_LARGE",
+      "justification": "Le cas insiste sur l'aspect de tachycardie à QRS larges lié à l'activation ventriculaire via la voie accessoire."
+    },
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "has_qualifiers",
+      "cible": "QRS_FINS",
+      "justification": "Dans le cas, les épisodes orthodromiques sont décrits avec QRS fins."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "requires",
+      "cible": "PR_COURT",
+      "justification": "Le tracé en rythme sinusal montre une pré-excitation évidente avec PR court < 120 ms."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "requires",
+      "cible": "ONDE_DELTA",
+      "justification": "Pierre décrit l'onde delta comme signe caractéristique de la pré-excitation."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "Les QRS élargis sont rapportés à la pré-excitation dans le second tracé."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "justification": "Le texte précise que les troubles de repolarisation sont en rapport avec la pré-excitation."
+    }
+  ],
+  "synthese": "Le catalogue couvre les diagnostics principaux (TV, tachycardie antidromique/orthodromique sur voie accessoire, pré-excitation), mais manque des synonymes cliniques usuels et deux descripteurs importants du raisonnement : tachycardie à QRS larges et rapport VA 1/1. Les relations diagnostiques d'exclusion et les liens pré-excitation–PR court–onde delta–QRS larges devraient être explicitées avant les règles d'inférence.",
+  "error": null
+}

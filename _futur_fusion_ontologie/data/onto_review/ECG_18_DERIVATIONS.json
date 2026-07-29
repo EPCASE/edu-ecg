@@ -1,0 +1,7 @@
+{
+  "id": "ECG_18_DERIVATIONS",
+  "verdict": "REJETER",
+  "classe": "description",
+  "principe": "C5",
+  "motif": "Modalité/protocole d'enregistrement et non finding ECG pathologique ou descriptif atomique utile pour l'ontologie de scoring v1."
+}

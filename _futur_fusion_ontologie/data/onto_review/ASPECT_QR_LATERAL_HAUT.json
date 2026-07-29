@@ -1,0 +1,15 @@
+{
+  "id": "ASPECT_QR_LATERAL_HAUT",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C3",
+  "motif": "Le libellé combine une morphologie QRS avec des dérivations/territoire ; en v1 la localisation DI-aVL/latéral haut est ignorée et l'atome descriptif existant le plus proche est la présence d'onde Q pathologique, sans créer un concept qR localisé.",
+  "territoire_ignore_v1": "DI, aVL / latéral haut",
+  "decomposition": [
+    {
+      "id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

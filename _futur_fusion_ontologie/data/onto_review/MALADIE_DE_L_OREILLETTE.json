@@ -1,0 +1,25 @@
+{
+  "id": "MALADIE_DE_L_OREILLETTE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Le libellé est vague et composite, couvrant une association dysfonction sinusale/arythmie atriale déjà représentable sans créer un concept supplémentaire.",
+  "decomposition": [
+    {
+      "id": "DYSFONCTION_SINUSALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ARYTHMIE_ATRIALE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "requires",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,205 @@
+{
+  "num": 75,
+  "titre": "amylose",
+  "famille": "infiltratif",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme sinusal"
+    },
+    {
+      "concept_id": "VOLTAGE_DE_L_ONDE_P__2_5_MM",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes P peu voltées",
+      "synonymes_a_ajouter": [
+        "ondes P peu voltées",
+        "onde P peu voltée",
+        "ondes P de faible amplitude"
+      ]
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "espace PR normal",
+      "synonymes_a_ajouter": [
+        "espace PR normal"
+      ]
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS nettement microvoltés dans les dérivations périphériques (< 5mm dans toutes les dérivations périphériques)",
+      "synonymes_a_ajouter": [
+        "QRS nettement microvoltés",
+        "QRS microvoltés",
+        "microvoltage des complexes QRS",
+        "bas voltages",
+        "bas voltage des QRS"
+      ]
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "microvoltage des complexes QRS dans les dérivations frontales",
+      "synonymes_a_ajouter": [
+        "microvoltage des complexes QRS dans les dérivations frontales",
+        "microvoltage dans les dérivations frontales",
+        "bas voltages dans les dérivations frontales"
+      ]
+    },
+    {
+      "concept_id": "VOLTAGE_DU_QRS_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "voltage un peu plus important dans les dérivations précordiales avec un complexe QRS > 10 mm en V3 et V4",
+      "synonymes_a_ajouter": [
+        "voltage QRS précordial conservé",
+        "voltage plus important dans les dérivations précordiales",
+        "QRS > 10 mm en précordial"
+      ]
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "microvoltage des complexes QRS dans les dérivations précordiales"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect de pseudo-onde q de nécrose en V1-V2",
+      "synonymes_a_ajouter": [
+        "pseudo-onde q de nécrose",
+        "ondes q de pseudo-nécrose",
+        "pseudo-séquelle d’infarctus",
+        "aspect de pseudo-séquelle d’infarctus"
+      ]
+    },
+    {
+      "concept_id": "RABOTAGE_DE_L_ONDE_R",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rabotage des ondes R",
+      "synonymes_a_ajouter": [
+        "rabotage des ondes R",
+        "rabotage de R",
+        "mauvaise progression de l’onde R"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation"
+    },
+    {
+      "concept_id": "ONDE_T_APLATIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T aplaties",
+      "synonymes_a_ajouter": [
+        "ondes T aplaties"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T négatives",
+      "synonymes_a_ajouter": [
+        "ondes T négatives"
+      ]
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "en inféro-latéral",
+      "synonymes_a_ajouter": [
+        "inféro-latéral",
+        "territoire inféro-latéral"
+      ]
+    },
+    {
+      "concept_id": "LATERAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation latéraux",
+      "synonymes_a_ajouter": [
+        "latéraux",
+        "territoire latéral"
+      ]
+    },
+    {
+      "concept_id": "AMYLOSE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "atteinte cardiaque de l’amylose",
+      "synonymes_a_ajouter": [
+        "atteinte cardiaque de l’amylose",
+        "amylose AL avec atteinte cardiaque",
+        "amylose avec atteinte cardiaque"
+      ]
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "BAV du premier degré"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "AMYLOSE",
+      "relation": "supports",
+      "cible": "MICROVOLTAGE",
+      "justification": "Le commentaire pédagogique indique que le microvoltage des QRS est une anomalie fréquente en cas d’atteinte cardiaque amyloïde."
+    },
+    {
+      "concept_id": "AMYLOSE",
+      "relation": "supports",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Le texte décrit un aspect de pseudo-séquelle d’infarctus avec ondes Q comme évocateur d’amylose cardiaque."
+    },
+    {
+      "concept_id": "AMYLOSE",
+      "relation": "supports",
+      "cible": "RABOTAGE_DE_L_ONDE_R",
+      "justification": "Le commentaire associe l’amylose à un rabotage des ondes R dans les dérivations précordiales."
+    },
+    {
+      "concept_id": "AMYLOSE",
+      "relation": "supports",
+      "cible": "TROUBLE_DE_REPOLARISATION",
+      "justification": "Le texte précise qu’il est fréquent d’observer des troubles de la repolarisation dans l’amylose cardiaque."
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "relation": "has_qualifiers",
+      "cible": "VOLTAGE_DU_QRS",
+      "justification": "Le cas définit le microvoltage par l’amplitude du QRS dans les dérivations périphériques/précordiales."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "requires",
+      "cible": "ANOMALIE_DES_ONDES_T",
+      "justification": "Dans ce cas, le trouble de repolarisation est porté par des ondes T aplaties ou négatives."
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "PR_ALLONGE",
+      "justification": "Le QCM oppose PR normal à BAV du premier degré, ce qui implique qu’un BAV I requiert un PR allongé."
+    }
+  ],
+  "synthese": "Le cas amylose est globalement couvert par les concepts existants, mais plusieurs formulations pédagogiques importantes manquent comme synonymes (ondes P peu voltées, QRS microvoltés/frontaux, pseudo-onde q de nécrose). Le principal trou hiérarchique/relationnel concerne les liens de support entre amylose cardiaque, microvoltage, pseudo-séquelle d’infarctus/rabotage de R et troubles de repolarisation.",
+  "error": null
+}

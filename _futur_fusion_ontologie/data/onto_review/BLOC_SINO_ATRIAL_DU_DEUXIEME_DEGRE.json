@@ -1,0 +1,30 @@
+{
+  "id": "BLOC_SINO_ATRIAL_DU_DEUXIEME_DEGRE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Le BSA du deuxième degré est un sous-pattern diagnostique standard et réutilisable du bloc sino-atrial, caractérisé par des pauses/interruptions intermittentes de conduction sino-atriale.",
+  "territoire_ignore_v1": "",
+  "concept_retenu": {
+    "id": "BLOC_SINO_ATRIAL_DU_DEUXIEME_DEGRE",
+    "concept_name": "Bloc sino-atrial du deuxième degré",
+    "type": "pattern",
+    "parents": [
+      "BLOC_SINO_ATRIAL"
+    ],
+    "requires": [
+      "RYTHME_SINUSAL",
+      "PAUSE"
+    ],
+    "synonymes": [
+      "BSA 2",
+      "BSA du 2e degré",
+      "BSA du second degré",
+      "bloc sino-auriculaire du deuxième degré",
+      "bloc sino-auriculaire du second degré",
+      "bloc sinoatrial du deuxième degré",
+      "bloc sinoatrial du second degré",
+      "blocage intermittent de la conduction sino-atriale"
+    ]
+  }
+}

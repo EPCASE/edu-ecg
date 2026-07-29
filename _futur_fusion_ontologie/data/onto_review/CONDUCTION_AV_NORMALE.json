@@ -1,0 +1,20 @@
+{
+  "id": "CONDUCTION_AV_NORMALE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "1_1",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "PR_NORMAL",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "motif": "Énoncé composite d'une normalité de conduction AV déjà représentable par le mode 1/1 et le PR normal, sans créer un pattern monolithique supplémentaire.",
+  "principe": "C1, C3",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,19 @@
+{
+  "id": "DIASTOLES_LONGUES",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, C3",
+  "motif": "« Diastoles longues » décrit des intervalles prolongés entre QRS et se ramène à la notion existante de pause, éventuellement qualifiée de longue/lente selon le contexte, sans créer un finding dédié.",
+  "decomposition": [
+    {
+      "id": "PAUSE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "LENT",
+      "role": "qualifier",
+      "existe": true
+    }
+  ]
+}

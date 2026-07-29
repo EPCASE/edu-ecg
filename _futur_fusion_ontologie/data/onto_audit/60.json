@@ -1,0 +1,309 @@
+{
+  "num": 60,
+  "titre": "syndrome coronarien aigu inférieur avec extension au ventricule droit",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une dysfonction sinusale"
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "absence d’ondes P visualisables",
+      "synonymes_a_ajouter": [
+        "Absence d’ondes P visualisables",
+        "Ondes P non visualisables"
+      ]
+    },
+    {
+      "concept_id": "ECHAPPEMENT",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "échappement"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "QRS modérément augmentés (115 ms)",
+      "nouveau_concept": {
+        "id_suggere": "QRS_MODEREMENT_ELARGIS",
+        "concept_name": "QRS modérément élargis",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "DUREE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "QRS modérément augmentés",
+          "QRS à 115 ms",
+          "QRS discrètement élargis"
+        ],
+        "poids": 2,
+        "justification": "Le texte décrit une durée QRS augmentée à 115 ms, non couverte par QRS_FINS (<120 ms) ni QRS__120_MS (>120 ms)."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "probable conduction atriale rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "CONDUCTION_ATRIALE_RETROGRADE",
+        "concept_name": "Conduction atriale rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [
+          "ONDE_P"
+        ],
+        "synonymes": [
+          "conduction auriculaire rétrograde",
+          "activité atriale rétrograde",
+          "activation atriale rétrograde"
+        ],
+        "poids": 3,
+        "justification": "Aucun concept existant ne représente la conduction/activation atriale rétrograde décrite dans le cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale dans la partie initiale de l'onde T, négative dans les dérivations inférieures",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_RETROGRADE",
+        "concept_name": "Onde P rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P"
+        ],
+        "synonymes": [
+          "activité atriale rétrograde dans l’onde T",
+          "onde P négative en inférieur",
+          "activité atriale négative dans les dérivations inférieures"
+        ],
+        "poids": 3,
+        "justification": "Le signe morphologique supportant la conduction atriale rétrograde n'est pas représenté par les concepts d'onde P existants."
+      }
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde q dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "onde q dans les dérivations inférieures",
+        "petite onde q inférieure"
+      ]
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "dérivations inférieures"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage (onde de Pardee) du segment ST",
+      "synonymes_a_ajouter": [
+        "onde de Pardee",
+        "sus-décalage avec onde de Pardee"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sous-décalage en miroir",
+      "synonymes_a_ajouter": [
+        "sous-décalage en miroir",
+        "sous-décalage ST en miroir"
+      ]
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "en miroir en DI et aVL"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "SCA ST+ inférieur en phase aiguë",
+      "synonymes_a_ajouter": [
+        "SCA ST+ inférieur",
+        "SCA ST+ inférieur en phase aiguë",
+        "infarctus inférieur avec sus-décalage du segment ST"
+      ]
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "infarctus inférieur"
+    },
+    {
+      "concept_id": "VENTRICULE_DROIT",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ventricule droit"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "extension au ventricule droit",
+      "nouveau_concept": {
+        "id_suggere": "EXTENSION_AU_VENTRICULE_DROIT_D_UN_IDM_INFERIEUR",
+        "concept_name": "Extension au ventricule droit d’un infarctus inférieur",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+        ],
+        "requires": [
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+          "INFERIEUR",
+          "VENTRICULE_DROIT",
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "SCA ST+ avec extension au ventricule droit",
+          "infarctus inférieur étendu au ventricule droit",
+          "infarctus biventriculaire inférieur et ventricule droit",
+          "infarctus du ventricule droit associé à un infarctus inférieur"
+        ],
+        "poids": 5,
+        "justification": "Le diagnostic central du cas est un SCA ST+ inférieur avec extension au ventricule droit, non représenté par un concept composite existant."
+      }
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage significatif dans les dérivations droites (V3r, V4r)",
+      "synonymes_a_ajouter": [
+        "sus-décalage significatif dans les dérivations droites",
+        "sus-décalage > 1 mm dans les dérivations précordiales droites",
+        "sus-décalage de ST en V3R V4R"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations droites (V3r, V4r)",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_PRECORDIALES_DROITES",
+        "concept_name": "Dérivations précordiales droites",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "VENTRICULE_DROIT"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations droites",
+          "V3R",
+          "V4R",
+          "V3r",
+          "V4r",
+          "précordiales droites"
+        ],
+        "poids": 3,
+        "justification": "La topographie ECG V3R-V4R nécessaire au diagnostic d’extension VD n’existe pas dans le catalogue."
+      }
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes q profondes dans ces dérivations",
+      "synonymes_a_ajouter": [
+        "ondes q profondes",
+        "ondes q profondes dans les dérivations droites"
+      ]
+    },
+    {
+      "concept_id": "STIMULATION_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "entraînement ventriculaire électrosystolique",
+      "synonymes_a_ajouter": [
+        "entraînement ventriculaire électrosystolique",
+        "entraînement électrosystolique ventriculaire"
+      ]
+    },
+    {
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "trouble de conduction"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le cas définit le SCA ST+ par le sus-décalage du segment ST/onde de Pardee."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le diagnostic de référence est explicitement topographié inférieur."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le sus-décalage ST en territoire inférieur supporte le diagnostic de SCA ST+."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "MIROIR",
+      "justification": "Le sous-décalage est décrit comme un miroir du sus-décalage inférieur."
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "requires",
+      "cible": "ABSENCE_D_ONDE_P",
+      "justification": "Dans ce cas, la dysfonction sinusale est inférée de l’absence d’ondes P visualisables."
+    },
+    {
+      "concept_id": "ECHAPPEMENT",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Le rythme d’échappement accompagne/supporte la dysfonction sinusale décrite."
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "relation": "supports",
+      "cible": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "justification": "Les ondes q inférieures et droites sont utilisées comme signes d’infarctus/extension."
+    },
+    {
+      "concept_id": "VENTRICULE_DROIT",
+      "relation": "parents",
+      "cible": "LOCALISATION_IDM",
+      "justification": "Le cas utilise le ventricule droit comme localisation d’infarctus, alors qu’il est surtout rattaché aux localisations IDM/ESV génériques mais l’extension VD doit être qualifiable pour l’IDM."
+    }
+  ],
+  "synthese": "Les signes principaux de SCA ST+ inférieur sont largement couverts, mais l’ontologie manque le pattern composite d’extension au ventricule droit et la topographie des dérivations droites V3R-V4R. La conduction atriale rétrograde et l’onde P rétrograde, centrales dans le QCM, ne sont pas représentées.",
+  "error": null
+}

@@ -1,0 +1,25 @@
+{
+  "id": "TACHYCARDIE_A_QRS_LARGES",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "TACHYCARDIE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "QRS_LARGE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "RYTHME_REGULIER",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "La tachycardie à QRS larges est une description composite fréquence + durée du QRS, éventuellement régularité, et ne doit pas être créée comme pattern autonome.",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": ""
+}

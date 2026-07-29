@@ -1,0 +1,8 @@
+{
+  "id": "ANTERIEUR_DROIT_PRECORDIAL",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Topographie/dérivations précordiales droites pures, rejetées en v1.",
+  "territoire_ignore_v1": "V1-V2, antérieur droit précordial"
+}

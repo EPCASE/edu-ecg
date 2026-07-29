@@ -1,0 +1,28 @@
+{
+  "id": "ASPECT_EN_ACCORDEON",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ASPECT_EN_ACCORDEON",
+    "concept_name": "Aspect en accordéon",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "QRS_LARGE",
+      "QRS_FINS",
+      "COMPLEXE_DE_FUSION"
+    ],
+    "synonymes": [
+      "aspect ECG en accordéon",
+      "aspect en accordéon",
+      "aspect variable des complexes QRS",
+      "complexes QRS d'aspect variable",
+      "variations cycle à cycle de la partie initiale du QRS"
+    ]
+  },
+  "motif": "Signe ECG spécifique de préexcitation avec variation cycle-à-cycle de la morphologie QRS, différenciant et réutilisable comme finding composite.",
+  "principe": "D1",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,25 @@
+{
+  "id": "ACTIVITE_ATRIALE_ORGANISEE_RAPIDE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_F",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ORGANISEE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "RAPIDE",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Il s'agit d'une phrase descriptive composite à représenter par le finding d'activité atriale/onde F et des qualifiers transverses déjà présents, plutôt que par un nouveau concept monolithique.",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": ""
+}

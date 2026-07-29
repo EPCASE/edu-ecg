@@ -1,0 +1,25 @@
+{
+  "id": "CYCLES_VENTRICULAIRES_TRES_COURTS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "REPONSE_VENTRICULAIRE_LENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "TACHYCARDIE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "TRES_COURT",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "motif": "Mesure de fréquence/intervalle phrastique à exprimer par la tachycardie et un qualifier d'intensité/durée, sans concept dédié aux cycles ventriculaires.",
+  "principe": "C1, D1",
+  "territoire_ignore_v1": ""
+}

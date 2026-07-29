@@ -1,0 +1,9 @@
+{
+  "id": "ASPECT_QS_EN_V1",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "description",
+  "concept_cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+  "principe": "C3, T1",
+  "territoire_ignore_v1": "V1",
+  "motif": "L'aspect QS correspond déjà au concept existant de présence d'onde Q pathologique; la dérivation V1 est une topographie ignorée en v1."
+}

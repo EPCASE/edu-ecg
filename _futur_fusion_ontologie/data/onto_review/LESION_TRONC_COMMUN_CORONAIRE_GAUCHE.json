@@ -1,0 +1,24 @@
+{
+  "id": "LESION_TRONC_COMMUN_CORONAIRE_GAUCHE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1",
+  "territoire_ignore_v1": "",
+  "motif": "Diagnostic ischémique cliniquement différenciant, non présent au catalogue, pouvant être supporté par un profil ST sans être réduit à une dérivation.",
+  "concept_retenu": {
+    "id": "LESION_TRONC_COMMUN_CORONAIRE_GAUCHE",
+    "concept_name": "Lésion du tronc commun de la coronaire gauche",
+    "type": "pattern",
+    "parents": [
+      "ISCHEMIQUE"
+    ],
+    "requires": [],
+    "synonymes": [
+      "lésion aiguë du tronc commun de la coronaire gauche",
+      "occlusion du tronc commun",
+      "sténose du tronc commun gauche",
+      "sténose du tronc de la coronaire gauche",
+      "sub-occlusion du tronc commun"
+    ]
+  }
+}

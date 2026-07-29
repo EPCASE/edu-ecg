@@ -1,0 +1,21 @@
+{
+  "id": "PERSISTANT",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "PERSISTANT",
+    "concept_name": "Persistant",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "persistance",
+      "persistante"
+    ],
+    "requires": []
+  },
+  "motif": "Modificateur temporel transverse réutilisable, à composer avec le finding concerné plutôt qu'à fusionner avec le sus-décalage ST.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

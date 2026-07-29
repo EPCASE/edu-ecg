@@ -1,0 +1,15 @@
+{
+  "id": "ASPECT_RS_EN_V1",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "T1, D1",
+  "motif": "La localisation V1 est ignorée en v1 ; le concept se réduit au finding morphologique rS du QRS.",
+  "decomposition": [
+    {
+      "id": "ASPECT_RS_DU_QRS",
+      "role": "finding",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "V1"
+}

@@ -1,0 +1,350 @@
+{
+  "num": 45,
+  "titre": "tachycardie supraventriculaire à QRS larges",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "tachycardie"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "tachycardie à QRS larges"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "régulière"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "MONOMORPHE",
+      "statut": "present",
+      "surface": "monomorphes",
+      "synonymes_a_ajouter": [
+        "monomorphes",
+        "complexes QRS monomorphes"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "statut": "present",
+      "surface": "bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite",
+        "bloc de branche droit associé"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde R’ en V1",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R_PRIME_EN_V1",
+        "concept_name": "Onde R’ en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "R' en V1",
+          "onde R prime en V1",
+          "onde R’ en V1"
+        ],
+        "poids": 2,
+        "justification": "Signe morphologique explicitement cité comme argument ECG de bloc de branche droit."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde S large et trainante en V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_LARGE_TRAINANTE_EN_V6",
+        "concept_name": "Onde S large et traînante en V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS",
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "onde S large et trainante en V6",
+          "onde S large et traînante en V6",
+          "S large et traînante en V6"
+        ],
+        "poids": 2,
+        "justification": "Signe morphologique explicitement cité comme argument ECG de bloc de branche droit."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche",
+      "synonymes_a_ajouter": [
+        "hémibloc antérieur gauche",
+        "hemibloc antérieur gauche",
+        "hémibloc antérieur gauche associé"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "déviation axiale gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "statut": "present",
+      "surface": "bloc bifasciculaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "statut": "present",
+      "surface": "activité atriale rapide, régulière et monomorphe à 260 bpm",
+      "synonymes_a_ajouter": [
+        "activité atriale rapide",
+        "activité atriale rapide régulière",
+        "arythmie organisée dans l’oreillette",
+        "activité atriale organisée"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RAPIDE",
+      "statut": "present",
+      "surface": "rapide"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "régulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ORGANISEE",
+      "statut": "present",
+      "surface": "organisée"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "MONOMORPHE",
+      "statut": "present",
+      "surface": "monomorphe"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "statut": "present",
+      "surface": "flutter atrial horaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "statut": "present",
+      "surface": "sens des aiguilles d’une montre",
+      "synonymes_a_ajouter": [
+        "sens des aiguilles d’une montre",
+        "flutter commun horaire de l’oreillette droite",
+        "flutter atrial horaire de l’oreillette droite"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "2_1",
+      "statut": "present",
+      "surface": "conduction en 2/1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+      "statut": "absent",
+      "surface": "ne correspond pas complètement à celle d’un flutter commun antihoraire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "absent",
+      "surface": "le caractère régulier de la tachycardie élimine le diagnostic de FA"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TORSADE_DE_POINTES",
+      "statut": "absent",
+      "surface": "le caractère monomorphe des complexes QRS élimine les diagnostics de torsade de pointes"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "le caractère monomorphe des complexes QRS élimine les diagnostics de ... fibrillation ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "les 2 diagnostics à évoquer sont donc ceux de tachycardie ventriculaire ou de tachycardie supraventriculaire avec bloc de branche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie supraventriculaire avec bloc de branche",
+      "nouveau_concept": {
+        "id_suggere": "TACHYCARDIE_SUPRAVENTRICULAIRE_AVEC_BLOC_DE_BRANCHE",
+        "concept_name": "Tachycardie supraventriculaire avec bloc de branche",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "TACHYCARDIE_SUPRA_VENTRICULAIRE"
+        ],
+        "requires": [
+          "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+          "BLOC_DE_BRANCHE",
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "tachycardie supraventriculaire à QRS larges",
+          "TSV avec bloc de branche",
+          "arythmie atriale organisée avec bloc de branche"
+        ],
+        "poids": 4,
+        "justification": "Hypothèse puis diagnostic retenu sous forme composite : arythmie atriale organisée/flutter avec QRS larges par bloc de branche."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "tachycardie supraventriculaire à QRS larges",
+      "synonymes_a_ajouter": [
+        "tachycardie supraventriculaire à QRS larges"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "manœuvre vagale ... ralentit la conduction nodale",
+      "nouveau_concept": {
+        "id_suggere": "RALENTISSEMENT_DE_LA_CONDUCTION_NODALE_AV",
+        "concept_name": "Ralentissement de la conduction nodale AV",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [],
+        "synonymes": [
+          "ralentit la conduction nodale",
+          "ralentissement de la conduction nodale",
+          "ralentissement nodal par manœuvre vagale"
+        ],
+        "poids": 2,
+        "justification": "Effet ECG de la manœuvre vagale explicitement décrit, révélant l’activité atriale sous-jacente."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "requires",
+      "cible": "BLOC_DE_BRANCHE_DROIT",
+      "justification": "Le texte définit le bloc bifasciculaire observé par l'association BBD + hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "requires",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "Le texte définit le bloc bifasciculaire observé par l'association BBD + hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "La déviation axiale gauche est citée comme argument ECG de l’hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "relation": "supports",
+      "cible": "ONDE_R_PRIME_EN_V1",
+      "justification": "L’onde R’ en V1 est citée comme signe compatible avec un bloc de branche droit."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "relation": "supports",
+      "cible": "ONDE_S_LARGE_TRAINANTE_EN_V6",
+      "justification": "L’onde S large et traînante en V6 est citée comme signe compatible avec un bloc de branche droit."
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "relation": "parents",
+      "cible": "FLUTTER_DROIT_TYPIQUE",
+      "justification": "Le texte précise un flutter atrial horaire de l’oreillette droite, circuit de flutter commun tournant dans l’autre sens."
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "relation": "requires",
+      "cible": "TACHYCARDIE_ATRIALE",
+      "justification": "Le flutter horaire est décrit comme activité atriale rapide, organisée, régulière."
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "relation": "has_qualifiers",
+      "cible": "ORGANISEE",
+      "justification": "Le rythme atrial sous-jacent est explicitement organisé."
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "relation": "has_qualifiers",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Le flutter horaire décrit est régulier."
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_HORAIRE",
+      "relation": "has_qualifiers",
+      "cible": "MONOMORPHE",
+      "justification": "L’activité atriale du flutter horaire est décrite comme monomorphe."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Le texte indique que le caractère régulier élimine le diagnostic de FA dans ce cas."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "excludes",
+      "cible": "MONOMORPHE",
+      "justification": "Le texte indique que le caractère monomorphe des QRS élimine la torsade de pointes."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "excludes",
+      "cible": "MONOMORPHE",
+      "justification": "Le texte indique que le caractère monomorphe des QRS élimine la fibrillation ventriculaire."
+    }
+  ],
+  "synthese": "Le catalogue couvre l’essentiel du diagnostic final (flutter atrial horaire, conduction 2/1, BBD, HBAG, bloc bifasciculaire), mais il manque des synonymes francophones importants et deux descripteurs morphologiques QRS utilisés comme critères de BBD. Le pattern composite « TSV à QRS larges avec bloc de branche » et les relations de composition du bloc bifasciculaire devraient être ajoutés avant les règles d’inférence.",
+  "error": null
+}

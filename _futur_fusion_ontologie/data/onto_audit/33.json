@@ -1,0 +1,387 @@
+{
+  "num": 33,
+  "titre": "extrasystoles atriales",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "antécédent de myocardiopathie ischémique",
+      "synonymes_a_ajouter": [
+        "myocardiopathie ischémique"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme sinusal"
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un rythme sinusal avec une fréquence cardiaque à environ 50 battements/minute",
+      "synonymes_a_ajouter": [
+        "rythme sinusal avec fréquence cardiaque à environ 50 battements/minute",
+        "rythme sinusal à 50 battements/minute"
+      ]
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "extrasystole atriale"
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "battement prématuré",
+      "synonymes_a_ajouter": [
+        "battement prématuré atrial",
+        "battement atrial prématuré"
+      ]
+    },
+    {
+      "concept_id": "PREMATURE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale prématurée",
+      "synonymes_a_ajouter": [
+        "activité atriale prématurée",
+        "se produisant précocement"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P'",
+      "synonymes_a_ajouter": [
+        "onde P'",
+        "morphologie de l'onde P' différente de celle de l'onde P sinusale"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale ... ectopique ... naissant en dehors du nœud sinusal",
+      "synonymes_a_ajouter": [
+        "activité atriale ectopique",
+        "activité atriale naissant en dehors du nœud sinusal"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sur l'onde T"
+    },
+    {
+      "concept_id": "PHENOMENE_R_T",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "extrasystole atriale tombant dans l’onde T ou juste après",
+      "synonymes_a_ajouter": [
+        "extrasystole atriale sur l'onde T",
+        "extrasystole atriale tombant dans l'onde T",
+        "extrasystole atriale juste après l'onde T",
+        "extrasystole cachée dans l'onde T"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "le cycle qui suit l’extrasystole atriale est plus long que le cycle de base",
+      "nouveau_concept": {
+        "id_suggere": "CYCLE_POST_EXTRASYSTOLIQUE_LONG",
+        "concept_name": "Cycle post-extrasystolique long",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "RYTHME"
+        ],
+        "requires": [
+          "EXTRASYSTOLE_ATRIALE"
+        ],
+        "synonymes": [
+          "cycle qui suit l'extrasystole plus long que le cycle de base",
+          "cycle post-extrasystolique prolongé",
+          "cycle après extrasystole plus long"
+        ],
+        "poids": 2,
+        "justification": "Le texte décrit explicitement un allongement du cycle suivant l'extrasystole atriale, sans employer une pause compensatrice stricte."
+      }
+    },
+    {
+      "concept_id": "CONDUCTION",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale"
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durée intervalle PR normale",
+      "synonymes_a_ajouter": [
+        "durée intervalle PR normale",
+        "durée de l'intervalle PR normale"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS est fin",
+      "synonymes_a_ajouter": [
+        "QRS fin"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "complexes QRS sont fins (durée de 90 ms)",
+      "synonymes_a_ajouter": [
+        "QRS 90 ms",
+        "durée du QRS 90 ms",
+        "complexes QRS fins"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_DU_QRS_NORMALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS est fin et identique aux autres complexes du tracé",
+      "synonymes_a_ajouter": [
+        "QRS identique aux autres complexes",
+        "QRS non modifié par rapport aux complexes de base"
+      ]
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "déviation axiale gauche"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "onde Q de nécrose",
+        "ondes Q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "absence d'ondes Q de nécrose",
+        "pas d'ondes Q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation avec ondes T négatives ou biphasiques",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation ventriculaire"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T négatives ... en DIII, aVF et de V3 à V6",
+      "synonymes_a_ajouter": [
+        "ondes T négatives"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T ... biphasiques en DIII, aVF et de V3 à V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_T_BIPHASIQUE",
+        "concept_name": "Onde T biphasique",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ANOMALIE_DES_ONDES_T"
+        ],
+        "requires": [
+          "ONDE_T"
+        ],
+        "synonymes": [
+          "ondes T biphasiques",
+          "T biphasique",
+          "T biphasiques"
+        ],
+        "poids": 3,
+        "justification": "Le catalogue couvre les ondes T négatives/aplaties/amples mais pas l'aspect biphasique explicitement décrit."
+      }
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "en DIII, aVF",
+      "synonymes_a_ajouter": [
+        "DIII aVF",
+        "DIII et aVF"
+      ]
+    },
+    {
+      "concept_id": "LATERAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "de V3 à V6",
+      "synonymes_a_ajouter": [
+        "V3 à V6"
+      ]
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "cela élimine donc l’hypothèse d’une extrasystole ventriculaire"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "extrasystole jonctionnelle",
+      "nouveau_concept": {
+        "id_suggere": "EXTRASYSTOLE_JONCTIONNELLE",
+        "concept_name": "Extrasystole jonctionnelle",
+        "type": "qualifier",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "ARYTHMIE_JONCTIONELLE"
+        ],
+        "requires": [
+          "PREMATURE"
+        ],
+        "synonymes": [
+          "extrasystole jonctionnelle",
+          "ESJ",
+          "battement jonctionnel prématuré"
+        ],
+        "poids": 3,
+        "justification": "Mentionnée comme diagnostic différentiel puis réponse fausse du QCM ; aucun concept existant ne représente les extrasystoles jonctionnelles."
+      }
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "FA",
+      "synonymes_a_ajouter": [
+        "FA"
+      ]
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie irrégulière correspondant à une FA"
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie irrégulière correspondant à une FA"
+    },
+    {
+      "concept_id": "CARDIOVERSION_ELECTRIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "après choc électrique",
+      "synonymes_a_ajouter": [
+        "choc électrique"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "relation": "requires",
+      "cible": "PREMATURE",
+      "justification": "Le commentaire pédagogique définit l'extrasystole atriale comme une activité atriale prématurée."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "relation": "requires",
+      "cible": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+      "justification": "Le texte précise que l'onde P' est ectopique et de morphologie différente de l'onde P sinusale."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte enseigne que l'extrasystole atriale est habituellement conduite avec un QRS fin non modifié."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "relation": "supports",
+      "cible": "1_1",
+      "justification": "L'extrasystole atriale est décrite comme normalement conduite par les voies auriculo-ventriculaires."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le cas formule une bradycardie en rythme sinusal."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "BRADYCARDIE",
+      "justification": "La fréquence à environ 50/min définit la composante bradycardie."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Les troubles de repolarisation du tracé sont détaillés par des ondes T négatives."
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "relation": "excludes",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Le texte énonce l'absence d'ondes Q de nécrose."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le diagnostic principal d’extrasystole atriale, le rythme sinusal/bradycarde, la conduction AV normale, les QRS fins et les troubles de repolarisation. Les principaux trous lexicaux concernent l’onde T biphasique, le cycle post-extrasystolique long, l’extrasystole jonctionnelle comme différentiel, et plusieurs synonymes pédagogiques usuels.",
+  "error": null
+}

@@ -1,0 +1,25 @@
+{
+  "id": "STIMULATEUR_DOUBLE_CHAMBRE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "Le concept combine la présence d'un pacemaker déjà existant avec une modalité/chambre de stimulation, à modéliser par atomes plutôt que comme appareil monolithique.",
+  "decomposition": [
+    {
+      "id": "PACEMAKER",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "STIMULATION_ATRIALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "STIMULATION_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

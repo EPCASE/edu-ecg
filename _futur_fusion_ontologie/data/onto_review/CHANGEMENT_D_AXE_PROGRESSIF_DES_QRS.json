@@ -1,0 +1,30 @@
+{
+  "id": "CHANGEMENT_D_AXE_PROGRESSIF_DES_QRS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "AXE_DU_QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PROGRESSIF",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "CYCLIQUE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "QRS",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "motif": "Description composée d'une variation d'axe des QRS avec qualificatifs temporels ; créer/réutiliser des qualifiers transverses plutôt qu'un concept phrasé.",
+  "principe": "C1, D1",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,23 @@
+{
+  "id": "CONCORDANCE_POSITIVE_PRECORDIALE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "CONCORDANCE_POSITIVE_PRECORDIALE",
+    "concept_name": "Concordance positive précordiale",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "QRS de V1 à V6 positifs",
+      "concordance positive"
+    ]
+  },
+  "motif": "Finding morphologique différenciant utile notamment dans l'orientation des tachycardies à QRS larges ; la topographie précordiale est inhérente à ce critère et non un territoire isolé.",
+  "principe": "D1, C5",
+  "territoire_ignore_v1": ""
+}

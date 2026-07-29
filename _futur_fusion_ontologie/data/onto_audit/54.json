@@ -1,0 +1,245 @@
+{
+  "num": 54,
+  "titre": "embolie pulmonaire sévère",
+  "famille": "embolie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à 91 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à 91 bpm"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "statut": "present",
+      "surface": "un doublet d'extrasystoles atriales",
+      "synonymes_a_ajouter": [
+        "extrasystoles atriales"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COUPLET",
+      "statut": "present",
+      "surface": "un doublet d'extrasystoles atriales",
+      "synonymes_a_ajouter": [
+        "doublet"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "un espace PR normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "des complexes QRS larges"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS__120_MS",
+      "statut": "present",
+      "surface": "durée QRS > 120 ms"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "aspect de bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite complet",
+        "aspect de bloc de branche droite complet"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect rSR' en V1",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RSR_PRIME_EN_V1",
+        "concept_name": "Aspect rSR' en V1",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "rSR' en V1",
+          "aspect rSR' en V1",
+          "rsR' en V1"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique explicitement cité du bloc de branche droit complet."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect qRS en V6 avec onde S large et trainante",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_LARGE_TRAINANTE_EN_V6",
+        "concept_name": "Onde S large et traînante en V6",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect qRS en V6 avec onde S large et trainante",
+          "onde S large et trainante en V6",
+          "onde S large et traînante en V6",
+          "S large et trainante en V6"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique explicite du bloc de branche droit complet, absent du lexique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect S1q3T3 (onde T négative en DIII)",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_S1Q3T3",
+        "concept_name": "Aspect S1Q3T3",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "EMBOLIE_PULMONAIRE"
+        ],
+        "requires": [
+          "ONDE_T_NEGATIVE"
+        ],
+        "synonymes": [
+          "S1q3T3",
+          "aspect S1q3T3",
+          "S1Q3T3",
+          "aspect S1Q3T3"
+        ],
+        "poids": 4,
+        "justification": "Signe ECG explicitement décrit et utilisé comme argument en faveur de l'embolie pulmonaire massive."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "onde T négative en DIII",
+      "synonymes_a_ajouter": [
+        "onde T négative en DIII",
+        "T négative en DIII"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "ondes T négatives en V1-V3",
+      "synonymes_a_ajouter": [
+        "ondes T négatives en V1-V3",
+        "ondes T négatives de V1 à V3",
+        "négativité des ondes T dans le précordium droit",
+        "négativité des ondes T dans le précordium droit (V1 à V3)"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "present",
+      "surface": "troubles de la repolarisation"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ISCHEMIE_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "ischémie qui prédomine au niveau du septum et de la paroi antérieure ventriculaire gauche expliquant la négativité des ondes T dans le précordium droit (V1 à V3)"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SEPTAL",
+      "statut": "present",
+      "surface": "au niveau du septum",
+      "synonymes_a_ajouter": [
+        "septum"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ANTERIEUR",
+      "statut": "present",
+      "surface": "paroi antérieure ventriculaire gauche",
+      "synonymes_a_ajouter": [
+        "paroi antérieure ventriculaire gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "VENTRICULE_DROIT",
+      "statut": "present",
+      "surface": "surcharge aigüe du ventricule droit"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "statut": "present",
+      "surface": "embolie pulmonaire massive",
+      "synonymes_a_ajouter": [
+        "embolie pulmonaire massive",
+        "embolie pulmonaire sévère"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "statut": "present",
+      "surface": "aspect de tachycardie sinusale",
+      "synonymes_a_ajouter": [
+        "aspect de tachycardie sinusale"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Pierre définit le BBD complet par une durée QRS > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "supports",
+      "cible": "EMBOLIE_PULMONAIRE",
+      "justification": "Le texte indique que le bloc de branche droit complet est en faveur d'une embolie pulmonaire massive et signe de gravité."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "EMBOLIE_PULMONAIRE",
+      "justification": "Le référentiel mentionne les troubles de repolarisation parmi les aspects ECG retrouvés dans l'embolie pulmonaire massive."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "supports",
+      "cible": "EMBOLIE_PULMONAIRE",
+      "justification": "Le référentiel cite la tachycardie sinusale comme aspect ECG évocateur dans l'embolie pulmonaire massive."
+    }
+  ],
+  "synthese": "La couverture principale existe pour le BBD complet, le PR normal, les QRS larges, les ondes T négatives et l'embolie pulmonaire. Les lacunes majeures concernent le lexique descriptif du BBD droit (rSR' V1, onde S large traînante en V6), le pattern S1Q3T3 et plusieurs synonymes de formulations utilisées par Pierre.",
+  "error": null
+}

@@ -1,0 +1,22 @@
+{
+  "id": "ONDE_S_LARGE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, T1, C3",
+  "concept_retenu": {
+    "id": "ONDE_S_LARGE",
+    "concept_name": "Onde S large",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "S large"
+    ]
+  },
+  "territoire_ignore_v1": "V6",
+  "motif": "Finding atomique réutilisable correspondant à une onde S large ; la localisation en V6 est ignorée en v1."
+}

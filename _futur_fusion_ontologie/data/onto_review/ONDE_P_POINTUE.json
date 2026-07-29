@@ -1,0 +1,19 @@
+{
+  "id": "ONDE_P_POINTUE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_P_PRESENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "POINTUE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "motif": "Le libellé combine l'onde P avec un modificateur morphologique réutilisable ; il faut créer/réutiliser le qualifier générique plutôt qu'un concept monolithique d'onde P pointue.",
+  "principe": "C1, D1"
+}

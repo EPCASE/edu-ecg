@@ -1,0 +1,282 @@
+{
+  "num": 42,
+  "titre": "flutter commun rapide",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "une tachycardie régulière à QRS fins à 170 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "tachycardie régulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FREQUENCE",
+      "statut": "present",
+      "surface": "170 bpm",
+      "synonymes_a_ajouter": [
+        "bpm"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "les QRS fins éliminent le diagnostic de TV"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "absent",
+      "surface": "le caractère parfaitement régulier rend très improbable le diagnostic de FA"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "statut": "present",
+      "surface": "flutter commun"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "statut": "present",
+      "surface": "flutter atrial",
+      "synonymes_a_ajouter": [
+        "flutter atrial"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle sur voie accessoire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle par réentrée intranodale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_F",
+      "statut": "present",
+      "surface": "ondes F de flutter"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_F",
+      "statut": "present",
+      "surface": "ondes de flutter",
+      "synonymes_a_ajouter": [
+        "ondes de flutter",
+        "activité atriale de flutter"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TOIT_D_USINE",
+      "statut": "present",
+      "surface": "aspect caractéristique en dents de scie"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TOIT_D_USINE",
+      "statut": "present",
+      "surface": "aspect en dents de scie",
+      "synonymes_a_ajouter": [
+        "aspect en dents de scie",
+        "dents de scie"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "2_1",
+      "statut": "present",
+      "surface": "transmission 2/1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS",
+      "statut": "present",
+      "surface": "complexes QRS"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ABSENCE_DE_QRS",
+      "statut": "present",
+      "surface": "L’absence temporaire des complexes QRS"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activité organisée et rapide de l’oreillette",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_ORGANISEE_RAPIDE",
+        "concept_name": "Activité atriale organisée rapide",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ARYTHMIE_ATRIALE"
+        ],
+        "requires": [
+          "RAPIDE",
+          "ORGANISEE"
+        ],
+        "synonymes": [
+          "activité organisée et rapide de l’oreillette",
+          "activité atriale organisée rapide"
+        ],
+        "poids": 3,
+        "justification": "Le texte utilise ce signe pour caractériser le flutter commun après blocage AV transitoire ; aucun concept existant ne combine activité atriale organisée et rapide hors diagnostic spécifique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations inférieures",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_INFERIEURES",
+        "concept_name": "Dérivations inférieures",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "synonymes": [
+          "dérivations inférieures",
+          "inferior leads"
+        ],
+        "poids": 2,
+        "justification": "La localisation porte ici sur les dérivations ECG où l’aspect en dents de scie est vu, et non sur une localisation d’IDM."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect peu volté en DI",
+      "nouveau_concept": {
+        "id_suggere": "ONDES_F_PEU_VOLTEES_EN_DI",
+        "concept_name": "Ondes F peu voltées en DI",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "aspect peu volté en DI",
+          "ondes F peu voltées en DI"
+        ],
+        "poids": 2,
+        "justification": "Critère morphologique du flutter commun cité dans le second tracé ; aucun concept de polarité/voltage des ondes F par dérivation n’existe."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "positif en V1 et négatif en V6",
+      "nouveau_concept": {
+        "id_suggere": "POLARITE_DES_ONDES_F_POSITIVE_V1_NEGATIVE_V6",
+        "concept_name": "Polarité des ondes F positive en V1 et négative en V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "positif en V1 et négatif en V6",
+          "ondes F positives en V1 et négatives en V6"
+        ],
+        "poids": 2,
+        "justification": "Description explicite de la morphologie des ondes de flutter dans le cas, absente du catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloqué temporairement la conduction dans le nœud auriculoventriculaire",
+      "nouveau_concept": {
+        "id_suggere": "BLOCAGE_AV_TRANSITOIRE_PHARMACOLOGIQUE",
+        "concept_name": "Blocage auriculo-ventriculaire transitoire pharmacologique",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "BLOC_AURICULO_VENTRICULAIRE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "blocage AV transitoire",
+          "bloqué temporairement la conduction dans le nœud auriculoventriculaire",
+          "interruption temporaire de la conduction auriculoventriculaire"
+        ],
+        "poids": 2,
+        "justification": "Le cas décrit l’effet de la striadyne/vagal comme un blocage temporaire de conduction AV révélant les ondes de flutter ; les BAV existants sont des diagnostics de bloc et ne couvrent pas ce contexte transitoire provoqué."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "ONDE_F",
+      "justification": "Le diagnostic de flutter commun est établi par la visualisation des ondes F de flutter."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "TOIT_D_USINE",
+      "justification": "L’aspect en dents de scie dans les dérivations inférieures est présenté comme caractéristique du flutter commun."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "has_qualifiers",
+      "cible": "2_1",
+      "justification": "La forme habituelle décrite a une transmission/conduction 2/1."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le cas présente un flutter commun sous forme de tachycardie régulière à QRS fins."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "excludes",
+      "cible": "QRS_FINS",
+      "justification": "Pierre indique que les QRS fins éliminent le diagnostic de TV dans ce contexte."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Pierre indique que le caractère parfaitement régulier rend très improbable le diagnostic de FA."
+    }
+  ],
+  "synthese": "La couverture du diagnostic principal est globalement assurée par FLUTTER_DROIT_TYPIQUE, mais il manque plusieurs synonymes usuels du cas et des descripteurs de morphologie des ondes F/dérivations. Les relations structurantes du flutter commun avec ondes F, dents de scie, conduction 2/1 et tachycardie régulière à QRS fins devraient être ajoutées avant les règles.",
+  "error": null
+}

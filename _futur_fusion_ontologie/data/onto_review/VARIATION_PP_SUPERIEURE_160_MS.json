@@ -1,0 +1,19 @@
+{
+  "id": "VARIATION_PP_SUPERIEURE_160_MS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "La variation des intervalles PP quantifie une irrégularité du rythme/ondes P et doit être représentée par l'atome existant d'irrégularité plutôt que par un seuil monolithique peu réutilisable.",
+  "decomposition": [
+    {
+      "id": "IRREGULIER",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "ONDE_P_PRESENTE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

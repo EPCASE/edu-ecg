@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_V2_A_V6",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Topographie pure correspondant uniquement à un groupe de dérivations, ignorée en v1 et ne portant aucun finding ECG atomique.",
+  "territoire_ignore_v1": "V2 à V6"
+}

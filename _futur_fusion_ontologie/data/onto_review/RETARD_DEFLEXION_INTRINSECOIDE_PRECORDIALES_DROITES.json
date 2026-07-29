@@ -1,0 +1,20 @@
+{
+  "id": "RETARD_DEFLEXION_INTRINSECOIDE_PRECORDIALES_DROITES",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "Le finding de retard de déflexion intrinsécoïde est réutilisable, tandis que la localisation en précordiales droites/V1-V3 est une topographie ignorée en v1.",
+  "territoire_ignore_v1": "précordiales droites / V1-V3",
+  "decomposition": [
+    {
+      "id": "RETARD_DEFLEXION_INTRINSECOIDE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "PRESENCE_DE_QRS",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "CONDUCTION_LENTE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "CONDUCTION",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "LENT",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Expression composée d'un finding générique de conduction et du modificateur de fréquence/vitesse lent déjà présent, à représenter par composition plutôt qu'un nouveau finding.",
+  "principe": "C1, C3",
+  "territoire_ignore_v1": ""
+}

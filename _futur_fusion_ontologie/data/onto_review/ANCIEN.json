@@ -1,0 +1,19 @@
+{
+  "id": "ANCIEN",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "C1",
+  "motif": "Ancien est un modificateur temporel transverse applicable à différents diagnostics/patterns, à modéliser comme qualifier réutilisable.",
+  "concept_retenu": {
+    "id": "ANCIEN",
+    "concept_name": "Ancien",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "préexistant",
+      "ancienneté"
+    ]
+  }
+}

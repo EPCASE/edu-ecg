@@ -81,6 +81,15 @@ _merge_synonymes.py
 list_ontology.py
 nettoyage_fichiers_inutiles.py
 
+# Scripts scratch/debug/temporaires au ROOT (convention : prefixe "_")
+# Jetables, jamais versionnes. Le "/" initial n'ancre QUE la racine du depot
+# (les sous-dossiers legitimes ne sont pas affectes). Cf. cleanup 2026-07-06.
+# Exceptions a contenu reel deja preservees plus bas (_ARCHIVE_MANIFEST_GLOBAL.json,
+# _run_virtual_75.log). Pour forcer un fichier "_" legitime : git add -f <fichier>.
+/_*.py
+/_commit_*.txt
+/_tmp_*.txt
+
 # Documentation temporaire (markdown session notes)
 SESSION_RECAP_*.md
 PARTY_MODE_*.md

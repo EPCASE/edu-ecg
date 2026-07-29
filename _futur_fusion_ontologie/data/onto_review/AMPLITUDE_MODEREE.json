@@ -1,0 +1,22 @@
+{
+  "id": "AMPLITUDE_MODEREE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "MODERE",
+    "concept_name": "Modéré",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "amplitude modérée",
+      "d'amplitude modéré",
+      "d'amplitude modérée",
+      "modéré"
+    ]
+  },
+  "motif": "Le terme est un modificateur transversal d'intensité/amplitude et doit être créé comme qualifier générique réutilisable, non comme concept dédié à l'amplitude.",
+  "principe": "C1, C2",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,355 @@
+{
+  "num": 43,
+  "titre": "tachycardie jonctionnelle sur voie accessoire",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie régulière à QRS fins à 180 bpm"
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie régulière"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "les QRS fins éliminent le diagnostic de TV"
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "le caractère parfaitement régulier rend très improbable le diagnostic de FA"
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "ne révèle pas d’arythmie atriale",
+      "synonymes_a_ajouter": [
+        "arythmie atriale organisée",
+        "tachycardie régulière dans les oreillettes",
+        "autre arythmie organisée des oreillettes"
+      ]
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "flutter commun",
+      "synonymes_a_ajouter": [
+        "flutter commun"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle"
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle sur voie accessoire",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle sur voie accessoire",
+        "tachycardie jonctionnelle utilisant une voie accessoire",
+        "tachycardie sur voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle dite orthodromique",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle orthodromique",
+        "tachycardie orthodromique sur voie accessoire",
+        "tachycardie orthodromique",
+        "orthodromique sur voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardies antidromiques",
+      "synonymes_a_ajouter": [
+        "tachycardie antidromique",
+        "tachycardies antidromiques",
+        "tachycardie antidromique sur voie accessoire",
+        "antidromique sur voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle par réentrée intranodale",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle par réentrée intranodale",
+        "réentrée intranodale"
+      ]
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "pré-excitation atrio-ventriculaire (faisceau de Kent)",
+      "synonymes_a_ajouter": [
+        "pré-excitation atrio-ventriculaire",
+        "préexcitation atrio-ventriculaire",
+        "faisceau de Kent",
+        "aspect de préexcitation",
+        "aspect de pré-excitation",
+        "voie accessoire évidente"
+      ]
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "disparition de l’aspect de pré-excitation",
+      "synonymes_a_ajouter": [
+        "disparition de l’aspect de pré-excitation",
+        "préexcitation disparue"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_DE_LOWN_GANONG_ET_LEVINE",
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome de Wolff-Parkinson-White",
+      "nouveau_concept": {
+        "id_suggere": "SYNDROME_DE_WOLFF_PARKINSON_WHITE",
+        "concept_name": "Syndrome de Wolff-Parkinson-White",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE"
+        ],
+        "requires": [
+          "PR_COURT",
+          "ONDE_DELTA"
+        ],
+        "synonymes": [
+          "WPW manifeste",
+          "syndrome de Wolff Parkinson White",
+          "syndrome de Wolff-Parkinson-White",
+          "syndrome WPW"
+        ],
+        "poids": 4,
+        "justification": "Le catalogue contient la préexcitation/faisceau accessoire mais pas le syndrome clinique défini dans le cas par préexcitation associée à des tachycardies jonctionnelles."
+      }
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rapport 1/1"
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l’activité atriale est difficile à visualiser même si elle semble présente"
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "présente dans l'onde T"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "reprise d'un rythme sinusal"
+    },
+    {
+      "concept_id": "PR_COURT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un espace PR court inférieur à 120 ms",
+      "synonymes_a_ajouter": [
+        "espace PR court",
+        "intervalle PR court < 120 ms",
+        "PR court inférieur à 120 ms"
+      ]
+    },
+    {
+      "concept_id": "PR_COURT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "Le PR n’est plus court",
+      "synonymes_a_ajouter": [
+        "PR n’est plus court",
+        "PR non court"
+      ]
+    },
+    {
+      "concept_id": "ONDE_DELTA",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une onde delta (onde δ)",
+      "synonymes_a_ajouter": [
+        "onde δ",
+        "aspect empâté du début du QRS",
+        "début du QRS empâté"
+      ]
+    },
+    {
+      "concept_id": "ONDE_DELTA",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "l’onde delta a disparu",
+      "synonymes_a_ajouter": [
+        "onde delta disparue",
+        "disparition de l’onde delta"
+      ]
+    },
+    {
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une fusion entre 2 fronts d'activation",
+      "synonymes_a_ajouter": [
+        "fusion entre 2 fronts d'activation",
+        "fusion entre deux fronts d’activation"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "complexes QRS sont élargis"
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "complexe QRS large et supérieur à 120 ms",
+      "synonymes_a_ajouter": [
+        "QRS supérieur à 120 ms",
+        "QRS large > 120 ms",
+        "complexe QRS large et supérieur à 120 ms"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des troubles de la repolarisation en rapport avec la pré-excitation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation en rapport avec la pré-excitation",
+        "troubles de la repolarisation associés à l’anomalie du QRS"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un élargissement des complexes QRS est possible si le patient présente également un bloc de branche"
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la manœuvre vagale permet d’interrompre la tachycardie",
+      "synonymes_a_ajouter": [
+        "tachycardie interrompue par manœuvre vagale",
+        "interruption par manœuvre vagale"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "parents",
+      "cible": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "justification": "Le cas présente les tachycardies orthodromiques comme un sous-type de tachycardie jonctionnelle sur voie accessoire."
+    },
+    {
+      "concept_id": "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "parents",
+      "cible": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "justification": "Le cas présente les tachycardies antidromiques comme l’autre sous-type de tachycardie jonctionnelle sur voie accessoire."
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "requires",
+      "cible": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "justification": "La tachycardie jonctionnelle sur voie accessoire requiert une voie accessoire/faisceau de Kent dans le circuit."
+    },
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte indique que les tachycardies orthodromiques sur voie accessoire sont dans la grande majorité des cas à QRS fins."
+    },
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "supports",
+      "cible": "RYTHME_REGULIER",
+      "justification": "La tachycardie orthodromique décrite est régulière."
+    },
+    {
+      "concept_id": "TJ_ORTHODROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "relation": "supports",
+      "cible": "1_1",
+      "justification": "L’activité atriale semble présente avec un rapport 1/1 dans le tracé de tachycardie."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "requires",
+      "cible": "PR_COURT",
+      "justification": "L’aspect caractéristique de voie accessoire est décrit par PR court, onde delta, QRS large."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "requires",
+      "cible": "ONDE_DELTA",
+      "justification": "L’onde delta est explicitement un critère de préexcitation/voie accessoire."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "Le cas décrit des QRS larges/élargis dans l’aspect de préexcitation."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "supports",
+      "cible": "TROUBLE_DE_REPOLARISATION",
+      "justification": "Les troubles de repolarisation sont rapportés comme en rapport avec la préexcitation."
+    },
+    {
+      "concept_id": "ONDE_DELTA",
+      "relation": "parents",
+      "cible": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "justification": "Le catalogue a ONDE_DELTA seulement sous morphologie anormale du QRS, alors que le texte en fait un signe constitutif de la préexcitation."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "excludes",
+      "cible": "QRS_FINS",
+      "justification": "Dans ce cas, les QRS fins sont utilisés pour éliminer le diagnostic de TV."
+    }
+  ],
+  "synthese": "La couverture lexicale est globalement bonne pour la tachycardie régulière à QRS fins, la voie accessoire et les signes de préexcitation, mais il manque un concept explicite de syndrome de Wolff-Parkinson-White et plusieurs synonymes usuels du texte. La hiérarchie devrait rattacher les formes orthodromique/antidromique à la tachycardie jonctionnelle sur voie accessoire et formaliser le lien préexcitation–PR court–onde delta–QRS large.",
+  "error": null
+}

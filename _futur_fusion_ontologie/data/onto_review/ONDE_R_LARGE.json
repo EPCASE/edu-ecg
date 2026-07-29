@@ -1,0 +1,24 @@
+{
+  "id": "ONDE_R_LARGE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "motif": "Finding morphologique atomique du QRS absent du catalogue, utile pour composer des patterns sans intégrer de diagnostic ni territoire.",
+  "concept_retenu": {
+    "id": "ONDE_R_LARGE",
+    "concept_name": "Onde R large",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "QRS positif avec onde R large",
+      "R large",
+      "onde R large"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

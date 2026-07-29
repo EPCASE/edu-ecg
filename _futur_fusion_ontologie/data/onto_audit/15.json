@@ -1,0 +1,292 @@
+{
+  "num": 15,
+  "titre": "bloc indifférencié",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal avec une fréquence cardiaque à environ 55 battements/minute"
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle PR de durée normale",
+        "PR de durée normale"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "nouveau_concept": {
+        "id_suggere": "CONDUCTION_AV_NORMALE",
+        "concept_name": "Conduction atrio-ventriculaire normale",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [
+          "1_1",
+          "PR_NORMAL"
+        ],
+        "synonymes": [
+          "conduction AV normale",
+          "conduction atrio-ventriculaire normale",
+          "conduction auriculo-ventriculaire normale"
+        ],
+        "poids": 2,
+        "justification": "Le cas distingue une conduction AV normale d'un trouble de conduction intraventriculaire ; le concept existant PAS_DE_TROUBLES_DE_LA_CONDUCTION serait trop global."
+      }
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges (durée de 150 ms)",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "complexes QRS larges"
+      ]
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS large (> 120 ms)"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "on ne retrouve pas d’aspect caractéristique de bloc de branche droite"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "on ne retrouve pas d’aspect caractéristique de bloc de branche gauche"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "L’élargissement des complexes QRS n’est pas dû à un bloc de branche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l’aspect rS en V1",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RS_EN_V1",
+        "concept_name": "Aspect rS en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "morphologie rS en V1",
+          "QRS rS en V1",
+          "rS en V1"
+        ],
+        "poids": 2,
+        "justification": "Morphologie QRS explicitement utilisée pour discuter l'absence de bloc de branche droit."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l’aspect qR en DI",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QR_EN_DI",
+        "concept_name": "Aspect qR en DI",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "morphologie qR en DI",
+          "QRS qR en DI",
+          "qR en DI",
+          "qR en D1"
+        ],
+        "poids": 2,
+        "justification": "Morphologie QRS explicitement utilisée pour discuter l'absence de bloc de branche gauche."
+      }
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "axe gauche"
+    },
+    {
+      "concept_id": "RABOTAGE_DE_L_ONDE_R",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rabotage des ondes R dans tout le précordium",
+      "synonymes_a_ajouter": [
+        "rabotage des ondes R",
+        "rabotage des ondes R dans tout le précordium",
+        "rabotage de l'onde R dans tout le précordium"
+      ]
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect de bloc indifférencié",
+      "synonymes_a_ajouter": [
+        "bloc indifférencié",
+        "aspect de bloc indifférencié",
+        "tracé de bloc indifférencié",
+        "bloc intraventriculaire indifférencié",
+        "ralentissement distal diffus de la conduction ventriculaire"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ondes T négatives en DI-aVL"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "en DI-aVL",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_DI_AVL",
+        "concept_name": "Dérivations DI-aVL",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DI-aVL",
+          "D1-aVL",
+          "dérivations DI et aVL",
+          "dérivations D1 et aVL",
+          "dérivations latérales hautes"
+        ],
+        "poids": 2,
+        "justification": "Localisation explicite des ondes T négatives dans les dérivations DI-aVL."
+      }
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une hypertrophie auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire gauche"
+      ]
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un hémibloc postérieur gauche"
+    },
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "myocardiopathie ischémique",
+      "synonymes_a_ajouter": [
+        "myocardiopathie ischémique",
+        "cardiomyopathie ischémique"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "Pierre définit le bloc indifférencié par la présence d'un QRS large."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le commentaire précise le seuil QRS > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_DROIT",
+      "justification": "Diagnostic d'élimination : QRS large sans caractéristiques de bloc de branche droit."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_GAUCHE",
+      "justification": "Diagnostic d'élimination : QRS large sans caractéristiques de bloc de branche gauche."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE",
+      "justification": "Pierre précise que l'élargissement du QRS n'est pas dû à un bloc de branche."
+    },
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "relation": "supports",
+      "cible": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "justification": "Le texte indique que ce trouble est préférentiellement observé chez les patients avec myocardiopathie ischémique."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "has_qualifiers",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Les troubles de repolarisation du cas sont décrits par des ondes T négatives."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le texte associe rythme sinusal et fréquence à 55/min."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "BRADYCARDIE",
+      "justification": "La fréquence à environ 55/min correspond à une bradycardie."
+    }
+  ],
+  "synthese": "Le trou principal est lexical : le « bloc indifférencié » doit être rattaché au bloc intraventriculaire aspécifique, avec des relations d'exclusion vis-à-vis des blocs de branche droit et gauche. Quelques descripteurs fins du cas manquent aussi : conduction AV normale, morphologies rS en V1/qR en DI et localisation DI-aVL.",
+  "error": null
+}

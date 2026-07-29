@@ -1,0 +1,23 @@
+{
+  "id": "BAV_NODAL",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1",
+  "motif": "Le siège nodal d'un BAV est une caractérisation électrophysiologique réutilisable et non une simple topographie ECG v1; il peut être structuré comme pattern de BAV supporté notamment par des QRS fins.",
+  "concept_retenu": {
+    "id": "BAV_NODAL",
+    "concept_name": "BAV nodal",
+    "type": "pattern",
+    "parents": [
+      "BLOC_AURICULO_VENTRICULAIRE"
+    ],
+    "requires": [
+      "BLOC_AURICULO_VENTRICULAIRE"
+    ],
+    "synonymes": [
+      "BAV de siège nodal",
+      "bloc auriculo-ventriculaire nodal",
+      "siège nodal du BAV"
+    ]
+  }
+}

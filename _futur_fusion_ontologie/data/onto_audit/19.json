@@ -1,0 +1,352 @@
+{
+  "num": 19,
+  "titre": "bloc sino-auriculaire du deuxième degré",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "statut": "present",
+      "surface": "bloc sino-auriculaire",
+      "synonymes_a_ajouter": [
+        "bloc sino-auriculaire",
+        "bloc sinoatrial"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc sino-auriculaire du deuxième degré",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_SINO_ATRIAL_DU_DEUXIEME_DEGRE",
+        "concept_name": "Bloc sino-atrial du deuxième degré",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "BLOC_SINO_ATRIAL"
+        ],
+        "requires": [
+          "RYTHME_SINUSAL",
+          "PAUSE"
+        ],
+        "synonymes": [
+          "bloc sino-auriculaire du deuxième degré",
+          "bloc sino-auriculaire du second degré",
+          "bloc sinoatrial du deuxième degré",
+          "bloc sinoatrial du second degré",
+          "BSA 2",
+          "BSA du 2e degré",
+          "BSA du second degré",
+          "blocage intermittent de la conduction sino-atriale"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic central du cas, plus spécifique que le concept existant BLOC_SINO_ATRIAL."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "bloc sino-auriculaire du premier degré",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_SINO_ATRIAL_DU_PREMIER_DEGRE",
+        "concept_name": "Bloc sino-atrial du premier degré",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "BLOC_SINO_ATRIAL"
+        ],
+        "requires": [],
+        "synonymes": [
+          "bloc sino-auriculaire du premier degré",
+          "bloc sinoatrial du premier degré",
+          "BSA 1",
+          "BSA du 1er degré"
+        ],
+        "poids": 3,
+        "justification": "Diagnostic explicitement discuté puis exclu dans le commentaire pédagogique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "bloc sino-auriculaire du troisième degré",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_SINO_ATRIAL_DU_TROISIEME_DEGRE",
+        "concept_name": "Bloc sino-atrial du troisième degré",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "BLOC_SINO_ATRIAL"
+        ],
+        "requires": [
+          "ABSENCE_D_ONDE_P",
+          "ECHAPPEMENT"
+        ],
+        "synonymes": [
+          "bloc sino-auriculaire du troisième degré",
+          "bloc sinoatrial du troisième degré",
+          "BSA 3",
+          "BSA du 3e degré",
+          "aucune activité sinusale visible"
+        ],
+        "poids": 4,
+        "justification": "Diagnostic explicitement discuté puis exclu ; le texte décrit son ECG-type."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "l’activité atriale reste sinusale",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale",
+        "l'activité atriale reste sinusale"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque normale (entre 60 et 70 bpm)",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque normale entre 60 et 70 bpm",
+        "fréquence normale entre 60 et 70 bpm"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "une bradycardie (entre 30 et 35 bpm)"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence cardiaque divisée par 2",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENCE_CARDIAQUE_DIVISEE_PAR_DEUX",
+        "concept_name": "Fréquence cardiaque divisée par deux",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE",
+          "BRADYCARDIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "fréquence cardiaque divisée par 2",
+          "fréquence sinusale divisée par 2",
+          "fréquence subitement divisée par 2",
+          "ralentissement brutal de la fréquence sinusale divisée par 2"
+        ],
+        "poids": 4,
+        "justification": "Signe morpho-rythmique clé du cas, utilisé pour argumenter le BSA du deuxième degré."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "intervalle PR limite de 190 ms environ"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "present",
+      "surface": "conduction atrio-ventriculaire normale",
+      "synonymes_a_ajouter": [
+        "conduction atrio-ventriculaire normale",
+        "conduction atrioventriculaire normale"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "toutes les ondes P sont conduites",
+      "synonymes_a_ajouter": [
+        "toutes les ondes P sont conduites",
+        "toutes les ondes P conduites"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "absence de trouble de conduction atrioventriculaire/absence de BAV",
+      "nouveau_concept": {
+        "id_suggere": "ABSENCE_DE_BLOC_AURICULO_VENTRICULAIRE",
+        "concept_name": "Absence de bloc auriculo-ventriculaire",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "BLOC_AURICULO_VENTRICULAIRE",
+          "CONDUCTION"
+        ],
+        "requires": [
+          "PR_NORMAL",
+          "1_1"
+        ],
+        "synonymes": [
+          "absence de BAV",
+          "pas de BAV",
+          "absence de bloc auriculo-ventriculaire",
+          "absence de trouble de conduction atrioventriculaire",
+          "absence de trouble de conduction atrio-ventriculaire"
+        ],
+        "poids": 4,
+        "justification": "Le cas insiste sur l'exclusion d'un trouble AV ; le concept existant PAS_DE_TROUBLES_DE_LA_CONDUCTION est trop global."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "absence d'ondes Q de nécrose",
+        "absence d'onde Q de nécrose",
+        "pas d'onde Q de nécrose"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "ondes T négatives en DII, DIII, AVF, V1-V3"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "present",
+      "surface": "trouble de la repolarisation"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "statut": "present",
+      "surface": "antécédents coronariens",
+      "synonymes_a_ajouter": [
+        "antécédents coronariens",
+        "coronaropathie",
+        "coronarienne stable"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAUSE",
+      "statut": "present",
+      "surface": "pauses observées"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "pauses de durée égales à un multiple du rythme sinusal de base",
+      "nouveau_concept": {
+        "id_suggere": "PAUSE_MULTIPLE_DU_RYTHME_SINUSAL_DE_BASE",
+        "concept_name": "Pause multiple du rythme sinusal de base",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "PAUSE",
+          "RYTHME_SINUSAL"
+        ],
+        "requires": [],
+        "synonymes": [
+          "pauses de durée égales à un multiple du rythme sinusal de base",
+          "pause multiple du rythme sinusal",
+          "pause égale à un multiple du cycle sinusal",
+          "pauses correspondant au double de l'intervalle précédent entre 2 ondes P",
+          "pause de 2 secondes pour rythme de base à 60 bpm"
+        ],
+        "poids": 5,
+        "justification": "Critère ECG décrit par le référentiel pour le BSA du second degré."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ECHAPPEMENT",
+      "statut": "absent",
+      "surface": "échappement jonctionnel",
+      "synonymes_a_ajouter": [
+        "échappement jonctionnel"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "statut": "absent",
+      "surface": "aucune activité sinusale n’est visible"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "relation": "parents",
+      "cible": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "justification": "Le cas et le référentiel le décrivent comme un trouble de conduction sino-atriale et une forme de dysfonction sinusale ; il est actuellement seulement parenté à DYSFONCTION_SINUSALE."
+    },
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "Le cas relie le bloc sino-auriculaire à la bradycardie par ralentissement brutal de la fréquence sinusale."
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "Le cas pédagogique associe dysfonction sinusale et bradycardie."
+    },
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "relation": "excludes",
+      "cible": "BLOC_AURICULO_VENTRICULAIRE",
+      "justification": "Dans ce cas, le diagnostic de BSA est argumenté par une conduction AV normale et l'absence de BAV."
+    },
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "relation": "supports",
+      "cible": "PAUSE",
+      "justification": "Le référentiel du cas décrit des pauses multiples du rythme sinusal dans le BSA du second degré."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "justification": "Le texte indique que les ondes T négatives/troubles de repolarisation peuvent correspondre aux antécédents coronariens."
+    }
+  ],
+  "synthese": "Le trou majeur est l'absence de concepts dédiés aux degrés du bloc sino-atrial, en particulier le bloc sino-atrial du deuxième degré, diagnostic central du cas. Il manque aussi des descripteurs du mécanisme ECG clé : pauses multiples du rythme sinusal et fréquence sinusale brutalement divisée par deux.",
+  "error": null
+}

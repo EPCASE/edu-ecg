@@ -1,0 +1,33 @@
+{
+  "id": "FIBRILLATION_ATRIALE_SUR_VOIE_ACCESSOIRE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "concept_retenu": {
+    "id": "FIBRILLATION_ATRIALE_SUR_VOIE_ACCESSOIRE",
+    "concept_name": "Fibrillation atriale sur voie accessoire",
+    "type": "pattern",
+    "parents": [
+      "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE"
+    ],
+    "requires": [
+      "FIBRILLATION_ATRIALE",
+      "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "IRREGULIER",
+      "TACHYCARDIE",
+      "QRS_LARGE"
+    ],
+    "synonymes": [
+      "FA pré-excitée",
+      "FA sur voie accessoire",
+      "Fibrillation auriculaire sur voie accessoire",
+      "fibrillation atriale conduite par voie accessoire",
+      "fibrillation atriale conduite rapidement par la voie accessoire",
+      "fibrillation atriale pré-excitée",
+      "fibrillation auriculaire pré-excitée"
+    ]
+  },
+  "motif": "Diagnostic/pattern urgent et différenciant correspondant à une FA pré-excitée, au-delà de la simple juxtaposition de FA et voie accessoire.",
+  "principe": "D1",
+  "territoire_ignore_v1": ""
+}

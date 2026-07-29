@@ -1,0 +1,19 @@
+{
+  "id": "SUS_DECALAGE_ST_AMPLE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C2, C3",
+  "motif": "Le sus-décalage ST existe déjà comme COURANT_DE_LESION_SOUS_EPICARDIQUE et 'ample' est seulement un modificateur transverse, non un concept dédié.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "AMPLE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

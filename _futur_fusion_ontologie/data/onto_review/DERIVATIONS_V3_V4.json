@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_V3_V4",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Un groupe de dérivations est une topographie pure, réservée à une couche topographique future et ignorée en v1.",
+  "territoire_ignore_v1": "V3-V4"
+}

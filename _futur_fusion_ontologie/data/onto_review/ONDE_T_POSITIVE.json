@@ -1,0 +1,22 @@
+{
+  "id": "ONDE_T_POSITIVE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3, T1",
+  "territoire_ignore_v1": "DIII; V1-V3",
+  "motif": "Description atomique de polarité de l'onde T absente du catalogue, les mentions en DIII ou V1-V3 relevant de la topographie ignorée en v1.",
+  "concept_retenu": {
+    "id": "ONDE_T_POSITIVE",
+    "concept_name": "Onde T positive",
+    "type": "finding",
+    "parents": [
+      "ONDE_T"
+    ],
+    "requires": [
+      "ONDE_T"
+    ],
+    "synonymes": [
+      "ondes T positives"
+    ]
+  }
+}

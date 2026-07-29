@@ -1,0 +1,361 @@
+{
+  "num": 70,
+  "titre": "angor spastique de Prinzmetal",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un sus-décalage majeur dépassant 10 mm",
+      "synonymes_a_ajouter": [
+        "sus-décalage majeur",
+        "sus-décalage dépassant 10 mm"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage de grande amplitude transitoire",
+      "synonymes_a_ajouter": [
+        "sus-décalage de grande amplitude",
+        "sus-décalage transitoire",
+        "sus-décalage régressif"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "amplitude très importante du sus-décalage",
+      "nouveau_concept": {
+        "id_suggere": "SUS_DECALAGE_ST_DE_GRANDE_AMPLITUDE",
+        "concept_name": "Sus-décalage ST de grande amplitude",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage majeur",
+          "sus-décalage dépassant 10 mm",
+          "sus-décalage de grande amplitude",
+          "amplitude très importante du sus-décalage"
+        ],
+        "poids": 3,
+        "justification": "Le cas insiste sur un sus-décalage >10 mm et de très grande amplitude, non représenté comme qualificatif existant."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "transitoire",
+      "nouveau_concept": {
+        "id_suggere": "TRANSITOIRE",
+        "concept_name": "Transitoire",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATEUR_EPISODE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "régressif",
+          "fugace",
+          "spontanément résolutif",
+          "cédant spontanément"
+        ],
+        "poids": 2,
+        "justification": "La régression/normalisation rapide du sus-décalage est un élément pédagogique central de l’angor de Prinzmetal."
+      }
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "dérivations inférieures",
+        "territoire inférieur"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "commençant au sommet de l'onde R",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R",
+        "concept_name": "Onde R",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde R",
+          "sommet de l'onde R"
+        ],
+        "poids": 2,
+        "justification": "L’onde R est citée comme repère morphologique du sus-décalage et n’existe pas comme concept élémentaire."
+      }
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "englobant l'onde T"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde en dôme monophasique",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_EN_DOME_MONOPHASIQUE",
+        "concept_name": "Onde en dôme monophasique",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ANOMALIES_DU_SEGMENT_ST"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "onde en dôme monophasique",
+          "sus-décalage en dôme monophasique"
+        ],
+        "poids": 3,
+        "justification": "Morphologie explicite du sus-décalage ST décrite par Pierre, sans concept équivalent dans le catalogue."
+      }
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un sous-décalage en miroir",
+      "synonymes_a_ajouter": [
+        "sous-décalage en miroir",
+        "sous-décalage de ST"
+      ]
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "en miroir",
+      "synonymes_a_ajouter": [
+        "en miroir"
+      ]
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une extrasystole ventriculaire",
+      "synonymes_a_ajouter": [
+        "extrasystole ventriculaire"
+      ]
+    },
+    {
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un doublet d’extrasystoles ventriculaires",
+      "synonymes_a_ajouter": [
+        "doublet d’extrasystoles ventriculaires",
+        "doublet d'extrasystoles ventriculaires"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "SCA ST+ dans le territoire inférieur"
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu",
+      "synonymes_a_ajouter": [
+        "syndrome coronarie, aigu"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "angor de Prinzmetal",
+      "nouveau_concept": {
+        "id_suggere": "ANGOR_DE_PRINZMETAL",
+        "concept_name": "Angor de Prinzmetal",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "ISCHEMIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "angor de Prinzmetal",
+          "angor spastique de Prinzmetal",
+          "angor spastique",
+          "angor vasospastique"
+        ],
+        "poids": 4,
+        "justification": "Diagnostic attendu du cas et réponse QCM, non représenté dans l’ontologie existante."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "spasme au niveau de la coronaire droite",
+      "nouveau_concept": {
+        "id_suggere": "SPASME_CORONARIEN",
+        "concept_name": "Spasme coronarien",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "ISCHEMIQUE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "spasme coronarien",
+          "spasme coronaire",
+          "spasme au niveau de la coronaire droite",
+          "spasme occlusif",
+          "spasme non occlusif"
+        ],
+        "poids": 3,
+        "justification": "Mécanisme diagnostique central du Prinzmetal, associé dans le texte aux modifications transitoires du ST."
+      }
+    },
+    {
+      "concept_id": "ARYTHMIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles du rythme polymorphes",
+      "synonymes_a_ajouter": [
+        "trouble du rythme",
+        "troubles du rythme"
+      ]
+    },
+    {
+      "concept_id": "POLYMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "polymorphes"
+    },
+    {
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la conduction",
+      "synonymes_a_ajouter": [
+        "troubles de la conduction"
+      ]
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "torsades de pontes",
+      "synonymes_a_ajouter": [
+        "torsades de pointes",
+        "torsades de pontes"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sous-décalage de ST"
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ondes T négatives"
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "territoire antérieur"
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "péricardite"
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "hyperkaliémie majeure",
+      "synonymes_a_ajouter": [
+        "hyperkaliémie majeure"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le diagnostic de SCA ST+ du cas repose explicitement sur le sus-décalage du segment ST."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Pierre qualifie le SCA ST+ par le territoire inférieur."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "MIROIR",
+      "justification": "Le sous-décalage est décrit comme réciproque/en miroir du sus-décalage inférieur."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le sous-décalage en miroir renforce l’interprétation de SCA ST+."
+    },
+    {
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Un doublet ventriculaire correspond à deux extrasystoles ventriculaires successives."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "parents",
+      "cible": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "justification": "Dans le commentaire, les torsades sont présentées dans le cadre des troubles du rythme polymorphes."
+    }
+  ],
+  "synthese": "Le catalogue couvre le socle du cas (rythme sinusal, sus/sous-décalage ST, SCA ST+ inférieur, ESV/doublet), mais il manque le diagnostic d’angor de Prinzmetal/spasme coronarien et des qualificatifs clés du cas : grande amplitude, transitoire/régressif et morphologie en dôme monophasique. Quelques synonymes exacts de Pierre sont à ajouter pour fiabiliser l’appariement lexical.",
+  "error": null
+}

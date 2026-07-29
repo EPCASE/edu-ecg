@@ -1,0 +1,21 @@
+{
+  "id": "DEBUT_BRUTAL_DE_TACHYCARDIE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "DEBUT_BRUTAL",
+    "concept_name": "Début brutal",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATEUR_EPISODE"
+    ],
+    "synonymes": [
+      "début soudain",
+      "installation soudaine",
+      "début brutal"
+    ]
+  },
+  "motif": "Le mode de début brutal est un qualificateur d’épisode réutilisable, séparable de la tachycardie elle-même.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

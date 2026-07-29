@@ -1,0 +1,356 @@
+{
+  "num": 50,
+  "titre": "fibrillation ventriculaire sur myocardiopathie ischémique",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "myocardiopathie ischémique",
+      "synonymes_a_ajouter": [
+        "myocardiopathie ischémique",
+        "cardiomyopathie ischémique"
+      ]
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu antérieur"
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "antérieur / antérieure / de V1 à V4",
+      "synonymes_a_ajouter": [
+        "antérieure",
+        "dérivations antérieures",
+        "de V1 à V4",
+        "V1 à V4"
+      ]
+    },
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "séquelle de nécrose antérieure étendue"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "onde Q de V1 à V4 et dans les dérivations inférieures"
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations inférieures / nécrose inférieure",
+      "synonymes_a_ajouter": [
+        "inférieure",
+        "dérivations inférieures",
+        "territoire inférieur"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sus-décalage du segment ST"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "persistance d'un sus-décalage du segment ST / sus-décalage persistant",
+      "nouveau_concept": {
+        "id_suggere": "PERSISTANT",
+        "concept_name": "Persistant",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "persistant",
+          "persistante",
+          "persistance",
+          "persistant du segment ST",
+          "sus-décalage persistant"
+        ],
+        "poids": 2,
+        "justification": "Le cas insiste sur la persistance du sus-décalage ST après l'infarctus, nuance temporelle non représentée par le seul sus-décalage ST."
+      }
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "2 extrasystoles ventriculaires"
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "couplage très court",
+      "synonymes_a_ajouter": [
+        "couplage très court",
+        "extrasystole à couplage très court",
+        "ESV à couplage très court",
+        "extrasystole ventriculaire à couplage très court"
+      ]
+    },
+    {
+      "concept_id": "PHENOMENE_R_T",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sur le sommet de l’onde T",
+      "synonymes_a_ajouter": [
+        "sur le sommet de l'onde T",
+        "sur l’onde T",
+        "extrasystole sur l'onde T",
+        "R sur T"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire / FV / tachycardie à QRS larges, irrégulière, polymorphe et anarchique",
+      "synonymes_a_ajouter": [
+        "tachycardie à QRS larges, irrégulière, polymorphe et anarchique",
+        "tachycardie ventriculaire anarchique",
+        "activité électrique ventriculaire chaotique"
+      ]
+    },
+    {
+      "concept_id": "DESORGANISEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "complètement désorganisée, chaotique, incoordonnée / anarchique",
+      "synonymes_a_ajouter": [
+        "chaotique",
+        "incoordonnée",
+        "anarchique",
+        "complètement désorganisée"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie anarchique"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "tachycardie à QRS larges"
+      ]
+    },
+    {
+      "concept_id": "POLYMORPHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "polymorphes / polymorphe",
+      "synonymes_a_ajouter": [
+        "polymorphes"
+      ]
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "irréguliers / irrégulière",
+      "synonymes_a_ajouter": [
+        "irréguliers",
+        "irrégulière"
+      ]
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tracé microvolté, à petite maille, pré-agonique (pseudo-tracé plat)",
+      "synonymes_a_ajouter": [
+        "tracé microvolté",
+        "à petite maille",
+        "petite maille",
+        "pseudo-tracé plat"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "en larges fuseaux",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_EN_LARGES_FUSEAUX",
+        "concept_name": "Aspect en larges fuseaux",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "larges fuseaux",
+          "en larges fuseaux",
+          "fibrillation ventriculaire en larges fuseaux"
+        ],
+        "poids": 2,
+        "justification": "Formulation descriptive explicite de la FV dans le référentiel EDN, non couverte par QRS large ni par microvoltage."
+      }
+    },
+    {
+      "concept_id": "REPOS_COMPENSATEUR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "repos compensateur"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "succession cycle court (extrasystole ventriculaire) - cycle long (repos compensateur) - cycle court (nouvelle extrasystole)",
+      "nouveau_concept": {
+        "id_suggere": "SEQUENCE_CYCLE_COURT_LONG_COURT",
+        "concept_name": "Séquence cycle court-long-court",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "EVENEMENTS_ECTOPIQUES"
+        ],
+        "requires": [
+          "EXTRASYSTOLE_VENTRICULAIRE",
+          "REPOS_COMPENSATEUR",
+          "EXTRASYSTOLE_A_COUPLAGE_COURT"
+        ],
+        "synonymes": [
+          "succession cycle court - cycle long - cycle court",
+          "cycle court-long-court",
+          "séquence court-long-court",
+          "short-long-short sequence"
+        ],
+        "poids": 3,
+        "justification": "Le cas décrit explicitement le mécanisme ECG de démarrage de la FV par séquence ESV-repos compensateur-ESV."
+      }
+    },
+    {
+      "concept_id": "CARDIOVERSION_ELECTRIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "choc électrique",
+      "synonymes_a_ajouter": [
+        "choc électrique",
+        "traitement par choc électrique"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "salve de tachycardie ventriculaire polymorphe non soutenue",
+      "synonymes_a_ajouter": [
+        "tachycardie ventriculaire polymorphe non soutenue",
+        "salve de tachycardie ventriculaire polymorphe",
+        "salve de TV polymorphe"
+      ]
+    },
+    {
+      "concept_id": "NON_SOUTENU",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "non soutenue",
+      "synonymes_a_ajouter": [
+        "non soutenue"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "relation": "requires",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Dans le cas, la séquelle de nécrose est objectivée par des ondes Q de nécrose."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "relation": "requires",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "La formulation utilisée est celle d'une ESV à couplage très court."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "relation": "has_qualifiers",
+      "cible": "PHENOMENE_R_T",
+      "justification": "Le couplage très court est précisé comme survenant sur le sommet de l'onde T."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "DESORGANISEE",
+      "justification": "Le texte définit la FV comme désorganisée, chaotique et anarchique."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "TACHYCARDIE",
+      "justification": "Le texte décrit l'aspect de surface comme une tachycardie anarchique."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "QRS_LARGE",
+      "justification": "Le texte décrit la FV comme une tachycardie à QRS larges."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "POLYMORPHE",
+      "justification": "Le texte décrit des complexes polymorphes."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "IRREGULIER",
+      "justification": "Le texte décrit des complexes/une tachycardie irréguliers."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "MICROVOLTAGE",
+      "justification": "Le texte indique l'évolution possible de la FV vers un tracé microvolté à petite maille."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "relation": "has_qualifiers",
+      "cible": "NON_SOUTENU",
+      "justification": "Le second tracé est explicitement une TV polymorphe non soutenue."
+    },
+    {
+      "concept_id": "CARDIOVERSION_ELECTRIQUE",
+      "relation": "supports",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le choc électrique rétablit un rythme sinusal viable dans le cas."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le sus-décalage ST est l'élément ECG constitutif du SCA ST+."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour rythme sinusal, séquelle de nécrose, ESV à couplage court, FV et TV polymorphe. Les principaux trous lexicaux portent sur les formulations pédagogiques de la FV, le caractère persistant du sus-décalage ST et la séquence court-long-court déclenchante.",
+  "error": null
+}

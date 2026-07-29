@@ -1,0 +1,27 @@
+{
+  "id": "SEQUENCE_CYCLE_COURT_LONG_COURT",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "SEQUENCE_CYCLE_COURT_LONG_COURT",
+    "concept_name": "Séquence cycle court-long-court",
+    "type": "pattern",
+    "parents": [
+      "EVENEMENTS_ECTOPIQUES"
+    ],
+    "requires": [
+      "EXTRASYSTOLE_VENTRICULAIRE",
+      "REPOS_COMPENSATEUR",
+      "EXTRASYSTOLE_A_COUPLAGE_COURT"
+    ],
+    "synonymes": [
+      "cycle court-long-court",
+      "short-long-short sequence",
+      "succession cycle court - cycle long - cycle court",
+      "séquence court-long-court"
+    ]
+  },
+  "motif": "Pattern temporel arythmogène différenciant constitué d'une séquence ordonnée, non réductible à la simple présence non ordonnée de ses atomes.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

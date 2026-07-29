@@ -1,0 +1,25 @@
+{
+  "id": "SUS_DECALAGE_ST_CONVEXE_ANTERO_SEPTAL_SANS_MIROIR",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "Le concept empile sus-décalage ST, morphologie convexe, territoire antéro-septal et absence de miroir; le territoire est ignoré en v1 et les éléments descriptifs doivent être séparés.",
+  "territoire_ignore_v1": "antéro-septal / V1-V3",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "CONVEXE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "ABSENCE_DE_MIROIR",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "num": 4,
+  "titre": "hypertrophie auriculaire gauche",
+  "famille": "hypertrophie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "statut": "present",
+      "surface": "hypertrophie auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire gauche"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_P_PROLONGEE",
+      "statut": "present",
+      "surface": "onde P élargie > 120 ms",
+      "synonymes_a_ajouter": [
+        "onde P élargie",
+        "onde P élargie > 120 ms",
+        "durée de l'onde P > 120 ms",
+        "allongement de la durée de l'onde P",
+        "durée de l'onde P > 110 ms"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde P bifide en DI, DII, DIII, aVF et de V3 à V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_BIFIDE",
+        "concept_name": "Onde P bifide",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "onde P bifide",
+          "onde P crochetée",
+          "morphologie crochetée de l'onde P",
+          "aspect en M de l'onde P",
+          "onde P en double bosse",
+          "double bosse de l'onde P"
+        ],
+        "poids": 4,
+        "justification": "Critère morphologique explicitement utilisé dans le cas pour définir l'hypertrophie auriculaire gauche."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "composante négative élargie en V1",
+      "nouveau_concept": {
+        "id_suggere": "COMPOSANTE_NEGATIVE_TERMINALE_ONDE_P_V1",
+        "concept_name": "Composante négative terminale de l'onde P en V1",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "composante négative élargie en V1",
+          "composante négative profonde en V1",
+          "composante négative profonde et élargie en V1",
+          "composante négative > 40 ms en V1",
+          "composante négative > 1 mm en V1"
+        ],
+        "poids": 4,
+        "justification": "Anomalie de l'onde P décrite comme caractéristique de l'hypertrophie auriculaire gauche."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INDICE_DE_SOKOLOW__35_MM",
+      "statut": "absent",
+      "surface": "l’indice de Sokolow est négatif (< 36 mm)"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "l’indice de Sokolow est négatif (< 36 mm)",
+      "synonymes_a_ajouter": [
+        "Sokolow négatif",
+        "indice de Sokolow négatif",
+        "indice de Sokolow < 36 mm"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "present",
+      "surface": "trouble de la repolarisation latérale",
+      "synonymes_a_ajouter": [
+        "trouble de la repolarisation latérale"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "LATERAL",
+      "statut": "present",
+      "surface": "latérale",
+      "synonymes_a_ajouter": [
+        "latérale",
+        "territoire latéral"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "ondes T négatives"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CARDIOMYOPATHIE_HYPERTROPHIQUE",
+      "statut": "present",
+      "surface": "myocardiopathie hypertrophique familiale",
+      "synonymes_a_ajouter": [
+        "myocardiopathie hypertrophique",
+        "myocardiopathie hypertrophique familiale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_P_ANORMALE",
+      "statut": "absent",
+      "surface": "une onde P normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "statut": "absent",
+      "surface": "une hypertrophie auriculaire droite"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "une hypertrophie bi-auriculaire",
+      "nouveau_concept": {
+        "id_suggere": "HYPERTROPHIE_BI_ATRIALE",
+        "concept_name": "Hypertrophie bi-atriale",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL"
+        ],
+        "requires": [
+          "HYPERTROPHIE_ATRIALE_GAUCHE",
+          "HYPERTROPHIE_ATRIALE_DROITE"
+        ],
+        "synonymes": [
+          "hypertrophie bi-auriculaire",
+          "hypertrophie biauriculaire",
+          "hypertrophie bi-atriale",
+          "HBA"
+        ],
+        "poids": 3,
+        "justification": "Proposition de QCM explicitement absente ; utile pour représenter la négation si l'ontologie doit couvrir les items du cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "une activation atriale rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVATION_ATRIALE_RETROGRADE",
+        "concept_name": "Activation atriale rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "activation atriale rétrograde",
+          "activation auriculaire rétrograde",
+          "onde P rétrograde",
+          "ondes P rétrogrades"
+        ],
+        "poids": 3,
+        "justification": "Item de QCM explicitement absent ; aucun concept existant ne couvre cette activation atriale rétrograde."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "relation": "requires",
+      "cible": "ONDE_P_PROLONGEE",
+      "justification": "Le cas définit l'HAG par une onde P élargie/prolongée."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "relation": "supports",
+      "cible": "CARDIOMYOPATHIE_HYPERTROPHIQUE",
+      "justification": "Le texte indique que l'HAG est fréquente dans la myocardiopathie hypertrophique."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "relation": "parents",
+      "cible": "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL",
+      "justification": "L'HAG est une anomalie de l'onde P, donc de la dépolarisation atriale ; son parent actuel est TROUBLE_DE_CONDUCTION_INTRA_ATRIAL, plus restrictif."
+    },
+    {
+      "concept_id": "ONDE_P_PROLONGEE",
+      "relation": "parents",
+      "cible": "ONDE_P_ANORMALE",
+      "justification": "Une onde P prolongée/élargie est décrite comme une morphologie anormale de l'onde P dans le cas."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "has_qualifiers",
+      "cible": "LATERAL",
+      "justification": "Le cas qualifie explicitement le trouble de repolarisation comme latéral."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "requires",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Dans ce tracé, le trouble de repolarisation latérale est porté par des ondes T négatives."
+    }
+  ],
+  "synthese": "Les lacunes majeures concernent les critères morphologiques spécifiques de l'hypertrophie auriculaire gauche : onde P bifide/crochetée et composante terminale négative de P en V1. Plusieurs formulations usuelles de Pierre relèvent surtout de synonymes manquants sur HAG, onde P prolongée, trouble de repolarisation latérale et CMH.",
+  "error": null
+}

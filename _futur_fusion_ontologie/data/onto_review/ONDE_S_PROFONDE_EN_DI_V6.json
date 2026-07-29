@@ -1,0 +1,20 @@
+{
+  "id": "ONDE_S_PROFONDE_EN_DI_V6",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "Le concept combine une onde S profonde avec des territoires DI et V6; les dérivations sont ignorées en v1 et le finding doit être atomisé.",
+  "territoire_ignore_v1": "DI et V6",
+  "decomposition": [
+    {
+      "id": "ONDE_S_PROFONDE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "PRESENCE_DE_QRS",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

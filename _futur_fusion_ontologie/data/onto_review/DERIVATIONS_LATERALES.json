@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_LATERALES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure de dérivations latérales, réservée à une couche topographique future et ignorée en v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "D1, aVL, V5, V6 / latéral"
+}

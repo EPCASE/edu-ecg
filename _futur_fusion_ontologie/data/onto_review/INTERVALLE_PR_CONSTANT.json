@@ -1,0 +1,20 @@
+{
+  "id": "INTERVALLE_PR_CONSTANT",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "Il s'agit de l'intervalle PR qualifié par une stabilité/constance, donc à composer avec INTERVALLE_PR et le qualifier réutilisable FIXE plutôt qu'à créer comme finding séparé.",
+  "decomposition": [
+    {
+      "id": "INTERVALLE_PR",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "FIXE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

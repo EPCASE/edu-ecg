@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATION_AVR",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "aVR",
+  "motif": "Dérivation isolée = topographie pure ; rejetée en v1 et seulement notée comme localisation ignorée."
+}

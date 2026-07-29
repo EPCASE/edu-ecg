@@ -1,0 +1,309 @@
+{
+  "num": 55,
+  "titre": "péricardite",
+  "famille": "pericarde",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "SOUS_PQ",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un sous-décalage du segment PQ",
+      "synonymes_a_ajouter": [
+        "sous-décalage du segment PQ",
+        "sous-décalage diffus du segment PQ"
+      ]
+    },
+    {
+      "concept_id": "SUS_PQ",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage en aVR",
+      "synonymes_a_ajouter": [
+        "sus-décalage du segment PQ",
+        "sus-décalage PQ"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un sus-décalage diffus du segment ST",
+      "synonymes_a_ajouter": [
+        "sus-décalage diffus du segment ST",
+        "sus-décalage diffus ST"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "diffus",
+      "nouveau_concept": {
+        "id_suggere": "DIFFUS",
+        "concept_name": "Diffus",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "diffuse",
+          "dans une majorité de dérivations",
+          "ne correspondant pas à un territoire coronarien défini"
+        ],
+        "poids": 3,
+        "justification": "Le texte insiste sur le caractère diffus du sus-décalage ST/PQ, critère discriminant de péricardite."
+      }
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage du segment ST, concave vers le haut",
+      "synonymes_a_ajouter": [
+        "sus-décalage du segment ST concave vers le haut",
+        "sus-décalage ST concave vers le haut"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "concave vers le haut",
+      "nouveau_concept": {
+        "id_suggere": "CONCAVE_VERS_LE_HAUT",
+        "concept_name": "Concave vers le haut",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "ANOMALIES_DU_SEGMENT_ST"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "concavité supérieure",
+          "concave dans sa partie initiale"
+        ],
+        "poids": 3,
+        "justification": "La concavité supérieure du sus-décalage ST est décrite à plusieurs reprises comme typique de la péricardite."
+      }
+    },
+    {
+      "concept_id": "ONDE_T_NORMALES",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T positives",
+      "synonymes_a_ajouter": [
+        "ondes T positives",
+        "onde T positive",
+        "positivité des ondes T"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_AMPLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde T positive parfois de grande amplitude",
+      "synonymes_a_ajouter": [
+        "onde T de grande amplitude",
+        "ondes T de grande amplitude"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un sous-décalage du segment ST en aVR et V1",
+      "synonymes_a_ajouter": [
+        "sous-décalage du segment ST en aVR et V1",
+        "sous-décalage ST en aVR et V1"
+      ]
+    },
+    {
+      "concept_id": "ALTERNANCE_DES_QRS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des variations d’amplitude des complexes QRS",
+      "synonymes_a_ajouter": [
+        "variations d'amplitude des complexes QRS",
+        "variation d'amplitude des QRS",
+        "alternance électrique des QRS"
+      ]
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "péricardite aiguë virale",
+      "synonymes_a_ajouter": [
+        "péricardite aiguë",
+        "péricardite aigüe",
+        "péricardite virale",
+        "péricardite aiguë virale"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "épanchement péricardique",
+      "nouveau_concept": {
+        "id_suggere": "EPANCHEMENT_PERICARDIQUE",
+        "concept_name": "Épanchement péricardique",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "PERICARDITE"
+        ],
+        "requires": [
+          "ALTERNANCE_DES_QRS"
+        ],
+        "synonymes": [
+          "épanchement péricardique",
+          "épanchement de faible abondance"
+        ],
+        "poids": 4,
+        "justification": "Pierre conclut à un épanchement péricardique devant les variations d’amplitude des QRS."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect en selle de chameau",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_EN_SELLE_DE_CHAMEAU",
+        "concept_name": "Aspect en selle de chameau",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ANOMALIES_DU_SEGMENT_ST"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "ONDE_T_NORMALES"
+        ],
+        "synonymes": [
+          "selle de chameau"
+        ],
+        "poids": 2,
+        "justification": "Formulation pédagogique spécifique utilisée pour décrire le sus-décalage ST concave suivi d'une onde T positive."
+      }
+    },
+    {
+      "concept_id": "ONDE_T_APLATIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un aplatissement des ondes T",
+      "synonymes_a_ajouter": [
+        "aplatissement des ondes T",
+        "ondes T aplaties"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T négatives souvent symétriques et pointues",
+      "synonymes_a_ajouter": [
+        "ondes T négatives symétriques et pointues",
+        "ondes T négatives pointues"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence d'ondes q de nécrose",
+      "synonymes_a_ajouter": [
+        "ondes q de nécrose",
+        "onde q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence de miroir à part en aVR et V1",
+      "synonymes_a_ajouter": [
+        "miroir en aVR et V1",
+        "absence de miroir hors aVR et V1"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "sus-décalage d'aspect différent par rapport au SCA"
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "syndrome coronarien aigu"
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "embolie pulmonaire"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "supports",
+      "cible": "SOUS_PQ",
+      "justification": "Le sous-décalage diffus du segment PQ est cité comme signe évocateur de péricardite."
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "supports",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le sus-décalage diffus du segment ST est cité comme signe évocateur de péricardite."
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "supports",
+      "cible": "SUS_PQ",
+      "justification": "Le sus-décalage du segment PQ en aVR accompagne le sous-décalage PQ diffus dans le cas."
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "supports",
+      "cible": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "justification": "Le sous-décalage ST en aVR et V1 est décrit dans le tracé de péricardite."
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "excludes",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Pierre souligne l'absence d'ondes q de nécrose comme élément en faveur de la péricardite versus SCA."
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "excludes",
+      "cible": "MIROIR",
+      "justification": "Pierre mentionne l'absence de miroir hors aVR et V1 comme élément évocateur de péricardite."
+    },
+    {
+      "concept_id": "TAMPONNADE",
+      "relation": "supports",
+      "cible": "ALTERNANCE_DES_QRS",
+      "justification": "Les variations d’amplitude des QRS suggèrent un épanchement péricardique et, dans l'ontologie existante, l'entité péricardique proche est la tamponnade."
+    },
+    {
+      "concept_id": "ALTERNANCE_DES_QRS",
+      "relation": "parents",
+      "cible": "VOLTAGE_DU_QRS_ANORMAL",
+      "justification": "Les variations d'amplitude des complexes QRS relèvent d'une anomalie de voltage/amplitude du QRS, pas seulement de la morphologie."
+    }
+  ],
+  "synthese": "Le cas de péricardite aiguë est globalement couvert, mais les critères sémiologiques discriminants manquent comme concepts/qualificateurs explicites : caractère diffus, concavité supérieure du ST, aspect en selle de chameau et épanchement péricardique. Les synonymes autour du sous/sus-décalage PQ et de l’alternance électrique des QRS doivent être enrichis.",
+  "error": null
+}

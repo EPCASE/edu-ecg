@@ -1,0 +1,20 @@
+{
+  "id": "INTERVALLE_PR_FIXE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1",
+  "motif": "La fixité/constance de l'intervalle PR est une observation descriptive réutilisable, distincte de l'allongement progressif déjà catalogué et utile pour caractériser la conduction AV.",
+  "concept_retenu": {
+    "id": "INTERVALLE_PR_FIXE",
+    "concept_name": "Intervalle PR fixe",
+    "type": "finding",
+    "parents": [
+      "INTERVALLE_PR"
+    ],
+    "synonymes": [
+      "PR constant",
+      "PR fixe",
+      "intervalle PR constant"
+    ]
+  }
+}

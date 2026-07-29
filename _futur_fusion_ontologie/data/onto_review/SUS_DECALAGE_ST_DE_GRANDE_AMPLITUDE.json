@@ -1,0 +1,20 @@
+{
+  "id": "SUS_DECALAGE_ST_DE_GRANDE_AMPLITUDE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C2, T1",
+  "motif": "Le concept fusionne le finding existant de sus-décalage ST avec une intensité; l'amplitude est un simple qualifier générique et les dérivations citées sont ignorées en v1.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "AMPLE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "V1-V2; V2-V3"
+}

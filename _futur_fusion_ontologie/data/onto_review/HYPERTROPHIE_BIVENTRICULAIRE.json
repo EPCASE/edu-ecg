@@ -1,0 +1,25 @@
+{
+  "id": "HYPERTROPHIE_BIVENTRICULAIRE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ET",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "motif": "Composite exactement représentable par la conjonction de deux findings existants, sans besoin d'un pattern monolithique supplémentaire.",
+  "principe": "C1, C3, D1",
+  "territoire_ignore_v1": ""
+}

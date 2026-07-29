@@ -1,0 +1,25 @@
+{
+  "id": "FONCTIONNEMENT_NORMAL_DU_STIMULATEUR",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Le fonctionnement normal d'un stimulateur est un pattern interprétatif réutilisable de normalité de stimulation, non équivalent aux complications existantes ni au simple finding PACEMAKER.",
+  "concept_retenu": {
+    "id": "FONCTIONNEMENT_NORMAL_DU_STIMULATEUR",
+    "concept_name": "Fonctionnement normal du stimulateur",
+    "type": "pattern",
+    "parents": [
+      "STIMULATION"
+    ],
+    "requires": [
+      "PACEMAKER"
+    ],
+    "synonymes": [
+      "fonctionnement adapté du stimulateur",
+      "fonctionnement attendu du stimulateur",
+      "fonctionnement attendu d'un stimulateur cardiaque",
+      "fonctionnement adapté de la sonde atriale"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,22 @@
+{
+  "id": "FREQUENT",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "C1",
+  "motif": "Fréquent/nombreux est un modificateur quantitatif transverse applicable à des événements ou anomalies, à modéliser comme qualifier réutilisable.",
+  "concept_retenu": {
+    "id": "FREQUENT",
+    "concept_name": "Fréquent",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "fréquente",
+      "fréquentes",
+      "fréquents",
+      "nombreuses",
+      "nombreux"
+    ]
+  }
+}

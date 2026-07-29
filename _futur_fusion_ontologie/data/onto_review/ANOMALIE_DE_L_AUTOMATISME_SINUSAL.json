@@ -1,0 +1,9 @@
+{
+  "id": "ANOMALIE_DE_L_AUTOMATISME_SINUSAL",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3, D1",
+  "motif": "Le libellé recouvre le diagnostic générique déjà existant DYSFONCTION_SINUSALE plutôt qu'un finding atomique nouveau.",
+  "concept_cible": "DYSFONCTION_SINUSALE",
+  "territoire_ignore_v1": ""
+}

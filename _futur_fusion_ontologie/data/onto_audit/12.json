@@ -1,0 +1,303 @@
+{
+  "num": 12,
+  "titre": "bloc de branche droite et hypertrophie ventriculaire droite",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à environ 70 battements/minute"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "hypertrophie auriculaire droite",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire droite"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_AMPLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P positive en V1 > 2mm",
+      "synonymes_a_ajouter": [
+        "onde P positive en V1 > 2 mm",
+        "onde P > 2 mm en V1",
+        "onde P > 2 mm en V2",
+        "onde P pointue"
+      ]
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "synonymes_a_ajouter": [
+        "conduction atrio-ventriculaire normale",
+        "conduction AV normale"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle PR de durée normale",
+        "PR de durée normale"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "complexes QRS larges"
+      ]
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "durée de 150 ms"
+    },
+    {
+      "concept_id": "ASPECT_DE_RETARD_DROIT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect caractéristique de bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche droite",
+        "aspect caractéristique de bloc de branche droite"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite complet"
+      ]
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "déviation axiale droite"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect S1Q3",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_S1Q3",
+        "concept_name": "Aspect S1Q3",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "S1Q3",
+          "aspect S1Q3",
+          "signe S1Q3"
+        ],
+        "poids": 3,
+        "justification": "Formulation explicitement présente dans l'interprétation de référence, non représentée par un concept existant."
+      }
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hypertrophie ventriculaire droite"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "très grande amplitude de l’onde R en V1",
+      "nouveau_concept": {
+        "id_suggere": "GRANDE_AMPLITUDE_ONDE_R_R_PRIME_EN_V1",
+        "concept_name": "Grande amplitude de l’onde R/R’ en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "très grande amplitude de l’onde R en V1",
+          "augmentation de l’amplitude de l’onde R en V1",
+          "onde R’ de grande amplitude en V1",
+          "grande amplitude de l’onde R’ dépassant 15 mm en V1",
+          "R’ > 15 mm en V1"
+        ],
+        "poids": 4,
+        "justification": "Critère ECG central d'HVD en présence d'un BBD, répété dans les commentaires pédagogiques."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde s profonde en DI et V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_PROFONDE_EN_DI_V6",
+        "concept_name": "Onde S profonde en DI et V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde S profonde en DI et V6",
+          "onde s profonde en DI et V6",
+          "onde S très large en DI",
+          "S profonde en D1 et V6"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique explicitement décrit comme évocateur d'HVD dans ce cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "retard important de la déflexion intrinsécoide en précordiales droites",
+      "nouveau_concept": {
+        "id_suggere": "RETARD_DEFLEXION_INTRINSECOIDE_PRECORDIALES_DROITES",
+        "concept_name": "Retard de la déflexion intrinsécoïde en précordiales droites",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "retard important de la déflexion intrinsécoide en précordiales droites",
+          "retard de la déflexion intrinsécoïde en précordiales droites",
+          "retard de la déflexion intrinsécoide en V1-V3"
+        ],
+        "poids": 3,
+        "justification": "Paramètre explicitement cité puis dit observé chez le patient."
+      }
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T négatives en V1-V3",
+      "synonymes_a_ajouter": [
+        "ondes T négatives",
+        "ondes T négatives en V1-V3"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "précordium droit (V1-V3)",
+      "nouveau_concept": {
+        "id_suggere": "PRECORDIUM_DROIT",
+        "concept_name": "Précordium droit",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "précordiales droites",
+          "précordium droit",
+          "V1-V3"
+        ],
+        "poids": 2,
+        "justification": "Localisation utilisée pour les ondes T négatives et le retard de déflexion intrinsécoïde."
+      }
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un bloc de branche gauche"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le cas associe le BBD complet à des QRS larges de 150 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_DE_RETARD_DROIT",
+      "justification": "Le diagnostic repose sur un aspect caractéristique de bloc de branche droit."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "relation": "requires",
+      "cible": "ONDE_P_AMPLE",
+      "justification": "Le référentiel indique que l'HAD se traduit par une onde P de grande amplitude, notamment >2 mm en V1/V2."
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Le texte précise que la déviation axiale droite est souvent le signe le plus précoce d'HVD."
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Les ondes T négatives dans le précordium droit sont décrites comme un signe d'HVD."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour les diagnostics principaux (BBD complet, HAD, HVD), mais plusieurs critères ECG pédagogiques d'HVD manquent comme concepts descriptifs : S1Q3, grande onde R/R’ en V1, onde S profonde en DI/V6 et retard de déflexion intrinsécoïde. Des synonymes francophones usuels de Pierre doivent aussi être ajoutés, notamment « bloc de branche droite », « hypertrophie auriculaire droite » et « conduction AV normale ».",
+  "error": null
+}

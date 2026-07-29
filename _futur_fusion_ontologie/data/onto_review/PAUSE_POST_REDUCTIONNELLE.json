@@ -1,0 +1,25 @@
+{
+  "id": "PAUSE_POST_REDUCTIONNELLE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1",
+  "motif": "Il s’agit d’une pause qualifiée par son contexte temporel post-réductionnel, à représenter par le finding PAUSE et un qualificatif/contexte réutilisable plutôt que par un pattern dédié.",
+  "decomposition": [
+    {
+      "id": "PAUSE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "POST_REDUCTIONNEL",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "requires",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

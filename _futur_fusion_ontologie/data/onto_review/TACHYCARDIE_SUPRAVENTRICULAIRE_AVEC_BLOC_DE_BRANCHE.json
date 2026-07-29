@@ -1,0 +1,25 @@
+{
+  "id": "TACHYCARDIE_SUPRAVENTRICULAIRE_AVEC_BLOC_DE_BRANCHE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "BLOC_DE_BRANCHE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "QRS_LARGE",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Le libellé associe une TSV existante à un bloc de branche et à des QRS larges ; la composition suffit et évite un pattern monolithique redondant.",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,8 @@
+{
+  "id": "QRS_GLOBALEMENT_NEGATIF",
+  "verdict": "REJETER",
+  "classe": "description",
+  "principe": "C5",
+  "motif": "Formulation trop globale et peu différenciante, explicitement rejetée par la doctrine sauf rattachement clinique précis.",
+  "territoire_ignore_v1": ""
+}

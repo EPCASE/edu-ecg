@@ -1,0 +1,341 @@
+{
+  "num": 7,
+  "titre": "hypertrophie ventriculaire droite",
+  "famille": "hypertrophie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un bloc auriculo-ventriculaire du premier degré",
+      "synonymes_a_ajouter": [
+        "bloc auriculo-ventriculaire du premier degré"
+      ]
+    },
+    {
+      "concept_id": "PR_ALLONGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR à 230 ms",
+      "synonymes_a_ajouter": [
+        "intervalle PR à 230 ms",
+        "PR à 230 ms"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des complexes QRS fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une hypertrophie ventriculaire droite"
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une déviation axiale droite (130°)"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "un rapport R/S > 1 en V1",
+      "nouveau_concept": {
+        "id_suggere": "RAPPORT_R_S_SUPERIEUR_A_1",
+        "concept_name": "Rapport R/S supérieur à 1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "rapport R/S > 1",
+          "ratio R/S > 1",
+          "R/S > 1",
+          "prédominance de l'onde R en V1, V2",
+          "prédominance de l'onde R",
+          "aspect RS",
+          "aspect Rs",
+          "R exclusif"
+        ],
+        "poids": 4,
+        "justification": "Critère ECG explicite d'HVD dans le cas, non représenté par un concept existant."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "une amplitude des ondes R de 10 mm en V1 et de 17 mm en V2",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R_DE_GRANDE_AMPLITUDE",
+        "concept_name": "Onde R de grande amplitude",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde R de grande amplitude",
+          "onde R > 6 mm",
+          "grande onde R",
+          "amplitude élevée de l'onde R",
+          "amplitude des ondes R de 10 mm en V1",
+          "amplitude des ondes R de 17 mm en V2"
+        ],
+        "poids": 4,
+        "justification": "Le catalogue contient le voltage du QRS mais pas l'amplitude augmentée de l'onde R, critère central d'HVD décrit par Pierre."
+      }
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des troubles de la repolarisation dans les dérivations précordiales droites",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation",
+        "troubles de la repolarisation dans les dérivations précordiales droites"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes t négatives de V1 à V4",
+      "synonymes_a_ajouter": [
+        "ondes T négatives",
+        "ondes t négatives",
+        "ondes T négatives de V1 à V4"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations précordiales droites",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_PRECORDIALES_DROITES",
+        "concept_name": "Dérivations précordiales droites",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "précordiales droites",
+          "dérivations précordiales droites",
+          "V1-V3",
+          "V1 à V3",
+          "V1-V4",
+          "V1 à V4",
+          "V1, V2"
+        ],
+        "poids": 3,
+        "justification": "Localisation ECG explicitement utilisée pour les anomalies de repolarisation et les critères d'HVD."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "une onde S profonde (> 7 mm) en miroir en V5, V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_PROFONDE",
+        "concept_name": "Onde S profonde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde S profonde",
+          "onde S profonde > 7 mm",
+          "onde S profonde en V5, V6",
+          "grande onde S"
+        ],
+        "poids": 3,
+        "justification": "Critère pédagogique d'HVD mentionné par Pierre, absent du lexique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "en V5, V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_LATERALES_GAUCHES",
+        "concept_name": "Dérivations latérales gauches",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V5, V6",
+          "V5-V6",
+          "V5 à V6",
+          "dérivations latérales gauches"
+        ],
+        "poids": 2,
+        "justification": "Topographie ECG utilisée dans le commentaire pour l'onde S profonde en miroir."
+      }
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "en miroir"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sous décalage modéré du segment ST",
+      "synonymes_a_ajouter": [
+        "sous décalage modéré du segment ST",
+        "sous-décalage modéré du segment ST"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "hypertrophie auriculaire droite",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire droite",
+        "HAD auriculaire"
+      ]
+    },
+    {
+      "concept_id": "ISCHEMIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "aspect d’ischémie antéro-septale",
+      "synonymes_a_ajouter": [
+        "ischémie antéro-septale",
+        "aspect d'ischémie antéro-septale"
+      ]
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "hémibloc postérieur gauche"
+    },
+    {
+      "concept_id": "VOLTAGE_DU_QRS_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "des amplitudes normales des complexes QRS",
+      "synonymes_a_ajouter": [
+        "amplitudes normales des complexes QRS"
+      ]
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "un microvoltage des complexes QRS",
+      "synonymes_a_ajouter": [
+        "microvoltage des complexes QRS"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "une hypertrophie biventriculaire",
+      "nouveau_concept": {
+        "id_suggere": "HYPERTROPHIE_BIVENTRICULAIRE",
+        "concept_name": "Hypertrophie biventriculaire",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "HYPERTROPHIE_VENTRICULAIRE"
+        ],
+        "requires": [
+          "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+        ],
+        "synonymes": [
+          "hypertrophie biventriculaire",
+          "HVD et HVG"
+        ],
+        "poids": 3,
+        "justification": "Option de QCM explicitement mentionnée et exclue par la réponse C, non couverte par un concept existant."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "PR_ALLONGE",
+      "justification": "Pierre définit le BAV du premier degré par un PR à 230 ms, donc un PR > 200 ms."
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "La déviation axiale droite > 100/110° est donnée comme critère diagnostique d'HVD."
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Les ondes T négatives en précordiales droites sont citées comme signe de repolarisation associé à l'HVD."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Les troubles de repolarisation en précordiales droites participent au diagnostic ECG d'HVD dans le cas."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Le sous-décalage ST modéré en précordiales droites est listé comme critère ECG d'HVD."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Pierre précise que l'hypertrophie auriculaire droite est un argument indirect fréquemment associé à l'HVD."
+    },
+    {
+      "concept_id": "ANTERO_SEPTAL",
+      "relation": "parents",
+      "cible": "LOCALISATION_IDM",
+      "justification": "Le texte emploie la topographie antéro-septale pour un aspect d'ischémie, alors que le concept existant n'est parenté qu'à la localisation de faisceau accessoire."
+    }
+  ],
+  "synthese": "Le diagnostic principal d'HVD est couvert, mais plusieurs critères ECG élémentaires nécessaires à son enseignement manquent : rapport R/S > 1, grande onde R, onde S profonde et topographies par dérivations précordiales. Les liens de support entre ces signes existants et l'HVD, ainsi que le requires PR allongé pour le BAV du premier degré, doivent être ajoutés avant les règles d'inférence.",
+  "error": null
+}

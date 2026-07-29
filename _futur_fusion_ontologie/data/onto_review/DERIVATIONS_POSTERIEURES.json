@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_POSTERIEURES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Ensemble de dérivations/topographie postérieure pure, réservé à une future couche topographique et ignoré en v1.",
+  "territoire_ignore_v1": "V7-V9; dérivations postérieures"
+}

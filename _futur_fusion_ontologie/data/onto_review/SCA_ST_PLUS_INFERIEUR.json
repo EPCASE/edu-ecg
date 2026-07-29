@@ -1,0 +1,20 @@
+{
+  "id": "SCA_ST_PLUS_INFERIEUR",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, T1, C1, C3",
+  "motif": "Le diagnostic SCA ST+ existe déjà et 'inférieur' est une localisation ignorée en v1, donc il ne faut pas créer un concept territorialisé.",
+  "territoire_ignore_v1": "inférieur",
+  "decomposition": [
+    {
+      "id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

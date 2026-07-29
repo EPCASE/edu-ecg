@@ -1,0 +1,40 @@
+{
+  "id": "P_QRS_T_NEGATIFS_EN_DI",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "Phrase descriptive territorialisée: les ondes/complexes négatifs en DI supportent l'inversion d'électrodes, sans créer de concept par dérivation en v1.",
+  "decomposition": [
+    {
+      "id": "ONDE_P",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ONDE_T_NEGATIVE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "POLARITE_NEGATIVE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "INVERSION_D_ELECTRODES",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "SUPPORTS_INVERSION_D_ELECTRODES",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "DI"
+}

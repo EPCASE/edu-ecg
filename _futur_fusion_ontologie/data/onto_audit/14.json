@@ -1,0 +1,120 @@
+{
+  "num": 14,
+  "titre": "bloc de branche alternant",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche alternant",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_DE_BRANCHE_ALTERNANT",
+        "concept_name": "Bloc de branche alternant",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "BLOC_DE_BRANCHE"
+        ],
+        "requires": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "BLOC_DE_BRANCHE_GAUCHE_COMPLET"
+        ],
+        "synonymes": [
+          "bloc alternant",
+          "bloc de branche alterné",
+          "alternating bundle branch block",
+          "alternance bloc de branche droit bloc de branche gauche",
+          "bloc de branche droite alternant avec bloc de branche gauche"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic central du cas, explicite dans l’interprétation de référence et le QCM ; il repose sur l’alternance documentée d’un aspect de BBD complet et d’un aspect de BBG complet."
+      }
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect de bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche droite complet",
+        "bloc de branche droite complet"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite",
+        "aspect de bloc de branche droite"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect de bloc de branche gauche complet",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche gauche complet"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un bloc de branche gauche"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "espace PR normal",
+      "synonymes_a_ajouter": [
+        "espace PR normal"
+      ]
+    },
+    {
+      "concept_id": "PR_ALLONGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR allongé",
+      "synonymes_a_ajouter": [
+        "intervalle PR allongé"
+      ]
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des ondes P bloquées",
+      "synonymes_a_ajouter": [
+        "ondes P bloquées",
+        "des ondes P bloquées"
+      ]
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une onde P bloquée"
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un hémibloc antérieur gauche"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "relation": "supports",
+      "cible": "BLOC_AURICULO_VENTRICULAIRE",
+      "justification": "Une onde P bloquée est un signe de trouble de conduction auriculo-ventriculaire ; le cas mentionne explicitement des ondes P bloquées dans un contexte de conduction préoccupante."
+    }
+  ],
+  "synthese": "Le trou majeur est l’absence du pattern « bloc de branche alternant », pourtant diagnostic central du cas et critère d’urgence. Le reste est largement couvert, mais plusieurs formulations pédagogiques de Pierre nécessitent des synonymes, notamment « bloc de branche droite complet », « espace PR normal » et « ondes P bloquées ».",
+  "error": null
+}

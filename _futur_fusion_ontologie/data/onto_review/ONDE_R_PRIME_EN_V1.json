@@ -1,0 +1,20 @@
+{
+  "id": "ONDE_R_PRIME_EN_V1",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_R_PRIME",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "DERIVATION_V1",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "motif": "Le concept associe un finding morphologique QRS à une dérivation ; on retient l'onde R prime atomique et on ignore V1 en v1.",
+  "principe": "D1, T1, C1",
+  "territoire_ignore_v1": "V1"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "MECANISME_DE_REENTREE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "MECANISME_DE_REENTREE",
+    "concept_name": "Mécanisme de réentrée",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "circuit de réentrée",
+      "circuits de réentrée",
+      "réentrée"
+    ]
+  },
+  "motif": "Qualificateur mécanistique transversal réutilisable pour plusieurs tachycardies, absent comme atome explicite du catalogue malgré des diagnostics qui l'utilisent dans leur libellé.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

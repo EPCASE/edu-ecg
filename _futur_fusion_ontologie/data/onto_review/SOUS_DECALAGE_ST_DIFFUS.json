@@ -1,0 +1,15 @@
+{
+  "id": "SOUS_DECALAGE_ST_DIFFUS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1, C3",
+  "territoire_ignore_v1": "diffus / nombreuses dérivations",
+  "motif": "Le sous-décalage ST existe déjà comme finding/qualifier descriptif ; 'diffus' exprime une distribution topographique ignorée en v1, pas un pattern autonome.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

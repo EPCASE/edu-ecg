@@ -1,0 +1,8 @@
+{
+  "id": "OREILLETTE_GAUCHE",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure sans finding ECG propre ; la couche topographique est exclue du périmètre v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "oreillette gauche"
+}

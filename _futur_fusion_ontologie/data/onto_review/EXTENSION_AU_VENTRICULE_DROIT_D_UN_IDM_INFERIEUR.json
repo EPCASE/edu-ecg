@@ -1,0 +1,20 @@
+{
+  "id": "EXTENSION_AU_VENTRICULE_DROIT_D_UN_IDM_INFERIEUR",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, T1, C3",
+  "motif": "Le diagnostic SCA ST+ existe déjà et l'extension VD/inferieure est une localisation à noter mais ignorée en v1, sans créer de pattern territorial monolithique.",
+  "decomposition": [
+    {
+      "id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": "ventricule droit, inférieur"
+}

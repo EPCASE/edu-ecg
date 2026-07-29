@@ -1,0 +1,304 @@
+{
+  "num": 21,
+  "titre": "dysfonction sinusale avec échappement jonctionnel",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "une bradycardie avec un rythme régulier à 30-40 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "rythme régulier"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "complexes QRS fins"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "avec QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges (pour l'échappement ventriculaire)"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "un foyer ventriculaire (plus bas situé, avec QRS larges)"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "statut": "present",
+      "surface": "complexes QRS fins, réguliers et non précédés par une onde P",
+      "synonymes_a_ajouter": [
+        "QRS non précédés par une onde P",
+        "complexes QRS non précédés par une onde P"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "statut": "present",
+      "surface": "probable échappement jonctionnel",
+      "synonymes_a_ajouter": [
+        "échappement jonctionnel",
+        "foyer d'échappement jonctionnel"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "absence d’activité sinusale",
+      "synonymes_a_ajouter": [
+        "absence d'activité sinusale",
+        "absence d’onde P sinusale",
+        "absence totale de genèse de l'influx sinusal",
+        "perte de l'automatisme sinusal",
+        "baisse de l'automatisme sinusal"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PARALYSIE_SINUSALE",
+      "statut": "present",
+      "surface": "absence totale de genèse de l’influx sinusal (perte de l’automatisme)",
+      "synonymes_a_ajouter": [
+        "absence totale de genèse de l'influx sinusal",
+        "perte de l'automatisme sinusal"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc sino-auriculaire du troisième degré",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_SINO_ATRIAL_DU_TROISIEME_DEGRE",
+        "concept_name": "Bloc sino-atrial du troisième degré",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "BLOC_SINO_ATRIAL"
+        ],
+        "requires": [
+          "DYSFONCTION_SINUSALE"
+        ],
+        "synonymes": [
+          "bloc sino-auriculaire du troisième degré",
+          "bloc sinoauriculaire du troisième degré",
+          "BSA du troisième degré",
+          "bloc complet de sortie de l'influx sinusal"
+        ],
+        "poids": 4,
+        "justification": "Le cas cite explicitement ce mécanisme possible et l'identifie comme réponse vraie au QCM."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "conduction atriale rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "CONDUCTION_ATRIALE_RETROGRADE",
+        "concept_name": "Conduction atriale rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [
+          "RYTHME_D_ECHAPPEMENT_JONCTIONNEL"
+        ],
+        "synonymes": [
+          "conduction rétrograde",
+          "activité atriale rétrograde",
+          "dépolarisation atriale rétrograde"
+        ],
+        "poids": 4,
+        "justification": "Le diagnostic final et le QCM mentionnent explicitement la conduction atriale rétrograde associée à l'échappement jonctionnel."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde négative dans les dérivations inférieures pouvant correspondre à une activité atriale rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_RETROGRADE_NEGATIVE_EN_INFERIEUR",
+        "concept_name": "Onde P rétrograde négative en inférieur",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "CONDUCTION_ATRIALE_RETROGRADE",
+          "INFERIEUR"
+        ],
+        "synonymes": [
+          "activité atriale négative dans les dérivations inférieures",
+          "onde négative dans les dérivations inférieures",
+          "activité atriale rétrograde négative en inférieur",
+          "onde P rétrograde en inférieur"
+        ],
+        "poids": 3,
+        "justification": "Pierre décrit le signe ECG permettant d'identifier la conduction atriale rétrograde."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "dérivations inférieures"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INTERVALLE_PR",
+      "statut": "present",
+      "surface": "l’intervalle PR"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle PR est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle PR de durée normale",
+        "PR de durée normale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "absence d'ondes Q de nécrose",
+        "pas d'ondes Q de nécrose"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "pas de troubles de la repolarisation",
+        "absence de troubles de la repolarisation",
+        "on ne retrouve pas de troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "absent",
+      "surface": "BAV III"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "un foyer ventriculaire (plus bas situé, avec QRS larges) peuvent prendre le relai",
+      "synonymes_a_ajouter": [
+        "foyer ventriculaire d'échappement",
+        "échappement ventriculaire bas situé"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "un autre foyer atrial lent peuvent prendre le relai",
+      "nouveau_concept": {
+        "id_suggere": "ECHAPPEMENT_ATRIAL_LENT",
+        "concept_name": "Échappement atrial lent",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ECHAPPEMENT"
+        ],
+        "requires": [
+          "DYSFONCTION_SINUSALE"
+        ],
+        "synonymes": [
+          "foyer atrial lent",
+          "foyer atrial d'échappement",
+          "échappement auriculaire lent"
+        ],
+        "poids": 2,
+        "justification": "Le commentaire pédagogique cite explicitement un foyer atrial lent de relais en l'absence d'échappement jonctionnel."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Dans le cas, l'échappement jonctionnel survient en l'absence d'activité sinusale et soutient le diagnostic de dysfonction sinusale."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "supports",
+      "cible": "CONDUCTION_ATRIALE_RETROGRADE",
+      "justification": "Pierre indique qu'en présence d'une dysfonction sinusale et d'un échappement jonctionnel, une conduction atriale rétrograde est classique."
+    },
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Le bloc sino-auriculaire complet est présenté comme un mécanisme de dysfonction sinusale."
+    },
+    {
+      "concept_id": "PARALYSIE_SINUSALE",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "L'absence de genèse de l'influx sinusal/perte d'automatisme est présentée comme mécanisme de dysfonction sinusale."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "excludes",
+      "cible": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "justification": "Le QCM oppose le diagnostic porté (échappement jonctionnel avec dysfonction sinusale) à BAV III, réponse fausse pour ce tracé."
+    }
+  ],
+  "synthese": "Les principaux trous lexicaux concernent la conduction atriale rétrograde et son signe ECG (onde P/activité atriale rétrograde négative en inférieur), ainsi que le bloc sino-atrial du troisième degré. Plusieurs formulations pédagogiques de Pierre doivent être ajoutées comme synonymes de dysfonction/paralysie sinusale, échappement jonctionnel, PR/QT normaux et absence de trouble de repolarisation.",
+  "error": null
+}

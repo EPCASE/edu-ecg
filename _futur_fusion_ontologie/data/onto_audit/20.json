@@ -1,0 +1,391 @@
+{
+  "num": 20,
+  "titre": "pause sinusale",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "fréquence cardiaque normale autour de 60 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "le rythme est sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INTERVALLE_PR",
+      "statut": "present",
+      "surface": "l’intervalle PR est limite"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle PR est limite",
+      "nouveau_concept": {
+        "id_suggere": "PR_LIMITE",
+        "concept_name": "PR limite",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "INTERVALLE_PR"
+        ],
+        "requires": [
+          "INTERVALLE_PR"
+        ],
+        "synonymes": [
+          "intervalle PR limite",
+          "PR borderline",
+          "PR à la limite"
+        ],
+        "poids": 2,
+        "justification": "Le texte décrit explicitement un PR « limite », distinct de PR normal, PR court ou PR allongé."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "complexes QRS larges > 120 ms"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS__120_MS",
+      "statut": "present",
+      "surface": "largeur des QRS > 120 ms"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "un axe gauche",
+      "synonymes_a_ajouter": [
+        "axe gauche",
+        "axe gauche du QRS"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite complet",
+        "aspect correspondant à un bloc de branche droite complet"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche",
+      "synonymes_a_ajouter": [
+        "hémibloc antérieur gauche",
+        "hemibloc antérieur gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "statut": "present",
+      "surface": "Le terme bifasciculaire (2 fascicules bloqués) peut également faire partie de la grille"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+      "statut": "present",
+      "surface": "un trouble de conduction avec un aspect de bloc de branche droite complet + axe gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAUSE",
+      "statut": "present",
+      "surface": "survenue d’une pause de 4-5 secondes"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "pause sinusale",
+      "nouveau_concept": {
+        "id_suggere": "PAUSE_SINUSALE",
+        "concept_name": "Pause sinusale",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE"
+        ],
+        "requires": [
+          "PAUSE",
+          "ABSENCE_D_ONDE_P"
+        ],
+        "synonymes": [
+          "pauses sinusales",
+          "pause cardiaque sans onde P visible",
+          "pause sans onde P visible"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic central du cas : pause de plusieurs secondes sans activité atriale/onde P visible, opposée au BAV avec ondes P bloquées."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "statut": "present",
+      "surface": "aucune activité atriale n’est identifiée",
+      "synonymes_a_ajouter": [
+        "aucune activité atriale",
+        "aucune activité atriale identifiée",
+        "sans onde P visible",
+        "absence d’ondes P durant la pause"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale avec l’existence de pauses sinusales paroxystiques",
+      "synonymes_a_ajouter": [
+        "dysfonction sinusale paroxystique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "bradycardie paroxystique"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "paroxystiques",
+      "nouveau_concept": {
+        "id_suggere": "PAROXYSTIQUE",
+        "concept_name": "Paroxystique",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATEUR_EPISODE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "intermittent",
+          "paroxystiques",
+          "paroxystique"
+        ],
+        "poids": 2,
+        "justification": "Le cas qualifie les pauses/bradycardies et les diagnostics différentiels de paroxystiques/intermittents."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SOUTENU",
+      "statut": "present",
+      "surface": "prolongées",
+      "synonymes_a_ajouter": [
+        "prolongées",
+        "pause prolongée"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_P_PRESENTE",
+      "statut": "present",
+      "surface": "une séquence onde P, complexe QRS, onde T"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PRESENCE_DE_QRS",
+      "statut": "present",
+      "surface": "une séquence onde P, complexe QRS, onde T"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T",
+      "statut": "present",
+      "surface": "une séquence onde P, complexe QRS, onde T"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECHAPPEMENT",
+      "statut": "present",
+      "surface": "un échappement survenant sans onde P préalable"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "statut": "present",
+      "surface": "échappement jonctionnel non précédé d’onde P",
+      "synonymes_a_ajouter": [
+        "échappement jonctionnel non précédé d’onde P"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "statut": "present",
+      "surface": "complexe QRS non précédé d’une onde P"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "absent",
+      "surface": "pas d’un BAV ; absence de BAV ; BAV III paroxystique"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "statut": "absent",
+      "surface": "absence d’ondes P bloquées"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV",
+      "statut": "absent",
+      "surface": "BAV du second degré",
+      "synonymes_a_ajouter": [
+        "BAV du second degré"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "absent",
+      "surface": "fibrillation auriculaire lente"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "REPONSE_VENTRICULAIRE_LENTE",
+      "statut": "absent",
+      "surface": "fibrillation auriculaire lente"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "statut": "present",
+      "surface": "bloc sinoauriculaire du troisième degré paroxystique"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc sinoauriculaire du troisième degré paroxystique",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_SINO_ATRIAL_DU_TROISIEME_DEGRE_PAROXYSTIQUE",
+        "concept_name": "Bloc sino-atrial du troisième degré paroxystique",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "BLOC_SINO_ATRIAL"
+        ],
+        "requires": [
+          "PAUSE",
+          "ABSENCE_D_ONDE_P"
+        ],
+        "synonymes": [
+          "bloc sinoauriculaire du troisième degré paroxystique",
+          "BSA du troisième degré paroxystique",
+          "bloc sino-atrial complet paroxystique"
+        ],
+        "poids": 4,
+        "justification": "Le référentiel cité dans le cas précise que la pause sinusale peut correspondre à un bloc sinoauriculaire du troisième degré paroxystique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "anomalie de l’automatisme sinusal",
+      "nouveau_concept": {
+        "id_suggere": "ANOMALIE_DE_L_AUTOMATISME_SINUSAL",
+        "concept_name": "Anomalie de l’automatisme sinusal",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "anomalie de l'automatisme sinusal",
+          "trouble de l’automatisme sinusal"
+        ],
+        "poids": 3,
+        "justification": "Le référentiel mentionne cette étiologie ECG de pause sinusale, non représentée spécifiquement par les concepts existants."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "échappement atrial",
+      "nouveau_concept": {
+        "id_suggere": "ECHAPPEMENT_ATRIAL",
+        "concept_name": "Échappement atrial",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ECHAPPEMENT"
+        ],
+        "requires": [],
+        "synonymes": [
+          "échappement atrial",
+          "activité atriale différente de l’onde P sinusale"
+        ],
+        "poids": 2,
+        "justification": "Le référentiel du cas cite explicitement l’interruption possible d’une pause sinusale par un échappement atrial."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le texte définit le caractère complet du BBD par une largeur des QRS > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "parents",
+      "cible": "BLOC_BIFASCICULAIRE",
+      "justification": "Dans ce cas, BBD complet + hémibloc antérieur gauche constitue un bloc bifasciculaire ; relation de composition à modéliser plutôt qu’un parent strict si l’ontologie le permet."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "BLOC_BIFASCICULAIRE",
+      "justification": "L’hémibloc antérieur gauche associé au BBD complet supporte le diagnostic de bloc bifasciculaire."
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "relation": "supports",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "Le texte indique que l’axe gauche témoigne de l’association d’un hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "PAUSE",
+      "relation": "excludes",
+      "cible": "BAV_COMPLET",
+      "justification": "Le cas oppose pause sinusale sans onde P visible et BAV complet avec ondes P bloquées ; une pause isolée ne suffit pas au BAV complet."
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Dans le cas, l’absence d’ondes P pendant la pause explique la dysfonction sinusale plutôt qu’un BAV."
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "relation": "supports",
+      "cible": "BAV_COMPLET",
+      "justification": "Le texte précise que le BAV complet paroxystique se traduirait par des ondes P bloquées."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "requires",
+      "cible": "ABSENCE_D_ONDE_P",
+      "justification": "Le référentiel décrit l’échappement jonctionnel de fin de pause comme non précédé d’onde P."
+    }
+  ],
+  "synthese": "Le trou majeur est l’absence d’un concept explicite de PAUSE_SINUSALE, diagnostic central du cas, avec ses critères ECG : pause sans onde P/activité atriale visible et opposition aux ondes P bloquées du BAV. Quelques formulations fréquentes de Pierre manquent comme synonymes, notamment « bloc de branche droite complet », « hémibloc antérieur gauche », « aucune activité atriale » et « dysfonction sinusale paroxystique ».",
+  "error": null
+}

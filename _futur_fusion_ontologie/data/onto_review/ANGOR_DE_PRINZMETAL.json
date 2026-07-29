@@ -1,0 +1,23 @@
+{
+  "id": "ANGOR_DE_PRINZMETAL",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "concept_retenu": {
+    "id": "ANGOR_DE_PRINZMETAL",
+    "concept_name": "Angor de Prinzmetal",
+    "type": "pattern",
+    "parents": [
+      "ISCHEMIQUE"
+    ],
+    "requires": [
+      "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+    ],
+    "synonymes": [
+      "angor spastique",
+      "angor spastique de Prinzmetal",
+      "angor vasospastique"
+    ]
+  },
+  "motif": "Diagnostic/pattern ischémique spécifique et réutilisable, distinct du finding descriptif de sus-décalage ST et absent du catalogue."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "CONDUCTION_ATRIALE_RETROGRADE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "motif": "Finding descriptif réutilisable de direction de conduction/activation atriale, distinct des diagnostics d'échappement ou d'extrasystolie et absent du catalogue.",
+  "concept_retenu": {
+    "id": "CONDUCTION_ATRIALE_RETROGRADE",
+    "concept_name": "Conduction atriale rétrograde",
+    "type": "finding",
+    "parents": [
+      "CONDUCTION"
+    ],
+    "requires": [
+      "ONDE_P"
+    ],
+    "synonymes": [
+      "activation atriale rétrograde",
+      "activité atriale rétrograde",
+      "conduction auriculaire rétrograde",
+      "conduction rétrograde",
+      "dépolarisation atriale rétrograde"
+    ]
+  }
+}

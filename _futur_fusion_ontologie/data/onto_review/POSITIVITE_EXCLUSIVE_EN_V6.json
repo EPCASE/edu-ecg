@@ -1,0 +1,8 @@
+{
+  "id": "POSITIVITE_EXCLUSIVE_EN_V6",
+  "verdict": "REJETER",
+  "classe": "description",
+  "principe": "T1, C5",
+  "territoire_ignore_v1": "V6",
+  "motif": "Le concept dépend essentiellement d'une localisation en V6 et la notion de positivité exclusive est trop vague/non standard comme finding atomique réutilisable en v1."
+}

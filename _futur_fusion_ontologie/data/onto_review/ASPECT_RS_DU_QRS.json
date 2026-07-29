@@ -1,0 +1,24 @@
+{
+  "id": "ASPECT_RS_DU_QRS",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "motif": "Morphologie brute du QRS observable et réutilisable, distincte des diagnostics de conduction et absente du catalogue existant.",
+  "concept_retenu": {
+    "id": "ASPECT_RS_DU_QRS",
+    "concept_name": "Aspect rS du QRS",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "QRS en rS",
+      "aspect rS",
+      "petite positivité suivie d’une onde négative large"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

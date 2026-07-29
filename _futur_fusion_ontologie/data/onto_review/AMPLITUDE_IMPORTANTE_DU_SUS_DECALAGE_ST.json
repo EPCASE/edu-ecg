@@ -1,0 +1,7 @@
+{
+  "id": "AMPLITUDE_IMPORTANTE_DU_SUS_DECALAGE_ST",
+  "verdict": "REJETER",
+  "classe": "qualifier",
+  "principe": "C2",
+  "motif": "La grande amplitude du sus-décalage ST est redondante pour le diagnostic ST+ et ne justifie pas un concept dédié; au mieux elle relèverait d'un qualifier générique d'amplitude déjà non spécifique."
+}

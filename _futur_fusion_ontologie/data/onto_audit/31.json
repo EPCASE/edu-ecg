@@ -1,0 +1,294 @@
+{
+  "num": 31,
+  "titre": "maladie de l’oreillette",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "une tachycardie irrégulière à QRS fins avec une fréquence cardiaque à 170 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "tachycardie irrégulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RAPIDE",
+      "statut": "present",
+      "surface": "l’activité atriale est rapide"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "POLYMORPHE",
+      "statut": "present",
+      "surface": "l’activité atriale est rapide, polymorphe, anarchique"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DESORGANISEE",
+      "statut": "present",
+      "surface": "anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "activité atriale anarchique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "statut": "present",
+      "surface": "aspect de trémulation de la ligne de base"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "FA"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "FA avec conduction ventriculaire rapide",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_A_REPONSE_VENTRICULAIRE_RAPIDE",
+        "concept_name": "Fibrillation atriale à réponse ventriculaire rapide",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "TACHYCARDIE",
+          "IRREGULIER"
+        ],
+        "synonymes": [
+          "FA avec conduction ventriculaire rapide",
+          "FA à conduction ventriculaire rapide",
+          "FA rapide",
+          "Fibrillation atriale rapide",
+          "Fibrillation atriale à réponse ventriculaire rapide"
+        ],
+        "poids": 4,
+        "justification": "Le cas identifie explicitement une FA avec fréquence ventriculaire à 170 bpm ; aucun concept existant ne couvre la réponse/conduction ventriculaire rapide, seulement la réponse ventriculaire lente."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "absent",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "onde Q de nécrose",
+        "ondes Q de nécrose"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "une absence d’ondes Q de nécrose"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "absent",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "La maladie de l’oreillette ou maladie rythmique auriculaire ou syndrome bradycardie-tachycardie",
+      "nouveau_concept": {
+        "id_suggere": "MALADIE_RYTHMIQUE_DE_L_OREILLETTE",
+        "concept_name": "Maladie rythmique de l’oreillette",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "requires": [
+          "DYSFONCTION_SINUSALE",
+          "ARYTHMIE_ATRIALE"
+        ],
+        "synonymes": [
+          "maladie de l’oreillette",
+          "maladie rythmique auriculaire",
+          "syndrome bradycardie-tachycardie",
+          "syndrome brady-tachy",
+          "maladie rythmique de l’oreillette"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic pédagogique final du cas : coexistence d’une dysfonction sinusale/bradycardie sinusale et d’épisodes d’arythmie atriale, non représentée par un concept composite existant."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "statut": "present",
+      "surface": "tachycardie atriale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "statut": "present",
+      "surface": "flutter commun",
+      "synonymes_a_ajouter": [
+        "flutter commun"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "épisodes de bradycardie"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "statut": "present",
+      "surface": "arythmies supra-ventriculaires",
+      "synonymes_a_ajouter": [
+        "arythmie supra-ventriculaire",
+        "arythmies supra-ventriculaires",
+        "troubles du rythme atrial"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "statut": "present",
+      "surface": "une bradycardie sinusale à environ 40 battements/minute"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CONDUCTION",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle PR est de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV",
+      "statut": "absent",
+      "surface": "un BAV paroxystique"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV",
+      "statut": "absent",
+      "surface": "un BAV permanent"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "statut": "absent",
+      "surface": "un syndrome de Wolf Parkinson White",
+      "synonymes_a_ajouter": [
+        "syndrome de Wolf Parkinson White",
+        "syndrome de Wolff-Parkinson-White",
+        "Wolff Parkinson White"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "parents",
+      "cible": "ARYTHMIE_ATRIALE",
+      "justification": "La FA est utilisée dans le cas comme arythmie atriale/supra-ventriculaire ; son rattachement actuel via TACHYCARDIE_SUPRA_VENTRICULAIRE est moins directement ontologique."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "parents",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Le cas rattache les épisodes de bradycardie sinusale à une dysfonction sinusale dans le syndrome brady-tachy."
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "relation": "parents",
+      "cible": "ARYTHMIE_ATRIALE",
+      "justification": "Le référentiel du cas parle d’épisodes de troubles du rythme atrial incluant la tachycardie atriale."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "parents",
+      "cible": "ARYTHMIE_ATRIALE",
+      "justification": "Le flutter commun est cité comme trouble du rythme atrial dans la maladie de l’oreillette."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "parents",
+      "cible": "BAV",
+      "justification": "Le concept BAV est le parent générique des blocs AV de 2e degré ; cohérence hiérarchique avec les autres BAV."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "relation": "parents",
+      "cible": "BAV",
+      "justification": "Le concept BAV est le parent générique des blocs AV de 2e degré ; cohérence hiérarchique avec les autres BAV."
+    }
+  ],
+  "synthese": "Le contenu du cas est globalement couvert pour les signes descriptifs des deux tracés, mais deux composites utiles manquent : FA à réponse ventriculaire rapide et maladie rythmique de l’oreillette/syndrome brady-tachy. Plusieurs formulations pédagogiques fréquentes nécessitent des synonymes, notamment anarchique, flutter commun, troubles du rythme atrial et Wolf Parkinson White.",
+  "error": null
+}

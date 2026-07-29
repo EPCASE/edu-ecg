@@ -1,0 +1,566 @@
+{
+  "num": 41,
+  "titre": "flutter commun",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "flutter commun antihoraire"
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "flutter commun",
+      "synonymes_a_ajouter": [
+        "aspect de flutter commun",
+        "aspect typique de flutter commun",
+        "flutter atrial commun ou typique",
+        "flutter originaire de l'oreillette droite"
+      ]
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "flutter atrial commun",
+      "synonymes_a_ajouter": [
+        "flutter atrial commun"
+      ]
+    },
+    {
+      "concept_id": "ONDE_F",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes « F » de flutter",
+      "synonymes_a_ajouter": [
+        "onde F de flutter",
+        "ondes F de flutter",
+        "ondes de flutter"
+      ]
+    },
+    {
+      "concept_id": "TOIT_D_USINE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect typique en dents de scie",
+      "synonymes_a_ajouter": [
+        "dents de scie",
+        "aspect en dents de scie",
+        "ondes F en dents de scie"
+      ]
+    },
+    {
+      "concept_id": "TOIT_D_USINE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "en toit d’usine",
+      "synonymes_a_ajouter": [
+        "toit d'usine",
+        "ondes F en toit d'usine"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations inférieures (DII, DIII, aVF)",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_INFERIEURES",
+        "concept_name": "Dérivations inférieures",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations inférieures",
+          "DII DIII aVF",
+          "D2 D3 aVF",
+          "DII, DIII, aVF"
+        ],
+        "poids": 3,
+        "justification": "Localisation électrocardiographique centrale pour reconnaître les ondes F en dents de scie du flutter commun."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations D1 et aVL",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_DI_AVL",
+        "concept_name": "Dérivations DI et aVL",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations D1 et aVL",
+          "dérivations DI et aVL",
+          "DI et aVL",
+          "D1 et aVL"
+        ],
+        "poids": 2,
+        "justification": "Le texte utilise DI/aVL pour qualifier l'activité atriale peu voltée/plate dans le flutter commun."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V1",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V1",
+        "concept_name": "Dérivation V1",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1",
+          "dérivation V1",
+          "précordiale droite V1"
+        ],
+        "poids": 2,
+        "justification": "La positivité des ondes F en V1 est explicitement donnée comme critère du flutter commun."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V6",
+        "concept_name": "Dérivation V6",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V6",
+          "dérivation V6",
+          "précordiale gauche V6"
+        ],
+        "poids": 2,
+        "justification": "La négativité des ondes F en V6 est explicitement donnée comme critère du flutter commun."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sans jamais de retour à la ligne isoélectrique",
+      "nouveau_concept": {
+        "id_suggere": "ABSENCE_DE_RETOUR_A_LA_LIGNE_ISOELECTRIQUE",
+        "concept_name": "Absence de retour à la ligne isoélectrique",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "sans retour à la ligne isoélectrique",
+          "sans jamais de retour à la ligne isoélectrique",
+          "absence de ligne isoélectrique entre les ondes F"
+        ],
+        "poids": 3,
+        "justification": "Caractéristique morphologique des ondes F de flutter décrite dans le cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l'activité atriale est rapide (270bpm)",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENCE_ATRIALE_RAPIDE",
+        "concept_name": "Fréquence atriale rapide",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "activité atriale rapide",
+          "fréquence atriale rapide",
+          "activité atriale à 270 bpm",
+          "fréquence atriale entre 240 et 340 bpm"
+        ],
+        "poids": 3,
+        "justification": "Le catalogue distingue la fréquence globale mais ne permet pas de coder la fréquence atriale rapide typique du flutter."
+      }
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l'activité atriale est ... régulière",
+      "synonymes_a_ajouter": [
+        "activité atriale régulière",
+        "ondes F régulières"
+      ]
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l'activité atriale est ... monomorphe",
+      "synonymes_a_ajouter": [
+        "activité atriale monomorphe",
+        "ondes F monomorphes",
+        "ondes de flutter uniformes",
+        "ondes F uniformes"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l'activité atriale est très peu voltée en DI",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_PEU_VOLTEE",
+        "concept_name": "Activité atriale peu voltée",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "activité atriale peu voltée",
+          "ondes F peu voltées",
+          "activité atriale très peu voltée",
+          "activité atriale plate",
+          "ondes F plates"
+        ],
+        "poids": 3,
+        "justification": "Critère descriptif répété pour DI/aVL dans le flutter commun, distinct du microvoltage des QRS."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "elle est positive en V1",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_F_POSITIVE",
+        "concept_name": "Onde F positive",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "onde F positive",
+          "ondes F positives",
+          "activité atriale positive",
+          "activité atriale globalement positive"
+        ],
+        "poids": 3,
+        "justification": "La polarité positive en V1 est un critère explicite du flutter commun."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "positive à sommet pointu",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_F_POINTUE",
+        "concept_name": "Onde F pointue",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "onde F pointue",
+          "ondes F pointues",
+          "activité atriale à sommet pointu",
+          "positive à sommet pointu"
+        ],
+        "poids": 2,
+        "justification": "Morphologie de l'activité atriale en V1 mentionnée dans les commentaires pédagogiques."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "négative en V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_F_NEGATIVE",
+        "concept_name": "Onde F négative",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_F"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "onde F négative",
+          "ondes F négatives",
+          "activité atriale négative",
+          "activité atriale globalement négative"
+        ],
+        "poids": 3,
+        "justification": "La polarité négative en V6 est un critère explicite du flutter commun."
+      }
+    },
+    {
+      "concept_id": "4_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "conduction atrio-ventriculaire ... de type 4/1"
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence ventriculaire proche de 75bpm",
+      "synonymes_a_ajouter": [
+        "fréquence ventriculaire proche de 75 bpm",
+        "fréquence ventriculaire à 75 bpm"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "les QRS sont fins"
+    },
+    {
+      "concept_id": "2_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "réponse ventriculaire ... de type 2/1"
+    },
+    {
+      "concept_id": "3_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un aspect 3/1"
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc auriculo-ventriculaire complet"
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie régulière à QRS fins autour de 150 bpm",
+      "synonymes_a_ajouter": [
+        "tachycardie régulière à QRS fins autour de 150 bpm"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "un rythme de base sinusal",
+      "synonymes_a_ajouter": [
+        "rythme de base sinusal"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "un flutter originaire de l'oreillette gauche",
+      "nouveau_concept": {
+        "id_suggere": "FLUTTER_ATRIAL_GAUCHE",
+        "concept_name": "Flutter atrial gauche",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "FLUTTER_ATRIAL_ATYPIQUE"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "flutter gauche",
+          "flutter atrial gauche",
+          "flutter originaire de l'oreillette gauche",
+          "flutter de l'oreillette gauche"
+        ],
+        "poids": 3,
+        "justification": "Le QCM et les commentaires opposent explicitement flutter droit commun et flutter gauche, que le concept de flutter atypique ne couvre pas assez précisément."
+      }
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une tachycardie jonctionnelle"
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_ATYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "flutters atypiques",
+      "synonymes_a_ajouter": [
+        "flutter atypique",
+        "flutters atypiques"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "oreillette droite",
+      "nouveau_concept": {
+        "id_suggere": "OREILLETTE_DROITE",
+        "concept_name": "Oreillette droite",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "oreillette droite",
+          "atrial droit",
+          "OD"
+        ],
+        "poids": 3,
+        "justification": "Topographie centrale du flutter commun dans le texte : circuit de macro-réentrée de l'oreillette droite."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "oreillette gauche",
+      "nouveau_concept": {
+        "id_suggere": "OREILLETTE_GAUCHE",
+        "concept_name": "Oreillette gauche",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "oreillette gauche",
+          "atrial gauche",
+          "OG"
+        ],
+        "poids": 2,
+        "justification": "Topographie mentionnée pour le différentiel flutter gauche / flutter commun droit."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "isthme cavo-tricuspide",
+      "nouveau_concept": {
+        "id_suggere": "ISTHME_CAVO_TRICUSPIDE",
+        "concept_name": "Isthme cavo-tricuspide",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "isthme cavo-tricuspide",
+          "ICT",
+          "isthme cavotricuspide",
+          "espace entre la valve tricuspide et l'orifice de la veine cave inférieure"
+        ],
+        "poids": 4,
+        "justification": "Le passage obligatoire par l'isthme cavo-tricuspide est présenté comme caractéristique du flutter commun."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "requires",
+      "cible": "ONDE_F",
+      "justification": "Le diagnostic de flutter est posé devant des ondes F de flutter uniformes."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "requires",
+      "cible": "TOIT_D_USINE",
+      "justification": "L'aspect en dents de scie/toit d'usine dans les dérivations inférieures est le critère morphologique majeur du flutter commun."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte souligne qu'une tachycardie régulière à QRS fins autour de 150 bpm doit faire évoquer un flutter atrial."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "2_1",
+      "justification": "La réponse ventriculaire la plus fréquente du flutter est décrite comme de type 2/1."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "3_1",
+      "justification": "Le texte mentionne qu'un flutter peut présenter une conduction 3/1."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "4_1",
+      "justification": "Le tracé de référence présente une conduction atrio-ventriculaire principalement 4/1."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "supports",
+      "cible": "BAV_COMPLET",
+      "justification": "Le texte indique qu'un flutter peut même s'accompagner d'un aspect de bloc auriculo-ventriculaire complet."
+    },
+    {
+      "concept_id": "ONDE_F",
+      "relation": "supports",
+      "cible": "FLUTTER_DROIT_TYPIQUE",
+      "justification": "Les ondes F uniformes sont le support descriptif du diagnostic de flutter commun."
+    },
+    {
+      "concept_id": "TOIT_D_USINE",
+      "relation": "supports",
+      "cible": "FLUTTER_DROIT_TYPIQUE",
+      "justification": "L'aspect en dents de scie/toit d'usine est explicitement relié au flutter commun."
+    },
+    {
+      "concept_id": "FLUTTER_ATRIAL_ANTIHORAIRE",
+      "relation": "has_qualifiers",
+      "cible": "FLUTTER_DROIT_TYPIQUE",
+      "justification": "Dans ce cas, le flutter commun est qualifié par le sens antihoraire du circuit."
+    }
+  ],
+  "synthese": "Le diagnostic principal est couvert par FLUTTER_DROIT_TYPIQUE/FLUTTER_ATRIAL_ANTIHORAIRE, mais les critères ECG fins du flutter commun sont insuffisamment modélisés : topographie des dérivations, morphologie/polarité des ondes F et absence de ligne isoélectrique. Le lexique doit aussi intégrer les formulations usuelles de Pierre : flutter atrial commun, fibrillation auriculaire, ondes F de flutter et rythme de base sinusal.",
+  "error": null
+}

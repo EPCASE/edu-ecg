@@ -1,0 +1,8 @@
+{
+  "id": "COMPOSANTE_NEGATIVE_TERMINALE_ONDE_P_V1",
+  "verdict": "REJETER",
+  "classe": "description",
+  "motif": "La composante négative terminale de P en V1 est un attendu de la morphologie sinusale et sa définition est fortement dépendante de V1, topographie ignorée en v1.",
+  "principe": "C4, T1",
+  "territoire_ignore_v1": "V1"
+}

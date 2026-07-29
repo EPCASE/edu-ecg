@@ -1,0 +1,21 @@
+{
+  "id": "PAROXYSTIQUE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "D1, C1",
+  "motif": "Paroxystique est un modificateur transversal d'épisode, réutilisable pour des troubles intermittents, et non un diagnostic autonome.",
+  "concept_retenu": {
+    "id": "PAROXYSTIQUE",
+    "concept_name": "Paroxystique",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATEUR_EPISODE"
+    ],
+    "synonymes": [
+      "intermittent",
+      "paroxystique",
+      "paroxystiques"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

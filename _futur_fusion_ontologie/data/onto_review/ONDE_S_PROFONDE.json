@@ -1,0 +1,23 @@
+{
+  "id": "ONDE_S_PROFONDE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ONDE_S_PROFONDE",
+    "concept_name": "Onde S profonde",
+    "type": "finding",
+    "parents": [
+      "VOLTAGE_DU_QRS_ANORMAL"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "grande onde S",
+      "onde S profonde > 7 mm"
+    ]
+  },
+  "motif": "Finding atomique de voltage du QRS, différenciant et absent du catalogue ; la mention en miroir et la localisation V5-V6 ne doivent pas être fusionnées au concept.",
+  "principe": "D1, T1, C1",
+  "territoire_ignore_v1": "V5, V6"
+}

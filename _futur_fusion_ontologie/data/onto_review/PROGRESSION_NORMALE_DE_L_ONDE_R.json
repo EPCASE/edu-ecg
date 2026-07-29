@@ -1,0 +1,9 @@
+{
+  "id": "PROGRESSION_NORMALE_DE_L_ONDE_R",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "description",
+  "concept_cible": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+  "motif": "La progression normale de R en précordiales correspond déjà à un attendu de morphologie QRS normale/transition précordiale physiologique référencée comme synonyme d'absence d'onde Q pathologique, sans créer un nouveau finding localisé en v1.",
+  "principe": "C3, C4, T1",
+  "territoire_ignore_v1": "dérivations précordiales"
+}

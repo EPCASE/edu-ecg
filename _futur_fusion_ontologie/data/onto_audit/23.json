@@ -1,0 +1,271 @@
+{
+  "num": 23,
+  "titre": "BAV du premier degré",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme régulier sinusal"
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme régulier"
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une fréquence cardiaque normale à environ 60 battements/minute"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une hypertrophie auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire gauche"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PROLONGEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P de durée allongée",
+      "synonymes_a_ajouter": [
+        "onde P de durée allongée",
+        "durée de l'onde P allongée",
+        "largeur de l'onde P allongée"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bifide en DI, DII",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_BIFIDE",
+        "concept_name": "Onde P bifide",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "onde P bifide",
+          "P bifide",
+          "onde P bifide en DI, DII"
+        ],
+        "poids": 3,
+        "justification": "Le cas utilise l'aspect bifide de l'onde P comme critère descriptif de l'hypertrophie auriculaire gauche ; aucun concept existant ne le représente."
+      }
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un BAV du premier degré",
+      "synonymes_a_ajouter": [
+        "BAV du premier degré",
+        "bloc atrio-ventriculaire du premier degré",
+        "bloc atrioventriculaire du premier degré"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "toutes les ondes P sont suivies d’un complexe QRS",
+      "synonymes_a_ajouter": [
+        "toutes les ondes P sont suivies d'un complexe QRS",
+        "chaque onde P est conduite",
+        "nombre égal d'ondes P et de complexes QRS"
+      ]
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "pas d’ondes P bloquées"
+    },
+    {
+      "concept_id": "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une durée de l’intervalle PR fixe",
+      "synonymes_a_ajouter": [
+        "durée de l'intervalle PR fixe",
+        "intervalle PR fixe",
+        "allongement fixe et constant de l'intervalle PR",
+        "intervalle PR constant"
+      ]
+    },
+    {
+      "concept_id": "PR_ALLONGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durée de l’intervalle PR fixe, très allongée et supérieure à 200 ms (500 ms environ)",
+      "synonymes_a_ajouter": [
+        "intervalle PR très allongé",
+        "PR très allongé",
+        "intervalle PR supérieur à 200 ms",
+        "espace PR dépassant 200 ms",
+        "PR à 500 ms"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins",
+        "complexes QRS sont fins"
+      ]
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une absence d’ondes Q de nécrose"
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "on ne retrouve pas de troubles de la repolarisation"
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale"
+    },
+    {
+      "concept_id": "SEGMENT_PQ",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "segment PR",
+      "synonymes_a_ajouter": [
+        "segment PR"
+      ]
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "Un BAV du premier degré ne donne pas de bradycardie"
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il existe une dysfonction sinusale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "l’activité atriale est rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_RETROGRADE",
+        "concept_name": "Activité atriale rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "activité atriale rétrograde",
+          "activation atriale rétrograde",
+          "onde P rétrograde",
+          "ondes P rétrogrades"
+        ],
+        "poids": 3,
+        "justification": "La proposition de QCM cite explicitement une activité atriale rétrograde, absente de ce tracé ; aucun concept existant ne couvre cette notion."
+      }
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une pré-excitation ventriculaire sur voie accessoire",
+      "synonymes_a_ajouter": [
+        "pré-excitation ventriculaire sur voie accessoire",
+        "préexcitation ventriculaire sur voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "BLOC_AURICULO_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Les troubles de conduction auriculo-ventriculaire",
+      "synonymes_a_ajouter": [
+        "trouble de conduction auriculo-ventriculaire",
+        "troubles de conduction auriculo-ventriculaire",
+        "trouble de conduction atrio-ventriculaire",
+        "troubles de conduction atrio-ventriculaire"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "PR_ALLONGE",
+      "justification": "Le référentiel du cas définit le BAV du premier degré par un PR > 200 ms."
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Le cas précise que toutes les ondes P sont conduites avec un nombre égal d'ondes P et de QRS."
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+      "justification": "Le PR est décrit comme fixe et constant, sans allongement progressif."
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "excludes",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le cas oppose explicitement le BAV du premier degré à la présence d'ondes P bloquées."
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le référentiel indique que les QRS sont le plus souvent fins dans le BAV du premier degré sauf bloc de branche associé."
+    },
+    {
+      "concept_id": "ONDE_P_PROLONGEE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "justification": "Dans le cas, l'HAG est argumentée par une onde P de durée allongée."
+    }
+  ],
+  "synthese": "La couverture du diagnostic principal est bonne, mais le cas révèle des synonymes manquants autour du BAV du premier degré, du PR fixe/allongé et de l'HAG. Le principal trou lexical réel est l'onde P bifide ; l'activité atriale rétrograde est également citée comme proposition absente de QCM sans concept dédié.",
+  "error": null
+}

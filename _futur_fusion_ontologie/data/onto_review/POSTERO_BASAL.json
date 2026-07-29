@@ -1,0 +1,8 @@
+{
+  "id": "POSTERO_BASAL",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "postéro-basal",
+  "motif": "Localisation pure d'un territoire ischémique ; rejetée en v1 car la topographie n'entre pas dans l'ontologie atomique v1."
+}

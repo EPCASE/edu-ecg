@@ -1,0 +1,325 @@
+{
+  "num": 47,
+  "titre": "tachycardie ventriculaire sur myocardiopathie ischémique",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire monomorphe",
+      "nouveau_concept": {
+        "id_suggere": "TACHYCARDIE_VENTRICULAIRE_MONOMORPHE",
+        "concept_name": "Tachycardie ventriculaire monomorphe",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "requires": [
+          "TACHYCARDIE_VENTRICULAIRE",
+          "MONOMORPHE"
+        ],
+        "synonymes": [
+          "TV monomorphe",
+          "Monomorphic VT"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic central du cas, distinct de la TV polymorphe déjà présente au catalogue."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "tachycardie régulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "régulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "QRS larges"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "MONOMORPHE",
+      "statut": "present",
+      "surface": "monomorphes",
+      "synonymes_a_ajouter": [
+        "monomorphes"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale difficile à identifier",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_DIFFICILE_A_IDENTIFIER",
+        "concept_name": "Activité atriale difficile à identifier",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P"
+        ],
+        "requires": [],
+        "synonymes": [
+          "activité atriale peu visible",
+          "activité atriale non identifiable avec certitude",
+          "onde P difficile à identifier"
+        ],
+        "poids": 3,
+        "justification": "Le texte ne dit pas que l’onde P est absente, mais que l’activité atriale est difficilement identifiable."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "statut": "present",
+      "surface": "myocardiopathie ischémique"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "statut": "present",
+      "surface": "antécédent d’infarctus du myocarde",
+      "synonymes_a_ajouter": [
+        "antécédent d’infarctus du myocarde",
+        "myocardiopathie ischémique",
+        "cardiopathie ischémique post-infarctus"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "statut": "present",
+      "surface": "séquelle de nécrose inférieure"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "inférieure"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "onde q en DII, DIII, aVF"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "onde q",
+      "synonymes_a_ajouter": [
+        "onde q",
+        "onde q pathologique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "statut": "absent",
+      "surface": "il n’y a pas de complexes de capture ou de fusion"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "statut": "absent",
+      "surface": "il n’y a pas de complexes de capture"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE",
+      "statut": "absent",
+      "surface": "L’aspect des complexes QRS est peu évocateur d’un bloc de branche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "Les tachycardies supraventriculaires avec bloc de branche constituent le diagnostic différentiel à éliminer"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "statut": "absent",
+      "surface": "flutter atrial avec bloc de branche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "statut": "absent",
+      "surface": "tachycardie atriale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "statut": "absent",
+      "surface": "tachycardie jonctionnelle"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "statut": "absent",
+      "surface": "par réentrée intra-nodale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "statut": "absent",
+      "surface": "sur voie accessoire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TORSADE_DE_POINTES",
+      "statut": "absent",
+      "surface": "torsade de pointes"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_DE_TYPE_1",
+      "statut": "present",
+      "surface": "bloc auriculo-ventriculaire du premier degré"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_DE_TYPE_1",
+      "statut": "present",
+      "surface": "bloc auriculo-ventriculaire du premier degré",
+      "synonymes_a_ajouter": [
+        "bloc auriculo-ventriculaire du premier degré"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "conduction lente",
+      "nouveau_concept": {
+        "id_suggere": "CONDUCTION_LENTE",
+        "concept_name": "Conduction lente",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [],
+        "synonymes": [
+          "zones à conduction lente"
+        ],
+        "poids": 2,
+        "justification": "Mentionnée comme substrat des circuits de réentrée sur séquelle de nécrose."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "circuits de réentrée",
+      "nouveau_concept": {
+        "id_suggere": "MECANISME_DE_REENTREE",
+        "concept_name": "Mécanisme de réentrée",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "réentrée",
+          "circuit de réentrée",
+          "circuits de réentrée"
+        ],
+        "poids": 2,
+        "justification": "Le cas explicite le mécanisme de TV sur cardiopathie ischémique."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "MONOMORPHE",
+      "justification": "Le cas caractérise la TV comme monomorphe."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "justification": "Le texte indique qu’un antécédent d’infarctus/myocardiopathie ischémique rend la TV la plus probable."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "SEQUELLE_DE_NECROSE",
+      "justification": "La séquelle de nécrose est décrite comme substrat de TV monomorphe par réentrée."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "justification": "Le texte cite l’activité atriale dissociée comme critère permettant de confirmer la TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "COMPLEXE_DE_FUSION",
+      "justification": "Les complexes de fusion sont cités comme signes de confirmation de TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "CAPTURE_SUPRAVENTRICULAIRE",
+      "justification": "Les complexes de capture sont cités comme signes de confirmation de TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "La règle pédagogique du cas est qu’une tachycardie régulière à QRS larges doit être considérée comme une TV jusqu’à preuve du contraire."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "RYTHME_REGULIER",
+      "justification": "La régularité est un élément du pattern pédagogique de TV probable à QRS larges."
+    },
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le second tracé décrit une séquelle de nécrose inférieure."
+    },
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "relation": "requires",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Le cas objective la séquelle inférieure par des ondes q en DII, DIII, aVF."
+    }
+  ],
+  "synthese": "La couverture est globalement bonne pour TV, QRS larges, rythme régulier, séquelle de nécrose inférieure et BAV du premier degré. Les principaux trous lexicaux concernent la TV monomorphe comme pattern dédié, l’activité atriale difficile à identifier et les synonymes usuels du contexte post-infarctus.",
+  "error": null
+}

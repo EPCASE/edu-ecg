@@ -1,0 +1,28 @@
+{
+  "id": "BLOC_DE_BRANCHE_ALTERNANT",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Pattern diagnostique différenciant non présent au catalogue, correspondant à l'alternance documentée de morphologies de bloc de branche et utile cliniquement sans être une simple localisation.",
+  "concept_retenu": {
+    "id": "BLOC_DE_BRANCHE_ALTERNANT",
+    "concept_name": "Bloc de branche alternant",
+    "type": "pattern",
+    "parents": [
+      "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+      "BLOC_DE_BRANCHE"
+    ],
+    "requires": [
+      "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "BLOC_DE_BRANCHE_GAUCHE_COMPLET"
+    ],
+    "synonymes": [
+      "alternance bloc de branche droit bloc de branche gauche",
+      "alternating bundle branch block",
+      "bloc alternant",
+      "bloc de branche alterné",
+      "bloc de branche droite alternant avec bloc de branche gauche",
+      "bloc trifasciculaire"
+    ]
+  }
+}

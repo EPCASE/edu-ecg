@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_DI_AVL",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "DI-aVL; D1-aVL; dérivations latérales hautes",
+  "motif": "Concept de dérivations/topographie pure, réservé à une future couche topographique et ignoré en v1."
+}

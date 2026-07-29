@@ -1,0 +1,20 @@
+{
+  "id": "CONCAVE_VERS_LE_HAUT",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "CONCAVE_VERS_LE_HAUT",
+    "concept_name": "Concave vers le haut",
+    "type": "qualifier",
+    "parents": [
+      "ANOMALIES_DU_SEGMENT_ST"
+    ],
+    "synonymes": [
+      "concave dans sa partie initiale",
+      "concavité supérieure"
+    ]
+  },
+  "motif": "Modificateur morphologique transverse du segment ST, notamment d'un sus-décalage, à garder comme qualifier plutôt que comme diagnostic monolithique.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

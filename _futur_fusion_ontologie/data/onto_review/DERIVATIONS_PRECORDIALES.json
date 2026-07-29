@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_PRECORDIALES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "dérivations précordiales, V1-V4, V3, V6",
+  "motif": "Concept de dérivations/localisation pure, réservé à une future couche topographique et ignoré en v1."
+}

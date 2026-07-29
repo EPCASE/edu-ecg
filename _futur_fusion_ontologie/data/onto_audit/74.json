@@ -1,0 +1,126 @@
+{
+  "num": 74,
+  "titre": "syndrome de Brugada",
+  "famille": "genetique",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "SYNDROME_DE_BRUGADA",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "syndrome de Brugada"
+    },
+    {
+      "concept_id": "ASPECT_DE_BRUGADA_DE_TYPE_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage en dôme en V1, V2, V3 (sus-ST de plus de 2mm dans au moins une de ces dérivations)",
+      "synonymes_a_ajouter": [
+        "sus-décalage en dôme",
+        "sus-décalage en dôme en V1 V2 V3",
+        "sus-ST en dôme",
+        "aspect en dôme",
+        "sus-ST de plus de 2mm en V1 V2 V3"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-ST de plus de 2mm",
+      "synonymes_a_ajouter": [
+        "sus-ST",
+        "sus-ST de plus de 2mm",
+        "sus-décalage ST de plus de 2 mm"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ondes T négatives dans les mêmes dérivations"
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de miroir"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V1, V2, V3",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_PRECORDIALES_DROITES",
+        "concept_name": "Dérivations précordiales droites V1-V3",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1 V2 V3",
+          "V1, V2, V3",
+          "précordiales droites",
+          "dérivations précordiales droites"
+        ],
+        "poids": 3,
+        "justification": "Le cas localise explicitement les anomalies de Brugada aux dérivations V1 à V3 ; aucune topographie existante ne représente des dérivations ECG précordiales droites."
+      }
+    },
+    {
+      "concept_id": "SYNDR0ME_DE_BRUGADA",
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "mort subite familiale",
+      "nouveau_concept": {
+        "id_suggere": "RISQUE_DE_MORT_SUBITE_BRUGADA",
+        "concept_name": "Risque de mort subite dans le syndrome de Brugada",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "SYNDROME_DE_BRUGADA"
+        ],
+        "requires": [
+          "SYNDROME_DE_BRUGADA"
+        ],
+        "synonymes": [
+          "risque potentiel de mort subite",
+          "mort subite familiale",
+          "antécédents de mort subite familiale"
+        ],
+        "poids": 2,
+        "justification": "Le texte pédagogique insiste sur le risque de mort subite associé au syndrome de Brugada ; il s'agit toutefois d'un élément de contexte clinique plus que d'un signe ECG."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "ASPECT_DE_BRUGADA_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le type 1 est décrit ici par un sus-décalage ST en dôme."
+    },
+    {
+      "concept_id": "ASPECT_DE_BRUGADA_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Le tracé associe au sus-décalage en dôme des ondes T négatives dans les mêmes dérivations."
+    },
+    {
+      "concept_id": "ASPECT_DE_BRUGADA_DE_TYPE_1",
+      "relation": "has_qualifiers",
+      "cible": "DERIVATIONS_PRECORDIALES_DROITES",
+      "justification": "L'aspect diagnostique est localisé à V1-V3 dans le cas."
+    },
+    {
+      "concept_id": "SYNDROME_DE_BRUGADA",
+      "relation": "supports",
+      "cible": "ASPECT_DE_BRUGADA_DE_TYPE_1",
+      "justification": "Le texte indique que la présence du sus-décalage en dôme V1-V3 à l'ECG de repos est évocatrice/diagnostique du syndrome de Brugada."
+    }
+  ],
+  "synthese": "Le contenu ECG central est globalement couvert par les concepts Brugada, sus-décalage ST et ondes T négatives, mais l'ontologie manque de synonymes pour la formulation pédagogique « sus-décalage en dôme / sus-ST >2 mm ». Le principal trou hiérarchique est l'absence de topographie par dérivations V1-V3, nécessaire pour représenter l'aspect de Brugada de type 1.",
+  "error": null
+}

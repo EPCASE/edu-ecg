@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_INFERIEURES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Concept de dérivations/localisation pure sans finding ECG propre ; la topographie est ignorée en v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "DII, DIII, aVF / dérivations inférieures"
+}

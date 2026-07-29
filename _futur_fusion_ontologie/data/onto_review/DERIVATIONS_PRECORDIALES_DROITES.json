@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_PRECORDIALES_DROITES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Concept de topographie pure, non scoré en v1 et ne portant aucun finding ECG atomique réutilisable.",
+  "principe": "T1",
+  "territoire_ignore_v1": "V1-V4, V3R-V4R / dérivations précordiales droites"
+}

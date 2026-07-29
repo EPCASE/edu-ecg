@@ -1,0 +1,194 @@
+{
+  "num": 57,
+  "titre": "myocardite",
+  "famille": "pericarde",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "des complexes QRS fins"
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des ondes q de petite amplitude dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "ondes q de petite amplitude",
+        "petites ondes q",
+        "petites ondes q inférieures"
+      ]
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "dérivations inférieures",
+        "territoire inférieur"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un sus-décalage d'amplitude modéré dans les dérivations inférieures"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "d'amplitude modéré",
+      "nouveau_concept": {
+        "id_suggere": "AMPLITUDE_MODEREE",
+        "concept_name": "Amplitude modérée",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "amplitude modérée",
+          "d'amplitude modérée",
+          "d'amplitude modéré",
+          "modéré"
+        ],
+        "poids": 2,
+        "justification": "Le cas qualifie explicitement le sus-décalage par une amplitude modérée, sans concept équivalent dans le catalogue."
+      }
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de miroir"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage inférieur",
+      "synonymes_a_ajouter": [
+        "sus-décalage inférieur",
+        "sus-décalage du segment ST inférieur"
+      ]
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu avec modification ECG et élévation de troponine",
+      "synonymes_a_ajouter": [
+        "syndrome coronarien aigu avec modification ECG",
+        "SCA avec modification ECG"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "SCA ST+"
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "péricardite"
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ondes T négatives"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes q plus ou moins systématisées",
+      "synonymes_a_ajouter": [
+        "ondes q systématisées",
+        "ondes q plus ou moins systématisées"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "myocardite",
+      "nouveau_concept": {
+        "id_suggere": "MYOCARDITE",
+        "concept_name": "Myocardite",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "PATHOLOGIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "myocardite virale"
+        ],
+        "poids": 4,
+        "justification": "Le diagnostic ECG-clinique central du cas est une myocardite évoquée devant sus-décalage inférieur et contexte viral ; aucun concept myocardite n'existe dans le catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "myopéricardite",
+      "nouveau_concept": {
+        "id_suggere": "MYOPERICARDITE",
+        "concept_name": "Myopéricardite",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "PERICARDITE",
+          "PATHOLOGIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "myopéricardite",
+          "atteinte combinée du myocarde et du péricarde"
+        ],
+        "poids": 3,
+        "justification": "Le texte mentionne explicitement le diagnostic de myopéricardite comme association d'une atteinte myocardique et péricardique."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le texte définit le SCA ST+ par la présence d'un sus-décalage du segment ST."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le cas localise explicitement le sus-décalage aux dérivations inférieures."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "MIROIR",
+      "justification": "Le texte utilise l'absence de miroir comme modificateur interprétatif du sus-décalage."
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "relation": "supports",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le commentaire indique que la péricardite peut présenter un sus-décalage du segment ST."
+    }
+  ],
+  "synthese": "La couverture descriptive ECG est globalement correcte pour rythme sinusal, QRS fins, sus-décalage ST inférieur et absence de miroir, mais il manque le diagnostic pivot MYOCARDITE et le diagnostic associé MYOPERICARDITE. Des synonymes sont nécessaires pour les petites ondes q inférieures et la localisation par dérivations inférieures, ainsi qu'un qualificatif d'amplitude modérée.",
+  "error": null
+}

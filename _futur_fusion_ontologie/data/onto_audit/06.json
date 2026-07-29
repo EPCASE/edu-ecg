@@ -1,0 +1,319 @@
+{
+  "num": 6,
+  "titre": "hypertrophie ventriculaire gauche",
+  "famille": "hypertrophie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "present",
+      "surface": "hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "present",
+      "surface": "aspect typique d’hypertrophie ventriculaire gauche « diastolique »",
+      "synonymes_a_ajouter": [
+        "HVG diastolique",
+        "hypertrophie ventriculaire gauche diastolique",
+        "aspect d’hypertrophie ventriculaire gauche diastolique"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "VOLTAGE_DU_QRS_ANORMAL",
+      "statut": "present",
+      "surface": "augmentation de l’amplitude des complexes QRS",
+      "synonymes_a_ajouter": [
+        "augmentation de l’amplitude des complexes QRS",
+        "QRS de grande amplitude",
+        "hypervoltage du QRS"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "VOLTAGE_DU_QRS_ANORMAL",
+      "statut": "present",
+      "surface": "augmentation de l’amplitude des ondes R en V5-V6, augmentation de l’amplitude des ondes S en V1-V2",
+      "synonymes_a_ajouter": [
+        "augmentation de l’amplitude des ondes R en V5-V6",
+        "augmentation de l’amplitude des ondes S en V1-V2",
+        "grandes ondes R en V5-V6",
+        "ondes S profondes en V1-V2"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INDICE_DE_SOKOLOW__35_MM",
+      "statut": "present",
+      "surface": "indice de Sokolow à autour de 43 mm donc positif (> 35 mm)"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INDICE_DE_SOKOLOW__35_MM",
+      "statut": "present",
+      "surface": "l’indice de Sokolow peut également être défini comme la somme de la plus grande amplitude de l’onde S entre V1 et V2 et de l’onde R entre V5 et V6",
+      "synonymes_a_ajouter": [
+        "indice de Sokolow positif",
+        "Sokolow positif",
+        "indice de Sokolow > 35 mm",
+        "Sokolow > 35 mm",
+        "Sokolow à 43 mm",
+        "somme de l'onde S en V1 et de l'onde R en V5 > 35 mm",
+        "somme de la plus grande onde S entre V1 et V2 et de l'onde R entre V5 et V6 > 35 mm"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_NORMALES",
+      "statut": "present",
+      "surface": "ondes T positives dans les dérivations précordiales gauches",
+      "synonymes_a_ajouter": [
+        "ondes T positives",
+        "ondes T positives en V5-V6",
+        "ondes T positives dans les dérivations précordiales gauches"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "les QRS peuvent être un peu élargis du fait de la masse myocardique élevée à dépolariser et de la fibrose intramyocardique pouvant retarder la propagation de l’influx, mais restent souvent inférieurs à 120 ms",
+      "synonymes_a_ajouter": [
+        "QRS inférieurs à 120 ms",
+        "QRS < 120 ms malgré élargissement discret",
+        "QRS un peu élargis mais < 120 ms"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "absent",
+      "surface": "Quand les ondes T restent positivent en V5-V6"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "statut": "absent",
+      "surface": "avec possible sous-décalage dans ces dérivations"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "statut": "absent",
+      "surface": "en l'absence de bloc de branche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BBG_INCOMPLET",
+      "statut": "absent",
+      "surface": "bloc de branche gauche incomplet"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "absent",
+      "surface": "hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "statut": "absent",
+      "surface": "hémibloc postérieur gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "La déviation axiale est modeste vers la gauche",
+      "synonymes_a_ajouter": [
+        "déviation axiale modeste vers la gauche",
+        "déviation modeste de l'axe vers la gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "absent",
+      "surface": "hypertrophie ventriculaire gauche systolique"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "hypertrophie ventriculaire gauche « diastolique »",
+      "nouveau_concept": {
+        "id_suggere": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE_DIASTOLIQUE",
+        "concept_name": "Hypertrophie ventriculaire gauche diastolique",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+        ],
+        "requires": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "INDICE_DE_SOKOLOW__35_MM",
+          "ONDE_T_NORMALES"
+        ],
+        "synonymes": [
+          "HVG diastolique",
+          "aspect typique d’hypertrophie ventriculaire gauche diastolique",
+          "hypertrophie ventriculaire gauche avec ondes T positives en V5-V6"
+        ],
+        "poids": 4,
+        "justification": "Le diagnostic attendu du QCM est explicitement la forme diastolique de l'HVG, définie dans le cas par une HVG avec ondes T restant positives en V5-V6."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "hypertrophie ventriculaire gauche systolique",
+      "nouveau_concept": {
+        "id_suggere": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE_SYSTOLIQUE",
+        "concept_name": "Hypertrophie ventriculaire gauche systolique",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+        ],
+        "requires": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "ONDE_T_NEGATIVE"
+        ],
+        "synonymes": [
+          "HVG systolique",
+          "hypertrophie ventriculaire gauche avec troubles de repolarisation",
+          "hypertrophie ventriculaire gauche sévère avec ondes T négatives"
+        ],
+        "poids": 4,
+        "justification": "Le cas oppose explicitement l'HVG systolique, avec ondes T négatives en V5-V6/DI-aVL et possible sous-décalage du ST, à l'HVG diastolique retenue comme réponse fausse ici."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations précordiales gauches",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_PRECORDIALES_GAUCHES",
+        "concept_name": "Dérivations précordiales gauches",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V5-V6",
+          "précordiales gauches",
+          "dérivations V5-V6"
+        ],
+        "poids": 2,
+        "justification": "La localisation V5-V6 est centrale pour qualifier les grandes ondes R et la positivité des ondes T dans cette HVG."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations latérales (D1, aVL, V5, V6)",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_LATERALES",
+        "concept_name": "Dérivations latérales",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations latérales",
+          "D1-aVL-V5-V6",
+          "DI-aVL-V5-V6",
+          "D1, aVL, V5, V6"
+        ],
+        "poids": 2,
+        "justification": "Le référentiel localise les anomalies de repolarisation de l'HVG sévère aux dérivations latérales."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde S mesurée en V1 / plus grande amplitude de l’onde S entre V1 et V2",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_PRECORDIALES_DROITES",
+        "concept_name": "Dérivations précordiales droites",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1-V2",
+          "précordiales droites",
+          "dérivations V1-V2"
+        ],
+        "poids": 2,
+        "justification": "V1-V2 sont nécessaires dans le texte pour exprimer les ondes S profondes et le calcul de Sokolow."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "absent",
+      "surface": "bloc de branche gauche incomplet / hémibloc antérieur gauche / hémibloc postérieur gauche"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "INDICE_DE_SOKOLOW__35_MM",
+      "justification": "Le texte indique qu'un indice de Sokolow > 35 mm est en faveur d'une HVG."
+    },
+    {
+      "concept_id": "INDICE_DE_SOKOLOW__35_MM",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "justification": "Le cas utilise l'indice de Sokolow positif comme critère principal de diagnostic de l'HVG."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "VOLTAGE_DU_QRS_ANORMAL",
+      "justification": "Le texte définit le tracé d'HVG par une augmentation de l'amplitude des complexes QRS."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte précise que les QRS peuvent être discrètement élargis mais restent souvent < 120 ms en l'absence de bloc de branche."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Le référentiel décrit les formes sévères/systoliques d'HVG avec onde T négative latérale, même si ce signe est absent sur le tracé principal."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "justification": "Le référentiel mentionne un sous-décalage ST latéral possible dans l'HVG sévère/systolique."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "PERTE_DES_ONDE_Q_SEPTALES",
+      "justification": "Le référentiel indique une disparition de l'onde Q septale dans les dérivations latérales dans la forme sévère."
+    }
+  ],
+  "synthese": "Le catalogue couvre le diagnostic général d'HVG, le rythme sinusal et le critère de Sokolow, mais il manque les variantes pédagogiques HVG diastolique/systolique et des topographies de dérivations utiles (V1-V2, V5-V6, latérales). Les synonymes doivent surtout enrichir le vocabulaire d'hypervoltage QRS, de Sokolow positif et d'ondes T positives latérales.",
+  "error": null
+}

@@ -1,0 +1,8 @@
+{
+  "id": "ONDE_Q_EN_D1",
+  "verdict": "REJETER",
+  "classe": "description",
+  "principe": "T1, C4, C5",
+  "motif": "Une petite onde q isolée en D1 est essentiellement une description localisée et potentiellement physiologique; la localisation est ignorée en v1 et il ne faut pas créer un concept non différenciant hors onde Q pathologique.",
+  "territoire_ignore_v1": "D1"
+}

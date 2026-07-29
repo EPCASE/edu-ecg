@@ -1,0 +1,20 @@
+{
+  "id": "ONDE_S_LARGE_TRAINANTE_EN_V6",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "T1, C1, D1",
+  "territoire_ignore_v1": "V6",
+  "motif": "La localisation en V6 est ignorée en v1 et le libellé combine une onde S avec des qualificatifs morphologiques, à réduire au finding atomique d'onde S large/traînante.",
+  "decomposition": [
+    {
+      "id": "ONDE_S_LARGE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "TRAINANTE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

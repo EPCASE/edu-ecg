@@ -1,0 +1,25 @@
+{
+  "id": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "La tachycardie ventriculaire existe déjà et le caractère non soutenu existe comme qualifier réutilisable ; il ne faut pas créer un pattern monolithique dédié.",
+  "decomposition": [
+    {
+      "id": "TACHYCARDIE_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "NON_SOUTENU",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "requires",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

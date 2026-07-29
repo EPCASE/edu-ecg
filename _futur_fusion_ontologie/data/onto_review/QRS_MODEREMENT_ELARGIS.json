@@ -1,0 +1,24 @@
+{
+  "id": "QRS_MODEREMENT_ELARGIS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, C3, C6",
+  "motif": "Il s'agit d'un QRS large/limite déjà représentable par la durée du QRS, avec un qualificatif d'intensité/incertitude plutôt qu'un concept dédié.",
+  "decomposition": [
+    {
+      "id": "DUREE_DU_QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "QRS_LARGE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "LIMITE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

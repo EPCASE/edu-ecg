@@ -1,0 +1,321 @@
+{
+  "num": 8,
+  "titre": "activation ventriculaire normale",
+  "famille": "normal",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à environ 60 battements/minute",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque à environ 60 battements/minute",
+        "fréquence cardiaque à environ 60 bpm"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "synonymes_a_ajouter": [
+        "conduction atrio-ventriculaire normale",
+        "conduction AV normale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "durée intervalle PR normale",
+      "synonymes_a_ajouter": [
+        "durée intervalle PR normale",
+        "durée de l'intervalle PR normale"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins (durée de 85 ms)",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins",
+        "QRS fins durant moins de 100 ms",
+        "complexe QRS fin durant moins de 100 ms",
+        "durée du QRS 85 ms"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "une absence d’ondes Q de nécrose"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "l’onde q très fine et de petite amplitude observée en V5-V6 est physiologique",
+      "synonymes_a_ajouter": [
+        "onde q physiologique",
+        "ondes q physiologiques",
+        "petite onde q physiologique",
+        "onde q très fine et de petite amplitude physiologique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "absent",
+      "surface": "des ondes q pathologiques en V5-V6"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "correspond à l’activation septale",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVATION_SEPTALE_NORMALE",
+        "concept_name": "Activation septale normale",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS_NORMALE"
+        ],
+        "requires": [
+          "QRS_FINS",
+          "ABSENCE_D_ONDE_Q_PATHOLOGIQUE"
+        ],
+        "synonymes": [
+          "activation septale",
+          "dépolarisation septale normale",
+          "activation du septum de la gauche vers la droite"
+        ],
+        "poids": 2,
+        "justification": "Le cas insiste sur l’activation septale normale expliquant la petite onde r en V1 et la petite onde q physiologique en V6/V5-V6."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect normal en V1 : rS",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RS_NORMAL_EN_V1",
+        "concept_name": "Aspect rS normal en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS_NORMALE"
+        ],
+        "requires": [
+          "QRS_FINS"
+        ],
+        "synonymes": [
+          "rS en V1",
+          "aspect rS en V1",
+          "aspect normal en V1 rS",
+          "petite onde r positive en V1 suivie d'une onde S"
+        ],
+        "poids": 3,
+        "justification": "Formulation centrale du cas et des QCM, non représentée par un concept existant de morphologie normale du QRS en dérivation V1."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect normal en V6 : qR",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QR_NORMAL_EN_V6",
+        "concept_name": "Aspect qR normal en V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS_NORMALE"
+        ],
+        "requires": [
+          "QRS_FINS",
+          "ABSENCE_D_ONDE_Q_PATHOLOGIQUE"
+        ],
+        "synonymes": [
+          "qR en V6",
+          "aspect qR en V6",
+          "aspect normal en V6 qR",
+          "petite onde q en V6 suivie d'une onde R"
+        ],
+        "poids": 3,
+        "justification": "Formulation centrale du cas et des QCM, non représentée par un concept existant de morphologie normale du QRS en dérivation V6."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "pas de troubles de la repolarisation",
+        "absence de troubles de la repolarisation",
+        "on ne retrouve pas de troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "durée normale de l'intervalle QT"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECG_NORMAL",
+      "statut": "present",
+      "surface": "Ce tracé est donc normal"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activation ventriculaire normale",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVATION_VENTRICULAIRE_NORMALE",
+        "concept_name": "Activation ventriculaire normale",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS_NORMALE"
+        ],
+        "requires": [
+          "QRS_FINS",
+          "AXE_NORMAL_DU_QRS",
+          "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+          "PAS_DE_TROUBLES_DE_LA_CONDUCTION"
+        ],
+        "synonymes": [
+          "activation ventriculaire normale",
+          "dépolarisation ventriculaire normale"
+        ],
+        "poids": 4,
+        "justification": "Thème pédagogique explicite du cas, distinct du simple ECG normal et décrit par une séquence/morphologie de QRS normale."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "present",
+      "surface": "En l’absence de trouble de la conduction"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE",
+      "statut": "absent",
+      "surface": "L’existence d’un bloc de branche entraine un allongement de l’activation ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "absent",
+      "surface": "augmentation de la durée du complexe QRS"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "absent",
+      "surface": "seul le bloc de branche complet a une valeur pathologique"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le tracé normal du cas est conclu après rythme sinusal."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "FREQUENCE_NORMALE",
+      "justification": "La fréquence autour de 60/min fait partie de la description normale."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "PR_NORMAL",
+      "justification": "La durée normale du PR participe à la conclusion de tracé normal."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "Les QRS fins sont un critère explicite du tracé normal."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "AXE_NORMAL_DU_QRS",
+      "justification": "Axe normal explicitement utilisé dans la conclusion."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Absence d’ondes Q de nécrose explicitement normale."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "justification": "Absence de trouble de repolarisation explicitement normale."
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "relation": "requires",
+      "cible": "QT_NORMAL",
+      "justification": "QT de durée normale explicitement cité."
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "relation": "supports",
+      "cible": "PR_NORMAL",
+      "justification": "Le cas détaille la conduction AV normale par conduction 1/1 et PR normal."
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "relation": "supports",
+      "cible": "1_1",
+      "justification": "Le cas détaille la conduction AV normale par conduction 1/1 et PR normal."
+    },
+    {
+      "concept_id": "MORPHOLOGIE_DU_QRS_NORMALE",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "Dans ce cas d’activation ventriculaire normale, la morphologie normale s’accompagne de QRS fins."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour les éléments usuels de tracé normal, mais il manque des concepts fins de morphologie normale du QRS en V1/V6 et d’activation ventriculaire/septale normale, centraux dans l’objectif pédagogique. Plusieurs formulations de normalité doivent être ajoutées en synonymes plutôt que comme nouveaux diagnostics.",
+  "error": null
+}

@@ -1,0 +1,261 @@
+{
+  "num": 24,
+  "titre": "BAV du second degré type 1 (Mobitz 1)",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "l’activité atriale est sinusale",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "l’activité atriale est sinusale et régulière",
+      "synonymes_a_ajouter": [
+        "activité atriale régulière"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "un rythme irrégulier"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque proche de 60 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_P_PRESENTE",
+      "statut": "present",
+      "surface": "ondes P"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "certaines ondes P sont conduites",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_CONDUITE",
+        "concept_name": "Onde P conduite",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE",
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde P conduite",
+          "ondes P conduites",
+          "P conduite"
+        ],
+        "poids": 3,
+        "justification": "Le cas définit explicitement le BAV du 2e degré par l'association d'ondes P conduites et bloquées ; l'ontologie possède l'onde P bloquée mais pas l'onde P conduite."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "statut": "present",
+      "surface": "certaines ondes P sont bloquées"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV",
+      "statut": "present",
+      "surface": "BAV du second degré",
+      "synonymes_a_ajouter": [
+        "BAV du second degré",
+        "Bloc auriculoventriculaire du second degré",
+        "Bloc auriculo-ventriculaire du second degré",
+        "Bloc atrioventriculaire du second degré",
+        "BAV deuxième degré",
+        "BAV du deuxième degré"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_2_MOBITZ_1",
+      "statut": "present",
+      "surface": "BAV du second degré type 1",
+      "synonymes_a_ajouter": [
+        "BAV du second degré type 1",
+        "BAV du deuxième degré type 1",
+        "Bloc auriculoventriculaire du second degré type 1",
+        "Bloc auriculo-ventriculaire du second degré type 1"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_2_MOBITZ_1",
+      "statut": "present",
+      "surface": "Mobitz 1",
+      "synonymes_a_ajouter": [
+        "Mobitz 1",
+        "BAV du second degré Mobitz 1",
+        "BAV du deuxième degré Mobitz 1"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_2_MOBITZ_1",
+      "statut": "present",
+      "surface": "Luciani-Wenckebach",
+      "synonymes_a_ajouter": [
+        "Luciani-Wenckebach",
+        "BAV du second degré type Luciani-Wenckebach",
+        "BAV du deuxième degré type Luciani-Wenckebach",
+        "Wenckebach"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR",
+      "statut": "present",
+      "surface": "l’intervalle PR s’allonge progressivement"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PR_COURT",
+      "statut": "present",
+      "surface": "l’intervalle PR qui suit l’onde P bloquée est court",
+      "synonymes_a_ajouter": [
+        "PR revenant à la valeur de base",
+        "intervalle PR revenant à la valeur de base",
+        "intervalle PR plus court après onde P bloquée"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BBD_INCOMPLET",
+      "statut": "present",
+      "surface": "bloc incomplet droit"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "axe gauche",
+      "synonymes_a_ajouter": [
+        "axe gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche associé"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "statut": "present",
+      "surface": "bloc incomplet droit et axe gauche donc hémibloc antérieur gauche associé",
+      "synonymes_a_ajouter": [
+        "BBD incomplet associé à hémibloc antérieur gauche",
+        "bloc incomplet droit avec hémibloc antérieur gauche",
+        "bloc incomplet droit et hémibloc antérieur gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_DE_TYPE_1",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV du premier degré"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_2_MOBITZ_2",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV du second degré type Mobitz 2"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "absent",
+      "surface": "dans le BAV du troisième degré, toutes les ondes P sont bloquées"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "requires",
+      "cible": "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR",
+      "justification": "Le texte définit le Mobitz 1 par l'allongement progressif du PR."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "requires",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le cas précise qu'une onde P bloquée survient dans la séquence de Wenckebach."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "requires",
+      "cible": "ONDE_P_CONDUITE",
+      "justification": "Le BAV du second degré y est défini par des ondes P conduites et bloquées ; relation à ajouter si le nouveau concept ONDE_P_CONDUITE est créé."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "supports",
+      "cible": "PR_COURT",
+      "justification": "Le PR suivant l'onde P bloquée est court/revient à la valeur de base, élément pédagogique du cas."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "excludes",
+      "cible": "BAV_2_MOBITZ_2",
+      "justification": "Le texte oppose type 1 et type 2 par la dynamique du PR."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "excludes",
+      "cible": "BAV_DE_TYPE_1",
+      "justification": "Le commentaire différencie le BAV du 1er degré sans onde P bloquée du BAV 2 Mobitz 1."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "excludes",
+      "cible": "BAV_COMPLET",
+      "justification": "Le commentaire différencie le BAV complet où toutes les ondes P sont bloquées."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "supports",
+      "cible": "BLOC_DE_BRANCHE_DROIT",
+      "justification": "Le cas décrit l'association d'un bloc droit incomplet et d'un hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "supports",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "L'hémibloc antérieur gauche associé au bloc droit correspond à une atteinte bifasciculaire."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "Pierre infère l'hémibloc antérieur gauche devant l'axe gauche."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le référentiel cité indique des QRS fins sauf si un bloc de branche est associé ; ici le bloc de branche associé explique l'absence de QRS fins."
+    }
+  ],
+  "synthese": "La couverture principale existe pour le BAV 2 Mobitz 1, mais il manque des synonymes essentiels autour de « second/deuxième degré », « Mobitz 1 » et « Luciani-Wenckebach ». Le seul vrai trou lexical du cas est l'« onde P conduite », nécessaire pour formaliser la définition du BAV du second degré avec onde P bloquée.",
+  "error": null
+}

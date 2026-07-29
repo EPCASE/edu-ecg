@@ -1,0 +1,334 @@
+{
+  "num": 64,
+  "titre": "SCA ST+ et RIVA",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un probable RIVA (rythme idioventriculaire accéléré) ; rythme d’origine ventriculaire avec QRS large à 80 bpm",
+      "synonymes_a_ajouter": [
+        "échappement accéléré",
+        "rythme d’origine ventriculaire",
+        "rythme ventriculaire focal"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS large / QRS larges (> 120 ms)",
+      "synonymes_a_ajouter": [
+        "QRS larges"
+      ]
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS larges (> 120 ms)"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence de dépolarisation ventriculaire entre 60 et 110 bpm (80 bpm sur le tracé)",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENCE_VENTRICULAIRE_60_110_BPM",
+        "concept_name": "Fréquence ventriculaire 60-110 bpm",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "fréquence de dépolarisation ventriculaire entre 60 et 110 bpm",
+          "rythme ventriculaire entre 60 et 110 bpm",
+          "RIVA à 80 bpm",
+          "n’excède jamais 120 bpm par définition"
+        ],
+        "poids": 3,
+        "justification": "Seuil fréquentiel explicitement donné comme critère définitoire du RIVA, non représenté par les qualificatifs généraux de fréquence existants."
+      }
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une onde P est identifiable sur le tracé",
+      "synonymes_a_ajouter": [
+        "onde P identifiable"
+      ]
+    },
+    {
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "suivie d’un complexe de fusion / complexes de fusion"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sus-décalage ample / sus-décalage dans le territoire inférieur et dans le territoire postérieur"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage ample",
+      "nouveau_concept": {
+        "id_suggere": "SUS_DECALAGE_ST_AMPLE",
+        "concept_name": "Sus-décalage ST ample",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage ample",
+          "sus-décalage ST ample"
+        ],
+        "poids": 2,
+        "justification": "Le caractère ample du sus-décalage est explicitement décrit et n'est pas couvert par un qualificatif générique existant."
+      }
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "territoire inférieur / infarctus inférieur",
+      "synonymes_a_ajouter": [
+        "territoire inférieur",
+        "infarctus inférieur"
+      ]
+    },
+    {
+      "concept_id": "LATERAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "de V5 à V6",
+      "synonymes_a_ajouter": [
+        "V5-V6",
+        "de V5 à V6",
+        "dérivations latérales V5-V6"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sous-décalage de V1 à V3"
+    },
+    {
+      "concept_id": "POSTERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "territoire postérieur",
+      "synonymes_a_ajouter": [
+        "territoire postérieur"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "SCA ST+ / Syndrome coronarien aigu ST+"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "SCA ST+ reperfusé grâce à la fibrinolyse",
+      "nouveau_concept": {
+        "id_suggere": "SCA_ST_PLUS_REPERFUSE",
+        "concept_name": "SCA ST+ reperfusé",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "requires": [
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "synonymes": [
+          "SCA ST+ reperfusé",
+          "infarctus reperfusé",
+          "IDM reperfusé",
+          "SCA ST+ après reperfusion"
+        ],
+        "poids": 4,
+        "justification": "Diagnostic composite explicitement formulé dans l'interprétation de référence, distinct du simple SCA ST+ par le contexte de reperfusion."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "arythmies dites de reperfusion (extrasystoles ventriculaires, RIVA) / arythmie typique de reperfusion",
+      "nouveau_concept": {
+        "id_suggere": "ARYTHMIE_DE_REPERFUSION",
+        "concept_name": "Arythmie de reperfusion",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "ARYTHMIE_VENTRICULAIRE",
+          "ISCHEMIQUE"
+        ],
+        "requires": [
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+        ],
+        "synonymes": [
+          "arythmie typique de reperfusion",
+          "arythmies dites de reperfusion",
+          "trouble du rythme de reperfusion"
+        ],
+        "poids": 4,
+        "justification": "Le cas enseigne explicitement le RIVA et les ESV comme arythmies de reperfusion lors d'un infarctus reperfusé."
+      }
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "survenue d’une extrasystole ventriculaire / extrasystoles ventriculaires"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "reprise du rythme sinusal"
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "infarctus du myocarde / syndrome coronarien par thrombose"
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bradycardie sinusale"
+    },
+    {
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "complexes de fusion ou de capture"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations droites",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_DROITES",
+        "concept_name": "Dérivations droites",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "VENTRICULE_DROIT"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations précordiales droites",
+          "dérivations ventriculaires droites"
+        ],
+        "poids": 2,
+        "justification": "Le tracé est explicitement enregistré avec dérivations droites, notion de localisation/acquisition non couverte par les topographies existantes."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations postérieures",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_POSTERIEURES",
+        "concept_name": "Dérivations postérieures",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "POSTERIEUR"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations précordiales postérieures"
+        ],
+        "poids": 2,
+        "justification": "Le tracé est explicitement enregistré avec dérivations postérieures, distinct du simple territoire postérieur."
+      }
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie ventriculaire / tachycardie ventriculaire lente ne doit donc pas être utilisé pour une fréquence inférieure à 100 bpm"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "rythme sinusal avec bloc de branche droite"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le texte définit le RIVA par des QRS larges > 120 ms."
+    },
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "relation": "supports",
+      "cible": "COMPLEXE_DE_FUSION",
+      "justification": "Le texte indique que la fréquence légèrement plus rapide du RIVA explique la survenue fréquente de complexes de fusion."
+    },
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "relation": "supports",
+      "cible": "CAPTURE_SUPRAVENTRICULAIRE",
+      "justification": "Le texte mentionne la survenue fréquente de capture au cours du RIVA."
+    },
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "relation": "supports",
+      "cible": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "justification": "Le RIVA est présenté comme survenant le plus souvent en phase aiguë d'infarctus du myocarde et comme arythmie de reperfusion."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le SCA ST+ repose sur le sus-décalage du segment ST décrit dans le cas."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le sus-décalage et l'infarctus sont localisés au territoire inférieur dans le cas."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "POSTERIEUR",
+      "justification": "Le second tracé met en évidence un sus-décalage dans le territoire postérieur."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "LATERAL",
+      "justification": "Le sus-décalage est décrit de V5 à V6, correspondant aux dérivations latérales."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "MIROIR",
+      "justification": "Le sous-décalage de V1 à V3, associé au sus-décalage postérieur, correspond au contexte d'image en miroir postérieure."
+    }
+  ],
+  "synthese": "Le socle SCA ST+, RIVA, ESV, fusion et topographies inférieure/postérieure est globalement couvert. Les principaux trous concernent les critères propres du RIVA (fréquence 60-110 bpm), la notion de reperfusion/arythmie de reperfusion, et la représentation des dérivations droites/postérieures.",
+  "error": null
+}

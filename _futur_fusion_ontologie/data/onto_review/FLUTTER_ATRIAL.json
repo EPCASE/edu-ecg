@@ -1,0 +1,8 @@
+{
+  "id": "FLUTTER_ATRIAL",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "concept_cible": "FLUTTER_DROIT_TYPIQUE",
+  "motif": "Le catalogue contient déjà le concept de flutter atrial commun/typique avec les synonymes appropriés ; ne pas recréer un pattern générique absent de valeur ajoutée dans ce lot.",
+  "principe": "C3, D1"
+}

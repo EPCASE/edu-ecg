@@ -1,0 +1,8 @@
+{
+  "id": "VEINES_PULMONAIRES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure d'origine/foyer, non scorée en v1 et sans finding ECG autonome à créer.",
+  "principe": "T1",
+  "territoire_ignore_v1": "veines pulmonaires"
+}

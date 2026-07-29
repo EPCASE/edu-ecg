@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_P_RETROGRADE_NEGATIVE_EN_INFERIEUR",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1, C3",
+  "motif": "Le concept fusionne une anomalie d'onde P, une rétroconduction et une localisation inférieure qui doit être ignorée en v1.",
+  "decomposition": [
+    {
+      "id": "ONDE_P_NEGATIVE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "CONDUCTION_ATRIALE_RETROGRADE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "INFERIEUR",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": "inférieur"
+}

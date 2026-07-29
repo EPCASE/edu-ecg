@@ -1,0 +1,15 @@
+{
+  "id": "ONDE_Q_EN_V1_V2",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "T1, C3",
+  "motif": "Le concept n'ajoute qu'une localisation V1-V2 à l'atome onde Q ; la topographie est ignorée en v1 et l'atome existant doit être réutilisé.",
+  "territoire_ignore_v1": "V1-V2",
+  "decomposition": [
+    {
+      "id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

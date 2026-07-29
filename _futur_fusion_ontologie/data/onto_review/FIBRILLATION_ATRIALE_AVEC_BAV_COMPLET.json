@@ -1,0 +1,25 @@
+{
+  "id": "FIBRILLATION_ATRIALE_AVEC_BAV_COMPLET",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Association de deux diagnostics existants avec un rythme régulier comme support; elle doit être représentée par composition et non par un pattern monolithique spécifique.",
+  "decomposition": [
+    {
+      "id": "FIBRILLATION_ATRIALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "BAV_COMPLET",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "RYTHME_REGULIER",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

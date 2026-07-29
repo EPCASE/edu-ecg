@@ -1,0 +1,300 @@
+{
+  "num": 51,
+  "titre": "torsade de pointes",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "le premier battement est sinusal"
+    },
+    {
+      "concept_id": "QT_LONG",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un intervalle QT extrêmement allongé",
+      "synonymes_a_ajouter": [
+        "intervalle QT extrêmement allongé",
+        "QT extrêmement allongé",
+        "allongement majeur du QT",
+        "allongement marqué du QT",
+        "allongement de l'intervalle QT"
+      ]
+    },
+    {
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "doublet d’extrasystoles ventriculaires",
+      "synonymes_a_ajouter": [
+        "doublet d’extrasystoles ventriculaires",
+        "doublet d'ESV"
+      ]
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "extrasystoles ventriculaires"
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "épisode de torsade de pointes"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie polymorphe",
+      "synonymes_a_ajouter": [
+        "tachycardie polymorphe",
+        "tachycardie ventriculaire polymorphe irrégulière",
+        "arythmie ventriculaire polymorphe"
+      ]
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "irrégulière",
+      "synonymes_a_ajouter": [
+        "irrégulière"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "à QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "à QRS larges"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "à une fréquence de 220 bpm",
+      "synonymes_a_ajouter": [
+        "fréquence de 220 bpm",
+        "220 bpm"
+      ]
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie rapide",
+      "synonymes_a_ajouter": [
+        "rapide"
+      ]
+    },
+    {
+      "concept_id": "NON_SOUTENU",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie spontanément résolutive (durée de 7 secondes environ)",
+      "synonymes_a_ajouter": [
+        "spontanément résolutive",
+        "de réduction spontanée",
+        "réduction spontanée",
+        "durée de 7 secondes"
+      ]
+    },
+    {
+      "concept_id": "PHENOMENE_R_T",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "extrasystole ventriculaire tombant sur l’onde T",
+      "synonymes_a_ajouter": [
+        "extrasystole ventriculaire tombant sur l'onde T",
+        "ESV tombant sur l'onde T",
+        "extrasystole ventriculaire tombant sur l’onde T"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "onde T du complexe précèdent"
+    },
+    {
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "arythmie ventriculaire polymorphe",
+      "synonymes_a_ajouter": [
+        "arythmie ventriculaire polymorphe"
+      ]
+    },
+    {
+      "concept_id": "POLYMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "polymorphe"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "changement d’axe progressif",
+      "nouveau_concept": {
+        "id_suggere": "CHANGEMENT_D_AXE_PROGRESSIF_DES_QRS",
+        "concept_name": "Changement d'axe progressif des QRS",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "AXE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "changement d’axe progressif",
+          "changement d'axe progressif",
+          "rotation progressive autour de la ligne isoélectrique",
+          "rotation progressive et cyclique autour de la ligne isoélectrique",
+          "torsion autour de la ligne de base",
+          "QRS positifs puis négatifs et inversement",
+          "sens des pointes s'inversant"
+        ],
+        "poids": 4,
+        "justification": "Le texte en fait un élément caractéristique ECG de la torsade de pointes, distinct d'une simple déviation axiale fixe."
+      }
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "peut toutefois dégénérer en fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "HYPOKALIEMIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hypokaliémie à la suite des diarrhées"
+    },
+    {
+      "concept_id": "MEDICAMENTS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "prise de 2 traitements allongeant le QT (macrolides + antihistaminiques)",
+      "synonymes_a_ajouter": [
+        "traitements allongeant le QT",
+        "médicaments qui peuvent allonger l’intervalle QT",
+        "macrolides",
+        "antihistaminiques"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie jonctionnelle rapide"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie ventriculaire monomorphe"
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "monomorphe"
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "accès de fibrillation auriculaire rapide"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "bloc de branche"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "requires",
+      "cible": "QT_LONG",
+      "justification": "Le cas répète que la torsade survient dans un contexte quasi systématique d'allongement du QT et résume : « pas de QT long, pas de torsade »."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "requires",
+      "cible": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "justification": "Pierre définit la torsade comme une tachycardie/arythmie ventriculaire polymorphe."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "La description caractéristique inclut une tachycardie à QRS larges."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "has_qualifiers",
+      "cible": "IRREGULIER",
+      "justification": "Le tracé est décrit comme une tachycardie polymorphe, irrégulière."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "has_qualifiers",
+      "cible": "RAPIDE",
+      "justification": "La torsade est décrite comme tachycardie rapide, ici 220 bpm."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "has_qualifiers",
+      "cible": "NON_SOUTENU",
+      "justification": "L'épisode est spontanément résolutif, durant environ 7 secondes."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "supports",
+      "cible": "PHENOMENE_R_T",
+      "justification": "L'épisode est déclenché par une extrasystole ventriculaire tombant sur l'onde T."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "supports",
+      "cible": "CHANGEMENT_D_AXE_PROGRESSIF_DES_QRS",
+      "justification": "Le changement d'axe progressif/rotation des QRS est présenté comme caractéristique de la torsade."
+    },
+    {
+      "concept_id": "QT_LONG",
+      "relation": "supports",
+      "cible": "HYPOKALIEMIE",
+      "justification": "Le texte indique que l'hypokaliémie est une cause fréquente d'allongement du QT."
+    },
+    {
+      "concept_id": "QT_LONG",
+      "relation": "supports",
+      "cible": "MEDICAMENTS",
+      "justification": "Le texte mentionne des traitements allongeant le QT, macrolides et antihistaminiques."
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "La torsade peut dégénérer en fibrillation ventriculaire selon les commentaires pédagogiques."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "relation": "parents",
+      "cible": "TACHYCARDIE_VENTRICULAIRE",
+      "justification": "La tachycardie ventriculaire polymorphe est une forme de tachycardie ventriculaire ; déjà parent dans le catalogue à vérifier comme relation hiérarchique essentielle pour ce cas."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour la torsade de pointes, le QT long, les ESV/doublet et la tachycardie ventriculaire polymorphe. Le principal trou lexical/hiérarchique est le descripteur caractéristique de rotation/changement progressif d'axe des QRS, absent comme concept existant, ainsi que des synonymes pédagogiques autour du QT très allongé, du R/T et de la réduction spontanée.",
+  "error": null
+}

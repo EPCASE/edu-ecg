@@ -1,0 +1,20 @@
+{
+  "id": "PAUSE_MULTIPLE_DU_RYTHME_SINUSAL_DE_BASE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1",
+  "motif": "Le libellé est une phrase combinant l'atome pause avec une qualification de multiplicité du cycle sinusal de base ; le contexte de rythme sinusal de base ne doit pas devenir un concept dédié.",
+  "territoire_ignore_v1": "",
+  "decomposition": [
+    {
+      "id": "PAUSE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "MULTIPLE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

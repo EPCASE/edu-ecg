@@ -1,0 +1,8 @@
+{
+  "id": "VARIATION_RESPIRATOIRE_DE_LA_FREQUENCE_CARDIAQUE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3, D1",
+  "motif": "Cette description correspond au pattern existant d'arythmie sinusale respiratoire, déjà synonyme d'ARYTHMIE_SINUSALE.",
+  "concept_cible": "ARYTHMIE_SINUSALE"
+}

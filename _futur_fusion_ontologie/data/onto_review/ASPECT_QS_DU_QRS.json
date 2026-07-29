@@ -1,0 +1,9 @@
+{
+  "id": "ASPECT_QS_DU_QRS",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "description",
+  "principe": "C3",
+  "motif": "L'aspect QS est déjà couvert par PRESENCE_D_ONDE_Q_PATHOLOGIQUE dont le catalogue contient le synonyme « Aspect QS ».",
+  "concept_cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+  "territoire_ignore_v1": ""
+}

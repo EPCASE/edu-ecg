@@ -1,0 +1,24 @@
+{
+  "id": "BAV_INFRANODAL",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1",
+  "motif": "Le siège infranodal/hissien d'un BAV est une caractérisation diagnostique réutilisable avec implications cliniques propres, non un territoire de dérivation à ignorer.",
+  "concept_retenu": {
+    "id": "BAV_INFRANODAL",
+    "concept_name": "BAV infranodal",
+    "type": "pattern",
+    "parents": [
+      "BLOC_AURICULO_VENTRICULAIRE"
+    ],
+    "requires": [
+      "BLOC_AURICULO_VENTRICULAIRE"
+    ],
+    "synonymes": [
+      "BAV hissien",
+      "bloc auriculo-ventriculaire hissien",
+      "bloc auriculo-ventriculaire infranodal",
+      "siège infranodal du BAV"
+    ]
+  }
+}

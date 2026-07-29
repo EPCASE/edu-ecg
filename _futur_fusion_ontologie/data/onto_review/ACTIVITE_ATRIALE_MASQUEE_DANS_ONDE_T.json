@@ -1,0 +1,30 @@
+{
+  "id": "ACTIVITE_ATRIALE_MASQUEE_DANS_ONDE_T",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_P_PRESENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ONDE_T",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "MASQUEE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "SUPERPOSITION_A_L_ONDE_T",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "motif": "Le concept décrit une activité atriale/P difficile à individualiser par superposition à l’onde T ; il faut composer les atomes onde P, onde T et relation de superposition.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

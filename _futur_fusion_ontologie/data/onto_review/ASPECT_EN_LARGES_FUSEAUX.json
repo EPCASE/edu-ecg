@@ -1,0 +1,20 @@
+{
+  "id": "ASPECT_EN_LARGES_FUSEAUX",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "FIBRILLATION_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "QRS_LARGE",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Expression descriptive monolithique liée à une FV à complexes larges ; conserver les atomes existants plutôt qu'un concept dédié peu réutilisable.",
+  "principe": "C1, C3",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATION_V5",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "V5",
+  "motif": "Une dérivation isolée est une topographie pure, explicitement hors périmètre de l'ontologie/scoring v1."
+}

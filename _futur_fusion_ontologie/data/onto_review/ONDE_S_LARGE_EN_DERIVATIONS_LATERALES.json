@@ -1,0 +1,15 @@
+{
+  "id": "ONDE_S_LARGE_EN_DERIVATIONS_LATERALES",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_S_LARGE",
+      "role": "finding",
+      "existe": false
+    }
+  ],
+  "motif": "Le concept proposé ajoute seulement une localisation latérale/DI-V6 à un finding morphologique ; en v1 on retient l'atome onde S large et on ignore le territoire.",
+  "principe": "T1, C1",
+  "territoire_ignore_v1": "dérivations latérales, DI, V6"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "ASPECT_RS_NORMAL_EN_V1",
+  "verdict": "REJETER",
+  "classe": "description",
+  "motif": "Aspect normal dépendant d'une dérivation précise et attendu de la morphologie normale du QRS ; la localisation V1 est ignorée et il ne faut pas créer ce détail normal isolé.",
+  "principe": "T1, C4",
+  "territoire_ignore_v1": "V1"
+}

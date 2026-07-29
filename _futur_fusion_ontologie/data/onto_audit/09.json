@@ -1,0 +1,390 @@
+{
+  "num": 9,
+  "titre": "bloc de branche droite complet",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "fréquence cardiaque à environ 80 battements/minute"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "nouveau_concept": {
+        "id_suggere": "CONDUCTION_AV_NORMALE",
+        "concept_name": "Conduction atrio-ventriculaire normale",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [
+          "1_1",
+          "PR_NORMAL"
+        ],
+        "synonymes": [
+          "conduction AV normale",
+          "conduction atrioventriculaire normale",
+          "conduction auriculo-ventriculaire normale"
+        ],
+        "poids": 2,
+        "justification": "Le cas affirme spécifiquement une conduction AV normale malgré un trouble intraventriculaire ; le concept global PAS_DE_TROUBLES_DE_LA_CONDUCTION serait faux dans ce tracé avec BBD complet."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS__120_MS",
+      "statut": "present",
+      "surface": "durée de QRS > 120 ms",
+      "synonymes_a_ajouter": [
+        "durée de QRS > 120 ms",
+        "QRS supérieur à 120 ms",
+        "durée des complexes QRS supérieure à 120 ms"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "durée de 130 ms",
+      "nouveau_concept": {
+        "id_suggere": "QRS_130_MS",
+        "concept_name": "QRS à 130 ms",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "QRS__120_MS"
+        ],
+        "requires": [
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "QRS 130 ms",
+          "durée du QRS 130 ms",
+          "durée des complexes QRS 130 ms"
+        ],
+        "poids": 2,
+        "justification": "La valeur chiffrée 130 ms est explicitement utilisée comme mesure descriptive du QRS large dans le cas."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "bloc de branche droite complet"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "aspect typique de bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "aspect typique de bloc de branche droite complet",
+        "aspect caractéristique de bloc de branche droite complet",
+        "bloc de branche droit complet typique"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "rSR’ en V1",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RSR_PRIME_EN_V1",
+        "concept_name": "Aspect rSR’ en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "rSR’ en V1",
+          "RSR’ en V1",
+          "RsR’ en V1",
+          "RR’ en V1",
+          "aspect en oreilles de lapin en V1",
+          "oreilles de lapin"
+        ],
+        "poids": 4,
+        "justification": "Le cas et le référentiel donnent cet aspect en V1 comme caractéristique nécessaire du BBD complet."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "QRS globalement positif avec aspect RsR’",
+      "nouveau_concept": {
+        "id_suggere": "QRS_POSITIF_RSR_PRIME_EN_V1",
+        "concept_name": "QRS positif avec aspect RsR’ en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "ASPECT_RSR_PRIME_EN_V1"
+        ],
+        "synonymes": [
+          "QRS globalement positif avec aspect RsR’",
+          "QRS positif en V1 avec RsR’",
+          "aspect RsR’ en V1"
+        ],
+        "poids": 3,
+        "justification": "Formulation du référentiel EDN incluse dans le cas pour caractériser le BBD complet."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde R’ en V1",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R_PRIME_EN_V1",
+        "concept_name": "Onde R’ en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "R’ en V1",
+          "onde R prime en V1",
+          "présence de l’onde R’ en fin de complexe en V1"
+        ],
+        "poids": 4,
+        "justification": "Le commentaire précise que la présence de l’onde R’ en fin de complexe est indispensable au diagnostic."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "qRS en V6 avec onde S large et trainante en fin de complexe",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QRS_AVEC_ONDE_S_TRAINANTE_EN_V6",
+        "concept_name": "Aspect qRS avec onde S traînante en V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "qRS en V6",
+          "aspect qRS en V6",
+          "qRS avec onde S large et trainante en V6",
+          "onde S traînante en V6",
+          "onde S large et traînante en V6",
+          "onde S arrondie en V6"
+        ],
+        "poids": 4,
+        "justification": "Le cas et le référentiel donnent cet aspect en V6 comme caractéristique nécessaire du BBD complet."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "absence d’ondes Q de nécrose",
+        "pas d’ondes Q de nécrose",
+        "absence d'onde Q de nécrose"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "pas de troubles de la repolarisation",
+        "absence de troubles de la repolarisation",
+        "on ne retrouve pas de troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche droite complet sur cœur sain",
+      "nouveau_concept": {
+        "id_suggere": "BBD_COMPLET_SUR_COEUR_SAIN",
+        "concept_name": "Bloc de branche droit complet sur cœur sain",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET"
+        ],
+        "requires": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+          "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+          "QT_NORMAL"
+        ],
+        "synonymes": [
+          "bloc de branche droite complet sur cœur sain",
+          "BBD complet sur cœur sain",
+          "bloc de branche droit complet isolé"
+        ],
+        "poids": 3,
+        "justification": "Le commentaire pédagogique pose explicitement le diagnostic contextuel de BBD complet sur cœur sain, avec VG morphologiquement et électriquement normal."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "VENTRICULE_GAUCHE",
+      "statut": "present",
+      "surface": "ventricule gauche morphologiquement et électriquement normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "VENTRICULE_DROIT",
+      "statut": "present",
+      "surface": "activation tardive du ventricule droit"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "absent",
+      "surface": "un hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "statut": "absent",
+      "surface": "un hémibloc postérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "statut": "absent",
+      "surface": "un bloc de branche gauche complet"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "un bloc de branche indifférencié",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_DE_BRANCHE_INDIFFERENCIE",
+        "concept_name": "Bloc de branche indifférencié",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "BLOC_DE_BRANCHE"
+        ],
+        "requires": [
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "bloc de branche indifférencié",
+          "bloc de branche non systématisé",
+          "bloc intraventriculaire indifférencié"
+        ],
+        "poids": 2,
+        "justification": "Mentionné comme proposition QCM explicitement fausse ; aucun concept existant ne correspond précisément à cette formulation."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le référentiel cité exige une durée de QRS > 120 ms pour le diagnostic de BBD complet."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_RSR_PRIME_EN_V1",
+      "justification": "Le référentiel cité exige en V1 un QRS globalement positif avec aspect RsR’."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_QRS_AVEC_ONDE_S_TRAINANTE_EN_V6",
+      "justification": "Le référentiel cité exige en V6 un aspect qRS avec onde S traînante, le plus souvent arrondie."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "excludes",
+      "cible": "BBD_INCOMPLET",
+      "justification": "Le cas oppose BBD incomplet si QRS entre 100 et 120 ms et BBD complet si QRS > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "justification": "Le QCM distingue le diagnostic correct de BBD complet du BBG complet, absent."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "excludes",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "Le QCM indique que l’hémibloc antérieur gauche n’est pas retrouvé sur ce tracé."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "excludes",
+      "cible": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "justification": "Le QCM indique que l’hémibloc postérieur gauche n’est pas retrouvé sur ce tracé."
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "relation": "parents",
+      "cible": "QRS_LARGE",
+      "justification": "QRS > 120 ms est une sous-classe/qualification de QRS large ; le catalogue le place déjà sous QRS_LARGE mais cette relation est centrale pour les règles du cas."
+    }
+  ],
+  "synthese": "Le diagnostic principal est couvert par BLOC_DE_BRANCHE_DROIT_COMPLET, mais ses critères morphologiques explicitement enseignés (rSR’/R’ en V1 et qRS avec onde S traînante en V6) manquent comme concepts structurés et comme requires du diagnostic. Il manque aussi un concept spécifique de conduction AV normale, nécessaire car le tracé présente un trouble intraventriculaire tout en ayant une conduction AV normale.",
+  "error": null
+}

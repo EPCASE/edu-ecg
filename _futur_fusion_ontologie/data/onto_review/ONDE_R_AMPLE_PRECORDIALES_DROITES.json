@@ -1,0 +1,15 @@
+{
+  "id": "ONDE_R_AMPLE_PRECORDIALES_DROITES",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_R_AMPLE",
+      "role": "finding",
+      "existe": false
+    }
+  ],
+  "motif": "La localisation précordiale droite doit être ignorée en v1 ; on conserve uniquement le finding atomique réutilisable d'onde R ample.",
+  "principe": "T1, C1, D1",
+  "territoire_ignore_v1": "précordiales droites, V1-V2"
+}

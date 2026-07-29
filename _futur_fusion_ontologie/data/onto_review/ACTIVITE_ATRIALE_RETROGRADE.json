@@ -1,0 +1,25 @@
+{
+  "id": "ACTIVITE_ATRIALE_RETROGRADE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ACTIVITE_ATRIALE_RETROGRADE",
+    "concept_name": "Activité atriale rétrograde",
+    "type": "finding",
+    "parents": [
+      "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL",
+      "CONDUCTION"
+    ],
+    "requires": [
+      "ONDE_P_PRESENTE"
+    ],
+    "synonymes": [
+      "activation atriale rétrograde",
+      "onde P rétrograde",
+      "ondes P rétrogrades"
+    ]
+  },
+  "motif": "Finding atrial/conductionnel atomique et réutilisable, distinct des diagnostics de tachycardie ou d'échappement ; l'encoche dans l'onde T est une surface d'observation non retenue comme synonyme strict.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

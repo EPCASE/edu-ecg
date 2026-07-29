@@ -1,0 +1,23 @@
+{
+  "id": "ACTIVATION_ATRIALE_RETROGRADE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ACTIVATION_ATRIALE_RETROGRADE",
+    "concept_name": "Activation atriale rétrograde",
+    "type": "finding",
+    "parents": [
+      "ONDE_P_ANORMALE"
+    ],
+    "requires": [
+      "ONDE_P_PRESENTE"
+    ],
+    "synonymes": [
+      "activation auriculaire rétrograde",
+      "onde P rétrograde",
+      "ondes P rétrogrades"
+    ]
+  },
+  "motif": "Il s'agit d'un finding morphologique/originel atomique et réutilisable de l'onde P, non réductible à un concept existant du catalogue.",
+  "principe": "D1, C3"
+}

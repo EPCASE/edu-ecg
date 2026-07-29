@@ -1,0 +1,25 @@
+{
+  "id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE_SYSTOLIQUE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ONDE_T_NEGATIVE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "TROUBLE_DE_REPOLARISATION",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "motif": "Concept monolithique mêlant diagnostic HVG et anomalie de repolarisation/onde T négative ; l'HVG existe déjà et le qualificatif « systolique » n'est pas un atome ECG robuste en v1.",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": ""
+}

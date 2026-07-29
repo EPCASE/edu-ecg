@@ -1,0 +1,224 @@
+{
+  "num": 26,
+  "titre": "BAV du second degré type 2/1",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV du second degré type 2/1",
+      "synonymes_a_ajouter": [
+        "BAV du second degré type 2/1",
+        "BAV type 2/1",
+        "bloc AV 2/1",
+        "bloc auriculo-ventriculaire 2/1",
+        "BAV 2/1 inclassable entre Mobitz 1 ou Mobitz 2"
+      ]
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une bradycardie avec ... une fréquence cardiaque à 43 bpm"
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme régulier"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une activité atriale sinusale est bien visible",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bien visible avant chaque complexe QRS",
+      "synonymes_a_ajouter": [
+        "onde P visible",
+        "activité atriale visible"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P de même morphologie",
+      "synonymes_a_ajouter": [
+        "onde P de même morphologie",
+        "ondes P de même morphologie"
+      ]
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "cette onde P est bloquée ; une onde P sur 2 est donc bloquée",
+      "synonymes_a_ajouter": [
+        "une onde P sur 2 bloquée",
+        "une onde P sur deux bloquée"
+      ]
+    },
+    {
+      "concept_id": "2_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une onde P sur deux est conduite",
+      "synonymes_a_ajouter": [
+        "une onde P sur deux est conduite",
+        "une onde P sur 2 conduite",
+        "autant d’ondes P bloquées que d’ondes P conduites"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins"
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "ondes Q de nécrose",
+        "absence d’ondes Q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "on ne retrouve pas de troubles de la repolarisation"
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale"
+      ]
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_1",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "révéler soit un aspect de Mobitz 1"
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "soit un aspect de Mobitz 2"
+    },
+    {
+      "concept_id": "BIGEMINISME_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un bigéminisme atrial"
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV du troisième degré"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un bloc de branche gauche"
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre une dysfonction sinusale"
+    },
+    {
+      "concept_id": "PACEMAKER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "implantation d’un stimulateur cardiaque",
+      "synonymes_a_ajouter": [
+        "stimulateur cardiaque"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "Des complexes QRS larges sont en faveur du siège infranodal"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "requires",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le cas définit le BAV 2/1 par une onde P sur deux bloquée."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "requires",
+      "cible": "2_1",
+      "justification": "Le diagnostic repose sur une conduction AV 2/1 : une onde P sur deux conduite."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "requires",
+      "cible": "ONDE_P_PRESENTE",
+      "justification": "La mise en évidence des ondes P est indispensable au diagnostic du BAV 2/1."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "Le tracé montre une bradycardie associée au BAV 2/1."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "has_qualifiers",
+      "cible": "QRS_FINS",
+      "justification": "La largeur des QRS est décrite comme élément d'orientation du siège du bloc."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "excludes",
+      "cible": "BAV_COMPLET",
+      "justification": "Le QCM oppose le BAV 2/1 au BAV du troisième degré, non retenu."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "excludes",
+      "cible": "BIGEMINISME_ATRIALE",
+      "justification": "Le piège diagnostique est l'onde P bloquée en fin d'onde T, non un bigéminisme atrial."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le diagnostic de BAV 2/1 et ses descripteurs ECG principaux. Les principaux ajustements sont lexicaux autour des formulations pédagogiques du BAV 2/1, de l'activité atriale sinusale, de l'onde P bloquée 1 sur 2 et du QT normal, avec quelques relations de composition à ajouter au concept existant BAV_2_POUR_1.",
+  "error": null
+}

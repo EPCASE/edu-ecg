@@ -1,0 +1,20 @@
+{
+  "id": "ECHAPPEMENT_ATRIAL_LENT",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, D1",
+  "motif": "Le libellé combine l'échappement atrial avec le modificateur de fréquence lent ; ces atomes doivent rester séparés.",
+  "decomposition": [
+    {
+      "id": "ECHAPPEMENT_ATRIAL",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "LENT",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

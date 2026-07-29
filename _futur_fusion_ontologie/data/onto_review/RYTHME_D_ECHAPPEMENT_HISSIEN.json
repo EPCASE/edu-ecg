@@ -1,0 +1,20 @@
+{
+  "id": "RYTHME_D_ECHAPPEMENT_HISSIEN",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "L'échappement hissien est un rythme d'échappement anatomiquement/électrophysiologiquement distinct, réutilisable, absent du catalogue et non réductible à une simple topographie ECG v1.",
+  "concept_retenu": {
+    "id": "RYTHME_D_ECHAPPEMENT_HISSIEN",
+    "concept_name": "Rythme d'échappement hissien",
+    "type": "pattern",
+    "parents": [
+      "ECHAPPEMENT"
+    ],
+    "synonymes": [
+      "échappement du faisceau de His",
+      "échappement hissien"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

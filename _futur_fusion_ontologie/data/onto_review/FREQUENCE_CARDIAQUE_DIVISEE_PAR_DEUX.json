@@ -1,0 +1,25 @@
+{
+  "id": "FREQUENCE_CARDIAQUE_DIVISEE_PAR_DEUX",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, D1",
+  "motif": "La division brutale de fréquence est une description de variation de fréquence et de bradycardie, pas un diagnostic atomique autonome ; elle doit être représentée par les atomes de fréquence/bradycardie avec un qualifier de réduction par deux si nécessaire.",
+  "territoire_ignore_v1": "",
+  "decomposition": [
+    {
+      "id": "FREQUENCE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "BRADYCARDIE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "DIVISEE_PAR_DEUX",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

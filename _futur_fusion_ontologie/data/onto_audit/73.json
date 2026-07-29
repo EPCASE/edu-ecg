@@ -1,0 +1,320 @@
+{
+  "num": 73,
+  "titre": "hyperkaliémie",
+  "famille": "metabolique",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERKALIEMIE",
+      "statut": "present",
+      "surface": "hyperkaliémie menaçante",
+      "synonymes_a_ajouter": [
+        "hyperkaliémie menaçante",
+        "signes ECG d’hyperkaliémie"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "METABOLIQUE",
+      "statut": "present",
+      "surface": "trouble métabolique"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à 90 bpm"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale difficile à identifier avec certitude",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_DIFFICILE_A_IDENTIFIER",
+        "concept_name": "Activité atriale difficile à identifier",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P"
+        ],
+        "requires": [],
+        "synonymes": [
+          "activité atriale difficile à identifier avec certitude",
+          "activité atriale souvent difficile à identifier"
+        ],
+        "poids": 3,
+        "justification": "Le cas décrit une activité atriale non clairement visible sans affirmer une absence d’onde P ; aucun concept existant ne couvre cette incertitude."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "complexes QRS extrêmement élargis",
+      "synonymes_a_ajouter": [
+        "complexes QRS extrêmement élargis",
+        "QRS extrêmement élargis",
+        "élargissement des complexes QRS"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS__120_MS",
+      "statut": "present",
+      "surface": "proche de 200 ms"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "statut": "present",
+      "surface": "sans aspect de bloc de branche gauche ou de bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "QRS élargis sans aspect de bloc de branche",
+        "élargissement des complexes QRS sans aspect de bloc de branche",
+        "retard de conduction intraventriculaire",
+        "bloc de conduction intraventriculaire"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "statut": "absent",
+      "surface": "sans aspect de bloc de branche gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "statut": "absent",
+      "surface": "sans aspect de bloc de branche droite"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_AMPLE",
+      "statut": "present",
+      "surface": "ondes T amples, pointues et symétriques de V3 à V5",
+      "synonymes_a_ajouter": [
+        "ondes T amples, pointues et symétriques",
+        "ondes T très amples"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ANOMALIE_DES_ONDES_T",
+      "statut": "present",
+      "surface": "ondes T amples, pointues et symétriques de V3 à V5",
+      "synonymes_a_ajouter": [
+        "ondes T amples, pointues et symétriques",
+        "ondes T pointues et symétriques"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "de V3 à V5",
+      "nouveau_concept": {
+        "id_suggere": "PRECORDIAL_ANTERIEUR_V3_V5",
+        "concept_name": "Précordial antérieur V3-V5",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V3 à V5",
+          "de V3 à V5"
+        ],
+        "poids": 2,
+        "justification": "Le catalogue ne contient pas de topographie par dérivations précordiales V3-V5 pour localiser les anomalies de l’onde T."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+      "statut": "present",
+      "surface": "retard de conduction intraventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+      "statut": "present",
+      "surface": "bloc de conduction intraventriculaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "statut": "present",
+      "surface": "troubles du rythme ventriculaire graves",
+      "synonymes_a_ajouter": [
+        "troubles du rythme ventriculaire graves"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "troubles du rythme ventriculaire graves"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPOKALIEMIE",
+      "statut": "absent",
+      "surface": "signes ECG d’hypokaliémie"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_AURICULO_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "bloc auriculoventriculaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "statut": "present",
+      "surface": "bloc sino-auriculaire",
+      "synonymes_a_ajouter": [
+        "bloc sino-auriculaire"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPOCALCEMIE",
+      "statut": "present",
+      "surface": "hypocalcémie"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPONATREMIE",
+      "statut": "present",
+      "surface": "hyponatrémie"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "très lent"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "tachycardie"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "tachycardie supraventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ECHAPPEMENT",
+      "statut": "present",
+      "surface": "échappement jonctionnel",
+      "synonymes_a_ajouter": [
+        "échappement jonctionnel"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "statut": "present",
+      "surface": "échappement jonctionnel"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "ONDE_T_AMPLE",
+      "justification": "Le texte liste les ondes T amples, pointues et symétriques comme signe ECG d’hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "Le texte liste l’élargissement des QRS comme signe ECG d’hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "justification": "Le texte précise que l’élargissement des QRS sans aspect de bloc de branche correspond à un retard de conduction intraventriculaire dans l’hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "BLOC_AURICULO_VENTRICULAIRE",
+      "justification": "Le texte cite le bloc auriculoventriculaire parmi les signes ECG d’hyperkaliémie par gravité croissante."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "BLOC_SINO_ATRIAL",
+      "justification": "Le texte cite le bloc sino-auriculaire parmi les signes ECG d’hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le texte cite la fibrillation ventriculaire comme manifestation grave possible de l’hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Le texte indique que le patient hyperkaliémique peut être très lent par dysfonction sinusale."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "justification": "Le texte indique qu’une hyperkaliémie peut se présenter par une tachycardie supraventriculaire."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_VENTRICULAIRE",
+      "justification": "Le texte indique qu’une hyperkaliémie peut se présenter par une tachycardie ventriculaire."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_GAUCHE",
+      "justification": "Dans ce cas, le bloc/retard intraventriculaire est explicitement décrit sans aspect de bloc de branche gauche."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_DROIT",
+      "justification": "Dans ce cas, le bloc/retard intraventriculaire est explicitement décrit sans aspect de bloc de branche droit."
+    },
+    {
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "Le texte définit ce retard de conduction intraventriculaire par des QRS élargis sans aspect de bloc de branche."
+    }
+  ],
+  "synthese": "La couverture principale existe pour l’hyperkaliémie, les QRS larges et les ondes T amples, mais il manque le lexique spécifique du cas : activité atriale difficile à identifier, QRS très élargis sans bloc de branche, et topographie V3-V5. Les relations de support entre hyperkaliémie et ses manifestations ECG décrites devraient être explicitées, sans en faire des critères requis.",
+  "error": null
+}

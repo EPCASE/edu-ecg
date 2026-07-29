@@ -1,0 +1,9 @@
+{
+  "id": "ASPECT_EN_SELLE_DE_CHAMEAU",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "qualifier",
+  "concept_cible": "ASPECT_EN_SELLE_DE_CHEVAL",
+  "motif": "Expression morphologique équivalente à l'aspect en selle de cheval déjà présent ; ne pas recréer un concept existant.",
+  "principe": "C3",
+  "territoire_ignore_v1": ""
+}

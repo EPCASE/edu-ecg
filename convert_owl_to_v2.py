@@ -35,6 +35,10 @@ ANNOTATION_MAYHAVEMIRROR = "R81WX84pmfiju3JOXA5ub0A"
 
 POIDS_MAP = {"Urgent": 5, "majeur": 4, "moyen": 3, "descriptif": 2}
 
+# Familles "de référence" (non cliniques) : leurs concepts sont ignorés (type=reference).
+# Promu en constante module pour être partagé par determine_types (déterminisme).
+REFERENCE_FAMILY_LABELS = {"Poids", "Anatomie"}
+
 
 def label_to_key(label):
     label = html.unescape(label)
@@ -138,16 +142,30 @@ def determine_types(parsed):
     restrictions = parsed["class_restrictions"]
     all_iris = set(iri_to_label.keys())
 
+    # Déterministe : itère les IRIs triés (l'ordre d'un set dépend du PYTHONHASHSEED).
     top_level = {}
-    for iri in all_iris:
+    for iri in sorted(all_iris, key=lambda x: iri_to_label.get(x, x)):
         parents_in_onto = [p for p in parent_map.get(iri, []) if p in all_iris]
         if not parents_in_onto:
             top_level[iri] = iri_to_label[iri]
 
+    # Un concept peut être atteint depuis PLUSIEURS racines (ex. un muscle papillaire
+    # sous Topographie ET sous Anatomie). L'ancien code faisait un last-write-wins sur
+    # un ordre de set non déterministe -> la famille (donc le type, donc l'inclusion)
+    # variait d'un run à l'autre (330/342/345 concepts). On rend cela DÉTERMINISTE et on
+    # donne la PRIORITÉ aux familles cliniques/topographiques sur les familles de
+    # référence (Poids/Anatomie/Dérivations), qui sont ensuite ignorées comme "reference".
+    def _is_reference_family(lbl: str) -> bool:
+        return lbl in REFERENCE_FAMILY_LABELS or "rivations" in lbl
+
     family_for_iri = {}
-    for root_iri, root_label in top_level.items():
-        for d in get_all_descendants(root_iri, child_map):
-            family_for_iri[d] = root_label
+    for want_reference in (False, True):  # passe 1 = cliniques, passe 2 = référence
+        for root_iri, root_label in sorted(top_level.items(),
+                                           key=lambda kv: (kv[1], kv[0])):
+            if _is_reference_family(root_label) != want_reference:
+                continue
+            for d in get_all_descendants(root_iri, child_map):
+                family_for_iri.setdefault(d, root_label)
 
     qualifier_targets = set()
     qualifier_family_targets = set()
@@ -172,7 +190,7 @@ def determine_types(parsed):
         expanded |= get_all_descendants(p, child_map)
     pattern_iris |= expanded
 
-    REFERENCE_FAMILIES = {"Poids", "Anatomie"}
+    REFERENCE_FAMILIES = REFERENCE_FAMILY_LABELS
     # Concepts with their own "requires" restriction are always patterns,
     # even if they are also targets of has_qualifiers from other concepts.
     own_requires = {iri for iri, rels in restrictions.items() if "requires" in rels}
@@ -241,7 +259,30 @@ def build_v2_json(parsed):
 
     concepts = {}
     skipped = 0
-    for iri in sorted(all_iris, key=lambda x: iri_to_label.get(x, x)):
+
+    # Champs "liste" fusionnés en cas de collision de clé (labels identiques -> même clé).
+    _LIST_FIELDS = ("requires", "supports", "has_qualifiers", "has_qualifier_families",
+                    "excludes", "excludes_families", "synonymes", "parents", "children",
+                    "territoires_possibles", "origin_structure", "origin_territory",
+                    "electrode", "ecg_morphology")
+
+    def _merge_concept(dst, src):
+        """Fusion SANS perte : union des champs-listes, scalaires du 1er venu."""
+        for f in _LIST_FIELDS:
+            if f in src:
+                merged = list(dst.get(f, []))
+                for x in src[f]:
+                    if x not in merged:
+                        merged.append(x)
+                dst[f] = merged
+        for f, v in src.items():
+            if f not in dst:
+                dst[f] = v
+        return dst
+
+    # Tri DÉTERMINISTE : (label, iri) — l'IRI départage les labels identiques, sinon
+    # l'ordre dépendrait de l'itération d'un set (PYTHONHASHSEED) -> résultat instable.
+    for iri in sorted(all_iris, key=lambda x: (iri_to_label.get(x, x), x)):
         ctype = concept_types.get(iri, "finding")
         if ctype == "reference":
             skipped += 1
@@ -300,7 +341,19 @@ def build_v2_json(parsed):
         if annots.get("mayhavemirror"):
             c["mayhavemirror"] = annots["mayhavemirror"]
 
-        concepts[key] = c
+        # Anti-auto-référence (un concept ne peut être son propre parent/enfant) :
+        # les labels dupliqués dans l'OWL peuvent produire ces artefacts.
+        for f in ("parents", "children"):
+            if f in c:
+                c[f] = [x for x in c[f] if x != key]
+                if not c[f]:
+                    del c[f]
+
+        if key in concepts:
+            # Collision de clé (labels OWL identiques) : fusion sans perte, déterministe.
+            _merge_concept(concepts[key], c)
+        else:
+            concepts[key] = c
 
     # qualifier families
     qfamilies = {}
@@ -375,12 +428,34 @@ def build_v2_json(parsed):
 
 
 if __name__ == "__main__":
-    owl_path = Path(__file__).parent / "BrYOzRZIu7jQTwmfcGsi35.owl"
-    output_path = Path(__file__).parent / "data" / "ontology_v2.json"
+    import argparse
+    # ⚠️ SÉCURITÉ : ce convertisseur produit une conversion BRUTE du .owl, SANS la
+    # couche d'enrichissement Partie B (infer_from_requires, excludes_families,
+    # negation_of, synonymes curados…). Écrire directement dans data/ontology_v2.json
+    # DÉTRUIRAIT l'inférence ECG_NORMAL et la décision « B ».
+    # → Par défaut on écrit un fichier _raw (aperçu). Pour régénérer la vraie
+    #   ontologie runtime, utiliser rebuild_ontology_from_owl.py (réapplique l'overlay).
+    ap = argparse.ArgumentParser(
+        description="Convertit un .owl en JSON V2 BRUT (sans enrichissement Partie B).")
+    ap.add_argument("--owl", default=str(Path(__file__).parent / "BrYOzRZIu7jQTwmfcGsi35.owl"))
+    ap.add_argument("--out", default=str(Path(__file__).parent / "data" / "ontology_v2_raw.json"),
+                    help="sortie (par défaut : data/ontology_v2_raw.json, aperçu sûr)")
+    ap.add_argument("--danger-overwrite-live", action="store_true",
+                    help="ÉCRASE data/ontology_v2.json (perd la couche Partie B !). À éviter.")
+    args = ap.parse_args()
+
+    owl_path = Path(args.owl)
+    if args.danger_overwrite_live:
+        output_path = Path(__file__).parent / "data" / "ontology_v2.json"
+        print("⚠️  ATTENTION : écriture directe dans ontology_v2.json (couche Partie B PERDUE).")
+        print("    Utilise plutôt rebuild_ontology_from_owl.py. Ctrl-C pour annuler…")
+    else:
+        output_path = Path(args.out)
+
     print(f"[1/3] Parsing OWL: {owl_path.name}")
     parsed = parse_owl(owl_path)
     print(f"      {len(parsed['classes_raw'])} classes")
-    print(f"[2/3] Building V2 JSON...")
+    print(f"[2/3] Building V2 JSON (BRUT, sans overlay)...")
     v2 = build_v2_json(parsed)
     for k, v in v2["metadata"].items():
         print(f"      {k}: {v}")
@@ -389,3 +464,5 @@ if __name__ == "__main__":
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(v2, f, ensure_ascii=False, indent=2)
     print(f"      {output_path.stat().st_size / 1024:.1f} KB written. Done!")
+    if not args.danger_overwrite_live:
+        print("      (aperçu BRUT — pour la runtime : python rebuild_ontology_from_owl.py --owl ...)")

@@ -1,0 +1,20 @@
+{
+  "id": "ONDE_F_NEGATIVE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_F",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "NEGATIF",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "motif": "La polarité négative est un modificateur descriptif de l'onde F et ne doit pas être fusionnée en concept dédié ; les mentions par dérivation sont ignorées en v1.",
+  "principe": "D1, C1, T1",
+  "territoire_ignore_v1": "V6"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "ISCHEMIE_VENTRICULAIRE_DROITE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "ISCHEMIE_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ONDE_T_NEGATIVE",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Le concept ajoute surtout une localisation ventriculaire droite/V1-V4 ignorée en v1 ; retenir le pattern d'ischémie par inversion des T existant et noter le territoire.",
+  "principe": "D1, T1, C3",
+  "territoire_ignore_v1": "ventricule droit; V1-V4"
+}

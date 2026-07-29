@@ -1,0 +1,20 @@
+{
+  "id": "ONDE_U_AMPLE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1",
+  "motif": "Concept composé associant l'onde U existante à une qualification d'amplitude; conserver ONDE_U et un qualifier réutilisable d'amplitude plutôt qu'un concept dédié.",
+  "decomposition": [
+    {
+      "id": "ONDE_U",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "AMPLE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

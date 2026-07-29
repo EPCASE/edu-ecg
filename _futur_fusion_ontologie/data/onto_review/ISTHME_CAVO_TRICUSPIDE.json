@@ -1,0 +1,8 @@
+{
+  "id": "ISTHME_CAVO_TRICUSPIDE",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie anatomique pure, utile éventuellement pour une future couche de localisation de flutter mais ignorée en v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "isthme cavo-tricuspide"
+}

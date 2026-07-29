@@ -1,0 +1,25 @@
+{
+  "id": "PHENOMENE_P_T",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "PHENOMENE_P_T",
+    "concept_name": "Phénomène P/T",
+    "type": "finding",
+    "parents": [
+      "EVENEMENTS_ECTOPIQUES"
+    ],
+    "requires": [
+      "EXTRASYSTOLE_ATRIALE",
+      "PREMATURE"
+    ],
+    "synonymes": [
+      "P/T",
+      "extrasystole atriale sur onde T",
+      "phénomène P sur T"
+    ]
+  },
+  "motif": "Finding temporel ectopique atomique analogue au PHENOMENE_R_T existant mais atrial, absent du catalogue et différenciant.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

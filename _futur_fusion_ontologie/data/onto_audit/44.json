@@ -1,0 +1,287 @@
+{
+  "num": 44,
+  "titre": "tachycardie jonctionnelle par réentrée intranodale",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une tachycardie régulière à QRS fins à 200 bpm"
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie régulière"
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "le caractère parfaitement régulier"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "les QRS fins éliminent le diagnostic de TV"
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "rend très improbable le diagnostic de FA"
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une tachycardie régulière dans les oreillettes",
+      "synonymes_a_ajouter": [
+        "tachycardie régulière dans les oreillettes",
+        "arythmie organisée des oreillettes"
+      ]
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "flutter commun"
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une tachycardie jonctionnelle",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle",
+        "tachycardies jonctionnelles"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle par réentrée intranodale",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle par réentrée intranodale",
+        "tachycardie jonctionnelle par réentrée intra-nodale",
+        "tachycardies par réentrée intra-nodale",
+        "tachycardie par réentrée intra-nodale",
+        "réentrée intra-nodale"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle sur voie accessoire",
+      "synonymes_a_ajouter": [
+        "tachycardie jonctionnelle sur voie accessoire",
+        "tachycardie jonctionnelle utilisant une voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’activité atriale est difficile à visualiser même si elle semble présente",
+      "synonymes_a_ajouter": [
+        "activité atriale présente"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_RETROGRADE",
+        "concept_name": "Onde P rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "activité atriale rétrograde",
+          "conduction atriale rétrograde",
+          "onde P rétrograde",
+          "ondes P rétrogrades",
+          "ondes P' rétrogrades",
+          "P' rétrograde",
+          "activité atriale négative dans les dérivations inférieures et positive en V1 et aVR"
+        ],
+        "poids": 4,
+        "justification": "Le cas insiste sur l'activité atriale rétrograde comme signe ECG permettant d'interpréter la tachycardie."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "les ondes P' sont rétrogrades et peuvent se superposer à la partie terminale du QRS ; elles sont alors parfois difficilement identifiables",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_RETROGRADE_TERMINALE_QRS",
+        "concept_name": "Onde P rétrograde terminale du QRS",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE",
+          "QRS"
+        ],
+        "synonymes": [
+          "activité atriale en fin de QRS",
+          "onde P en fin de QRS",
+          "onde P' en fin de QRS",
+          "onde P rétrograde en fin de QRS",
+          "onde P superposée à la partie terminale du QRS",
+          "P' superposée au QRS",
+          "activité atriale difficilement identifiable en fin de QRS"
+        ],
+        "poids": 4,
+        "justification": "Formulation spécifique et répétée dans le cas, non couverte par le simple concept d'onde P présente."
+      }
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "conduction auriculo-ventriculaire 1/1",
+      "synonymes_a_ajouter": [
+        "conduction auriculo-ventriculaire 1/1",
+        "conduction atrio-ventriculaire 1/1",
+        "conduction AV 1/1"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "reprise d'un rythme sinusal"
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l'électrocardiogramme entre les crises est le plus souvent normal"
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "On ne retrouve pas d’aspect caractéristique de pré-excitation",
+      "synonymes_a_ajouter": [
+        "aspect caractéristique de pré-excitation",
+        "aspect de pré-excitation"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "La tachycardie s’arrête brutalement",
+      "nouveau_concept": {
+        "id_suggere": "ARRET_BRUTAL_DE_TACHYCARDIE",
+        "concept_name": "Arrêt brutal de tachycardie",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "QUALIFICATEUR_EPISODE"
+        ],
+        "requires": [
+          "TACHYCARDIE"
+        ],
+        "synonymes": [
+          "tachycardie s'arrête brutalement",
+          "fin brutale de tachycardie",
+          "arrêt soudain de tachycardie",
+          "terminaison brutale de tachycardie"
+        ],
+        "poids": 3,
+        "justification": "Le second tracé décrit explicitement l'arrêt brutal de la tachycardie après isoptine."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "d'installation soudaine ... et de fin brutale",
+      "nouveau_concept": {
+        "id_suggere": "DEBUT_BRUTAL_DE_TACHYCARDIE",
+        "concept_name": "Début brutal de tachycardie",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "QUALIFICATEUR_EPISODE"
+        ],
+        "requires": [
+          "TACHYCARDIE"
+        ],
+        "synonymes": [
+          "installation soudaine de tachycardie",
+          "début brutal de tachycardie",
+          "début soudain de tachycardie"
+        ],
+        "poids": 2,
+        "justification": "Caractéristique rythmologique du cas, utilisée pour décrire les crises de Bouveret."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "relation": "requires",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Le texte décrit la TRIN comme le plus souvent régulière et le tracé du cas est parfaitement régulier."
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "Le commentaire pédagogique précise que durant la crise la tachycardie est le plus souvent à QRS fins."
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Le texte donne la conduction auriculo-ventriculaire 1/1 comme caractéristique ECG de cette tachycardie."
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "relation": "excludes",
+      "cible": "TACHYCARDIE_VENTRICULAIRE",
+      "justification": "Dans ce cas, Pierre écrit que les QRS fins éliminent le diagnostic de TV."
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "Le caractère parfaitement régulier rend très improbable le diagnostic de FA dans le cas."
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "justification": "Le raisonnement du cas oriente une tachycardie régulière à QRS fins vers une origine supraventriculaire."
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_JONCTIONELLE",
+      "justification": "La régularité est utilisée pour retenir les hypothèses de flutter/arythmie organisée ou tachycardie jonctionnelle."
+    }
+  ],
+  "synthese": "La couverture principale existe pour la TRIN/AVNRT, les QRS fins, la régularité, le flutter commun, l'AVRT, la FA et la TV. Les manques majeurs concernent le lexique exact de Pierre autour de l'onde P rétrograde en fin de QRS, les synonymes orthographiques de « jonctionnelle », la conduction AV 1/1 et les qualificateurs de début/arrêt brutal de tachycardie.",
+  "error": null
+}

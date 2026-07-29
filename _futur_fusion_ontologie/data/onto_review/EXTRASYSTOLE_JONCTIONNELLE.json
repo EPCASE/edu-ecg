@@ -1,0 +1,25 @@
+{
+  "id": "EXTRASYSTOLE_JONCTIONNELLE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Événement ectopique prématuré d'origine jonctionnelle, cliniquement différenciant et absent du catalogue, à représenter comme pattern plutôt que simple qualificatif.",
+  "concept_retenu": {
+    "id": "EXTRASYSTOLE_JONCTIONNELLE",
+    "concept_name": "Extrasystole jonctionnelle",
+    "type": "pattern",
+    "parents": [
+      "ARYTHMIE_JONCTIONELLE",
+      "EVENEMENTS_ECTOPIQUES"
+    ],
+    "requires": [
+      "PREMATURE"
+    ],
+    "synonymes": [
+      "ESJ",
+      "PJC",
+      "battement jonctionnel prématuré",
+      "extrasystole jonctionnelle prématurée"
+    ]
+  }
+}

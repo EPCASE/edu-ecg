@@ -1,0 +1,21 @@
+{
+  "id": "ONDE_R",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "concept_retenu": {
+    "id": "ONDE_R",
+    "concept_name": "Onde R",
+    "type": "finding",
+    "parents": [
+      "QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "sommet de l'onde R"
+    ]
+  },
+  "motif": "Composante élémentaire du QRS, observable et réutilisable, absente du catalogue comme concept atomique dédié."
+}

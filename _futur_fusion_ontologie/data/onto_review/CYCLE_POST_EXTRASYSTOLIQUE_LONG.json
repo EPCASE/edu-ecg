@@ -1,0 +1,30 @@
+{
+  "id": "CYCLE_POST_EXTRASYSTOLIQUE_LONG",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1",
+  "motif": "Ce finding décrit un cycle post-extrasystolique avec un qualificatif de durée, et doit être structuré par composition plutôt qu’en concept phrastique dédié.",
+  "decomposition": [
+    {
+      "id": "EXTRASYSTOLE_ATRIALE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "LONG",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "POST_EXTRASYSTOLIQUE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "requires",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,330 @@
+{
+  "num": 69,
+  "titre": "anévrisme du ventricule gauche",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un intervalle PR normal"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des complexes QRS larges",
+      "synonymes_a_ajouter": [
+        "complexes QRS larges",
+        "QRS larges"
+      ]
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS > 120 ms"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect de bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite complet",
+        "aspect de bloc de branche droite complet"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect qR en V1",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QR_DU_QRS",
+        "concept_name": "Aspect qR du QRS",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect qR",
+          "complexe qR",
+          "aspect qR en V1"
+        ],
+        "poids": 2,
+        "justification": "Critère morphologique explicitement utilisé par Pierre pour décrire le bloc de branche droit complet."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde S large en V6",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_LARGE",
+        "concept_name": "Onde S large",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "S large",
+          "onde S large",
+          "onde S large en V6"
+        ],
+        "poids": 2,
+        "justification": "Critère morphologique de QRS mentionné dans la description du bloc de branche droit."
+      }
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "axe droit"
+    },
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "séquelle de nécrose antéro-septo-apicale",
+      "synonymes_a_ajouter": [
+        "séquelle de nécrose",
+        "séquelle antéro-septale",
+        "séquelle de nécrose antéro-septo-apicale",
+        "large séquelle de nécrose antérieure"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde q",
+      "synonymes_a_ajouter": [
+        "onde q de nécrose",
+        "onde q"
+      ]
+    },
+    {
+      "concept_id": "RABOTAGE_DE_L_ONDE_R",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rabotage des ondes R de V1 à V4",
+      "synonymes_a_ajouter": [
+        "rabotage des ondes R",
+        "rabotage des ondes R de V1 à V4"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage modéré en V3",
+      "synonymes_a_ajouter": [
+        "sus-décalage modéré",
+        "sus-décalage modéré en V3",
+        "sus-décalage persistant"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "modéré",
+      "nouveau_concept": {
+        "id_suggere": "MODERE",
+        "concept_name": "Modéré",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "modéré",
+          "modérée"
+        ],
+        "poids": 2,
+        "justification": "Modificateur d'intensité du sus-décalage ST dans le cas."
+      }
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation de V1 à V4",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation",
+        "troubles de la repolarisation de V1 à V4"
+      ]
+    },
+    {
+      "concept_id": "ANEVRYSME_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "anévrisme du ventriculaire gauche",
+      "synonymes_a_ajouter": [
+        "anévrisme du ventricule gauche",
+        "anévrisme ventriculaire gauche",
+        "anévrisme du ventriculaire gauche",
+        "poche anévrysmale",
+        "poche anévrysmale antéro-apicale"
+      ]
+    },
+    {
+      "concept_id": "VENTRICULE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ventricule gauche"
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "antérieure",
+      "synonymes_a_ajouter": [
+        "antérieure"
+      ]
+    },
+    {
+      "concept_id": "SEPTAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "septale",
+      "synonymes_a_ajouter": [
+        "septale",
+        "antéro-septal",
+        "antéro-septale"
+      ]
+    },
+    {
+      "concept_id": "APICALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "apicale",
+      "synonymes_a_ajouter": [
+        "apical",
+        "antéro-apicale"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "de V1 à V4 / en V3 / en V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_PRECORDIALES",
+        "concept_name": "Dérivations précordiales",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations précordiales",
+          "V1 à V4",
+          "V1-V4",
+          "V3",
+          "V6"
+        ],
+        "poids": 2,
+        "justification": "Le cas localise plusieurs signes ECG par dérivations précordiales, information nécessaire notamment pour les critères morphologiques et la topographie antérieure."
+      }
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "sans aspect de sous-décalage en miroir",
+      "synonymes_a_ajouter": [
+        "sous-décalage en miroir"
+      ]
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "sans aspect de sous-décalage en miroir",
+      "synonymes_a_ajouter": [
+        "aspect en miroir",
+        "sous-décalage en miroir"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "bloc de branche gauche"
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "hémibloc antérieur gauche"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Pierre définit le BBD complet du cas par des QRS > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_DE_RETARD_DROIT",
+      "justification": "La formulation 'aspect de bloc de branche droite complet' implique un aspect de retard droit."
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "relation": "supports",
+      "cible": "SEQUELLE_DE_NECROSE",
+      "justification": "Le texte associe l'onde q/Q à la séquelle de nécrose."
+    },
+    {
+      "concept_id": "RABOTAGE_DE_L_ONDE_R",
+      "relation": "supports",
+      "cible": "SEQUELLE_DE_NECROSE",
+      "justification": "Le rabotage des ondes R de V1 à V4 est donné comme signe de la séquelle de nécrose antéro-septo-apicale."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "supports",
+      "cible": "ANEVRYSME_VENTRICULAIRE",
+      "justification": "Le sus-décalage persistant à distance de l'infarctus fait évoquer l'anévrisme ventriculaire gauche."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "ANEVRYSME_VENTRICULAIRE",
+      "justification": "Pierre mentionne les troubles de repolarisation associés au sus-décalage à distance comme argument pour l'anévrisme."
+    },
+    {
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "relation": "supports",
+      "cible": "ANEVRYSME_VENTRICULAIRE",
+      "justification": "L'anévrisme est évoqué dans le contexte d'une large séquelle de nécrose antérieure."
+    },
+    {
+      "concept_id": "ANEVRYSME_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "VENTRICULE_GAUCHE",
+      "justification": "Le diagnostic retenu est spécifiquement un anévrisme du ventricule gauche."
+    }
+  ],
+  "synthese": "Le catalogue couvre les grands diagnostics du cas (BBD complet, séquelle de nécrose, anévrisme ventriculaire, sus-décalage ST), mais il manque des variantes lexicales importantes et des critères morphologiques fins du BBD (qR en V1, S large en V6). Les localisations par dérivations précordiales et les relations de support entre séquelle de nécrose, sus-décalage persistant et anévrisme VG sont insuffisamment représentées.",
+  "error": null
+}

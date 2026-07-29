@@ -1,0 +1,25 @@
+{
+  "id": "PROFIL_ST_AVR_V1_AVEC_SOUS_DECALAGE_DIFFUS",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, T1, C1, C3",
+  "territoire_ignore_v1": "aVR, V1, diffus / nombreuses dérivations",
+  "motif": "Profil monolithique mêlant deux anomalies ST et leurs localisations ; en v1 on conserve les findings ST existants et on ignore les dérivations.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ASSOCIATION_FINDINGS_ST",
+      "role": "relation",
+      "existe": false
+    }
+  ]
+}

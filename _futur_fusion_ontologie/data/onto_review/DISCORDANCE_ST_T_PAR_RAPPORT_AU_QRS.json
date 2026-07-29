@@ -1,0 +1,22 @@
+{
+  "id": "DISCORDANCE_ST_T_PAR_RAPPORT_AU_QRS",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1",
+  "motif": "La discordance de repolarisation ST-T par rapport au QRS est un signe descriptif différenciant et réutilisable, distinct d'un diagnostic.",
+  "concept_retenu": {
+    "id": "DISCORDANCE_ST_T_PAR_RAPPORT_AU_QRS",
+    "concept_name": "Discordance ST-T par rapport au QRS",
+    "type": "finding",
+    "parents": [
+      "TROUBLE_DE_REPOLARISATION"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "ST et T discordants par rapport au QRS",
+      "segment ST et ondes T déviés dans une direction discordante par rapport aux QRS"
+    ]
+  }
+}

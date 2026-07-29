@@ -1,0 +1,31 @@
+{
+  "id": "PR_LIMITE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "C6, C1",
+  "motif": "La notion limite est une incertitude transverse à appliquer à INTERVALLE_PR plutôt qu'un finding PR monolithique.",
+  "concept_retenu": {
+    "id": "LIMITE",
+    "concept_name": "Limite",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "borderline",
+      "à la limite"
+    ]
+  },
+  "decomposition": [
+    {
+      "id": "INTERVALLE_PR",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "LIMITE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

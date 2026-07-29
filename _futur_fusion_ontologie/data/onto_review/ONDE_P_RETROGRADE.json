@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_P_RETROGRADE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, T1, C3",
+  "territoire_ignore_v1": "dérivations inférieures; V1; aVR",
+  "motif": "Concept composé d'une onde P présente/anormale et d'une activation rétrograde, avec polarités et dérivations territoriales ignorées en v1; la conduction atriale rétrograde est déjà retenue comme atome descriptif.",
+  "decomposition": [
+    {
+      "id": "ONDE_P_PRESENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ONDE_P_ANORMALE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "CONDUCTION_ATRIALE_RETROGRADE",
+      "role": "finding",
+      "existe": false
+    }
+  ]
+}

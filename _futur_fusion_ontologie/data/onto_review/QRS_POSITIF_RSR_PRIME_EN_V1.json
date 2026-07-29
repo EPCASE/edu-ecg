@@ -1,0 +1,25 @@
+{
+  "id": "QRS_POSITIF_RSR_PRIME_EN_V1",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1, C5",
+  "motif": "Le caractère positif en V1 est topographique et peu atomique; l'information utile est l'aspect rSR’ comme finding morphologique pouvant supporter un BBD, avec V1 ignoré en v1.",
+  "territoire_ignore_v1": "V1",
+  "decomposition": [
+    {
+      "id": "ASPECT_RSR_PRIME",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "MORPHOLOGIE_ANORMALE_DU_QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "supports:BLOC_DE_BRANCHE_DROIT",
+      "role": "relation",
+      "existe": true
+    }
+  ]
+}

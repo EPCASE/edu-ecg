@@ -1,0 +1,399 @@
+{
+  "num": 58,
+  "titre": "syndrome coronarien aigu ST+ antérieur",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "un sus-décalage du segment ST de V1 à V4, en DI, aVL et en aVR"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "sus-décalage convexe vers le haut, en dôme, parfois très ample, englobant l'onde T",
+      "synonymes_a_ajouter": [
+        "sus-décalage convexe du segment ST",
+        "sus-décalage en dôme du segment ST",
+        "sus-décalage du ST englobant l'onde T"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "onde de Pardee",
+      "synonymes_a_ajouter": [
+        "Onde de Pardee",
+        "onde de Pardee"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "statut": "present",
+      "surface": "sous-décalage en miroir dans les dérivations inférieures et en V6"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "MIROIR",
+      "statut": "present",
+      "surface": "en miroir"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "SCA ST+ en phase aiguë",
+      "synonymes_a_ajouter": [
+        "SCA ST+ en phase aiguë",
+        "syndrome coronarien aigu ST+",
+        "syndrome coronarien aigu avec sus-ST",
+        "SCA avec sus-ST"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ANTERIEUR",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu ST+ antérieur"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SEPTAL",
+      "statut": "present",
+      "surface": "antéro-septo-apical"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "APICALE",
+      "statut": "present",
+      "surface": "antéro-septo-apical"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "antéro-septo-apical",
+      "nouveau_concept": {
+        "id_suggere": "ANTERO_SEPTO_APICAL",
+        "concept_name": "Antéro-septo-apical",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LOCALISATION_IDM"
+        ],
+        "requires": [
+          "ANTERIEUR",
+          "SEPTAL",
+          "APICALE"
+        ],
+        "synonymes": [
+          "antéro-septo-apical",
+          "antéro septo apical"
+        ],
+        "poids": 4,
+        "justification": "La réponse de référence du QCM localise explicitement le SCA ST+ comme antéro-septo-apical ; les composants existent séparément mais pas la localisation composite."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "dérivations inférieures",
+        "territoire inférieur"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "latéraux hauts (DI, aVL)",
+      "nouveau_concept": {
+        "id_suggere": "LATERAL_HAUT",
+        "concept_name": "Latéral haut",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LATERAL"
+        ],
+        "requires": [],
+        "synonymes": [
+          "latéral haut",
+          "latéraux hauts",
+          "DI, aVL",
+          "D1, aVL"
+        ],
+        "poids": 3,
+        "justification": "Le texte distingue explicitement les localisations latérales hautes DI-aVL des latérales basses V5-V6."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "latéraux bas (V5-V6)",
+      "nouveau_concept": {
+        "id_suggere": "LATERAL_BAS",
+        "concept_name": "Latéral bas",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LATERAL"
+        ],
+        "requires": [],
+        "synonymes": [
+          "latéral bas",
+          "latéraux bas",
+          "V5-V6",
+          "V5 et V6"
+        ],
+        "poids": 3,
+        "justification": "Le texte individualise la localisation latérale basse par les dérivations V5-V6."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "antéro-latéraux étendus (V1-V6, DI, aVL)",
+      "nouveau_concept": {
+        "id_suggere": "ANTERO_LATERAL_ETENDU",
+        "concept_name": "Antéro-latéral étendu",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LOCALISATION_IDM"
+        ],
+        "requires": [
+          "ANTERIEUR",
+          "LATERAL"
+        ],
+        "synonymes": [
+          "antéro-latéral étendu",
+          "antéro-latéraux étendus",
+          "V1-V6, DI, aVL"
+        ],
+        "poids": 3,
+        "justification": "La nomenclature pédagogique cite explicitement cette localisation d'infarctus."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CIRCONFERENTIEL",
+      "statut": "present",
+      "surface": "antérieurs étendus (V1-V6)",
+      "synonymes_a_ajouter": [
+        "antérieurs étendus",
+        "V1-V6"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_AMPLE",
+      "statut": "present",
+      "surface": "ondes T amples, pointues, parfois symétriques",
+      "synonymes_a_ajouter": [
+        "ondes T amples, pointues",
+        "ondes T amples pointues",
+        "onde T ample pointue"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_AMPLE",
+      "statut": "present",
+      "surface": "ondes T \"géantes\"",
+      "synonymes_a_ajouter": [
+        "onde T géante",
+        "ondes T géantes"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect diphasique",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_T_DIPHASIQUE",
+        "concept_name": "Onde T diphasique",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ANOMALIE_DES_ONDES_T"
+        ],
+        "requires": [
+          "ONDE_T"
+        ],
+        "synonymes": [
+          "onde T diphasique",
+          "aspect diphasique de l'onde T",
+          "T diphasique"
+        ],
+        "poids": 3,
+        "justification": "Le texte décrit l'évolution ischémique avec un aspect diphasique de l'onde T."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "l'onde T devient négative, pointue et symétrique",
+      "synonymes_a_ajouter": [
+        "onde T négative pointue et symétrique",
+        "onde T ischémique",
+        "T négative ischémique"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "l'onde T s'inverse de plus en plus profondément",
+      "synonymes_a_ajouter": [
+        "onde T inversée",
+        "inversion de l'onde T",
+        "inversion profonde de l'onde T"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ISCHEMIE_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "onde T négative dite « ischémique »"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ST_NORMAL",
+      "statut": "present",
+      "surface": "retour du segment ST à la ligne isoélectrique",
+      "synonymes_a_ajouter": [
+        "segment ST à la ligne isoélectrique",
+        "retour du segment ST à la ligne isoélectrique"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ANEVRYSME_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "évolution anévrismale de la paroi infarcie",
+      "synonymes_a_ajouter": [
+        "évolution anévrismale de la paroi infarcie",
+        "anévrisme de la paroi infarcie"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage du segment ST persiste plus de trois semaines",
+      "nouveau_concept": {
+        "id_suggere": "SUS_DECALAGE_ST_PERSISTANT",
+        "concept_name": "Sus-décalage persistant du segment ST",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage du segment ST persistant",
+          "sus-décalage de ST persistant",
+          "sus-décalage du ST persiste plus de trois semaines"
+        ],
+        "poids": 4,
+        "justification": "Le texte relie explicitement la persistance prolongée du sus-décalage à l'évolution vers anévrisme ventriculaire."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage significatif",
+      "nouveau_concept": {
+        "id_suggere": "SUS_DECALAGE_ST_SIGNIFICATIF",
+        "concept_name": "Sus-décalage significatif du segment ST",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage significatif",
+          "sus-décalage pathologique",
+          "sus-décalage d'apparition récente dans 2 dérivations contiguës",
+          "sus-décalage de ST retrouvé sur au moins 2 dérivations adjacentes"
+        ],
+        "poids": 4,
+        "justification": "Le référentiel EDN donne les seuils et la condition de dérivations adjacentes pour considérer le sus-décalage comme significatif."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le diagnostic SCA ST+ est défini dans le cas par un sus-décalage du segment ST."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le texte indique que le sus-décalage oriente vers le territoire de la coronaire occluse et caractérise le SCA ST+."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le sous-décalage dans les dérivations opposées est décrit comme un miroir à forte valeur diagnostique."
+    },
+    {
+      "concept_id": "MIROIR",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le texte souligne la valeur diagnostique du miroir dans le SCA ST+."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "ANTERIEUR",
+      "justification": "Le cas est intitulé et interprété comme SCA ST+ antérieur."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "SEPTAL",
+      "justification": "La réponse attendue mentionne une localisation antéro-septo-apicale."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "APICALE",
+      "justification": "La réponse attendue mentionne une localisation antéro-septo-apicale."
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "relation": "supports",
+      "cible": "ISCHEMIE_SOUS_EPICARDIQUE",
+      "justification": "Le texte décrit l'onde T négative comme ischémique après la phase initiale du SCA ST+."
+    },
+    {
+      "concept_id": "ANEVRYSME_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "justification": "Le texte évoque l'évolution anévrismale de la paroi infarcie après persistance du sus-décalage."
+    }
+  ],
+  "synthese": "La couverture du diagnostic central est bonne, mais il manque des synonymes clés du langage de Pierre : « onde de Pardee », « SCA avec sus-ST », ST convexe/en dôme et T ischémique. Les principaux trous structurants concernent les localisations composites d’IDM et certains morphotypes évolutifs du SCA ST+ : onde T diphasique, sus-décalage significatif et sus-décalage persistant.",
+  "error": null
+}

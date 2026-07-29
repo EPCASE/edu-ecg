@@ -1,0 +1,8 @@
+{
+  "id": "TERRITOIRE_ANTERO_SEPTO_APICAL",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "antéro-septo-apical",
+  "motif": "Il s'agit d'un territoire pur, même décomposable en antérieur/septal/apical, et la topographie est exclue du scoring v1."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE_DIASTOLIQUE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "INDICE_DE_SOKOLOW__35_MM",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "ONDE_T_NORMALES",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "motif": "L'HVG dite diastolique est un composite/contextualisation de l'HVG avec voltage et repolarisation conservée, couvert par des atomes existants plutôt que par un nouveau pattern dédié.",
+  "principe": "C1, C2, C3, D1",
+  "territoire_ignore_v1": "V5-V6"
+}

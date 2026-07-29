@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_DROITES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Ensemble de dérivations/topographie droite pure, réservé à une future couche topographique et ignoré en v1.",
+  "territoire_ignore_v1": "V3R, V4R; dérivations précordiales droites"
+}

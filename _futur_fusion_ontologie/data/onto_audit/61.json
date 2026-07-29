@@ -1,0 +1,535 @@
+{
+  "num": 61,
+  "titre": "syndrome coronarien aigu inférieur avec extension au ventricule droit et à la paroi postérieure",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "une bradycardie"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "complexes QRS fins"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_P",
+      "statut": "present",
+      "surface": "activité atriale difficile à mettre en évidence",
+      "synonymes_a_ajouter": [
+        "activité atriale difficile à mettre en évidence"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "possible activité atriale régulière visible en V3",
+      "synonymes_a_ajouter": [
+        "activité atriale régulière"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "2_1",
+      "statut": "present",
+      "surface": "possible aspect 2/1"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_AURICULO_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "probable trouble de conduction atrio-ventriculaire",
+      "synonymes_a_ajouter": [
+        "trouble de conduction atrio-ventriculaire",
+        "trouble de conduction atrioventriculaire"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "onde q dans le territoire inférieur et de V4 à V6",
+      "synonymes_a_ajouter": [
+        "onde q",
+        "ondes q"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "territoire inférieur"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "de V4 à V6",
+      "nouveau_concept": {
+        "id_suggere": "LATERAL_BAS",
+        "concept_name": "Latéral bas",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LATERAL"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V4 à V6",
+          "V4-V6",
+          "dérivations V4 V5 V6"
+        ],
+        "poids": 2,
+        "justification": "Le texte localise des ondes q et un sus-décalage en V4-V6, localisation latérale basse non représentée explicitement."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde R d’amplitude importante en V1 et V2 compatible avec un infarctus postérieur",
+      "nouveau_concept": {
+        "id_suggere": "GRANDE_ONDE_R_ANTERIEURE",
+        "concept_name": "Grande onde R antérieure",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "onde R d’amplitude importante en V1 et V2",
+          "grande onde R en V1-V2",
+          "onde R ample en V1-V2"
+        ],
+        "poids": 3,
+        "justification": "Signe ECG décrit comme argument de miroir/postérieur ; aucun concept existant ne couvre l’onde R antérieure ample."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "large sus-décalage (onde de Pardee) du segment ST dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "onde de Pardee",
+        "large sus-décalage du segment ST",
+        "sus-décalage dans les dérivations inférieures"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "dérivations inférieures"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "sus-décalage moins ample en V4, V5, V6",
+      "synonymes_a_ajouter": [
+        "sus-décalage moins ample",
+        "sus-décalage en V4 V5 V6"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "statut": "present",
+      "surface": "sous-décalage en miroir en DI et aVL (grande amplitude) et en V1-V2",
+      "synonymes_a_ajouter": [
+        "sous-décalage en miroir",
+        "sous-décalage en DI et aVL",
+        "sous-décalage en V1-V2"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "MIROIR",
+      "statut": "present",
+      "surface": "en miroir"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "DI et aVL",
+      "nouveau_concept": {
+        "id_suggere": "LATERAL_HAUT",
+        "concept_name": "Latéral haut",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LATERAL"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DI et aVL",
+          "dérivations latérales hautes",
+          "latéral haut"
+        ],
+        "poids": 2,
+        "justification": "La localisation DI-aVL/latéral haut est utilisée pour le sous-décalage en miroir et les options du QCM, mais n’existe pas comme topographie."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V1-V2",
+      "nouveau_concept": {
+        "id_suggere": "ANTERIEUR_DROIT_PRECORDIAL",
+        "concept_name": "Antérieur droit précordial",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "ANTERIEUR"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1-V2",
+          "dérivations V1-V2",
+          "dérivations antérieures V1-V2"
+        ],
+        "poids": 2,
+        "justification": "Le texte localise le sous-décalage miroir en V1-V2 ; aucune topographie de dérivations précordiales antérieures droites n’est disponible."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "SCA ST+ inféro-latéral en phase aiguë",
+      "synonymes_a_ajouter": [
+        "SCA ST+ inféro-latéral",
+        "SCA ST+ inférieur",
+        "infarctus inférieur avec sus-décalage du segment ST"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "inféro-latéral"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "LATERAL",
+      "statut": "present",
+      "surface": "inféro-latéral"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "ECG 18-dérivations",
+      "nouveau_concept": {
+        "id_suggere": "ECG_18_DERIVATIONS",
+        "concept_name": "ECG 18 dérivations",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "DESCRIPTION_ECG"
+        ],
+        "requires": [],
+        "synonymes": [
+          "ECG 18-dérivations",
+          "tracé 18 dérivations",
+          "enregistrement 18 dérivations"
+        ],
+        "poids": 2,
+        "justification": "Le cas insiste sur l’enregistrement obligatoire/indispensable d’un ECG 18 dérivations pour l’extension droite et postérieure."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations droites",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_DROITES",
+        "concept_name": "Dérivations droites",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "VENTRICULE_DROIT"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations droites",
+          "précordiales droites",
+          "V3R",
+          "V4R",
+          "V3R V4R"
+        ],
+        "poids": 3,
+        "justification": "Le diagnostic d’atteinte du ventricule droit repose dans le texte sur le sus-décalage en V3R-V4R."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations postérieures",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_POSTERIEURES",
+        "concept_name": "Dérivations postérieures",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "POSTERIEUR"
+        ],
+        "requires": [],
+        "synonymes": [
+          "dérivations postérieures",
+          "V7-V8-V9",
+          "V7 V8 V9",
+          "dérivations V7-V9"
+        ],
+        "poids": 3,
+        "justification": "Le cas cite l’enregistrement des dérivations postérieures et le seuil diagnostique en V7-V9."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "sus-décalage significatif dans les dérivations droites (V3R, V4R)",
+      "synonymes_a_ajouter": [
+        "sus-décalage dans les dérivations droites",
+        "sus-décalage en V3R V4R"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "sus-décalage significatif ... dans les dérivations postérieures",
+      "synonymes_a_ajouter": [
+        "sus-décalage dans les dérivations postérieures",
+        "sus-décalage en V7-V8-V9",
+        "sus-décalage en V7-V9"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "dans les dérivations postérieures avec ondes q",
+      "synonymes_a_ajouter": [
+        "ondes q dans les dérivations postérieures"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "infarctus inférieur avec extension au ventricule droit et à la paroi postérieure ventriculaire gauche",
+      "synonymes_a_ajouter": [
+        "infarctus inférieur avec extension au ventricule droit",
+        "infarctus inférieur avec extension postérieure",
+        "SCA ST+ avec extension ventriculaire droite"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "VENTRICULE_DROIT",
+      "statut": "present",
+      "surface": "extension au ventricule droit"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "paroi postérieure ventriculaire gauche",
+      "nouveau_concept": {
+        "id_suggere": "PAROI_POSTERIEURE_DU_VENTRICULE_GAUCHE",
+        "concept_name": "Paroi postérieure du ventricule gauche",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "VENTRICULE_GAUCHE",
+          "POSTERIEUR"
+        ],
+        "requires": [],
+        "synonymes": [
+          "paroi postérieure ventriculaire gauche",
+          "paroi postérieure du ventricule gauche",
+          "territoire postérieur du ventricule gauche"
+        ],
+        "poids": 3,
+        "justification": "Topographie explicitement utilisée pour l’extension postérieure de l’infarctus."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "statut": "present",
+      "surface": "sous-décalage du segment ST en dérivations antérieures (V1-V3)",
+      "synonymes_a_ajouter": [
+        "sous-décalage du segment ST en dérivations antérieures",
+        "sous-décalage antérieur",
+        "sous-décalage en V1-V3"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V1-V3",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_ANTERIEURES_V1_V3",
+        "concept_name": "Dérivations antérieures V1-V3",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "ANTERIEUR"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1-V3",
+          "dérivations antérieures V1-V3",
+          "dérivations V1-V3"
+        ],
+        "poids": 2,
+        "justification": "Le référentiel EDN utilise V1-V3 pour déclencher l’enregistrement de V7-V9."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "pas de conduction entre les oreillettes et les ventricules (non décrit ; seulement trouble de conduction AV probable)"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV",
+      "statut": "present",
+      "surface": "jusqu’à 50% de bloc auriculo-ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INFARCTUS_ATRIAL",
+      "statut": "present",
+      "surface": "infarcissement atrial",
+      "synonymes_a_ajouter": [
+        "infarcissement atrial",
+        "infarctus auriculaire"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire soutenue",
+      "synonymes_a_ajouter": [
+        "tachycardie ventriculaire soutenue",
+        "TV soutenue"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SOUTENU",
+      "statut": "present",
+      "surface": "soutenue"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation ventriculaire"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "statut": "present",
+      "surface": "troubles de conduction",
+      "synonymes_a_ajouter": [
+        "troubles de conduction"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "troubles du rythme ventriculaire grave",
+      "synonymes_a_ajouter": [
+        "troubles du rythme ventriculaire grave"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "requires",
+      "cible": "2_1",
+      "justification": "Le texte rapproche l’aspect 2/1 d’un trouble de conduction atrio-ventriculaire ; le BAV 2/1 devrait requérir le mode de conduction 2/1."
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "relation": "parents",
+      "cible": "BLOC_AURICULO_VENTRICULAIRE",
+      "justification": "Le BAV 2 pour 1 est actuellement sous BAV_DE_HAUT_GRADE ; un parent direct ou inféré Bloc auriculo-ventriculaire faciliterait la couverture du libellé de Pierre."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le SCA ST+ est défini dans le cas par le sus-décalage du segment ST/onde de Pardee."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le diagnostic principal est un SCA ST+ inférieur/inféro-latéral."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "LATERAL",
+      "justification": "Le diagnostic principal est formulé comme inféro-latéral, avec sus-décalage V4-V6."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "supports",
+      "cible": "MIROIR",
+      "justification": "Le cas insiste sur le sous-décalage en miroir comme argument diagnostique."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "MIROIR",
+      "justification": "Le sous-décalage antérieur/latéral haut est explicitement interprété comme image en miroir."
+    },
+    {
+      "concept_id": "INFARCTUS_ATRIAL",
+      "relation": "parents",
+      "cible": "ISCHEMIQUE",
+      "justification": "L’infarcissement atrial est cité comme complication ischémique ; le concept existant est seulement sous PATHOLOGIE."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "SOUTENU",
+      "justification": "Le texte mentionne la tachycardie ventriculaire soutenue comme trouble du rythme ventriculaire grave."
+    }
+  ],
+  "synthese": "Le cœur diagnostique est globalement couvert par le concept de SCA ST+ et les anomalies ST, mais il manque des topographies pratiques essentielles du cas (dérivations droites/postérieures, paroi postérieure du VG, latéral haut/bas) et le signe de grande onde R antérieure. Plusieurs formulations pédagogiques usuelles doivent être ajoutées comme synonymes : onde de Pardee, fibrillation auriculaire, infarcissement atrial, ST en miroir et SCA ST+ inférieur/inféro-latéral.",
+  "error": null
+}

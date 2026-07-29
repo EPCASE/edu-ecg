@@ -1,0 +1,21 @@
+{
+  "id": "TRANSITOIRE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "C1",
+  "concept_retenu": {
+    "id": "TRANSITOIRE",
+    "concept_name": "Transitoire",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATEUR_EPISODE"
+    ],
+    "synonymes": [
+      "cédant spontanément",
+      "fugace",
+      "régressif",
+      "spontanément résolutif"
+    ]
+  },
+  "motif": "Modificateur temporel transverse d'épisode, utile comme qualifier réutilisable."
+}

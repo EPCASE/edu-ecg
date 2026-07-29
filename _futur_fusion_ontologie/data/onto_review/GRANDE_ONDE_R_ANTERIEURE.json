@@ -1,0 +1,20 @@
+{
+  "id": "GRANDE_ONDE_R_ANTERIEURE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, T1",
+  "motif": "Le concept utile est l'onde R ample ; la localisation antérieure/V1-V2 est ignorée en v1 et ne doit pas être fusionnée au finding.",
+  "decomposition": [
+    {
+      "id": "ONDE_R_AMPLE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "AMPLE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "antérieur, V1-V2"
+}

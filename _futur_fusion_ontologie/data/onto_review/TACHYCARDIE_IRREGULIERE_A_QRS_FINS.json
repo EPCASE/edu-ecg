@@ -1,0 +1,24 @@
+{
+  "id": "TACHYCARDIE_IRREGULIERE_A_QRS_FINS",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Concept descriptif composite déjà entièrement couvert par des atomes existants (tachycardie, rythme irrégulier, QRS fins) ; ne pas créer un pattern monolithique.",
+  "decomposition": [
+    {
+      "id": "TACHYCARDIE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "IRREGULIER",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "QRS_FINS",
+      "role": "qualifier",
+      "existe": true
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "num": 17,
+  "titre": "bradycardie sinusale du sportif",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une bradycardie sinusale à environ 40 battements/minute",
+      "synonymes_a_ajouter": [
+        "bradycardie sinusale à 40 battements/minute",
+        "bradycardie sinusale à environ 40 battements/minute",
+        "fréquence cardiaque inférieure à 50 bpm au repos"
+      ]
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "40 battements/minute",
+      "synonymes_a_ajouter": [
+        "40 battements/minute",
+        "40 bpm",
+        "fréquence cardiaque inférieure à 50 bpm"
+      ]
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "synonymes_a_ajouter": [
+        "conduction atrio-ventriculaire normale",
+        "conduction auriculo-ventriculaire normale",
+        "conduction AV normale"
+      ]
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle PR est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle PR de durée normale",
+        "PR de durée normale",
+        "durée normale de l'intervalle PR"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins",
+        "QRS sont fins"
+      ]
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "onde Q de nécrose",
+        "ondes Q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "pas de troubles de la repolarisation",
+        "absence de troubles de la repolarisation",
+        "pas de trouble de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale",
+        "durée normale de l'intervalle QT"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bradycardie sinusale physiologique",
+      "nouveau_concept": {
+        "id_suggere": "BRADYCARDIE_SINUSALE_PHYSIOLOGIQUE",
+        "concept_name": "Bradycardie sinusale physiologique",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "BRADYCARDIE_SINUSALE"
+        ],
+        "requires": [
+          "BRADYCARDIE_SINUSALE",
+          "RYTHME_SINUSAL"
+        ],
+        "synonymes": [
+          "bradycardie sinusale du sportif",
+          "bradycardie physiologique",
+          "bradycardie sinusale non pathologique"
+        ],
+        "poids": 3,
+        "justification": "Le cas conclut explicitement que le tracé correspond à une bradycardie sinusale physiologique, chez un sportif d'endurance, distincte d'une dysfonction sinusale pathologique."
+      }
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "l’activité atriale est rétrograde",
+      "synonymes_a_ajouter": [
+        "activité atriale rétrograde"
+      ]
+    },
+    {
+      "concept_id": "BAV",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il existe un BAV du second degré"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il existe un bloc de branche complet"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il existe un bloc de branche complet"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "La bradycardie sinusale du cas est définie par un rythme sinusal avec fréquence basse."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "BRADYCARDIE",
+      "justification": "La bradycardie sinusale implique une bradycardie."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "supports",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Les commentaires pédagogiques indiquent que le caractère pathologique d'une bradycardie sinusale relève de la dysfonction sinusale selon le contexte symptomatique."
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "justification": "Dans le QCM, les QRS fins du tracé excluent un bloc de branche complet."
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "justification": "Dans le QCM, les QRS fins du tracé excluent un bloc de branche complet."
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "relation": "excludes",
+      "cible": "BAV_DE_TYPE_1",
+      "justification": "Un PR de durée normale s'oppose à un BAV du premier degré."
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "relation": "excludes",
+      "cible": "BAV",
+      "justification": "La conduction atrio-ventriculaire normale du cas exclut un BAV du second degré proposé comme réponse fausse."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le rythme sinusal, la bradycardie sinusale et les éléments normaux/absents du tracé, mais plusieurs formulations pédagogiques de Pierre manquent comme synonymes. Le seul trou lexical significatif est la notion explicite de bradycardie sinusale physiologique/du sportif, distincte d'une bradycardie sinusale potentiellement pathologique.",
+  "error": null
+}

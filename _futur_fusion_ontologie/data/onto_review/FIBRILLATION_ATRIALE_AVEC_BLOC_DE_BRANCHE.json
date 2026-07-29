@@ -1,0 +1,30 @@
+{
+  "id": "FIBRILLATION_ATRIALE_AVEC_BLOC_DE_BRANCHE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "FIBRILLATION_ATRIALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "BLOC_DE_BRANCHE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "QRS_LARGE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "IRREGULIER",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Diagnostic composé d'une fibrillation atriale et d'un trouble de conduction avec QRS larges/irrégularité ; les atomes existent déjà et doivent être combinés plutôt que fusionnés.",
+  "principe": "C1, C3, D1",
+  "territoire_ignore_v1": ""
+}

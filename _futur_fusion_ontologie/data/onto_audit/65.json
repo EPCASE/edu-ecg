@@ -1,0 +1,386 @@
+{
+  "num": 65,
+  "titre": "SCA ST+ inférieur et bloc auriculoventriculaire",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une activité atriale sinusale",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "des ondes P bloquées"
+    },
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc auriculoventriculaire de haut degré"
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "possible bloc auriculo-ventriculaire complet"
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "échappement nodal",
+      "synonymes_a_ajouter": [
+        "échappement nodal",
+        "rythme d'échappement nodal"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes q dans le territoire inférieur",
+      "synonymes_a_ajouter": [
+        "ondes q",
+        "onde q"
+      ]
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "territoire inférieur",
+      "synonymes_a_ajouter": [
+        "territoire inférieur",
+        "inférieur/postérieur"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "possibles ondes q dans le territoire latéral (V4-V6)",
+      "synonymes_a_ajouter": [
+        "ondes q latérales",
+        "ondes q dans le territoire latéral"
+      ]
+    },
+    {
+      "concept_id": "LATERAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "territoire latéral (V4-V6)",
+      "synonymes_a_ajouter": [
+        "territoire latéral"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage systématisé au territoire inférieur",
+      "synonymes_a_ajouter": [
+        "sus-décalage systématisé",
+        "sus-décalage ST systématisé"
+      ]
+    },
+    {
+      "concept_id": "MIROIR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "miroir en DI, aVL, V1"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "SCA ST+"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "SCA ST+ inférieur",
+      "nouveau_concept": {
+        "id_suggere": "SCA_ST_PLUS_INFERIEUR",
+        "concept_name": "SCA ST+ inférieur",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "INFERIEUR"
+        ],
+        "synonymes": [
+          "SCA ST+ inférieur",
+          "SCA-ST+ inférieur",
+          "STEMI inférieur",
+          "infarctus ST+ inférieur",
+          "syndrome coronarien aigu ST+ inférieur"
+        ],
+        "poids": 5,
+        "justification": "Le diagnostic final du cas est localisé au territoire inférieur ; le catalogue ne contient qu'un SCA ST+ générique et une topographie séparée."
+      }
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "infarctus aigu",
+      "synonymes_a_ajouter": [
+        "infarctus aigu",
+        "IDM aigu"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Les complexes QRS sont larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "complexes QRS larges"
+      ]
+    },
+    {
+      "concept_id": "LENT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la fréquence d'échappement est lente",
+      "synonymes_a_ajouter": [
+        "fréquence d'échappement lente",
+        "échappement lent"
+      ]
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la fréquence ventriculaire reste relativement rapide",
+      "synonymes_a_ajouter": [
+        "fréquence ventriculaire relativement rapide",
+        "échappement relativement rapide"
+      ]
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "infarctus antérieur"
+    },
+    {
+      "concept_id": "POSTERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "inférieur/postérieur",
+      "synonymes_a_ajouter": [
+        "territoire postérieur",
+        "infarctus postérieur"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc de branche"
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc bifasciculaire"
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV du deuxième degré type 2",
+      "synonymes_a_ajouter": [
+        "BAV du deuxième degré type 2",
+        "BAV du 2e degré type 2"
+      ]
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "BAV du 1er"
+    },
+    {
+      "concept_id": "BAV",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV du 2e degré",
+      "synonymes_a_ajouter": [
+        "BAV du 2e degré",
+        "bloc auriculo-ventriculaire du 2e degré",
+        "bloc atrioventriculaire du 2e degré"
+      ]
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "siège du BAV est en règle générale nodal",
+      "nouveau_concept": {
+        "id_suggere": "BAV_NODAL",
+        "concept_name": "BAV nodal",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "BLOC_AURICULO_VENTRICULAIRE"
+        ],
+        "requires": [
+          "BLOC_AURICULO_VENTRICULAIRE",
+          "QRS_FINS"
+        ],
+        "synonymes": [
+          "bloc auriculo-ventriculaire nodal",
+          "BAV de siège nodal",
+          "siège nodal du BAV"
+        ],
+        "poids": 3,
+        "justification": "Le cas enseigne explicitement la localisation nodale du bloc dans l'IDM inférieur, non modélisée par un concept existant."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "BAV infranodal (ou hissien)",
+      "nouveau_concept": {
+        "id_suggere": "BAV_INFRANODAL",
+        "concept_name": "BAV infranodal",
+        "type": "qualifier",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "BLOC_AURICULO_VENTRICULAIRE"
+        ],
+        "requires": [
+          "BLOC_AURICULO_VENTRICULAIRE"
+        ],
+        "synonymes": [
+          "BAV hissien",
+          "bloc auriculo-ventriculaire infranodal",
+          "bloc auriculo-ventriculaire hissien",
+          "siège infranodal du BAV"
+        ],
+        "poids": 3,
+        "justification": "La distinction nodal versus infranodal/hissien est un point pédagogique central du cas et n'est pas portée par les concepts existants."
+      }
+    },
+    {
+      "concept_id": "STIMULATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sonde d’entraînement électrosystolique temporaire",
+      "synonymes_a_ajouter": [
+        "entraînement électrosystolique temporaire",
+        "sonde d'entraînement électrosystolique",
+        "stimulation temporaire"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "rythme idioventriculaire accéléré (RIVA)"
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "flutter atrial"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "relation": "requires",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le cas décrit le BAV de haut degré par la présence d'ondes P bloquées."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "justification": "Pierre formule un possible BAV complet avec échappement nodal."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le diagnostic de SCA ST+ repose ici sur le sus-décalage du segment ST."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "supports",
+      "cible": "MIROIR",
+      "justification": "Le miroir en DI, aVL, V1 est donné comme élément d'argumentation du SCA ST+ inférieur."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "supports",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Les ondes q dans le territoire inférieur font partie des signes associés au diagnostic d'infarctus aigu dans ce cas."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le sus-décalage est explicitement localisé au territoire inférieur."
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Les ondes q pathologiques sont explicitement décrites dans le territoire inférieur."
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "relation": "has_qualifiers",
+      "cible": "LATERAL",
+      "justification": "Des ondes q possibles sont décrites dans le territoire latéral."
+    },
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le cas insiste sur la complication du SCA ST+ inférieur par un BAV de haut degré."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "parents",
+      "cible": "BAV_DE_HAUT_GRADE",
+      "justification": "Dans le raisonnement du cas, le BAV complet est présenté comme une forme possible dans le spectre du BAV de haut degré."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "has_qualifiers",
+      "cible": "QRS_FINS",
+      "justification": "Le référentiel du cas associe l'échappement nodal des infarctus inférieurs à des QRS fins."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le SCA ST+, le BAV de haut degré, les ondes P bloquées, les ondes q, le sus-décalage et le miroir. Les principaux trous sont la variante localisée « SCA ST+ inférieur » et les qualificatifs de siège du BAV (« nodal », « infranodal/hissien »), ainsi que plusieurs synonymes usuels employés par Pierre.",
+  "error": null
+}

@@ -1,0 +1,23 @@
+{
+  "id": "ASPECT_QR_DU_QRS",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "concept_retenu": {
+    "id": "ASPECT_QR_DU_QRS",
+    "concept_name": "Aspect qR du QRS",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "aspect qR",
+      "complexe qR"
+    ]
+  },
+  "territoire_ignore_v1": "V1",
+  "motif": "Morphologie QRS observable et différenciante non déjà couverte par un concept existant ; la mention V1 est seulement topographique et ignorée en v1."
+}

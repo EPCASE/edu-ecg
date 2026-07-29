@@ -1,0 +1,9 @@
+{
+  "id": "NOTCH_DU_QRS",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "description",
+  "principe": "C3",
+  "motif": "Le notch du QRS est déjà capté dans le catalogue comme synonyme de REPOLARISATION_PRECOCE (« Notch »), il ne faut pas recréer un concept dédié.",
+  "concept_cible": "REPOLARISATION_PRECOCE",
+  "territoire_ignore_v1": ""
+}

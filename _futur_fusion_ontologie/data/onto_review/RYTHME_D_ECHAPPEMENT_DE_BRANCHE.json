@@ -1,0 +1,21 @@
+{
+  "id": "RYTHME_D_ECHAPPEMENT_DE_BRANCHE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "L'échappement de branche/infra-hissien est un mécanisme d'échappement distinct et réutilisable, absent du catalogue, et ne relève pas d'un territoire de dérivation à ignorer.",
+  "concept_retenu": {
+    "id": "RYTHME_D_ECHAPPEMENT_DE_BRANCHE",
+    "concept_name": "Rythme d'échappement de branche",
+    "type": "pattern",
+    "parents": [
+      "ECHAPPEMENT"
+    ],
+    "synonymes": [
+      "échappement de branche",
+      "échappement d’une des branches",
+      "échappement infra-hissien de branche"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

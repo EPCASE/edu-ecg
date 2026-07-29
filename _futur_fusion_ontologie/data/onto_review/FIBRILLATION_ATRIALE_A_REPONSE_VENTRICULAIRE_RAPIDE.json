@@ -1,0 +1,25 @@
+{
+  "id": "FIBRILLATION_ATRIALE_A_REPONSE_VENTRICULAIRE_RAPIDE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "La FA rapide est une fibrillation atriale existante qualifiée par une réponse/fréquence ventriculaire rapide; il faut composer avec TACHYCARDIE plutôt que créer un pattern dédié.",
+  "decomposition": [
+    {
+      "id": "FIBRILLATION_ATRIALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "TACHYCARDIE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "IRREGULIER",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

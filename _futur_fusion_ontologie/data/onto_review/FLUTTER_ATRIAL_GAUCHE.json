@@ -1,0 +1,20 @@
+{
+  "id": "FLUTTER_ATRIAL_GAUCHE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "FLUTTER_ATRIAL_ATYPIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "OREILLETTE_GAUCHE",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "motif": "Le diagnostic de flutter existe déjà comme flutter atrial atypique ; « gauche » n'est qu'une localisation/origine anatomique à séparer et ignorée pour le scoring v1.",
+  "principe": "C3, T1, D1",
+  "territoire_ignore_v1": "oreillette gauche"
+}

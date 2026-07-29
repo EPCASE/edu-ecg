@@ -1,0 +1,23 @@
+{
+  "id": "EPANCHEMENT_PERICARDIQUE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "concept_retenu": {
+    "id": "EPANCHEMENT_PERICARDIQUE",
+    "concept_name": "Épanchement péricardique",
+    "type": "pattern",
+    "parents": [
+      "PERICARDITE"
+    ],
+    "requires": [
+      "ALTERNANCE_DES_QRS"
+    ],
+    "synonymes": [
+      "épanchement péricardique",
+      "épanchement de faible abondance"
+    ]
+  },
+  "motif": "Diagnostic/pathologie réutilisable distinct de la péricardite et absent du catalogue, supporté classiquement par l'alternance électrique plutôt que fusionné avec le finding.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

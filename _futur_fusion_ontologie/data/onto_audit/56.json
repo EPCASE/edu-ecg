@@ -1,0 +1,171 @@
+{
+  "num": 56,
+  "titre": "épanchement péricardique",
+  "famille": "pericarde",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "statut": "present",
+      "surface": "une tachycardie sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "MICROVOLTAGE",
+      "statut": "present",
+      "surface": "un aspect de microvoltage des complexes QRS",
+      "synonymes_a_ajouter": [
+        "microvoltage des complexes QRS",
+        "aspect de microvoltage des complexes QRS"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "MICROVOLTAGE",
+      "statut": "present",
+      "surface": "absence de QRS d'amplitude > 5 mm dans les dérivations périphériques, absence de QRS d’amplitude > 10 mm dans les dérivations précordiales",
+      "synonymes_a_ajouter": [
+        "absence de QRS d'amplitude > 5 mm dans les dérivations périphériques",
+        "absence de QRS d'amplitude > 10 mm dans les dérivations précordiales",
+        "absence de dérivation périphérique avec une amplitude du QRS dépassant 5 mm",
+        "absence de dérivation précordiale avec une amplitude du QRS dépassant 10 mm"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "MICROVOLTAGE",
+      "statut": "present",
+      "surface": "réduction du voltage des complexes QRS observée de façon diffuse dans toutes les dérivations",
+      "synonymes_a_ajouter": [
+        "réduction du voltage des complexes QRS",
+        "baisse du voltage des complexes QRS",
+        "réduction diffuse du voltage des complexes QRS",
+        "baisse diffuse du voltage des complexes QRS"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ALTERNANCE_DES_QRS",
+      "statut": "present",
+      "surface": "un aspect caractéristique d’alternance électrique dans les dérivations précordiales, notamment en V3 et V4",
+      "synonymes_a_ajouter": [
+        "alternance électrique",
+        "aspect d'alternance électrique",
+        "alternance électrique des QRS",
+        "alternance électrique dans les dérivations précordiales"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ALTERNANCE_DES_QRS",
+      "statut": "present",
+      "surface": "alternance dans l’amplitude des complexes QRS : un plus petit, un plus grand",
+      "synonymes_a_ajouter": [
+        "alternance dans l'amplitude des complexes QRS",
+        "complexes QRS successifs d'amplitude différente",
+        "complexes QRS successifs de hauteur différente",
+        "alternance d'amplitude des QRS"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect électrocardiographique typique d’épanchement péricardique abondant",
+      "nouveau_concept": {
+        "id_suggere": "EPANCHEMENT_PERICARDIQUE_ABONDANT",
+        "concept_name": "Épanchement péricardique abondant",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "PATHOLOGIE"
+        ],
+        "requires": [
+          "MICROVOLTAGE"
+        ],
+        "synonymes": [
+          "épanchement péricardique abondant",
+          "épanchement péricardique",
+          "aspect ECG d'épanchement péricardique abondant",
+          "aspect électrocardiographique d'épanchement péricardique abondant"
+        ],
+        "poids": 4,
+        "justification": "Le cas conclut explicitement que l'association microvoltage + alternance électrique correspond à un aspect ECG typique d'épanchement péricardique abondant ; aucun concept existant ne couvre l'épanchement péricardique hors péricardite/tamponnade."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEFIBRILLATEUR",
+      "statut": "present",
+      "surface": "défibrillateur implantable"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TAMPONNADE",
+      "statut": "present",
+      "surface": "La tamponnade fait l’objet d’un chapitre dans l’item péricardite aiguë avec description de l’ECG caractéristique incluant un microvoltage et parfois une alternance électrique",
+      "synonymes_a_ajouter": [
+        "tamponnade avec microvoltage",
+        "tamponnade avec alternance électrique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "statut": "absent",
+      "surface": "B. hypertrophie auriculaire droite"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "statut": "absent",
+      "surface": "C. hypertrophie auriculaire gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AMYLOSE",
+      "statut": "absent",
+      "surface": "amylose cardiaque"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HEMOCHROMATOSE",
+      "statut": "absent",
+      "surface": "hémochromatose"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "MICROVOLTAGE",
+      "relation": "supports",
+      "cible": "TAMPONNADE",
+      "justification": "Le référentiel cité indique que l'ECG caractéristique de tamponnade inclut un microvoltage."
+    },
+    {
+      "concept_id": "ALTERNANCE_DES_QRS",
+      "relation": "supports",
+      "cible": "TAMPONNADE",
+      "justification": "Le référentiel cité indique qu'une alternance électrique est parfois associée à la tamponnade."
+    },
+    {
+      "concept_id": "ALTERNANCE_DES_QRS",
+      "relation": "parents",
+      "cible": "VOLTAGE_DU_QRS_ANORMAL",
+      "justification": "Dans ce cas, l'alternance électrique est définie comme une alternance d'amplitude/hauteur des complexes QRS, donc relève aussi d'une anomalie de voltage du QRS plutôt que seulement de morphologie anormale."
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "relation": "supports",
+      "cible": "AMYLOSE",
+      "justification": "Le commentaire pédagogique cite l'amylose comme diagnostic ECG classique associé au microvoltage."
+    },
+    {
+      "concept_id": "MICROVOLTAGE",
+      "relation": "supports",
+      "cible": "HEMOCHROMATOSE",
+      "justification": "Le commentaire pédagogique cite l'hémochromatose parmi les situations pouvant donner une baisse du voltage QRS."
+    }
+  ],
+  "synthese": "Le lexique couvre tachycardie sinusale, microvoltage et alternance des QRS, mais les formulations pédagogiques clés de Pierre manquent comme synonymes. Le trou majeur est l'absence d'un concept d'épanchement péricardique abondant comme pattern ECG, distinct de péricardite et de tamponnade.",
+  "error": null
+}

@@ -1,0 +1,8 @@
+{
+  "id": "SOUFFRANCE_VENTRICULAIRE_DROITE",
+  "verdict": "REJETER",
+  "classe": "diagnostic",
+  "motif": "Libellé clinique vague et essentiellement territorial sans critères ECG atomiques explicités ; ne pas créer de pattern non différenciant en v1.",
+  "principe": "T1, C5",
+  "territoire_ignore_v1": "ventriculaire droite"
+}

@@ -1,0 +1,337 @@
+{
+  "num": 53,
+  "titre": "embolie pulmonaire",
+  "famille": "embolie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "statut": "present",
+      "surface": "une tachycardie sinusale (110 bpm)"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "110 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "un espace PR normal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INTERVALLE_PR",
+      "statut": "present",
+      "surface": "espace PR",
+      "synonymes_a_ajouter": [
+        "espace PR"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "une durée limite des complexes QRS (100 ms)"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DUREE_DU_QRS",
+      "statut": "present",
+      "surface": "durée des complexes QRS",
+      "synonymes_a_ajouter": [
+        "durée des complexes QRS"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ASPECT_DE_RETARD_DROIT",
+      "statut": "present",
+      "surface": "un aspect de retard droit"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "un aspect S1q3 (onde S en DI et onde q en DIII)",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_S1Q3",
+        "concept_name": "Aspect S1Q3",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "S1Q3",
+          "S1q3",
+          "aspect S1q3",
+          "onde S en DI et onde q en DIII"
+        ],
+        "poids": 3,
+        "justification": "Aspect ECG explicitement décrit comme une grande onde S en DI associée à une onde q en DIII, évocateur d'embolie pulmonaire mais non représenté dans le catalogue."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "onde T négative en DIII"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect S1q3T3",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_S1Q3T3",
+        "concept_name": "Aspect S1Q3T3",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ECG_PAS_NORMAL"
+        ],
+        "requires": [
+          "ASPECT_S1Q3",
+          "ONDE_T_NEGATIVE"
+        ],
+        "synonymes": [
+          "S1Q3T3",
+          "S1q3T3",
+          "aspect S1q3T3",
+          "aspect S1Q3T3"
+        ],
+        "poids": 3,
+        "justification": "Pattern composite explicitement nommé dans l'interprétation, associant S1Q3 et onde T négative en DIII."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "absence de troubles majeurs de la repolarisation"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "absent",
+      "surface": "absence de troubles majeurs de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles majeurs de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "absent",
+      "surface": "éliminer le diagnostic de SCA ST+"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "statut": "absent",
+      "surface": "éliminer le diagnostic de syndrome coronaire aigu",
+      "synonymes_a_ajouter": [
+        "syndrome coronaire aigu"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "statut": "present",
+      "surface": "évocateur du diagnostic d’embolie pulmonaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "statut": "present",
+      "surface": "embolie pulmonaire non massive",
+      "synonymes_a_ajouter": [
+        "embolie pulmonaire non massive"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECG_NORMAL",
+      "statut": "present",
+      "surface": "normalisation de l’électrocardiogramme"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "fréquence cardiaque normale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "disparition de l’aspect S1q3",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_S1Q3",
+        "concept_name": "Aspect S1Q3",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "S1Q3",
+          "S1q3",
+          "aspect S1q3",
+          "onde S en DI et onde q en DIII"
+        ],
+        "poids": 3
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde T positive en DIII",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_T_POSITIVE",
+        "concept_name": "Onde T positive",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_T"
+        ],
+        "requires": [],
+        "synonymes": [
+          "onde T positive",
+          "ondes T positives"
+        ],
+        "poids": 2,
+        "justification": "La normalisation du second tracé mentionne explicitement une onde T positive en DIII ; aucun concept existant ne couvre la positivité de l'onde T."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "bloc de branche droite complet"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BBD_INCOMPLET",
+      "statut": "present",
+      "surface": "bloc de branche droite incomplet",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite incomplet"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "statut": "present",
+      "surface": "arythmie supraventriculaire",
+      "synonymes_a_ajouter": [
+        "arythmie supraventriculaire"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "inversion des ondes T en précordiales droites (V1-V3) ou en DIII"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "signes de souffrance ventriculaire droite",
+      "nouveau_concept": {
+        "id_suggere": "SOUFFRANCE_VENTRICULAIRE_DROITE",
+        "concept_name": "Souffrance ventriculaire droite",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "signes de souffrance ventriculaire droite",
+          "souffrance ventriculaire droite"
+        ],
+        "poids": 3,
+        "justification": "Le référentiel EDN cite explicitement un regroupement ECG de signes de souffrance ventriculaire droite dans l'embolie pulmonaire, absent du catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "ischémie ventriculaire droite (inversion des ondes T de V1 à V4)",
+      "nouveau_concept": {
+        "id_suggere": "ISCHEMIE_VENTRICULAIRE_DROITE",
+        "concept_name": "Ischémie ventriculaire droite",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "ISCHEMIQUE"
+        ],
+        "requires": [
+          "ONDE_T_NEGATIVE"
+        ],
+        "synonymes": [
+          "ischémie ventriculaire droite",
+          "inversion des ondes T de V1 à V4"
+        ],
+        "poids": 3,
+        "justification": "Entité ECG explicitement mentionnée dans le référentiel, caractérisée par l'inversion des ondes T en précordiales droites, non couverte par les concepts d'ischémie sous-endocardique/sous-épicardique existants."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_SINUSALE",
+      "justification": "Le texte liste la tachycardie sinusale parmi les signes ECG évocateurs d'embolie pulmonaire."
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "relation": "supports",
+      "cible": "ASPECT_DE_RETARD_DROIT",
+      "justification": "Le tracé comporte un aspect de retard droit dans un contexte d'embolie pulmonaire."
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "relation": "supports",
+      "cible": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "justification": "Le référentiel indique le bloc de branche droit complet ou incomplet comme signe de souffrance ventriculaire droite dans l'EP."
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "relation": "supports",
+      "cible": "BBD_INCOMPLET",
+      "justification": "Le référentiel indique le bloc de branche droit complet ou incomplet comme signe de souffrance ventriculaire droite dans l'EP."
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "relation": "supports",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Le texte cite l'inversion/onde T négative en DIII ou V1-V4 comme anomalie évocatrice d'EP."
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "relation": "supports",
+      "cible": "ARYTHMIE_ATRIALE",
+      "justification": "Le référentiel cite l'arythmie supraventriculaire parmi les signes ECG possibles de souffrance ventriculaire droite dans l'EP."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le cas élimine le SCA ST+ en l'absence de trouble majeur de repolarisation/sus-décalage ; le pattern SCA ST+ devrait requérir un sus-décalage ST."
+    },
+    {
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "relation": "excludes",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Dans ce cas, l'absence de troubles majeurs de repolarisation permet d'éliminer le SCA ST+."
+    }
+  ],
+  "synthese": "Le principal trou lexical/hierarchique concerne les patterns classiques de l'embolie pulmonaire : aspect S1Q3 et S1Q3T3, ainsi que les regroupements souffrance/ischémie ventriculaire droite. Les concepts de SCA ST+ et d'embolie pulmonaire existent, mais leurs liens avec les signes ECG mentionnés dans ce cas sont insuffisamment représentés.",
+  "error": null
+}

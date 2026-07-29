@@ -1,0 +1,20 @@
+{
+  "id": "SUS_DECALAGE_ST_SIGNIFICATIF",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C2, C3, T1",
+  "motif": "Le sus-décalage ST est déjà couvert par COURANT_DE_LESION_SOUS_EPICARDIQUE ; « significatif/pathologique » est un seuil/qualificatif et les dérivations contiguës relèvent de la topographie ignorée en v1.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "SIGNIFICATIF",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "2 dérivations contiguës/adjacentes"
+}

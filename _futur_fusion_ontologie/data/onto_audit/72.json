@@ -1,0 +1,260 @@
+{
+  "num": 72,
+  "titre": "hypokaliémie",
+  "famille": "metabolique",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "fréquence à 80 bpm"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un intervalle PR normal",
+      "synonymes_a_ajouter": [
+        "intervalle PR normal"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des complexes QRS fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins"
+      ]
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une déviation axiale gauche"
+    },
+    {
+      "concept_id": "QT_LONG",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un intervalle QT allongé",
+      "synonymes_a_ajouter": [
+        "intervalle QT allongé"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde U large",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_U_AMPLE",
+        "concept_name": "Onde U ample",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_U"
+        ],
+        "requires": [
+          "ONDE_U"
+        ],
+        "synonymes": [
+          "onde U large",
+          "onde U proéminente",
+          "onde U de grande amplitude",
+          "onde U ample",
+          "amplitude de l’onde U augmentée",
+          "durée de l’onde U augmentée"
+        ],
+        "poids": 4,
+        "justification": "Le cas insiste sur une onde U large/ample, signe ECG clé de l’hypokaliémie, alors que le catalogue ne contient qu’ONDE_U et ONDE_U_NORMALE."
+      }
+    },
+    {
+      "concept_id": "ONDE_U",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "apparition d’une onde U"
+    },
+    {
+      "concept_id": "ONDE_U",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde supplémentaire derrière T",
+      "synonymes_a_ajouter": [
+        "onde supplémentaire derrière T",
+        "déflexion supplémentaire en fin de repolarisation",
+        "signal électrique de basse amplitude et de basse fréquence qui survient après l’onde T"
+      ]
+    },
+    {
+      "concept_id": "HYPOKALIEMIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "diagnostic d’hypokaliémie"
+    },
+    {
+      "concept_id": "ONDE_T_APLATIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aplatissement de l’onde T",
+      "synonymes_a_ajouter": [
+        "aplatissement de l’onde T",
+        "onde T plate"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde T plate ou négative",
+      "synonymes_a_ajouter": [
+        "onde T négative diffuse",
+        "onde T plate ou négative"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ST sous-décalé",
+      "synonymes_a_ajouter": [
+        "ST sous-décalé",
+        "segment ST sous-décalé"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "Un sous-décalage du segment ST peut également apparaitre"
+    },
+    {
+      "concept_id": "QRS_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un QRS normal"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "une extrasystole",
+      "nouveau_concept": {
+        "id_suggere": "EXTRASYSTOLE",
+        "concept_name": "Extrasystole",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "EVENEMENTS_ECTOPIQUES"
+        ],
+        "requires": [],
+        "synonymes": [
+          "extrasystole",
+          "extra-systole",
+          "battement prématuré"
+        ],
+        "poids": 2,
+        "justification": "Le référentiel mentionne une extrasystole sans préciser atriale ou ventriculaire ; le catalogue ne propose que les sous-types atrial/ventriculaire."
+      }
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une tachycardie ventriculaire"
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une torsade de pointes"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "BAV",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "un bloc auriculo-ventriculaire du second degré",
+      "synonymes_a_ajouter": [
+        "bloc auriculo-ventriculaire du second degré",
+        "BAV du second degré",
+        "BAV 2e degré"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une hypertrophie auriculaire droite",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire droite"
+      ]
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "des signes en faveur d’une hyperkaliémie",
+      "synonymes_a_ajouter": [
+        "signes en faveur d’une hyperkaliémie"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "QT_LONG",
+      "relation": "supports",
+      "cible": "HYPOKALIEMIE",
+      "justification": "Le cas indique que l’allongement de l’intervalle QT, dans le contexte d’une onde U large, est en faveur d’une hypokaliémie."
+    },
+    {
+      "concept_id": "ONDE_U",
+      "relation": "supports",
+      "cible": "HYPOKALIEMIE",
+      "justification": "L’apparition d’une onde U est citée comme caractéristique de l’hypokaliémie."
+    },
+    {
+      "concept_id": "ONDE_T_APLATIE",
+      "relation": "supports",
+      "cible": "HYPOKALIEMIE",
+      "justification": "Le référentiel EDN décrit l’hypokaliémie par une onde T plate."
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "relation": "supports",
+      "cible": "HYPOKALIEMIE",
+      "justification": "Le référentiel EDN décrit l’hypokaliémie par une onde T négative diffuse."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "HYPOKALIEMIE",
+      "justification": "Le texte mentionne un ST sous-décalé/sous-décalage du segment ST parmi les signes possibles d’hypokaliémie."
+    },
+    {
+      "concept_id": "QRS_NORMAL",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "Dans ce cas, les complexes QRS fins correspondent au QRS normal cité dans le référentiel."
+    },
+    {
+      "concept_id": "HYPOKALIEMIE",
+      "relation": "supports",
+      "cible": "QT_LONG",
+      "justification": "Le cas présente l’allongement apparent de QT/QU comme manifestation ECG de l’hypokaliémie."
+    }
+  ],
+  "synthese": "La couverture est globalement bonne pour le rythme, la conduction, l’axe, le QT long et l’hypokaliémie. Les trous principaux sont l’absence d’un concept d’onde U ample/large et d’un concept générique d’extrasystole non typée, plus quelques synonymes usuels des formulations de Pierre.",
+  "error": null
+}

@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATION_V6",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Dérivation isolée correspondant à une topographie pure ; elle est exclue de l'ontologie v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "V6"
+}

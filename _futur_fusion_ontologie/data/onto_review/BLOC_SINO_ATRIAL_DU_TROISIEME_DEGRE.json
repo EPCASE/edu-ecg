@@ -1,0 +1,30 @@
+{
+  "id": "BLOC_SINO_ATRIAL_DU_TROISIEME_DEGRE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Sous-type diagnostique spécifique et différenciant de bloc sino-atrial, absent comme tel du catalogue, composable par absence d'activité sinusale visible et échappement.",
+  "concept_retenu": {
+    "id": "BLOC_SINO_ATRIAL_DU_TROISIEME_DEGRE",
+    "concept_name": "Bloc sino-atrial du troisième degré",
+    "type": "pattern",
+    "parents": [
+      "BLOC_SINO_ATRIAL"
+    ],
+    "requires": [
+      "ABSENCE_D_ONDE_P",
+      "ECHAPPEMENT",
+      "DYSFONCTION_SINUSALE"
+    ],
+    "synonymes": [
+      "BSA 3",
+      "BSA du 3e degré",
+      "BSA du troisième degré",
+      "aucune activité sinusale visible",
+      "bloc complet de sortie de l'influx sinusal",
+      "bloc sino-auriculaire du troisième degré",
+      "bloc sinoatrial du troisième degré",
+      "bloc sinoauriculaire du troisième degré"
+    ]
+  }
+}

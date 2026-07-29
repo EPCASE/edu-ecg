@@ -1,0 +1,20 @@
+{
+  "id": "RALENTISSEMENT_DE_LA_CONDUCTION_NODALE_AV",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "CONDUCTION",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "LENT",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Il s’agit d’une description de conduction ralentie, éventuellement contextuelle à une manœuvre vagale, réductible à la conduction avec le modificateur existant de lenteur.",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,391 @@
+{
+  "num": 34,
+  "titre": "extrasystoles ventriculaires",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme de base sinusal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TRIGEMINISME_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "trigéminisme ventriculaire avec une répétition de séquences identiques : 2 battements sinusaux normaux puis une extrasystole ventriculaire",
+      "synonymes_a_ajouter": [
+        "2 battements sinusaux normaux puis une extrasystole ventriculaire",
+        "répétition de séquences identiques : 2 battements sinusaux normaux puis une extrasystole ventriculaire"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "extrasystole ventriculaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PREMATURE",
+      "statut": "present",
+      "surface": "battement prématuré",
+      "synonymes_a_ajouter": [
+        "battement prématuré"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "complexe QRS large"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "statut": "present",
+      "surface": "non précédé d’une activité atriale",
+      "synonymes_a_ajouter": [
+        "non précédé d’une activité atriale",
+        "absence d’activité atriale préalable"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l’activité atriale est rétrograde avec petite encoche dans l’onde T",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_RETROGRADE",
+        "concept_name": "Activité atriale rétrograde",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE",
+          "CONDUCTION"
+        ],
+        "requires": [],
+        "synonymes": [
+          "activité atriale rétrograde",
+          "onde P rétrograde",
+          "petite encoche dans l’onde T"
+        ],
+        "poids": 3,
+        "justification": "Le texte décrit explicitement une activité atriale rétrograde visible comme une petite encoche dans l’onde T après l’ESV ; aucun concept existant ne couvre cette relation rétrograde atrio-ventriculaire."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "REPOS_COMPENSATEUR",
+      "statut": "present",
+      "surface": "repos compensateur sur l’activité sinusale qui suit",
+      "synonymes_a_ajouter": [
+        "repos compensateur sur l’activité sinusale qui suit"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "durée intervalle PR normale",
+      "synonymes_a_ajouter": [
+        "durée intervalle PR normale",
+        "intervalle PR normal"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "synonymes_a_ajouter": [
+        "conduction atrio-ventriculaire normale",
+        "conduction AV normale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins (durée de 85 ms)"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "absence d’ondes Q de nécrose",
+        "pas d’ondes Q de nécrose"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "pas de troubles de la repolarisation",
+        "absence de troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TRIGEMINISME_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "Ce tracé montre donc des extrasystoles ventriculaires avec trigéminisme"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "irrégularité du rythme cardiaque détectée à la prise du pouls",
+      "synonymes_a_ajouter": [
+        "irrégularité du rythme cardiaque",
+        "battements irréguliers"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BIGEMINISME_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "un bigéminisme ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TRIPLET_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "des triplets ventriculaires"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "des doublets ventriculaires"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "EXTRASYSTOLE_ATRIALE",
+      "statut": "absent",
+      "surface": "Il s’agit alors d’une extrasystole atriale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "extrasystole jonctionnelle",
+      "nouveau_concept": {
+        "id_suggere": "EXTRASYSTOLE_JONCTIONNELLE",
+        "concept_name": "Extrasystole jonctionnelle",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "ARYTHMIE_JONCTIONELLE",
+          "EVENEMENTS_ECTOPIQUES"
+        ],
+        "requires": [
+          "PREMATURE"
+        ],
+        "synonymes": [
+          "extrasystole jonctionnelle",
+          "extrasystole jonctionnelle prématurée",
+          "PJC"
+        ],
+        "poids": 3,
+        "justification": "Le texte oppose explicitement l’ESV aux extrasystoles atriales ou jonctionnelles ; aucun concept dédié à l’extrasystole jonctionnelle n’existe."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE",
+      "statut": "absent",
+      "surface": "mais avec bloc de branche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "statut": "absent",
+      "surface": "couplage court"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "formes répétitives (doublets"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TRIPLET_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "triplets"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "tachycardies ventriculaires non soutenues",
+      "synonymes_a_ajouter": [
+        "tachycardie ventriculaire non soutenue",
+        "tachycardies ventriculaires non soutenues",
+        "TV non soutenue",
+        "TVNS"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "NON_SOUTENU",
+      "statut": "absent",
+      "surface": "non soutenues"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "POLYMORPHE",
+      "statut": "absent",
+      "surface": "degré de polymorphisme (nombre de morphologies différentes des extrasystoles)"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CARDIOMYOPATHIE_HYPERTROPHIQUE",
+      "statut": "absent",
+      "surface": "myocardiopathie hypertrophique",
+      "synonymes_a_ajouter": [
+        "myocardiopathie hypertrophique"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSPLASIE_ARRHYTHMOGENE_DU_VENTRICULE_DROIT",
+      "statut": "absent",
+      "surface": "dysplasie arythmogène du ventricule droit"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ISCHEMIQUE",
+      "statut": "absent",
+      "surface": "cardiopathie sous-jacente (ischémique"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CARDIOMYOPATHIE_HYPERTROPHIQUE",
+      "statut": "absent",
+      "surface": "cardiopathie sous-jacente (... hypertensive …)"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "VENTRICULE_DROIT",
+      "statut": "present",
+      "surface": "foyer situé soit dans le ventricule droit"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "VENTRICULE_GAUCHE",
+      "statut": "present",
+      "surface": "soit à l’inverse dans le ventricule gauche"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TRIGEMINISME_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Le cas définit le trigéminisme ventriculaire comme une répétition impliquant une extrasystole ventriculaire."
+    },
+    {
+      "concept_id": "TRIGEMINISME_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "L’ESV du trigéminisme est décrite avec complexe QRS large."
+    },
+    {
+      "concept_id": "TRIGEMINISME_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "PREMATURE",
+      "justification": "L’extrasystole du trigéminisme est un battement prématuré."
+    },
+    {
+      "concept_id": "TRIGEMINISME_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "REPOS_COMPENSATEUR",
+      "justification": "Le cas mentionne le repos compensateur associé à l’ESV."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "Le commentaire pédagogique indique qu’une extrasystole ventriculaire a forcément un QRS élargi."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "PREMATURE",
+      "justification": "Définition donnée : battement prématuré provenant du muscle ventriculaire."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "excludes",
+      "cible": "QRS_FINS",
+      "justification": "Le texte précise qu’une extrasystole avec QRS fin ne peut pas être ventriculaire."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "relation": "parents",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Le passage sur les signes de gravité concerne les extrasystoles ventriculaires à couplage court ; le parent actuel EVENEMENTS_ECTOPIQUES est trop général."
+    },
+    {
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "relation": "parents",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Les doublets sont cités comme formes répétitives d’extrasystoles ventriculaires."
+    },
+    {
+      "concept_id": "TRIPLET_VENTRICULAIRE",
+      "relation": "parents",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Les triplets sont cités comme formes répétitives d’extrasystoles ventriculaires."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "NON_SOUTENU",
+      "justification": "Le cas emploie explicitement “tachycardies ventriculaires non soutenues”."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "CARDIOMYOPATHIE_HYPERTROPHIQUE",
+      "justification": "Le texte indique que des ESV peuvent révéler une cardiopathie sous-jacente, notamment myocardiopathie hypertrophique."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "DYSPLASIE_ARRHYTHMOGENE_DU_VENTRICULE_DROIT",
+      "justification": "Le texte cite la DAVD parmi les cardiopathies sous-jacentes possibles associées aux ESV."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "ISCHEMIQUE",
+      "justification": "Le texte cite l’insuffisance coronaire/cardiopathie ischémique parmi les cardiopathies sous-jacentes possibles associées aux ESV."
+    }
+  ],
+  "synthese": "La plupart des éléments du tracé sont couverts, mais le vocabulaire manque l’activité atriale rétrograde et l’extrasystole jonctionnelle. Les relations hiérarchiques et logiques autour des ESV, du trigéminisme et des formes répétitives doivent être renforcées avant l’écriture de règles.",
+  "error": null
+}

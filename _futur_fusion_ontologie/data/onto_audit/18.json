@@ -1,0 +1,347 @@
+{
+  "num": 18,
+  "titre": "dysfonction sinusale symptomatique",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une bradycardie sinusale marquée",
+      "synonymes_a_ajouter": [
+        "bradycardie sinusale marquée"
+      ]
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence cardiaque à environ 20-30 battements/minute",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque à 20-30 battements/minute",
+        "fréquence cardiaque à environ 20-30 battements/minute"
+      ]
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "dysfonction sinusale symptomatique",
+      "synonymes_a_ajouter": [
+        "dysfonction sinusale symptomatique"
+      ]
+    },
+    {
+      "concept_id": "CONDUCTION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale",
+      "synonymes_a_ajouter": [
+        "conduction atrio-ventriculaire normale",
+        "conduction AV normale",
+        "conduction AV préservée"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "conduction en 1 pour 1"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle PR de durée normale",
+        "intervalle PR normal",
+        "PR de durée normale"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins"
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "avec un axe normal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "ondes Q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "on ne retrouve pas de troubles de la repolarisation"
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "il est possible de distinguer très clairement les ondes P",
+      "synonymes_a_ajouter": [
+        "ondes P visibles",
+        "ondes P clairement visibles",
+        "ondes P distinguables"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_DE_QRS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "il est possible de distinguer très clairement ... les complexes QRS",
+      "synonymes_a_ajouter": [
+        "complexes QRS visibles",
+        "complexes QRS clairement visibles",
+        "complexes QRS distinguables"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "il est possible de distinguer très clairement ... les ondes T",
+      "synonymes_a_ajouter": [
+        "ondes T visibles",
+        "ondes T clairement visibles",
+        "ondes T distinguables"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "L’activité atriale est manifestement sinusale (onde P positive en DI, DII, V3-V6 et négative en aVR)",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale",
+        "onde P positive en DI, DII, V3-V6 et négative en aVR"
+      ]
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Les ondes P sont très lentes (autour de 20 à 25 battements/minute)",
+      "synonymes_a_ajouter": [
+        "ondes P très lentes",
+        "ondes P autour de 20 à 25 battements/minute"
+      ]
+    },
+    {
+      "concept_id": "BLOC_AURICULO_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il n’y a pas de BAV"
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il existe un BAV III"
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "Il n’y a pas d’ondes P bloquées cachées dans l’onde T ou le complexe QRS",
+      "synonymes_a_ajouter": [
+        "ondes P bloquées cachées",
+        "onde P bloquée cachée dans l’onde T",
+        "onde P bloquée cachée dans le complexe QRS"
+      ]
+    },
+    {
+      "concept_id": "ECHAPPEMENT",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "il existe un rythme d’échappement"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "l’activité atriale est rétrograde",
+      "nouveau_concept": {
+        "id_suggere": "ACTIVITE_ATRIALE_RETROGRADE",
+        "concept_name": "Activité atriale rétrograde",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "activité atriale rétrograde",
+          "onde P rétrograde",
+          "ondes P rétrogrades"
+        ],
+        "poids": 2,
+        "justification": "Option de QCM explicitement niée par la réponse vraie; aucun concept existant ne représente spécifiquement une activité atriale rétrograde."
+      }
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un tracé qui montre une bradycardie",
+      "synonymes_a_ajouter": [
+        "bradycardie"
+      ]
+    },
+    {
+      "concept_id": "INSUFFISANCE_CHRONOTROPE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une absence d’accélération de la fréquence sinusale à l’effort (insuffisance chronotrope)"
+    },
+    {
+      "concept_id": "PAUSE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "pauses sinusales considérées comme pathologiques au-delà de 3 secondes",
+      "synonymes_a_ajouter": [
+        "pause sinusale",
+        "pauses sinusales",
+        "pause sinusale pathologique",
+        "pauses sinusales pathologiques"
+      ]
+    },
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc sino-atrial du deuxième ou troisième degré",
+      "synonymes_a_ajouter": [
+        "bloc sino-atrial du deuxième degré",
+        "bloc sino-atrial du troisième degré",
+        "bloc sino-atrial de deuxième degré",
+        "bloc sino-atrial de troisième degré"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "un syndrome bradycardie-tachycardie ou pauses post-réductionnelles",
+      "nouveau_concept": {
+        "id_suggere": "SYNDROME_BRADYCARDIE_TACHYCARDIE",
+        "concept_name": "Syndrome bradycardie-tachycardie",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "DYSFONCTION_SINUSALE"
+        ],
+        "requires": [
+          "BRADYCARDIE",
+          "TACHYCARDIE"
+        ],
+        "synonymes": [
+          "syndrome bradycardie-tachycardie",
+          "syndrome brady-tachy",
+          "pauses post-réductionnelles",
+          "pause post-réductionnelle"
+        ],
+        "poids": 3,
+        "justification": "Elément diagnostique EDN de dysfonction sinusale explicitement cité, non couvert par les concepts existants."
+      }
+    },
+    {
+      "concept_id": "PAUSE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une pause sinusale symptomatique > 3 secondes induite par le massage sinocarotidien",
+      "synonymes_a_ajouter": [
+        "pause sinusale symptomatique",
+        "pause sinusale > 3 secondes",
+        "pause sinusale symptomatique > 3 secondes"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "supports",
+      "cible": "BRADYCARDIE_SINUSALE",
+      "justification": "Le texte indique que la bradycardie sinusale inappropriée est un élément diagnostique de dysfonction sinusale."
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "supports",
+      "cible": "INSUFFISANCE_CHRONOTROPE",
+      "justification": "Le référentiel EDN cité en fait un critère de dysfonction sinusale."
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "supports",
+      "cible": "PAUSE",
+      "justification": "Les pauses sinusales pathologiques et pauses symptomatiques > 3 s sont citées comme critères de dysfonction sinusale."
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "relation": "supports",
+      "cible": "BLOC_SINO_ATRIAL",
+      "justification": "Le bloc sino-atrial du 2e ou 3e degré est cité comme élément diagnostique de dysfonction sinusale."
+    },
+    {
+      "concept_id": "BRADYCARDIE_SINUSALE",
+      "relation": "parents",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Dans ce cas, la bradycardie sinusale marquée est l'expression de la dysfonction sinusale; hiérarchiquement elle devrait relever de la dysfonction sinusale plutôt que seulement de l'arythmie atriale."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "requires",
+      "cible": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "justification": "Le texte justifie le rythme sinusal par une activité atriale sinusale avec morphologie d'onde P sinusale."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Dans ce cas le rythme sinusal est associé à chaque onde P suivie d'un QRS, conduction 1/1."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "requires",
+      "cible": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "justification": "Le cas oppose l'absence de BAV III à la conduction AV préservée; un BAV complet devrait requérir une dissociation AV."
+    }
+  ],
+  "synthese": "La majorité des éléments du tracé sont couverts, mais plusieurs formulations pédagogiques courantes manquent comme synonymes (bradycardie sinusale marquée, activité atriale sinusale, ondes P/QRS/T visibles, pauses sinusales). Les principaux trous hiérarchiques concernent la dysfonction sinusale, qui devrait être reliée à ses critères EDN (bradycardie sinusale, insuffisance chronotrope, pauses sinusales, bloc sino-atrial) et au syndrome bradycardie-tachycardie.",
+  "error": null
+}

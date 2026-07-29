@@ -1,0 +1,322 @@
+{
+  "num": 28,
+  "titre": "BAV du troisième degré et échappement jonctionnel",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme régulier"
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à 53 bpm",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque ralentie",
+        "fréquence ventriculaire ralentie",
+        "fréquence ventriculaire modérément ralentie"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une activité atriale sinusale régulière",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale",
+        "activité atriale sinusale régulière"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une activité atriale sinusale régulière est bien visible",
+      "synonymes_a_ajouter": [
+        "activité atriale visible",
+        "activité atriale bien visible"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins",
+        "durée des complexes QRS normale",
+        "QRS < 100 ms"
+      ]
+    },
+    {
+      "concept_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les activités atriales et ventriculaires sont dissociées",
+      "synonymes_a_ajouter": [
+        "activités atriales et ventriculaires dissociées",
+        "il n’existe pas de relation entre les ondes P et les complexes QRS",
+        "les oreillettes et les ventricules sont sous le contrôle de foyers indépendants",
+        "intervalles PR variables sans séquence répétitive"
+      ]
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV du troisième degré",
+      "synonymes_a_ajouter": [
+        "BAV du troisième degré",
+        "bloc auriculoventriculaire complet",
+        "aucune onde P n’est conduite",
+        "interruption complète de la conduction auriculoventriculaire"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "échappement jonctionnel"
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un axe normal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une absence d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une absence d’ondes Q de nécrose",
+      "synonymes_a_ajouter": [
+        "ondes Q de nécrose"
+      ]
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale"
+      ]
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV 2 Mobitz 2"
+    },
+    {
+      "concept_id": "BAV_2_POUR_1",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV type 2/1"
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "échappement ventriculaire"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "le QRS est large",
+      "synonymes_a_ajouter": [
+        "QRS très élargi",
+        "durée des complexes QRS très élargie",
+        "QRS entre 140 et 200 ms"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un bloc de branche préexistant",
+      "synonymes_a_ajouter": [
+        "bloc de branche préexistant"
+      ]
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "torsade de pointes"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "une fréquence ventriculaire plus lente que la fréquence auriculaire",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENCE_VENTRICULAIRE_INFERIEURE_A_FREQUENCE_ATRIALE",
+        "concept_name": "Fréquence ventriculaire inférieure à la fréquence atriale",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE",
+          "CONDUCTION"
+        ],
+        "requires": [
+          "DISSOCIATION_ATRIO_VENTRICULAIRE"
+        ],
+        "synonymes": [
+          "fréquence ventriculaire plus lente que la fréquence auriculaire",
+          "fréquence ventriculaire inférieure à la fréquence atriale",
+          "ventricules plus lents que les oreillettes"
+        ],
+        "poids": 3,
+        "justification": "Critère explicitement cité pour le BAV complet dans le texte pédagogique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "échappement du faisceau de His",
+      "nouveau_concept": {
+        "id_suggere": "RYTHME_D_ECHAPPEMENT_HISSIEN",
+        "concept_name": "Rythme d'échappement hissien",
+        "type": "qualifier",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "ECHAPPEMENT"
+        ],
+        "requires": [],
+        "synonymes": [
+          "échappement du faisceau de His",
+          "échappement hissien",
+          "rythme d'échappement hissien"
+        ],
+        "poids": 3,
+        "justification": "Site d'échappement explicitement distingué de l'échappement jonctionnel et ventriculaire."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "échappement d’une des branches",
+      "nouveau_concept": {
+        "id_suggere": "RYTHME_D_ECHAPPEMENT_DE_BRANCHE",
+        "concept_name": "Rythme d'échappement de branche",
+        "type": "qualifier",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "ECHAPPEMENT"
+        ],
+        "requires": [],
+        "synonymes": [
+          "échappement d’une des branches",
+          "échappement de branche",
+          "rythme d'échappement de branche",
+          "échappement infra-hissien de branche"
+        ],
+        "poids": 3,
+        "justification": "Site d'échappement explicitement décrit, avec QRS large et fréquence ventriculaire lente."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "requires",
+      "cible": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "justification": "Le texte définit le BAV complet par la dissociation auriculoventriculaire et l'absence de relation P-QRS."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "REPONSE_VENTRICULAIRE_LENTE",
+      "justification": "Le texte précise une fréquence ventriculaire plus lente que la fréquence atriale."
+    },
+    {
+      "concept_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "BAV_COMPLET",
+      "justification": "La dissociation auriculoventriculaire est l'argument ECG majeur du diagnostic dans ce cas."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "excludes",
+      "cible": "BAV_2_MOBITZ_2",
+      "justification": "Le QCM oppose explicitement BAV III complet et BAV 2 Mobitz 2."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "excludes",
+      "cible": "BAV_2_POUR_1",
+      "justification": "Le QCM oppose explicitement BAV III complet et BAV type 2/1."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte indique qu'un échappement jonctionnel donne habituellement des QRS de durée normale sauf bloc de branche préexistant."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "supports",
+      "cible": "RYTHME_REGULIER",
+      "justification": "La fréquence d'échappement est décrite comme généralement régulière."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "L'échappement jonctionnel est décrit comme modérément ralenti, généralement entre 40 et 50 bpm."
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "relation": "supports",
+      "cible": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "justification": "Dans un BAV complet, la durée fine du QRS oriente vers un site d'échappement haut situé, jonctionnel ou hissien."
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "Le texte décrit l'échappement ventriculaire comme souvent très élargi."
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "Le texte décrit l'échappement ventriculaire comme pouvant être très ralenti."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "QT_LONG",
+      "justification": "Le référentiel mentionne que l'intervalle QT est suspecté de s'allonger dans le contexte du BAV complet."
+    },
+    {
+      "concept_id": "QT_LONG",
+      "relation": "supports",
+      "cible": "TORSADE_DE_POINTES",
+      "justification": "Le texte associe allongement du QT et risque de torsade de pointes."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le diagnostic principal BAV complet avec dissociation AV et échappement jonctionnel. Les principaux trous lexicaux concernent les formulations pédagogiques du BAV complet, la comparaison fréquence ventriculaire/fréquence atriale et deux sites d'échappement explicitement cités mais absents : hissien et de branche.",
+  "error": null
+}

@@ -1,0 +1,9 @@
+{
+  "id": "ISCHEMIE_TRANSMURALE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3, D1",
+  "territoire_ignore_v1": "",
+  "motif": "Dans le catalogue, l'ischémie sous-épicardique correspond au diagnostic/pattern porté par les anomalies de repolarisation et couvre l'idée d'ischémie transmurale en ECG.",
+  "concept_cible": "ISCHEMIE_SOUS_EPICARDIQUE"
+}

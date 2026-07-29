@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_P_BIFIDE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ONDE_P_BIFIDE",
+    "concept_name": "Onde P bifide",
+    "type": "qualifier",
+    "parents": [
+      "ONDE_P_ANORMALE"
+    ],
+    "requires": [
+      "ONDE_P_PRESENTE"
+    ],
+    "synonymes": [
+      "P bifide",
+      "aspect en M de l'onde P",
+      "double bosse de l'onde P",
+      "morphologie crochetée de l'onde P"
+    ]
+  },
+  "motif": "Morphologie anormale de l'onde P atomique, différenciante et absente du catalogue ; les localisations citées dans les surfaces sont ignorées.",
+  "principe": "D1, T1, C3",
+  "territoire_ignore_v1": "DI, DII, DIII, aVF, aVL, V3-V6 / dérivations latérales"
+}

@@ -1,0 +1,232 @@
+{
+  "num": 36,
+  "titre": "extrasystoles ventriculaires et risque de mort subite",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "statut": "present",
+      "surface": "antécédent d'infarctus inférieur",
+      "synonymes_a_ajouter": [
+        "antécédent d'infarctus",
+        "antécédent d'infarctus inférieur"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "infarctus inférieur"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "complexes QRS de durée légèrement augmentée",
+      "synonymes_a_ajouter": [
+        "QRS de durée augmentée",
+        "QRS de durée légèrement augmentée",
+        "complexes QRS de durée augmentée",
+        "complexes QRS de durée légèrement augmentée"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "extrasystoles ventriculaires"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "statut": "present",
+      "surface": "extrasystoles ventriculaires très préoccupantes à couplage très court",
+      "synonymes_a_ajouter": [
+        "extrasystole ventriculaire à couplage court",
+        "extrasystoles ventriculaires à couplage court",
+        "extrasystole ventriculaire à couplage très court",
+        "extrasystoles ventriculaires à couplage très court",
+        "extrasystole très précoce",
+        "extrasystoles très précoces",
+        "extrasystole ventriculaire très précoce",
+        "extrasystoles ventriculaires très précoces"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PHENOMENE_R_T",
+      "statut": "present",
+      "surface": "phénomène R sur T",
+      "synonymes_a_ajouter": [
+        "phénomène R sur T",
+        "R sur T",
+        "extrasystole sur onde T",
+        "ESV sur onde T",
+        "extrasystole ventriculaire survenant dans la phase ascendante de l'onde T",
+        "extrasystole ventriculaire survenant au sommet de l'onde T"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BIGEMINISME_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "aspect de bigéminisme sur la fin du tracé",
+      "synonymes_a_ajouter": [
+        "aspect de bigéminisme",
+        "bigéminisme sur la fin du tracé"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "arythmies ventriculaires potentiellement léthales"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "arythmie ventriculaire maligne",
+      "synonymes_a_ajouter": [
+        "arythmie ventriculaire maligne",
+        "arythmies ventriculaires potentiellement léthales"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TACHYCARDIE",
+      "statut": "present",
+      "surface": "rythme cardiaque très rapide",
+      "synonymes_a_ajouter": [
+        "rythme cardiaque rapide",
+        "rythme cardiaque très rapide"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DESORGANISEE",
+      "statut": "present",
+      "surface": "anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "rythme anarchique"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges",
+        "tachycardie à QRS larges"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "POLYMORPHE",
+      "statut": "present",
+      "surface": "polymorphes",
+      "synonymes_a_ajouter": [
+        "polymorphe",
+        "polymorphes"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "un doublet ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "absent",
+      "surface": "une dysfonction sinusale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TRIPLET_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "un triplet ventriculaire"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "relation": "parents",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Dans le cas, le couplage court est explicitement porté par des extrasystoles ventriculaires ; le concept existant est actuellement seulement rattaché aux événements ectopiques."
+    },
+    {
+      "concept_id": "PHENOMENE_R_T",
+      "relation": "supports",
+      "cible": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "justification": "Pierre définit le couplage court par le timing sur l'onde T, notamment phase ascendante ou sommet de l'onde T."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_A_COUPLAGE_COURT",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le second tracé montre qu'une extrasystole ventriculaire à couplage court déclenche une fibrillation ventriculaire."
+    },
+    {
+      "concept_id": "PHENOMENE_R_T",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le phénomène R sur T est décrit comme pouvant induire une arythmie ventriculaire maligne/FV durant la phase vulnérable."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "RAPIDE",
+      "justification": "La FV est décrite comme un rythme cardiaque très rapide."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "DESORGANISEE",
+      "justification": "La FV est décrite comme anarchique."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "La description pédagogique de la FV mentionne des QRS larges."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "POLYMORPHE",
+      "justification": "La description pédagogique de la FV mentionne des QRS polymorphes."
+    },
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le cas précise un antécédent d'infarctus de topographie inférieure."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour les notions centrales : rythme sinusal, QRS un peu élargis, ESV à couplage court/R-sur-T, bigéminisme et FV. Les principaux ajustements relèvent de synonymes pédagogiques et de relations de risque/description entre ESV à couplage court, phénomène R sur T et fibrillation ventriculaire.",
+  "error": null
+}

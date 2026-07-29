@@ -1,0 +1,15 @@
+{
+  "id": "SEQUELLE_DE_NECROSE_INFERIEURE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "T1, C3",
+  "motif": "Il s'agit d'une séquelle de nécrose déjà existante, simplement qualifiée par un territoire inférieur ignoré en v1.",
+  "territoire_ignore_v1": "inférieur",
+  "decomposition": [
+    {
+      "id": "SEQUELLE_DE_NECROSE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

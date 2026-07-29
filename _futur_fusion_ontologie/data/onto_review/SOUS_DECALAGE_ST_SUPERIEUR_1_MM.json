@@ -1,0 +1,20 @@
+{
+  "id": "SOUS_DECALAGE_ST_SUPERIEUR_1_MM",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": "plus de 5 dérivations",
+  "motif": "Concept composé d'un sous-décalage ST déjà existant et d'un seuil d'amplitude ; on ne recrée pas le finding existant, le seuil doit rester un qualificatif réutilisable si nécessaire.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "SUPERIEUR_A_1_MM",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

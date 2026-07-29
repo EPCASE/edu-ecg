@@ -1,0 +1,19 @@
+{
+  "id": "REGRESSION_DU_SUS_DECALAGE_ST",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "La régression décrit une évolution temporelle appliquée au sus-décalage ST existant plutôt qu'un nouveau finding monolithique.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "REGRESSION",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

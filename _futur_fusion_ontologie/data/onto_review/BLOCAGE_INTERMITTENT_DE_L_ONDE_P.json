@@ -1,0 +1,20 @@
+{
+  "id": "BLOCAGE_INTERMITTENT_DE_L_ONDE_P",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "Le blocage intermittent se compose d'une onde P bloquée existante et d'un modificateur temporel/intermittent, sans créer de concept phrastique dédié.",
+  "decomposition": [
+    {
+      "id": "UNE_ONDE_P_BLOQUEE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "INTERMITTENT",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

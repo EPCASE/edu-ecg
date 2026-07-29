@@ -1,0 +1,21 @@
+{
+  "id": "EXTRASYSTOLE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "motif": "Concept générique d'événement ectopique prématuré absent comme atome commun alors que seules des formes atriale/ventriculaire existent; il est réutilisable comme finding parent des extrasystoles typées.",
+  "concept_retenu": {
+    "id": "EXTRASYSTOLE",
+    "concept_name": "Extrasystole",
+    "type": "finding",
+    "parents": [
+      "EVENEMENTS_ECTOPIQUES"
+    ],
+    "requires": [],
+    "synonymes": [
+      "extra-systole",
+      "battement prématuré"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

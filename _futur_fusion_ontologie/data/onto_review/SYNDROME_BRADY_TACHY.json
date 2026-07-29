@@ -1,0 +1,26 @@
+{
+  "id": "SYNDROME_BRADY_TACHY",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1",
+  "motif": "Le syndrome brady-tachy est un pattern clinique reconnu, différenciant et absent du catalogue, composable par ses critères requis sans être une simple description brute.",
+  "concept_retenu": {
+    "id": "SYNDROME_BRADY_TACHY",
+    "concept_name": "Syndrome brady-tachy",
+    "type": "pattern",
+    "parents": [
+      "DYSFONCTION_SINUSALE",
+      "ARYTHMIE_ATRIALE"
+    ],
+    "requires": [
+      "BRADYCARDIE",
+      "TACHYCARDIE_SUPRA_VENTRICULAIRE"
+    ],
+    "synonymes": [
+      "syndrome brady tachy",
+      "syndrome bradycardie-tachycardie",
+      "tachy-brady syndrome"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

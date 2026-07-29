@@ -1,0 +1,245 @@
+{
+  "num": 40,
+  "titre": "tachycardie sinusale",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie sinusale"
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie à 170 bpm d’origine sinusale"
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence sinusale de repos supérieure à 100 bpm",
+      "synonymes_a_ajouter": [
+        "fréquence sinusale de repos supérieure à 100 bpm"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie à 170 bpm"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "d’origine sinusale",
+      "synonymes_a_ajouter": [
+        "origine sinusale",
+        "d’origine sinusale"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rapport oreillettes/ventricules en 1/1",
+      "synonymes_a_ajouter": [
+        "rapport oreillettes/ventricules en 1/1",
+        "rapport oreillettes ventricules en 1/1",
+        "rapport atrio-ventriculaire en 1/1"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale précédant le QRS positive en DI, DII, V5, V6, négative en aVR",
+      "synonymes_a_ajouter": [
+        "activité atriale précédant le QRS positive en DI, DII, V5, V6, négative en aVR",
+        "ondes P positives en DI DII V5 V6 et négatives en aVR",
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "Les ondes P sinusales précèdent et commandent la survenue des complexes QRS",
+      "synonymes_a_ajouter": [
+        "ondes P sinusales précèdent les QRS",
+        "ondes P précédant les QRS"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_DE_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "complexes QRS"
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ondes T"
+    },
+    {
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "réentrée intranodale"
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "flutter atrial"
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "réentrée intranodale",
+      "synonymes_a_ajouter": [
+        "réentrée intranodale",
+        "réentrée intra-nodale"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "réentrée sur voie accessoire",
+      "synonymes_a_ajouter": [
+        "réentrée sur voie accessoire",
+        "tachycardie par réentrée sur voie accessoire"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "accélération et une décélération progressives de la fréquence",
+      "nouveau_concept": {
+        "id_suggere": "VARIATION_PROGRESSIVE_DE_LA_FREQUENCE_CARDIAQUE",
+        "concept_name": "Variation progressive de la fréquence cardiaque",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "requires": [
+          "TACHYCARDIE"
+        ],
+        "synonymes": [
+          "accélération et décélération progressives de la fréquence",
+          "accélération progressive de la fréquence",
+          "décélération progressive de la fréquence"
+        ],
+        "poids": 2,
+        "justification": "Le texte cite ce profil évolutif comme évocateur de tachycardie sinusale en télémétrie ; aucun concept existant ne couvre cette dynamique de fréquence."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence dépasse rarement 180 bpm chez l’adulte",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENCE_CARDIAQUE_INF_180_BPM_ADULTE",
+        "concept_name": "Fréquence cardiaque inférieure à 180 bpm chez l’adulte",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "requires": [
+          "TACHYCARDIE"
+        ],
+        "synonymes": [
+          "fréquence dépasse rarement 180 bpm chez l’adulte",
+          "fréquence cardiaque rarement supérieure à 180 bpm chez l’adulte",
+          "FC < 180 bpm chez l’adulte"
+        ],
+        "poids": 2,
+        "justification": "Élément pédagogique de caractérisation de la tachycardie sinusale, non représenté par les concepts de fréquence existants."
+      }
+    },
+    {
+      "concept_id": "EMBOLIE_PULMONAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "embolie pulmonaire"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect S1Q3",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_S1Q3",
+        "concept_name": "Aspect S1Q3",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "S1Q3",
+          "aspect S1Q3"
+        ],
+        "poids": 3,
+        "justification": "Le texte mentionne explicitement l'association possible tachycardie sinusale et aspect S1Q3 dans l'embolie pulmonaire ; aucun concept existant ne le représente."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "TACHYCARDIE",
+      "justification": "Le cas définit la tachycardie sinusale par une fréquence sinusale de repos > 100 bpm."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le texte insiste sur l'origine sinusale avec ondes P sinusales précédant les QRS."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Le tracé décrit un rapport oreillettes/ventricules en 1/1 et des ondes P commandant les QRS."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "requires",
+      "cible": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "justification": "La morphologie sinusale de l'activité atriale est détaillée : positive en DI, DII, V5, V6 et négative en aVR."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "supports",
+      "cible": "EMBOLIE_PULMONAIRE",
+      "justification": "Le commentaire pédagogique indique que la tachycardie sinusale est un signe classique de l'embolie pulmonaire."
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "relation": "parents",
+      "cible": "TACHYCARDIE_ATRIALE",
+      "justification": "Le QCM emploie 'flutter atrial' ; le concept spécifique existant est bien sous tachycardie atriale, mais le libellé générique 'flutter atrial' est actuellement porté en synonyme de TACHYCARDIE_ATRIALE, ce qui risque une perte hiérarchique."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le diagnostic principal (tachycardie sinusale), mais les formulations pédagogiques clés nécessitent surtout des synonymes et des relations requires explicites. Les lacunes réelles concernent la dynamique progressive de fréquence et l’aspect S1Q3 mentionné dans le contexte d’embolie pulmonaire.",
+  "error": null
+}

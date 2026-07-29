@@ -1,0 +1,423 @@
+{
+  "num": 62,
+  "titre": "SCA ST+ et bloc de branche gauche",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "un intervalle PR normal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "statut": "present",
+      "surface": "un aspect de bloc de branche gauche complet",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche gauche complet"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "statut": "present",
+      "surface": "bloc de branche gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "QRS large"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS__120_MS",
+      "statut": "present",
+      "surface": "QRS large (> 120 ms)",
+      "synonymes_a_ajouter": [
+        "QRS large (> 120 ms)",
+        "QRS > 120 ms"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "positivité exclusive en V6",
+      "nouveau_concept": {
+        "id_suggere": "POSITIVITE_EXCLUSIVE_EN_V6",
+        "concept_name": "Positivité exclusive en V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "positivité exclusive en V6"
+        ],
+        "poids": 2,
+        "justification": "Critère morphologique de QRS décrit par Pierre dans le bloc de branche gauche complet."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect QS en V1",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QS_EN_V1",
+        "concept_name": "Aspect QS en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect QS en V1",
+          "QS en V1"
+        ],
+        "poids": 2,
+        "justification": "Le catalogue contient un 'Aspect QS' rattaché à l'onde Q pathologique, mais ici le QS en V1 est un critère morphologique de BBG, pas nécessairement une nécrose."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "axe gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "present",
+      "surface": "des troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "sus-décalage de V1 à V4",
+      "synonymes_a_ajouter": [
+        "sus-décalage de V1 à V4",
+        "surélévation du segment ST",
+        "surélévation du segment ST de V1 à V4"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "de grande amplitude (> 5 mm en V2-V3)",
+      "nouveau_concept": {
+        "id_suggere": "SUS_DECALAGE_ST_DE_GRANDE_AMPLITUDE",
+        "concept_name": "Sus-décalage ST de grande amplitude",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage de grande amplitude",
+          "sus-décalage très ample",
+          "sus-décalage très ample en V1-V2",
+          "> 5 mm en V2-V3"
+        ],
+        "poids": 3,
+        "justification": "La grande amplitude du sus-décalage est explicitement utilisée dans le cas et dans le commentaire sur Sgarbossa."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "statut": "present",
+      "surface": "infarctus du myocarde"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "syndrome coronaire aigu avec surélévation du segment ST",
+      "synonymes_a_ajouter": [
+        "syndrome coronaire aigu avec surélévation du segment ST",
+        "SCA avec surélévation du segment ST",
+        "syndrome coronaire aigu territoire antérieur"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ANTERIEUR",
+      "statut": "present",
+      "surface": "territoire antérieur"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CIRCONFERENTIEL",
+      "statut": "present",
+      "surface": "infarctus antérieur étendu"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SEPTAL",
+      "statut": "present",
+      "surface": "antéro-septo-apical"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "APICALE",
+      "statut": "present",
+      "surface": "antéro-septo-apical"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "territoire antéro-septo-apical",
+      "nouveau_concept": {
+        "id_suggere": "TERRITOIRE_ANTERO_SEPTO_APICAL",
+        "concept_name": "Territoire antéro-septo-apical",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "ANTERIEUR",
+          "SEPTAL",
+          "APICALE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "antéro-septo-apical",
+          "territoire antéro-septo-apical",
+          "territoire antéro-septo-apical"
+        ],
+        "poids": 3,
+        "justification": "La topographie composite du second tracé est explicitement formulée et n'est pas représentée comme localisation IDM dans le catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "régression du sus-décalage",
+      "nouveau_concept": {
+        "id_suggere": "REGRESSION_DU_SUS_DECALAGE_ST",
+        "concept_name": "Régression du sus-décalage ST",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "régression du sus-décalage",
+          "régression du sus-décalage ST",
+          "diminution du sus-décalage ST"
+        ],
+        "poids": 2,
+        "justification": "Comparaison temporelle du tracé après coronarographie décrite par Pierre."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ONDE_T_NEGATIVE",
+      "statut": "present",
+      "surface": "négativation des ondes T",
+      "synonymes_a_ajouter": [
+        "négativation des ondes T",
+        "ondes T négativées"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ANOMALIES_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "anomalies du segment ST"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CRITERES_DE_SGARBOSSA",
+      "statut": "present",
+      "surface": "critères de Sgarbossa"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "segment ST et des ondes T ayant tendance à être déviés dans une direction discordante par rapport aux complexes QRS",
+      "nouveau_concept": {
+        "id_suggere": "DISCORDANCE_ST_T_PAR_RAPPORT_AU_QRS",
+        "concept_name": "Discordance ST-T par rapport au QRS",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "TROUBLE_DE_REPOLARISATION",
+          "ANOMALIES_DU_SEGMENT_ST"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "discordance ST-T par rapport au QRS",
+          "ST et T discordants par rapport au QRS",
+          "segment ST et ondes T déviés dans une direction discordante par rapport aux QRS"
+        ],
+        "poids": 3,
+        "justification": "Notion centrale du commentaire pédagogique sur l'interprétation du ST en présence d'un BBG."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche gauche est ancien",
+      "nouveau_concept": {
+        "id_suggere": "ANCIEN",
+        "concept_name": "Ancien",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "ancien",
+          "ancienneté",
+          "préexistant",
+          "n'existant pas auparavant"
+        ],
+        "poids": 2,
+        "justification": "L'ancienneté du BBG conditionne l'interprétation dans le commentaire."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche gauche supposé récent",
+      "nouveau_concept": {
+        "id_suggere": "RECENT",
+        "concept_name": "Récent",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "récent",
+          "supposé récent",
+          "apparu au décours",
+          "apparition"
+        ],
+        "poids": 2,
+        "justification": "Le cas oppose BBG ancien et BBG récent/apparu au décours de l'infarctus."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "absent",
+      "surface": "syndrome coronaire aigu territoire inférieur"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "statut": "absent",
+      "surface": "bloc de branche droit avec hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "absent",
+      "surface": "bloc de branche droit avec hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "statut": "absent",
+      "surface": "rythme idio-ventriculaire accéléré"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le cas définit le BBG complet avec QRS large > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "supports",
+      "cible": "TROUBLE_DE_REPOLARISATION",
+      "justification": "Pierre précise que le BBG complet perturbe la repolarisation ventriculaire."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "supports",
+      "cible": "ANOMALIES_DU_SEGMENT_ST",
+      "justification": "Le ST est décrit comme modifié/discordant en présence de BBG."
+    },
+    {
+      "concept_id": "CRITERES_DE_SGARBOSSA",
+      "relation": "requires",
+      "cible": "BLOC_DE_BRANCHE_GAUCHE",
+      "justification": "Dans ce cas, les critères sont explicitement discutés chez un patient avec BBG."
+    },
+    {
+      "concept_id": "CRITERES_DE_SGARBOSSA",
+      "relation": "requires",
+      "cible": "ANOMALIES_DU_SEGMENT_ST",
+      "justification": "Pierre décrit les critères par des anomalies du segment ST d'ampleur anormale."
+    },
+    {
+      "concept_id": "CRITERES_DE_SGARBOSSA",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Les critères ECG permettent d'évoquer l'infarctus/SCA ST+ malgré le BBG."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le diagnostic de SCA avec sus-décalage repose sur le sus-décalage ST."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "ANTERIEUR",
+      "justification": "La réponse correcte précise le territoire antérieur."
+    },
+    {
+      "concept_id": "ISCHEMIE_SOUS_EPICARDIQUE",
+      "relation": "requires",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "La négativation des ondes T après régression du ST correspond à une anomalie de repolarisation de type inversion T."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "requires",
+      "cible": "BLOC_DE_BRANCHE_DROIT",
+      "justification": "L'option QCM 'bloc de branche droit avec hémibloc antérieur gauche' correspond à une combinaison bifasciculaire."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "requires",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "L'option QCM cite explicitement l'hémibloc antérieur gauche dans cette combinaison."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour les diagnostics majeurs (SCA ST+, BBG complet, rythme sinusal, PR normal), mais il manque des critères morphologiques et qualitatifs utiles au BBG/Sgarbossa : QS en V1, positivité exclusive en V6, discordance ST-T/QRS et amplitude/régression du sus-décalage. La hiérarchie devrait mieux relier BBG complet, QRS >120 ms, troubles secondaires de repolarisation et critères de Sgarbossa au SCA ST+.",
+  "error": null
+}

@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_P_CONDUITE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "Le concept décrit une relation de conduction entre une onde P et un QRS déjà représentable par ONDE_P_PRESENTE, PRESENCE_DE_QRS et la notion de CONDUCTION; il ne faut pas recréer un finding composé dédié.",
+  "decomposition": [
+    {
+      "id": "ONDE_P_PRESENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PRESENCE_DE_QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "CONDUCTION",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

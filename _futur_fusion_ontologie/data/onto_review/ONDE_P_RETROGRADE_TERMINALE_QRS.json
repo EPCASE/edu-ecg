@@ -1,0 +1,30 @@
+{
+  "id": "ONDE_P_RETROGRADE_TERMINALE_QRS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_P_PRESENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "RETROGRADE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "SUPERPOSITION_TERMINALE_AU_QRS",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "motif": "La proposition combine la présence d’une onde P, son caractère rétrograde et sa relation temporelle au QRS ; ces éléments doivent être composés plutôt que fusionnés.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

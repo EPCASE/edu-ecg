@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_V4_V6",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "V4-V6",
+  "motif": "Concept de territoire pur, non pris en compte en v1 ; aucune structure ECG atomique n'est à créer."
+}

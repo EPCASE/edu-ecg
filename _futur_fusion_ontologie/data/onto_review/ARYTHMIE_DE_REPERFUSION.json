@@ -1,0 +1,24 @@
+{
+  "id": "ARYTHMIE_DE_REPERFUSION",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1",
+  "motif": "Il s'agit d'un pattern clinique réutilisable reliant des arythmies survenant dans le contexte d'un infarctus/reperfusion, distinct des findings rythmiques élémentaires.",
+  "concept_retenu": {
+    "id": "ARYTHMIE_DE_REPERFUSION",
+    "concept_name": "Arythmie de reperfusion",
+    "type": "pattern",
+    "parents": [
+      "ARYTHMIE_VENTRICULAIRE",
+      "ISCHEMIQUE"
+    ],
+    "requires": [
+      "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+    ],
+    "synonymes": [
+      "arythmie typique de reperfusion",
+      "arythmies dites de reperfusion",
+      "trouble du rythme de reperfusion"
+    ]
+  }
+}

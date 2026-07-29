@@ -1,0 +1,25 @@
+{
+  "id": "SYNDROME_DE_TAKOTSUBO",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Diagnostic clinique réutilisable et différenciant absent du catalogue; il doit être modélisé comme pattern/pathologie, distinct des signes de repolarisation qui peuvent le supporter sans s'y substituer.",
+  "concept_retenu": {
+    "id": "SYNDROME_DE_TAKOTSUBO",
+    "concept_name": "Syndrome de Takotsubo",
+    "type": "pattern",
+    "parents": [
+      "PATHOLOGIE"
+    ],
+    "requires": [],
+    "synonymes": [
+      "Takotsubo",
+      "tako-tsubo",
+      "cardiomyopathie de stress",
+      "cardiomyopathie aiguë transitoire",
+      "syndrome du cœur brisé",
+      "ballonisation apicale"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,20 @@
+{
+  "id": "FREQUENCE_FIXE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "D1, C1",
+  "motif": "« fixe » est un modificateur transversal de régularité/stabilité d'une fréquence, à composer avec FREQUENCE ou des événements de stimulation plutôt qu'à transformer en pattern monolithique.",
+  "concept_retenu": {
+    "id": "FIXE",
+    "concept_name": "Fixe",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "constant",
+      "régulier au sens de fréquence fixe"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

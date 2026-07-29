@@ -1,0 +1,14 @@
+{
+  "id": "FREQUENCE_VENTRICULAIRE_60_110_BPM",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, C3",
+  "motif": "La plage 60-110 bpm est une mesure/contextualisation de fréquence ventriculaire, à composer avec le concept existant FREQUENCE plutôt qu'à figer en concept monolithique peu réutilisable.",
+  "decomposition": [
+    {
+      "id": "FREQUENCE",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

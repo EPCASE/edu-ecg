@@ -1,0 +1,25 @@
+{
+  "id": "DERIVATION_DI_INVERSEE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "La dérivation DI est une localisation ignorée en v1; le finding utile est l'inversion d'électrodes existante, éventuellement supportée par une polarité négative non territorialisée.",
+  "decomposition": [
+    {
+      "id": "INVERSION_D_ELECTRODES",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "POLARITE_NEGATIVE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "SUPPORTS_INVERSION_D_ELECTRODES",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "DI"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "ASPECT_QR_NORMAL_EN_V6",
+  "verdict": "REJETER",
+  "classe": "description",
+  "principe": "T1, C4, C3",
+  "motif": "Le concept repose sur une morphologie attendue et localisée en V6; en v1 la dérivation est ignorée et le contenu normal est déjà couvert par MORPHOLOGIE_DU_QRS_NORMALE/ABSENCE_D_ONDE_Q_PATHOLOGIQUE.",
+  "territoire_ignore_v1": "V6"
+}

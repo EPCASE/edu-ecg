@@ -1,0 +1,341 @@
+{
+  "num": 63,
+  "titre": "SCA ST+ et risque de mort subite",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "initialement, un rythme sinusal"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage de grande amplitude en V5",
+      "synonymes_a_ajouter": [
+        "sus-décalage de grande amplitude",
+        "sus-décalage ST de grande amplitude"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "de grande amplitude",
+      "nouveau_concept": {
+        "id_suggere": "AMPLITUDE_IMPORTANTE_DU_SUS_DECALAGE_ST",
+        "concept_name": "Amplitude importante du sus-décalage ST",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage de grande amplitude",
+          "sus-décalage ST de grande amplitude",
+          "ST+ de grande amplitude"
+        ],
+        "poids": 2,
+        "justification": "Le cas qualifie explicitement le sus-décalage comme de grande amplitude."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "en V5",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V5",
+        "concept_name": "Dérivation V5",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V5",
+          "dérivation V5"
+        ],
+        "poids": 2,
+        "justification": "La localisation du sus-décalage est donnée par la dérivation V5, absente du catalogue."
+      }
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde de Pardee",
+      "synonymes_a_ajouter": [
+        "onde de Pardee"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "SCA ST+ antérieur"
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "antérieur"
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "infarctus du myocarde"
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome coronaire aigu",
+      "synonymes_a_ajouter": [
+        "syndrome coronaire aigu"
+      ]
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une extrasystole ventriculaire déclenche"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie extrêmement rapide, polymorphe, anarchique",
+      "synonymes_a_ajouter": [
+        "tachycardie extrêmement rapide polymorphe anarchique",
+        "activité ventriculaire anarchique",
+        "rythme ventriculaire anarchique"
+      ]
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "extrêmement rapide",
+      "synonymes_a_ajouter": [
+        "extrêmement rapide",
+        "très rapide"
+      ]
+    },
+    {
+      "concept_id": "POLYMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "polymorphe"
+    },
+    {
+      "concept_id": "DESORGANISEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "désorganisé anarchique"
+      ]
+    },
+    {
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "trouble du rythme ventriculaire léthal",
+      "synonymes_a_ajouter": [
+        "trouble du rythme ventriculaire",
+        "trouble du rythme ventriculaire léthal"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire non soutenue ou soutenue"
+    },
+    {
+      "concept_id": "NON_SOUTENU",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "non soutenues"
+    },
+    {
+      "concept_id": "SOUTENU",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "soutenues"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "salves de TV non soutenues",
+      "synonymes_a_ajouter": [
+        "salve de TV",
+        "salves de TV",
+        "TV non soutenue",
+        "tachycardie ventriculaire non soutenue"
+      ]
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "extrasystoles ventriculaires fréquentes, prématurées et polymorphes"
+    },
+    {
+      "concept_id": "PREMATURE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "prématurées",
+      "synonymes_a_ajouter": [
+        "prématuré",
+        "prématurée",
+        "prématurées"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fréquentes",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENT",
+        "concept_name": "Fréquent",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "fréquent",
+          "fréquente",
+          "fréquents",
+          "fréquentes",
+          "nombreux",
+          "nombreuses"
+        ],
+        "poids": 2,
+        "justification": "Le texte décrit une charge élevée d'extrasystoles ventriculaires, distincte de la fréquence cardiaque."
+      }
+    },
+    {
+      "concept_id": "CARDIOVERSION_ELECTRIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "choc électrique externe",
+      "synonymes_a_ajouter": [
+        "choc électrique externe",
+        "CEE",
+        "défibrillation externe"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "C. tachycardie ventriculaire"
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "D. torsade de pointes"
+    },
+    {
+      "concept_id": "RYTHME_IDIOVENTRICULAIRE_ACCELERE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "E. rythme idio-ventriculaire accéléré"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le SCA ST+ du cas est défini par le sus-décalage du segment ST / onde de Pardee."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "ANTERIEUR",
+      "justification": "Le cas précise un SCA ST+ de territoire antérieur."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le sus-décalage ST de grande amplitude soutient le diagnostic de SCA ST+."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le texte indique qu'une ESV déclenche la fibrillation ventriculaire."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "RAPIDE",
+      "justification": "La FV est décrite comme une tachycardie extrêmement rapide."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "POLYMORPHE",
+      "justification": "La FV est décrite comme polymorphe."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "DESORGANISEE",
+      "justification": "La FV est décrite comme anarchique."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "NON_SOUTENU",
+      "justification": "Le référentiel cite explicitement la TV non soutenue."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "SOUTENU",
+      "justification": "Le référentiel cite explicitement la TV soutenue."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "PREMATURE",
+      "justification": "Le texte décrit des ESV prématurées."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "POLYMORPHE",
+      "justification": "Le texte décrit des ESV polymorphes."
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "CARDIOVERSION_ELECTRIQUE",
+      "justification": "Le référentiel indique que la FV nécessite un choc électrique externe immédiat."
+    }
+  ],
+  "synthese": "Le socle diagnostique du cas est largement couvert : rythme sinusal, SCA ST+ antérieur, ESV déclenchante et fibrillation ventriculaire. Les manques principaux concernent les formulations pédagogiques fréquentes (« onde de Pardee », « choc électrique externe », « anarchique »), la localisation par dérivation V5 et les qualificateurs de sévérité/charge comme le ST+ de grande amplitude et les ESV fréquentes.",
+  "error": null
+}

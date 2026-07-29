@@ -1,0 +1,20 @@
+{
+  "id": "ONDES_F_PEU_VOLTEES_EN_DI",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_F",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PEU_VOLTE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "motif": "Le faible voltage est un modificateur descriptif de l'onde F, tandis que la dérivation DI est une localisation ignorée en v1.",
+  "principe": "D1, C1, T1",
+  "territoire_ignore_v1": "DI"
+}

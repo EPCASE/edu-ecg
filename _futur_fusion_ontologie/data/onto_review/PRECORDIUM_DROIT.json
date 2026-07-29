@@ -1,0 +1,8 @@
+{
+  "id": "PRECORDIUM_DROIT",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Concept de topographie pure sans finding propre; les précordiales droites/V1-V3 sont réservées à une couche topographique future et ignorées en v1.",
+  "territoire_ignore_v1": "précordium droit / V1-V3"
+}

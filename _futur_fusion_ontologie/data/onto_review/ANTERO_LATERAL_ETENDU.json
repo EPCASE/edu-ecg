@@ -1,0 +1,8 @@
+{
+  "id": "ANTERO_LATERAL_ETENDU",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure avec dérivations/territoire, sans finding atomique propre ; la localisation est ignorée en v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "antéro-latéral étendu ; V1-V6, DI, aVL"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "DEFAILLANCE_DE_DISPOSITIF_CARDIAQUE_IMPLANTABLE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "La défaillance globale d’un dispositif implantable est un pattern clinique réutilisable qui peut s’appuyer sur les findings existants de stimulation et de défibrillateur sans dupliquer les sous-types déjà catalogués.",
+  "concept_retenu": {
+    "id": "DEFAILLANCE_DE_DISPOSITIF_CARDIAQUE_IMPLANTABLE",
+    "concept_name": "Défaillance de dispositif cardiaque implantable",
+    "type": "pattern",
+    "parents": [
+      "STIMULATION"
+    ],
+    "requires": [
+      "STIMULATION"
+    ],
+    "synonymes": [
+      "défaillance de DAI",
+      "défaillance de pacemaker",
+      "défaillance d’un défibrillateur",
+      "défaillance d’un stimulateur cardiaque"
+    ]
+  }
+}

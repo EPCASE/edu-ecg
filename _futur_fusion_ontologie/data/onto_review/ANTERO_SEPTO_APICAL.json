@@ -1,0 +1,8 @@
+{
+  "id": "ANTERO_SEPTO_APICAL",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure constituée uniquement de localisations ; la couche territoriale est ignorée en v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "antérieur, septal, apical"
+}

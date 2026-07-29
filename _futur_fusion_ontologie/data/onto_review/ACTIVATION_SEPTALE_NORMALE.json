@@ -1,0 +1,8 @@
+{
+  "id": "ACTIVATION_SEPTALE_NORMALE",
+  "verdict": "REJETER",
+  "classe": "description",
+  "motif": "Attendu physiologique d'un QRS normal/morphologie normale, non différenciant comme concept autonome en v1.",
+  "principe": "C4, C5",
+  "territoire_ignore_v1": "septal"
+}

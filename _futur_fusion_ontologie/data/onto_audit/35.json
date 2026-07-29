@@ -1,0 +1,198 @@
+{
+  "num": 35,
+  "titre": "salve de tachycardie ventriculaire non soutenue",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "complexes QRS fins"
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une déviation axiale gauche"
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "2 extrasystoles ventriculaires"
+    },
+    {
+      "concept_id": "ISOLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "extrasystoles ventriculaires isolées",
+      "synonymes_a_ajouter": [
+        "isolées"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "concept_id": "NON_SOUTENU",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "non soutenue"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges"
+      ]
+    },
+    {
+      "concept_id": "MONOMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "monomorphes"
+    },
+    {
+      "concept_id": "NON_SOUTENU",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durant moins de 30 secondes",
+      "synonymes_a_ajouter": [
+        "durant moins de 30 secondes",
+        "dure moins de 30 secondes",
+        "moins de 30 secondes"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "salve de tachycardie ventriculaire non soutenue",
+      "nouveau_concept": {
+        "id_suggere": "TACHYCARDIE_VENTRICULAIRE_NON_SOUTENUE",
+        "concept_name": "Tachycardie ventriculaire non soutenue",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "requires": [
+          "TACHYCARDIE_VENTRICULAIRE",
+          "NON_SOUTENU"
+        ],
+        "synonymes": [
+          "TV non soutenue",
+          "TVNS",
+          "salve de tachycardie ventriculaire non soutenue",
+          "salve de TV non soutenue",
+          "salve de TVNS",
+          "tachycardie ventriculaire non soutenue de moins de 30 secondes"
+        ],
+        "poids": 5,
+        "justification": "Le diagnostic pédagogique central est une salve de TV non soutenue ; l'ontologie possède TV et le qualificateur non soutenu, mais pas le pattern composite permettant de le représenter directement."
+      }
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "exclut les diagnostics de torsade de pointes"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "exclut les diagnostics de ... fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "BIGEMINISME_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un bigéminisme ventriculaire"
+    },
+    {
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "des doublets ventriculaires",
+      "synonymes_a_ajouter": [
+        "doublets ventriculaires"
+      ]
+    },
+    {
+      "concept_id": "SOUTENU",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "une tachycardie ventriculaire soutenue"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "NON_SOUTENU",
+      "justification": "Le texte qualifie explicitement une tachycardie ventriculaire de non soutenue."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "SOUTENU",
+      "justification": "Le QCM oppose tachycardie ventriculaire non soutenue et tachycardie ventriculaire soutenue."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "MONOMORPHE",
+      "justification": "La salve de TV est décrite comme monomorphe."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "QRS_LARGE",
+      "justification": "La tachycardie est décrite comme une tachycardie à QRS larges."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "excludes",
+      "cible": "TORSADE_DE_POINTES",
+      "justification": "Pierre indique que la morphologie monomorphe exclut une torsade de pointes dans ce cas."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Pierre indique que des QRS organisés et monomorphes excluent la fibrillation ventriculaire dans ce cas."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "ISOLE",
+      "justification": "Le cas décrit deux extrasystoles ventriculaires isolées."
+    },
+    {
+      "concept_id": "DOUBLET_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Le commentaire définit le doublet ventriculaire comme deux extrasystoles ventriculaires consécutives."
+    },
+    {
+      "concept_id": "TRIPLET_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "EXTRASYSTOLE_VENTRICULAIRE",
+      "justification": "Le commentaire définit le triplet ventriculaire comme trois extrasystoles ventriculaires consécutives."
+    }
+  ],
+  "synthese": "Le trou majeur est l'absence d'un pattern dédié de tachycardie ventriculaire non soutenue/TVNS, diagnostic central du cas, malgré l'existence de TV et du qualificateur NON_SOUTENU. Des variantes lexicales simples manquent aussi pour « QRS larges », « isolées » et « moins de 30 secondes ».",
+  "error": null
+}

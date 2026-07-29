@@ -1,0 +1,240 @@
+{
+  "num": 16,
+  "titre": "hémibloc antérieur gauche",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "fréquence cardiaque à environ 65 battements/minute"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "present",
+      "surface": "la conduction atrio-ventriculaire est normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins (durée de 90 ms)"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "déviation axiale gauche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect rS dans les dérivations inférieures",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RS_INFERIEUR",
+        "concept_name": "Aspect rS dans les dérivations inférieures",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "INFERIEUR"
+        ],
+        "synonymes": [
+          "complexes rS en inférieur",
+          "aspect rS en DII DIII aVF",
+          "QRS rS dans les dérivations inférieures"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique explicitement cité pour l'hémibloc antérieur gauche, non représenté par un concept existant."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect qR en DI, aVL",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QR_LATERAL_HAUT",
+        "concept_name": "Aspect qR en DI et aVL",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "LATERAL"
+        ],
+        "synonymes": [
+          "aspect qR en DI aVL",
+          "complexes qR en DI et aVL",
+          "qR en DI et aVL"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique explicitement cité; aucune topographie DI/aVL dédiée n'existe dans le catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde q en V1-V2",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_Q_EN_V1_V2",
+        "concept_name": "Onde q en V1-V2",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [],
+        "synonymes": [
+          "q en V1-V2",
+          "onde q dans les dérivations V1-V2"
+        ],
+        "poids": 2,
+        "justification": "Formulation morphologique précise du cas; ne correspond pas à une onde Q pathologique ni à une séquelle de nécrose."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "absence de troubles de la repolarisation"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "absence d'hypertrophie ventriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie ventriculaire gauche"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "statut": "absent",
+      "surface": "une hypertrophie auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire gauche"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+      "statut": "absent",
+      "surface": "un bloc de branche indifférencié",
+      "synonymes_a_ajouter": [
+        "bloc de branche indifférencié"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "une séquelle de nécrose inférieure",
+      "nouveau_concept": {
+        "id_suggere": "SEQUELLE_DE_NECROSE_INFERIEURE",
+        "concept_name": "Séquelle de nécrose inférieure",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "SEQUELLE_DE_NECROSE"
+        ],
+        "requires": [
+          "INFERIEUR"
+        ],
+        "synonymes": [
+          "séquelle d'infarctus inférieur",
+          "séquelle de nécrose en inférieur",
+          "nécrose inférieure ancienne"
+        ],
+        "poids": 3,
+        "justification": "Le catalogue contient la séquelle de nécrose et la topographie inférieure, mais pas le diagnostic topographié cité dans le QCM."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "statut": "absent",
+      "surface": "l'hémibloc postérieur gauche est très rare"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEVIATION_AXIALE_DROITE",
+      "statut": "absent",
+      "surface": "l'hémibloc postérieur gauche est associé avec une déviation axiale du QRS à droite > + 90°"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "statut": "absent",
+      "surface": "en l’absence de pathologie du ventricule droit"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "LATERAL",
+      "statut": "absent",
+      "surface": "un infarctus latéral"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "requires",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "Le cas et le référentiel EDN présentent la déviation axiale gauche comme critère nécessaire du diagnostic d'hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le cas insiste sur un QRS fin ou de durée normale/très légèrement augmentée dans l'hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "excludes",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "justification": "Le commentaire pédagogique précise que la déviation axiale gauche sur QRS fin en absence d'HVG fait évoquer l'hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Les QRS fins de 90 ms soutiennent ici le diagnostic contre un bloc de branche indifférencié."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE",
+      "relation": "requires",
+      "cible": "DEVIATION_AXIALE_DROITE",
+      "justification": "Le référentiel cité indique que l'hémibloc postérieur gauche est associé à une déviation axiale droite > +90°."
+    }
+  ],
+  "synthese": "Le diagnostic principal est bien couvert par BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE, mais plusieurs critères morphologiques de Pierre (rS inférieur, qR DI/aVL, q V1-V2) ne sont pas représentés. La hiérarchie gagnerait à relier explicitement l'hémibloc antérieur gauche à la déviation axiale gauche et au QRS fin/non large.",
+  "error": null
+}

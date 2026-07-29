@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_T_DIPHASIQUE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ONDE_T_DIPHASIQUE",
+    "concept_name": "Onde T diphasique",
+    "type": "qualifier",
+    "parents": [
+      "ANOMALIE_DES_ONDES_T"
+    ],
+    "requires": [
+      "ONDE_T"
+    ],
+    "synonymes": [
+      "T diphasique",
+      "aspect diphasique de l'onde T",
+      "onde T diphasique",
+      "aspect diphasique"
+    ]
+  },
+  "motif": "Description morphologique atomique et différenciante de l'onde T, absente du catalogue, à représenter comme qualifier descriptif plutôt que diagnostic.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

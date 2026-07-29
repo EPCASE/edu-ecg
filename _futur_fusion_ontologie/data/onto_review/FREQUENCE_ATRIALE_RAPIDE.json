@@ -1,0 +1,24 @@
+{
+  "id": "FREQUENCE_ATRIALE_RAPIDE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "La fréquence rapide existe comme modificateur de fréquence et le caractère atrial est le support/activité concernée ; ne pas créer un finding composé dédié.",
+  "decomposition": [
+    {
+      "id": "RAPIDE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "FREQUENCE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "ONDE_F",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

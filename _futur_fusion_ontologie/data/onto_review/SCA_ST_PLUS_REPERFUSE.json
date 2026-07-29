@@ -1,0 +1,19 @@
+{
+  "id": "SCA_ST_PLUS_REPERFUSE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Le SCA ST+ existe déjà et le caractère reperfusé relève d'un contexte/qualifier thérapeutique-évolutif à composer plutôt que d'un nouveau diagnostic monolithique.",
+  "decomposition": [
+    {
+      "id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "REPERFUSE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

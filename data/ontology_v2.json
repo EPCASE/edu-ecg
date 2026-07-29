@@ -22,7 +22,28 @@
       "type": "qualifier",
       "synonymes": [
         "1 pour 1",
-        "conduction en 1 pour 1"
+        "conduction en 1 pour 1",
+        "toutes les ondes P sont conduites",
+        "chaque onde P suivie d’un complexe QRS",
+        "chaque onde P suivie d'un QRS",
+        "une onde P suivie d’un QRS",
+        "une onde P avant chaque QRS",
+        "onde P avant chaque complexe QRS",
+        "une onde P devant chaque QRS et un QRS derrière chaque onde P",
+        "chaque onde P est suivie d’un QRS",
+        "chaque QRS est précédé d’une onde P",
+        "ondes P toutes conduites",
+        "toutes les ondes P conduites",
+        "toutes les ondes P sont suivies d'un complexe QRS",
+        "chaque onde P est conduite",
+        "nombre égal d'ondes P et de complexes QRS",
+        "ondes P conduites",
+        "ondes P sont conduites",
+        "rapport oreillettes/ventricules en 1/1",
+        "rapport atrio-ventriculaire en 1/1",
+        "conduction auriculo-ventriculaire 1/1",
+        "conduction atrio-ventriculaire 1/1",
+        "conduction AV 1/1"
       ],
       "parents": [
         "MODE_DE_CONDUCTION_AV"
@@ -36,7 +57,10 @@
       "synonymes": [
         "2 pour 1",
         "conduction en 2 pour 1",
-        "conduction 2/1"
+        "conduction 2/1",
+        "une onde P sur deux est conduite",
+        "une onde P sur 2 conduite",
+        "autant d’ondes P bloquées que d’ondes P conduites"
       ],
       "parents": [
         "MODE_DE_CONDUCTION_AV"
@@ -117,7 +141,22 @@
         "ONDE_P_NORMALE"
       ],
       "synonymes": [
-        "Onde P absente"
+        "Onde P absente",
+        "absence d’activité atriale identifiable",
+        "aucune activité atriale",
+        "aucune activité atriale identifiée",
+        "sans onde P visible",
+        "absence d’ondes P durant la pause",
+        "QRS non précédés par une onde P",
+        "complexes QRS non précédés par une onde P",
+        "aucune activité atriale n’est identifiable",
+        "absence d’activité atriale préalable",
+        "absence d’onde P sinusale",
+        "absence d'onde P sinusale",
+        "pas d’onde P sinusale",
+        "activité atriale non identifiable",
+        "Absence d’ondes P visualisables",
+        "Ondes P non visualisables"
       ],
       "parents": [
         "ONDE_P"
@@ -135,7 +174,15 @@
         "Onde Q physiologique",
         "Pas d'onde Q",
         "transition précordiale normale",
-        "transition précordiale physiologique"
+        "transition précordiale physiologique",
+        "absence d'ondes Q de nécrose",
+        "absence d’ondes Q de nécrose",
+        "pas d’ondes Q de nécrose",
+        "absence d'onde Q de nécrose",
+        "pas d'ondes Q de nécrose",
+        "pas d’onde Q profonde",
+        "absence d’onde Q de nécrose",
+        "pas d'onde Q de nécrose"
       ],
       "parents": [
         "MORPHOLOGIE_DU_QRS_NORMALE"
@@ -151,6 +198,11 @@
       ],
       "electrode": [
         "DESCRIPTIF"
+      ],
+      "synonymes": [
+        "non suivies de QRS",
+        "onde P non suivie de QRS",
+        "onde P bloquée non suivie de QRS"
       ]
     },
     "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR": {
@@ -222,7 +274,6 @@
       "synonymes": [
         "$ T-wave anomaly",
         "Inversion $ des ondes T",
-        "Onde T anormale",
         "Ondes T amples",
         "Ondes T amples et pointues",
         "Ondes T amples pointues",
@@ -289,7 +340,12 @@
         "V1"
       ],
       "synonymes": [
-        "territoire antérieur"
+        "territoire antérieur",
+        "antérieure",
+        "dérivations antérieures",
+        "de V1 à V4",
+        "V1 à V4",
+        "paroi antérieure ventriculaire gauche"
       ]
     },
     "ANTERO_LATERAL_DROIT": {
@@ -323,6 +379,14 @@
       ],
       "origin_structure": [
         "ANTERIEUR"
+      ],
+      "synonymes": [
+        "anévrisme de la paroi infarcie",
+        "anévrisme du ventricule gauche",
+        "anévrisme ventriculaire gauche",
+        "anévrisme du ventriculaire gauche",
+        "poche anévrysmale",
+        "évolution anévrismale"
       ]
     },
     "APEX": {
@@ -350,6 +414,9 @@
       "electrode": [
         "V3",
         "V4"
+      ],
+      "synonymes": [
+        "antéro-apicale"
       ]
     },
     "ARTEFACTE": {
@@ -360,6 +427,13 @@
       "type": "finding",
       "parents": [
         "INTERFERENCE_EXTRA_CARDIAQUE"
+      ],
+      "synonymes": [
+        "parasitage de la ligne de base",
+        "parasite de la ligne de base",
+        "parasites",
+        "artéfacts",
+        "tracé parasité"
       ]
     },
     "ARYTHMIE": {
@@ -383,7 +457,11 @@
       "origin_structure": [
         "OREILLETTES"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "trouble du rythme",
+        "troubles du rythme"
+      ]
     },
     "ARYTHMIE_ATRIALE": {
       "concept_name": "Arythmie atriale",
@@ -391,7 +469,13 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "rythme non sinusal"
+        "rythme non sinusal",
+        "arythmie supraventriculaire",
+        "arythmie auriculaire",
+        "trouble du rythme atrial",
+        "arythmie supra-ventriculaire",
+        "arythmies supra-ventriculaires",
+        "troubles du rythme atrial"
       ],
       "parents": [
         "ARYTHMIE"
@@ -433,7 +517,12 @@
         "ONDE_P_ANORMALE"
       ],
       "synonymes": [
-        "Arythmie sinusale respiratoire"
+        "Arythmie sinusale respiratoire",
+        "arythmie sinusale physiologique",
+        "arythmie respiratoire de l'enfant",
+        "arythmie respiratoire de l'adolescent",
+        "arythmie sinusale respiratoire de l'enfant",
+        "arythmie sinusale respiratoire de l'adolescent"
       ],
       "parents": [
         "ARYTHMIE_ATRIALE"
@@ -456,6 +545,13 @@
         "TORSADE_DE_POINTES",
         "FIBRILLATION_VENTRICULAIRE",
         "TACHYCARDIE_VENTRICULAIRE"
+      ],
+      "synonymes": [
+        "trouble du rythme ventriculaire",
+        "arythmie ventriculaire maligne",
+        "arythmies ventriculaires potentiellement léthales",
+        "arythmie ventriculaire polymorphe",
+        "troubles du rythme ventriculaire grave"
       ]
     },
     "ASPECT_DE_BRUGADA": {
@@ -487,6 +583,13 @@
       ],
       "parents": [
         "ASPECT_DE_BRUGADA"
+      ],
+      "synonymes": [
+        "sus-décalage en dôme",
+        "sus-décalage en dôme en V1 V2 V3",
+        "sus-ST en dôme",
+        "aspect en dôme",
+        "sus-ST de plus de 2mm en V1 V2 V3"
       ]
     },
     "ASPECT_DE_BRUGADA_DE_TYPE_2": {
@@ -526,7 +629,12 @@
       "synonymes": [
         "aspect de bloc de branche droit",
         "retard D",
-        "retard droit"
+        "retard droit",
+        "rSR’ en V1",
+        "RS avec onde S large et trainante en V6",
+        "onde S large et trainante en V6",
+        "aspect de bloc de branche droite",
+        "aspect caractéristique de bloc de branche droite"
       ],
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
@@ -603,7 +711,12 @@
         "axe normal",
         "axe physiologique",
         "Axer normal",
-        "axe des QRS normal"
+        "axe des QRS normal",
+        "axe entre 0 et 90°",
+        "QRS positifs en DI et aVF",
+        "complexes QRS positifs en DI et aVF",
+        "axe à -20°",
+        "axe du QRS à -20°"
       ],
       "parents": [
         "AXE_DU_QRS"
@@ -621,7 +734,18 @@
       "synonymes": [
         "BAV 2",
         "BAV2",
-        "Bloc atrioventriculaire de type 2"
+        "Bloc atrioventriculaire de type 2",
+        "BAV du second degré",
+        "Bloc auriculo-ventriculaire du second degré",
+        "Bloc auriculoventriculaire du second degré",
+        "Bloc atrioventriculaire du second degré",
+        "BAV deuxième degré",
+        "BAV du deuxième degré",
+        "bloc AV du second degré",
+        "BAV du 2e degré",
+        "bloc auriculo-ventriculaire du 2e degré",
+        "bloc atrioventriculaire du 2e degré",
+        "BAV 2e degré"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -650,7 +774,18 @@
         "Bloc atrioventriculaire de du 2ème degré type 1",
         "Bloc auriculo-ventriculaire du 2ème degré type 1",
         "Mobitz I",
-        "BAV2 Mobitz I"
+        "BAV2 Mobitz I",
+        "BAV du second degré type 1",
+        "BAV du deuxième degré type 1",
+        "Bloc auriculoventriculaire du second degré type 1",
+        "Bloc auriculo-ventriculaire du second degré type 1",
+        "Mobitz 1",
+        "BAV du second degré Mobitz 1",
+        "BAV du deuxième degré Mobitz 1",
+        "Luciani-Wenckebach",
+        "BAV du second degré type Luciani-Wenckebach",
+        "BAV du deuxième degré type Luciani-Wenckebach",
+        "Wenckebach"
       ],
       "parents": [
         "BAV"
@@ -677,7 +812,13 @@
         "Mobitz II",
         "BAV 2 M2",
         "BAV Mobitz II",
-        "BAV2 Mobitz 2"
+        "BAV2 Mobitz 2",
+        "BAV du 2e degré type 2",
+        "BAV du deuxième degré type 2",
+        "BAV du second degré type 2",
+        "BAV II type 2",
+        "BAV du second degré type Mobitz 2",
+        "bloc auriculoventriculaire du deuxième degré type 2"
       ],
       "parents": [
         "BAV"
@@ -693,7 +834,12 @@
       ],
       "synonymes": [
         "BAV 2/1",
-        "BAV 2:1"
+        "BAV 2:1",
+        "BAV du second degré type 2/1",
+        "BAV type 2/1",
+        "bloc AV 2/1",
+        "bloc auriculo-ventriculaire 2/1",
+        "BAV 2/1 inclassable entre Mobitz 1 ou Mobitz 2"
       ],
       "parents": [
         "BAV_DE_HAUT_GRADE"
@@ -722,7 +868,15 @@
         "Bloc atrioventriculaire de type 3",
         "Bloc auriculo-ventriculaire complet",
         "Complete AV block",
-        "BAV 3"
+        "BAV 3",
+        "bloc auriculoventriculaire complet",
+        "BAV du troisième degré",
+        "BAV complet 3e degré",
+        "BAV complet du 3e degré",
+        "BAV complet infrahissien",
+        "bloc auriculoventriculaire complet infrahissien",
+        "interruption complète de la conduction auriculoventriculaire",
+        "BAV III complet"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -748,7 +902,8 @@
         "BAV de haut degré",
         "BAV haut degré",
         "Bloc atrioventriculaire de haut degré",
-        "BAV de haut degré à conduction variable"
+        "BAV de haut degré à conduction variable",
+        "bloc auriculoventriculaire de haut degré"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -779,7 +934,12 @@
         "BAV 1 degre",
         "BAV du 1er degré",
         "BAV du premier degre",
-        "BAV du premier degrès"
+        "BAV du premier degrès",
+        "bloc auriculo-ventriculaire du premier degré",
+        "bloc atrioventriculaire de 1er degré",
+        "bloc auriculo-ventriculaire de 1er degré",
+        "bloc atrio-ventriculaire du premier degré",
+        "bloc atrioventriculaire du premier degré"
       ],
       "parents": [
         "BLOC_AURICULO_VENTRICULAIRE"
@@ -794,7 +954,8 @@
       "synonymes": [
         "BBDi",
         "Bloc de branche droit incomplet",
-        "iRBBB"
+        "iRBBB",
+        "bloc de branche droite incomplet"
       ],
       "parents": [
         "BLOC_DE_BRANCHE_DROIT"
@@ -823,7 +984,8 @@
       "type": "pattern",
       "synonymes": [
         "Bigéminisme",
-        "Bigéminisme ventriculaire"
+        "Bigéminisme ventriculaire",
+        "aspect de bigéminisme"
       ],
       "parents": [
         "EXTRASYSTOLE_VENTRICULAIRE"
@@ -855,7 +1017,13 @@
       "synonymes": [
         "Atrio-ventricular block",
         "BAV",
-        "Bloc atrioventriculaire"
+        "Bloc atrioventriculaire",
+        "trouble de conduction atrio-ventriculaire",
+        "trouble de conduction auriculo-ventriculaire",
+        "troubles de conduction auriculo-ventriculaire",
+        "troubles de conduction atrio-ventriculaire",
+        "bloc auriculoventriculaire",
+        "trouble de conduction atrioventriculaire"
       ],
       "parents": [
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE"
@@ -885,7 +1053,12 @@
         "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
       ],
       "synonymes": [
-        "Bifasciculaire"
+        "Bifasciculaire",
+        "BBD incomplet associé à hémibloc antérieur gauche",
+        "bloc incomplet droit avec hémibloc antérieur gauche",
+        "bloc incomplet droit et hémibloc antérieur gauche",
+        "branche droite et hémibranche antérieure gauche bloquées",
+        "bloc de la branche droite et de l’hémibranche antérieure gauche"
       ]
     },
     "BLOC_DE_BRANCHE": {
@@ -910,6 +1083,9 @@
       ],
       "origin_structure": [
         "RESEAU_DE_PURKINJE"
+      ],
+      "synonymes": [
+        "bloc de branche préexistant"
       ]
     },
     "BLOC_DE_BRANCHE_DROIT": {
@@ -926,7 +1102,10 @@
       ],
       "synonymes": [
         "BBD",
-        "RBBB"
+        "RBBB",
+        "bloc de branche droite",
+        "aspect de bloc de branche droite",
+        "bloc de branche droit associé"
       ],
       "parents": [
         "BLOC_DE_BRANCHE"
@@ -958,7 +1137,13 @@
       "synonymes": [
         "BBD complet",
         "BBDc",
-        "cRBBB"
+        "cRBBB",
+        "bloc de branche droite complet",
+        "aspect de bloc de branche droite complet",
+        "bloc de branche droit complet typique",
+        "aspect de bloc de branche droit complet",
+        "aspect de bloc de branche droite",
+        "bloc de branche droite"
       ],
       "parents": [
         "BLOC_DE_BRANCHE_DROIT"
@@ -980,7 +1165,9 @@
         "BBG",
         "LBBB",
         "Blocs de branchement gauche",
-        "bloc gauche"
+        "bloc gauche",
+        "aspect caractéristique de bloc de branche gauche",
+        "aspect de bloc de branche gauche"
       ],
       "parents": [
         "BLOC_DE_BRANCHE"
@@ -1011,7 +1198,10 @@
       "synonymes": [
         "BBG complet",
         "BBGc",
-        "cLBBB"
+        "cLBBB",
+        "aspect de bloc de branche gauche complet",
+        "aspect caractéristique de bloc de branche gauche complet",
+        "aspect typique de bloc de branche gauche complet"
       ],
       "parents": [
         "BLOC_DE_BRANCHE_GAUCHE"
@@ -1056,7 +1246,8 @@
         "HBAG",
         "Hémibloc antérieur gauche",
         "LAFB",
-        "Bloc fasciculaire ant gauche"
+        "Bloc fasciculaire ant gauche",
+        "hémibloc antérieur gauche associé"
       ],
       "parents": [
         "BLOC_FASCICULAIRE"
@@ -1124,7 +1315,15 @@
       "synonymes": [
         "Elargissement du QRS",
         "NICD",
-        "QRS enlargement"
+        "QRS enlargement",
+        "bloc indifférencié",
+        "aspect de bloc indifférencié",
+        "tracé de bloc indifférencié",
+        "bloc intraventriculaire indifférencié",
+        "ralentissement distal diffus de la conduction ventriculaire",
+        "bloc de branche indifférencié",
+        "retard de conduction intraventriculaire",
+        "bloc de conduction intraventriculaire"
       ],
       "parents": [
         "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
@@ -1143,7 +1342,13 @@
         "ABSENCE_D_ONDE_P"
       ],
       "synonymes": [
-        "BSA"
+        "BSA",
+        "bloc sino-auriculaire",
+        "bloc sino-atrial du deuxième degré",
+        "bloc sino-atrial du troisième degré",
+        "bloc sino-atrial de deuxième degré",
+        "bloc sino-atrial de troisième degré",
+        "bloc sinoatrial"
       ],
       "parents": [
         "DYSFONCTION_SINUSALE"
@@ -1159,6 +1364,21 @@
       ],
       "parents": [
         "FREQUENCE"
+      ],
+      "synonymes": [
+        "40 bpm",
+        "bradycardie < 40 bpm",
+        "bradycardie entre 40 et 50 bpm",
+        "fréquence cardiaque inférieure à 50 bpm",
+        "fréquence cardiaque à 20-30 battements/minute",
+        "fréquence cardiaque à environ 20-30 battements/minute",
+        "fréquence cardiaque ralentie",
+        "fréquence ventriculaire modérément ralentie",
+        "bradycardie majeure",
+        "fréquence cardiaque à 45 bpm",
+        "fréquence ventriculaire très ralentie",
+        "bradyarythmie",
+        "fréquence cardiaque à 40 bpm"
       ]
     },
     "BRADYCARDIE_SINUSALE": {
@@ -1176,6 +1396,11 @@
       ],
       "origin_structure": [
         "NOEUD_SINUSAL"
+      ],
+      "synonymes": [
+        "ondes P très lentes",
+        "rythme sinusal avec fréquence cardiaque à environ 50 battements/minute",
+        "rythme sinusal à 50 battements/minute"
       ]
     },
     "CMH_APICALE": {
@@ -1210,6 +1435,12 @@
       "type": "finding",
       "parents": [
         "EVENEMENTS_ECTOPIQUES"
+      ],
+      "synonymes": [
+        "complexe de capture",
+        "capture ventriculaire",
+        "capture",
+        "complexes de capture"
       ]
     },
     "CARDIOMYOPATHIE_HYPERTROPHIQUE": {
@@ -1220,7 +1451,9 @@
       "type": "finding",
       "synonymes": [
         "CMH",
-        "HCM"
+        "HCM",
+        "myocardiopathie hypertrophique",
+        "myocardiopathie hypertrophique familiale"
       ],
       "parents": [
         "PATHOLOGIE"
@@ -1236,7 +1469,16 @@
       "poids": 3,
       "type": "finding",
       "synonymes": [
-        "Séquelle d'infarctus"
+        "Séquelle d'infarctus",
+        "myocardiopathie ischémique",
+        "cardiomyopathie ischémique",
+        "antécédents coronariens",
+        "coronaropathie",
+        "coronarienne stable",
+        "antécédent d'infarctus",
+        "antécédent d'infarctus inférieur",
+        "antécédent d’infarctus du myocarde",
+        "cardiopathie ischémique post-infarctus"
       ],
       "parents": [
         "ISCHEMIQUE"
@@ -1257,6 +1499,16 @@
       "type": "finding",
       "parents": [
         "THERAPIE_D_UN_DEFIBRILLATEUR"
+      ],
+      "synonymes": [
+        "choc électrique",
+        "choc électrique externe",
+        "choc électrique programmé",
+        "réduction par choc électrique",
+        "traitement par choc électrique",
+        "cardioversion en urgence",
+        "CEE",
+        "défibrillation externe"
       ]
     },
     "CHAMBRE_DE_CHASSE": {
@@ -1315,7 +1567,10 @@
       "poids": 2,
       "type": "topography",
       "synonymes": [
-        "Antérieur étendu"
+        "Antérieur étendu",
+        "infarctus antérieur étendu",
+        "antérieurs étendus",
+        "V1-V6"
       ],
       "parents": [
         "LOCALISATION_IDM"
@@ -1342,7 +1597,13 @@
         "EVENEMENTS_ECTOPIQUES"
       ],
       "synonymes": [
-        "Probable complexe de fusion"
+        "Probable complexe de fusion",
+        "fusion",
+        "capture partielle",
+        "complexes de fusion",
+        "QRS de fusion",
+        "QRS intermédiaires",
+        "complexes QRS intermédiaires"
       ]
     },
     "CONCEPTS_ECG": {
@@ -1371,7 +1632,13 @@
         "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
         "MODE_DE_CONDUCTION_AV"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "conduction atrio-ventriculaire normale",
+        "conduction AV normale",
+        "conduction AV préservée",
+        "conduction altérée mais toujours présente"
+      ]
     },
     "CONTINUITE_MITRO_AORTIQUE": {
       "concept_name": "Continuité mitro-aortique",
@@ -1393,6 +1660,9 @@
       "type": "qualifier",
       "parents": [
         "QUALIFICATION_PATTERN"
+      ],
+      "synonymes": [
+        "doublet"
       ]
     },
     "COURANT_DE_LESION_SOUS_ENDOCARDIQUE": {
@@ -1412,7 +1682,16 @@
         "Sous-décalage du segment ST",
         "Sous-décalage du segment ST $",
         "sous décalage",
-        "Sous décalage ST"
+        "Sous décalage ST",
+        "sous-décalage en miroir",
+        "sous-décalage significatif",
+        "ST sous-décalé",
+        "sous décalage modéré du segment ST",
+        "sous-décalage ST significatif",
+        "sous-décalage du ST",
+        "sous-décalage significatif du segment ST",
+        "sous-décalage de ST",
+        "segment ST sous-décalé"
       ],
       "parents": [
         "ANOMALIES_DU_SEGMENT_ST"
@@ -1436,7 +1715,29 @@
         "ST-segment elevation",
         "Sus-décalage du segment ST",
         "Sus-décalage du segment ST $",
-        "sus-décalage"
+        "sus-décalage",
+        "onde de Pardee",
+        "sus-décalage de grande amplitude",
+        "sus-décalage diffus du segment ST",
+        "sus-décalage diffus ST",
+        "sus-décalage du segment ST concave vers le haut",
+        "sus-décalage ST concave vers le haut",
+        "sus-décalage inférieur",
+        "sus-décalage du segment ST inférieur",
+        "sus-décalage convexe du segment ST",
+        "sus-décalage avec onde de Pardee",
+        "large sus-décalage du segment ST",
+        "sus-décalage dans les dérivations inférieures",
+        "sus-décalage moins ample",
+        "sus-décalage dans les dérivations droites",
+        "sus-décalage dans les dérivations postérieures",
+        "surélévation du segment ST",
+        "sus-décalage ST de grande amplitude",
+        "sus-décalage ST systématisé",
+        "sus-décalage persistant",
+        "sus-décalage majeur",
+        "élévation du segment ST",
+        "sus-ST"
       ],
       "parents": [
         "ANOMALIES_DU_SEGMENT_ST"
@@ -1521,7 +1822,9 @@
         "Pas de conduction entre les oreillettes et les ventricules",
         "absence de conduction atrio-ventriculaire",
         "Dissociation atrioventriculaire",
-        "Dissociation auriculo-ventriculaire"
+        "Dissociation auriculo-ventriculaire",
+        "activités atriales et ventriculaires dissociées",
+        "les oreillettes et les ventricules sont sous le contrôle de foyers indépendants"
       ],
       "parents": [
         "CONDUCTION"
@@ -1551,7 +1854,13 @@
       "territoires_possibles": [
         "LOCALISATION_ESV"
       ],
-      "mayhaveterritory": true
+      "mayhaveterritory": true,
+      "synonymes": [
+        "doublet d’extrasystoles ventriculaires",
+        "doublets ventriculaires",
+        "doublet d'ESV",
+        "doublet d'extrasystoles ventriculaires"
+      ]
     },
     "DUREE_DU_QRS": {
       "concept_name": "Duree du QRS",
@@ -1565,7 +1874,10 @@
         "QRS_LARGE",
         "QRS_FINS"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "durée des complexes QRS"
+      ]
     },
     "DUREE_ONDE_P__120_MS": {
       "concept_name": "Durée onde P < 120 ms",
@@ -1574,7 +1886,10 @@
       "type": "finding",
       "synonymes": [
         "Onde P < 120 ms",
-        "P < 120 ms"
+        "P < 120 ms",
+        "durée de l’onde P normale",
+        "durée onde P normale",
+        "durée de l’onde P reste normale"
       ],
       "parents": [
         "ONDE_P_NORMALE"
@@ -1593,7 +1908,11 @@
         "RYTHME_SINUSAL"
       ],
       "synonymes": [
-        "SND"
+        "SND",
+        "dysfonction sinusale symptomatique",
+        "dysfonction sinusale paroxystique",
+        "perte de l'automatisme sinusal",
+        "baisse de l'automatisme sinusal"
       ],
       "parents": [
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE"
@@ -1629,7 +1948,9 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "DAI"
+        "DAI",
+        "défibrillateur externe semi-automatique",
+        "DSA"
       ],
       "parents": [
         "STIMULATION"
@@ -1651,6 +1972,16 @@
       ],
       "children": [
         "TREMULATION_DE_LA_LIGNE_DE_BASE"
+      ],
+      "synonymes": [
+        "anarchique",
+        "rythme anarchique",
+        "désorganisation complète de l'activité électrique des oreillettes",
+        "activité anarchique",
+        "chaotique",
+        "incoordonnée",
+        "complètement désorganisée",
+        "désorganisé anarchique"
       ]
     },
     "DEVIATION_AXIALE": {
@@ -1678,7 +2009,9 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "axe droit"
+        "axe droit",
+        "pseudo-aspect de déviation axiale droite",
+        "pseudo déviation axiale droite"
       ],
       "parents": [
         "DEVIATION_AXIALE"
@@ -1712,9 +2045,9 @@
       "type": "pattern",
       "requires": [
         "RYTHME_SINUSAL",
+        "QRS_NORMAL",
         "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
-        "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
-        "FREQUENCE_NORMALE"
+        "PAS_DE_TROUBLES_DE_LA_CONDUCTION"
       ],
       "has_qualifiers": [
         "QRS_NORMAL"
@@ -1734,13 +2067,22 @@
         "ANOMALIE_DE_DUREE_DU_QT",
         "ONDE_P_ANORMALE",
         "PR_ANORMAL",
-        "ANOMALIE_DES_ONDES_T"
+        "ANOMALIE_DES_ONDES_T",
+        "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL"
       ],
       "synonymes": [
         "ECG physiologique",
         "ECG sans anomalie",
         "Pas d'anomalie",
-        "Tracé normal"
+        "Tracé normal",
+        "aspect qui peut paraitre normal",
+        "tracé paraissant normal",
+        "aspect apparemment normal",
+        "ECG strictement normal",
+        "électrocardiogramme strictement normal",
+        "dans les limites de la normale",
+        "électrocardiogramme dans les limites de la normale",
+        "reste de l'électrocardiogramme normal"
       ],
       "parents": [
         "CONCEPTS_ECG"
@@ -1836,7 +2178,8 @@
         "RYTHME_REGULIER"
       ],
       "synonymes": [
-        "rythme d'échappement"
+        "rythme d'échappement",
+        "échappement jonctionnel"
       ],
       "parents": [
         "ARYTHMIE"
@@ -1856,7 +2199,8 @@
       ],
       "synonymes": [
         "Rythme d'échappement ventriculaire",
-        "Rythme idioventriculaire"
+        "Rythme idioventriculaire",
+        "foyer ventriculaire d'échappement"
       ],
       "parents": [
         "ECHAPPEMENT"
@@ -1892,6 +2236,10 @@
       "type": "finding",
       "parents": [
         "PATHOLOGIE"
+      ],
+      "synonymes": [
+        "embolie pulmonaire massive",
+        "embolie pulmonaire sévère"
       ]
     },
     "EVENEMENTS_ECTOPIQUES": {
@@ -1944,7 +2292,10 @@
       "synonymes": [
         "ESA",
         "PAC",
-        "Extrasystole supraventriculaire"
+        "Extrasystole supraventriculaire",
+        "battement prématuré atrial",
+        "battement atrial prématuré",
+        "extrasystoles atriales"
       ],
       "parents": [
         "ARYTHMIE_ATRIALE"
@@ -1974,7 +2325,8 @@
       "synonymes": [
         "ESV",
         "Extra-systole ventriculaire",
-        "PVC"
+        "PVC",
+        "extrasystoles ventriculaires nombreuses"
       ],
       "parents": [
         "ARYTHMIE_VENTRICULAIRE"
@@ -2004,7 +2356,18 @@
         "PHENOMENE_R_T"
       ],
       "synonymes": [
-        "ESV à couplage court"
+        "ESV à couplage court",
+        "extrasystole ventriculaire à couplage très court",
+        "extrasystole ventriculaire à couplage court",
+        "extrasystoles ventriculaires à couplage court",
+        "extrasystoles ventriculaires à couplage très court",
+        "extrasystole très précoce",
+        "extrasystoles très précoces",
+        "extrasystole ventriculaire très précoce",
+        "extrasystoles ventriculaires très précoces",
+        "couplage très court",
+        "extrasystole à couplage très court",
+        "ESV à couplage très court"
       ],
       "parents": [
         "EVENEMENTS_ECTOPIQUES"
@@ -2031,7 +2394,17 @@
         "Voie accessoire",
         "WPW",
         "Wolff-Parkinson-White",
-        "voie accessoire type Kent"
+        "voie accessoire type Kent",
+        "syndrome de Wolff-Parkinson-White",
+        "aspect de pré-excitation",
+        "pré-excitation ventriculaire sur voie accessoire",
+        "préexcitation ventriculaire sur voie accessoire",
+        "syndrome de Wolf Parkinson White",
+        "préexcitation atrio-ventriculaire",
+        "aspect de préexcitation",
+        "syndrome de Wolff–Parkinson–White",
+        "aspect de voie accessoire",
+        "syndrome de WPW"
       ],
       "parents": [
         "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE"
@@ -2063,7 +2436,15 @@
       ],
       "synonymes": [
         "AF",
-        "FA"
+        "FA",
+        "fibrillation auriculaire",
+        "activité atriale rapide polymorphe anarchique",
+        "FA conduite",
+        "fibrillation auriculaire paroxystique",
+        "FA paroxystique",
+        "fibrillation atriale paroxystique",
+        "arythmie complète par fibrillation auriculaire",
+        "ACFA"
       ],
       "parents": [
         "TACHYCARDIE_SUPRA_VENTRICULAIRE"
@@ -2086,7 +2467,13 @@
       ],
       "synonymes": [
         "FV",
-        "VF"
+        "VF",
+        "tachycardie à QRS larges, irrégulière, polymorphe et anarchique",
+        "tachycardie ventriculaire anarchique",
+        "activité électrique ventriculaire chaotique",
+        "tachycardie extrêmement rapide polymorphe anarchique",
+        "activité ventriculaire anarchique",
+        "rythme ventriculaire anarchique"
       ],
       "parents": [
         "ARYTHMIE_VENTRICULAIRE"
@@ -2146,7 +2533,9 @@
       ],
       "synonymes": [
         "Flutter atrial non commun",
-        "TA"
+        "TA",
+        "flutter atypique",
+        "flutters atypiques"
       ],
       "parents": [
         "TACHYCARDIE_ATRIALE"
@@ -2163,7 +2552,10 @@
       ],
       "synonymes": [
         "CW common flutter",
-        "Flutter commun horaire"
+        "Flutter commun horaire",
+        "sens des aiguilles d’une montre",
+        "flutter commun horaire de l’oreillette droite",
+        "flutter atrial horaire de l’oreillette droite"
       ],
       "parents": [
         "FLUTTER_DROIT_TYPIQUE"
@@ -2193,7 +2585,14 @@
         "Flutter droit commun",
         "Flutter isthmique",
         "Flutter typique",
-        "Flutter droit"
+        "Flutter droit",
+        "flutter atrial",
+        "aspect de flutter atrial",
+        "flutter atrial avec aspect en dents de scie dans les dérivations inférieures",
+        "aspect de flutter commun",
+        "aspect typique de flutter commun",
+        "flutter atrial commun ou typique",
+        "flutter originaire de l'oreillette droite"
       ],
       "parents": [
         "TACHYCARDIE_ATRIALE"
@@ -2213,7 +2612,8 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "frequence cardiaque"
+        "frequence cardiaque",
+        "bpm"
       ],
       "parents": [
         "DESCRIPTION_ECG"
@@ -2232,7 +2632,9 @@
       "type": "qualifier",
       "synonymes": [
         "Normocarde",
-        "fréquence cardiaque normale"
+        "fréquence cardiaque normale",
+        "fréquence cardiaque entre 50 et 100 bpm",
+        "fréquence cardiaque à environ 75 battements/minute"
       ],
       "parents": [
         "FREQUENCE"
@@ -2289,7 +2691,11 @@
         "POTASSIUM"
       ],
       "synonymes": [
-        "Hyperkaliémie sévère"
+        "Hyperkaliémie sévère",
+        "hyperkaliémie menaçante",
+        "signes ECG d’hyperkaliémie",
+        "hyperkaliémie majeure",
+        "signes en faveur d’une hyperkaliémie"
       ]
     },
     "HYPERNATREMIE": {
@@ -2318,7 +2724,8 @@
         "ONDE_P_AMPLE"
       ],
       "synonymes": [
-        "HAD"
+        "HAD",
+        "hypertrophie auriculaire droite"
       ],
       "parents": [
         "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL"
@@ -2337,7 +2744,8 @@
         "ONDE_P_PROLONGEE"
       ],
       "synonymes": [
-        "HAG"
+        "HAG",
+        "hypertrophie auriculaire gauche"
       ],
       "parents": [
         "TROUBLE_DE_CONDUCTION_INTRA_ATRIAL"
@@ -2367,6 +2775,9 @@
       "type": "finding",
       "parents": [
         "HYPERTROPHIE_VENTRICULAIRE"
+      ],
+      "synonymes": [
+        "HVD"
       ]
     },
     "HYPERTROPHIE_VENTRICULAIRE_GAUCHE": {
@@ -2379,7 +2790,11 @@
         "INDICE_DE_SOKOLOW__35_MM"
       ],
       "synonymes": [
-        "HVG"
+        "HVG",
+        "indice de Sokolow < 35 mm",
+        "HVG diastolique",
+        "hypertrophie ventriculaire gauche diastolique",
+        "aspect d’hypertrophie ventriculaire gauche diastolique"
       ],
       "parents": [
         "HYPERTROPHIE_VENTRICULAIRE"
@@ -2467,6 +2882,13 @@
       "type": "qualifier",
       "parents": [
         "VOLTAGE_DU_QRS_ANORMAL"
+      ],
+      "synonymes": [
+        "indice de Sokolow positif",
+        "Sokolow positif",
+        "Sokolow > 35 mm",
+        "somme de l'onde S en V1 et de l'onde R en V5 > 35 mm",
+        "somme de la plus grande onde S entre V1 et V2 et de l'onde R entre V5 et V6 > 35 mm"
       ]
     },
     "INFARCTUS_ATRIAL": {
@@ -2481,6 +2903,10 @@
       ],
       "parents": [
         "PATHOLOGIE"
+      ],
+      "synonymes": [
+        "infarcissement atrial",
+        "infarctus auriculaire"
       ]
     },
     "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE": {
@@ -2494,7 +2920,13 @@
         "IDM",
         "Infarctus du myocarde",
         "SCA",
-        "Syndrome coronarien aigu"
+        "Syndrome coronarien aigu",
+        "syndrome coronaire aigu",
+        "syndrome coronarien aigu avec modification ECG",
+        "SCA avec modification ECG",
+        "infarctus aigu",
+        "IDM aigu",
+        "syndrome coronarie, aigu"
       ],
       "parents": [
         "ISCHEMIQUE"
@@ -2531,6 +2963,17 @@
       "type": "topography",
       "parents": [
         "LOCALISATION_IDM"
+      ],
+      "synonymes": [
+        "territoire inférieur",
+        "dérivations inférieures",
+        "DIII aVF",
+        "DIII et aVF",
+        "inférieure",
+        "infarctus inférieur",
+        "inférieur/postérieur",
+        "inféro-latéral",
+        "territoire inféro-latéral"
       ]
     },
     "INFERIEUR_DROIT": {
@@ -2570,7 +3013,12 @@
         "FILTRE_PASSE_BANDE_INADAPTE",
         "ARTEFACTE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "tremblement parkinsonien",
+        "tremblement organique",
+        "mouvements incontrôlables responsables de parasites"
+      ]
     },
     "INTERPOLE": {
       "concept_name": "Interpolé",
@@ -2587,7 +3035,8 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "PR"
+        "PR",
+        "espace PR"
       ],
       "parents": [
         "DESCRIPTION_ECG"
@@ -2627,6 +3076,15 @@
       "type": "finding",
       "parents": [
         "INTERFERENCE_EXTRA_CARDIAQUE"
+      ],
+      "synonymes": [
+        "inversion des électrodes des 2 bras",
+        "inversion de 2 électrodes frontales",
+        "inversion des électrodes des poignets",
+        "inversion poignet droit poignet gauche",
+        "inversion bras gauche bras droit",
+        "inversion électrodes bras droit bras gauche",
+        "inversion des électrodes périphériques"
       ]
     },
     "IRREGULIER": {
@@ -2638,7 +3096,21 @@
         "RYTHME_REGULIER"
       ],
       "synonymes": [
-        "rythme irrégulier"
+        "rythme irrégulier",
+        "fréquence ventriculaire irrégulière",
+        "irrégulière",
+        "QRS irréguliers",
+        "rythme ventriculaire irrégulier",
+        "irrégularité du rythme cardiaque",
+        "battements irréguliers",
+        "irrégulièrement irrégulier",
+        "QRS irrégulièrement irréguliers",
+        "cycles RR de durée inégale",
+        "intervalles RR de durée inégale",
+        "fréquence ventriculaire très irrégulière",
+        "fréquence irrégulière",
+        "fréquence nettement irrégulière",
+        "irréguliers"
       ],
       "parents": [
         "RYTHME"
@@ -2697,7 +3169,13 @@
         "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
         "ABSENCE_D_ISCHEMIE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "ischémie antéro-septale",
+        "aspect d'ischémie antéro-septale",
+        "ischémie",
+        "ischémie myocardique"
+      ]
     },
     "ISOLE": {
       "concept_name": "Isolé",
@@ -2706,6 +3184,9 @@
       "type": "qualifier",
       "parents": [
         "QUALIFICATION_PATTERN"
+      ],
+      "synonymes": [
+        "isolées"
       ]
     },
     "LATERAL": {
@@ -2721,6 +3202,15 @@
         "DI",
         "AVL",
         "V6"
+      ],
+      "synonymes": [
+        "territoire latéral",
+        "latérale",
+        "V3 à V6",
+        "V5-V6",
+        "de V5 à V6",
+        "dérivations latérales V5-V6",
+        "latéraux"
       ]
     },
     "LATERAL_DROIT": {
@@ -2804,7 +3294,17 @@
         "micro voltage",
         "microvoltage du QRS",
         "microvoltage diffus",
-        "microvoltage périphérique"
+        "microvoltage périphérique",
+        "microvoltage des complexes QRS",
+        "signes de microvoltage",
+        "aspect de microvoltage des complexes QRS",
+        "réduction du voltage des complexes QRS",
+        "baisse du voltage des complexes QRS",
+        "réduction diffuse du voltage des complexes QRS",
+        "baisse diffuse du voltage des complexes QRS",
+        "QRS nettement microvoltés",
+        "QRS microvoltés",
+        "bas voltage des QRS"
       ],
       "parents": [
         "VOLTAGE_DU_QRS_ANORMAL"
@@ -2835,7 +3335,11 @@
         "LOCALISATION_IDM"
       ],
       "synonymes": [
-        "image en miroir"
+        "image en miroir",
+        "miroir en aVR et V1",
+        "aspect en miroir",
+        "sous-décalage en miroir",
+        "en miroir"
       ]
     },
     "MODE_DE_CONDUCTION_AV": {
@@ -2874,7 +3378,8 @@
         "QRS_FRAGMENTE"
       ],
       "synonymes": [
-        "Forme anormale des QRS"
+        "Forme anormale des QRS",
+        "empâtement marqué de la première partie du QRS"
       ]
     },
     "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE": {
@@ -2885,7 +3390,11 @@
       "synonymes": [
         "onde P pas sinusal",
         "rythme atrial anormal",
-        "rythme atrial non sinusal"
+        "rythme atrial non sinusal",
+        "onde P'",
+        "morphologie de l'onde P' différente de celle de l'onde P sinusale",
+        "activité atriale ectopique",
+        "activité atriale naissant en dehors du nœud sinusal"
       ],
       "parents": [
         "ONDE_P_ANORMALE"
@@ -2926,6 +3435,9 @@
       "children": [
         "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
         "REPOLARISATION_PRECOCE"
+      ],
+      "synonymes": [
+        "QRS identique aux autres complexes"
       ]
     },
     "MORPHOLOGIE_ONDE_P_SINUSALE": {
@@ -2937,7 +3449,12 @@
         "ONDE_P_NORMALE"
       ],
       "synonymes": [
-        "Onde P sinusale"
+        "Onde P sinusale",
+        "activité atriale sinusale",
+        "activité atriale provenant du nœud sinusal",
+        "onde P positive en D2, D3, aVF",
+        "ondes P de morphologie normale",
+        "morphologie normale des ondes P"
       ]
     },
     "MUSCLE_PAPILLAIRE": {
@@ -2990,7 +3507,13 @@
       "children": [
         "DIGITALIQUES"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "traitements allongeant le QT",
+        "médicaments qui peuvent allonger l’intervalle QT",
+        "macrolides",
+        "antihistaminiques"
+      ]
     },
     "METABOLIQUE": {
       "concept_name": "Métabolique",
@@ -3016,7 +3539,10 @@
       "type": "qualifier",
       "synonymes": [
         "NS",
-        "en salve"
+        "en salve",
+        "en salves",
+        "durant moins de 30 secondes",
+        "moins de 30 secondes"
       ],
       "parents": [
         "QUALIFICATEUR_EPISODE"
@@ -3029,6 +3555,12 @@
       "type": "finding",
       "parents": [
         "DESCRIPTION_ECG"
+      ],
+      "synonymes": [
+        "ondes de flutter",
+        "onde F de flutter",
+        "ondes F de flutter",
+        "activité atriale de flutter"
       ]
     },
     "ONDE_J": {
@@ -3074,7 +3606,10 @@
       "origin_structure": [
         "OREILLETTES"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "activité atriale difficile à mettre en évidence"
+      ]
     },
     "ONDE_P_AMPLE": {
       "concept_name": "Onde P ample",
@@ -3084,7 +3619,14 @@
       "synonymes": [
         "Grande onde P",
         "Onde P > 2.5 mm",
-        "onde amble"
+        "onde amble",
+        "onde P ample (3 mm)",
+        "onde P dépassant 2.5 mm",
+        "onde P > 2 mm en V1 ou V2",
+        "onde P positive en V1 > 2 mm",
+        "onde P > 2 mm en V1",
+        "onde P > 2 mm en V2",
+        "onde P pointue"
       ],
       "parents": [
         "ONDE_P_ANORMALE"
@@ -3119,6 +3661,11 @@
         "MORPHOLOGIE_ONDE_P_SINUSALE",
         "VOLTAGE_DE_L_ONDE_P__2_5_MM",
         "DUREE_ONDE_P__120_MS"
+      ],
+      "synonymes": [
+        "ondes P de morphologie normale",
+        "morphologie normale des ondes P",
+        "ondes P normales"
       ]
     },
     "ONDE_P_PROLONGEE": {
@@ -3127,7 +3674,16 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "Onde P > 120 ms"
+        "Onde P > 120 ms",
+        "onde P de durée allongée",
+        "durée de l'onde P allongée",
+        "onde P élargie",
+        "onde P élargie > 120 ms",
+        "durée de l'onde P > 120 ms",
+        "allongement de la durée de l'onde P",
+        "durée de l'onde P > 110 ms",
+        "largeur de l'onde P allongée",
+        "onde P allongée >120 ms"
       ],
       "parents": [
         "ONDE_P_ANORMALE"
@@ -3144,6 +3700,21 @@
       "children": [
         "ONDE_P_ANORMALE",
         "ONDE_P_NORMALE"
+      ],
+      "synonymes": [
+        "activité atriale visible",
+        "onde P identifiable",
+        "ondes P visibles",
+        "onde P parfaitement identifiable",
+        "onde P avant chaque QRS",
+        "onde P avant chaque complexe QRS",
+        "ondes P clairement visibles",
+        "ondes P distinguables",
+        "onde P visible",
+        "activité atriale bien visible",
+        "ondes P sinusales précèdent les QRS",
+        "ondes P précédant les QRS",
+        "activité atriale présente"
       ]
     },
     "ONDE_T": {
@@ -3166,7 +3737,10 @@
         "Onde T amples symétriques",
         "Onde T haute",
         "Onde T isoélectrique",
-        "Onde T symétrique"
+        "Onde T symétrique",
+        "ondes T visibles",
+        "ondes T clairement visibles",
+        "ondes T distinguables"
       ]
     },
     "ONDE_T_AMPLE": {
@@ -3178,7 +3752,18 @@
         "ANOMALIE_DES_ONDES_T"
       ],
       "synonymes": [
-        "onde T ample et symétrique"
+        "onde T ample et symétrique",
+        "ondes T amples, pointues et symétriques",
+        "ondes T amples, fines et symétriques",
+        "ondes T amples et fines",
+        "onde T ample et fine",
+        "onde T de grande amplitude",
+        "ondes T de grande amplitude",
+        "ondes T amples, pointues",
+        "onde T ample pointue",
+        "onde T géante",
+        "ondes T géantes",
+        "ondes T très amples"
       ]
     },
     "ONDE_T_APLATIE": {
@@ -3187,7 +3772,12 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "Applatissement onde T"
+        "Applatissement onde T",
+        "ondes T aplaties",
+        "onde T plate",
+        "aplatissement des ondes T",
+        "ondes T plates",
+        "aplatissement de l’onde T"
       ],
       "parents": [
         "ANOMALIE_DES_ONDES_T"
@@ -3200,6 +3790,13 @@
       "type": "finding",
       "parents": [
         "ONDE_T"
+      ],
+      "synonymes": [
+        "ondes T positives",
+        "polarité des ondes T normale",
+        "amplitude des ondes T normale",
+        "onde T positive",
+        "positivité des ondes T"
       ]
     },
     "ONDE_T_NEGATIVE": {
@@ -3217,7 +3814,13 @@
         "DERIVATIONS_ECG"
       ],
       "synonymes": [
-        "Onde T négative isolée"
+        "Onde T négative isolée",
+        "ondes T inversées",
+        "inversion des ondes T",
+        "onde T ischémique",
+        "onde T inversée",
+        "inversion de l'onde T",
+        "inversion profonde de l'onde T"
       ]
     },
     "ONDE_U_NORMALE": {
@@ -3227,6 +3830,11 @@
       "type": "qualifier",
       "parents": [
         "ONDE_U"
+      ],
+      "synonymes": [
+        "onde U normale de petite amplitude",
+        "onde U de petite amplitude suivant l'onde T",
+        "onde U normale qui suit l'onde T"
       ]
     },
     "ONDE_DELTA": {
@@ -3235,7 +3843,14 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "Preexitation ventriculaire"
+        "Preexitation ventriculaire",
+        "onde δ",
+        "aspect empâté du début du QRS",
+        "début du QRS empâté",
+        "onde delta disparue",
+        "disparition de l’onde delta",
+        "onde delta au début du complexe QRS",
+        "onde delta initiale"
       ],
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
@@ -3277,7 +3892,13 @@
       "synonymes": [
         "PR > 200 ms",
         "PR prolongé",
-        "temps d'inscription allongé"
+        "temps d'inscription allongé",
+        "intervalle PR > 200 ms",
+        "PR fixe > 200 ms",
+        "intervalle PR allongé",
+        "PR très allongé",
+        "intervalle PR supérieur à 200 ms",
+        "espace PR dépassant 200 ms"
       ],
       "parents": [
         "PR_ANORMAL"
@@ -3306,7 +3927,13 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "PR < 120 ms"
+        "PR < 120 ms",
+        "intervalle PR court < 120 ms",
+        "espace PR court",
+        "PR court inférieur à 120 ms",
+        "PR n’est plus court",
+        "intervalle PR court",
+        "PR court < 120 ms"
       ],
       "parents": [
         "INTERVALLE_PR"
@@ -3319,7 +3946,14 @@
       "type": "finding",
       "synonymes": [
         "PR < 200 ms",
-        "PR entre 120 et 200 ms"
+        "PR entre 120 et 200 ms",
+        "intervalle PR de durée normale",
+        "PR de durée normale",
+        "intervalle PR normal",
+        "durée de l'intervalle PR normale",
+        "espace PR normal",
+        "durée de l’intervalle PR normale",
+        "durée normale de l'intervalle PR"
       ],
       "parents": [
         "INTERVALLE_PR"
@@ -3334,7 +3968,10 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "PM"
+        "PM",
+        "stimulateur cardiaque",
+        "patient porteur d’un stimulateur cardiaque",
+        "patient implanté d’un stimulateur cardiaque"
       ],
       "parents": [
         "STIMULATION"
@@ -3354,6 +3991,9 @@
       ],
       "parents": [
         "DYSFONCTION_SINUSALE"
+      ],
+      "synonymes": [
+        "perte de l'automatisme sinusal"
       ]
     },
     "PAROI_ANTERIEURE_DU_VENTRICULE_GAUCHE": {
@@ -3419,14 +4059,22 @@
       "type": "pattern",
       "requires": [
         "ONDE_T_NORMALES",
-        "ST_NORMAL"
+        "ST_NORMAL",
+        "QT_NORMAL"
       ],
       "has_qualifiers": [
         "ONDE_U_NORMALE"
       ],
       "synonymes": [
         "Repolarisation normale",
-        "repolarisation appropriée"
+        "repolarisation appropriée",
+        "absence de troubles de la repolarisation",
+        "pas de troubles de la repolarisation",
+        "on ne retrouve pas de troubles de la repolarisation",
+        "pas de trouble de la repolarisation",
+        "absence d’anomalie de la repolarisation",
+        "pas de trouble de repolarisation",
+        "absence de trouble de la repolarisation"
       ],
       "parents": [
         "DESCRIPTION_ECG"
@@ -3445,7 +4093,12 @@
         "QRS_FINS"
       ],
       "synonymes": [
-        "Absence d'anomalies de la conduction"
+        "Absence d'anomalies de la conduction",
+        "absence de troubles de la conduction",
+        "absence de trouble de conduction",
+        "absence de trouble de conduction auriculo-ventriculaire",
+        "pas de trouble de conduction auriculo-ventriculaire",
+        "ne présente pas de trouble de conduction auriculo-ventriculaire"
       ],
       "parents": [
         "CONDUCTION"
@@ -3471,7 +4124,9 @@
         "ONDE_J_D_OSBORN",
         "PERICARDITE",
         "MEDICAMENTS",
-        "CARDIOMYOPATHIE_HYPERTROPHIQUE"
+        "CARDIOMYOPATHIE_HYPERTROPHIQUE",
+        "INFLAMMATOIRE",
+        "TAKOTSUBO"
       ],
       "hide": 1
     },
@@ -3484,7 +4139,20 @@
         "CONDUCTION"
       ],
       "synonymes": [
-        "Pause compensatoire"
+        "Pause compensatoire",
+        "pause cardiaque",
+        "pauses cardiaques",
+        "pause > 3 secondes",
+        "pauses < 3 secondes",
+        "pause sinusale",
+        "pauses sinusales",
+        "pause sinusale pathologique",
+        "pauses sinusales pathologiques",
+        "pause sinusale symptomatique",
+        "pause sinusale > 3 secondes",
+        "pause sinusale symptomatique > 3 secondes",
+        "pause ventriculaire",
+        "pauses ventriculaires"
       ]
     },
     "PERICARDITE": {
@@ -3506,7 +4174,12 @@
       "children": [
         "TAMPONNADE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "péricardite aiguë",
+        "péricardite virale",
+        "péricardite aiguë virale"
+      ]
     },
     "PERTE_DE_CAPTURE": {
       "concept_name": "Perte de capture",
@@ -3571,7 +4244,23 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
-        "R/T"
+        "R/T",
+        "R sur T",
+        "extrasystole atriale sur l'onde T",
+        "extrasystole atriale tombant dans l'onde T",
+        "extrasystole atriale juste après l'onde T",
+        "extrasystole cachée dans l'onde T",
+        "phénomène R sur T",
+        "extrasystole sur onde T",
+        "ESV sur onde T",
+        "extrasystole ventriculaire survenant dans la phase ascendante de l'onde T",
+        "extrasystole ventriculaire survenant au sommet de l'onde T",
+        "sur le sommet de l'onde T",
+        "sur l’onde T",
+        "extrasystole sur l'onde T",
+        "extrasystole ventriculaire tombant sur l'onde T",
+        "ESV tombant sur l'onde T",
+        "extrasystole ventriculaire tombant sur l’onde T"
       ],
       "parents": [
         "DESCRIPTION_ECG"
@@ -3604,7 +4293,9 @@
       "poids": 2,
       "type": "topography",
       "synonymes": [
-        "inférieur"
+        "inférieur",
+        "territoire postérieur",
+        "infarctus postérieur"
       ],
       "parents": [
         "LOCALISATION_IDM"
@@ -3669,6 +4360,15 @@
       "type": "qualifier",
       "parents": [
         "QUALIFICATION_PATTERN"
+      ],
+      "synonymes": [
+        "prématurée",
+        "prématurées",
+        "se produisant précocement",
+        "battement prématuré",
+        "complexe QRS prématuré",
+        "précoce",
+        "précoces"
       ]
     },
     "PRESENCE_D_ONDE_Q_PATHOLOGIQUE": {
@@ -3679,7 +4379,25 @@
       "synonymes": [
         "Aspect QS",
         "Onde Q de nécrose",
-        "Trou électrique"
+        "Trou électrique",
+        "ondes Q de nécrose",
+        "onde q",
+        "ondes q",
+        "onde q pathologique",
+        "ondes q systématisées",
+        "ondes q plus ou moins systématisées",
+        "ondes q pathologiques",
+        "onde q dans les dérivations inférieures",
+        "petite onde q inférieure",
+        "ondes q profondes",
+        "ondes q profondes dans les dérivations droites",
+        "ondes q dans les dérivations postérieures",
+        "ondes q latérales",
+        "ondes q dans le territoire latéral",
+        "pseudo-onde q de nécrose",
+        "ondes q de pseudo-nécrose",
+        "pseudo-séquelle d’infarctus",
+        "aspect de pseudo-séquelle d’infarctus"
       ],
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
@@ -3706,7 +4424,12 @@
         "AXE_DU_QRS",
         "DUREE_DU_QRS"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "complexes QRS visibles",
+        "complexes QRS clairement visibles",
+        "complexes QRS distinguables"
+      ]
     },
     "PROBLEME_DE_VITESSE_DE_DEFILEMENT": {
       "concept_name": "Problème de vitesse de défilement",
@@ -3753,7 +4476,10 @@
       ],
       "hide": 1,
       "synonymes": [
-        "QRS spontané"
+        "QRS spontané",
+        "complexes QRS spontanés",
+        "QRS spontanés",
+        "complexes QRS du patient"
       ]
     },
     "QRS__120_MS": {
@@ -3763,6 +4489,19 @@
       "type": "qualifier",
       "parents": [
         "QRS_LARGE"
+      ],
+      "synonymes": [
+        "QRS supérieur à 120 ms",
+        "durée des complexes QRS supérieure à 120 ms",
+        "QRS large > 120 ms",
+        "durée de QRS > 120 ms",
+        "durée du QRS > 120 ms",
+        "durée du QRS 130 ms",
+        "QRS 130 ms",
+        "complexe QRS large et supérieur à 120 ms",
+        "QRS très élargis",
+        "QRS très larges",
+        "complexes QRS très élargis"
       ]
     },
     "QRS_FINS": {
@@ -3772,7 +4511,21 @@
       "type": "qualifier",
       "synonymes": [
         "QRS < 120 ms",
-        "QRS fines"
+        "QRS fines",
+        "complexes QRS fins",
+        "QRS < 100 ms",
+        "QRS fin",
+        "durée du QRS < 100 ms",
+        "QRS inférieurs à 120 ms",
+        "QRS un peu élargis mais < 120 ms",
+        "QRS fins durant moins de 100 ms",
+        "complexe QRS fin durant moins de 100 ms",
+        "QRS sont fins",
+        "QRS larges (pour l'échappement ventriculaire)",
+        "complexes QRS sont fins",
+        "durée des complexes QRS normale",
+        "QRS 90 ms",
+        "complexe QRS fin"
       ],
       "parents": [
         "DUREE_DU_QRS"
@@ -3801,6 +4554,20 @@
       ],
       "children": [
         "QRS__120_MS"
+      ],
+      "synonymes": [
+        "complexes QRS larges",
+        "tachycardie à QRS larges",
+        "QRS élargis",
+        "QRS élargi",
+        "QRS très élargi",
+        "QRS de durée augmentée",
+        "complexes QRS de durée augmentée",
+        "complexes QRS de durée légèrement augmentée",
+        "complexes QRS élargis",
+        "complexes QRS extrêmement élargis",
+        "QRS extrêmement élargis",
+        "élargissement des complexes QRS"
       ]
     },
     "QRS_NORMAL": {
@@ -3809,8 +4576,8 @@
       "poids": 3,
       "type": "pattern",
       "requires": [
-        "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
-        "QRS_FINS"
+        "MORPHOLOGIE_DU_QRS_NORMALE",
+        "VOLTAGE_NORMAL_DU_QRS"
       ],
       "has_qualifiers": [
         "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
@@ -3833,7 +4600,9 @@
       "poids": 4,
       "type": "finding",
       "synonymes": [
-        "QT raccourci"
+        "QT raccourci",
+        "intervalle QT relativement court",
+        "QT relativement court au vu de la bradycardie"
       ],
       "parents": [
         "ANOMALIE_DE_DUREE_DU_QT"
@@ -3847,7 +4616,14 @@
       "type": "qualifier",
       "synonymes": [
         "LQT",
-        "QT allongé"
+        "QT allongé",
+        "intervalle QT allongé",
+        "intervalle QT extrêmement allongé",
+        "QT extrêmement allongé",
+        "allongement majeur du QT",
+        "allongement marqué du QT",
+        "allongement de l'intervalle QT",
+        "l'intervalle QT est allongé"
       ],
       "parents": [
         "ANOMALIE_DE_DUREE_DU_QT"
@@ -3864,7 +4640,13 @@
       "synonymes": [
         "QT non allongé",
         "QT pas allongé",
-        "QTc normal"
+        "QTc normal",
+        "intervalle QT de durée normale",
+        "QT de durée normale",
+        "durée normale de l'intervalle QT",
+        "intervalle QT normal",
+        "QT mesuré normal",
+        "QT corrigé normal"
       ],
       "parents": [
         "INTERVALLE_QT"
@@ -3910,7 +4692,13 @@
         "QS antérieur",
         "Rabotage de l'onde R en antérieur",
         "Trou électrique antérieur",
-        "onde R rabotée"
+        "onde R rabotée",
+        "rabotage des ondes R",
+        "rabotage des ondes R dans tout le précordium",
+        "rabotage de l'onde R dans tout le précordium",
+        "rabotage des ondes R de V1 à V4",
+        "rabotage de R",
+        "mauvaise progression de l’onde R"
       ],
       "parents": [
         "PRESENCE_D_ONDE_Q_PATHOLOGIQUE"
@@ -3941,6 +4729,9 @@
       "type": "finding",
       "parents": [
         "DESCRIPTION_ECG"
+      ],
+      "synonymes": [
+        "repos compensateur sur l’activité sinusale qui suit"
       ]
     },
     "RYTHME": {
@@ -3980,7 +4771,10 @@
       "synonymes": [
         "RIJA",
         "Rythme jonctionnel",
-        "échappement jonctionnel"
+        "échappement jonctionnel",
+        "foyer d'échappement jonctionnel",
+        "échappement nodal",
+        "rythme d'échappement nodal"
       ],
       "parents": [
         "ECHAPPEMENT"
@@ -4000,7 +4794,10 @@
         "RYTHME_REGULIER"
       ],
       "synonymes": [
-        "RIVA"
+        "RIVA",
+        "échappement accéléré",
+        "rythme d’origine ventriculaire",
+        "rythme ventriculaire focal"
       ],
       "parents": [
         "ARYTHMIE_VENTRICULAIRE"
@@ -4035,7 +4832,21 @@
         "RS",
         "sinusal",
         "Rythme sinusal régulier",
-        "activité sinusal"
+        "activité sinusal",
+        "activité atriale sinusale",
+        "activité atriale sinusale régulière",
+        "rythme paraissant sinusal",
+        "rythme apparemment sinusal",
+        "rythme bien sinusal",
+        "rythme sinusal normal",
+        "l'activité atriale reste sinusale",
+        "activité sinusale normale",
+        "activité atriale sinusale irrégulière",
+        "rythme à commande sinusale",
+        "rythme sinusal irrégulier",
+        "origine sinusale",
+        "d’origine sinusale",
+        "rythme de base sinusal"
       ],
       "parents": [
         "CONCEPTS_ECG"
@@ -4056,6 +4867,10 @@
       ],
       "parents": [
         "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE"
+      ],
+      "synonymes": [
+        "réponse ventriculaire inférieure à 60/min",
+        "réponse ventriculaire < 60/min"
       ]
     },
     "ST_NORMAL": {
@@ -4065,6 +4880,10 @@
       "type": "finding",
       "parents": [
         "SEGMENT_ST"
+      ],
+      "synonymes": [
+        "segment ST à la ligne isoélectrique",
+        "retour du segment ST à la ligne isoélectrique"
       ]
     },
     "ST_RAIDE": {
@@ -4113,7 +4932,10 @@
       "origin_structure": [
         "OREILLETTES"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "segment PR"
+      ]
     },
     "SEPTAL": {
       "concept_name": "Septal",
@@ -4123,6 +4945,12 @@
       "type": "topography",
       "parents": [
         "LOCALISATION_IDM"
+      ],
+      "synonymes": [
+        "septum",
+        "septale",
+        "antéro-septal",
+        "antéro-septale"
       ]
     },
     "SEPTUM_INTERVENTRICULAIRE": {
@@ -4202,6 +5030,11 @@
         "STIMULATION_INAPPROPRIEE",
         "STIMULATION_VENTRICULAIRE",
         "STIMULATION_ATRIALE"
+      ],
+      "synonymes": [
+        "entraînement électrosystolique temporaire",
+        "sonde d'entraînement électrosystolique",
+        "stimulation temporaire"
       ]
     },
     "STIMULATION_VD": {
@@ -4262,7 +5095,13 @@
         "Stimulation atriale unipolaire",
         "Stimulation atriale unipolaire permanente",
         "stimulation auriculaire",
-        "stimulation unipolaire atriale"
+        "stimulation unipolaire atriale",
+        "activités atriales stimulées",
+        "dépolarisation atriale stimulée",
+        "stimulation des oreillettes",
+        "pacemaker stimule les oreillettes",
+        "sonde atriale",
+        "sonde auriculaire"
       ],
       "parents": [
         "STIMULATION"
@@ -4336,7 +5175,9 @@
       "type": "finding",
       "synonymes": [
         "Electroentrainement ventriculaire",
-        "Rythme ventriculaire électroentrainé"
+        "Rythme ventriculaire électroentrainé",
+        "entraînement ventriculaire électrosystolique",
+        "entraînement électrosystolique ventriculaire"
       ],
       "parents": [
         "STIMULATION"
@@ -4414,6 +5255,10 @@
       "type": "finding",
       "parents": [
         "SEGMENT_PQ"
+      ],
+      "synonymes": [
+        "sus-décalage du segment PQ",
+        "sus-décalage PQ"
       ]
     },
     "SUS_DECALAGE_DE_L_ONDE_J": {
@@ -4447,7 +5292,25 @@
         "STEMI",
         "Syndrome coronarien avec sus-décalage",
         "infarctus st+",
-        "Syndrome coronarien aigu ST+"
+        "Syndrome coronarien aigu ST+",
+        "Onde de Pardee",
+        "SCA ST+ inférieur",
+        "infarctus inférieur avec sus-décalage du segment ST",
+        "syndrome coronaire aigu inférieur",
+        "SCA inférieur",
+        "SCA ST+ en phase aiguë",
+        "syndrome coronarien aigu avec sus-ST",
+        "SCA avec sus-ST",
+        "SCA ST+ inféro-latéral",
+        "infarctus inférieur avec extension au ventricule droit",
+        "infarctus inférieur avec extension postérieure",
+        "syndrome coronaire aigu avec surélévation du segment ST",
+        "SCA avec surélévation du segment ST",
+        "syndrome coronaire aigu territoire antérieur",
+        "SCA avec sus-décalage du segment ST",
+        "syndrome coronarien aigu avec élévation du segment ST",
+        "SCA avec élévation du segment ST",
+        "SCA avec sus-décalage du ST"
       ],
       "parents": [
         "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
@@ -4476,7 +5339,8 @@
         "Infarctus à la phase aigue sans élevation du segment ST",
         "NSTEMI",
         "SCA sans ST +",
-        "Syndrome coronarien ST -"
+        "Syndrome coronarien ST -",
+        "SCA ST-"
       ],
       "parents": [
         "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
@@ -4557,7 +5421,14 @@
         "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
         "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE"
       ],
-      "mayhaveterritory": true
+      "mayhaveterritory": true,
+      "synonymes": [
+        "séquelle d’infarctus",
+        "séquelle d’infarctus antéro-septal",
+        "séquelle antéro-septale",
+        "séquelle de nécrose antéro-septo-apicale",
+        "large séquelle de nécrose antérieure"
+      ]
     },
     "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE": {
       "concept_name": "TJ antidromique utilisant une voie accessoire",
@@ -4567,7 +5438,13 @@
       "type": "qualifier",
       "synonymes": [
         "Antidromic AVRT ($ AP)",
-        "TJ antidromique utilisant une VA $"
+        "TJ antidromique utilisant une VA $",
+        "tachycardie antidromique sur voie accessoire",
+        "tachycardie antidromique",
+        "tachycardies antidromiques",
+        "antidromique sur voie accessoire",
+        "tachycardie jonctionnelle antidromique sur voie accessoire",
+        "tachycardie antidromique utilisant une voie accessoire"
       ],
       "parents": [
         "TACHYCARDIE_JONCTIONELLE_UTILISANT_UNE_VOIE_ACCESSOIRE"
@@ -4587,6 +5464,13 @@
       ],
       "territoires_possibles": [
         "LOCALISATION_FAISCEAU_ACCESSOIRE"
+      ],
+      "synonymes": [
+        "tachycardie orthodromique sur voie accessoire",
+        "tachycardie orthodromique",
+        "tachycardie jonctionnelle orthodromique",
+        "orthodromique sur voie accessoire",
+        "tachycardie orthodromique utilisant une voie accessoire"
       ]
     },
     "TV_CATECHOLAMINERGIQUE": {
@@ -4631,6 +5515,9 @@
       ],
       "parents": [
         "FREQUENCE"
+      ],
+      "synonymes": [
+        "fréquence sinusale de repos supérieure à 100 bpm"
       ]
     },
     "TACHYCARDIE_ATRIALE": {
@@ -4652,7 +5539,15 @@
       "synonymes": [
         "AT",
         "Flutter atrial",
-        "TA"
+        "TA",
+        "tachycardie régulière dans les oreillettes",
+        "arythmie atriale organisée",
+        "autre arythmie organisée des oreillettes",
+        "arythmie organisée des oreillettes",
+        "activité atriale rapide",
+        "activité atriale rapide régulière",
+        "arythmie organisée dans l’oreillette",
+        "activité atriale organisée"
       ],
       "parents": [
         "TACHYCARDIE_SUPRA_VENTRICULAIRE"
@@ -4722,6 +5617,12 @@
       ],
       "origin_structure": [
         "NOEUD_AV"
+      ],
+      "synonymes": [
+        "tachycardie interrompue par manœuvre vagale",
+        "interruption par manœuvre vagale",
+        "tachycardie jonctionnelle",
+        "tachycardies jonctionnelles"
       ]
     },
     "TACHYCARDIE_JONCTIONELLE_PAR_REENTREE_INTRANODALE_SLOW_SLOW": {
@@ -4749,7 +5650,12 @@
       "synonymes": [
         "AVRT",
         "TJ utilisant une voie accessoire",
-        "Tachycardie par rentrée utilisant une voie accesoire"
+        "Tachycardie par rentrée utilisant une voie accesoire",
+        "tachycardie jonctionnelle sur voie accessoire",
+        "tachycardie jonctionnelle utilisant une voie accessoire",
+        "réentrée sur voie accessoire",
+        "tachycardie par réentrée sur voie accessoire",
+        "tachycardie sur voie accessoire"
       ],
       "parents": [
         "TACHYCARDIE_JONCTIONELLE"
@@ -4786,7 +5692,12 @@
       "type": "qualifier",
       "synonymes": [
         "AVNRT",
-        "RIN"
+        "RIN",
+        "réentrée intranodale",
+        "réentrée intra-nodale",
+        "tachycardie jonctionnelle par réentrée intranodale",
+        "tachycardies par réentrée intra-nodale",
+        "tachycardie par réentrée intra-nodale"
       ],
       "parents": [
         "TACHYCARDIE_JONCTIONELLE"
@@ -4899,6 +5810,11 @@
       ],
       "origin_structure": [
         "NOEUD_SINUSAL"
+      ],
+      "synonymes": [
+        "tachycardie sinusale réflexe",
+        "activité atriale sinusale rapide",
+        "aspect de tachycardie sinusale"
       ]
     },
     "TACHYCARDIE_SUPRA_VENTRICULAIRE": {
@@ -4916,7 +5832,9 @@
       "synonymes": [
         "SVT",
         "TSV",
-        "Tachycardie supra ventriculaire organisée"
+        "Tachycardie supra ventriculaire organisée",
+        "tachycardie supraventriculaire",
+        "tachycardie supraventriculaire à QRS larges"
       ],
       "parents": [
         "ARYTHMIE_ATRIALE"
@@ -4972,7 +5890,12 @@
         "TV",
         "VT",
         "axe en faveur d'une Tachycardie ventriculaire",
-        "tachycardie ventriculiare"
+        "tachycardie ventriculiare",
+        "TVNS",
+        "tachycardie ventriculaire soutenue",
+        "TV soutenue",
+        "salve de TV",
+        "salves de TV"
       ],
       "parents": [
         "ARYTHMIE_VENTRICULAIRE"
@@ -5061,7 +5984,12 @@
       ],
       "synonymes": [
         "Polymorphic VT",
-        "TV polymorphe"
+        "TV polymorphe",
+        "salve de tachycardie ventriculaire polymorphe",
+        "salve de TV polymorphe",
+        "tachycardie polymorphe",
+        "tachycardie ventriculaire polymorphe irrégulière",
+        "arythmie ventriculaire polymorphe"
       ],
       "parents": [
         "TACHYCARDIE_VENTRICULAIRE"
@@ -5083,6 +6011,10 @@
       ],
       "parents": [
         "PERICARDITE"
+      ],
+      "synonymes": [
+        "tamponnade avec microvoltage",
+        "tamponnade avec alternance électrique"
       ]
     },
     "THERAPIE_D_UN_DEFIBRILLATEUR": {
@@ -5107,7 +6039,12 @@
       "type": "qualifier",
       "synonymes": [
         "Dent de scie",
-        "Toiture d'usine"
+        "Toiture d'usine",
+        "aspect en dents de scie",
+        "dents de scie",
+        "aspect en dents de scie dans les dérivations inférieures",
+        "ondes F en dents de scie",
+        "ondes F en toit d'usine"
       ],
       "parents": [
         "QUALIFICATION_PATTERN"
@@ -5147,6 +6084,10 @@
       ],
       "origin_structure": [
         "VENTRICULE"
+      ],
+      "synonymes": [
+        "torsades de pointes",
+        "torsades de pontes"
       ]
     },
     "TRIGEMINISME_VENTRICULAIRE": {
@@ -5156,7 +6097,8 @@
       "poids": 3,
       "type": "pattern",
       "synonymes": [
-        "Trigéminisme"
+        "Trigéminisme",
+        "répétition de séquences identiques : 2 battements sinusaux normaux puis une extrasystole ventriculaire"
       ],
       "parents": [
         "EXTRASYSTOLE_VENTRICULAIRE"
@@ -5220,7 +6162,13 @@
         "BLOC_FASCICULAIRE",
         "SEQUELLE_DE_NECROSE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "bloc intra-hissien",
+        "bloc infrahissien",
+        "bloc intra- ou infrahissien",
+        "trouble de conduction infranodal"
+      ]
     },
     "TROUBLE_DE_LA_DEPOLARISATION_ATRIAL": {
       "concept_name": "Trouble de la dépolarisation atrial",
@@ -5236,7 +6184,10 @@
       ],
       "hide": 1,
       "synonymes": [
-        "anomalie de la dépolarisation auriculaire"
+        "anomalie de la dépolarisation auriculaire",
+        "activation auriculaire anormale",
+        "activation auriculaire perturbée",
+        "activation auriculaire anormale et perturbée"
       ]
     },
     "TROUBLE_DE_LA_DEPOLARISATION_VENTRICULAIRE": {
@@ -5274,7 +6225,9 @@
         "trouble de la re polarisation",
         "trouble de la repolarisation ventriculaire",
         "trouble repo",
-        "trouble secondaire de la repolarisation"
+        "trouble secondaire de la repolarisation",
+        "troubles de la repolarisation",
+        "troubles majeurs de la repolarisation"
       ],
       "parents": [
         "ECG_PAS_NORMAL"
@@ -5289,7 +6242,13 @@
       "type": "finding",
       "synonymes": [
         "trouble de la conduction",
-        "trouble de conduction"
+        "trouble de conduction",
+        "trouble de conduction diffus",
+        "trouble de conduction atrioventriculaire",
+        "trouble de conduction auriculo-ventriculaire",
+        "troubles de conduction",
+        "troubles de la conduction",
+        "troubles du rythme ventriculaire graves"
       ],
       "parents": [
         "ECG_PAS_NORMAL"
@@ -5313,6 +6272,12 @@
       "type": "qualifier",
       "parents": [
         "DESORGANISEE"
+      ],
+      "synonymes": [
+        "ondulation de la ligne de base",
+        "oscillations de la ligne de base",
+        "ondulations continues et permanentes de la ligne de base",
+        "ondulations de la ligne de base"
       ]
     },
     "UNE_ONDE_P_BLOQUEE": {
@@ -5323,7 +6288,17 @@
       "synonymes": [
         "onde P bloquée",
         "onde P bloquées",
-        "Onde P parfois bloquée"
+        "Onde P parfois bloquée",
+        "ondes P bloquées",
+        "des ondes P bloquées",
+        "ondes P bloquées cachées",
+        "onde P bloquée cachée dans l’onde T",
+        "onde P bloquée cachée dans le complexe QRS",
+        "une onde P sur 2 bloquée",
+        "une onde P sur deux bloquée",
+        "plusieurs ondes P consécutives bloquées",
+        "2 ondes P consécutives bloquées",
+        "ondes P conduites alternant avec plusieurs ondes P bloquées"
       ],
       "parents": [
         "CONDUCTION"
@@ -5384,6 +6359,13 @@
       ],
       "origin_structure": [
         "OREILLETTES"
+      ],
+      "synonymes": [
+        "onde P < 2.5 mm en DII",
+        "amplitude de l’onde P < 2.5 mm en DII",
+        "ondes P peu voltées",
+        "onde P peu voltée",
+        "ondes P de faible amplitude"
       ]
     },
     "VOLTAGE_DU_QRS": {
@@ -5411,6 +6393,15 @@
       "children": [
         "INDICE_DE_SOKOLOW__35_MM",
         "MICROVOLTAGE"
+      ],
+      "synonymes": [
+        "augmentation de l’amplitude des complexes QRS",
+        "QRS de grande amplitude",
+        "hypervoltage du QRS",
+        "augmentation de l’amplitude des ondes R en V5-V6",
+        "augmentation de l’amplitude des ondes S en V1-V2",
+        "grandes ondes R en V5-V6",
+        "ondes S profondes en V1-V2"
       ]
     },
     "VOLTAGE_DU_QRS_NORMAL": {
@@ -5426,7 +6417,15 @@
       ],
       "synonymes": [
         "Amplitude normale du QRS",
-        "normovolté"
+        "normovolté",
+        "complexes QRS dépassant 5 mm en périphérique",
+        "complexes QRS dépassant 10 mm en précordial",
+        "QRS > 5 mm en dérivation périphérique",
+        "QRS > 10 mm en dérivation précordiale",
+        "amplitudes normales des complexes QRS",
+        "voltage QRS précordial conservé",
+        "voltage plus important dans les dérivations précordiales",
+        "QRS > 10 mm en précordial"
       ],
       "parents": [
         "VOLTAGE_DU_QRS"
@@ -5453,7 +6452,10 @@
       "synonymes": [
         "Faisceau accessoire à conduction antérograde maligne",
         "Periode refractaire antérograde < 250 ms",
-        "Super-wolf"
+        "Super-wolf",
+        "super-Wolff",
+        "aspect de super-Wolff",
+        "super-WPW"
       ],
       "parents": [
         "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE"
@@ -5470,6 +6472,18 @@
       "type": "qualifier",
       "parents": [
         "MORPHOLOGIE_ANORMALE_DU_QRS"
+      ],
+      "synonymes": [
+        "alternance électrique des QRS",
+        "variations d'amplitude des complexes QRS",
+        "variation d'amplitude des QRS",
+        "alternance électrique",
+        "aspect d'alternance électrique",
+        "alternance électrique dans les dérivations précordiales",
+        "alternance dans l'amplitude des complexes QRS",
+        "complexes QRS successifs d'amplitude différente",
+        "complexes QRS successifs de hauteur différente",
+        "alternance d'amplitude des QRS"
       ]
     },
     "CONDUCTION_VARIABLE": {
@@ -5504,6 +6518,9 @@
       "type": "finding",
       "parents": [
         "QUALIFICATION_PATTERN"
+      ],
+      "synonymes": [
+        "très lent"
       ]
     },
     "LOCALISATION_ESV": {
@@ -5534,7 +6551,12 @@
         "QUALIFICATION_D_ORGANISATION"
       ],
       "synonymes": [
-        "Aspect monomorphe"
+        "Aspect monomorphe",
+        "monomorphes",
+        "activité atriale monomorphe",
+        "ondes F monomorphes",
+        "ondes de flutter uniformes",
+        "ondes F uniformes"
       ]
     },
     "ONDE_U": {
@@ -5548,7 +6570,12 @@
       "children": [
         "ONDE_U_NORMALE"
       ],
-      "hide": 1
+      "hide": 1,
+      "synonymes": [
+        "onde supplémentaire derrière T",
+        "déflexion supplémentaire en fin de repolarisation",
+        "signal électrique de basse amplitude et de basse fréquence qui survient après l’onde T"
+      ]
     },
     "POLYMORPHE": {
       "concept_name": "polymorphe",
@@ -5556,7 +6583,9 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "multifocale"
+        "multifocale",
+        "polymorphes",
+        "QRS polymorphes"
       ],
       "parents": [
         "QUALIFICATION_D_ORGANISATION"
@@ -5594,6 +6623,10 @@
       "type": "finding",
       "parents": [
         "QUALIFICATION_PATTERN"
+      ],
+      "synonymes": [
+        "très rapide",
+        "extrêmement rapide"
       ]
     },
     "RYTHME_REGULIER": {
@@ -5602,7 +6635,13 @@
       "poids": 2,
       "type": "qualifier",
       "synonymes": [
-        "régulier"
+        "régulier",
+        "activité atriale régulière",
+        "complexes QRS parfaitement réguliers",
+        "QRS réguliers",
+        "complexes QRS réguliers",
+        "rythme ventriculaire régulier",
+        "ondes F régulières"
       ],
       "parents": [
         "RYTHME"
@@ -5632,6 +6671,10 @@
       ],
       "electrode": [
         "DESCRIPTIF"
+      ],
+      "synonymes": [
+        "sous-décalage du segment PQ",
+        "sous-décalage diffus du segment PQ"
       ]
     },
     "SOUTENU": {
@@ -5663,6 +6706,67 @@
       "type": "finding",
       "parents": [
         "SURDETECTION"
+      ]
+    },
+    "VOLTAGE_NORMAL_DU_QRS": {
+      "concept_name": "Voltage normal du QRS",
+      "categorie": "DESCRIPTION_ECG",
+      "poids": 2,
+      "type": "pattern",
+      "parents": [
+        "VOLTAGE_DU_QRS"
+      ],
+      "synonymes": [
+        "voltage normal",
+        "amplitude normale du QRS",
+        "voltage QRS conservé",
+        "pas de microvoltage",
+        "absence d'hypertrophie ventriculaire"
+      ],
+      "excludes": [
+        "MICROVOLTAGE",
+        "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+      ]
+    },
+    "MYOCARDITE": {
+      "concept_name": "Myocardite",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 4,
+      "type": "finding",
+      "synonymes": [
+        "myopéricardite"
+      ],
+      "parents": [
+        "INFLAMMATOIRE"
+      ]
+    },
+    "INFLAMMATOIRE": {
+      "concept_name": "Inflammatoire",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 2,
+      "type": "finding",
+      "parents": [
+        "PATHOLOGIE"
+      ],
+      "children": [
+        "MYOCARDITE"
+      ]
+    },
+    "TAKOTSUBO": {
+      "concept_name": "Takotsubo",
+      "concept_name_en": "Takotsubo cardiomyopathy",
+      "categorie": "DIAGNOSTIC_MAJEUR",
+      "poids": 4,
+      "type": "finding",
+      "synonymes": [
+        "cardiomyopathie de stress",
+        "syndrome de ballonisation apicale",
+        "syndrome du cœur brisé",
+        "cardiopathie de stress",
+        "ballonnement apical du ventricule gauche"
+      ],
+      "parents": [
+        "PATHOLOGIE"
       ]
     }
   },
@@ -6163,6 +7267,13 @@
     "total_supports_relations": 48,
     "total_excludes_relations": 43,
     "total_hidden": 55,
-    "skipped_reference_concepts": 55
-  }
+    "skipped_reference_concepts": 55,
+    "last_patch": {
+      "date": "20260705_181338",
+      "source": "apply_onto_patch.py",
+      "synonymes_ajoutes": 1088,
+      "ecg_normal_composition": true
+    }
+  },
+  "meta": {}
 }

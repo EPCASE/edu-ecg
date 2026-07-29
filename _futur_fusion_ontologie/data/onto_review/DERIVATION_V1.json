@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATION_V1",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Dérivation isolée correspondant à une topographie pure ; la couche topographique est exclue du périmètre v1.",
+  "principe": "T1",
+  "territoire_ignore_v1": "V1"
+}

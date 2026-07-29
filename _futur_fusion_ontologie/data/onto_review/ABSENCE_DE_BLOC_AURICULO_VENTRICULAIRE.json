@@ -1,0 +1,9 @@
+{
+  "id": "ABSENCE_DE_BLOC_AURICULO_VENTRICULAIRE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3",
+  "motif": "L'absence de BAV relève déjà du pattern existant d'absence de troubles de la conduction, éventuellement supporté par PR normal et conduction 1/1, sans créer un concept négatif spécifique supplémentaire.",
+  "territoire_ignore_v1": "",
+  "concept_cible": "PAS_DE_TROUBLES_DE_LA_CONDUCTION"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "BLOCAGE_AV_TRANSITOIRE_PHARMACOLOGIQUE",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "BLOC_AURICULO_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "TRANSITOIRE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "MEDICAMENTS",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "motif": "Concept phrastique mêlant le trouble de conduction AV, une temporalité et une cause pharmacologique ; on conserve le BAV existant et des modificateurs/contextes réutilisables plutôt qu’un concept monolithique.",
+  "principe": "D1, C1, C3",
+  "territoire_ignore_v1": ""
+}

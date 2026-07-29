@@ -1,0 +1,26 @@
+{
+  "id": "SYNDROME_BRADYCARDIE_TACHYCARDIE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C1",
+  "motif": "Le syndrome bradycardie-tachycardie est un vrai pattern clinique réutilisable de dysfonction sinusale, défini par l'alternance bradycardie/tachycardie ou pauses post-réductionnelles, et ne se réduit pas à une simple juxtaposition redondante.",
+  "territoire_ignore_v1": "",
+  "concept_retenu": {
+    "id": "SYNDROME_BRADYCARDIE_TACHYCARDIE",
+    "concept_name": "Syndrome bradycardie-tachycardie",
+    "type": "pattern",
+    "parents": [
+      "DYSFONCTION_SINUSALE"
+    ],
+    "requires": [
+      "BRADYCARDIE",
+      "TACHYCARDIE"
+    ],
+    "synonymes": [
+      "syndrome brady-tachy",
+      "syndrome bradycardie-tachycardie",
+      "pause post-réductionnelle",
+      "pauses post-réductionnelles"
+    ]
+  }
+}

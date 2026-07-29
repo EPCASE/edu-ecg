@@ -1,0 +1,390 @@
+{
+  "num": 13,
+  "titre": "bloc de branche gauche complet",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à environ 75 battements/minute",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque à environ 75 battements/minute",
+        "75 battements/minute"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle PR de durée normale"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges (durée de 150 ms)",
+      "synonymes_a_ajouter": [
+        "complexes QRS larges",
+        "QRS larges",
+        "durée de QRS 150 ms",
+        "QRS à 150 ms"
+      ]
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durée des complexes QRS est supérieure à 120 ms",
+      "synonymes_a_ajouter": [
+        "durée des complexes QRS supérieure à 120 ms",
+        "QRS supérieur à 120 ms",
+        "QRS > 120 ms"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect caractéristique de bloc de branche gauche complet",
+      "synonymes_a_ajouter": [
+        "aspect caractéristique de bloc de branche gauche complet",
+        "aspect typique de bloc de branche gauche complet",
+        "bloc de branche gauche complet"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un bloc de branche gauche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "QRS négatif avec aspect QS ou rS",
+      "nouveau_concept": {
+        "id_suggere": "QRS_GLOBALEMENT_NEGATIF",
+        "concept_name": "QRS globalement négatif",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "QRS négatif",
+          "QRS intégralement négatif",
+          "complexe QRS globalement négatif"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique explicitement utilisé pour le BBG complet en V1-V2/V1."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect rS (petite positivité suivie d’une onde négative large)",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RS_DU_QRS",
+        "concept_name": "Aspect rS du QRS",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect rS",
+          "QRS en rS",
+          "petite positivité suivie d’une onde négative large"
+        ],
+        "poids": 3,
+        "justification": "Morphologie décrite comme caractéristique du BBG complet en V1-V2."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect QS (QRS intégralement négatif)",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_QS_DU_QRS",
+        "concept_name": "Aspect QS du QRS",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect QS",
+          "QRS en QS",
+          "QRS intégralement négatif"
+        ],
+        "poids": 3,
+        "justification": "Le catalogue rattache actuellement « Aspect QS » à l’onde Q pathologique, ce qui ne couvre pas correctement le QS de morphologie de BBG."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "QRS positif avec onde R large",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R_LARGE",
+        "concept_name": "Onde R large",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "QRS positif avec onde R large",
+          "onde R large",
+          "R large"
+        ],
+        "poids": 3,
+        "justification": "Critère morphologique répété du BBG complet en V6/DI."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde R large exclusive",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R_EXCLUSIVE",
+        "concept_name": "Onde R exclusive",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_R_LARGE"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "aspect d’onde R large exclusive",
+          "onde R exclusive",
+          "QRS positif avec onde R exclusive"
+        ],
+        "poids": 3,
+        "justification": "Formulation pédagogique explicite, distincte de la simple onde R large."
+      }
+    },
+    {
+      "concept_id": "REPOLARISATION_PRECOCE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "notch (double pic qui correspond pour le premier à l’activation du septum et le deuxième à l’activation de la paroi latérale tardive)",
+      "synonymes_a_ajouter": [
+        "notch"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "notch (double pic qui correspond pour le premier à l’activation du septum et le deuxième à l’activation de la paroi latérale tardive)",
+      "nouveau_concept": {
+        "id_suggere": "NOTCH_DU_QRS",
+        "concept_name": "Notch du QRS",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "notch",
+          "double pic du QRS",
+          "double pic"
+        ],
+        "poids": 3,
+        "justification": "Le « notch » est ici un critère de BBG complet, pas une repolarisation précoce ; il manque comme morphologie QRS."
+      }
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "troubles de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sous-décalage du segment ST avec onde T négative en V6",
+      "synonymes_a_ajouter": [
+        "sous-décalage du segment ST en V6",
+        "sous-décalage en V5-V6"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde T négative en V6",
+      "synonymes_a_ajouter": [
+        "onde T négative en V6",
+        "onde T négative en V5-V6"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage du segment ST avec onde T positive en V1-V3",
+      "synonymes_a_ajouter": [
+        "sus-décalage du segment ST en V1-V3",
+        "sus-décalage en V1-V2"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde T positive en V1-V3",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_T_POSITIVE",
+        "concept_name": "Onde T positive",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_T"
+        ],
+        "requires": [
+          "ONDE_T"
+        ],
+        "synonymes": [
+          "onde T positive",
+          "ondes T positives"
+        ],
+        "poids": 2,
+        "justification": "La polarité positive de T est explicitement décrite et n’a pas de concept dédié, contrairement à ONDE_T_NEGATIVE."
+      }
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "pouvant mimer un aspect d’infarctus du myocarde"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un bloc de branche droite"
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "un hémibloc antérieur gauche",
+      "synonymes_a_ajouter": [
+        "hémibloc antérieur gauche"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "un bloc indifférencié",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_INTRAVENTRICULAIRE_INDIFFERENCIE",
+        "concept_name": "Bloc intraventriculaire indifférencié",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+        ],
+        "requires": [
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "bloc indifférencié",
+          "bloc de branche indifférencié"
+        ],
+        "poids": 2,
+        "justification": "Mentionné comme distracteur QCM ; concept absent du catalogue, proche du bloc intraventriculaire non spécifique mais formulation non couverte."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le référentiel du cas indique QRS > 120 ms nécessaire au diagnostic de BBG complet."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_QS_DU_QRS",
+      "justification": "Critère alternatif décrit en V1 : aspect QS."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_RS_DU_QRS",
+      "justification": "Critère alternatif décrit en V1 : aspect rS."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "supports",
+      "cible": "ONDE_R_LARGE",
+      "justification": "Onde R large en V6/DI décrite comme caractéristique du BBG complet."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "supports",
+      "cible": "ONDE_R_EXCLUSIVE",
+      "justification": "Onde R exclusive en DI/V6 décrite comme caractéristique."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "supports",
+      "cible": "NOTCH_DU_QRS",
+      "justification": "Le référentiel cite le notch en V6, D1 et aVL comme caractéristique nécessaire."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "supports",
+      "cible": "TROUBLE_DE_REPOLARISATION",
+      "justification": "Le texte décrit souvent des troubles de repolarisation secondaires dans le BBG."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+      "relation": "excludes",
+      "cible": "BLOC_DE_BRANCHE_DROIT",
+      "justification": "Le QCM oppose explicitement BBG présent et BBD absent sur ce tracé."
+    }
+  ],
+  "synthese": "Le diagnostic principal est bien couvert par BLOC_DE_BRANCHE_GAUCHE_COMPLET, mais les critères morphologiques pédagogiques du BBG (QS/rS en V1, QRS négatif, onde R large/exclusive, notch du QRS) ne sont pas correctement représentés. Attention à ne pas réutiliser le synonyme « notch » de REPOLARISATION_PRECOCE pour ce cas : ici il s’agit d’un notch du QRS de BBG.",
+  "error": null
+}

@@ -1,0 +1,319 @@
+{
+  "num": 67,
+  "titre": "SCA sans sus-décalage du segment ST",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "130 bpm"
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "troubles de la repolarisation"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sous-décalage significatif en V3-V4",
+      "synonymes_a_ajouter": [
+        "sous-décalage significatif",
+        "sous-décalage significatif du segment ST"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "ondes T négatives"
+    },
+    {
+      "concept_id": "ONDE_T_APLATIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T ... plates",
+      "synonymes_a_ajouter": [
+        "ondes T plates",
+        "onde T plate"
+      ]
+    },
+    {
+      "concept_id": "DI",
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "DI",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_DI",
+        "concept_name": "Dérivation DI",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DI",
+          "D1",
+          "dérivation I"
+        ],
+        "poids": 2,
+        "justification": "Le cas localise les ondes T négatives/plates en DI ; aucune topographie de dérivation ECG n'existe dans le catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aVL",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_AVL",
+        "concept_name": "Dérivation aVL",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "aVL",
+          "AVL"
+        ],
+        "poids": 2,
+        "justification": "Le cas localise les anomalies de repolarisation en aVL ; les dérivations ECG ne sont pas représentées."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "DII",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_DII",
+        "concept_name": "Dérivation DII",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DII",
+          "D2",
+          "dérivation II"
+        ],
+        "poids": 2
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "DIII",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_DIII",
+        "concept_name": "Dérivation DIII",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DIII",
+          "D3",
+          "dérivation III"
+        ],
+        "poids": 2
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aVF",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_AVF",
+        "concept_name": "Dérivation aVF",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "aVF",
+          "AVF"
+        ],
+        "poids": 2
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V3-V4",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_V3_V4",
+        "concept_name": "Dérivations V3-V4",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V3-V4",
+          "V3 V4",
+          "V3 à V4"
+        ],
+        "poids": 2,
+        "justification": "Le sous-décalage ST est explicitement localisé en V3-V4."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V4-V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_V4_V6",
+        "concept_name": "Dérivations V4-V6",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V4-V6",
+          "V4 V5 V6",
+          "V4 à V6"
+        ],
+        "poids": 2,
+        "justification": "Les ondes T négatives ou plates sont explicitement localisées en V4-V6."
+      }
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence de sus-décalage",
+      "synonymes_a_ajouter": [
+        "absence de sus-décalage",
+        "pas de sus-décalage",
+        "sans sus-décalage"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence ... d’ondes q",
+      "synonymes_a_ajouter": [
+        "absence d'ondes q",
+        "pas d'ondes q"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "SCA sans sus-décalage du segment ST",
+      "synonymes_a_ajouter": [
+        "SCA sans sus-décalage du segment ST",
+        "SCA sans sus-décalage",
+        "SCA non ST+"
+      ]
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "ne retrouvait pas d’augmentation des enzymes cardiaques"
+    },
+    {
+      "concept_id": "ABSENCE_D_ISCHEMIE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "n’a pas retrouvé de sténose significative"
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie sinusale"
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie atriale"
+    },
+    {
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "normaliser l’aspect de l’électrocardiogramme"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "justification": "Le cas définit le SCA sans sus-décalage par des anomalies ischémiques sans élévation ST, avec sous-décalage ST fréquent."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "excludes",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le diagnostic est explicitement 'sans sus-décalage' et l'interprétation note l'absence de sus-décalage."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "supports",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Le texte associe les SCA sans sus-décalage/troubles ischémiques à des ondes T négatives peu profondes."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "ISCHEMIE_SOUS_ENDOCARDIQUE",
+      "justification": "Le sous-décalage ST décrit correspond au courant de lésion sous-endocardique et soutient l'ischémie sous-endocardique dans ce contexte."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Les troubles de repolarisation du cas sont illustrés par des ondes T négatives."
+    },
+    {
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "relation": "supports",
+      "cible": "ONDE_T_APLATIE",
+      "justification": "Les troubles de repolarisation du cas sont aussi illustrés par des ondes T plates."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "IRREGULIER",
+      "justification": "Une fibrillation auriculaire implique un rythme irrégulier ; utile pour la hiérarchie/qualification avant inférence."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "has_qualifiers",
+      "cible": "TACHYCARDIE",
+      "justification": "Le cas décrit une fibrillation auriculaire à 130 bpm, donc rapide/tachycarde."
+    }
+  ],
+  "synthese": "Le contenu ECG principal est globalement couvert (FA, tachycardie, sous-décalage ST, troubles de repolarisation, ondes T négatives/plates, absence de ST+ et d'ondes Q). Le principal trou lexical/hierarchique concerne les dérivations/topographies ECG (DI, aVL, DII, DIII, aVF, V3-V4, V4-V6) et quelques synonymes usuels du SCA sans sus-décalage et de la fibrillation auriculaire.",
+  "error": null
+}

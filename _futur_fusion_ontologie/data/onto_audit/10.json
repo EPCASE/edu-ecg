@@ -1,0 +1,426 @@
+{
+  "num": 10,
+  "titre": "bloc bifasciculaire",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "FREQUENCE_NORMALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une fréquence cardiaque à environ 65 battements/minute"
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un BAV du premier degré",
+      "synonymes_a_ajouter": [
+        "BAV du premier degré",
+        "bloc atrioventriculaire de 1er degré",
+        "bloc auriculo-ventriculaire de 1er degré"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "toutes les ondes P sont conduites",
+      "synonymes_a_ajouter": [
+        "toutes les ondes P sont conduites",
+        "ondes P toutes conduites"
+      ]
+    },
+    {
+      "concept_id": "PR_ALLONGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR fixe > 200 ms",
+      "synonymes_a_ajouter": [
+        "intervalle PR > 200 ms",
+        "PR fixe > 200 ms"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle PR fixe",
+      "nouveau_concept": {
+        "id_suggere": "INTERVALLE_PR_FIXE",
+        "concept_name": "Intervalle PR fixe",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "INTERVALLE_PR"
+        ],
+        "requires": [
+          "INTERVALLE_PR"
+        ],
+        "synonymes": [
+          "PR fixe",
+          "intervalle PR constant",
+          "PR constant"
+        ],
+        "poids": 2,
+        "justification": "Le cas utilise le caractère fixe de l'intervalle PR pour décrire le BAV du premier degré."
+      }
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges"
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durée de 140 ms",
+      "synonymes_a_ajouter": [
+        "durée du QRS > 120 ms",
+        "QRS ≥ 120 ms",
+        "durée du QRS de 140 ms"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite complet",
+        "aspect typique de bloc de branche droite complet"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche droite",
+      "synonymes_a_ajouter": [
+        "bloc de branche droite",
+        "aspect de bloc de branche droite"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "complexes QRS en V1 : rsR’",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_RSR_PRIME_EN_V1",
+        "concept_name": "Aspect rsR' en V1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "rsR’ en V1",
+          "rsR' en V1",
+          "aspect rSr' en V1",
+          "aspect rsR' en dérivation V1"
+        ],
+        "poids": 3,
+        "justification": "Signe morphologique explicitement cité comme caractéristique du bloc de branche droit."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "complexes QRS en V6 : qRS avec onde S large et trainante en fin de complexe",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_TERMINALE_LARGE_EN_V6",
+        "concept_name": "Onde S terminale large en V6",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde S large et trainante en V6",
+          "onde S large et traînante en V6",
+          "qRS avec onde S terminale large en V6",
+          "onde S terminale large en dérivation V6"
+        ],
+        "poids": 3,
+        "justification": "Signe morphologique explicitement cité comme caractéristique du bloc de branche droit."
+      }
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "déviation axiale gauche"
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde q en D1",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_Q_EN_D1",
+        "concept_name": "Onde q en D1",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde q en DI",
+          "onde q en D1",
+          "q en D1",
+          "q en DI"
+        ],
+        "poids": 2,
+        "justification": "Élément descriptif utilisé dans le cas pour argumenter l'hémibloc antérieur gauche, sans notion d'onde Q pathologique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde S large en DII",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_S_LARGE_EN_DII",
+        "concept_name": "Onde S large en DII",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "onde S large en DII",
+          "onde S large en D2",
+          "S large en DII",
+          "S large en D2"
+        ],
+        "poids": 2,
+        "justification": "Élément descriptif utilisé dans le cas pour argumenter l'hémibloc antérieur gauche."
+      }
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc bifasciculaire"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "E. un bloc de branche gauche",
+      "synonymes_a_ajouter": [
+        "bloc de branche gauche"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "Il n’est pas possible d’affirmer sur ce tracé que le bloc est trifasciculaire",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_TRIFASCICULAIRE",
+        "concept_name": "Bloc trifasciculaire",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+        ],
+        "requires": [
+          "BLOC_BIFASCICULAIRE"
+        ],
+        "synonymes": [
+          "bloc trifasciculaire",
+          "atteinte trifasciculaire"
+        ],
+        "poids": 3,
+        "justification": "Le terme est discuté explicitement comme diagnostic non affirmable sur ce tracé."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "bloc étant alors trifasciculaire « incomplet »",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_TRIFASCICULAIRE_INCOMPLET",
+        "concept_name": "Bloc trifasciculaire incomplet",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+        ],
+        "requires": [
+          "BLOC_BIFASCICULAIRE",
+          "BAV_DE_TYPE_1"
+        ],
+        "synonymes": [
+          "bloc trifasciculaire incomplet",
+          "bloc bifasciculaire associé à un BAV du premier degré"
+        ],
+        "poids": 3,
+        "justification": "Le référentiel du cas mentionne ce libellé, tout en soulignant qu'il est souvent utilisé par excès."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V1",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V1",
+        "concept_name": "Dérivation V1",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1",
+          "dérivation V1"
+        ],
+        "poids": 2,
+        "justification": "La localisation en dérivation V1 est nécessaire pour représenter les critères morphologiques du BBD cités dans le cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V6",
+        "concept_name": "Dérivation V6",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V6",
+          "dérivation V6"
+        ],
+        "poids": 2,
+        "justification": "La localisation en dérivation V6 est nécessaire pour représenter les critères morphologiques du BBD cités dans le cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "D1",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_DI",
+        "concept_name": "Dérivation DI",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "D1",
+          "DI",
+          "dérivation D1",
+          "dérivation DI"
+        ],
+        "poids": 2,
+        "justification": "La dérivation DI/D1 est citée pour les critères morphologiques de l'hémibloc antérieur gauche."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "DII",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_DII",
+        "concept_name": "Dérivation DII",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DII",
+          "D2",
+          "dérivation DII",
+          "dérivation D2"
+        ],
+        "poids": 2,
+        "justification": "La dérivation DII est citée pour les critères morphologiques de l'hémibloc antérieur gauche."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "PR_ALLONGE",
+      "justification": "Dans le cas, le BAV du premier degré est défini par un PR > 200 ms."
+    },
+    {
+      "concept_id": "BAV_DE_TYPE_1",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Le cas précise que toutes les ondes P sont conduites, donc conduction AV 1/1."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le caractère complet est associé ici à des QRS larges de 140 ms, donc > 120 ms."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "requires",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "Le cas indique que la déviation axiale gauche fait évoquer l'hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "relation": "supports",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "La déviation axiale gauche ajoutée au BBD est présentée comme argument diagnostique de l'HBAG."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "supports",
+      "cible": "BLOC_BIFASCICULAIRE",
+      "justification": "Le bloc bifasciculaire du cas résulte de l'association BBD complet + HBAG."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "BLOC_BIFASCICULAIRE",
+      "justification": "Le bloc bifasciculaire du cas résulte de l'association BBD complet + HBAG."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "relation": "excludes",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "Le texte précise qu'un bloc de branche droit isolé ne peut pas induire de déviation axiale gauche."
+    }
+  ],
+  "synthese": "La hiérarchie couvre les diagnostics principaux (rythme sinusal, BAV1, BBD complet, HBAG, bloc bifasciculaire), mais le lexique manque de synonymes usuels en français pour BAV1/BBD/BGG. Les principaux trous portent sur les critères morphologiques localisés par dérivation (rsR' en V1, S terminale large en V6, q en D1, S large en DII) et sur la représentation pédagogique du bloc trifasciculaire non affirmable.",
+  "error": null
+}

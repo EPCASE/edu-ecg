@@ -1,0 +1,247 @@
+{
+  "num": 22,
+  "titre": "dysfonction sinusale et stimulateur cardiaque",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PACEMAKER",
+      "statut": "present",
+      "surface": "stimulateur cardiaque",
+      "synonymes_a_ajouter": [
+        "stimulateur cardiaque",
+        "patient porteur d’un stimulateur cardiaque",
+        "patient implanté d’un stimulateur cardiaque"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "stimulateur double chambre",
+      "nouveau_concept": {
+        "id_suggere": "STIMULATEUR_DOUBLE_CHAMBRE",
+        "concept_name": "Stimulateur double chambre",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "PACEMAKER"
+        ],
+        "requires": [
+          "PACEMAKER"
+        ],
+        "synonymes": [
+          "pacemaker double chambre",
+          "stimulateur cardiaque double chambre",
+          "patient implanté d’un stimulateur double chambre"
+        ],
+        "poids": 3,
+        "justification": "Le cas insiste sur un stimulateur double chambre avec sonde atriale et sonde ventriculaire ; aucun concept existant ne distingue ce type de stimulateur."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "artéfact de stimulation",
+      "nouveau_concept": {
+        "id_suggere": "ARTEFACT_DE_STIMULATION",
+        "concept_name": "Artéfact de stimulation",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "STIMULATION"
+        ],
+        "synonymes": [
+          "spike",
+          "spikes",
+          "spike de stimulation",
+          "artéfacts de stimulation"
+        ],
+        "poids": 3,
+        "justification": "Les spikes réguliers sont un signe ECG central du tracé stimulé ; ARTEFACTE concerne les interférences extra-cardiaques et ne convient pas."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "STIMULATION_ATRIALE",
+      "statut": "present",
+      "surface": "stimulation atriale",
+      "synonymes_a_ajouter": [
+        "activités atriales stimulées",
+        "dépolarisation atriale stimulée",
+        "stimulation des oreillettes",
+        "pacemaker stimule les oreillettes"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "STIMULATION_ATRIALE",
+      "statut": "present",
+      "surface": "sonde auriculaire",
+      "synonymes_a_ajouter": [
+        "sonde atriale",
+        "sonde auriculaire"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fonctionnement attendu d’un stimulateur cardiaque",
+      "nouveau_concept": {
+        "id_suggere": "FONCTIONNEMENT_NORMAL_DU_STIMULATEUR",
+        "concept_name": "Fonctionnement normal du stimulateur",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "STIMULATION"
+        ],
+        "requires": [
+          "PACEMAKER"
+        ],
+        "synonymes": [
+          "fonctionnement attendu du stimulateur",
+          "fonctionnement adapté du stimulateur",
+          "fonctionnement adapté de la sonde atriale"
+        ],
+        "poids": 4,
+        "justification": "Le diagnostic pédagogique du tracé est le fonctionnement attendu/adapté du stimulateur, concept absent du catalogue."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "complexes QRS fins"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "sans signes d’hypertrophie"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "axe à -20°",
+      "synonymes_a_ajouter": [
+        "axe à -20°",
+        "axe du QRS à -20°"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "absence de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "absence de troubles de la repolarisation",
+        "pas de trouble de repolarisation",
+        "pas de troubles de la repolarisation"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QT_NORMAL",
+      "statut": "present",
+      "surface": "intervalle QT de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS",
+      "statut": "present",
+      "surface": "complexes QRS"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS",
+      "statut": "present",
+      "surface": "complexes QRS du patient",
+      "synonymes_a_ajouter": [
+        "complexes QRS spontanés",
+        "QRS spontanés",
+        "complexes QRS du patient"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "STIMULATION_VENTRICULAIRE",
+      "statut": "absent",
+      "surface": "Les complexes QRS ne sont pas stimulés"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "statut": "present",
+      "surface": "ne présente pas de trouble de conduction auriculo-ventriculaire",
+      "synonymes_a_ajouter": [
+        "absence de trouble de conduction auriculo-ventriculaire",
+        "pas de trouble de conduction auriculo-ventriculaire",
+        "ne présente pas de trouble de conduction auriculo-ventriculaire",
+        "conduction auriculo-ventriculaire normale",
+        "conduction entre les oreillettes et les ventricules normale"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "LENT",
+      "statut": "present",
+      "surface": "Le patient est lent dans l’oreillette"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "à fréquence fixe",
+      "nouveau_concept": {
+        "id_suggere": "FREQUENCE_FIXE",
+        "concept_name": "Fréquence fixe",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "synonymes": [
+          "fréquence fixe",
+          "spikes réguliers",
+          "artéfacts de stimulation réguliers"
+        ],
+        "poids": 2,
+        "justification": "La régularité/fixité de la stimulation atriale est décrite et aucun qualificateur existant ne l'exprime précisément."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "STIMULATION_ATRIALE",
+      "relation": "parents",
+      "cible": "STIMULATION",
+      "justification": "La stimulation atriale est un sous-type de stimulation ; elle est déjà sous STIMULATION mais le cas confirme cette hiérarchie."
+    },
+    {
+      "concept_id": "STIMULATION_ATRIALE",
+      "relation": "requires",
+      "cible": "PACEMAKER",
+      "justification": "Dans ce cas, la stimulation atriale observée est liée au stimulateur cardiaque implanté."
+    },
+    {
+      "concept_id": "STIMULATION_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "PACEMAKER",
+      "justification": "La stimulation ventriculaire est également une stimulation par dispositif, même si elle est absente ici."
+    },
+    {
+      "concept_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte relie l'absence de trouble de conduction AV à des QRS spontanés fins après stimulation atriale."
+    }
+  ],
+  "synthese": "Les trous majeurs concernent le lexique du stimulateur : artéfact/spike de stimulation, stimulateur double chambre et fonctionnement normal/adapté du stimulateur. Plusieurs formulations pédagogiques doivent aussi être ajoutées comme synonymes pour pacemaker, stimulation atriale, QRS spontanés et conduction AV normale.",
+  "error": null
+}

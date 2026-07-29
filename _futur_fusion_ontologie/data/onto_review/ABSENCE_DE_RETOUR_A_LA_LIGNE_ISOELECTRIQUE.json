@@ -1,0 +1,22 @@
+{
+  "id": "ABSENCE_DE_RETOUR_A_LA_LIGNE_ISOELECTRIQUE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1",
+  "motif": "Signe morphologique observable et réutilisable, notamment pour caractériser une activité atriale continue de flutter, distinct du diagnostic final.",
+  "concept_retenu": {
+    "id": "ABSENCE_DE_RETOUR_A_LA_LIGNE_ISOELECTRIQUE",
+    "concept_name": "Absence de retour à la ligne isoélectrique",
+    "type": "finding",
+    "parents": [
+      "DESCRIPTION_ECG"
+    ],
+    "requires": [
+      "ONDE_F"
+    ],
+    "synonymes": [
+      "absence de ligne isoélectrique entre les ondes F",
+      "sans retour à la ligne isoélectrique"
+    ]
+  }
+}

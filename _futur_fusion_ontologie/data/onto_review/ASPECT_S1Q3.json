@@ -1,0 +1,27 @@
+{
+  "id": "ASPECT_S1Q3",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "concept_retenu": {
+    "id": "ASPECT_S1Q3",
+    "concept_name": "Aspect S1Q3",
+    "type": "pattern",
+    "parents": [
+      "EMBOLIE_PULMONAIRE",
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "S1Q3",
+      "S1q3",
+      "aspect S1q3",
+      "signe S1Q3",
+      "onde S en DI et onde q en DIII"
+    ]
+  },
+  "motif": "Pattern ECG reconnu, différenciant et explicitement arbitré comme conservable malgré sa définition par dérivations, car il supporte notamment l'embolie pulmonaire.",
+  "principe": "D1",
+  "territoire_ignore_v1": ""
+}

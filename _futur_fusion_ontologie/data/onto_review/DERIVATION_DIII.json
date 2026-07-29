@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATION_DIII",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Une dérivation isolée est une topographie pure, réservée à une couche topographique future et ignorée en v1.",
+  "territoire_ignore_v1": "DIII"
+}

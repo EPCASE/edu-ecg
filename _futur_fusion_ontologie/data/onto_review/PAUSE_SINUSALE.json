@@ -1,0 +1,25 @@
+{
+  "id": "PAUSE_SINUSALE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Le libellé compose un contexte sinusal avec le finding déjà existant PAUSE et l'absence d'onde P, sans nécessiter un pattern monolithique distinct de la dysfonction sinusale existante.",
+  "decomposition": [
+    {
+      "id": "PAUSE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ABSENCE_D_ONDE_P",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "DYSFONCTION_SINUSALE",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

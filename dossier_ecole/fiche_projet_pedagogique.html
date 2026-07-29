@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu-ECG — Fiche Projet Pédagogique</title>
+    <style>
+        @media print {
+            body { background: #fff !important; color: #222 !important; font-size: 11pt; }
+            .container { max-width: 100%; }
+            .toc, .section { page-break-inside: avoid; }
+            .section { break-before: page; }
+            .no-print { display: none; }
+            h1, h2, h3 { color: #1a237e !important; }
+            .pipeline-box { background: #f5f5f5 !important; border-color: #999 !important; color: #222 !important; }
+            .onto-card { background: #f5f5f5 !important; color: #222 !important; }
+            .case-block { background: #f9f9f9 !important; color: #222 !important; }
+            .student-answer { background: #f0f0f0 !important; color: #333 !important; }
+            .trace-step { background: #f5f5f5 !important; color: #222 !important; }
+            .badge { border: 1px solid #999; }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: #0d1117;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            padding: 24px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* ─── Header ─── */
+        .header {
+            text-align: center;
+            padding: 40px 0 24px;
+            border-bottom: 2px solid #30363d;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 36px;
+            color: #90CAF9;
+            letter-spacing: -0.5px;
+        }
+        .header .tagline {
+            font-size: 16px;
+            color: #8b949e;
+            margin-top: 8px;
+        }
+        .header .meta {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 13px;
+            color: #8b949e;
+        }
+        .header .meta span { display: flex; align-items: center; gap: 6px; }
+
+        /* ─── TOC ─── */
+        .toc {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px 32px;
+            margin-bottom: 40px;
+        }
+        .toc h2 { color: #BB86FC; font-size: 18px; margin-bottom: 12px; border: none; }
+        .toc ol { padding-left: 20px; }
+        .toc li { margin: 6px 0; }
+        .toc a { color: #58a6ff; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* ─── Sections ─── */
+        .section { margin-bottom: 48px; }
+        h2 {
+            color: #BB86FC;
+            font-size: 24px;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #90CAF9;
+            font-size: 18px;
+            margin: 20px 0 10px;
+        }
+        h4 {
+            color: #c9d1d9;
+            font-size: 15px;
+            margin: 16px 0 8px;
+        }
+        p { margin-bottom: 12px; color: #c9d1d9; }
+        strong { color: #e0e0e0; }
+        em { color: #8b949e; }
+
+        /* ─── Tables ─── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        thead th {
+            background: #21262d;
+            color: #8b949e;
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 2px solid #30363d;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #21262d;
+            color: #c9d1d9;
+        }
+        tbody tr:hover { background: #161b22; }
+
+        /* ─── Pipeline schema ─── */
+        .pipeline-row {
+            display: flex;
+            gap: 8px;
+            margin: 24px 0;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        .pipeline-box {
+            flex: 1;
+            min-width: 130px;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 14px 12px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.15s;
+        }
+        .pipeline-box:hover { transform: translateY(-3px); }
+        .pipeline-box .num {
+            display: inline-block;
+            background: #BB86FC;
+            color: #0d1117;
+            font-weight: bold;
+            font-size: 11px;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            border-radius: 50%;
+            margin-bottom: 6px;
+        }
+        .pipeline-box .title {
+            font-weight: 600;
+            font-size: 13px;
+            color: #e0e0e0;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .pipeline-box .tech {
+            font-size: 11px;
+            color: #8b949e;
+        }
+        .pipeline-arrow {
+            display: flex;
+            align-items: center;
+            color: #30363d;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* ─── Ontology cards ─── */
+        .onto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .onto-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .onto-card .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #8b949e;
+            margin-bottom: 4px;
+        }
+        .onto-card .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #BB86FC;
+        }
+        .onto-card .detail {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 4px;
+        }
+
+        /* ─── Badges ─── */
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .badge-green { background: #1a3a2a; color: #4caf50; }
+        .badge-yellow { background: #3a3520; color: #ffc107; }
+        .badge-red { background: #3a1a1a; color: #f44336; }
+        .badge-blue { background: #1a2a3a; color: #64b5f6; }
+        .badge-purple { background: #2a1a3a; color: #ce93d8; }
+
+        /* ─── Case block ─── */
+        .case-block {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .case-header .score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        .student-answer {
+            background: #21262d;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            font-style: italic;
+            color: #b0b8c1;
+            border-left: 3px solid #90CAF9;
+            line-height: 1.8;
+        }
+
+        /* ─── Trace pipeline ─── */
+        .trace-step {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 8px 0;
+        }
+        .trace-step .step-title {
+            font-weight: 600;
+            color: #BB86FC;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .concept-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px solid #161b22;
+            font-size: 13px;
+        }
+        .concept-row:last-child { border-bottom: none; }
+        .concept-row .term { flex: 1; color: #c9d1d9; font-family: monospace; }
+        .concept-row .arrow { color: #30363d; }
+        .concept-row .oid { color: #BB86FC; font-family: monospace; font-size: 12px; }
+        .concept-row .method { color: #8b949e; font-size: 11px; }
+
+        /* ─── Ontology tree ─── */
+        .tree { font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 13px; line-height: 1.9; }
+        .tree .node { color: #c9d1d9; }
+        .tree .highlight { color: #BB86FC; font-weight: bold; }
+        .tree .dim { color: #484f58; }
+        .tree .relation { color: #f0883e; font-size: 11px; }
+
+        /* ─── Quote blocks ─── */
+        blockquote {
+            border-left: 3px solid #BB86FC;
+            padding: 12px 16px;
+            margin: 16px 0;
+            background: #161b22;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #8b949e;
+        }
+
+        /* ─── Code ─── */
+        code {
+            background: #21262d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            font-size: 13px;
+            color: #f0883e;
+        }
+
+        /* ─── Lists ─── */
+        ul, ol { padding-left: 24px; margin: 8px 0 16px; }
+        li { margin: 4px 0; color: #c9d1d9; }
+
+        /* ─── Footer ─── */
+        .footer {
+            text-align: center;
+            padding: 32px 0 16px;
+            border-top: 1px solid #21262d;
+            margin-top: 48px;
+            font-size: 13px;
+            color: #484f58;
+        }
+        .footer a { color: #58a6ff; text-decoration: none; }
+
+        /* ─── Scoring visual ─── */
+        .scoring-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+        .scoring-bar .bar-label {
+            width: 240px;
+            font-size: 13px;
+            color: #c9d1d9;
+            text-align: right;
+            font-family: monospace;
+        }
+        .scoring-bar .bar-track {
+            flex: 1;
+            height: 18px;
+            background: #21262d;
+            border-radius: 9px;
+            overflow: hidden;
+        }
+        .scoring-bar .bar-fill {
+            height: 100%;
+            border-radius: 9px;
+            transition: width 0.4s ease;
+        }
+        .scoring-bar .bar-value {
+            width: 50px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+        .fill-100 { background: linear-gradient(90deg, #4caf50, #66bb6a); }
+        .fill-67 { background: linear-gradient(90deg, #ff9800, #ffb74d); }
+        .fill-33 { background: linear-gradient(90deg, #f44336, #e57373); }
+        .fill-0 { background: #333; }
+
+        /* ─── Relation diagram ─── */
+        .relation-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 16px 0;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .rel-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #161b22;
+            border-radius: 6px;
+        }
+        .rel-arrow { color: #f0883e; font-weight: bold; }
+        .rel-type { color: #BB86FC; font-size: 11px; min-width: 90px; }
+        .rel-target { color: #c9d1d9; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ════════════════════════════════ HEADER ════════════════════════════════ -->
+    <div class="header">
+        <h1>🫀 Edu-ECG</h1>
+        <div class="tagline">Pipeline RAG Neurosymbolique pour l'Évaluation d'Interprétations ECG</div>
+        <p style="margin-top: 12px; font-size: 14px; color: #c9d1d9;">Fiche Projet Pédagogique — Partenariat École d'Ingénieurs</p>
+        <div class="meta">
+            <span>📦 github.com/EPCASE/edu-ecg</span>
+            <span>🌿 Branche <code>RAGontologiqueV2</code></span>
+            <span>📅 Avril 2026</span>
+            <span>🏷️ Version V3</span>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ TOC ════════════════════════════════ -->
+    <div class="toc" id="toc">
+        <h2>📑 Sommaire</h2>
+        <ol>
+            <li><a href="#s1">Le problème et la solution</a></li>
+            <li><a href="#s2">Architecture du pipeline — Les 6 briques</a></li>
+            <li><a href="#s3">L'ontologie ECG — Ce qu'elle représente</a></li>
+            <li><a href="#s4">Cas étudiant intégré — BBG complet (Cas 10)</a></li>
+            <li><a href="#s5">Trace complète du pipeline sur le cas</a></li>
+            <li><a href="#s6">Scoring V3 — Comment le score est calculé</a></li>
+            <li><a href="#s7">Forces du système</a></li>
+            <li><a href="#s8">Limites et sujets de développement</a></li>
+            <li><a href="#s9">Stack technique et coûts</a></li>
+        </ol>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 1 ════════════════════════════════ -->
+    <div class="section" id="s1">
+        <h2>1. Le problème et la solution</h2>
+
+        <h3>1.1 Contexte médical</h3>
+        <p>
+            L'<strong>interprétation d'un électrocardiogramme (ECG)</strong> est une compétence fondamentale en médecine, évaluée aux
+            Épreuves Dématérialisées Nationales (EDN). Aujourd'hui, l'évaluation repose sur des QCM simplifiés ou des corrections
+            manuelles chronophages. <strong>Aucune solution ne permet d'évaluer automatiquement un texte libre</strong> rédigé par un étudiant
+            et de produire un feedback pédagogique individualisé ancré dans le cours officiel.
+        </p>
+
+        <h3>1.2 Notre solution</h3>
+        <p>
+            <strong>Edu-ECG</strong> est un pipeline de <strong>Retrieval-Augmented Generation (RAG) neurosymbolique</strong> qui transforme
+            le texte libre d'un étudiant en une <strong>note structurée sur 100% avec un feedback personnalisé</strong>.
+        </p>
+        <p>Le terme <em>neurosymbolique</em> traduit la combinaison de :</p>
+        <ul>
+            <li><strong>Raisonnement symbolique</strong> : ontologie OWL avec 345 concepts, relations sémantiques et règles d'inférence déterministes</li>
+            <li><strong>Inférence neuronale</strong> : GPT-4o (extraction), GPT-4o-mini (jugement, feedback), text-embedding-3-small (recherche vectorielle)</li>
+        </ul>
+
+        <h3>1.3 Exemple concret</h3>
+        <div class="case-block" style="border-left: 3px solid #4caf50;">
+            <p style="color: #8b949e; font-size: 12px; margin-bottom: 8px;">ENTRÉE — Texte libre de l'étudiant</p>
+            <div class="student-answer">
+                « rythme sinusal, 70 bpm, BBD complet, pas de trouble de repolarisation »
+            </div>
+            <p style="color: #8b949e; font-size: 12px; margin: 12px 0 8px;">SORTIE — Évaluation automatique</p>
+            <div style="font-family: monospace; font-size: 14px; line-height: 2;">
+                <span class="badge badge-green">✅ Rythme sinusal — exact</span>
+                <span class="badge badge-green">✅ BBD complet — exact</span>
+                <span class="badge badge-yellow">⚠️ Bloc de branche droit — déduit (enfant trouvé)</span>
+                <span class="badge badge-red">❌ Hypertrophie ventriculaire droite — manqué</span><br>
+                <strong style="color: #4caf50; font-size: 18px;">Score : 78/100</strong>&nbsp;&nbsp;
+                <span style="color: #8b949e;">+ Feedback pédagogique (150-300 mots, ancré cours SFC)</span>
+            </div>
+        </div>
+
+        <h3>1.4 Cadre académique</h3>
+        <p>
+            Le projet s'inscrit dans le cadre d'un <strong>mémoire de Master 2</strong> en cardiologie.
+            Il combine pédagogie médicale, IA médicale et ingénierie ontologique. Le référentiel pédagogique
+            est le <strong>chapitre 15 du cours SFC (Item 231 EDN, CNEC 2<sup>e</sup> édition)</strong>,
+            intégré sous forme de 33 entrées couvrant 85 concepts ontologiques.
+        </p>
+
+        <h3>1.5 Chiffres clés</h3>
+        <div class="onto-grid">
+            <div class="onto-card">
+                <div class="label">Étudiants</div>
+                <div class="value">43</div>
+                <div class="detail">une promotion de médecine</div>
+            </div>
+            <div class="onto-card">
+                <div class="label">Cas ECG</div>
+                <div class="value">15</div>
+                <div class="detail">annotés par cardiologue expert</div>
+            </div>
+            <div class="onto-card">
+                <div class="label">Évaluations</div>
+                <div class="value">~645</div>
+                <div class="detail">43 étudiants × 15 cas</div>
+            </div>
+            <div class="onto-card">
+                <div class="label">Coût total API</div>
+                <div class="value">~$13</div>
+                <div class="detail">$0.02 / cas étudiant</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 2 ════════════════════════════════ -->
+    <div class="section" id="s2">
+        <h2>2. Architecture du pipeline — Les 6 briques</h2>
+
+        <p>Le pipeline traite le texte de l'étudiant en <strong>6 briques séquentielles</strong>, chacune avec une responsabilité claire :</p>
+
+        <div class="pipeline-row">
+            <div class="pipeline-box" style="border-top: 3px solid #ce93d8;">
+                <span class="num">0</span>
+                <span class="title">Socle Ontologique</span>
+                <span class="tech">OWL → Vecteurs + BM25</span>
+                <div style="font-size:11px; color:#666; margin-top:6px;">one-shot</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-box" style="border-top: 3px solid #64b5f6;">
+                <span class="num">2</span>
+                <span class="title">NER</span>
+                <span class="tech">GPT-4o<br>Structured Outputs</span>
+                <div style="font-size:11px; color:#666; margin-top:6px;">$0.003/cas</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-box" style="border-top: 3px solid #4db6ac;">
+                <span class="num">3</span>
+                <span class="title">Recherche Hybride</span>
+                <span class="tech">Dense + BM25<br>+ RRF Fusion</span>
+                <div style="font-size:11px; color:#666; margin-top:6px;">$0.008/cas</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-box" style="border-top: 3px solid #ffb74d;">
+                <span class="num">4</span>
+                <span class="title">Juge Neurosymbolique</span>
+                <span class="tech">Coupe-circuit (42%)<br>+ GPT-4o-mini</span>
+                <div style="font-size:11px; color:#666; margin-top:6px;">$0.005/cas</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-box" style="border-top: 3px solid #4caf50;">
+                <span class="num">5</span>
+                <span class="title">Scoring V3</span>
+                <span class="tech">Ontologique<br>Hiérarchique</span>
+                <div style="font-size:11px; color:#666; margin-top:6px;">symbolique</div>
+            </div>
+            <div class="pipeline-arrow">→</div>
+            <div class="pipeline-box" style="border-top: 3px solid #ef5350;">
+                <span class="num">6</span>
+                <span class="title">Rapport + Feedback</span>
+                <span class="tech">GPT-4o-mini<br>+ Cours SFC</span>
+                <div style="font-size:11px; color:#666; margin-top:6px;">$0.002/cas</div>
+            </div>
+        </div>
+
+        <h3>Détail de chaque brique</h3>
+
+        <h4>🧱 Brique 0 — Socle Ontologique &amp; Index Vectoriel</h4>
+        <p>
+            L'ontologie OWL (345 concepts) est convertie en <strong>658 documents</strong> (1 canonique + N synonymes par concept),
+            encodés via <code>text-embedding-3-small</code> (vecteurs 1536 dimensions) et indexés en BM25.
+            Cette brique s'exécute <em>une seule fois</em> quand l'ontologie change.
+        </p>
+
+        <h4>🧱 Brique 2 — Extraction NER (V2)</h4>
+        <p>
+            <strong>GPT-4o</strong> avec <em>Structured Outputs</em> (schéma Pydantic) extrait les termes cliniques du texte libre.
+            <strong>7 règles</strong> guident l'extraction : zéro normalisation, périmètre ECG large, gestion de la négation,
+            méthode LEGO (modificateurs séparés), conversion des valeurs numériques, expansion des abréviations (V2),
+            et reformulation morphologique (V2).
+        </p>
+        <p>Un <strong>filet de sécurité regex</strong> post-NER détecte les négations ratées par le LLM (<em>"pas de trouble de repolarisation"</em>).</p>
+
+        <h4>🧱 Brique 3 — Recherche Hybride</h4>
+        <p>
+            Chaque terme NER est recherché simultanément via <strong>embeddings cosinus</strong> (sémantique) et <strong>BM25</strong> (lexical).
+            Les résultats sont fusionnés par <strong>Reciprocal Rank Fusion (RRF)</strong> avec boost pour les acronymes BM25.
+            Un helper <code>_deflect()</code> gère les flexions singulier/pluriel et masculin/féminin.
+        </p>
+
+        <h4>🧱 Brique 4 — Juge Neurosymbolique</h4>
+        <p>Deux étapes :</p>
+        <ol>
+            <li><strong>Coupe-circuit</strong> (~42% des cas) : si le terme normalisé matche exactement une forme de surface → résolution déterministe, 0 token LLM.</li>
+            <li><strong>Juge LLM</strong> (~58%) : GPT-4o-mini résout un QCM contraint parmi les Top-K candidats. Validation post-LLM : si l'ID renvoyé n'est pas dans les candidats → forçage <code>NONE</code>.</li>
+        </ol>
+
+        <h4>🧱 Brique 5 — Scoring V3 Ontologique</h4>
+        <p>
+            Score déterministe exploitant la <strong>hiérarchie parent/enfant</strong>, les relations <code>requires</code>, <code>supports</code>,
+            <code>excludes</code> et <code>has_qualifiers</code>. Détaillé en <a href="#s6">Section 6</a>.
+        </p>
+
+        <h4>🧱 Brique 6 — Rapport + Feedback Pédagogique (V2)</h4>
+        <p>
+            Feedback en <strong>2 sections</strong> : (1) Référence au cours SFC Item 231 avec citations et rangs EDN, (2) Commentaire
+            personnalisé sur l'interprétation de l'étudiant. Export HTML standalone.
+        </p>
+
+        <h3>Stratégie clé : le LLM ne voit jamais l'ontologie</h3>
+        <blockquote>
+            Le LLM ne voit <strong>jamais</strong> l'ontologie complète. Il ne reçoit que les Top-K candidats pré-filtrés
+            par la recherche hybride. Il ne peut pas inventer un ID ontologique — la validation post-LLM est stricte.
+            Le scoring est 100% symbolique et reproductible.
+        </blockquote>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 3 ════════════════════════════════ -->
+    <div class="section" id="s3">
+        <h2>3. L'ontologie ECG — Ce qu'elle représente</h2>
+
+        <h3>3.1 Vue d'ensemble</h3>
+        <p>
+            L'ontologie est le <strong>cœur symbolique</strong> du système. Modélisée en <strong>OWL (Web Ontology Language)</strong>
+            via WebProtégé, elle structure l'ensemble des concepts de l'interprétation ECG dans un arbre hiérarchique
+            à 8 niveaux de profondeur.
+        </p>
+
+        <div class="onto-grid">
+            <div class="onto-card">
+                <div class="label">Concepts</div>
+                <div class="value">345</div>
+                <div class="detail">structurés hiérarchiquement</div>
+            </div>
+            <div class="onto-card">
+                <div class="label">Synonymes</div>
+                <div class="value">318</div>
+                <div class="detail">formes de surface alternatives</div>
+            </div>
+            <div class="onto-card">
+                <div class="label">Documents RAG</div>
+                <div class="value">658</div>
+                <div class="detail">345 canoniques + 313 synonymes</div>
+            </div>
+            <div class="onto-card">
+                <div class="label">Profondeur max</div>
+                <div class="value">8</div>
+                <div class="detail">niveaux dans l'arbre</div>
+            </div>
+        </div>
+
+        <h3>3.2 Que contient-elle ?</h3>
+        <p>
+            Chaque concept de l'ontologie représente un <strong>élément de l'interprétation ECG</strong> :
+            un signe observable, un diagnostic, un qualificateur, ou une localisation anatomique.
+            Par exemple, <code>BLOC_DE_BRANCHE_GAUCHE_COMPLET</code> est un diagnostic
+            composé d'un parent (<em>Bloc de branche gauche</em>), de synonymes (<em>BBG complet, BBGc, cLBBB</em>),
+            et de relations sémantiques (<code>supports: QRS ≥ 120 ms</code>).
+        </p>
+
+        <h3>3.3 Les 4 types de concepts</h3>
+        <table>
+            <thead>
+                <tr><th>Type</th><th>Nb</th><th>Rôle</th><th>Exemples</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge badge-blue">finding</span></td>
+                    <td>146</td>
+                    <td>Signe ECG observé</td>
+                    <td>QRS large, Tachycardie, Onde Q</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-purple">qualifier</span></td>
+                    <td>106</td>
+                    <td>Modificateur d'un concept</td>
+                    <td>Complet, Incomplet, Rapide, Type 1</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-green">pattern</span></td>
+                    <td>53</td>
+                    <td>Diagnostic composite</td>
+                    <td>ECG normal, BBD complet, FA</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">topography</span></td>
+                    <td>40</td>
+                    <td>Localisation anatomique</td>
+                    <td>Antéro-septal, Latéral, Apex</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.4 Les catégories cliniques (pondération du score)</h3>
+        <p>Chaque concept est classé dans une <strong>catégorie clinique</strong> qui détermine son <strong>poids dans le score</strong> :</p>
+        <table>
+            <thead>
+                <tr><th>Catégorie</th><th>Nb</th><th>Poids</th><th>Exemples</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge badge-red">DIAGNOSTIC_URGENT</span></td>
+                    <td>15</td><td><strong>5</strong></td>
+                    <td>BAV complet, TV, Asystolie</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">DIAGNOSTIC_MAJEUR</span></td>
+                    <td>88</td><td><strong>4</strong></td>
+                    <td>BBD complet, FA, Flutter</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-blue">DIAGNOSTIC_MOYEN</span></td>
+                    <td>49</td><td><strong>3</strong></td>
+                    <td>BBD, ESV, Artefacte</td>
+                </tr>
+                <tr>
+                    <td style="color:#8b949e;">DESCRIPTION_ECG</td>
+                    <td>130</td><td>2</td>
+                    <td>QRS large, Tachycardie</td>
+                </tr>
+                <tr>
+                    <td style="color:#8b949e;">QUALIFICATEUR</td>
+                    <td>23</td><td>2</td>
+                    <td>Complet, Incomplet, Lent</td>
+                </tr>
+                <tr>
+                    <td style="color:#8b949e;">TOPOGRAPHIE</td>
+                    <td>40</td><td>2</td>
+                    <td>Antérieur, Latéral, Apex</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.5 Les 5 relations sémantiques</h3>
+        <p>Ce qui distingue cette ontologie d'un simple dictionnaire, ce sont ses <strong>relations sémantiques</strong> exploitées par le scoring :</p>
+        <table>
+            <thead>
+                <tr><th>Relation</th><th>Nb</th><th>Sémantique</th><th>Exploitée par</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>parents</code></td><td>345</td>
+                    <td>Hiérarchie is-a (ex: BBD_COMPLET → BLOC_DE_BRANCHE_DROIT)</td>
+                    <td>Scoring V3 : enfant trouvé = 1.0, parent = 2/3</td>
+                </tr>
+                <tr>
+                    <td><code>requires</code></td><td>68</td>
+                    <td>Ce concept nécessite ces findings</td>
+                    <td>Scoring V3 : nb_req_trouvés / nb_req_total</td>
+                </tr>
+                <tr>
+                    <td><code>supports</code></td><td>47</td>
+                    <td>Élément supportant (pas obligatoire)</td>
+                    <td>Scoring V3 : score partiel 1/3</td>
+                </tr>
+                <tr>
+                    <td><code>excludes</code></td><td>49</td>
+                    <td>Incompatible avec…</td>
+                    <td>Scoring V3 : score → 0. Négation → concept positif</td>
+                </tr>
+                <tr>
+                    <td><code>has_qualifiers</code></td><td>94</td>
+                    <td>Qualificateurs de ce pattern</td>
+                    <td>Scoring V3 : score partiel 2/3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.6 Exemple concret : le concept BLOC_DE_BRANCHE_GAUCHE_COMPLET</h3>
+        <p>Voici comment un concept est structuré dans l'ontologie :</p>
+        <div class="case-block">
+            <div class="tree">
+                <div class="dim">CONCEPTS_ECG</div>
+                <div class="dim">&nbsp;&nbsp;└── TROUBLE_DE_LA_CONDUCTION</div>
+                <div class="dim">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── BLOC_DE_BRANCHE</div>
+                <div class="node">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <strong>BLOC_DE_BRANCHE_GAUCHE</strong> <span class="relation">[poids 3, DIAGNOSTIC_MOYEN]</span></div>
+                <div class="highlight">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <strong>BLOC_DE_BRANCHE_GAUCHE_COMPLET</strong> <span class="relation">[poids 3, DIAGNOSTIC_MOYEN]</span></div>
+            </div>
+            <div style="margin-top: 16px;">
+                <div class="relation-diagram">
+                    <div class="rel-row">
+                        <span class="rel-type">synonymes</span>
+                        <span class="rel-arrow">→</span>
+                        <span class="rel-target">"BBG complet", "BBGc", "cLBBB"</span>
+                    </div>
+                    <div class="rel-row">
+                        <span class="rel-type">parent</span>
+                        <span class="rel-arrow">→</span>
+                        <span class="rel-target">BLOC_DE_BRANCHE_GAUCHE</span>
+                    </div>
+                    <div class="rel-row">
+                        <span class="rel-type">supports</span>
+                        <span class="rel-arrow">→</span>
+                        <span class="rel-target">QRS ≥ 120 ms</span>
+                    </div>
+                    <div class="rel-row">
+                        <span class="rel-type">has_qualifiers</span>
+                        <span class="rel-arrow">→</span>
+                        <span class="rel-target">QRS_LARGE</span>
+                    </div>
+                    <div class="rel-row">
+                        <span class="rel-type">type</span>
+                        <span class="rel-arrow">→</span>
+                        <span class="rel-target">qualifier</span>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top: 12px; font-size: 12px; color: #8b949e;">
+                Le concept parent <code>BLOC_DE_BRANCHE_GAUCHE</code> a lui-même une relation <code>excludes → BLOC_DE_BRANCHE_DROIT</code>
+                (ces deux diagnostics sont mutuellement exclusifs) et des enfants : BBG complet et BBG incomplet.
+            </p>
+        </div>
+
+        <h3>3.7 Ce qu'aucun standard ne fait</h3>
+        <p>
+            À notre connaissance, il n'existe pas d'<strong>ontologie ECG francophone orientée évaluation pédagogique</strong>
+            avec relations sémantiques (requires / excludes / supports) et scoring intégré.
+            SNOMED CT est une terminologie (~350 000 concepts, toute la médecine) sans pondération ni scoring.
+            HL7 aECG et SCP-ECG sont des formats de signaux, pas d'interprétation textuelle.
+        </p>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 4 ════════════════════════════════ -->
+    <div class="section" id="s4">
+        <h2>4. Cas étudiant intégré — BBG complet (Cas 10)</h2>
+
+        <p>Voici un <strong>cas réel traité par le pipeline</strong>, de bout en bout. L'étudiant <code>ECG-3RMP</code> interprète un ECG
+            présentant un <strong>Bloc de Branche Gauche complet</strong>.</p>
+
+        <div class="case-block">
+            <div class="case-header">
+                <div>
+                    <h3 style="margin:0;">Cas 10 — Bloc de Branche Gauche complet</h3>
+                    <span style="color:#8b949e; font-size:13px;">Étudiant ECG-3RMP</span>
+                </div>
+                <div class="score">100%</div>
+            </div>
+
+            <h4>📋 Correction experte (Golden Set)</h4>
+            <p>Le cardiologue expert a identifié 3 concepts attendus :</p>
+            <table>
+                <thead>
+                    <tr><th>Concept attendu</th><th>Rôle</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Bloc de branche gauche complet</strong></td>
+                        <td><span class="badge badge-green">🎯 Diagnostic validant</span></td>
+                    </tr>
+                    <tr>
+                        <td>Rythme sinusal</td>
+                        <td><span class="badge badge-blue">📝 Description</span></td>
+                    </tr>
+                    <tr>
+                        <td>PR normal</td>
+                        <td><span class="badge badge-blue">📝 Description</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>✍️ Réponse de l'étudiant (texte libre)</h4>
+            <div class="student-answer">
+                RS, Normocarde, BBG complet, Déviation axiale gauche, PR normal, trouble de la repolarisation approprié, QT normal
+            </div>
+            <p style="font-size:13px; color:#8b949e;">
+                L'étudiant utilise des abréviations (<em>RS, BBG</em>), des termes techniques (<em>normocarde, déviation axiale gauche</em>),
+                et un langage clinique naturel (<em>trouble de la repolarisation approprié</em>). Le pipeline doit extraire,
+                normaliser et scorer chaque terme.
+            </p>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 5 ════════════════════════════════ -->
+    <div class="section" id="s5">
+        <h2>5. Trace complète du pipeline sur le cas</h2>
+
+        <p>Suivons chaque terme de l'étudiant à travers les 4 briques actives du pipeline :</p>
+
+        <!-- STEP 1: NER -->
+        <div class="trace-step">
+            <div class="step-title">🧱 Brique 2 — NER (GPT-4o, Structured Outputs)</div>
+            <p style="font-size:13px; color:#8b949e; margin-bottom:10px;">
+                GPT-4o reçoit le texte libre et extrait 8 entités cliniques. Les abréviations sont développées
+                (RS → Rythme sinusal, BBG → Bloc de branche gauche) grâce aux règles V2.
+            </p>
+            <table>
+                <thead>
+                    <tr><th>Terme brut extrait</th><th>Statut</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>RS</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>Normocarde</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>BBG</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>complet</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>Déviation axiale gauche</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>PR normal</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>trouble de la repolarisation approprié</td><td><span class="badge badge-green">present</span></td></tr>
+                    <tr><td>QT normal</td><td><span class="badge badge-green">present</span></td></tr>
+                </tbody>
+            </table>
+            <p style="font-size:12px; color:#8b949e; margin-top:8px;">
+                ⚙️ Méthode LEGO : "BBG complet" est décomposé en 2 entités : "BBG" + "complet" (règle 4 du prompt NER).
+            </p>
+        </div>
+
+        <!-- STEP 2: Search + Judge -->
+        <div class="trace-step">
+            <div class="step-title">🧱 Briques 3 &amp; 4 — Recherche Hybride + Juge Neurosymbolique</div>
+            <p style="font-size:13px; color:#8b949e; margin-bottom:10px;">
+                Chaque terme est recherché dans l'index vectoriel (658 documents). Le coupe-circuit résout
+                6 termes sur 8 <strong>sans appel LLM</strong>. Les 2 restants passent au juge GPT-4o-mini.
+            </p>
+
+            <div class="concept-row" style="background:#0d1117; padding:8px; border-radius:4px; margin-bottom:2px;">
+                <span class="term" style="min-width:250px;">RS</span>
+                <span class="arrow">→</span>
+                <span class="oid">RYTHME_SINUSAL</span>
+                <span class="badge badge-green" style="font-size:10px;">coupe-circuit</span>
+                <span class="method">cos=0.848 exact ✓</span>
+            </div>
+            <div class="concept-row" style="background:#0d1117; padding:8px; border-radius:4px; margin-bottom:2px;">
+                <span class="term" style="min-width:250px;">Normocarde</span>
+                <span class="arrow">→</span>
+                <span class="oid">FREQUENCE_NORMALE</span>
+                <span class="badge badge-green" style="font-size:10px;">coupe-circuit</span>
+                <span class="method">cos=0.929 exact ✓</span>
+            </div>
+            <div class="concept-row" style="background:#0d1117; padding:8px; border-radius:4px; margin-bottom:2px;">
+                <span class="term" style="min-width:250px;">BBG</span>
+                <span class="arrow">→</span>
+                <span class="oid">BLOC_DE_BRANCHE_GAUCHE</span>
+                <span class="badge badge-green" style="font-size:10px;">coupe-circuit</span>
+                <span class="method">cos=0.885 exact ✓</span>
+            </div>
+            <div class="concept-row" style="background:#161b22; padding:8px; border-radius:4px; margin-bottom:2px; border-left: 2px solid #ffb74d;">
+                <span class="term" style="min-width:250px;">complet</span>
+                <span class="arrow">→</span>
+                <span class="oid">BLOC_DE_BRANCHE_GAUCHE_COMPLET</span>
+                <span class="badge badge-yellow" style="font-size:10px;">juge LLM</span>
+                <span class="method">confiance=85</span>
+            </div>
+            <div class="concept-row" style="background:#0d1117; padding:8px; border-radius:4px; margin-bottom:2px;">
+                <span class="term" style="min-width:250px;">Déviation axiale gauche</span>
+                <span class="arrow">→</span>
+                <span class="oid">DÉVIATION_AXIALE_GAUCHE</span>
+                <span class="badge badge-green" style="font-size:10px;">coupe-circuit</span>
+                <span class="method">cos=0.882 exact ✓</span>
+            </div>
+            <div class="concept-row" style="background:#0d1117; padding:8px; border-radius:4px; margin-bottom:2px;">
+                <span class="term" style="min-width:250px;">PR normal</span>
+                <span class="arrow">→</span>
+                <span class="oid">PR_NORMAL</span>
+                <span class="badge badge-green" style="font-size:10px;">coupe-circuit</span>
+                <span class="method">cos=0.915 exact ✓</span>
+            </div>
+            <div class="concept-row" style="background:#161b22; padding:8px; border-radius:4px; margin-bottom:2px; border-left: 2px solid #ffb74d;">
+                <span class="term" style="min-width:250px;">trouble de la repolarisation approprié</span>
+                <span class="arrow">→</span>
+                <span class="oid">TROUBLE_DE_REPOLARISATION</span>
+                <span class="badge badge-yellow" style="font-size:10px;">juge LLM</span>
+                <span class="method">confiance=90</span>
+            </div>
+            <div class="concept-row" style="background:#0d1117; padding:8px; border-radius:4px; margin-bottom:2px;">
+                <span class="term" style="min-width:250px;">QT normal</span>
+                <span class="arrow">→</span>
+                <span class="oid">QT_NORMAL</span>
+                <span class="badge badge-green" style="font-size:10px;">coupe-circuit</span>
+                <span class="method">cos=0.886 exact ✓</span>
+            </div>
+
+            <div style="margin-top:12px; padding:10px 14px; background:#1a2a3a; border-radius:6px; font-size:13px;">
+                <strong style="color:#64b5f6;">Résumé :</strong>
+                <span class="badge badge-green">6 coupe-circuit</span>
+                <span class="badge badge-yellow">2 juge LLM</span>
+                — Le coupe-circuit a résolu <strong>75%</strong> des termes sans appel LLM (déterministe, gratuit, instantané).
+            </div>
+        </div>
+
+        <!-- STEP 3: Deep dive "complet" -->
+        <div class="trace-step">
+            <div class="step-title">🔬 Focus : comment "complet" devient BLOC_DE_BRANCHE_GAUCHE_COMPLET</div>
+            <p style="font-size:13px; color:#8b949e; margin-bottom:10px;">
+                Le terme "complet" est ambigu : il pourrait désigner BBD complet, BBG complet, ou BAV complet.
+                La recherche hybride retourne les Top-3 candidats suivants :
+            </p>
+            <table>
+                <thead>
+                    <tr><th>#</th><th>Candidat</th><th>Score RRF</th><th>Cosinus</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>BLOC_DE_BRANCHE_DROIT_COMPLET</td>
+                        <td>0.0413</td>
+                        <td>0.518</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>BAV_COMPLET</td>
+                        <td>0.0406</td>
+                        <td>0.465</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>BLOC_DE_BRANCHE_DROIT_COMPLET</td>
+                        <td>0.0397</td>
+                        <td>0.467</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size:13px; color:#c9d1d9; margin-top:10px;">
+                Le juge GPT-4o-mini reçoit ces candidats + le <strong>contexte</strong> (le terme précédent "BBG" dans le texte)
+                et choisit <code>BLOC_DE_BRANCHE_GAUCHE_COMPLET</code> avec confiance <strong>85</strong>.
+                C'est la <strong>compréhension contextuelle</strong> du LLM qui fait la différence : "BBG" + "complet" →
+                BBG complet, pas BBD complet.
+            </p>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 6 ════════════════════════════════ -->
+    <div class="section" id="s6">
+        <h2>6. Scoring V3 — Comment le score est calculé</h2>
+
+        <h3>6.1 L'algorithme</h3>
+        <p>Pour chaque concept attendu (golden), le scoring cherche la <strong>meilleure correspondance</strong> parmi les concepts trouvés :</p>
+
+        <table>
+            <thead>
+                <tr><th>Priorité</th><th>Condition</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Match exact ou synonyme</td><td style="color:#4caf50;font-weight:bold;">1.0</td></tr>
+                <tr><td>1b</td><td>Un <strong>enfant</strong> (descendant) trouvé</td><td style="color:#4caf50;font-weight:bold;">1.0</td></tr>
+                <tr><td>1c</td><td>Un <strong>parent direct</strong> trouvé (distance 1)</td><td style="color:#ffb74d;font-weight:bold;">2/3</td></tr>
+                <tr><td>1c</td><td>Un parent <strong>éloigné</strong> trouvé (distance ≥ 2)</td><td style="color:#e57373;font-weight:bold;">1/3</td></tr>
+                <tr><td>2</td><td>Non trouvé, mais <code>requires</code> partiellement satisfaits</td><td>0..1 (ratio)</td></tr>
+                <tr><td>3</td><td>Non trouvé, <code>has_qualifiers</code> trouvés</td><td style="color:#ffb74d;">2/3</td></tr>
+                <tr><td>4</td><td>Non trouvé, <code>supports</code> trouvés</td><td style="color:#e57373;">1/3</td></tr>
+                <tr><td>5</td><td>Un <code>excludes</code> trouvé</td><td style="color:#f44336;font-weight:bold;">0 (écrase tout)</td></tr>
+                <tr><td>6</td><td>Rien trouvé</td><td>0</td></tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 Application au cas 10 (BBG complet)</h3>
+        <p>L'étudiant a fourni 8 concepts. Le golden set en attend 3. Voici le calcul :</p>
+
+        <div class="scoring-bar">
+            <div class="bar-label">BLOC_DE_BRANCHE_GAUCHE_COMPLET</div>
+            <div class="bar-track"><div class="bar-fill fill-100" style="width: 100%;"></div></div>
+            <div class="bar-value" style="color:#4caf50;">1.0</div>
+        </div>
+        <p style="font-size:12px; color:#8b949e; margin: 0 0 8px 248px;">
+            → L'étudiant a trouvé le concept exact via "BBG" + "complet" (enfant trouvé = 1.0)
+        </p>
+
+        <div class="scoring-bar">
+            <div class="bar-label">RYTHME_SINUSAL</div>
+            <div class="bar-track"><div class="bar-fill fill-100" style="width: 100%;"></div></div>
+            <div class="bar-value" style="color:#4caf50;">1.0</div>
+        </div>
+        <p style="font-size:12px; color:#8b949e; margin: 0 0 8px 248px;">
+            → "RS" → coupe-circuit → RYTHME_SINUSAL (match exact)
+        </p>
+
+        <div class="scoring-bar">
+            <div class="bar-label">PR_NORMAL</div>
+            <div class="bar-track"><div class="bar-fill fill-100" style="width: 100%;"></div></div>
+            <div class="bar-value" style="color:#4caf50;">1.0</div>
+        </div>
+        <p style="font-size:12px; color:#8b949e; margin: 0 0 8px 248px;">
+            → "PR normal" → coupe-circuit → PR_NORMAL (match exact)
+        </p>
+
+        <div style="margin-top:16px; padding:14px 18px; background:#1a3a2a; border-radius:8px; font-size:15px;">
+            <strong>Score final</strong> = (1.0 + 1.0 + 1.0) / 3 × 100 = <strong style="color:#4caf50; font-size: 24px;">100%</strong>
+            <br><span style="font-size:12px; color:#8b949e;">
+                Les 5 autres concepts trouvés (Normocarde, Déviation axiale gauche, etc.) ne sont pas dans le golden set
+                mais enrichissent le feedback — l'étudiant démontre une analyse complète.
+            </span>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 7 ════════════════════════════════ -->
+    <div class="section" id="s7">
+        <h2>7. Forces du système</h2>
+
+        <table>
+            <thead>
+                <tr><th>#</th><th>Force</th><th>Détail</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>F1</strong></td>
+                    <td>Architecture neurosymbolique rigoureuse</td>
+                    <td>Séparation symbolique/neuronal. Le LLM ne voit jamais l'ontologie complète. Le scoring est 100% déterministe et reproductible.</td>
+                </tr>
+                <tr>
+                    <td><strong>F2</strong></td>
+                    <td>Ontologie ECG unique et spécialisée</td>
+                    <td>345 concepts, 5 types de relations sémantiques, 318 synonymes français. Pas d'équivalent francophone orienté évaluation.</td>
+                </tr>
+                <tr>
+                    <td><strong>F3</strong></td>
+                    <td>Scoring V3 hiérarchique</td>
+                    <td>Exploite hiérarchie parent/enfant, requires récursifs, excludes. Dépasse le simple match binaire.</td>
+                </tr>
+                <tr>
+                    <td><strong>F4</strong></td>
+                    <td>Tolérance fautes et abréviations</td>
+                    <td>Embeddings + BM25 + RRF absorbent les fautes (<em>"tachi supra"</em>). NER V2 développe les acronymes courants.</td>
+                </tr>
+                <tr>
+                    <td><strong>F5</strong></td>
+                    <td>Feedback ancré dans le cours</td>
+                    <td>Citations du cours SFC Item 231, rangs EDN (A/B/C), commentaire du correcteur intégré.</td>
+                </tr>
+                <tr>
+                    <td><strong>F6</strong></td>
+                    <td>Coût maîtrisé</td>
+                    <td>~$0.02/cas, ~$13 pour 645 évaluations. Aucune GPU locale requise.</td>
+                </tr>
+                <tr>
+                    <td><strong>F7</strong></td>
+                    <td>Gestion de la négation</td>
+                    <td>Double filet (prompt NER + regex Python) pour capturer "pas de trouble de repolarisation".</td>
+                </tr>
+                <tr>
+                    <td><strong>F8</strong></td>
+                    <td>Coupe-circuit déterministe</td>
+                    <td>42% des résolutions sans LLM : matching exact normalisé → gratuit, instantané, reproductible.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 8 ════════════════════════════════ -->
+    <div class="section" id="s8">
+        <h2>8. Limites connues et sujets de développement</h2>
+
+        <p>Le système a des <strong>limites identifiées</strong>, qui constituent autant de <strong>sujets de développement</strong>
+            pour des étudiants en ingénierie informatique.</p>
+
+        <table>
+            <thead>
+                <tr><th>Axe</th><th>Limite</th><th>Impact</th><th>Sujet de développement</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge badge-red">W1</span></td>
+                    <td>Dépendance API OpenAI</td>
+                    <td>Pas de fallback local</td>
+                    <td><strong>Évaluer des modèles locaux</strong> (Mistral, Llama 3) pour NER et juge. Benchmark coût/qualité.</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W2</span></td>
+                    <td>Recherche vectorielle non scalable</td>
+                    <td>Matrice NumPy en RAM (658 docs)</td>
+                    <td><strong>Intégrer FAISS, Qdrant ou ChromaDB</strong> pour gérer >10K concepts.</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W3</span></td>
+                    <td>Ontologie non standardisée</td>
+                    <td>Pas d'alignement SNOMED CT</td>
+                    <td><strong>Ajouter des mappings owl:sameAs</strong> vers SNOMED CT. Publier sur BioPortal.</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W4</span></td>
+                    <td>Golden set limité (15 cas)</td>
+                    <td>Biais de l'annotateur unique</td>
+                    <td><strong>Étendre à 50+ cas</strong> avec annotations multi-experts et accord inter-annotateurs (Kappa).</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-red">W5</span></td>
+                    <td>Pas de tests automatisés</td>
+                    <td>Régression non détectée</td>
+                    <td><strong>Suite pytest</strong> couvrant négation, hiérarchie, synonymes. Intégrer en GitHub Actions CI.</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W6</span></td>
+                    <td>Couplage entre workspaces</td>
+                    <td>Sync manuelle du code</td>
+                    <td><strong>Restructurer en monorepo</strong> avec packages Python installables (pip install -e).</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W7</span></td>
+                    <td>Pas de versionnement ontologie</td>
+                    <td>Pas de changelog structuré</td>
+                    <td><strong>Adopter un format de diff ontologique</strong> avec versionnement sémantique.</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-red">W8</span></td>
+                    <td>Diagnostic implicite (ECG normal)</td>
+                    <td>Sur-attribution si 1 composant sur 5</td>
+                    <td><strong>Implémenter des règles d'inférence</strong> pour les concepts compositionnels (requires ≥ N).</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W9</span></td>
+                    <td>Pas d'API temps réel</td>
+                    <td>Pipeline batch uniquement</td>
+                    <td><strong>Exposer via FastAPI</strong> + interface web pour feedback en temps réel.</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-yellow">W10</span></td>
+                    <td>Coverage EDN limitée (24.6%)</td>
+                    <td>85/345 concepts couverts</td>
+                    <td><strong>Étendre la knowledge base</strong> au-delà de l'Item 231 SFC.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Sujets prioritaires pour étudiants ingénieurs</h3>
+        <div class="onto-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="onto-card" style="border-left: 3px solid #f44336;">
+                <div class="label">🔴 Priorité haute</div>
+                <div style="font-size:14px; color:#c9d1d9; margin-top:8px;">
+                    <strong>W5 — Tests automatisés</strong><br>
+                    <span style="font-size:12px; color:#8b949e;">
+                        Écrire une suite pytest pour le scoring, le NER et le juge.
+                        Définir des cas de test (négation, hiérarchie, multi-niveaux).
+                        Intégrer en CI/CD GitHub Actions.
+                    </span>
+                </div>
+            </div>
+            <div class="onto-card" style="border-left: 3px solid #f44336;">
+                <div class="label">🔴 Priorité haute</div>
+                <div style="font-size:14px; color:#c9d1d9; margin-top:8px;">
+                    <strong>W1 — Modèles locaux</strong><br>
+                    <span style="font-size:12px; color:#8b949e;">
+                        Benchmark de Mistral-7B, Llama-3-8B en remplacement de GPT-4o-mini
+                        pour le juge. Évaluer le trade-off coût/qualité/latence.
+                    </span>
+                </div>
+            </div>
+            <div class="onto-card" style="border-left: 3px solid #ff9800;">
+                <div class="label">🟡 Priorité moyenne</div>
+                <div style="font-size:14px; color:#c9d1d9; margin-top:8px;">
+                    <strong>W9 — API temps réel</strong><br>
+                    <span style="font-size:12px; color:#8b949e;">
+                        Exposer le pipeline via FastAPI. Interface web (React ou Streamlit)
+                        permettant à un étudiant de soumettre un texte et recevoir un feedback en &lt;10s.
+                    </span>
+                </div>
+            </div>
+            <div class="onto-card" style="border-left: 3px solid #ff9800;">
+                <div class="label">🟡 Priorité moyenne</div>
+                <div style="font-size:14px; color:#c9d1d9; margin-top:8px;">
+                    <strong>W8 — Inférence compositionnelle</strong><br>
+                    <span style="font-size:12px; color:#8b949e;">
+                        Implémenter un mécanisme d'inférence bottom-up : si ≥N composants
+                        d'un concept parapluie sont trouvés, inférer le concept parent.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ SECTION 9 ════════════════════════════════ -->
+    <div class="section" id="s9">
+        <h2>9. Stack technique et coûts</h2>
+
+        <h3>9.1 Technologies</h3>
+        <table>
+            <thead>
+                <tr><th>Composant</th><th>Technologie</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Langage</td><td>Python 3.12+</td></tr>
+                <tr><td>LLMs</td><td>OpenAI GPT-4o (NER) + GPT-4o-mini (Juge + Feedback)</td></tr>
+                <tr><td>Embeddings</td><td>OpenAI text-embedding-3-small (1536 dims)</td></tr>
+                <tr><td>Ontologie source</td><td>OWL via WebProtégé → RDF/XML</td></tr>
+                <tr><td>Ontologie runtime</td><td>JSON V2 (345 concepts)</td></tr>
+                <tr><td>Recherche vectorielle</td><td>NumPy (cosinus, in-RAM)</td></tr>
+                <tr><td>Recherche sparse</td><td>BM25Okapi (rank_bm25)</td></tr>
+                <tr><td>Validation structurée</td><td>Pydantic v2 (Structured Outputs)</td></tr>
+                <tr><td>Collecte étudiants</td><td>Streamlit (ECG Collector)</td></tr>
+                <tr><td>Analyse &amp; évaluation</td><td>Jupyter Notebooks</td></tr>
+                <tr><td>Rapports</td><td>HTML standalone (base64 images)</td></tr>
+                <tr><td>Déploiement</td><td>Scalingo (PaaS)</td></tr>
+            </tbody>
+        </table>
+
+        <h3>9.2 Coûts API par cas étudiant</h3>
+        <table>
+            <thead>
+                <tr><th>Brique</th><th>Modèle</th><th>Coût</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Brique 0 (index)</td><td>text-embedding-3-small</td><td>~$0.01 total (one-shot)</td></tr>
+                <tr><td>Brique 2 (NER)</td><td>gpt-4o</td><td>~$0.003/cas</td></tr>
+                <tr><td>Brique 3 (search)</td><td>text-embedding-3-small</td><td>~$0.008/cas</td></tr>
+                <tr><td>Brique 4 (juge)</td><td>gpt-4o-mini</td><td>~$0.005/cas</td></tr>
+                <tr><td>Brique 6 (feedback)</td><td>gpt-4o-mini</td><td>~$0.002/cas</td></tr>
+                <tr>
+                    <td colspan="2"><strong>Total par cas</strong></td>
+                    <td><strong>~$0.02</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><strong>Total 43 étudiants × 15 cas</strong></td>
+                    <td><strong>~$13</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>9.3 Structure du projet</h3>
+        <div class="case-block">
+            <div class="tree" style="font-size:12px; line-height:1.7;">
+                <div class="highlight">ECG lecture/</div>
+                <div class="node">&nbsp;&nbsp;├── ARCHITECTURE.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Documentation technique complète</span></div>
+                <div class="node">&nbsp;&nbsp;├── *.owl &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Ontologie OWL (WebProtégé)</span></div>
+                <div class="node">&nbsp;&nbsp;├── data/ontology_v2.json &nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># 345 concepts (runtime)</span></div>
+                <div class="node">&nbsp;&nbsp;├── rag_pipeline/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># ★ Cœur du pipeline RAG</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── ontology_index.py &nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Brique 0</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── ner_extractor.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Brique 2</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── hybrid_search.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Brique 3</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── neurosymbolic_judge.py<span class="dim"># Brique 4</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── scoring_v3.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Brique 5</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── candidate_report.py &nbsp;&nbsp;<span class="dim"># Brique 6 (orchestrateur)</span></div>
+                <div class="dim">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── rag_index/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># 658 docs × 1536 dims</span></div>
+                <div class="node">&nbsp;&nbsp;└── dossier_ecole/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># ← Vous êtes ici</span></div>
+                <div class="highlight" style="margin-top:8px;">ECG collector/</div>
+                <div class="node">&nbsp;&nbsp;├── app.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Interface Streamlit de collecte</span></div>
+                <div class="node">&nbsp;&nbsp;└── corrections/students/ &nbsp;&nbsp;&nbsp;<span class="dim"># 43 fichiers ECG-*.json</span></div>
+                <div class="highlight" style="margin-top:8px;">ECG evaluation/</div>
+                <div class="node">&nbsp;&nbsp;├── *.ipynb &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Notebooks d'analyse</span></div>
+                <div class="node">&nbsp;&nbsp;├── goldenset/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># 15 cas annotés par expert</span></div>
+                <div class="node">&nbsp;&nbsp;└── rapports_v2/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="dim"># Rapports HTML générés</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════ FOOTER ════════════════════════════════ -->
+    <div class="footer">
+        <p>
+            <strong>Edu-ECG</strong> — Pipeline RAG Neurosymbolique pour l'Évaluation d'Interprétations ECG<br>
+            <a href="https://github.com/EPCASE/edu-ecg">github.com/EPCASE/edu-ecg</a> · Branche <code>RAGontologiqueV2</code><br>
+            Projet EPCASE · Avril 2026 · Version V3
+        </p>
+        <p style="margin-top:8px; font-size:11px;">
+            Ce document est un fichier HTML autonome. Ouvrir dans un navigateur et imprimer (Ctrl+P) pour export PDF.
+        </p>
+    </div>
+
+</div>
+</body>
+</html>

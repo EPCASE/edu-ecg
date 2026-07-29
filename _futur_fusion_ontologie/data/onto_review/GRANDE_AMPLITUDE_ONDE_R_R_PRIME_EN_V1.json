@@ -1,0 +1,20 @@
+{
+  "id": "GRANDE_AMPLITUDE_ONDE_R_R_PRIME_EN_V1",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "Le libellé combine l’onde R/R’, son amplitude et la dérivation V1; la localisation est ignorée en v1 et l’amplitude doit être portée par un atome/qualifier réutilisable.",
+  "territoire_ignore_v1": "V1",
+  "decomposition": [
+    {
+      "id": "ONDE_R_AMPLE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "PRESENCE_DE_QRS",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

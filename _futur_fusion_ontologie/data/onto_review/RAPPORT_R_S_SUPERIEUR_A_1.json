@@ -1,0 +1,27 @@
+{
+  "id": "RAPPORT_R_S_SUPERIEUR_A_1",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "RAPPORT_R_S_SUPERIEUR_A_1",
+    "concept_name": "Rapport R/S supérieur à 1",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_ANORMALE_DU_QRS"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "R/S > 1",
+      "rapport R/S > 1",
+      "ratio R/S > 1",
+      "prédominance de l'onde R",
+      "aspect RS",
+      "aspect Rs"
+    ]
+  },
+  "motif": "Finding morphologique/voltage du QRS différenciant et réutilisable, après retrait de la localisation V1 ignorée en v1.",
+  "principe": "D1, T1",
+  "territoire_ignore_v1": "V1 / V2"
+}

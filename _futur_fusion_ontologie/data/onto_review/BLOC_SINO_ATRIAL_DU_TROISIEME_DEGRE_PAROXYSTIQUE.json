@@ -1,0 +1,35 @@
+{
+  "id": "BLOC_SINO_ATRIAL_DU_TROISIEME_DEGRE_PAROXYSTIQUE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "Le concept combine un pattern déjà présent (BLOC_SINO_ATRIAL) avec un degré/complet et le qualifier paroxystique, plus des findings de pause/absence d'onde P, donc il doit être représenté par composition.",
+  "decomposition": [
+    {
+      "id": "BLOC_SINO_ATRIAL",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PAUSE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ABSENCE_D_ONDE_P",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "PAROXYSTIQUE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "COMPLET",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

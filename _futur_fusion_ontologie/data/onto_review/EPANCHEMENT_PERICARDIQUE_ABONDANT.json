@@ -1,0 +1,25 @@
+{
+  "id": "EPANCHEMENT_PERICARDIQUE_ABONDANT",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "EPANCHEMENT_PERICARDIQUE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "MICROVOLTAGE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ABONDANT",
+      "role": "qualifier",
+      "existe": false
+    }
+  ],
+  "motif": "Concept composé diagnostic + sévérité + finding de support ; retenir l'épanchement péricardique et qualifier l'abondance, le microvoltage restant un support descriptif.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

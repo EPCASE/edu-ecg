@@ -1,0 +1,1081 @@
+0156* | Anomalie de la qualité du tracé | Trace quality anomaly
+	0157 | Artéfacts | Artifacts
+	0158 | Inversion d'électrodes | Lead reversal
+		.0159 | frontales | Frontal leads
+		.0160 | précordiales | Precordial leads
+		.0161 | onde P et QRS négatif DI | Negative P wave and QRS in DI
+		.0162 | tracé plat en DI, DII ou DIII | Flat trace in DI, DII, or DIII
+		.0163 | onde P, QRS et T négatif en DIII | Negative P wave, QRS, and T wave in DIII
+	0164 | ECG reconstruit | Reconstructed ECG
+		0165 | Algorithme EASI | EASI algorithm
+		0166 | Algorithme GE | GE algorithm
+		0167 | Algorithme autre/inconnu | Other/unknown algorithm
+0168* | Rythme | Rhythm
+	0169 | Rythme sinusal normal (Activité sinusale conduite aux ventricules) | Normal sinus rhythm (Sinus activity conducted to ventricles)
+		@0009 (=Arythmie respiratoire)
+	0171 | Activité sinusale (onde P sinusale) | Sinus activity (sinus P wave)
+		@0009 (=Arythmie respiratoire)
+	0173 | Anomalie de conduction | Conduction abnormality
+		0174 | Bradycardie (FC < 60 bpm) | Bradycardia (HR < 60 bpm)
+			0175 | Bradycardie sinusale | Sinus bradycardia
+				.0176 | appropriée à la clinique | Clinically appropriate
+				@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+				@0183 (=Bradycardie sinusale pathologique)
+				@0204 (=Anomalie de la conduction AV)
+		0179 | Asystole | Asystole
+			@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+			@0204 (=Anomalie de la conduction AV)
+		0182 | Dysfonction sinusale / Bloc sino atrial (BSA) | Sinus node dysfunction / Sinoatrial block (SAB)
+			0183 | Bradycardie sinusale pathologique | Pathological sinus bradycardia
+				@0036 (=Dissociation isorythmique)
+				@0175 (=Bradycardie sinusale)
+			0186 | Bloc sino atrial (BSA) de type 1 | Sinoatrial block (SAB) type 1
+			0188 | Bloc sino atrial (BSA) de type 2 (onde P manquante) | Sinoatrial block (SAB) type 2 (missing P wave)
+				@0801 (=Echappement jonctionnel)
+			0191 | Bloc sino atrial (BSA) de type 3 (onde P inexistante) ou paralysie sinusale | Sinoatrial block (SAB) type 3 (absent P wave) or sinus arrest
+				@0801 (=Echappement jonctionnel)
+				@0804 (=Echappement ventriculaire)
+				@0820 (=Onde P rétrograde)
+			0194 | Pause sinusale (> 3 sec) | Sinus pause (> 3 sec)
+				@0801 (=Echappement jonctionnel)
+				@0804 (=Echappement ventriculaire)
+			0198 | Pause post réduction de tachycardie | Post-tachycardia pause
+				@0801 (=Echappement jonctionnel)
+				@0804 (=Echappement ventriculaire)
+			@0036 (=Dissociation isorythmique)
+			@0174 (=Bradycardie (FC < 60 bpm))
+			@0801 (=Echappement jonctionnel)
+			@0804 (=Echappement ventriculaire)
+		0204 | Anomalie de la conduction AV | AV conduction abnormality
+			0205 | BAV 1 | 1st degree AV block
+			0206 | BAV 2 Mobitz 1 | 2nd degree AV block Mobitz 1
+				@0098 (=Période de Luciani-Wenckebach)
+				@0174 (=Bradycardie (FC < 60 bpm))
+			0209 | BAV 2 : 1 | 2:1 AV block
+				@0174 (=Bradycardie (FC < 60 bpm))
+			0211 | BAV 2 Mobitz 2 (onde P bloquée inopinée) | 2nd degree AV block Mobitz 2 (unexpected blocked P wave)
+				@0174 (=Bradycardie (FC < 60 bpm))
+			0213 | BAV 3 : 1 ou plus ou FA très lente | 3:1 AV block or more or very slow AF
+				@0174 (=Bradycardie (FC < 60 bpm))
+			0215 | BAV 3 / complet | 3rd degree / complete AV block
+				@0035 (=Dissociation atrio-ventriculaire)
+				@0174 (=Bradycardie (FC < 60 bpm))
+				@0801 (=Echappement jonctionnel)
+				@0804 (=Echappement ventriculaire)
+		0220 | Bloc de branche | Bundle branch block
+			0221 | Bloc de branche droit (BBD) incomplet | Incomplete right bundle branch block (RBBB)
+				@0227 (=Bloc fasciculaire antérieur gauche (BFAG ou HBAG))
+				@0231 (=Bloc fasciculaire postérieur gauche (BFPG ou HBPG))
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0225 | Bloc de branche droit (BBD) complet | Complete right bundle branch block (RBBB)
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0227 | Bloc fasciculaire antérieur gauche (BFAG ou HBAG) | Left anterior fascicular block (LAFB or HAFB)
+				@0013 (=Axe gauche)
+				@0225 (=Bloc de branche droit (BBD) complet)
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0231 | Bloc fasciculaire postérieur gauche (BFPG ou HBPG) | Left posterior fascicular block (LPFB or HPFB)
+				@0011 (=Axe droit)
+				@0225 (=Bloc de branche droit (BBD) complet)
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0235 | Bloc de branche gauche incomplet | Incomplete left bundle branch block (LBBB)
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0237 | Bloc de branche gauche complet (BBG) | Complete left bundle branch block (LBBB)
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0239 | Bloc indifférencié | Undifferentiated block
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0241 | Bloc bifasciculaire | Bifascicular block
+				@0225 (=Bloc de branche droit (BBD) complet)
+				@0227 (=Bloc fasciculaire antérieur gauche (BFAG ou HBAG))
+				@0231 (=Bloc fasciculaire postérieur gauche (BFPG ou HBPG))
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0246 | Bloc alternant | Alternating block
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+		0249 | PR court | Short PR
+			0255 | Pré-excitation | Pre-excitation
+				.0259 | antéro-latérale gauche | Left anterolateral
+				.0263 | postéro-latérale gauche | Left posterolateral
+				.0267 | postéro-septale gauche | Left posteroseptal
+				.0271 | postéro-septale droite | Right posteroseptal
+				.0275 | antéro-septale droite | Right anteroseptal
+				.0279 | postéro-latérale droite | Right posterolateral
+				.0283 | antéro-latérale droite | Right anterolateral
+				.0287 | de type Mahaim | Mahaim type
+			@0051 (=Fibre atrio-fasciculaire)
+			@0052 (=Fibre atrio-ventriculaire)
+			@0053 (=Fibre nodo-fasciculaire)
+			@0054 (=Fibre nodo-ventriculaire)
+			@0075 (=Onde delta)
+	0290 | Anomalie de rythme | Rhythm anomaly
+		0291 | Tachycardie (FC > 100 bpm) | Tachycardia (HR > 100 bpm)
+			0292 | Tachycardie sinusale | Sinus tachycardia
+				.0293 | appropriée à la clinique | clinically appropriate
+				.0294 | inappropriée à la clinique | clinically inappropriate
+			0295 | Tachycardie à QRS fins réguliers | Narrow QRS regular tachycardia
+				@0292 (=Tachycardie sinusale)
+				@0351 (=Flutter atrial)
+				@0423 (=Tachycardie atriale)
+				@0443 (=Tachycardie jonctionnelle)
+			0302 | Tachycardie à QRS fins irréguliers | Narrow QRS irregular tachycardia
+				@0351 (=Flutter atrial)
+				@0432 (=Fibrillation atriale (FA))
+				@0562 (=Extrasystoles supraventriculaires (ESSV))
+			0308 | Tachycardie à QRS larges réguliers monomorphes | Wide QRS monomorphic regular tachycardia
+				@0002 (=Aberration de conduction)
+				@0012 (=Axe extrême)
+				@0020 (=Complexe de capture)
+				@0021 (=Complexe de fusion)
+				@0022 (=Concordance négative)
+				@0023 (=Concordance positive)
+				@0035 (=Dissociation atrio-ventriculaire)
+				@0145 (=Tachycardie supra-ventriculaire (TSV))
+				@0220 (=Bloc de branche)
+				@0255 (=Pré-excitation)
+				@0472 (=Tachycardie ventriculaire (TV))
+				@0758 (=Stimulation ventriculaire)
+			0323 | Tachycardie à QRS larges irréguliers monomorphes | Wide QRS monomorphic irregular tachycardia
+				@0002 (=Aberration de conduction)
+				@0012 (=Axe extrême)
+				@0020 (=Complexe de capture)
+				@0021 (=Complexe de fusion)
+				@0022 (=Concordance négative)
+				@0023 (=Concordance positive)
+				@0035 (=Dissociation atrio-ventriculaire)
+				@0145 (=Tachycardie supra-ventriculaire (TSV))
+				@0220 (=Bloc de branche)
+				@0255 (=Pré-excitation)
+				@0472 (=Tachycardie ventriculaire (TV))
+				@0758 (=Stimulation ventriculaire)
+			0338 | Tachycardie à QRS larges irréguliers polymorphes | Wide QRS polymorphic irregular tachycardia
+				0345 | Fibrillation ventriculaire | Ventricular fibrillation
+				0346 | Torsade de pointe | Torsades de pointes
+				0347 | SuperWolf (Fibrillation atriale + pré-excitation) | SuperWolf (Atrial fibrillation + pre-excitation)
+					@0255 (=Pré-excitation)
+				1856 | Tachycardie ventriculaire (TV) polymorphe | Polymorphic ventricular tachycardia
+				1857 | Tachycardie ventriculaire bidirectionnelle | Bidirectional ventricular tachycardia
+			@0071 (=Manœuvres vagales)
+			@0148 (=Test à l'adénosine)
+		0351 | Flutter atrial | Atrial flutter
+			0352 | Flutter atrial typique | Typical atrial flutter
+				0353 | Flutter anti-horaire (commun) | Counterclockwise flutter (common)
+					.0354 | conduction 1/1 | 1:1 conduction
+					.0355 | conduction 2/1 | 2:1 conduction
+					.0356 | conduction variable | variable conduction
+					.0357 | conduction lente | slow conduction
+				0362 | Flutter horaire | Clockwise flutter
+					.0363 | conduction 1/1 | 1:1 conduction
+					.0364 | conduction 2/1 | 2:1 conduction
+					.0365 | conduction variable | Variable conduction
+					.0366 | conduction lente | Slow conduction
+				.0371 | conduction 1/1 | 1:1 conduction
+				.0372 | conduction 2/1 | 2:1 conduction
+				.0373 | conduction variable | Variable conduction
+			0379 | Flutter atrial atypique | Atypical atrial flutter
+				.0380 | conduction 1/1 | 1:1 conduction
+				.0381 | conduction 2/1 | 2:1 conduction
+				.0382 | conduction variable | Variable conduction
+				.0383 | conduction lente | Slow conduction
+				.1425 | péri-cicatriciel post chirurgie cardiaque | Post-surgical scar-related
+				.1426 | péri-mitral | Peri-mitral
+				.1427 | du toit de l'OG | Roof of the left atrium
+				0391 | Flutter atypique droit | Right atypical flutter
+					.0392 | conduction 1/1 | 1:1 conduction
+					.0393 | conduction 2/1 | 2:1 conduction
+					.0394 | conduction variable | Variable conduction
+					.0395 | conduction lente | Slow conduction
+					.1428 | péri-cicatriciel post chirurgie cardiaque | Post-surgical scar-related
+				0403 | Flutter atypique gauche | Left atypical flutter
+					.0404 | conduction 1/1 | 1:1 conduction
+					.0405 | conduction 2/1 | 2:1 conduction
+					.0406 | conduction variable | Variable conduction
+					.0407 | conduction lente | Slow conduction
+					.1429 | péri-cicatriciel post chirurgie cardiaque | Post-surgical scar-related
+					.1430 | péri-mitral | Peri-mitral
+					.1431 | du toit de l'OG | Roof of the left atrium
+			.0415 | conduction 1/1 | 1:1 conduction
+			.0416 | conduction 2/1 | 2:1 conduction
+			.0417 | conduction variable | Variable conduction
+			.0418 | conduction lente | Slow conduction
+			@0103 (=QRS fins)
+			@0174 (=Bradycardie (FC < 60 bpm))
+			@0215 (=BAV 3 / complet)
+			@0831 (=QRS larges)
+		0423 | Tachycardie atriale | Atrial tachycardia
+			.0424 | conduction 1/1 | 1:1 conduction
+			.0425 | conduction 2/1 | 2:1 conduction
+			.0426 | conduction variable | Variable conduction
+			.0427 | conduction lente | Slow conduction
+			@0103 (=QRS fins)
+			@0174 (=Bradycardie (FC < 60 bpm))
+			@0215 (=BAV 3 / complet)
+			@0831 (=QRS larges)
+		0432 | Fibrillation atriale (FA) | Atrial fibrillation (AF)
+			.0434 | grosses mailles | Coarse
+			.0435 | petites mailles | Fine
+			.0436 | conduction lente | Slow conduction
+			@0002 (=Aberration de conduction)
+			@0103 (=QRS fins)
+			@0174 (=Bradycardie (FC < 60 bpm))
+			@0215 (=BAV 3 / complet)
+			@0220 (=Bloc de branche)
+			@0291 (=Tachycardie (FC > 100 bpm))
+			@0831 (=QRS larges)
+		0443 | Tachycardie jonctionnelle | Junctional tachycardia
+			0444 | Tachycardie par réentrée intranodale | Atrioventricular nodal reentrant tachycardia (AVNRT)
+				.0445 | slow fast | Slow-fast
+				.0446 | slow slow | Slow-slow
+				.0447 | fast slow | Fast-slow
+				@0040 (=Dualité nodale)
+			0452 | Tachycardie par réentrée sur voie accessoire à conduction décrémentielle (de Coumel) | Coumel-type decremental pathway tachycardia
+			0456 | Tachycardie par réentrée sur voie accessoire à conduction décrémentielle (sur fibre de Mahaim) | Mahaim fiber tachycardia
+			0460 | Tachycardie par réentrée sur voie accessoire orthodromique | Orthodromic reciprocating tachycardia
+			0464 | Tachycardie par réentrée sur voie accessoire antidromique | Antidromic reciprocating tachycardia
+			0468 | Tachycardie jonctionnelle ectopique (JET) ou tachycardie automatique | Junctional ectopic tachycardia (JET) or automatic tachycardia
+			@0002 (=Aberration de conduction)
+			@0103 (=QRS fins)
+			@0831 (=QRS larges)
+		0471 | Double réponse ventriculaire (double conduction nodale) | Double ventricular response (double nodal conduction)
+		0472 | Tachycardie ventriculaire (TV) | Ventricular tachycardia (VT)
+			.0522 | gauche | Left
+			.0523 | droite | Right
+			.0524 | basale | Basal
+			.0525 | médiane | Mid
+			.0526 | apicale | Apical
+			.0527 | inférieure | Inferior
+			.0528 | antérieure | Anterior
+			.0529 | septale | Septal
+			.0530 | latérale | Lateral
+			0473 | Tachycardie ventriculaire (TV) sur séquelle de nécrose | Ventricular tachycardia (VT) due to necrosis sequelae
+				.0474 | gauche | left
+				.0475 | droite | right
+				.0476 | basale | basal
+				.0477 | médiane | mid
+				.0478 | apicale | apical
+				.0479 | inférieure | inferior
+				.0480 | antérieure | anterior
+				.0481 | septale | septal
+				.0482 | latérale | lateral
+			0483 | Tachycardie ventriculaire (TV) sur coeur sain | Ventricular tachycardia (VT) in a healthy heart
+				.0484 | infundibulaire | infundibular
+				.0485 | fasciculaire | fascicular
+				.0486 | de pillier | papillary
+				.0487 | croix du coeur | heart's cross
+				.0488 | péri-hissienne | peri-Hisian
+				.0489 | gauche | left
+				.0490 | droite | right
+				.0491 | basale | basal
+				.0492 | médiane | mid
+				.0493 | apicale | apical
+				.0494 | inférieure | inferior
+				.0495 | antérieure | anterior
+				.0496 | septale | septal
+				.0497 | latérale | lateral
+			0498 | Tachycardie ventriculaire (TV) sur cardiopathie non ischémique | Ventricular tachycardia (VT) due to non-ischemic cardiopathy
+				.0499 | de branche à branche | bundle-to-bundle
+				.0500 | epicardique | epicardial
+				.0501 | gauche | left
+				.0502 | droite | right
+				.0503 | basale | basal
+				.0504 | médiane | mid
+				.0505 | apicale | apical
+				.0506 | inférieure | inferior
+				.0507 | antérieure | anterior
+				.0508 | septale | septal
+				.0509 | latérale | lateral
+			0510 | Flutter ventriculaire | Ventricular flutter
+				.0511 | gauche | left
+				.0512 | droite | right
+				.0513 | basale | basal
+				.0514 | médiane | mid
+				.0515 | apicale | apical
+				.0516 | inférieure | inferior
+				.0517 | antérieure | anterior
+				.0518 | septale | septal
+				.0519 | latérale | lateral
+			0520 | Tachycardie ventriculaire (TV) bidirectionnelle | Bidirectional ventricular tachycardia (VT)
+			0521 | Tachycardie ventriculaire (TV) polymorphe | Polymorphic ventricular tachycardia (VT)
+			@0012 (=Axe extrême)
+			@0020 (=Complexe de capture)
+			@0021 (=Complexe de fusion)
+			@0022 (=Concordance négative)
+			@0023 (=Concordance positive)
+			@0035 (=Dissociation atrio-ventriculaire)
+		0537 | Tachycardie ventriculaire non soutenue (TVNS) | Non-sustained ventricular tachycardia (NSVT)
+			.0538 | monomorphe | monomorphic
+			.0539 | polymorphe | polymorphic
+			.0540 | gauche | left
+			.0541 | droite | right
+			.0542 | basale | basal
+			.0543 | médiane | mid
+			.0544 | apicale | apical
+			.0545 | inférieure | inferior
+			.0546 | antérieure | anterior
+			.0547 | septale | septal
+			.0548 | latérale | lateral
+			@0019 (=Coeur sain)
+		0550 | Rythme idioventriculaire accéléré (RIVA) | Accelerated idioventricular rhythm (AIVR)
+			0551 | Rythme idioventriculaire accéléré (RIVA) post reperfusion coronaire | AIVR post coronary reperfusion
+			@0036 (=Dissociation isorythmique)
+		0554 | Rythme idiojonctionnel accéléré (RIJA) | Accelerated junctional rhythm (AJR)
+			0555 | Rythme idiojonctionnel accéléré (RIJA) post ablation de la voie lente | AJR post slow pathway ablation
+			0557 | Rythme idiojonctionnel accéléré (RIJA) induit par cathécholamine | AJR induced by catecholamines
+			0559 | Rythme idiojonctionnel accéléré (RIJA) post reperfusion coronaire | AJR post coronary reperfusion
+			@0036 (=Dissociation isorythmique)
+		0562 | Extrasystoles supraventriculaires (ESSV) | Supraventricular premature beats (SVPB)
+			.1316 | bigéminisme | bigeminy
+			.1317 | trigéminisme | trigeminy
+			.1318 | doublet | doublet
+			.1319 | triplet | triplet
+			.1320 | salve | salvo
+			.1321 | bloquée | blocked
+			0563 | Extrasystoles atrial (ESA) | Atrial premature beats (APB)
+				.1322 | bigéminisme | bigeminy
+				.1323 | trigéminisme | trigeminy
+				.1324 | doublet | doublet
+				.1325 | triplet | triplet
+				.1326 | salve | salvo
+				.1327 | bloquée | blocked
+			0570 | Extrasystoles jonctionnelles (ESJ) | Junctional premature beats (JPB)
+				.1328 | bigéminisme | bigeminy
+				.1329 | trigéminisme | trigeminy
+				.1330 | doublet | doublet
+				.1331 | triplet | triplet
+				.1332 | salve | salvo
+				.1333 | bloquée | blocked
+		0583 | Extrasystoles ventriculaires (ESV) | Ventricular premature beats (VPB)
+			.1271 | bigéminisme | bigeminy
+			.1272 | trigéminisme | trigeminy
+			.1273 | doublet | doublet
+			.1274 | triplet | triplet
+			.1275 | salve | salvo
+			.0740 | couplage court | short coupling
+			.0741 | couplage long | long coupling
+			.1551 | phénomène R sur T | R-on-T phenomenon
+			.0744 | gauche | left
+			.0745 | droite | right
+			.0746 | basale | basal
+			.0747 | médiane | mid
+			.0748 | apicale | apical
+			.0749 | inférieure | inferior
+			.0750 | antérieure | anterior
+			.0751 | septale | septal
+			.0752 | latérale | lateral
+			0584 | Extrasystoles ventriculaires (ESV) infundibulaire VD | Infundibular ventricular premature beats (RV)
+				.1276 | bigéminisme | bigeminy
+				.1277 | trigéminisme | trigeminy
+				.1278 | doublet | doublet
+				.1279 | triplet | triplet
+				.1280 | salve | salvo
+				.0589 | couplage court | short coupling
+				.0590 | couplage long | long coupling
+				.1554 | phénomène R sur T | R-on-T phenomenon
+				@0820 (=Onde P rétrograde)
+			0603 | Extrasystoles ventriculaires (ESV) du ventricule droit (autre que infundibulaire) | Ventricular premature beats (other than infundibular RV)
+				.1281 | bigéminisme | bigeminy
+				.1282 | trigéminisme | trigeminy
+				.1283 | doublet | doublet
+				.1284 | triplet | triplet
+				.1285 | salve | salvo
+				.0608 | couplage court | short coupling
+				.0609 | couplage long | long coupling
+				.0614 | basale | basal
+				.0615 | médiane | mid
+				.0616 | apicale | apical
+				.0617 | inférieure | inferior
+				.0618 | antérieure | anterior
+				.0619 | septale | septal
+				.0620 | latérale | lateral
+				.1556 | phénomène R sur T | R-on-T phenomenon
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			0622 | Extrasystoles ventriculaires (ESV) de pillier | Papillary ventricular premature beats
+				.1286 | bigéminisme | bigeminy
+				.1287 | trigéminisme | trigeminy
+				.1288 | doublet | doublet
+				.1289 | triplet | triplet
+				.1290 | salve | salvo
+				.0627 | couplage court | short coupling
+				.0628 | couplage long | long coupling
+				.1559 | phénomène R sur T | R-on-T phenomenon
+				.0638 | septale | septal
+				.0639 | latérale | lateral
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			0641 | Extrasystoles ventriculaires (ESV) infundibulaire VG (de cusp) | Left ventricular outflow tract (LVOT) extrasystoles
+				.1291 | bigéminisme | bigeminy
+				.1292 | trigéminisme | trigeminy
+				.1293 | doublet | doublet
+				.1294 | triplet | triplet
+				.1295 | salve | salvo
+				.0646 | couplage court | short coupling
+				.0647 | couplage long | long coupling
+				.1562 | phénomène R sur T | R-on-T phenomenon
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			0660 | Extrasystoles ventriculaires (ESV) de la jonction mitro-aortique | Mitral-aortic junction extrasystoles
+				.1296 | bigéminisme | bigeminy
+				.1297 | trigéminisme | trigeminy
+				.1298 | doublet | doublet
+				.1299 | triplet | triplet
+				.1300 | salve | salvo
+				.0665 | couplage court | short coupling
+				.0666 | couplage long | long coupling
+				.1565 | phénomène R sur T | R-on-T phenomenon
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			0679 | Extrasystoles ventriculaires (ESV) fasciculaire | Fascicular extrasystoles
+				.1301 | bigéminisme | bigeminy
+				.1302 | trigéminisme | trigeminy
+				.1303 | doublet | doublet
+				.1304 | triplet | triplet
+				.1305 | salve | salvo
+				.0684 | couplage court | short coupling
+				.0685 | couplage long | long coupling
+				.1568 | phénomène R sur T | R-on-T phenomenon
+				.0694 | antérieure | anterior
+				.0695 | postérieure | posterior
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			0698 | Extrasystoles ventriculaires (ESV) du Purkinje | Purkinje extrasystoles
+				.1306 | bigéminisme | bigeminy
+				.1307 | trigéminisme | trigeminy
+				.1308 | doublet | doublet
+				.1309 | triplet | triplet
+				.1310 | salve | salvo
+				.0703 | couplage court | short coupling
+				.0704 | couplage long | long coupling
+				.1571 | phénomène R sur T | R-on-T phenomenon
+				.0707 | gauche | left
+				.0708 | droite | right
+				.0709 | basale | basal
+				.0710 | médiane | median
+				.0711 | apicale | apical
+				.0712 | inférieure | inferior
+				.0713 | antérieure | anterior
+				.0714 | septale | septal
+				.0715 | latérale | lateral
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			0717 | Extrasystoles ventriculaires (ESV) du sommet du VG | Apex of LV extrasystoles
+				.1311 | bigéminisme | bigeminy
+				.1312 | trigéminisme | trigeminy
+				.1313 | doublet | doublet
+				.1314 | triplet | triplet
+				.1315 | salve | salvo
+				.0722 | couplage court | short coupling
+				.0723 | couplage long | long coupling
+				.1574 | phénomène R sur T | R-on-T phenomenon
+				@0820 (=Onde P rétrograde)
+				@1139 (=Absence de cardiopathie (coeur sain))
+			@0820 (=Onde P rétrograde)
+			@1139 (=Absence de cardiopathie (coeur sain))
+		0754 | Wandering pacemaker | Wandering pacemaker
+		@3138 (=Arrêt anomalie de rythme)
+		@3139 (=Début anomalie de rythme)
+	0755 | Electro-entrainement / Pacemaker / Défibrillateur (stimulation) | Electrotraining / Pacemaker / Defibrillator (stimulation)
+		0756 | Stimulation atriale | Atrial pacing
+			@0007 (=Artefact (spike) de stimulation atriale)
+		0758 | Stimulation ventriculaire | Ventricular pacing
+			0759 | Stimulation ventriculaire droite | Right ventricular pacing
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0760 | Stimulation ventriculaire gauche | Left ventricular pacing
+				@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+			0761 | Stimulation de resynchronisation biventriculaire | Biventricular resynchronization pacing
+				.0762 | négativité DI | DI negativity
+				@0106 (=Resynchronisation épicardique chirurgicale)
+			0764 | Stimulation hissienne sélective | Selective His bundle pacing
+			0765 | Stimulation hissienne non sélective | Non-selective His bundle pacing
+			0766 | Stimulation de branche gauche sélective | Selective left bundle branch pacing
+			0767 | Stimulation de branche gauche non sélective | Non-selective left bundle branch pacing
+			0768 | Stimulation septal profonde | Deep septal pacing
+			@0008 (=Artefact (spike) de stimulation ventriculaire)
+		0770 | Cardioversion | Cardioversion
+			0771 | Cardioversion TSV inefficace | Ineffective SVT cardioversion
+			0772 | Cardioversion TV/FV inefficace | Ineffective VT/VF cardioversion
+	0773 | Dysfonction de pacemaker | Pacemaker dysfunction
+		0774 | Tachycardie electroentrainée | Pacemaker-mediated tachycardia
+			0775 | Tachycardie par réentrée electronique | Electronic reentry tachycardia
+			0776 | Tachycardie par défaut de repli | Back-up mode tachycardia
+			0777 | Tachycardie electroentrainée sur suivi d'une TSV lente | Pacemaker-mediated tachycardia on slow SVT tracking
+		0778 | Défaut de capture | Capture failure
+			0779 | Artefact (spike) de stimulation sans capture atriale | Pacing spike without atrial capture
+				@0034 (=Déplacement de sonde)
+			0781 | Artefact (spike) de stimulation sans capture ventriculaire | Pacing spike without ventricular capture
+				@0034 (=Déplacement de sonde)
+			@0034 (=Déplacement de sonde)
+		0784 | Bradycardie en présence d'un stimulateur cardiaque | Bradycardia with pacemaker
+			0785 | Surdétection | Oversensing
+				@0018 (=Bruit)
+			0787 | Algorithme de conservation de la conduction | Conduction preservation algorithm
+				@0034 (=Déplacement de sonde)
+			@0034 (=Déplacement de sonde)
+		0790 | Excès de stimulation | Overpacing
+			0792 | Défaut d'écoute | Undersensing
+				@0034 (=Déplacement de sonde)
+			0794 | Stimulation en fenêtre de sécurité | Safety pacing
+				@0034 (=Déplacement de sonde)
+			@0034 (=Déplacement de sonde)
+	0796 | Rythme d'échappement | Escape rhythm
+		0799 | Echappement atrial | Atrial escape
+			@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		0801 | Echappement jonctionnel | Junctional escape
+			@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+			@0820 (=Onde P rétrograde)
+		0804 | Echappement ventriculaire | Ventricular escape
+			@0204 (=Anomalie de la conduction AV)
+			@0820 (=Onde P rétrograde)
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0204 (=Anomalie de la conduction AV)
+0807* | Anomalie de la morphologie onde P | P wave morphology anomaly
+	0808 | Hypertrophie atriale | Atrial hypertrophy
+		0809 | Hypertrophie atriale gauche (HAG) | Left atrial hypertrophy (LAH)
+		0812 | Hypertrophie atriale droite (HAD) | Right atrial hypertrophy (RAH)
+		@0844 (=Hypertrophie ventriculaire gauche (HVG))
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+	0817 | Bloc de conduction intra-atrial | Intra-atrial conduction block
+	0818 | Activité atriale basse (onde P non positive en DII-VF) | Low atrial activity (non-positive P wave in II-VF)
+		0819 | Rythme du sinus coronaire | Coronary sinus rhythm
+	0820 | Onde P rétrograde | Retrograde P wave
+0821* | Anomalie de la morphologie QRS | QRS morphology anomaly
+	0822 | Onde Q pathologique | Pathological Q wave
+		.0823 | antérieure | anterior
+		.0824 | septale (V1-V2) | septal (V1-V2)
+		.0825 | apicale (V3-V4) | apical (V3-V4)
+		.0826 | latérale bas (V5-V6) | low lateral (V5-V6)
+		.0827 | latérale haut (DI-aVL) | high lateral (DI-aVL)
+		.0828 | inférieure (DIII-VF-DII) | inferior (DIII-VF-DII)
+		.0829 | postéro-basale (V7-V8-V9) | postero-basal (V7-V8-V9)
+		.0830 | droite (V3R V4R) | right (V3R V4R)
+	0831 | QRS larges | Wide QRS
+		@0002 (=Aberration de conduction)
+		@0220 (=Bloc de branche)
+		@0255 (=Pré-excitation)
+		@0758 (=Stimulation ventriculaire)
+		@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+		@1086 (=Médicamenteux / toxique)
+	0838 | Modification ischémique aiguë des QRS | Acute ischemic QRS modification
+		.0839 | fragmentation | fragmentation
+		@0037 (=Distorsion terminale)
+		@0851 (=Microvoltage)
+		@0855 (=Rabotage/écrêtage des ondes R en antérieur)
+	0843 | Amplitude anormale des QRS | Abnormal QRS amplitude
+		0844 | Hypertrophie ventriculaire gauche (HVG) | Left ventricular hypertrophy (LVH)
+			.0845 | Indice de Sokolow > 35 mm (> 45 mm avant 40 ans) | Sokolow index > 35 mm (> 45 mm under 40 years old)
+				@0935 (=Sous-décalage ST secondaire à une hypertrophie ventriculaire)
+			.0847 | Indice de Cornell > 28 mm (H); > 20 mm (F) | Cornell index > 28 mm (M); > 20 mm (F)
+				@0935 (=Sous-décalage ST secondaire à une hypertrophie ventriculaire)
+			@0935 (=Sous-décalage ST secondaire à une hypertrophie ventriculaire)
+		0850 | Hypertrophie ventriculaire droite (HVD) | Right ventricular hypertrophy (RVH)
+		0851 | Microvoltage | Microvoltage
+			0852 | Microvoltage diffus | Diffuse microvoltage
+			@1140 (=Amylose)
+			@1201 (=Epanchement péricardique)
+		0855 | Rabotage/écrêtage des ondes R en antérieur | Truncation/clipping of R waves in anterior leads
+	2860 | Axe des QRS | QRS axis
+		0011 | Axe droit | Right axis
+			@0231 (=Bloc fasciculaire postérieur gauche (BFPG ou HBPG))
+		0012 | Axe extrême | Extreme axis
+		0013 | Axe gauche | Left axis
+			@0227 (=Bloc fasciculaire antérieur gauche (BFAG ou HBAG))
+		0014 | Axe normal | Normal axis
+0856* | Anomalie de repolarisation du point J ou du segment ST | J-point or ST-segment repolarization abnormality
+	0857 | Variante de la normale | Normal variant
+		0858 | Sus-décalage physiologique antérieur (repolarisation masculine) | Physiological anterior elevation (male repolarization)
+			.0859 | septal (V1-V2) | septal (V1-V2)
+			.0860 | apical (V3-V4) | apical (V3-V4)
+	0861 | Repolarisation précoce (Point J surélevé avec aspect de rebond dans les dérivations inférieures et/ou latérales) | Early repolarization (elevated J-point with notched appearance in inferior and/or lateral leads)
+		.0862 | inférieur (DII-DIII-aVF) | inferior (DII-DIII-aVF)
+		.0863 | latéral bas (V5-V6) | low lateral (V5-V6)
+		.0864 | latéral haut (DI aVL) | high lateral (DI aVL)
+		.2685 | étendu | extensive
+		.0865 | syndrome de repolarisation précoce | early repolarization syndrome
+	0866 | Sus-décalage ST (ST+) pathologique | Pathological ST-segment elevation (ST+)
+		.3504 | antérieur (V1-V6) | anterior (V1-V6)
+		.3505 | septal (V1-V2) | septal (V1-V2)
+		.3506 | apical (V3-V4) | apical (V3-V4)
+		.3507 | latéral bas (V5-V6) | low lateral (V5-V6)
+		.3508 | latéral haut (DI-VL) | high lateral (DI-VL)
+		.3509 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+		.3510 | postéro-basal (V7-V8-V9) | postero-basal (V7-V8-V9)
+		.3511 | droite (V3R-V4R) | right (V3R-V4R)
+		0867 | Sus-décalage ST évocateur d'occlusion coronaire/syndrome coronaire aigü (SCA) | ST-segment elevation suggestive of coronary occlusion/acute coronary syndrome (ACS)
+			.0871 | antérieur (V1-V6) | anterior (V1-V6)
+			.0872 | septal (V1-V2) | septal (V1-V2)
+			.0873 | apical (V3-V4) | apical (V3-V4)
+			.0874 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0875 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0876 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0877 | postéro-basal (V7-V8-V9) | postero-basal (V7-V8-V9)
+			.0878 | droite (V3R-V4R) | right (V3R-V4R)
+			@0139 (=Syndrome coronaire aigü (SCA))
+			@0822 (=Onde Q pathologique)
+			@0945 (=Sous-décalage ST miroir d'un ST+)
+		0879 | Sus-décalage ST évocateur de péricardite/myocardite | ST-segment elevation suggestive of pericarditis/myocarditis
+			.0881 | antérieur (V1-V6) | anterior (V1-V6)
+			.0882 | septal (V1-V2) | septal (V1-V2)
+			.0883 | apical (V3-V4) | apical (V3-V4)
+			.0884 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0885 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0886 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0887 | postéro-basal (V7-V8-V9) | postero-basal (V7-V8-V9)
+			.0888 | droite (V3R-V4R) | right (V3R-V4R)
+			@0112 (=Sous-décalage segment PQ)
+		0889 | Sus-décalage ST évocateur de Brugada | ST-segment elevation suggestive of Brugada
+			0890 | Sus-décalage ST typique de Brugada (Point J surélevé avec Sus-décalage ST ≥ 2 mm en V1 ou V2 en dôme ou triangle) | Typical Brugada ST-segment elevation (Elevated J-point with ST-segment elevation ≥ 2 mm in V1 or V2, dome or triangle shaped)
+			0891 | Sus-décalage ST atypique en V1 | Atypical ST-segment elevation in V1
+		0892 | Sus-décalage ST évocateur de Takotsubo | ST-segment elevation suggestive of Takotsubo
+			.0893 | antérieur (V1-V6) | anterior (V1-V6)
+			.0894 | septal (V1-V2) | septal (V1-V2)
+			.0895 | apical (V3-V4) | apical (V3-V4)
+			.0896 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0897 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0898 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0899 | postéro-basal (V7-V8-V9) | postero-basal (V7-V8-V9)
+			.0900 | droite (V3R-V4R) | right (V3R-V4R)
+		0901 | Sus-décalage ST évocateur d'anévrysme ventriculaire | ST-segment elevation suggestive of ventricular aneurysm
+			.0902 | antérieur (V1-V6) | anterior (V1-V6)
+			.0903 | septal (V1-V2) | septal (V1-V2)
+			.0904 | apical (V3-V4) | apical (V3-V4)
+			.0905 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0906 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0907 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0908 | postéro-basal (V7-V8-V9) | postero-basal (V7-V8-V9)
+			.0909 | droite (V3R-V4R) | right (V3R-V4R)
+		@0822 (=Onde Q pathologique)
+		@0945 (=Sous-décalage ST miroir d'un ST+)
+		@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+	0913 | Sous-décalage ST pathologique | Pathological ST-segment depression
+		.3321 | diffus | diffuse
+		.3322 | antérieur | anterior
+		.3323 | septal (V1-V2) | septal (V1-V2)
+		.3324 | apical (V3-V4) | apical (V3-V4)
+		.3325 | latéral bas (V5-V6) | low lateral (V5-V6)
+		.3326 | latéral haut (DI-VL) | high lateral (DI-VL)
+		.3327 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+		.3328 | basal (V7-V8-V9) | basal (V7-V8-V9)
+		.3329 | droite (V3R V4R) | right (V3R V4R)
+		0914 | Sous-décalage ST évocateur d'une pathologie coronaire (SCA) | ST-segment depression suggestive of coronary pathology (ACS)
+			.0915 | diffus | diffuse
+			.0916 | antérieur | anterior
+			.0917 | septal (V1-V2) | septal (V1-V2)
+			.0918 | apical (V3-V4) | apical (V3-V4)
+			.0919 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0920 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0921 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0922 | basal (V7-V8-V9) | basal (V7-V8-V9)
+			.0923 | droite (V3R V4R) | right (V3R V4R)
+		0924 | Sous-décalage ST évocateur d'une ischémie fonctionnelle | ST-segment depression suggestive of functional ischemia
+			.0926 | diffus | diffuse
+			.0927 | antérieur | anterior
+			.0928 | septal (V1-V2) | septal (V1-V2)
+			.0929 | apical (V3-V4) | apical (V3-V4)
+			.0930 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0931 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0932 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0933 | basal (V7-V8-V9) | basal (V7-V8-V9)
+			.0934 | droite (V3R V4R) | right (V3R V4R)
+		0935 | Sous-décalage ST secondaire à une hypertrophie ventriculaire | ST-segment depression secondary to ventricular hypertrophy
+		0936 | Sous-décalage ST évocateur d'une anomalie métabolique | ST-segment depression suggestive of a metabolic abnormality
+			.0939 | diffus | diffuse
+			@1065 (=Hypokaliémie)
+			@1076 (=Hypercalcémie)
+		0940 | Sous-décalage ST évocateur d'origine médicamenteuse | ST-segment depression suggestive of drug-induced origin
+			.0944 | diffus | diffuse
+			@0003 (=Amiodarone)
+			@0105 (=Quinidine)
+			@1115 (=Digitaliques)
+		0945 | Sous-décalage ST miroir d'un ST+ | Mirror ST-segment depression of an ST+
+			.0946 | antérieur | anterior
+			.0947 | septal (V1-V2) | septal (V1-V2)
+			.0948 | apical (V3-V4) | apical (V3-V4)
+			.0949 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0950 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0951 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0952 | basal (V7-V8-V9) | basal (V7-V8-V9)
+			.0953 | droite (V3R V4R) | right (V3R V4R)
+		0954 | Sous-décalage ST évocateur d'une péricardite/myocardite | ST-segment depression suggestive of pericarditis/myocarditis
+			.0955 | antérieur | anterior
+			.0956 | septal (V1-V2) | septal (V1-V2)
+			.0957 | apical (V3-V4) | apical (V3-V4)
+			.0958 | latéral bas (V5-V6) | low lateral (V5-V6)
+			.0959 | latéral haut (DI-VL) | high lateral (DI-VL)
+			.0960 | inférieur (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.0961 | basal (V7-V8-V9) | basal (V7-V8-V9)
+			.0962 | droite (V3R V4R) | right (V3R V4R)
+	2045 | Anomalie de repolarisation secondaire à une tachycardie | Repolarization abnormality secondary to tachycardia
+	0964 | Anomalie de repolarisation secondaire à un QRS large (discordance appropriée) | Repolarization abnormality secondary to a wide QRS (appropriate discordance)
+	0963 | Anomalie de repolarisation avec QRS large évocatrices d'ischémie myocardique (SCA) | Repolarization abnormality with wide QRS suggestive of myocardial ischemia (ACS)
+0965* | Anomalie de l'Onde T | T-wave abnormality
+	0966 | Onde T inversée (discordante avec la polarité du QRS) | Inverted T-wave (discordant with QRS polarity)
+		.1007 | antérieure étendue | extended anterior
+		.1008 | septale (V1-V2) | septal (V1-V2)
+		.1009 | apicale (V3-V4) | apical (V3-V4)
+		.1010 | latérale (V5-V6 Di aVL) | lateral (V5-V6 DI aVL)
+		.1011 | inférieure (DII DIII avF) | inferior (DII DIII aVF)
+		.1012 | postérieure (V7-V8-V9) | posterior (V7-V8-V9)
+		.1013 | droite (V3R V4R) | right (V3R V4R)
+		0967 | Onde T inversée physiologique | Physiological inverted T-wave
+			.0968 | isolée en DIII | isolated in DIII
+			.0969 | en V2-V3 (repolarisation de l'apex) | in V2-V3 (apex repolarization)
+			.0970 | V1-V4 chez l'athlète d'origine africaine | V1-V4 in athletes of African descent
+		0971 | Onde T inversée évocatrice d'effet Chatterjee | Inverted T-wave suggestive of Chatterjee effect
+			.0972 | antérieure étendue | extended anterior
+			.0973 | septale (V1-V2) | septal (V1-V2)
+			.0974 | apicale (V3-V4) | apical (V3-V4)
+			.0975 | latérale (V5-V6 Di aVL) | lateral (V5-V6 DI aVL)
+			.0976 | inférieure (DII DIII avF) | inferior (DII DIII aVF)
+			.0977 | postérieure (V7-V8-V9) | posterior (V7-V8-V9)
+			.0978 | droite (V3R V4R) | right (V3R V4R)
+			.0979 | diffuse | diffuse
+		0980 | Onde T inversée évocatrice d'une cardiopathie | Inverted T-wave suggestive of cardiopathy
+			.0981 | antérieure étendue | extended anterior
+			.0982 | septale (V1-V2) | septal (V1-V2)
+			.0983 | apicale (V3-V4) | apical (V3-V4)
+			.0984 | latérale (V5-V6 Di aVL) | lateral (V5-V6 DI aVL)
+			.0985 | inférieure (DII DIII avF) | inferior (DII DIII aVF)
+			.0986 | postérieure (V7-V8-V9) | posterior (V7-V8-V9)
+			.0987 | droite (V3R V4R) | right (V3R V4R)
+			.0988 | diffuse | diffuse
+		0989 | Onde T inversée écovatrice d'une pathologie coronaire (SCA) | Inverted T-wave suggestive of coronary pathology (ACS)
+			.0990 | antérieure étendue | extended anterior
+			.0991 | septale (V1-V2) | septal (V1-V2)
+			.0992 | apicale (V3-V4) | apical (V3-V4)
+			.0993 | latérale (V5-V6 Di aVL) | lateral (V5-V6 DI aVL)
+			.0994 | inférieure (DII DIII avF) | inferior (DII DIII aVF)
+			.0995 | postérieure (V7-V8-V9) | posterior (V7-V8-V9)
+			.0996 | droite (V3R V4R) | right (V3R V4R)
+			.0997 | diffuse | diffuse
+		2232 | Onde T inversée évocatrice d'une ischémie fonctionnelle | Inverted T-wave suggestive of functional ischemia
+			.2500 | secondaire à une tachycardie | secondary to tachycardia
+			.2501 | antérieure étendue | extended anterior
+			.2503 | septale (V1-V2) | septal (V1-V2)
+			.2504 | apicale (V3-V4) | apical (V3-V4)
+			.2505 | latérale bas (V5-V6) | low lateral (V5-V6)
+			.2506 | latérale haut (DI-VL) | high lateral (DI-VL)
+			.2507 | inférieure (DIII-VF-DII) | inferior (DIII-VF-DII)
+			.2508 | basale (V7-V8-V9) | basal (V7-V8-V9)
+			.2509 | droite (V3R V4R) | right (V3R V4R)
+			.2510 | diffuse | diffuse
+		0998 | Onde T inversée écovatrice d'une anomalie métabolique | Inverted T-wave suggestive of metabolic abnormality
+			@1065 (=Hypokaliémie)
+		1000 | Onde T inversée écovatrice d'origine médicamenteuse | Inverted T-wave suggestive of drug-induced origin
+			@0070 (=Lithium)
+			@1115 (=Digitaliques)
+		1003 | Onde T inversée écovatrice d'un Tako-tsubo | Inverted T-wave suggestive of Takotsubo
+		1004 | Onde T inversée écovatrice d'un épanchement péricardique | Inverted T-wave suggestive of pericardial effusion
+		1005 | Onde T inversée écovatrice d'une embolie pulmonaire | Inverted T-wave suggestive of pulmonary embolism
+		@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+	1014 | Onde T négative | Negative T-wave
+		.1017 | antérieure étendue | extended anterior
+		.1018 | septale (V1-V2) | septal (V1-V2)
+		.1019 | apicale (V3-V4) | apical (V3-V4)
+		.1020 | latérale (V5-V6 Di aVL) | lateral (V5-V6 DI aVL)
+		.1021 | inférieure (DII DIII avF) | inferior (DII DIII aVF)
+		.1022 | postérieure (V7-V8-V9) | posterior (V7-V8-V9)
+		.1023 | droite (V3R V4R) | right (V3R V4R)
+		1015 | Onde T négative physiologique | Physiological negative T-wave
+			.1016 | V1-V3 chez le jeune adulte (pas d'onde T inversée) | V1-V3 in young adults (no inverted T-wave)
+	1024 | Onde T bifide | Bifid T-wave
+	1025 | Onde T ample | Tall T-wave
+	1026 | Onde T plate | Flat T-wave
+	1027 | Onde U anormale (Onde U > onde T) | Abnormal U-wave (U-wave > T-wave)
+	.2233 | secondaire à une tachycardie | secondary to tachycardia
+	.2234 | antérieure étendue | extended anterior
+	.2235 | septale (V1-V2) | septal (V1-V2)
+	.2236 | apicale (V3-V4) | apical (V3-V4)
+	.2237 | latérale (V5-V6 Di aVL) | lateral (V5-V6 DI aVL)
+	.2238 | inférieure (DII DIII avF) | inferior (DII DIII aVF)
+	.2239 | postérieure (V7-V8-V9) | posterior (V7-V8-V9)
+	.2240 | droite (V3R V4R) | right (V3R V4R)
+	.2241 | diffuse | diffuse
+	@0964 (=Anomalie de repolarisation secondaire à un QRS large (discordance appropriée))
+	@2045 (=Anomalie de repolarisation secondaire à une tachycardie)
+1028* | Anomalie de la durée du QT | QT interval abnormality
+	1029 | QT long | Long QT
+		1030 | QT long secondaire | Secondary long QT
+			1031 | QT long d'origine médicamenteuse | Drug-induced long QT
+			1034 | QT long d'origine métabolique | Metabolic long QT
+				@0064 (=Hypomagnésémie)
+				@1065 (=Hypokaliémie)
+				@1074 (=Hypocalcémie)
+				@1080 (=Hypothermie)
+			1041 | QT long secondaire à une bradycardie | Long QT secondary to bradycardia
+		1046 | QT long congénital | Congenital long QT
+			1049 | QT long congénital de type 1 | Type 1 congenital long QT
+			1052 | QT long congénital de type 2 | Type 2 congenital long QT
+			1055 | QT long congénital de type 3 | Type 3 congenital long QT
+			1058 | QT long congénital de type > 3 | Congenital long QT > type 3
+		.1769 | phénomène R sur T | R-on-T phenomenon
+		@0346 (=Torsade de pointe)
+	1063 | QT court (QTc ≤ 320 ms) | Short QT (QTc ≤ 320 ms)
+1064* | Anomalie métabolique | Metabolic abnormality
+	1065 | Hypokaliémie | Hypokalemia
+		@0096 (=Onde U)
+		@0913 (=Sous-décalage ST pathologique)
+		@1030 (=QT long secondaire)
+	1069 | Hyperkaliémie | Hyperkalemia
+		@0174 (=Bradycardie (FC < 60 bpm))
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0204 (=Anomalie de la conduction AV)
+		@0831 (=QRS larges)
+	1074 | Hypocalcémie | Hypocalcemia
+		@1030 (=QT long secondaire)
+	1076 | Hypercalcémie | Hypercalcemia
+		.1078 | sus-décalage ST pathologique | Pathological ST elevation
+		@0042 (=Elevation point J)
+		@1063 (=QT court (QTc ≤ 320 ms))
+	1080 | Hypothermie | Hypothermia
+		1085 | Onde J d'osborn | Osborn wave
+		@0174 (=Bradycardie (FC < 60 bpm))
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0831 (=QRS larges)
+		@1030 (=QT long secondaire)
+1086* | Médicamenteux / toxique | Drug-induced / toxic
+	1087 | Antiarythmique de classe 1 (bloqueurs sodiques) | Class 1 antiarrhythmic (sodium channel blockers)
+		.1094 | surdosage | overdose
+		.1095 | imprégnation | saturation
+		@0056 (=Flutter Flécainide)
+		@0308 (=Tachycardie à QRS larges réguliers monomorphes)
+		@0323 (=Tachycardie à QRS larges irréguliers monomorphes)
+		@0338 (=Tachycardie à QRS larges irréguliers polymorphes)
+		@0831 (=QRS larges)
+		@1122 (=Stabilisateurs de membrane)
+	1096 | Antiarythmique de classe 2 (bétabloquants) | Class 2 antiarrhythmic (beta-blockers)
+		.1100 | surdosage | overdose
+		.1101 | imprégnation | saturation
+		@0174 (=Bradycardie (FC < 60 bpm))
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0204 (=Anomalie de la conduction AV)
+	1102 | Antiarythmique de classe 3 (bloqueurs potassiques) | Class 3 antiarrhythmic (potassium channel blockers)
+		.1107 | surdosage | overdose
+		.1108 | imprégnation | saturation
+		@0174 (=Bradycardie (FC < 60 bpm))
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0204 (=Anomalie de la conduction AV)
+		@1030 (=QT long secondaire)
+	1109 | Antiarythmique de classe 4 (bloqueurs calciques) | Class 4 antiarrhythmic (calcium channel blockers)
+		.1113 | surdosage | overdose
+		.1114 | imprégnation | saturation
+		@0174 (=Bradycardie (FC < 60 bpm))
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0204 (=Anomalie de la conduction AV)
+	1115 | Digitaliques | Digitalis
+		.1120 | surdosage | overdose
+		.1121 | imprégnation | saturation
+		@0031 (=Cupule digitalique)
+		@0174 (=Bradycardie (FC < 60 bpm))
+		@0182 (=Dysfonction sinusale / Bloc sino atrial (BSA))
+		@0204 (=Anomalie de la conduction AV)
+	1122 | Stabilisateurs de membrane | Membrane stabilizers
+		@0831 (=QRS larges)
+		@1030 (=QT long secondaire)
+		@1087 (=Antiarythmique de classe 1 (bloqueurs sodiques))
+		@1133 (=Anti-dépresseurs tricycliques)
+	1127 | Inhibiteurs de la recapture de la sérotonine | Serotonin reuptake inhibitors
+		.1128 | surdosage | overdose
+		.1129 | imprégnation | saturation
+	1130 | Neuroleptiques | Neuroleptics
+		.1131 | surdosage | overdose
+		.1132 | imprégnation | saturation
+	1133 | Anti-dépresseurs tricycliques | Tricyclic antidepressants
+		.1135 | surdosage | overdose
+		.1136 | imprégnation | saturation
+		@1122 (=Stabilisateurs de membrane)
+	1137 | Médicamenteux autre | Other drug-induced
+1138* | Cardiopathie / contexte | Cardiopathy / context
+	1139 | Absence de cardiopathie (coeur sain) | No cardiopathy (healthy heart)
+	1140 | Amylose | Amyloidosis
+		@0852 (=Microvoltage diffus)
+	1142 | Athlète / sportif | Athlete / sportsperson
+		@0175 (=Bradycardie sinusale)
+		@0221 (=Bloc de branche droit (BBD) incomplet)
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+		@0861 (=Repolarisation précoce (Point J surélevé avec aspect de rebond dans les dérivations inférieures et/ou latérales))
+	1147 | Cardiomyopathie dilatée | Dilated cardiomyopathy
+	1148 | Cardiomyopathie hypertrophique | Hypertrophic cardiomyopathy
+		.1151 | ST- secondaire à une hypertrophie ventriculaire | ST- secondary to ventricular hypertrophy
+		@0831 (=QRS larges)
+		@0844 (=Hypertrophie ventriculaire gauche (HVG))
+	1152 | Cardiomyopathie restrictive | Restrictive cardiomyopathy
+	1153 | Cardiopathie arythmogène (dont dysplasie arythmogène du ventricule droit: DAVD) | Arrhythmogenic cardiopathy (including arrhythmogenic right ventricular dysplasia: ARVD)
+		1154 | Onde Epsilon | Epsilon wave
+		@0205 (=BAV 1)
+		@0206 (=BAV 2 Mobitz 1)
+	1157 | Cardiopathie autre | Other cardiopathy
+	1158 | Cardiopathie congénitale | Congenital cardiopathy
+		1159 | Tétrallogie de Fallot | Tetralogy of Fallot
+		1162 | Transposition des gros vaisceaux | Transposition of the great vessels
+		1165 | Communication inter-ventriculaire | Ventricular septal defect
+		1168 | Communication inter-auriculaire | Atrial septal defect
+			@0808 (=Hypertrophie atriale)
+		1172 | Double discordance | Double discordance
+		1175 | Ventricule unique | Single ventricle
+		1178 | Maladie d'Ebstein | Ebstein anomaly
+		@0011 (=Axe droit)
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+	1183 | Cardiopathie ischémique | Ischemic cardiopathy
+		@0822 (=Onde Q pathologique)
+	1185 | Cardiopathie rythmique | Rhythmic cardiopathy
+		@0290 (=Anomalie de rythme)
+	1187 | Cardiopathie toxique | Toxic cardiopathy
+		1188 | Cardiopathie aux anthracyclines | Anthracycline-induced cardiopathy
+		1189 | Cardiopathie chimiothérapie autre | Other chemotherapy-induced cardiopathy
+		1190 | Cardiopathie alcoolique | Alcoholic cardiopathy
+	1191 | Coeur pulmonaire aigü (embolie pulmonaire) | Acute pulmonary heart (pulmonary embolism)
+		@0010 (=Aspect S1Q3)
+		@0011 (=Axe droit)
+		@0866 (=Sus-décalage ST (ST+) pathologique)
+	1196 | Coeur pulmonaire chronique | Chronic pulmonary heart
+		@0011 (=Axe droit)
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+	1199 | Dysjonction annulaire mitrale | Mitral annular disjunction
+		@0622 (=Extrasystoles ventriculaires (ESV) de pillier)
+	1201 | Epanchement péricardique | Pericardial effusion
+		@0851 (=Microvoltage)
+	1203 | Hémochromatose | Hemochromatosis
+		@0844 (=Hypertrophie ventriculaire gauche (HVG))
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+	1205 | Hypertension artérielle pulmonaire (HTAP) | Pulmonary arterial hypertension (PAH)
+		@0011 (=Axe droit)
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+	1208 | Insuffisance aortique | Aortic insufficiency
+		@0844 (=Hypertrophie ventriculaire gauche (HVG))
+	1210 | Insuffisance mitrale | Mitral insufficiency
+		@0808 (=Hypertrophie atriale)
+	1212 | Laminopathies | Laminopathies
+		@0204 (=Anomalie de la conduction AV)
+		@0220 (=Bloc de branche)
+	1215 | Maladie de Danon | Danon disease
+	1216 | Maladie de Fabry | Fabry disease
+		@0844 (=Hypertrophie ventriculaire gauche (HVG))
+		@0850 (=Hypertrophie ventriculaire droite (HVD))
+	1218 | Myocardite | Myocarditis
+		.1219 | sus-décalage ST pathologique | Pathological ST elevation
+		@0913 (=Sous-décalage ST pathologique)
+	1221 | Myopathie de Steinert | Steinert myopathy
+		@0204 (=Anomalie de la conduction AV)
+		@0220 (=Bloc de branche)
+	1224 | Rétrécissement aortique | Aortic stenosis
+		@0844 (=Hypertrophie ventriculaire gauche (HVG))
+	1226 | Rétrécissement mitral | Mitral stenosis
+		@0808 (=Hypertrophie atriale)
+	1228 | Tako-tsubo | Tako-tsubo
+		.1230 | sus-décalage ST pathologique | Pathological ST elevation
+		@0913 (=Sous-décalage ST pathologique)
+		@0966 (=Onde T inversée (discordante avec la polarité du QRS))
+	1232 | Tamponnade | Cardiac tamponade
+		1233 | Alternance electrique | Electrical alternans
+		@0852 (=Microvoltage diffus)
+	1235 | Transplantation cardiaque | Heart transplantation
+		@0292 (=Tachycardie sinusale)
+3791* | Electrophysiologie | Electrophysiology
+	3792 | Mesures et intervalles intraventriculaires | Intracardiac measurements and intervals
+		3793 | HV | HV interval
+		3794 | AH | AH interval
+		3795 | Potentiel hissien (H) | His potential (H)
+		3796 | Bloc supra-hissien | Supra-Hisian block
+		3797 | Bloc intra-hissien | Intra-Hisian block
+		3798 | Bloc infra-hissien | Infra-Hisian block
+		3799 | Point de Wenckebach | Wenckebach point
+		3800 | TRSC | TRSC
+		3801 | Période réfractaire (atriale, NAV, His, voie accessoire, ventriculaire) | Refractory period (atrial, AV node, His, accessory pathway, ventricular)
+	3802 | Potentiels spécifiques | Specific potentials
+		3806 | Potentiel de Purkinje | Purkinje potential
+		3807 | Potentiel de voie lente | Slow pathway potential
+		3808 | Potentiel de branche | Bundle branch potential
+		3809 | Nœud compact | Compact node
+		3810 | Potentiel de Kent | Kent potential
+		3811 | Potentiel mid-diastolique | Mid-diastolic potential
+		3812 | Voie lente | Slow pathway
+		3813 | Voie rapide | Fast pathway
+		3814 | Near field | Near-field
+		3815 | Far field | Far-field
+		3816 | Double potentiel | Double potential
+		3817 | Potentiel fragmenté | Fractionated potential
+		3818 | Potentiel veineux | Venous potential
+		3819 | LAVA | LAVA
+		3820 | Pré-potentiel | Pre-potential
+		3821 | Complex Fractionned Atrial Electrograms (CFAE) | Complex Fractionated Atrial Electrograms (CFAE)
+		3822 | Dispersion | Dispersion
+	3803 | Stimulation Entrainement Manoeuvre | Pacing, entrainment, manoeuvers
+		3823 | Post pacing interval (PPI) | Post pacing interval (PPI)
+		3824 | Entraînement (ventriculaire, atrial, caché, manifeste) | Entrainment (ventricular, atrial, concealed, manifest)
+		3825 | Extrasystole en période réfractaire du His | Extrasystole delivered in His refractory period
+		3826 | Réponse VAAV | VAAV response
+		3827 | Réponse VAV | VAV response
+		3828 | Sti A-VA (SAVA) | A-VA stimulation (SAVA)
+		3829 | Stimulation parahissienne | Parahisian pacing
+		3830 | Manœuvre de Maruyama | Maruyama maneuver
+		3831 | Manœuvre de Dandamudi | Dandamudi maneuver
+		3832 | Pacing différentiel | Differential pacing
+		3833 | Topo-stimulation | Topo-pacing
+		3834 | Bloc unidirectionnel | Unidirectional block
+		3835 | Bloc bidirectionnel | Bidirectional block
+		3836 | Recyclage | Reentry (recycling)
+		3837 | Conduction décrémentielle (antérograde, rétrograde) | Decremental conduction (antegrade, retrograde)
+		3838 | Warm up | Warm up
+		3839 | Cool down | Cool down
+		3840 | Conduction excentrique | Eccentric conduction
+		3841 | Conduction concentrique | Concentric conduction
+		3842 | Echo | Echo
+		3843 | Stimulation ventriculaire programmée | Programmed ventricular stimulation
+		3844 | Stimulation atriale programmée | Programmed atrial stimulation
+		3845 | Période réfractaire effective (PRE) | Effective refractory period (ERP)
+		3846 | Saut de conduction (antérograde, rétrograde) | Conduction jump (antegrade, retrograde)
+	3804 | Énergie | Energy
+		3847 | Radiofréquence | Radiofrequency
+		3848 | Cryoablation | Cryoablation
+		3849 | Electroporation | Electroporation
+	3805 | Mécanismes électrophysiologiques | Electrophysiological mechanisms
+		3850 | Micro-réentrée | Micro–reentry
+		3851 | Macro-réentrée | Macro–reentry
+		3852 | Automaticité | Automaticity
+		3853 | Rotor | Rotor
+		3854 | Driver | Driver
+0001* | Autre | Other
+	0002 | Aberration de conduction | Conduction aberration
+	0003 | Amiodarone | Amiodarone
+	0007 | Artefact (spike) de stimulation atriale | Atrial pacing artifact (spike)
+	0008 | Artefact (spike) de stimulation ventriculaire | Ventricular pacing artifact (spike)
+	0009 | Arythmie respiratoire | Respiratory arrhythmia
+	0010 | Aspect S1Q3 | S1Q3 pattern
+	0018 | Bruit | Noise
+	0019 | Coeur sain | Healthy heart
+	0020 | Complexe de capture | Capture complex
+	0021 | Complexe de fusion | Fusion complex
+	0022 | Concordance négative | Negative concordance
+	0023 | Concordance positive | Positive concordance
+	0031 | Cupule digitalique | Digitalis scooping
+	0034 | Déplacement de sonde | Lead displacement
+	0035 | Dissociation atrio-ventriculaire | Atrioventricular dissociation
+	0036 | Dissociation isorythmique | Isorhythmic dissociation
+	0037 | Distorsion terminale | Terminal distortion
+	0040 | Dualité nodale | Nodal duality
+	0042 | Elevation point J | J-point elevation
+	0051 | Fibre atrio-fasciculaire | Atriofascicular fiber
+	0052 | Fibre atrio-ventriculaire | Atrioventricular fiber
+	0053 | Fibre nodo-fasciculaire | Nodofascicular fiber
+	0054 | Fibre nodo-ventriculaire | Nodoventricular fiber
+	3790 | Fibre fasciculo-ventriculaire | Fasciculoventricular fiber
+	0056 | Flutter Flécainide | Flecainide flutter
+	0064 | Hypomagnésémie | Hypomagnesemia
+	0070 | Lithium | Lithium
+	0071 | Manœuvres vagales | Vagal maneuvers
+	0075 | Onde delta | Delta wave
+	0096 | Onde U | U wave
+	0098 | Période de Luciani-Wenckebach | Luciani-Wenckebach period
+	0103 | QRS fins | Narrow QRS
+	0105 | Quinidine | Quinidine
+	0106 | Resynchronisation épicardique chirurgicale | Surgical epicardial resynchronization
+	0112 | Sous-décalage segment PQ | PQ segment depression
+	0139 | Syndrome coronaire aigü (SCA) | Acute coronary syndrome (ACS)
+	0145 | Tachycardie supra-ventriculaire (TSV) | Supraventricular tachycardia (SVT)
+	0148 | Test à l'adénosine | Adenosine test
+	3789 | Manoeuvres vagales | Vagal maneuvers
+3138 | Arrêt anomalie de rythme | Rhythm anomaly termination
+3139 | Début anomalie de rythme | Rhythm anomaly onset
+1237 | ECG normal | Normal ECG
+	@0009 (=Arythmie respiratoire)
+	@0014 (=Axe normal)
+	@0103 (=QRS fins)
+	@0169 (=Rythme sinusal normal (Activité sinusale conduite aux ventricules))

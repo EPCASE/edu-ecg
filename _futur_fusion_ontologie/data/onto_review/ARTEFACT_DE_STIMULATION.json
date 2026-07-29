@@ -1,0 +1,23 @@
+{
+  "id": "ARTEFACT_DE_STIMULATION",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "motif": "Le spike/artéfact de stimulation est un signe observable atomique, réutilisable et absent du catalogue, distinct du pacemaker ou de la stimulation comme contexte.",
+  "concept_retenu": {
+    "id": "ARTEFACT_DE_STIMULATION",
+    "concept_name": "Artéfact de stimulation",
+    "type": "finding",
+    "parents": [
+      "STIMULATION"
+    ],
+    "synonymes": [
+      "artéfact de stimulation",
+      "artéfacts de stimulation",
+      "spike",
+      "spike de stimulation",
+      "spikes"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

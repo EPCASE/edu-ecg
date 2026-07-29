@@ -1,0 +1,24 @@
+{
+  "id": "ONDE_T_BIPHASIQUE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "D1, C1, T1",
+  "motif": "La biphasicité est un modificateur morphologique réutilisable de l’onde T ; les dérivations citées sont une topographie ignorée en v1.",
+  "concept_retenu": {
+    "id": "BIPHASIQUE",
+    "concept_name": "Biphasique",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "requires": [
+      "ONDE_T"
+    ],
+    "synonymes": [
+      "T biphasique",
+      "ondes T biphasiques",
+      "biphasique"
+    ]
+  },
+  "territoire_ignore_v1": "DIII, aVF, V3 à V6"
+}

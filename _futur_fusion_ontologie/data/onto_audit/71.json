@@ -1,0 +1,207 @@
+{
+  "num": 71,
+  "titre": "Takotsubo",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des complexes QRS fins",
+      "synonymes_a_ajouter": [
+        "complexes QRS fins"
+      ]
+    },
+    {
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "axe gauche"
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "des ondes T négatives géantes",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_T_NEGATIVE_GEANTE",
+        "concept_name": "Onde T négative géante",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_T_NEGATIVE"
+        ],
+        "requires": [
+          "ONDE_T_NEGATIVE"
+        ],
+        "synonymes": [
+          "ondes T négatives géantes",
+          "onde T négative géante",
+          "ondes T inversées géantes",
+          "inversion géante des ondes T"
+        ],
+        "poids": 3,
+        "justification": "Le cas qualifie explicitement les ondes T négatives de « géantes », nuance morphologique non portée par ONDE_T_NEGATIVE."
+      }
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "territoire inférieur",
+      "synonymes_a_ajouter": [
+        "territoire inférieur"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "de V2 à V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_V2_A_V6",
+        "concept_name": "Dérivations V2 à V6",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V2-V6",
+          "de V2 à V6",
+          "dérivations V2 à V6",
+          "précordiales V2 à V6"
+        ],
+        "poids": 2,
+        "justification": "Le catalogue ne permet pas de représenter directement une topographie ECG exprimée comme un intervalle de dérivations précordiales."
+      }
+    },
+    {
+      "concept_id": "QT_LONG",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l'intervalle QT est allongé",
+      "synonymes_a_ajouter": [
+        "intervalle QT allongé",
+        "l'intervalle QT est allongé"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "Le syndrome de Takotsubo",
+      "nouveau_concept": {
+        "id_suggere": "SYNDROME_DE_TAKOTSUBO",
+        "concept_name": "Syndrome de Takotsubo",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "PATHOLOGIE"
+        ],
+        "requires": [
+          "TROUBLE_DE_REPOLARISATION"
+        ],
+        "synonymes": [
+          "Takotsubo",
+          "tako-tsubo",
+          "cardiomyopathie de stress",
+          "cardiomyopathie aiguë transitoire",
+          "syndrome du cœur brisé",
+          "ballonisation apicale"
+        ],
+        "poids": 4,
+        "justification": "Diagnostic central du cas, décrit comme cardiomyopathie aiguë transitoire mimant un SCA, absent du catalogue."
+      }
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu ... élévation du segment ST",
+      "synonymes_a_ajouter": [
+        "syndrome coronarien aigu avec élévation du segment ST",
+        "SCA avec élévation du segment ST",
+        "SCA avec sus-décalage du ST"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "élévation du segment ST",
+      "synonymes_a_ajouter": [
+        "élévation du segment ST"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "inversion des ondes T",
+      "synonymes_a_ajouter": [
+        "inversion des ondes T",
+        "ondes T inversées",
+        "ondes T négatives",
+        "ondes T négatives pathologiques"
+      ]
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "syndrome coronaire aigu antérieur"
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un bloc de branche gauche"
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "des ondes T négatives physiologiques"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "requires",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "Dans l'interprétation, l'axe gauche est l'argument principal en faveur de l'hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le texte associe des QRS fins à l'axe gauche pour argumenter l'hémibloc antérieur gauche, en opposition à un bloc de branche complet."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le concept SCA avec sus-décalage ST doit requérir l'élévation/sus-décalage du segment ST."
+    }
+  ],
+  "synthese": "Les manques principaux pour ce cas sont le diagnostic de Takotsubo et la description fine des anomalies de repolarisation : ondes T négatives géantes et localisation V2–V6. Plusieurs formulations pédagogiques courantes doivent aussi être ajoutées comme synonymes, notamment « élévation du segment ST », « inversion des ondes T » et « intervalle QT allongé ».",
+  "error": null
+}

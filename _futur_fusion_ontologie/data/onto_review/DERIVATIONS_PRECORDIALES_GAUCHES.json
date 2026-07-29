@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_PRECORDIALES_GAUCHES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure correspondant à des dérivations/localisation, ignorée en v1 sans finding propre à conserver.",
+  "principe": "T1",
+  "territoire_ignore_v1": "V5-V6 / précordiales gauches"
+}

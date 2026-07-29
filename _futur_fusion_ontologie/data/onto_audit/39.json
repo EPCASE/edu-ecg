@@ -1,0 +1,247 @@
+{
+  "num": 39,
+  "titre": "arythmie sinusale respiratoire",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "Ce tracé montre donc une arythmie sinusale respiratoire."
+    },
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "probable arythmie sinusale physiologique chez un patient adolescent",
+      "synonymes_a_ajouter": [
+        "arythmie sinusale physiologique",
+        "arythmie respiratoire de l'enfant",
+        "arythmie respiratoire de l'adolescent",
+        "arythmie sinusale respiratoire de l'enfant",
+        "arythmie sinusale respiratoire de l'adolescent"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une activité atriale sinusale irrégulière",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale",
+        "activité atriale sinusale irrégulière"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un rythme à commande sinusale",
+      "synonymes_a_ajouter": [
+        "rythme à commande sinusale"
+      ]
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme irrégulier"
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "dont la fréquence est nettement irrégulière",
+      "synonymes_a_ajouter": [
+        "fréquence irrégulière",
+        "fréquence nettement irrégulière"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "la présence d'un rythme sinusal irrégulier",
+      "synonymes_a_ajouter": [
+        "rythme sinusal irrégulier"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "une irrégularité des ondes P présentant des écarts de plus de 160 ms entre les intervalles PP",
+      "nouveau_concept": {
+        "id_suggere": "VARIATION_PP_SUPERIEURE_160_MS",
+        "concept_name": "Variation des intervalles PP > 160 ms",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "RYTHME"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "écarts de plus de 160 ms entre les intervalles PP",
+          "irrégularité des ondes P avec écarts PP > 160 ms",
+          "variation des intervalles PP supérieure à 160 ms"
+        ],
+        "poids": 3,
+        "justification": "Critère descriptif explicite de l'arythmie sinusale respiratoire dans le commentaire pédagogique."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "des variations qui sont périodiques et qui suivent les cycles respiratoires",
+      "nouveau_concept": {
+        "id_suggere": "VARIATION_RESPIRATOIRE_DE_LA_FREQUENCE_CARDIAQUE",
+        "concept_name": "Variation respiratoire de la fréquence cardiaque",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "requires": [
+          "RYTHME_SINUSAL"
+        ],
+        "synonymes": [
+          "variations de fréquence suivant les cycles respiratoires",
+          "variations périodiques suivant les cycles respiratoires",
+          "accélération en début d'inspiration et ralentissement en début d'expiration",
+          "accélérations et ralentissements qui se succèdent"
+        ],
+        "poids": 4,
+        "justification": "Élément sémiologique central du cas, non réductible à la seule irrégularité du rythme."
+      }
+    },
+    {
+      "concept_id": "ONDE_P_NORMALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les ondes P sont de morphologie normale",
+      "synonymes_a_ajouter": [
+        "ondes P de morphologie normale",
+        "morphologie normale des ondes P",
+        "ondes P normales"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "des ondes P de morphologie normale",
+      "synonymes_a_ajouter": [
+        "ondes P de morphologie normale",
+        "morphologie normale des ondes P"
+      ]
+    },
+    {
+      "concept_id": "PR_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l’intervalle PR est normal"
+    },
+    {
+      "concept_id": "ECG_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "le reste de l'électrocardiogramme est dans les limites de la normale",
+      "synonymes_a_ajouter": [
+        "dans les limites de la normale",
+        "électrocardiogramme dans les limites de la normale",
+        "reste de l'électrocardiogramme normal"
+      ]
+    },
+    {
+      "concept_id": "ONDE_U",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "présence d’une onde U"
+    },
+    {
+      "concept_id": "ONDE_U_NORMALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde U (normale) de petite amplitude qui suit l’onde T",
+      "synonymes_a_ajouter": [
+        "onde U normale de petite amplitude",
+        "onde U de petite amplitude suivant l'onde T",
+        "onde U normale qui suit l'onde T"
+      ]
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "ne doivent pas conduire au diagnostic de dysfonction sinusale"
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "une fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "BAV",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "un bloc auriculo-ventriculaire du second degré",
+      "synonymes_a_ajouter": [
+        "bloc auriculo-ventriculaire du second degré",
+        "BAV du second degré",
+        "bloc AV du second degré"
+      ]
+    },
+    {
+      "concept_id": "BLOC_SINO_ATRIAL",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un bloc sinoatrial"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "relation": "requires",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le texte définit l'arythmie sinusale respiratoire comme un rythme à commande sinusale avec activité atriale sinusale."
+    },
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "relation": "requires",
+      "cible": "IRREGULIER",
+      "justification": "Le critère principal décrit est une fréquence/rythme nettement irrégulier."
+    },
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "relation": "requires",
+      "cible": "ONDE_P_NORMALE",
+      "justification": "Le commentaire précise que l'on retrouve des ondes P de morphologie normale."
+    },
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "relation": "requires",
+      "cible": "PR_NORMAL",
+      "justification": "Le cas indique que l'intervalle PR est généralement normal dans cette entité."
+    },
+    {
+      "concept_id": "ARYTHMIE_SINUSALE",
+      "relation": "excludes",
+      "cible": "DYSFONCTION_SINUSALE",
+      "justification": "Dans ce cas pédagogique, les variations physiologiques de fréquence chez l'adolescent ne doivent pas conduire au diagnostic de dysfonction sinusale."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "La présence d'ondes P sinusales de morphologie normale est utilisée ici contre le diagnostic de fibrillation auriculaire."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert par ARYTHMIE_SINUSALE, mais il manque deux descripteurs utiles pour formaliser la sémiologie enseignée : variation PP > 160 ms et variation respiratoire de la fréquence. Plusieurs formulations pédagogiques usuelles doivent être ajoutées comme synonymes, notamment fibrillation auriculaire, rythme à commande sinusale et arythmie sinusale physiologique.",
+  "error": null
+}

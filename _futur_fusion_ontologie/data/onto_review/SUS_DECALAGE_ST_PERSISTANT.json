@@ -1,0 +1,19 @@
+{
+  "id": "SUS_DECALAGE_ST_PERSISTANT",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1, C3",
+  "motif": "Le sus-décalage ST existe déjà comme finding/qualifier de repolarisation et « persistant » est un modificateur temporel à composer plutôt qu'un concept monolithique.",
+  "decomposition": [
+    {
+      "id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PERSISTANT",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

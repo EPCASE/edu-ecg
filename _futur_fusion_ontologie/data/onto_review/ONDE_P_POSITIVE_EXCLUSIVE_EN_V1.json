@@ -1,0 +1,8 @@
+{
+  "id": "ONDE_P_POSITIVE_EXCLUSIVE_EN_V1",
+  "verdict": "REJETER",
+  "classe": "description",
+  "motif": "La positivité exclusive en V1 est un énoncé dépendant de dérivation et de polarité locale, sans intérêt atomique en v1 où la topographie est ignorée.",
+  "principe": "T1, C5",
+  "territoire_ignore_v1": "V1, V2"
+}

@@ -1,0 +1,19 @@
+{
+  "id": "MYOCARDITE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "concept_retenu": {
+    "id": "MYOCARDITE",
+    "concept_name": "Myocardite",
+    "type": "pattern",
+    "parents": [
+      "PATHOLOGIE"
+    ],
+    "synonymes": [
+      "myocardite virale"
+    ]
+  },
+  "motif": "Diagnostic/pathologie autonome, cliniquement différenciant et absent du catalogue ; il ne doit pas être confondu avec les anomalies descriptives ECG qui peuvent le supporter.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

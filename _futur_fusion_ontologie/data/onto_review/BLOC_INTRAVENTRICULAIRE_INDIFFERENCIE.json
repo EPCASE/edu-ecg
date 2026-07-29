@@ -1,0 +1,9 @@
+{
+  "id": "BLOC_INTRAVENTRICULAIRE_INDIFFERENCIE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3",
+  "motif": "Le bloc intraventriculaire indifférencié correspond au concept existant BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE, déjà synonyme d'élargissement du QRS/NICD.",
+  "concept_cible": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE",
+  "territoire_ignore_v1": ""
+}

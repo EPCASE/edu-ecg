@@ -1,0 +1,24 @@
+{
+  "id": "DIFFUS",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "D1, T1, C1",
+  "motif": "« Diffus » est un modificateur transversal d'extension/distribution, réutilisable sans créer de concept monolithique; les dérivations citées relèvent de la topographie ignorée en v1.",
+  "concept_retenu": {
+    "id": "DIFFUS",
+    "concept_name": "Diffus",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "dans de nombreuses dérivations",
+      "dans une majorité de dérivations",
+      "diffuse",
+      "ne correspondant pas à un territoire coronarien défini",
+      "sur plus de 5 dérivations",
+      "étendu"
+    ]
+  },
+  "territoire_ignore_v1": "nombreuses dérivations; majorité de dérivations; plus de 5 dérivations"
+}

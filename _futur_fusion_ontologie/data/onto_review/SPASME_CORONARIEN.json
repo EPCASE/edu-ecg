@@ -1,0 +1,21 @@
+{
+  "id": "SPASME_CORONARIEN",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, T1, C3",
+  "concept_retenu": {
+    "id": "SPASME_CORONARIEN",
+    "concept_name": "Spasme coronarien",
+    "type": "pattern",
+    "parents": [
+      "ISCHEMIQUE"
+    ],
+    "synonymes": [
+      "spasme coronaire",
+      "spasme non occlusif",
+      "spasme occlusif"
+    ]
+  },
+  "territoire_ignore_v1": "coronaire droite",
+  "motif": "Entité diagnostique ischémique réutilisable liée au mécanisme vasospastique ; la localisation coronaire droite est ignorée en v1."
+}

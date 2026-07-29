@@ -1,0 +1,25 @@
+{
+  "id": "ASPECT_QRS_AVEC_ONDE_S_TRAINANTE_EN_V6",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "T1, C1, D1",
+  "motif": "Le concept mélange morphologie globale qRS, onde S large/traînante et localisation V6; on conserve l'atome descriptif onde S large/traînante et on ignore V6 en v1.",
+  "territoire_ignore_v1": "V6",
+  "decomposition": [
+    {
+      "id": "ONDE_S_LARGE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "TRAINANTE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "PRESENCE_DE_QRS",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

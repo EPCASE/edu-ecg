@@ -1,0 +1,21 @@
+{
+  "id": "ECHAPPEMENT_ATRIAL",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "principe": "D1, C3",
+  "motif": "Échappement atrial est un concept descriptif atomique et réutilisable, absent du catalogue, distinct des échappements jonctionnel et ventriculaire existants.",
+  "concept_retenu": {
+    "id": "ECHAPPEMENT_ATRIAL",
+    "concept_name": "Échappement atrial",
+    "type": "qualifier",
+    "parents": [
+      "ECHAPPEMENT"
+    ],
+    "synonymes": [
+      "échappement atrial",
+      "échappement auriculaire",
+      "activité atriale d'échappement"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

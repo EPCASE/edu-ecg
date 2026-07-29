@@ -1,0 +1,20 @@
+{
+  "id": "BRADYCARDIE_SINUSALE_PHYSIOLOGIQUE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "C1, C2, C3",
+  "motif": "Le concept empile le diagnostic existant de bradycardie sinusale avec une qualification de bénignité/physiologie, qui ne doit pas créer un diagnostic monolithique dédié.",
+  "territoire_ignore_v1": "",
+  "decomposition": [
+    {
+      "id": "BRADYCARDIE_SINUSALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PHYSIOLOGIQUE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "ACTIVATION_VENTRICULAIRE_NORMALE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3, D1",
+  "motif": "Le libellé correspond à une formulation diagnostique de morphologie/dépolarisation ventriculaire normale déjà représentée dans le catalogue.",
+  "concept_cible": "MORPHOLOGIE_DU_QRS_NORMALE"
+}

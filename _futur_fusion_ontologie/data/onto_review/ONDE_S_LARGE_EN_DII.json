@@ -1,0 +1,20 @@
+{
+  "id": "ONDE_S_LARGE_EN_DII",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, T1, C1",
+  "motif": "Le concept combine un finding morphologique QRS avec un qualificatif de taille et une dérivation; la dérivation DII est ignorée en v1 et l’atome descriptif doit rester réutilisable.",
+  "territoire_ignore_v1": "DII",
+  "decomposition": [
+    {
+      "id": "ONDE_S_LARGE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "PRESENCE_DE_QRS",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

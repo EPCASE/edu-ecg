@@ -1,0 +1,408 @@
+{
+  "num": 68,
+  "titre": "lésion du tronc commun de la coronaire gauche",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal à 95 bpm"
+    },
+    {
+      "concept_id": "FREQUENCE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "95 bpm"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un sus-décalage du segment ST de 3 mm en aVR, de 2 mm en V1"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sus-décalage isolé en aVR"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un sous-décalage diffus et relativement important du segment ST"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sous-décalage supérieur à 1 mm"
+    },
+    {
+      "concept_id": "ANOMALIES_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sus-décalage du segment ST ... sous-décalage ... du segment ST"
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "dérivations inférieures"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aVR",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_AVR",
+        "concept_name": "Dérivation aVR",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "aVR",
+          "dérivation aVR"
+        ],
+        "poids": 2,
+        "justification": "Le cas localise explicitement le sus-décalage ST en aVR, localisation ECG absente du catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V1",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V1",
+        "concept_name": "Dérivation V1",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V1",
+          "dérivation V1"
+        ],
+        "poids": 2,
+        "justification": "Le cas localise explicitement le sus-décalage ST en V1."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V3-V6",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_V3_A_V6",
+        "concept_name": "Dérivations V3 à V6",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V3-V6",
+          "V3 à V6",
+          "dérivations V3-V6",
+          "dérivations V3 à V6"
+        ],
+        "poids": 2,
+        "justification": "Le cas localise le sous-décalage ST sur le groupe de dérivations V3-V6."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "diffus ... dans de nombreuses dérivations ... sur plus de 5 dérivations",
+      "nouveau_concept": {
+        "id_suggere": "DIFFUS",
+        "concept_name": "Diffus",
+        "type": "qualifier",
+        "categorie": "QUALIFICATEUR",
+        "parents": [
+          "QUALIFICATION_PATTERN"
+        ],
+        "requires": [],
+        "synonymes": [
+          "diffus",
+          "dans de nombreuses dérivations",
+          "sur plus de 5 dérivations",
+          "étendu"
+        ],
+        "poids": 3,
+        "justification": "La diffusion du sous-décalage ST est centrale dans l'interprétation et le référentiel EDN."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sous-décalage diffus du segment ST",
+      "nouveau_concept": {
+        "id_suggere": "SOUS_DECALAGE_ST_DIFFUS",
+        "concept_name": "Sous-décalage diffus du segment ST",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_ENDOCARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+          "DIFFUS"
+        ],
+        "synonymes": [
+          "sous-décalage diffus",
+          "sous-décalage diffus du segment ST",
+          "sous-décalage dans de nombreuses dérivations",
+          "sous-décalage du segment ST diffus"
+        ],
+        "poids": 4,
+        "justification": "Le catalogue couvre le sous-décalage ST, mais pas son caractère diffus, marqueur pronostique du cas."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sous-décalage supérieur à 1 mm sur plus de 5 dérivations",
+      "nouveau_concept": {
+        "id_suggere": "SOUS_DECALAGE_ST_SUPERIEUR_1_MM",
+        "concept_name": "Sous-décalage ST supérieur à 1 mm",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_ENDOCARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_ENDOCARDIQUE"
+        ],
+        "synonymes": [
+          "sous-décalage supérieur à 1 mm",
+          "sous-décalage du segment ST supérieur à 1 mm",
+          "ST- > 1 mm"
+        ],
+        "poids": 3,
+        "justification": "Le seuil > 1 mm est explicitement utilisé dans le référentiel pour le marqueur de très haut risque."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage du segment ST en aVR et en V1 associé à un sous-décalage dans de nombreuses dérivations",
+      "nouveau_concept": {
+        "id_suggere": "PROFIL_ST_AVR_V1_AVEC_SOUS_DECALAGE_DIFFUS",
+        "concept_name": "Profil ST avec sus-décalage en aVR/V1 et sous-décalage diffus",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+          "DERIVATION_AVR",
+          "SOUS_DECALAGE_ST_DIFFUS"
+        ],
+        "synonymes": [
+          "sus-décalage en aVR associé à un sous-décalage diffus",
+          "sus-décalage du segment ST en aVR et/ou V1 avec sous-décalage diffus",
+          "sous-décalage du segment ST diffus associé à un sus-décalage isolé en aVR",
+          "sous-décalage supérieur à 1 mm sur plus de 5 dérivations associé à un sus-décalage isolé en aVR et/ou V1"
+        ],
+        "poids": 5,
+        "justification": "Pattern ECG central du cas, décrit comme marqueur de très haut risque et évocateur de tronc commun/tritronculaire."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "lésion aigue du tronc commun de la coronaire gauche",
+      "nouveau_concept": {
+        "id_suggere": "LESION_TRONC_COMMUN_CORONAIRE_GAUCHE",
+        "concept_name": "Lésion du tronc commun de la coronaire gauche",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+        ],
+        "requires": [
+          "PROFIL_ST_AVR_V1_AVEC_SOUS_DECALAGE_DIFFUS"
+        ],
+        "synonymes": [
+          "lésion aiguë du tronc commun de la coronaire gauche",
+          "sténose du tronc de la coronaire gauche",
+          "sténose du tronc commun gauche",
+          "occlusion du tronc commun",
+          "sub-occlusion du tronc commun",
+          "probable ischémie en lien avec une lésion du tronc commun"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic de référence du cas et urgence thérapeutique absolue, non représenté dans le catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "lésions coronaires étendues tritronculaires",
+      "nouveau_concept": {
+        "id_suggere": "ATTEINTE_TRITRONCULAIRE_SEVERE",
+        "concept_name": "Atteinte tritronculaire sévère",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "ISCHEMIQUE"
+        ],
+        "requires": [
+          "PROFIL_ST_AVR_V1_AVEC_SOUS_DECALAGE_DIFFUS"
+        ],
+        "synonymes": [
+          "lésions coronaires étendues tritronculaires",
+          "lésions tritronculaires sévères",
+          "atteinte coronarienne multifocale",
+          "atteinte tritronculaire"
+        ],
+        "poids": 5,
+        "justification": "Alternative diagnostique explicitement évoquée par Pierre et par le référentiel EDN."
+      }
+    },
+    {
+      "concept_id": "ISCHEMIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’étendue de l’ischémie myocardique",
+      "synonymes_a_ajouter": [
+        "ischémie",
+        "ischémie myocardique",
+        "ischémique"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "ischémie transmurale",
+      "nouveau_concept": {
+        "id_suggere": "ISCHEMIE_TRANSMURALE",
+        "concept_name": "Ischémie transmurale",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "ISCHEMIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "ischémie transmurale"
+        ],
+        "poids": 3,
+        "justification": "Le texte rattache le sus-décalage en aVR à une ischémie transmurale."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "ischémie postéro-basale",
+      "nouveau_concept": {
+        "id_suggere": "POSTERO_BASAL",
+        "concept_name": "Postéro-basal",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "LOCALISATION_IDM"
+        ],
+        "requires": [],
+        "synonymes": [
+          "postéro-basal",
+          "postéro-basale"
+        ],
+        "poids": 2,
+        "justification": "Localisation d'ischémie explicitement citée pour le signe en aVR."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "partie basale du septum interventriculaire",
+      "nouveau_concept": {
+        "id_suggere": "SEPTUM_INTERVENTRICULAIRE_BASAL",
+        "concept_name": "Septum interventriculaire basal",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "SEPTUM_INTERVENTRICULAIRE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "septum basal",
+          "partie basale du septum interventriculaire"
+        ],
+        "poids": 2,
+        "justification": "Localisation anatomique précise de l'ischémie transmurale décrite par Pierre."
+      }
+    },
+    {
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "syndrome coronarien avec sus-décalage du segment ST",
+      "synonymes_a_ajouter": [
+        "syndrome coronarien avec sus-décalage du segment ST",
+        "SCA avec sus-décalage du segment ST"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un sous-décalage en rapport avec une hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PERICARDITE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "un sous-décalage diffus en lien avec une péricardite"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le libellé et le cas définissent le SCA avec sus-décalage par un sus-décalage du segment ST."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "ISCHEMIQUE",
+      "justification": "Pierre qualifie le sous-décalage diffus de probablement ischémique et corrélé à l'étendue de l'ischémie myocardique."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le sus-décalage ST est utilisé dans le texte comme critère de prise en charge de type SCA ST+."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "supports",
+      "cible": "ISCHEMIQUE",
+      "justification": "Le sus-décalage en aVR est décrit comme un signe d'ischémie postéro-basale/transmurale."
+    }
+  ],
+  "synthese": "Les signes ST élémentaires sont présents dans le catalogue, mais il manque les localisations par dérivations (aVR, V1, V3-V6), le qualificatif de diffusion et surtout le pattern composite « sus-décalage aVR/V1 + sous-décalage diffus ». Les diagnostics coronariens spécifiques du cas — lésion du tronc commun gauche et atteinte tritronculaire sévère — ne sont pas couverts.",
+  "error": null
+}

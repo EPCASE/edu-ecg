@@ -1,0 +1,343 @@
+{
+  "num": 25,
+  "titre": "BAV du second degré type 2 (Mobitz 2)",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_2_MOBITZ_2",
+      "statut": "present",
+      "surface": "BAV du second degré type 2 (Mobitz 2)",
+      "synonymes_a_ajouter": [
+        "BAV du second degré type 2",
+        "BAV du 2e degré type 2",
+        "BAV du deuxième degré type 2",
+        "BAV II type 2",
+        "BAV du second degré type Mobitz 2",
+        "bloc auriculoventriculaire du deuxième degré type 2"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_AURICULO_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "bloc auriculoventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "un rythme irrégulier"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "une fréquence cardiaque proche de 60 bpm",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque proche de 60 bpm",
+        "fréquence proche de 60 bpm"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAUSE",
+      "statut": "present",
+      "surface": "une pause au milieu du tracé"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "l’activité atriale est sinusale",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "RYTHME_REGULIER",
+      "statut": "present",
+      "surface": "l’activité atriale est sinusale et régulière",
+      "synonymes_a_ajouter": [
+        "activité atriale régulière"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "les ondes P sont conduites",
+      "synonymes_a_ajouter": [
+        "ondes P conduites",
+        "ondes P sont conduites"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "un espace PR limite",
+      "nouveau_concept": {
+        "id_suggere": "PR_LIMITE",
+        "concept_name": "PR limite",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "INTERVALLE_PR"
+        ],
+        "requires": [
+          "INTERVALLE_PR"
+        ],
+        "synonymes": [
+          "espace PR limite",
+          "intervalle PR limite",
+          "PR borderline"
+        ],
+        "poids": 2,
+        "justification": "Le cas décrit un PR 'limite' sans affirmer clairement PR normal ou PR allongé ; aucun concept existant ne couvre cette nuance."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "QRS élargis",
+      "synonymes_a_ajouter": [
+        "QRS élargis",
+        "QRS élargi"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "bloc de branche droit complet"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "statut": "present",
+      "surface": "la branche droite et l’hémibranche antérieure gauche sont bloquées de façon permanente",
+      "synonymes_a_ajouter": [
+        "branche droite et hémibranche antérieure gauche bloquées",
+        "bloc de la branche droite et de l’hémibranche antérieure gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "statut": "present",
+      "surface": "une onde P bloquée"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ABSENCE_DE_QRS",
+      "statut": "present",
+      "surface": "ondes P bloquées non suivies de QRS",
+      "synonymes_a_ajouter": [
+        "non suivies de QRS",
+        "onde P non suivie de QRS",
+        "onde P bloquée non suivie de QRS"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+      "statut": "present",
+      "surface": "pas d’allongement progressif"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle PR des complexes conduits est constant",
+      "nouveau_concept": {
+        "id_suggere": "INTERVALLE_PR_CONSTANT",
+        "concept_name": "Intervalle PR constant",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "INTERVALLE_PR"
+        ],
+        "requires": [
+          "INTERVALLE_PR"
+        ],
+        "synonymes": [
+          "PR constant",
+          "durée du PR fixe",
+          "durée de l’intervalle PR fixe",
+          "intervalle PR des complexes conduits constant"
+        ],
+        "poids": 3,
+        "justification": "La constance du PR des complexes conduits est un critère explicite du Mobitz 2 et n’est pas équivalente à la seule absence d’allongement progressif."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAUSE",
+      "statut": "present",
+      "surface": "les pauses ventriculaires sont de durée double de l’intervalle RR normal",
+      "synonymes_a_ajouter": [
+        "pause ventriculaire",
+        "pauses ventriculaires"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "blocage intermittent de l’onde P",
+      "nouveau_concept": {
+        "id_suggere": "BLOCAGE_INTERMITTENT_DE_L_ONDE_P",
+        "concept_name": "Blocage intermittent de l’onde P",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "CONDUCTION"
+        ],
+        "requires": [
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "synonymes": [
+          "blocage intermittent de l’onde P",
+          "onde P bloquée intermittente",
+          "onde P bloquée inopinément"
+        ],
+        "poids": 3,
+        "justification": "Le texte insiste sur le caractère intermittent/inopiné du blocage de l’onde P, distinct d’une simple onde P bloquée isolée."
+      }
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+      "statut": "present",
+      "surface": "bloc intra- ou infrahissien",
+      "synonymes_a_ajouter": [
+        "bloc intra-hissien",
+        "bloc infrahissien",
+        "bloc intra- ou infrahissien",
+        "trouble de conduction infranodal"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "present",
+      "surface": "risque de BAV complet"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECHAPPEMENT",
+      "statut": "present",
+      "surface": "nécessité alors d’un échappement très bas situé"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PACEMAKER",
+      "statut": "present",
+      "surface": "indication indiscutable d’implantation de stimulateur"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "statut": "present",
+      "surface": "antécédent d’infarctus antérieur étendu ancien"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ANTERIEUR",
+      "statut": "present",
+      "surface": "infarctus antérieur"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CIRCONFERENTIEL",
+      "statut": "present",
+      "surface": "antérieur étendu",
+      "synonymes_a_ajouter": [
+        "infarctus antérieur étendu"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_2_MOBITZ_1",
+      "statut": "absent",
+      "surface": "à la différence du BAV du second degré type 1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_2_POUR_1",
+      "statut": "absent",
+      "surface": "BAV du second degré type 2/1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECG_NORMAL",
+      "statut": "absent",
+      "surface": "tracé normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "absent",
+      "surface": "dysfonction sinusale"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "relation": "requires",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le référentiel du cas définit le Mobitz 2 par une onde P bloquée inopinée."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "relation": "requires",
+      "cible": "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+      "justification": "Le texte précise l’absence d’allongement préalable/progressif du PR comme critère discriminant."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "Le référentiel indique que le BAV Mobitz 2 est le plus souvent à QRS larges."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "relation": "supports",
+      "cible": "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE",
+      "justification": "Le cas situe le trouble au niveau infranodal/intra- ou infrahissien."
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "relation": "excludes",
+      "cible": "BAV_2_MOBITZ_1",
+      "justification": "Le texte oppose explicitement Mobitz 2 au type 1 du fait de l’absence d’allongement progressif du PR."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "requires",
+      "cible": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "justification": "Dans cet exemple, le bloc bifasciculaire est constitué par le bloc de branche droit complet."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "requires",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "Dans cet exemple, le bloc bifasciculaire est constitué avec l’hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "ECHAPPEMENT",
+      "justification": "Le commentaire indique qu’en cas de BAV complet un échappement très bas est nécessaire pour maintenir un rythme viable."
+    }
+  ],
+  "synthese": "Le diagnostic central est bien couvert par BAV_2_MOBITZ_2, mais il manque des synonymes usuels du cas et deux descripteurs clés du Mobitz 2 : PR constant et blocage intermittent de l’onde P. La hiérarchie gagnerait à relier explicitement Mobitz 2 à onde P bloquée, absence d’allongement du PR, QRS larges/trouble infranodal, et le bloc bifasciculaire à BBD complet + hémibloc antérieur gauche.",
+  "error": null
+}

@@ -1,0 +1,23 @@
+{
+  "id": "BLOC_SINO_ATRIAL_DU_PREMIER_DEGRE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Le BSA du premier degré est un sous-type diagnostique standard du bloc sino-atrial ; bien que difficilement objectivable sur ECG de surface, il constitue un concept clinique réutilisable absent du catalogue.",
+  "territoire_ignore_v1": "",
+  "concept_retenu": {
+    "id": "BLOC_SINO_ATRIAL_DU_PREMIER_DEGRE",
+    "concept_name": "Bloc sino-atrial du premier degré",
+    "type": "pattern",
+    "parents": [
+      "BLOC_SINO_ATRIAL"
+    ],
+    "requires": [],
+    "synonymes": [
+      "BSA 1",
+      "BSA du 1er degré",
+      "bloc sino-auriculaire du premier degré",
+      "bloc sinoatrial du premier degré"
+    ]
+  }
+}

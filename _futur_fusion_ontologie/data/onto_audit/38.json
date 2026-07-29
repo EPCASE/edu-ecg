@@ -1,0 +1,284 @@
+{
+  "num": 38,
+  "titre": "fibrillation atriale lente",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "une bradycardie irrégulière à QRS fins à environ 40 bpm"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "bradycardie irrégulière"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FINS",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "à environ 40 bpm",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque à 40 bpm",
+        "40 bpm"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "statut": "present",
+      "surface": "une trémulation de la ligne de base"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RAPIDE",
+      "statut": "present",
+      "surface": "activité atriale rapide"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "activité atriale rapide, irrégulière, anarchique"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "DESORGANISEE",
+      "statut": "present",
+      "surface": "activité atriale rapide, irrégulière, anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "activité atriale anarchique"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "fibrillation atriale",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "statut": "present",
+      "surface": "FA"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "REPONSE_VENTRICULAIRE_LENTE",
+      "statut": "present",
+      "surface": "réponse ventriculaire inférieure à 60/min",
+      "synonymes_a_ajouter": [
+        "réponse ventriculaire inférieure à 60/min",
+        "réponse ventriculaire < 60/min",
+        "réponse ventriculaire lente"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "FA lente",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_LENTE",
+        "concept_name": "Fibrillation atriale lente",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "REPONSE_VENTRICULAIRE_LENTE",
+          "IRREGULIER"
+        ],
+        "synonymes": [
+          "FA lente",
+          "fibrillation auriculaire lente",
+          "fibrillation atriale à réponse ventriculaire lente",
+          "FA à réponse ventriculaire lente",
+          "brady-arythmie sur FA"
+        ],
+        "poids": 4,
+        "justification": "Le diagnostic final du cas est explicitement un épisode de FA lente, plus spécifique que la fibrillation atriale isolée et que la réponse ventriculaire lente isolée."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME",
+      "statut": "present",
+      "surface": "fréquence ventriculaire très irrégulière"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "IRREGULIER",
+      "statut": "present",
+      "surface": "fréquence ventriculaire très irrégulière",
+      "synonymes_a_ajouter": [
+        "fréquence ventriculaire irrégulière",
+        "fréquence ventriculaire très irrégulière"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "LENT",
+      "statut": "present",
+      "surface": "rythme ventriculaire lent",
+      "synonymes_a_ajouter": [
+        "rythme ventriculaire lent"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "des diastoles longues (intervalle important entre 2 complexes QRS)",
+      "nouveau_concept": {
+        "id_suggere": "DIASTOLES_LONGUES",
+        "concept_name": "Diastoles longues",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "RYTHME"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "diastoles longues",
+          "intervalle important entre 2 complexes QRS",
+          "intervalle long entre deux QRS",
+          "pauses ventriculaires longues"
+        ],
+        "poids": 3,
+        "justification": "Le texte décrit un signe morpho-rythmique précis non équivalent à la simple bradycardie ni à la pause compensatoire."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "statut": "present",
+      "surface": "des complexes QRS avec un axe normal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "une absence de signes d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "absent",
+      "surface": "HVG",
+      "synonymes_a_ajouter": [
+        "hypertrophie ventriculaire gauche"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "statut": "present",
+      "surface": "une absence de troubles de la repolarisation"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "absent",
+      "surface": "absence de troubles de la repolarisation"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "statut": "present",
+      "surface": "un trouble de conduction atrioventriculaire",
+      "synonymes_a_ajouter": [
+        "trouble de conduction atrioventriculaire",
+        "trouble de conduction auriculo-ventriculaire"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "CONDUCTION",
+      "statut": "present",
+      "surface": "la conduction est altérée mais toujours présente",
+      "synonymes_a_ajouter": [
+        "conduction altérée mais toujours présente"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "absent",
+      "surface": "Quand le rythme ventriculaire est parfaitement régulier, cela suggère l'existence d'un bloc auriculo-ventriculaire complet"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "statut": "absent",
+      "surface": "avec échappement le plus souvent jonctionnel"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "absent",
+      "surface": "A. une dysfonction sinusale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "statut": "absent",
+      "surface": "D. des ondes P bloquées"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "statut": "absent",
+      "surface": "E. un flutter atrial"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "justification": "Pierre utilise la trémulation de la ligne de base avec activité atriale anarchique comme argument en faveur de la fibrillation atriale."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "IRREGULIER",
+      "justification": "La fréquence ventriculaire très irrégulière est un argument majeur de FA dans le cas."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le cas oppose implicitement FA et activité sinusale organisée; l'absence d'ondes P sinusales organisées est attendue."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Le commentaire pédagogique précise qu'un rythme ventriculaire parfaitement régulier en contexte de FA suggère un BAV complet."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "justification": "Le commentaire indique qu'un BAV complet s'accompagne le plus souvent d'un échappement jonctionnel."
+    }
+  ],
+  "synthese": "Le trou majeur est l'absence d'un pattern explicite « fibrillation atriale lente / FA à réponse ventriculaire lente », diagnostic central du cas. Plusieurs formulations pédagogiques utiles doivent être ajoutées comme synonymes, notamment « fibrillation auriculaire », « fréquence ventriculaire très irrégulière » et « réponse ventriculaire inférieure à 60/min ».",
+  "error": null
+}

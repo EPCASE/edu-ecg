@@ -1,0 +1,24 @@
+{
+  "id": "FIBRILLATION_ATRIALE_LENTE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1, C3",
+  "motif": "La fibrillation atriale existe déjà et le caractère lent doit rester un modificateur/réponse ventriculaire associé, non un nouveau diagnostic monolithique.",
+  "decomposition": [
+    {
+      "id": "FIBRILLATION_ATRIALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "REPONSE_VENTRICULAIRE_LENTE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "IRREGULIER",
+      "role": "qualifier",
+      "existe": true
+    }
+  ]
+}

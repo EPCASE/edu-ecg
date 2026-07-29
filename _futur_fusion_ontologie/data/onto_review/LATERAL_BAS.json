@@ -1,0 +1,8 @@
+{
+  "id": "LATERAL_BAS",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Topographie pure définie par des dérivations/localisation latérale basse, exclue de la v1.",
+  "territoire_ignore_v1": "V4-V6; V5-V6; latéral bas"
+}

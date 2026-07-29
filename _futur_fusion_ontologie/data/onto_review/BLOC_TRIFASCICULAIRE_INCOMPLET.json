@@ -1,0 +1,24 @@
+{
+  "id": "BLOC_TRIFASCICULAIRE_INCOMPLET",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "D1, C1",
+  "motif": "Le libellé décrit une composition diagnostique classique plutôt qu’un atome autonome: bloc bifasciculaire associé à un BAV du premier degré, avec éventuel qualificatif d’incomplétude.",
+  "decomposition": [
+    {
+      "id": "BLOC_BIFASCICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "BAV_DE_TYPE_1",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "INCOMPLET",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}

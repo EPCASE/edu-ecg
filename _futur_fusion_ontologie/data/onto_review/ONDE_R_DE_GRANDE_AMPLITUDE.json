@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_R_DE_GRANDE_AMPLITUDE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ONDE_R_AMPLE",
+    "concept_name": "Onde R ample",
+    "type": "finding",
+    "parents": [
+      "VOLTAGE_DU_QRS_ANORMAL"
+    ],
+    "requires": [
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "Onde R de grande amplitude",
+      "grande onde R",
+      "amplitude élevée de l'onde R",
+      "onde R > 6 mm"
+    ]
+  },
+  "motif": "Finding atomique de voltage du QRS réutilisable ; les seuils et dérivations du cas sont des précisions/contextes, la localisation étant ignorée en v1.",
+  "principe": "D1, T1",
+  "territoire_ignore_v1": "V1, V2"
+}

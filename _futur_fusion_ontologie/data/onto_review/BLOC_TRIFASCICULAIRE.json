@@ -1,0 +1,21 @@
+{
+  "id": "BLOC_TRIFASCICULAIRE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1",
+  "motif": "Il s’agit d’un diagnostic/pattern de trouble de conduction intraventriculaire distinct et réutilisable, non réductible à une localisation topographique v1 ni déjà présent au catalogue.",
+  "concept_retenu": {
+    "id": "BLOC_TRIFASCICULAIRE",
+    "concept_name": "Bloc trifasciculaire",
+    "type": "pattern",
+    "parents": [
+      "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+    ],
+    "requires": [
+      "BLOC_BIFASCICULAIRE"
+    ],
+    "synonymes": [
+      "atteinte trifasciculaire"
+    ]
+  }
+}

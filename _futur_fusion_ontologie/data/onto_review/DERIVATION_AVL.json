@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATION_AVL",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Dérivation isolée correspondant à une topographie pure, non modélisée en v1.",
+  "territoire_ignore_v1": "aVL"
+}

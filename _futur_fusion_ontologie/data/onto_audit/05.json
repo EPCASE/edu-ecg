@@ -1,0 +1,204 @@
+{
+  "num": 5,
+  "titre": "hypertrophie auriculaire droite",
+  "famille": "hypertrophie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "hypertrophie auriculaire droite",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire droite"
+      ]
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hypertrophie atriale droite"
+    },
+    {
+      "concept_id": "DUREE_ONDE_P__120_MS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "durée de l’onde P normale",
+      "synonymes_a_ajouter": [
+        "durée de l’onde P normale",
+        "durée onde P normale",
+        "durée de l’onde P reste normale"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_AMPLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "onde P ample (3 mm)",
+      "synonymes_a_ajouter": [
+        "onde P ample",
+        "onde P ample (3 mm)",
+        "onde P > 2,5 mm",
+        "onde P dépassant 2.5 mm",
+        "onde P > 2 mm en V1 ou V2"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "onde P ... pointue en DII",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_POINTUE",
+        "concept_name": "Onde P pointue",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "onde P pointue",
+          "onde P fine effilée et pointue",
+          "onde P en triangle",
+          "aspect en triangle de l’onde P"
+        ],
+        "poids": 3,
+        "justification": "Le caractère pointu/triangulaire de l’onde P est décrit comme critère morphologique d’hypertrophie auriculaire droite, sans concept existant dédié."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "amplitude plus importante en DII, DIII qu’en DI",
+      "nouveau_concept": {
+        "id_suggere": "AMPLITUDE_ONDE_P_INFERIEURE_SUPERIEURE_A_DI",
+        "concept_name": "Amplitude de l’onde P plus importante en inférieur qu’en DI",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "amplitude plus importante en DII, DIII qu’en DI",
+          "onde P plus ample en DII-DIII qu’en DI",
+          "amplitude de l’onde P plus importante en inférieur qu’en DI"
+        ],
+        "poids": 2,
+        "justification": "Critère descriptif explicitement utilisé dans l’interprétation de référence pour l’hypertrophie atriale droite."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "positivité exclusive en V1",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_P_POSITIVE_EXCLUSIVE_EN_V1",
+        "concept_name": "Onde P exclusivement positive en V1",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "ONDE_P_ANORMALE"
+        ],
+        "requires": [
+          "ONDE_P_PRESENTE"
+        ],
+        "synonymes": [
+          "positivité exclusive en V1",
+          "onde P exclusivement positive en V1",
+          "onde P positive exclusive en V1",
+          "positivité exclusive en V1 et V2"
+        ],
+        "poids": 3,
+        "justification": "La positivité exclusive de l’onde P en V1/V2 est citée comme anomalie fréquente de l’hypertrophie auriculaire droite."
+      }
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "hypertrophie ventriculaire droite",
+      "synonymes_a_ajouter": [
+        "HVD"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "ondes R amples dans les dérivations précordiales droites (V1-V2)",
+      "nouveau_concept": {
+        "id_suggere": "ONDE_R_AMPLE_PRECORDIALES_DROITES",
+        "concept_name": "Ondes R amples en précordiales droites",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "PRESENCE_DE_QRS"
+        ],
+        "synonymes": [
+          "ondes R amples dans les dérivations précordiales droites",
+          "ondes R amples en V1-V2",
+          "grandes ondes R en V1-V2",
+          "R ample en précordiales droites"
+        ],
+        "poids": 3,
+        "justification": "Signe ECG explicitement décrit comme en faveur d’une hypertrophie ventriculaire droite ; aucun concept existant ne représente les grandes ondes R en V1-V2."
+      }
+    },
+    {
+      "concept_id": "ONDE_P_NORMALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "A. une onde P normale"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "B. une hypertrophie auriculaire gauche",
+      "synonymes_a_ajouter": [
+        "hypertrophie auriculaire gauche"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "relation": "requires",
+      "cible": "ONDE_P_AMPLE",
+      "justification": "Le texte indique que le diagnostic repose essentiellement sur une onde P ample dépassant 2,5 mm en DII."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "relation": "requires",
+      "cible": "DUREE_ONDE_P__120_MS",
+      "justification": "La durée de l’onde P est décrite comme restant le plus souvent normale dans l’hypertrophie auriculaire droite."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "relation": "supports",
+      "cible": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "justification": "Le texte mentionne que des signes d’hypertrophie ventriculaire droite sont fréquemment associés et que le tracé montre une HAD couplée à une HVD."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_DROITE",
+      "relation": "requires",
+      "cible": "ONDE_R_AMPLE_PRECORDIALES_DROITES",
+      "justification": "Les ondes R amples en V1-V2 sont données comme signe en faveur d’une hypertrophie ventriculaire droite."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour les diagnostics principaux (HAD, HVD, rythme sinusal), mais l’ontologie manque plusieurs descripteurs fins de l’onde P utilisés pour enseigner l’hypertrophie auriculaire droite. Il manque aussi un descripteur QRS simple pour les grandes ondes R en V1-V2 en faveur d’HVD.",
+  "error": null
+}

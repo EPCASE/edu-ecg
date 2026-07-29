@@ -1,0 +1,30 @@
+{
+  "id": "FIBRILLATION_ATRIALE_A_GROSSES_MAILLES",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "D1, C1",
+  "motif": "Le concept combine la fibrillation atriale existante avec une qualification d’amplitude de la trémulation de ligne de base, à représenter par composition plutôt que par un concept dédié.",
+  "decomposition": [
+    {
+      "id": "FIBRILLATION_ATRIALE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "GROSSES_MAILLES",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "requires",
+      "role": "relation",
+      "existe": true
+    }
+  ],
+  "territoire_ignore_v1": ""
+}

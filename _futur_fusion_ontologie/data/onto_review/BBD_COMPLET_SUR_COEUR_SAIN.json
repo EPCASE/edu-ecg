@@ -1,0 +1,29 @@
+{
+  "id": "BBD_COMPLET_SUR_COEUR_SAIN",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "principe": "C1, C2, C3, D1",
+  "motif": "Le BBD complet existe déjà et l'ajout 'sur cœur sain/isolé' agrège des absences ou normalités contextuelles redondantes plutôt qu'un pattern ECG atomique nouveau.",
+  "decomposition": [
+    {
+      "id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "ABSENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "QT_NORMAL",
+      "role": "finding",
+      "existe": true
+    }
+  ]
+}

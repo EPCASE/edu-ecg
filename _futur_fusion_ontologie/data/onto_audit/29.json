@@ -1,0 +1,246 @@
+{
+  "num": 29,
+  "titre": "BAV du troisième degré et échappement distal",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV III (complet) / bloc auriculoventriculaire complet / BAV du troisième degré",
+      "synonymes_a_ajouter": [
+        "BAV du troisième degré",
+        "BAV III complet",
+        "BAV III (complet)",
+        "bloc auriculoventriculaire complet"
+      ]
+    },
+    {
+      "concept_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les activités atriales et ventriculaires sont dissociées",
+      "synonymes_a_ajouter": [
+        "activités atriales et ventriculaires dissociées",
+        "activités atriales et ventriculaires sont dissociées"
+      ]
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "échappement probablement ventriculaire très lent / échappement distal",
+      "synonymes_a_ajouter": [
+        "échappement distal",
+        "échappement probablement ventriculaire",
+        "échappement ventriculaire très lent"
+      ]
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bradycardie majeure avec un rythme ventriculaire régulier et une fréquence cardiaque à 20 bpm environ",
+      "synonymes_a_ajouter": [
+        "bradycardie majeure",
+        "fréquence cardiaque à 20 bpm"
+      ]
+    },
+    {
+      "concept_id": "LENT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fréquence ventriculaire est lente / échappement ventriculaire est très lent",
+      "synonymes_a_ajouter": [
+        "très lent",
+        "fréquence ventriculaire lente",
+        "fréquence ventriculaire très lente"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme ventriculaire régulier / complexes QRS sont larges et réguliers"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale sinusale régulière",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale",
+        "activité atriale sinusale régulière"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie sinusale réflexe (110 bpm)",
+      "synonymes_a_ajouter": [
+        "tachycardie sinusale réflexe",
+        "activité atriale sinusale rapide"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ONDE_P_SINUSALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes P positives en DI, DII, V3-V6 et négatives en aVR",
+      "synonymes_a_ajouter": [
+        "ondes P positives en DI, DII, V3-V6 et négatives en aVR",
+        "ondes P positives en DI DII V3-V6 et négatives en aVR"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges"
+    },
+    {
+      "concept_id": "ONDE_T_AMPLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les ondes T sont amples et fines",
+      "synonymes_a_ajouter": [
+        "ondes T amples et fines",
+        "onde T ample et fine"
+      ]
+    },
+    {
+      "concept_id": "QT_COURT",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l’intervalle QT est court au vu de la fréquence très lente"
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "hyperkaliémie (mesurée à 7.1 mmol/L)"
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV 2 Mobitz 2"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV 5/1",
+      "nouveau_concept": {
+        "id_suggere": "BAV_5_POUR_1",
+        "concept_name": "BAV 5 pour 1",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "BAV_DE_HAUT_GRADE"
+        ],
+        "requires": [
+          "BLOC_AURICULO_VENTRICULAIRE"
+        ],
+        "synonymes": [
+          "BAV 5/1",
+          "BAV 5:1",
+          "Bloc auriculo-ventriculaire 5 pour 1"
+        ],
+        "poids": 2,
+        "justification": "Mentionné explicitement comme proposition QCM fausse ; le catalogue couvre 2/1 mais pas ce ratio de conduction de haut grade."
+      }
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "ne pas confondre avec un aspect de flutter atrial / flutter atrial (aspect en dents de scie dans les dérivations inférieures)",
+      "synonymes_a_ajouter": [
+        "aspect de flutter atrial",
+        "flutter atrial avec aspect en dents de scie dans les dérivations inférieures"
+      ]
+    },
+    {
+      "concept_id": "TOIT_D_USINE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "aspect en dents de scie dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "aspect en dents de scie",
+        "aspect en dents de scie dans les dérivations inférieures"
+      ]
+    },
+    {
+      "concept_id": "TORSade_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "Le référentiel inclut un tracé de torsade de pointes chez un patient présentant un BAV"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "requires",
+      "cible": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "justification": "Pierre fonde le diagnostic de BAV III complet sur la dissociation des activités atriales et ventriculaires."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "ECHAPPEMENT_VENTRICULAIRE",
+      "justification": "Le cas décrit un BAV complet avec échappement probablement ventriculaire/distal."
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "LENT",
+      "justification": "L’échappement ventriculaire est explicitement qualifié de très lent."
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Le rythme ventriculaire d’échappement est décrit comme régulier."
+    },
+    {
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "QRS_LARGE",
+      "justification": "Le caractère probablement ventriculaire/distal de l’échappement est associé à des QRS larges dans le texte."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "BAV_COMPLET",
+      "justification": "Le commentaire indique que le BAV complet survient dans le cadre d’une hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "ONDE_T_AMPLE",
+      "justification": "Le tracé d’hyperkaliémie est associé ici à des ondes T amples et fines."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "QT_COURT",
+      "justification": "Le cas décrit un QT court dans ce contexte d’hyperkaliémie et de rythme très lent."
+    },
+    {
+      "concept_id": "QT_LONG",
+      "relation": "supports",
+      "cible": "TORSADE_DE_POINTES",
+      "justification": "Le référentiel cité précise que la torsade de pointes est favorisée par l’allongement du QT."
+    },
+    {
+      "concept_id": "BRADYCARDIE",
+      "relation": "supports",
+      "cible": "TORSADE_DE_POINTES",
+      "justification": "Le référentiel cité précise que la torsade de pointes est favorisée par la bradycardie induite par le BAV."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le diagnostic central (BAV complet avec dissociation AV et échappement ventriculaire lent), mais plusieurs formulations pédagogiques usuelles doivent être ajoutées comme synonymes. Le seul vrai trou lexical strictement rencontré est le distracteur « BAV 5/1 » ; les relations causales/argumentatives hyperkaliémie–BAV complet–ondes T amples et QT long/bradycardie–torsade méritent d’être explicitées.",
+  "error": null
+}

@@ -1,0 +1,497 @@
+{
+  "num": 11,
+  "titre": "syncopes chez un patient avec bloc de branche droite et hémibloc antérieur gauche",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FREQUENCE_NORMALE",
+      "statut": "present",
+      "surface": "fréquence cardiaque à environ 85 battements/minute"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "1_1",
+      "statut": "present",
+      "surface": "conduction 1/1"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PR_NORMAL",
+      "statut": "present",
+      "surface": "intervalle PR de durée normale"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_LARGE",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "QRS__120_MS",
+      "statut": "present",
+      "surface": "durée de 130 ms",
+      "synonymes_a_ajouter": [
+        "QRS à 130 ms",
+        "durée du QRS 130 ms",
+        "QRS 130 ms"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "statut": "present",
+      "surface": "bloc de branche droite complet"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_DROIT",
+      "statut": "present",
+      "surface": "bloc de branche droite"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "ASPECT_DE_RETARD_DROIT",
+      "statut": "present",
+      "surface": "rSR’ en V1 ; RS avec onde S large et trainante en fin de complexe en V6",
+      "synonymes_a_ajouter": [
+        "rSR’ en V1",
+        "RS avec onde S large et trainante en V6",
+        "onde S large et trainante en V6"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEVIATION_AXIALE_GAUCHE",
+      "statut": "present",
+      "surface": "déviation axiale gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "statut": "present",
+      "surface": "hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "statut": "present",
+      "surface": "bloc bifasciculaire : association bloc de branche droite complet + hémibloc antérieur gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "statut": "present",
+      "surface": "trouble de conduction"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ASYSTOLIE",
+      "statut": "present",
+      "surface": "asystolie prolongée"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "statut": "present",
+      "surface": "de nombreuses ondes P bloquées"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "present",
+      "surface": "BAV complet"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ECHAPPEMENT_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "rares échappements ventriculaires"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "present",
+      "surface": "bloc auriculoventriculaire complet",
+      "synonymes_a_ajouter": [
+        "bloc auriculoventriculaire complet"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "present",
+      "surface": "BAV complet (3e degré)",
+      "synonymes_a_ajouter": [
+        "BAV complet 3e degré",
+        "BAV complet du 3e degré"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_2_MOBITZ_2",
+      "statut": "present",
+      "surface": "BAV ... du 2e degré type Mobitz II"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "bloc de branche alternant (bloc trifasciculaire)",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_DE_BRANCHE_ALTERNANT",
+        "concept_name": "Bloc de branche alternant",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+        ],
+        "requires": [
+          "BLOC_DE_BRANCHE"
+        ],
+        "synonymes": [
+          "bloc trifasciculaire"
+        ],
+        "poids": 5,
+        "justification": "Cité comme anomalie ECG diagnostique de certitude dans la syncope : « bloc de branche alternant (bloc trifasciculaire) »."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BRADYCARDIE",
+      "statut": "present",
+      "surface": "bradycardie < 40 bpm ; bradycardie entre 40 et 50 bpm",
+      "synonymes_a_ajouter": [
+        "bradycardie < 40 bpm",
+        "bradycardie entre 40 et 50 bpm"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PAUSE",
+      "statut": "present",
+      "surface": "pauses > 3 secondes ; pauses < 3 secondes",
+      "synonymes_a_ajouter": [
+        "pause cardiaque",
+        "pauses cardiaques",
+        "pause > 3 secondes",
+        "pauses < 3 secondes"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "une tachycardie ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TORSADE_DE_POINTES",
+      "statut": "present",
+      "surface": "des torsades de pointes"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "une tachycardie supraventriculaire rapide"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RAPIDE",
+      "statut": "present",
+      "surface": "rapide (en pratique > 150 bpm)"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PACEMAKER",
+      "statut": "present",
+      "surface": "stimulateur cardiaque"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "DEFIBRILLATEUR",
+      "statut": "present",
+      "surface": "défibrillateur"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "signes de défaillance d’un stimulateur cardiaque ou d’un défibrillateur avec pauses cardiaques",
+      "nouveau_concept": {
+        "id_suggere": "DEFAILLANCE_DE_DISPOSITIF_CARDIAQUE_IMPLANTABLE",
+        "concept_name": "Défaillance de dispositif cardiaque implantable",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "STIMULATION"
+        ],
+        "requires": [
+          "PACEMAKER"
+        ],
+        "synonymes": [
+          "défaillance d’un stimulateur cardiaque",
+          "défaillance d’un défibrillateur",
+          "défaillance de pacemaker",
+          "défaillance de DAI"
+        ],
+        "poids": 4,
+        "justification": "Le texte mentionne explicitement des signes de défaillance de stimulateur/défibrillateur avec pauses, sans les limiter à une sous-détection ou perte de capture déjà cataloguée."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BAV_2_MOBITZ_1",
+      "statut": "present",
+      "surface": "BAV du 2e degré de type Mobitz I"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "statut": "absent",
+      "surface": "D. un bloc de branche gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "statut": "present",
+      "surface": "syndrome de Wolff-Parkinson-White"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "extrasystoles ventriculaires nombreuses",
+      "synonymes_a_ajouter": [
+        "extrasystoles ventriculaires nombreuses"
+      ]
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "NON_SOUTENU",
+      "statut": "present",
+      "surface": "en salves",
+      "synonymes_a_ajouter": [
+        "en salves"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QT_LONG",
+      "statut": "present",
+      "surface": "allongement de l’intervalle QT"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SYNDROME_DE_BRUGADA",
+      "statut": "present",
+      "surface": "syndrome de Brugada"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "sus-décalage convexe du segment ST en V1, V2, V3"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "sus-décalage convexe du segment ST en V1, V2, V3 sans image en miroir",
+      "nouveau_concept": {
+        "id_suggere": "SUS_DECALAGE_ST_CONVEXE_ANTERO_SEPTAL_SANS_MIROIR",
+        "concept_name": "Sus-décalage ST convexe antéro-septal sans miroir",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "requires": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "synonymes": [
+          "sus-décalage convexe du segment ST en V1 V2 V3 sans image en miroir",
+          "ST convexe en V1 V2 V3 sans miroir"
+        ],
+        "poids": 3,
+        "justification": "Formulation morphologique/topographique donnée comme signe ECG du syndrome de Brugada ; les concepts existants couvrent le sus-décalage et le miroir séparément mais pas l’aspect convexe V1-V3 sans miroir."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "MIROIR",
+      "statut": "absent",
+      "surface": "sans image en miroir"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "statut": "present",
+      "surface": "signes d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "TROUBLE_DE_REPOLARISATION",
+      "statut": "present",
+      "surface": "anomalies de la repolarisation"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "onde Q de nécrose",
+      "synonymes_a_ajouter": [
+        "onde Q de nécrose"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "syndrome coronarien aigu"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "SEQUELLE_DE_NECROSE",
+      "statut": "present",
+      "surface": "séquelle d’infarctus"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "BAV_COMPLET",
+      "statut": "present",
+      "surface": "BAV complet infrahissien",
+      "synonymes_a_ajouter": [
+        "BAV complet infrahissien",
+        "bloc auriculoventriculaire complet infrahissien"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "hémibranche postérieure gauche s’est interrompue",
+      "nouveau_concept": {
+        "id_suggere": "BLOC_DE_L_HEMIBRANCHE_POSTERIEURE_GAUCHE",
+        "concept_name": "Bloc de l’hémibranche postérieure gauche",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "BLOC_FASCICULAIRE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "interruption de l’hémibranche postérieure gauche",
+          "bloc de l’hémibranche postérieure gauche"
+        ],
+        "poids": 3,
+        "justification": "Le texte décrit explicitement l’interruption de l’hémibranche postérieure gauche comme troisième branche dans l’évolution vers le bloc trifasciculaire."
+      }
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PROBLEME_DE_VITESSE_DE_DEFILEMENT",
+      "statut": "present",
+      "surface": "la vitesse de défilement du tracé a été modifiée"
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "supports",
+      "cible": "BAV_COMPLET",
+      "justification": "Le cas insiste sur le risque de BAV complet infrahissien/paroxystique en présence d’un bloc bifasciculaire avec syncope."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "justification": "Le texte définit le bloc bifasciculaire observé comme association BBD complet + hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_BIFASCICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "justification": "Le texte définit le bloc bifasciculaire observé comme association BBD complet + hémibloc antérieur gauche."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS__120_MS",
+      "justification": "Le tracé décrit un BBD complet avec QRS larges à 130 ms."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "ASPECT_DE_RETARD_DROIT",
+      "justification": "Le diagnostic de BBD complet est fondé sur les morphologies rSR’ en V1 et onde S large traînante en V6."
+    },
+    {
+      "concept_id": "BLOC_FASCICULAIRE_ANTERIEUR_GAUCHE",
+      "relation": "requires",
+      "cible": "DEVIATION_AXIALE_GAUCHE",
+      "justification": "Pierre motive l’hémibloc antérieur gauche par la déviation axiale gauche associée aux morphologies D1/DII."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "requires",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le contexte décrit une asystolie prolongée avec nombreuses ondes P bloquées comme BAV complet."
+    },
+    {
+      "concept_id": "ASYSTOLIE",
+      "relation": "supports",
+      "cible": "BAV_COMPLET",
+      "justification": "L’asystolie prolongée pendant la syncope est rapportée dans le contexte du BAV complet prolongé."
+    },
+    {
+      "concept_id": "QT_LONG",
+      "relation": "supports",
+      "cible": "TORSADE_DE_POINTES",
+      "justification": "Le référentiel du cas indique qu’un allongement de l’intervalle QT oriente vers une torsade de pointes."
+    },
+    {
+      "concept_id": "EXTRASYSTOLE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_VENTRICULAIRE",
+      "justification": "Le texte indique que des ESV nombreuses ou en salves orientent vers une tachycardie ventriculaire."
+    },
+    {
+      "concept_id": "SYNDROME_DE_BRUGADA",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le texte précise que le syndrome de Brugada peut donner une fibrillation ventriculaire."
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "relation": "supports",
+      "cible": "ISCHEMIQUE",
+      "justification": "Le texte cite les signes d’HVG parmi les anomalies orientant l’enquête vers une cause cardiaque/ischémique structurelle."
+    },
+    {
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "relation": "supports",
+      "cible": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "justification": "L’onde Q de nécrose est citée comme évocatrice d’un SCA ou d’une séquelle d’infarctus."
+    }
+  ],
+  "synthese": "La trace principale est globalement couverte, mais les critères morphologiques fins du BBD et la composition BBD complet + hémibloc antérieur gauche du bloc bifasciculaire méritent des synonymes/relations. Les trous majeurs strictement issus du cas concernent le bloc de branche alternant/trifasciculaire, la défaillance générique de dispositif avec pauses, et l’interruption de l’hémibranche postérieure gauche.",
+  "error": null
+}

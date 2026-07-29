@@ -1,0 +1,30 @@
+{
+  "id": "POLARITE_DES_ONDES_F_POSITIVE_V1_NEGATIVE_V6",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "decomposition": [
+    {
+      "id": "ONDE_F",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "POSITIF",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "NEGATIF",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "POLARITE",
+      "role": "relation",
+      "existe": false
+    }
+  ],
+  "motif": "La polarité des ondes F est une description composite mêlant deux qualifiers et deux dérivations ; les territoires V1/V6 sont ignorés en v1 et aucun concept dédié ne doit être créé.",
+  "principe": "D1, C1, T1",
+  "territoire_ignore_v1": "V1, V6"
+}

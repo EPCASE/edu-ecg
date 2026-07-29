@@ -1,0 +1,22 @@
+{
+  "id": "ARRET_BRUTAL_DE_TACHYCARDIE",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "TERMINAISON_BRUTALE",
+    "concept_name": "Terminaison brutale",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATEUR_EPISODE"
+    ],
+    "synonymes": [
+      "arrêt brutal",
+      "arrêt soudain",
+      "fin brutale",
+      "terminaison brutale"
+    ]
+  },
+  "motif": "Le caractère brutal de fin d’un épisode est un modificateur transversal réutilisable, à appliquer notamment à une tachycardie sans créer un concept dédié à la tachycardie.",
+  "principe": "D1, C1",
+  "territoire_ignore_v1": ""
+}

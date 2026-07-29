@@ -1,0 +1,8 @@
+{
+  "id": "BLOC_DE_L_HEMIBRANCHE_POSTERIEURE_GAUCHE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3",
+  "motif": "Le catalogue contient déjà le concept équivalent de bloc fasciculaire postérieur gauche; il faut ajouter ce libellé comme synonyme plutôt que recréer un concept.",
+  "concept_cible": "BLOC_FASCICULAIRE_POSTERIEUR_GAUCHE"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "SYNDROME_DE_WOLFF_PARKINSON_WHITE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "concept_cible": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+  "motif": "Le WPW existe déjà comme synonyme de la pré-excitation/faisceau accessoire à conduction antérograde, il ne faut pas recréer un diagnostic redondant.",
+  "principe": "C3",
+  "territoire_ignore_v1": ""
+}

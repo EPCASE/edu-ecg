@@ -1,0 +1,20 @@
+{
+  "id": "RECENT",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "principe": "C1, C6",
+  "motif": "Récent est un modificateur temporel transverse, parfois incertain lorsqu'il est supposé récent, à représenter comme qualifier réutilisable plutôt que concept dédié à un diagnostic.",
+  "concept_retenu": {
+    "id": "RECENT",
+    "concept_name": "Récent",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "apparition récente",
+      "apparu au décours",
+      "supposé récent"
+    ]
+  }
+}

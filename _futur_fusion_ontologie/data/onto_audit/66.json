@@ -1,0 +1,138 @@
+{
+  "num": 66,
+  "titre": "SCA sans sus-décalage du segment ST",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "des complexes QRS fins"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "sous-décalage significatif dans les dérivations V1 à V4"
+    },
+    {
+      "concept_id": "ONDE_T_NEGATIVE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T négatives",
+      "synonymes_a_ajouter": [
+        "ondes T négatives",
+        "ondes T inversées",
+        "inversion des ondes T"
+      ]
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de sus-décalage"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "SCA sans sus-décalage du segment ST antérieur",
+      "synonymes_a_ajouter": [
+        "SCA sans sus-décalage du segment ST",
+        "SCA sans sus-décalage",
+        "SCA non ST+",
+        "SCA ST-",
+        "infarctus du myocarde sans sus-décalage du segment ST"
+      ]
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "NSTEMI"
+    },
+    {
+      "concept_id": "ANTERIEUR",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "antérieur"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "SCA ST+ antérieur"
+    },
+    {
+      "concept_id": "CARDIOPATHIE_ISCHEMIQUE_CHRONIQUE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "séquelle de nécrose antérieure"
+    },
+    {
+      "concept_id": "POSTERIEUR",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "séquelle de nécrose postérieure"
+    },
+    {
+      "concept_id": "CIRCONFERENTIEL",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "séquelle antérieure étendue"
+    },
+    {
+      "concept_id": "ST_NORMAL",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l'électrocardiogramme pouvant être normal en dehors des douleurs"
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "sous-décalage du segment ST",
+      "synonymes_a_ajouter": [
+        "sous-décalage significatif",
+        "sous-décalage ST significatif",
+        "sous-décalage du ST",
+        "ST sous-décalé"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "justification": "Le cas présente le sous-décalage du segment ST comme signe électrique caractéristique de NSTEMI/angor instable."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "excludes",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le texte précise que, par définition dans un NSTEMI, il n'existe pas de sus-décalage du segment ST."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "has_qualifiers",
+      "cible": "ANTERIEUR",
+      "justification": "Le diagnostic de référence est un SCA sans sus-décalage du segment ST antérieur."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST",
+      "relation": "supports",
+      "cible": "ONDE_T_NEGATIVE",
+      "justification": "Le tracé associe sous-décalage significatif et ondes T négatives, et le commentaire indique que les ondes T peuvent être inversées dans ce contexte."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le NSTEMI antérieur avec sous-décalage ST et ondes T négatives. Les principaux ajustements concernent les synonymes usuels de « SCA sans sus-décalage » et la formalisation des relations entre NSTEMI, sous-décalage ST, absence de sus-décalage et topographie antérieure.",
+  "error": null
+}

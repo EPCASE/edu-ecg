@@ -1,0 +1,8 @@
+{
+  "id": "PAROI_POSTERIEURE_DU_VENTRICULE_GAUCHE",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Topographie anatomique pure, écartée en v1 car le territoire est une dimension séparée non prise en compte.",
+  "territoire_ignore_v1": "paroi postérieure du ventricule gauche"
+}

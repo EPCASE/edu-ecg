@@ -1,0 +1,19 @@
+{
+  "id": "HYPERTROPHIE_BI_ATRIALE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "HYPERTROPHIE_ATRIALE_GAUCHE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "HYPERTROPHIE_ATRIALE_DROITE",
+      "role": "finding",
+      "existe": true
+    }
+  ],
+  "motif": "Le concept est un composite diagnostique strictement couvert par la conjonction de deux findings existants, donc il doit être représenté par composition plutôt que comme monolithe.",
+  "principe": "C1, C3, D1"
+}

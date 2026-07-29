@@ -1,0 +1,313 @@
+{
+  "num": 48,
+  "titre": "critères diagnostiques d’une tachycardie à QRS larges",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS larges"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "concept_id": "TACHYCARDIE_SUPRA_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie supraventriculaire",
+      "synonymes_a_ajouter": [
+        "tachycardie supraventriculaire"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "bloc de branche"
+    },
+    {
+      "concept_id": "TJ_ANTIDROMIQUE_UTILISANT_UNE_VOIE_ACCESSOIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie antidromique sur voie accessoire",
+      "synonymes_a_ajouter": [
+        "tachycardie antidromique sur voie accessoire"
+      ]
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "voie accessoire"
+    },
+    {
+      "concept_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "dissociation auriculo-ventriculaire"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale sinusale",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "concept_id": "LENT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "plus lente que la tachycardie",
+      "synonymes_a_ajouter": [
+        "plus lente que la tachycardie"
+      ]
+    },
+    {
+      "concept_id": "QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "complexes QRS"
+    },
+    {
+      "concept_id": "ONDE_P",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "onde P"
+    },
+    {
+      "concept_id": "ONDE_T",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "onde T"
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "complexe QRS est fin",
+      "synonymes_a_ajouter": [
+        "QRS fin",
+        "complexe QRS fin"
+      ]
+    },
+    {
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "complexe de capture",
+      "synonymes_a_ajouter": [
+        "complexe de capture",
+        "capture ventriculaire",
+        "capture"
+      ]
+    },
+    {
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "complexe de fusion",
+      "synonymes_a_ajouter": [
+        "capture partielle",
+        "fusion"
+      ]
+    },
+    {
+      "concept_id": "PREMATURE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS prématuré par rapport au cycle de la tachycardie",
+      "synonymes_a_ajouter": [
+        "QRS prématuré par rapport au cycle de la tachycardie",
+        "complexe QRS prématuré"
+      ]
+    },
+    {
+      "concept_id": "MORPHOLOGIE_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "morphologie des complexes QRS"
+    },
+    {
+      "concept_id": "MORPHOLOGIE_ANORMALE_DU_QRS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "empâtement marqué de la première partie du QRS",
+      "synonymes_a_ajouter": [
+        "empâtement marqué de la première partie du QRS"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "concordance positive (QRS de V1 à V6 positifs)",
+      "nouveau_concept": {
+        "id_suggere": "CONCORDANCE_POSITIVE_PRECORDIALE",
+        "concept_name": "Concordance positive précordiale",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "QRS"
+        ],
+        "synonymes": [
+          "concordance positive",
+          "QRS de V1 à V6 positifs"
+        ],
+        "poids": 4,
+        "justification": "Le cas cite la concordance positive précordiale comme argument fort en faveur d'une tachycardie ventriculaire."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "concordance négative (QRS de V1 à V6 négatifs)",
+      "nouveau_concept": {
+        "id_suggere": "CONCORDANCE_NEGATIVE_PRECORDIALE",
+        "concept_name": "Concordance négative précordiale",
+        "type": "finding",
+        "categorie": "DIAGNOSTIC_MAJEUR",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "QRS"
+        ],
+        "synonymes": [
+          "concordance négative",
+          "QRS de V1 à V6 négatifs"
+        ],
+        "poids": 4,
+        "justification": "Le cas cite la concordance négative précordiale comme argument fort en faveur d'une tachycardie ventriculaire."
+      }
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "flutter atrial",
+      "synonymes_a_ajouter": [
+        "flutter atrial"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie jonctionnelle"
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "torsade de pointes"
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence d’activité atriale identifiable",
+      "synonymes_a_ajouter": [
+        "absence d’activité atriale identifiable",
+        "activité atriale non identifiable"
+      ]
+    },
+    {
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence de complexes de capture",
+      "synonymes_a_ajouter": [
+        "complexes de capture"
+      ]
+    },
+    {
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "absence de complexes de ... fusion",
+      "synonymes_a_ajouter": [
+        "complexes de fusion"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "justification": "Pierre indique que la dissociation auriculo-ventriculaire signe/certifie le diagnostic de TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "CAPTURE_SUPRAVENTRICULAIRE",
+      "justification": "Pierre indique qu'un complexe de capture signe/certifie le diagnostic de TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "COMPLEXE_DE_FUSION",
+      "justification": "Le commentaire précise que capture ou fusion, lorsqu'elles sont présentes pendant une tachycardie à QRS larges, aident au diagnostic de TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "Dans ce cas, le diagnostic enseigné est une tachycardie ventriculaire se présentant comme tachycardie à QRS larges."
+    },
+    {
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "relation": "requires",
+      "cible": "ONDE_P",
+      "justification": "La capture est décrite comme un QRS fin suivant une onde P sinusale."
+    },
+    {
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "Le complexe capturé est décrit dans le tracé comme un QRS fin reproduisant habituellement l'aspect du QRS sinusal."
+    },
+    {
+      "concept_id": "CAPTURE_SUPRAVENTRICULAIRE",
+      "relation": "has_qualifiers",
+      "cible": "PREMATURE",
+      "justification": "La capture ventriculaire se traduit par un complexe QRS prématuré par rapport au cycle de la tachycardie."
+    },
+    {
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "relation": "supports",
+      "cible": "TACHYCARDIE_VENTRICULAIRE",
+      "justification": "La fusion est citée avec la capture parmi les signes recherchés pour certifier une TV."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "relation": "supports",
+      "cible": "MORPHOLOGIE_ANORMALE_DU_QRS",
+      "justification": "En l'absence de dissociation/capture/fusion, l'analyse de la morphologie QRS est donnée comme argument diagnostique de TV."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour la TV, la dissociation AV et les captures/fusions, mais le lexique manque les formulations pédagogiques exactes autour de la capture/fusion et de la TSV/AVRT antidromique. Deux patterns morphologiques importants d'aide au diagnostic de TV à QRS larges, les concordances précordiales positive et négative, ne sont pas représentés.",
+  "error": null
+}

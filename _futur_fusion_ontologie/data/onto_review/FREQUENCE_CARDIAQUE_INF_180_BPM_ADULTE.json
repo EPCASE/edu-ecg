@@ -1,0 +1,7 @@
+{
+  "id": "FREQUENCE_CARDIAQUE_INF_180_BPM_ADULTE",
+  "verdict": "REJETER",
+  "classe": "description",
+  "principe": "C2, C5",
+  "motif": "Seuil contextuel et peu différenciant, dépendant de l'âge et redondant avec la qualification de tachycardie sinusale/rythme rapide ; ne justifie pas un concept v1."
+}

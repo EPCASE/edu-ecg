@@ -1,0 +1,22 @@
+{
+  "id": "RAPPORT_VA_1_1",
+  "verdict": "QUALIFIER_REUTILISABLE",
+  "classe": "qualifier",
+  "concept_retenu": {
+    "id": "RAPPORT_VA_1_1",
+    "concept_name": "Rapport ventriculo-atrial 1/1",
+    "type": "qualifier",
+    "parents": [
+      "CONDUCTION"
+    ],
+    "synonymes": [
+      "conduction VA 1/1",
+      "rapport VA 1/1",
+      "rapport ventriculo-atrial 1/1",
+      "relation VA 1 pour 1"
+    ]
+  },
+  "motif": "Le rapport VA 1/1 est un mode de relation/conduction ventriculo-atriale réutilisable, distinct du mode AV 1/1 déjà catalogué et non réductible à une topographie.",
+  "principe": "D1",
+  "territoire_ignore_v1": ""
+}

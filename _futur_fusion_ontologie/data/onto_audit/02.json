@@ -1,0 +1,205 @@
+{
+  "num": 2,
+  "titre": "tremblement et faux diagnostic d’arythmie atriale",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondulation de la ligne de base",
+      "synonymes_a_ajouter": [
+        "ondulation de la ligne de base",
+        "oscillations de la ligne de base"
+      ]
+    },
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "trémulation de la ligne de base"
+    },
+    {
+      "concept_id": "ARTEFACTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "parasitage de la ligne de base",
+      "synonymes_a_ajouter": [
+        "parasitage de la ligne de base",
+        "parasite de la ligne de base",
+        "parasites",
+        "artéfacts",
+        "tracé parasité"
+      ]
+    },
+    {
+      "concept_id": "INTERFERENCE_EXTRA_CARDIAQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tremblement parkinsonien",
+      "synonymes_a_ajouter": [
+        "tremblement parkinsonien",
+        "tremblement organique",
+        "mouvements incontrôlables responsables de parasites"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rythme sinusal"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "le rythme est bien sinusal",
+      "synonymes_a_ajouter": [
+        "rythme bien sinusal"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une onde P est parfaitement identifiable avant chaque complexe QRS",
+      "synonymes_a_ajouter": [
+        "onde P identifiable",
+        "onde P parfaitement identifiable",
+        "onde P avant chaque QRS",
+        "onde P avant chaque complexe QRS"
+      ]
+    },
+    {
+      "concept_id": "1_1",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une onde P est parfaitement identifiable avant chaque complexe QRS",
+      "synonymes_a_ajouter": [
+        "une onde P avant chaque QRS",
+        "onde P avant chaque complexe QRS"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS étaient parfaitement réguliers",
+      "synonymes_a_ajouter": [
+        "QRS réguliers",
+        "complexes QRS réguliers",
+        "complexes QRS parfaitement réguliers"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect caractéristique de bloc de branche gauche",
+      "synonymes_a_ajouter": [
+        "aspect caractéristique de bloc de branche gauche",
+        "aspect de bloc de branche gauche"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "FA conduite"
+    },
+    {
+      "concept_id": "TACHYCARDIE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie atriale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "absent",
+      "surface": "flutter atrial",
+      "nouveau_concept": {
+        "id_suggere": "FLUTTER_ATRIAL",
+        "concept_name": "Flutter atrial",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_MOYEN",
+        "parents": [
+          "TACHYCARDIE_ATRIALE"
+        ],
+        "requires": [
+          "ONDE_F"
+        ],
+        "synonymes": [
+          "flutter auriculaire",
+          "flutter atrial"
+        ],
+        "poids": 3,
+        "justification": "Le cas cite le flutter atrial comme diagnostic différentiel/faux diagnostic générique, sans préciser typique droit ni atypique ; le catalogue ne contient que des sous-types et un synonyme trop large sur tachycardie atriale."
+      }
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "arythmie atriale",
+      "synonymes_a_ajouter": [
+        "arythmie auriculaire"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "relation": "parents",
+      "cible": "ARTEFACTE",
+      "justification": "Dans le cas, la trémulation/ondulation de la ligne de base est explicitement interprétée comme parasite/artéfact de tremblement."
+    },
+    {
+      "concept_id": "ARTEFACTE",
+      "relation": "parents",
+      "cible": "INTERFERENCE_EXTRA_CARDIAQUE",
+      "justification": "Le parasitage de la ligne de base lié au tremblement parkinsonien relève d'une interférence extra-cardiaque."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "requires",
+      "cible": "ONDE_P_PRESENTE",
+      "justification": "Pierre justifie le rythme sinusal par une onde P identifiable avant chaque QRS."
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "relation": "requires",
+      "cible": "1_1",
+      "justification": "Le texte décrit une onde P avant chaque complexe QRS, donc une relation atrio-ventriculaire 1/1."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "Le cas indique que le rythme sinusal évident va contre/élimine le diagnostic de fibrillation auriculaire."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Pierre souligne que des QRS parfaitement réguliers rendent improbable une FA conduite."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour rythme sinusal, trémulation de ligne de base, artéfact et BBG, mais il manque plusieurs synonymes de langage pédagogique (« parasitage », « ondulation », « fibrillation auriculaire »). Le principal trou hiérarchique est l'absence d'un concept générique de flutter atrial, distinct de ses sous-types et de la tachycardie atriale générale.",
+  "error": null
+}

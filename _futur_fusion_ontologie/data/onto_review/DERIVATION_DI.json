@@ -1,0 +1,9 @@
+{
+  "id": "DERIVATION_DI",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "territoire_ignore_v1": "DI",
+  "motif": "Concept de dérivation purement topographique, sans finding ECG atomique associé ; les localisations/dérivations sont exclues du scoring v1.",
+  "decomposition": []
+}

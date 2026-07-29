@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_ANTERIEURES_V1_V3",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "principe": "T1",
+  "motif": "Groupe de dérivations/localisation pure, rejeté en v1.",
+  "territoire_ignore_v1": "V1-V3, antérieur"
+}

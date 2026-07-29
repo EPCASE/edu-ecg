@@ -1,0 +1,283 @@
+{
+  "num": 37,
+  "titre": "fibrillation atriale",
+  "famille": "rythme",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "fibrillation atriale"
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire",
+        "arythmie complète par fibrillation auriculaire",
+        "ACFA"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie",
+      "synonymes_a_ajouter": [
+        "fréquence augmentée",
+        "fréquence supérieure à 100 bpm"
+      ]
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "irrégulière"
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "irrégulièrement irréguliers",
+      "synonymes_a_ajouter": [
+        "irrégulièrement irrégulier",
+        "QRS irrégulièrement irréguliers",
+        "cycles RR de durée inégale",
+        "intervalles RR de durée inégale"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "trémulation de la ligne de base"
+    },
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondulations continues et permanentes de la ligne de base",
+      "synonymes_a_ajouter": [
+        "ondulations continues et permanentes de la ligne de base",
+        "ondulations de la ligne de base"
+      ]
+    },
+    {
+      "concept_id": "AXE_NORMAL_DU_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "axe normal"
+    },
+    {
+      "concept_id": "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence de signes d’hypertrophie ventriculaire gauche"
+    },
+    {
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "absence de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "absence de troubles de la repolarisation",
+        "absence de trouble de la repolarisation",
+        "pas de trouble de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "ABSENCE_D_ONDE_P",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "absence d’onde P sinusale",
+      "synonymes_a_ajouter": [
+        "absence d’onde P sinusale",
+        "absence d'onde P sinusale",
+        "pas d’onde P sinusale"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "absence d’onde P sinusale"
+    },
+    {
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "trouble du rythme"
+    },
+    {
+      "concept_id": "DESORGANISEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale rapide, irrégulière et anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "activité atriale anarchique",
+        "désorganisation complète de l'activité électrique des oreillettes"
+      ]
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale rapide",
+      "synonymes_a_ajouter": [
+        "activité atriale rapide"
+      ]
+    },
+    {
+      "concept_id": "FLUTTER_DROIT_TYPIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "flutter commun",
+      "synonymes_a_ajouter": [
+        "flutter commun"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie sinusale"
+    },
+    {
+      "concept_id": "TACHYCARDIE_JONCTIONELLE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie jonctionnelle"
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie ventriculaire"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation atriale à petites mailles",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_A_PETITES_MAILLES",
+        "concept_name": "Fibrillation atriale à petites mailles",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "TREMULATION_DE_LA_LIGNE_DE_BASE"
+        ],
+        "synonymes": [
+          "FA à petites mailles",
+          "fibrillation atriale à petites mailles"
+        ],
+        "poids": 2,
+        "justification": "Le référentiel EDN cite explicitement ce sous-type descriptif de FA."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "Fibrillation atriale à grosses mailles",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_A_GROSSES_MAILLES",
+        "concept_name": "Fibrillation atriale à grosses mailles",
+        "type": "qualifier",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "TREMULATION_DE_LA_LIGNE_DE_BASE"
+        ],
+        "synonymes": [
+          "FA à grosses mailles",
+          "fibrillation atriale à grosses mailles",
+          "fibrillation atriale à larges mailles",
+          "FA à larges mailles"
+        ],
+        "poids": 2,
+        "justification": "Le texte mentionne les formes à larges/grosses mailles, distinctes du flutter."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "tachycardie irrégulière à QRS fins",
+      "nouveau_concept": {
+        "id_suggere": "TACHYCARDIE_IRREGULIERE_A_QRS_FINS",
+        "concept_name": "Tachycardie irrégulière à QRS fins",
+        "type": "pattern",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "TACHYCARDIE_SUPRA_VENTRICULAIRE"
+        ],
+        "requires": [
+          "TACHYCARDIE",
+          "IRREGULIER",
+          "QRS_FINS"
+        ],
+        "synonymes": [
+          "tachycardie irrégulière à complexes QRS fins",
+          "tachycardie à QRS fins irrégulière"
+        ],
+        "poids": 3,
+        "justification": "Le cas insiste sur ce pattern ECG caractéristique à connaître pour la FA."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "requires",
+      "cible": "ABSENCE_D_ONDE_P",
+      "justification": "Le commentaire pédagogique indique que la FA montre typiquement une absence d’onde P sinusale."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "justification": "La trémulation de la ligne de base est donnée comme élément en faveur du diagnostic de FA."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "IRREGULIER",
+      "justification": "La FA est décrite par des QRS/cycles RR irréguliers et une tachycardie irrégulière."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "QRS_FINS",
+      "justification": "Le tracé de FA caractéristique est décrit comme une tachycardie irrégulière à QRS fins."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "RYTHME_SINUSAL",
+      "justification": "La FA implique une absence d’onde P sinusale et un rythme non sinusal."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "excludes",
+      "cible": "TACHYCARDIE_SINUSALE",
+      "justification": "Le QCM oppose la FA à la tachycardie sinusale, absente sur cet ECG."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert pour le diagnostic de fibrillation atriale et ses signes élémentaires, mais il manque des synonymes importants utilisés en enseignement (fibrillation auriculaire/ACFA, irrégulièrement irrégulier, absence d’onde P sinusale). Les lacunes structurantes concernent les sous-types FA à petites/grosses mailles et le pattern descriptif central « tachycardie irrégulière à QRS fins ».",
+  "error": null
+}

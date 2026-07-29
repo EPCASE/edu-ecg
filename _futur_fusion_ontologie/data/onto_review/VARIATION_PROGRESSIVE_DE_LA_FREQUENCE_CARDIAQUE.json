@@ -1,0 +1,21 @@
+{
+  "id": "VARIATION_PROGRESSIVE_DE_LA_FREQUENCE_CARDIAQUE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "qualifier",
+  "principe": "D1, C1",
+  "motif": "Le caractère progressif des variations de fréquence est un modificateur transversal réutilisable, distinct du diagnostic porté par le contexte.",
+  "concept_retenu": {
+    "id": "PROGRESSIF",
+    "concept_name": "Progressif",
+    "type": "qualifier",
+    "parents": [
+      "QUALIFICATION_PATTERN"
+    ],
+    "synonymes": [
+      "variation progressive",
+      "accélération progressive",
+      "décélération progressive",
+      "accélération et décélération progressives"
+    ]
+  }
+}

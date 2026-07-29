@@ -1,0 +1,15 @@
+{
+  "id": "ASPECT_QR_EN_DI",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "T1, D1",
+  "motif": "La dérivation DI est une topographie ignorée en v1 ; on conserve seulement le finding morphologique qR du QRS, absent du catalogue.",
+  "decomposition": [
+    {
+      "id": "ASPECT_QR_DU_QRS",
+      "role": "finding",
+      "existe": false
+    }
+  ],
+  "territoire_ignore_v1": "DI"
+}

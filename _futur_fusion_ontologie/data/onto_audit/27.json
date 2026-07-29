@@ -1,0 +1,239 @@
+{
+  "num": 27,
+  "titre": "BAV de haut degré et hyperkaliémie",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une bradycardie"
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un rythme irrégulier",
+      "synonymes_a_ajouter": [
+        "rythme irrégulier"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une activité atriale sinusale est bien visible",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    },
+    {
+      "concept_id": "ONDE_P_PRESENTE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "activité atriale sinusale est bien visible avant chaque complexe QRS",
+      "synonymes_a_ajouter": [
+        "ondes P visibles",
+        "activité atriale visible"
+      ]
+    },
+    {
+      "concept_id": "PRESENCE_DE_QRS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "chaque complexe QRS"
+    },
+    {
+      "concept_id": "UNE_ONDE_P_BLOQUEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "plusieurs ondes P consécutives sont bloquées",
+      "synonymes_a_ajouter": [
+        "plusieurs ondes P consécutives bloquées",
+        "2 ondes P consécutives bloquées",
+        "ondes P conduites alternant avec plusieurs ondes P bloquées"
+      ]
+    },
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "bloc atrioventriculaire de haut degré",
+      "synonymes_a_ajouter": [
+        "bloc atrioventriculaire de haut degré",
+        "bloc auriculoventriculaire de haut degré",
+        "BAV de haut degré",
+        "BAV de haut grade"
+      ]
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les complexes QRS sont larges",
+      "synonymes_a_ajouter": [
+        "complexes QRS larges"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "aspect de bloc de branche droite complet",
+      "synonymes_a_ajouter": [
+        "aspect de bloc de branche droite complet",
+        "aspect de bloc de branche droit complet"
+      ]
+    },
+    {
+      "concept_id": "ONDE_T_AMPLE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "les ondes T sont amples, fines et symétriques",
+      "synonymes_a_ajouter": [
+        "ondes T amples, fines et symétriques",
+        "ondes T amples, pointues et symétriques"
+      ]
+    },
+    {
+      "concept_id": "ANOMALIE_DES_ONDES_T",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ondes T amples, pointues et symétriques",
+      "synonymes_a_ajouter": [
+        "ondes T pointues",
+        "ondes T fines et symétriques"
+      ]
+    },
+    {
+      "concept_id": "QT_COURT",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "intervalle QT relativement court au vu de la bradycardie",
+      "synonymes_a_ajouter": [
+        "intervalle QT relativement court",
+        "QT relativement court au vu de la bradycardie"
+      ]
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "hyperkaliémie menaçante",
+      "synonymes_a_ajouter": [
+        "hyperkaliémie menaçante",
+        "signes ECG d’hyperkaliémie"
+      ]
+    },
+    {
+      "concept_id": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un trouble de conduction",
+      "synonymes_a_ajouter": [
+        "trouble de conduction",
+        "trouble de conduction diffus"
+      ]
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "dysfonction sinusale"
+    },
+    {
+      "concept_id": "BLOC_AURICULO_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV",
+      "synonymes_a_ajouter": [
+        "bloc auriculoventriculaire",
+        "BAV"
+      ]
+    },
+    {
+      "concept_id": "ARYTHMIE_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "trouble du rythme atrial",
+      "synonymes_a_ajouter": [
+        "trouble du rythme atrial"
+      ]
+    },
+    {
+      "concept_id": "ARYTHMIE_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "troubles du rythme ventriculaire graves",
+      "synonymes_a_ajouter": [
+        "trouble du rythme ventriculaire",
+        "troubles du rythme ventriculaire graves"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "relation": "requires",
+      "cible": "UNE_ONDE_P_BLOQUEE",
+      "justification": "Le référentiel du cas définit le BAV de haut degré par plusieurs ondes P bloquées consécutives alternant avec des ondes P conduites."
+    },
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "relation": "requires",
+      "cible": "BLOC_AURICULO_VENTRICULAIRE",
+      "justification": "Le diagnostic est explicitement un bloc auriculo/atrioventriculaire de haut degré."
+    },
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "Le tracé associe BAV de haut degré et bradycardie à 35 bpm."
+    },
+    {
+      "concept_id": "BAV_DE_HAUT_GRADE",
+      "relation": "has_qualifiers",
+      "cible": "IRREGULIER",
+      "justification": "Le rythme est décrit comme irrégulier dans ce BAV de haut degré."
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "Le cas décrit un aspect de bloc de branche droit complet avec complexes QRS larges."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "QRS_LARGE",
+      "justification": "Le commentaire indique qu'en hyperkaliémie sévère on peut observer un élargissement des QRS."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "ONDE_T_AMPLE",
+      "justification": "Les ondes T amples, pointues/fines et symétriques sont dites très évocatrices d'hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE",
+      "justification": "Le commentaire indique que l'hyperkaliémie peut s'accompagner d'un trouble de conduction, dysfonction sinusale et/ou BAV."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "BLOC_AURICULO_VENTRICULAIRE",
+      "justification": "Le tracé montre un bloc auriculoventriculaire de haut degré sur hyperkaliémie."
+    },
+    {
+      "concept_id": "HYPERKALIEMIE",
+      "relation": "supports",
+      "cible": "ARYTHMIE_VENTRICULAIRE",
+      "justification": "Le commentaire indique que la dyskaliémie peut favoriser des troubles du rythme ventriculaire graves."
+    }
+  ],
+  "synthese": "Le cas est globalement couvert par les concepts existants, mais plusieurs formulations pédagogiques majeures manquent comme synonymes, notamment « BAV de haut degré », « plusieurs ondes P consécutives bloquées », « activité atriale sinusale » et les formulations d’hyperkaliémie. Les principales relations à renforcer concernent la définition du BAV de haut grade et les signes ECG supportant l’hyperkaliémie sévère.",
+  "error": null
+}

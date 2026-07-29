@@ -1,0 +1,208 @@
+{
+  "num": 59,
+  "titre": "syndrome coronarien aigu ST+ inférieur",
+  "famille": "ischemie",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RYTHME_SINUSAL",
+      "statut": "present",
+      "surface": "un rythme sinusal"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "des ondes q dans les dérivations inférieures",
+      "synonymes_a_ajouter": [
+        "ondes q",
+        "ondes q pathologiques"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "dans les dérivations inférieures"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "statut": "present",
+      "surface": "un sus-décalage du segment ST systématisé au territoire inférieur"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "territoire inférieur"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "une onde de Pardee",
+      "synonymes_a_ajouter": [
+        "onde de Pardee"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "ONDE_T",
+      "statut": "present",
+      "surface": "ce sus-décalage englobe l’onde T"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "statut": "present",
+      "surface": "sous-décalage en miroir en aVL et V2"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "MIROIR",
+      "statut": "present",
+      "surface": "en miroir"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "statut": "present",
+      "surface": "SCA ST+",
+      "synonymes_a_ajouter": [
+        "SCA ST+"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "INFERIEUR",
+      "statut": "present",
+      "surface": "SCA ST+ dans les dérivations inférieures"
+    },
+    {
+      "couverture": "SYNONYME_MANQUANT",
+      "concept_id": "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+      "statut": "present",
+      "surface": "infarctus inférieur",
+      "synonymes_a_ajouter": [
+        "infarctus inférieur"
+      ]
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "statut": "present",
+      "surface": "onde q de nécrose"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "RABOTAGE_DE_L_ONDE_R",
+      "statut": "present",
+      "surface": "rabotage de l’onde R"
+    },
+    {
+      "couverture": "COUVERT",
+      "concept_id": "QRS_FRAGMENTE",
+      "statut": "present",
+      "surface": "fragmentation progressive des complexes QRS"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "DII, DIII et aVF",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATIONS_INFERIEURES",
+        "concept_name": "Dérivations inférieures",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "DII DIII aVF",
+          "DII, DIII et aVF",
+          "dérivations inférieures"
+        ],
+        "poids": 3,
+        "justification": "Le cas localise explicitement le sus-décalage systématisé aux dérivations DII, DIII et aVF ; aucun concept de dérivations ECG n'existe, INFERIEUR couvrant seulement le territoire IDM."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aVL",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_AVL",
+        "concept_name": "Dérivation aVL",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "aVL",
+          "AVL"
+        ],
+        "poids": 2,
+        "justification": "Le sous-décalage en miroir est localisé en aVL, localisation de dérivation non représentée dans le catalogue."
+      }
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "V2",
+      "nouveau_concept": {
+        "id_suggere": "DERIVATION_V2",
+        "concept_name": "Dérivation V2",
+        "type": "topography",
+        "categorie": "TOPOGRAPHIE",
+        "parents": [
+          "TOPOGRAPHIE"
+        ],
+        "requires": [],
+        "synonymes": [
+          "V2"
+        ],
+        "poids": 2,
+        "justification": "Le sous-décalage en miroir est localisé en V2, localisation de dérivation non représentée dans le catalogue."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "requires",
+      "cible": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "justification": "Le diagnostic de SCA ST+ du cas est fondé sur le sus-décalage systématisé du segment ST."
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "relation": "supports",
+      "cible": "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "justification": "Le texte précise que les ondes q peuvent apparaître au cours du SCA ST+ et sont présentes ici dans le territoire inférieur."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "INFERIEUR",
+      "justification": "Le sus-décalage ST est décrit comme systématisé au territoire inférieur."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "has_qualifiers",
+      "cible": "MIROIR",
+      "justification": "Le sous-décalage est explicitement décrit comme une image en miroir."
+    },
+    {
+      "concept_id": "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+      "relation": "supports",
+      "cible": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "justification": "Le sous-décalage en miroir accompagne le SCA ST+ inférieur dans ce cas."
+    }
+  ],
+  "synthese": "La trame diagnostique principale est couverte (rythme sinusal, sus-décalage ST, SCA ST+ inférieur, onde Q, miroir), mais il manque des synonymes importants comme « onde de Pardee » et « ondes q ». Le principal trou hiérarchique concerne les localisations par dérivations ECG (DII-DIII-aVF, aVL, V2), utiles pour représenter fidèlement le cas.",
+  "error": null
+}

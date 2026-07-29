@@ -1,0 +1,266 @@
+{
+  "num": 30,
+  "titre": "BAV du troisième degré et FA",
+  "famille": "conduction",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "concept_id": "BRADYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "une bradycardie avec ... une fréquence cardiaque à 45 bpm / fréquence ventriculaire ... très ralentie / bradyarythmie",
+      "synonymes_a_ajouter": [
+        "fréquence cardiaque à 45 bpm",
+        "fréquence ventriculaire très ralentie",
+        "bradyarythmie"
+      ]
+    },
+    {
+      "concept_id": "RYTHME_REGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rythme régulier / complexes QRS ... parfaitement réguliers / rythme ventriculaire régulier",
+      "synonymes_a_ajouter": [
+        "complexes QRS parfaitement réguliers",
+        "rythme ventriculaire régulier"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "FA / activité atriale est rapide, polymorphe, anarchique ; aspect de trémulation de la ligne de base",
+      "synonymes_a_ajouter": [
+        "activité atriale rapide polymorphe anarchique",
+        "activité atriale rapide, polymorphe, anarchique"
+      ]
+    },
+    {
+      "concept_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "aspect de trémulation de la ligne de base"
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l’activité atriale est rapide"
+    },
+    {
+      "concept_id": "POLYMORPHE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "l’activité atriale est ... polymorphe"
+    },
+    {
+      "concept_id": "DESORGANISEE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’activité atriale est ... anarchique",
+      "synonymes_a_ajouter": [
+        "anarchique",
+        "activité atriale anarchique"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "les complexes QRS sont fins"
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "il s’agit donc d’un échappement jonctionnel",
+      "synonymes_a_ajouter": [
+        "échappement jonctionnel"
+      ]
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "BAV complet (BAV III) / BAV du troisième degré / bloc auriculoventriculaire complet / bloc auriculoventriculaire complet chez un patient en FA",
+      "synonymes_a_ajouter": [
+        "BAV du troisième degré",
+        "bloc auriculoventriculaire complet"
+      ]
+    },
+    {
+      "concept_id": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "ils ne sont donc pas conduits / la conduction atrio-ventriculaire est interrompue",
+      "synonymes_a_ajouter": [
+        "QRS non conduits",
+        "complexes QRS non conduits",
+        "conduction atrio-ventriculaire interrompue"
+      ]
+    },
+    {
+      "concept_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "on ne retrouve pas de troubles de la repolarisation",
+      "synonymes_a_ajouter": [
+        "pas de troubles de la repolarisation",
+        "absence de troubles de la repolarisation"
+      ]
+    },
+    {
+      "concept_id": "QT_NORMAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "l’intervalle QT est de durée normale",
+      "synonymes_a_ajouter": [
+        "intervalle QT de durée normale",
+        "QT de durée normale"
+      ]
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "QRS irréguliers quand conduits sur une FA / fréquence ventriculaire rapide et irrégulière ... n’est pas un prérequis / en opposition avec l’irrégularité généralement décrite",
+      "synonymes_a_ajouter": [
+        "QRS irréguliers",
+        "rythme ventriculaire irrégulier",
+        "fréquence ventriculaire irrégulière"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "tachycardie habituelle / fréquence ventriculaire rapide ... n’est pas un prérequis",
+      "synonymes_a_ajouter": [
+        "fréquence ventriculaire rapide",
+        "tachycardie habituelle"
+      ]
+    },
+    {
+      "concept_id": "BAV_2_MOBITZ_2",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre un BAV 2 Mobitz 2"
+    },
+    {
+      "concept_id": "DYSFONCTION_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre une dysfonction sinusale"
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "l’ECG montre une tachycardie sinusale"
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "FA avec bloc auriculoventriculaire complet / FA et BAV complet",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_AVEC_BAV_COMPLET",
+        "concept_name": "Fibrillation atriale avec bloc auriculo-ventriculaire complet",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "BAV_COMPLET",
+          "FIBRILLATION_ATRIALE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "BAV_COMPLET",
+          "RYTHME_REGULIER"
+        ],
+        "synonymes": [
+          "FA avec BAV complet",
+          "FA avec bloc auriculoventriculaire complet",
+          "fibrillation atriale avec BAV complet",
+          "BAV complet chez un patient en FA"
+        ],
+        "poids": 5,
+        "justification": "Le diagnostic central du cas est la coexistence d’une FA et d’un BAV complet, avec rythme ventriculaire régulier et lent."
+      }
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "requires",
+      "cible": "DISSOCIATION_ATRIO_VENTRICULAIRE",
+      "justification": "Le texte déduit le BAV complet de l’interruption de la conduction atrio-ventriculaire / QRS non conduits."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "BRADYCARDIE",
+      "justification": "Dans ce cas de BAV complet sur FA, le tracé montre une bradycardie au lieu de la tachycardie habituelle."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "supports",
+      "cible": "RYTHME_REGULIER",
+      "justification": "Le rythme ventriculaire régulier est opposé à l’irrégularité attendue d’une FA conduite."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "requires",
+      "cible": "QRS_FINS",
+      "justification": "Pierre indique des QRS fins et réguliers et conclut à un échappement jonctionnel."
+    },
+    {
+      "concept_id": "RYTHME_D_ECHAPPEMENT_JONCTIONNEL",
+      "relation": "requires",
+      "cible": "RYTHME_REGULIER",
+      "justification": "L’échappement jonctionnel est inféré ici à partir de QRS parfaitement réguliers."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+      "justification": "L’aspect de trémulation de la ligne de base est explicitement donné comme argument de FA."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "has_qualifiers",
+      "cible": "POLYMORPHE",
+      "justification": "L’activité atriale de la FA est décrite comme polymorphe."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "has_qualifiers",
+      "cible": "DESORGANISEE",
+      "justification": "L’activité atriale de la FA est décrite comme anarchique."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "has_qualifiers",
+      "cible": "RAPIDE",
+      "justification": "L’activité atriale de la FA est décrite comme rapide."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "IRREGULIER",
+      "justification": "Le commentaire pédagogique rappelle que la FA conduite donne habituellement une fréquence ventriculaire irrégulière, mais que ce n’est pas requis ici."
+    },
+    {
+      "concept_id": "BAV_COMPLET",
+      "relation": "excludes",
+      "cible": "BAV_2_MOBITZ_2",
+      "justification": "Le QCM oppose BAV complet vrai à BAV 2 Mobitz 2 faux pour ce tracé."
+    },
+    {
+      "concept_id": "TACHYCARDIE_SINUSALE",
+      "relation": "excludes",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "Le QCM oppose FA vraie à tachycardie sinusale fausse pour ce tracé."
+    }
+  ],
+  "synthese": "Le catalogue couvre les briques principales (FA, BAV complet, bradycardie, QRS fins, échappement jonctionnel, QT normal), mais il manque un pattern composite explicite « FA avec BAV complet », diagnostic central du cas. Les principaux ajustements lexicaux concernent les formulations pédagogiques : activité atriale rapide polymorphe anarchique, bloc auriculoventriculaire complet, QRS/rythme ventriculaire régulier, conduction AV interrompue et bradyarythmie.",
+  "error": null
+}

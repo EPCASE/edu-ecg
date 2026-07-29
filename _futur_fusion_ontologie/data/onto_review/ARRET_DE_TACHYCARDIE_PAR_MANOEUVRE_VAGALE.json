@@ -1,0 +1,24 @@
+{
+  "id": "ARRET_DE_TACHYCARDIE_PAR_MANOEUVRE_VAGALE",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "ARRET_DE_TACHYCARDIE_PAR_MANOEUVRE_VAGALE",
+    "concept_name": "Arrêt de tachycardie par manœuvre vagale",
+    "type": "finding",
+    "parents": [
+      "DESCRIPTION_ECG"
+    ],
+    "requires": [
+      "TACHYCARDIE"
+    ],
+    "synonymes": [
+      "arrêt brutal au moment de la manœuvre vagale",
+      "arrêt de la tachycardie par manœuvre vagale",
+      "tachycardie arrêtée par massage sinocarotidien"
+    ]
+  },
+  "motif": "Finding dynamique réutilisable et différenciant décrivant la terminaison d'une tachycardie par manœuvre vagale, distinct du diagnostic de tachycardie et absent du catalogue.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

@@ -3,7 +3,8 @@
 > **Projet** : Edu-ECG
 > **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `feat/align-canonical-and-onto-fixes`
 > **Date** : Juillet 2026
-> **Version** : V3 (Scoring V3, NER V2, Feedback V2) + App en ligne `ecg-online` (GPT-4o)
+> **Version** : V3 (Scoring V3, NER V2, Feedback V2) + App en ligne `ecg-online`
+> (backend neurosymbolique vendoré + repli GPT-4o)
 >
 > 📌 **Document unique et centralisé.** Il fusionne l'ancienne `ARCHITECTURE.md`,
 > l'`AUDIT.md`, la `REANNOTATION_WEBPROTEGE.md` et le *Rapport de relecture —
@@ -94,7 +95,7 @@ Le projet s'inscrit dans le cadre d'un **mémoire de Master 2** en cardiologie, 
 
 ### 2.3 Innovations clés
 
-1. **Coupe-circuit symbolique** : ~42% des résolutions se font **sans appel LLM** (matching exact normalisé → déterministe, gratuit, instantané).
+1. **Coupe-circuit symbolique** : ~74% des résolutions se font **sans appel LLM** (matching exact normalisé → déterministe, gratuit, instantané ; 483/650 résolutions mesurées, précision 96.5% — cf. `AUDIT.md` §4bis, chiffre à jour du 2026-07-29, corrige l'ancienne estimation ~42%).
 2. **Scoring V3 ontologique** : le score exploite les **relations sémantiques** (requires, supports, excludes, parent/enfant) plutôt qu'un simple match binaire.
 3. **Séparation NER / Jugement** : le NER extrait brutalement (aucune normalisation), la normalisation est déléguée à la recherche hybride + au juge — ce qui découple l'extraction de l'ontologie.
 4. **Feedback ancré dans le cours** : le feedback cite les extraits du cours SFC (Item 231 EDN), classés par rang de priorité (A/B/C).
@@ -526,7 +527,7 @@ Pour chaque concept attendu (golden) :
 |---|---|---|---|
 | **NER → Search** | LLM → Ontologie | Terme brut → embedding → cosinus + BM25 | Trouver des candidats (tolérant aux fautes) |
 | **Search → Juge** | Ontologie → LLM | Top-K candidats (avec poids/catégorie) → QCM | Décision clinique contextuelle |
-| **Coupe-circuit** | Ontologie seule | Matching exact normalisé → bypass LLM | Rapidité + déterminisme (42% des cas) |
+| **Coupe-circuit** | Ontologie seule | Matching exact normalisé → bypass LLM | Rapidité + déterminisme (~74% des cas, mesuré — cf. `AUDIT.md` §4bis) |
 
 ### 6.3 Garde-fous contre les erreurs LLM
 
@@ -590,13 +591,16 @@ ECG lecture/                          # Repo git principal (edu-ecg)
 ├── requirements.txt                  # Dépendances Python (pipeline)
 │
 ├── ecg-online/                       # ★ APP AUTONOME EN LIGNE (Partie B) ★
-│   ├── app/                          #   grader.py, server.py, cases_repo.py
-│   ├── frontend/                     #   index.html, style.css, app.js
+│   │                                 #   repo git dédié → EPCASE/ecg-online
+│   ├── app/                          #   server.py, cases_repo.py, grader.py (repli GPT)
+│   │                                 #   neuro_grader.py, golden_config.py, scoring_config.py
+│   ├── frontend/                     #   index.html, style.css, app.js (page 1 / page 2)
 │   ├── data/                         #   cases.json (75 cas) + ecg_images/ (108 PNG)
-│   ├── scripts/                      #   extraction docx/pdf → cases.json
+│   ├── rag_pipeline/                 #   ★ PIPELINE VENDORÉ (6 briques + index + onto) ★
+│   ├── scripts/                      #   extraction docx/pdf → cases.json + mapping golden
 │   ├── run.py, Procfile, runtime.txt #   local + Scalingo
 │   ├── README.md, ROADMAP.md         #   doc & plan de route
-│   └── requirements.txt              #   dépendances app (Flask, openai, gunicorn)
+│   └── requirements.txt              #   dépendances app (Flask, openai, numpy, rank-bm25, pydantic, gunicorn)
 │
 ├── backend/
 │   └── rdf_owl_extractor.py          # Parseur RDF/XML de l'OWL (V1)
@@ -640,7 +644,7 @@ ECG evaluation/                       # Notebooks d'analyse et de benchmark
 
 ### ✅ F1 — Architecture neurosymbolique rigoureuse
 
-La **séparation symbolique/neuronal** est le cœur de la robustesse. Le LLM ne voit jamais l'ontologie complète, ne peut pas inventer d'IDs, et le scoring est 100% déterministe. Le coupe-circuit (42% des cas) garantit la reproductibilité.
+La **séparation symbolique/neuronal** est le cœur de la robustesse. Le LLM ne voit jamais l'ontologie complète, ne peut pas inventer d'IDs, et le scoring est 100% déterministe. Le coupe-circuit (~74% des cas, mesuré) garantit la reproductibilité, avec une précision de 96.5% sur cette brique (cf. `AUDIT.md` §4bis).
 
 ### ✅ F2 — Ontologie ECG spécialisée et unique
 
@@ -751,7 +755,7 @@ Le pipeline fonctionne en **batch** (notebooks ou scripts CLI). Pas d'API REST n
 
 | Métrique | Valeur |
 |----------|--------|
-| Coupe-circuit (bypass LLM) | ~42% des résolutions |
+| Coupe-circuit (bypass LLM) | ~74% des résolutions (483/650 mesurées, précision 96.5% — `AUDIT.md` §4bis) |
 | Latence par cas (15 questions) | 5-8 secondes |
 | Latence rapport complet (1 étudiant × 15 cas, avec feedback) | ~200-400 secondes |
 | Coût API par étudiant | ~$0.30 |
@@ -774,28 +778,40 @@ Le pipeline fonctionne en **batch** (notebooks ou scripts CLI). Pas d'API REST n
 
 # Partie B — Application en ligne `ecg-online`
 
-## 12. App autonome de correction ouverte (GPT-4o)
+## 12. App autonome de correction ouverte (pipeline neurosymbolique + repli GPT-4o)
 
 > **Nouveau (juillet 2026).** Dépôt applicatif **autonome** et déployable sur
 > Scalingo, situé dans `ECG lecture/ecg-online/`. Il transforme le projet de
 > *pipeline d'évaluation batch* en *plateforme d'entraînement en ligne* : un
-> étudiant lit un ECG, rédige une interprétation **en texte libre**, et GPT-4o la
+> étudiant lit un ECG, rédige une interprétation **en texte libre**, et l'app la
 > corrige (score + commentaire). Voir `ecg-online/README.md` et `ecg-online/ROADMAP.md`.
+>
+> **Évolution majeure (commit `9f849e3`).** L'app ne se limite plus au grader
+> GPT-4o : elle **vendore le pipeline neurosymbolique complet** (les 6 briques,
+> Partie A) dans `ecg-online/rag_pipeline/` (modules + index `.npy` + ontologie).
+> Le backend par défaut est **`neuro`** (scoring V3 déterministe) avec **repli
+> automatique sur GPT-4o** si un cas n'est pas mappé ou si le pipeline échoue.
+> L'app reste **autonome** (aucune dépendance aux 3 autres workspaces) et
+> déployable en l'état.
+>
+> **Dépôt Git dédié.** `ecg-online/` est un **repo git autonome** (branche `main`,
+> distinct de `edu-ecg`), publié sur [EPCASE/ecg-online](https://github.com/EPCASE/ecg-online).
 
 ### 12.1 Positionnement vs pipeline neurosymbolique
 
 | | Pipeline neurosymbolique (Partie A) | App `ecg-online` (Partie B) |
 |---|---|---|
 | But | Évaluer un corpus, mesurer, publier | Entraîner l'étudiant en ligne, feedback immédiat |
-| Correction | NER→RAG→Juge→Scoring V3 (déterministe) | GPT-4o direct, ancré sur l'interprétation de référence |
+| Correction | NER→RAG→Juge→Scoring V3 (déterministe) | **Même pipeline vendoré** (backend `neuro`) + **repli GPT-4o** si cas non mappé/erreur |
 | Banque | 15 cas golden annotés | **75 cas** extraits de l'ouvrage (tracés + interprétations) |
-| Dépendances | 4 workspaces + index RAG | **Autonome** (Flask + OpenAI, 1 clé) |
-| Reproductibilité | 100 % (scoring symbolique) | dépend de GPT (temperature 0) |
+| Dépendances | 4 workspaces + index RAG | **Autonome** (Flask + pipeline vendoré + OpenAI, 1 clé) |
+| Reproductibilité | 100 % (scoring symbolique) | **100 % en `neuro`** ; dépend de GPT uniquement en repli |
 | Déploiement | notebooks / CLI | Scalingo (`Procfile`, gunicorn) |
 
-➡️ Les deux sont **complémentaires** : l'app délivre la valeur pédagogique
-immédiate ; le pipeline reste la référence de mesure et la future source d'un
-**scoring hybride** (cf. §13-15 et `ecg-online/ROADMAP.md` Phase 2).
+➡️ Les deux partagent désormais le **même moteur de correction**. L'app délivre la
+valeur pédagogique immédiate en ligne ; le pipeline reste la référence de mesure
+et d'évaluation batch. Le **scoring hybride** visé (§13-15) est donc déjà en
+production côté app (backend `neuro`, cf. `ecg-online/ROADMAP.md`).
 
 ### 12.2 Banque de 75 cas
 
@@ -814,22 +830,49 @@ referentiel, images[]`.
 ### 12.3 Architecture applicative
 
 ```
-Frontend (HTML/CSS/JS)  ──► Flask API (app/server.py) ──► grader GPT-4o (app/grader.py)
-  sélecteur de cas            /api/cases, /api/case/<n>       function calling « rendre_correction »
-  visualiseur de tracé        /api/grade  (score+comment)     ancré sur interpretation_ref
-  zone de réponse libre       /images/<f> (tracés PNG)        barème progressif + équivalences
-  résultat animé              cases_repo.py (expurge la réf)  cliniques (cf. §15)
+Frontend (HTML/CSS/JS)  ──► Flask API (app/server.py) ──► backend « neuro » (défaut)
+  sélecteur de cas            /api/cases, /api/case/<n>       app/neuro_grader.py
+  visualiseur de tracé        /api/grade  (score+comment)     └─► rag_pipeline/ (6 briques vendorées)
+  page 1 / page 2 (révélée)   /images/<f> (tracés PNG)            candidate_report → scoring_v3
+  zone de réponse libre       /api/health (diagnostic backend)         │  (déterministe)
+  résultat animé              cases_repo.py (expurge la réf)           ▼  repli si non mappé/erreur
+                              golden_config.py (pont sémantique)  app/grader.py (GPT-4o direct)
 ```
 
-- **`app/grader.py`** — cœur IA. Renvoie un JSON structuré : `score`,
-  `score_diagnostic`, `score_descriptif`, `correspondance` (exacte/acceptable/
-  partielle/incorrecte), `type_erreur` (aucune/étudiant/incomplet/formulation),
-  `elements_trouves/manques/errones`, `commentaire`. Le prompt intègre les règles
-  du rapport de relecture (§15) : crédit partiel, équivalences cliniques, règle
-  « ECG normal », valorisation des négations.
+**Backend de correction (choix à l'exécution).** `server.py` lit la variable
+d'env `ECG_GRADER_BACKEND` (défaut **`neuro`**). Pour `/api/grade` :
+1. **`neuro`** → `neuro_grader.grade_neuro(num, texte)` exécute le pipeline
+   vendoré (NER→RAG→Juge→Scoring V3) et renvoie un score **déterministe** ancré
+   sur le **contrat golden** du cas (`golden_config.py`).
+2. **Repli GPT-4o** → si le cas n'a pas de validant golden mappé, ou si le
+   pipeline lève une erreur, l'app retombe sur `grader.grade(...)` (GPT-4o direct).
+   Le champ `backend` de la réponse JSON indique lequel a servi (`"neuro"`/`"gpt"`).
+3. `/api/health` expose l'état du pipeline (`neuro.available`, `onto_available`,
+   `import_error`, `openai_key`) — indispensable pour diagnostiquer un repli en prod.
+
+- **`app/neuro_grader.py`** — adaptateur : branche l'app sur le pipeline
+  neurosymbolique et traduit le `CandidateReport` (scoring V3) vers le format
+  `Correction` attendu par le frontend. Précharge le `HybridSearchEngine`
+  (index en RAM) en singleton thread-safe.
+- **`app/golden_config.py`** — le **« pont sémantique »** : joint le rôle
+  (validant/complémentaire, `scoring_config.json`) au concept ontologique
+  (`cases_golden.json`) pour produire le contrat `{validants, descripteurs}` que
+  le scorer V3 attend. Résout l'ontologie via un chemin **portable** vers
+  `rag_pipeline/data/ontology_v2.json` (fix prod `903c224` : les chemins Windows
+  absolus cassaient `onto_available()` sur Scalingo → repli GPT systématique).
+- **`app/grader.py`** — grader GPT-4o de **repli**. Renvoie le même JSON structuré
+  (`score`, `score_diagnostic`, `score_descriptif`, `correspondance`,
+  `type_erreur`, `elements_trouves/manques/errones`, `commentaire`), ancré sur
+  `interpretation_ref`, avec les règles de relecture (§15).
 - **`app/cases_repo.py`** — accès banque + **expurgation** : l'interprétation de
   référence n'est jamais renvoyée avant que l'étudiant ait soumis sa réponse.
 - **`app/server.py`** — API REST + service du front + des images.
+
+**Pipeline vendoré** (`ecg-online/rag_pipeline/`, autonome pour Scalingo) :
+les 10 modules des briques 0→6 + `pattern_inference.py`, l'index pré-calculé
+(`rag_index/` : `vecteurs_ontologie.npy`, `metadata_ontologie.json`,
+`bm25_corpus.json`) et l'ontologie runtime (`data/ontology_v2.json`). Tous
+**versionnés dans git** pour un déploiement self-contained.
 
 ### 12.4 Comportement validé (tests end-to-end)
 
@@ -849,8 +892,23 @@ Copy-Item .env.example .env   # renseigner OPENAI_API_KEY
 python run.py                 # http://localhost:5000
 ```
 
+**Variables d'environnement** :
+
+| Variable | Défaut | Rôle |
+|----------|--------|------|
+| `OPENAI_API_KEY` | — | Clé OpenAI (NER + embeddings + juge + repli GPT) |
+| `ECG_GRADER_BACKEND` | `neuro` | `neuro` (pipeline vendoré) ou `gpt` (grader direct) |
+| `PORT` | `5000` | Port d'écoute (fourni par Scalingo) |
+
 Scalingo : `git push scalingo main` (détecte `requirements.txt` + `runtime.txt`,
 lance le `web:` du `Procfile`). Aucune base de données (banque = JSON versionné).
+Le pipeline (index `.npy`, ontologie, corpus BM25) est **vendoré dans le repo** →
+déploiement self-contained, aucune étape de build supplémentaire.
+
+> ⚠️ **Vérifier le backend en prod** après déploiement via `GET /api/health` :
+> `neuro.available` doit valoir `true`. S'il est `false`, l'app corrige en repli
+> GPT-4o pour **tous** les cas — regarder `onto_available` / `import_error`
+> (cause typique : ontologie introuvable, cf. fix `903c224`).
 
 ---
 
@@ -863,6 +921,11 @@ lance le `web:` du `Procfile`). Aucune base de données (banque = JSON versionn�
 
 ### 13.0 Note de méthode (honnêteté intellectuelle)
 
+> **Mise à jour 2026-07-29** : le golden d'extraction proposé plus bas (§13.4) a été **construit et
+> exploité** (100 réponses réelles annotées, cf. `ecg-online/GOLDEN_EXTRACTION.md`). Le chiffre
+> « 63,7 % d'hallucination » ci-dessous est donc **officiellement caduc**, remplacé par les vraies
+> mesures : **Précision 90.4 %, Rappel 89.2 %, F1 89.8 %** sur l'extraction (cf. `AUDIT.md` §4bis).
+
 Le chiffre « **taux d'hallucination 63,7 %** » **ne doit pas être lu comme « 2
 concepts sur 3 sont des inventions »**. Il compare *tous* les concepts extraits au
 golden **de scoring**, qui ne liste que 1 à 3 concepts « qui comptent » par cas.
@@ -871,7 +934,8 @@ sont comptés à tort comme faux positifs.
 
 ➡️ La vraie conclusion : **« on est aujourd'hui incapable de distinguer une vraie
 erreur d'une bonne observation non listée »**. C'est le problème central de
-robustesse ; sa solution est méthodologique (golden d'extraction, §13.4).
+robustesse ; sa solution est méthodologique (golden d'extraction, §13.4) —
+**désormais résolue**, cf. note ci-dessus et `AUDIT.md` §4bis.
 
 ### 13.1 Synthèse exécutive
 
@@ -1081,6 +1145,138 @@ règles, agrégation, notation).
 
 ---
 
-*Document centralisé — dernière mise à jour : 2026-07-05. Fusionne Architecture V3,
-Audit, Réannotation WebProtégé, patch OWL et Rapport de relecture. App `ecg-online`
-autonome (GPT-4o) ajoutée en Partie B.*
+# Partie E — Audit lexical & structurel de l'ontologie (75 cas)
+
+## 16. Audit de couverture ontologie ↔ 75 cas (GPT-5.5)
+
+> Juillet 2026. Avant de raffiner les **inférences**, on vérifie que le
+> **lexique** (synonymes) et la **hiérarchie** (relations) couvrent réellement
+> les 75 cas de Pierre. Déclencheur : trous constatés (ex. `INVERSION_D_ELECTRODES`
+> sans synonyme « bras droit/gauche » ; « auriculaire » ≈ « atriale » ; « Pardee »,
+> « WPW » absents). **53 % des concepts (184/345) n'avaient aucun synonyme.**
+
+### 16.1 Pipeline d'audit (outillage)
+
+| Script | Rôle | Sortie |
+|--------|------|--------|
+| `audit_ontology_coverage.py` | Passe **déterministe** : croise concepts extraits vs formes de l'onto | `audit_ontology_gap.json` |
+| `audit_ontology_llm.py` | Passe **GPT-5.5** : relit chaque cas + catalogue → propositions ancrées | `data/onto_audit/<NN>.json` |
+| `aggregate_onto_audit.py` | Consolide, **déduplique, valide les IDs** (anti-hallucination), filtre polarité | `onto_patch_proposed.json`, `onto_audit_report.md` |
+| `critical_review_concepts.py` | **Relecture critique** selon `ONTOLOGIE_DOCTRINE.md` | `onto_concepts_reviewed.md` |
+| `show_audit.py` | Visualisation lisible d'un cas audité | console |
+
+### 16.2 Résultats bruts de l'audit (75 cas, 0 erreur)
+
+- **1088 synonymes** à ajouter sur **181 concepts existants** (0 hallucination
+  d'ID, 102 conflits de polarité filtrés).
+- **455 relations manquantes** (requires/excludes/supports/qualifiers), cible
+  valide — dont la base des inférences (`ECG_NORMAL requires` 6 critères,
+  `BBD complet requires QRS>120ms + retard droit`, `SCA ST+ requires courant de
+  lésion` [14 cas], `FA excludes rythme sinusal`).
+- **239 concepts manquants** proposés (bruts, avant discipline structurelle).
+
+### 16.3 Doctrine de structuration (`ONTOLOGIE_DOCTRINE.md`)
+
+Principe fondateur : **nous construisons LA référence** ; le texte de Pierre est
+*une* lecture, pas la vérité ultime. Règle d'or : **composer, ne pas empiler**
+(la puissance vient des relations, pas des concepts monolithiques).
+
+| Code | Principe |
+|------|----------|
+| **D1** | Séparer **diagnostic** (pattern) et **description** (finding) |
+| **T1** | **Pas de territoire en v1** : la topographie est une dimension séparée, ignorée |
+| **C1** | **Décomposer** les composés (`ECHAPPEMENT_ATRIAL_LENT` = échappement + qualifier LENT) |
+| **C2** | Qualifier qui n'ajoute rien au diagnostic = **redondant** (rejet) |
+| **C3** | Ne pas **recréer l'existant** (vérifier le catalogue) |
+| **C4** | Un **attendu d'un pattern normal** n'est pas un concept |
+| **C5** | Rejeter le **trop vague** |
+| **C6** | **Champ lexical de l'incertitude** : qualifier `LIMITE`/`DOUTEUX` (ex. `PR_LIMITE`) |
+
+### 16.4 Relecture critique des 239 concepts (verdicts doctrinaux)
+
+| Verdict | N | Sens |
+|---------|:-:|------|
+| **DÉCOMPOSER** | 101 | Composés → atomes + relations (majorité) |
+| **GARDER_ATOMIQUE** | 53 | Vrais concepts nouveaux différenciants (ex. `ASPECT_S1Q3`, `MYOCARDITE`, `BLOC_SINO_ATRIAL_*`, `TAKOTSUBO`) |
+| **REJETER** | 53 | Territoire pur / phrase / vague / attendu du normal |
+| **QUALIFIER_REUTILISABLE** | 17 | Modificateurs transverses (`LIMITE`, `DIFFUS`, `PAROXYSTIQUE`, `AMPLE`, `PERSISTANT`…) |
+| **RÉDUIRE_À_SYNONYME** | 15 | Existent déjà (`WPW`→faisceau accessoire, `ASPECT_QS`→onde Q) |
+
+➡️ Sur 239 propositions brutes, **~53 vrais concepts** survivent en l'état : la
+discipline structurelle **économise ~78 % de concepts** au profit de la
+composition. La décomposition fait **émerger un vocabulaire de qualifiers
+réutilisables** (amplitude, temporalité, incertitude, polarité).
+
+### 16.5 Plan d'application (progressif, validé humainement)
+
+1. **Synonymes** (risque faible) : 1088 syn → OWL patché → réimport WebProtégé.
+2. **Relations** (valeur clinique) : filtrer ≥2 cas, relire, appliquer → base des
+   inférences symétriques grader ↔ scoring_v3.
+3. **Concepts** (arbitrage clinique) : n'intégrer que `GARDER_ATOMIQUE` +
+   `QUALIFIER_REUTILISABLE` ; exécuter `DECOMPOSER` ; ignorer `REJETER` (v1).
+4. **Territoire** : conservé en note (`territoire_ignore_v1`) pour une future
+   couche topographique (v2).
+
+### 16.6 Socle d'atomes, qualifiers nettoyés & fiches patterns (choix 1a/2/3)
+
+Trois artefacts construits **après** la relecture, validés contre l'ontologie
+réelle (jamais le flag `existe` du LLM) :
+
+| Script | Sortie | Résultat |
+|--------|--------|----------|
+| `build_atom_base.py` | `onto_atomes_socle.json/.md` | **184 atomes** ; 111 à créer (28 findings, 57 qualifiers, 26 patterns) ; **73 existants réutilisés** |
+| `clean_qualifiers.py` | `onto_qualifiers_clean.json/.md` | **57 → 52 qualifiers** propres en **9 familles** (amplitude, temporalité, incertitude, polarité, morphologie…) ; 2 fusions, 2 reclassés en finding, 1 décomposé |
+| `build_pattern_fiches.py` | `onto_patterns_fiches.json/.md` | **26 fiches patterns** ; 20 prêtes, 5 `requires` redondants (= parent) à nettoyer, 1 doublon (`SYNDROME_BRADY_TACHY`→`SYNDROME_BRADYCARDIE_TACHYCARDIE`), 0 référence inconnue |
+
+**Relations filtrées** (`filter_relations.py`) : 455 → **148 retenues** (≥2 cas ou
+inférence structurante), dont **87 inférences** sur **34 patterns**
+(`onto_relations_filtered.json`). Ex. structurantes : `SCA ST+ requires
+COURANT_DE_LESION_SOUS_EPICARDIQUE` (×14), `BBD complet requires QRS__120_MS`,
+`ECG_NORMAL requires` 10 critères.
+
+**Familles de qualifiers émergentes** (parent `QUALIFICATION_PATTERN` sauf ratios
+→ `MODE_DE_CONDUCTION_AV`) : AMPLITUDE, TEMPORALITÉ_ÉVOLUTION, MORPHOLOGIE,
+QUANTITÉ_FRÉQUENCE, INCERTITUDE (`LIMITE`/`DOUTEUX`, doctrine C6), POLARITÉ,
+COMPLÉTUDE, MÉCANISME_CONTEXTE, CONDUCTION_RATIO (`5_1` rattaché à `1_1`/`2_1`…).
+
+### 16.7 Composition `ECG_NORMAL` & application du patch (Phase 1)
+
+La **question du `ECG_NORMAL`** est résolue par **composition** (doctrine C7),
+pas par un choix « strict vs requires/supports » : l'ontologie porte la
+**définition** (`requires` = ce qui rend l'ECG *réellement* normal), le
+**crédit partiel** vit dans `scoring_v3`. Constat corrigé : `ECG_NORMAL` n'avait
+**aucune branche QRS** → un Q pathologique / une HVG passait pour « normal ».
+
+`build_normal_composition.py` (0 référence orpheline) :
+
+```
+ECG_NORMAL = RYTHME_SINUSAL + QRS_NORMAL + PAS_D_ANOMALIE_REPOLARISATION
+             + PAS_DE_TROUBLES_DE_LA_CONDUCTION
+QRS_NORMAL = MORPHOLOGIE_DU_QRS_NORMALE + VOLTAGE_NORMAL_DU_QRS (🆕)
+```
+
+**Application Phase 1** (`apply_onto_patch.py`, bas risque) :
+
+| Cible | Contenu | Résultat |
+|-------|---------|----------|
+| **OWL** (`--owl`) | 1088 synonymes (skos:altLabel) | `…_patched_2026-07-05.owl` — 181 concepts, **0 non mappé** (map ID→IRI 100 %, `data/id_to_iri.json`) |
+| **v2 ×3** (`--v2`) | synonymes + composition `ECG_NORMAL` | 346 concepts (+`VOLTAGE_NORMAL_DU_QRS`), backups `bak_patch_*`, réversible |
+
+> **Divergence OWL↔v2 assumée** : `ontology_v2.json` porte des correctifs manuels
+> postérieurs (`implies`, `negation`, `ECG_NORMAL` excludes_families). Le patch est
+> **additif** (jamais de régénération aveugle depuis l'OWL). Phase 2 (mint des 111
+> nouveaux concepts patterns/qualifiers) reste à faire.
+
+**Test de non-régression** : `rerun_pipeline.py --all --out _rerun_patched`
+(pipeline neuro-symbolique + ontologie patchée) puis `compare_rerun.py --rerun
+_rerun_patched` vs l'export GPT live (73 étudiants) → matrice validants Δ
+(Se/Sp/VPP/VPN/F1/Kappa).
+
+---
+
+*Document centralisé — dernière mise à jour : 2026-07-06. Fusionne Architecture V3,
+Audit, Réannotation WebProtégé, patch OWL, Rapport de relecture, et Audit lexical &
+structurel (Partie E). App `ecg-online` autonome ajoutée en Partie B — mise à jour
+juillet 2026 : backend **neurosymbolique vendoré** (repli GPT-4o), repo git dédié
+[EPCASE/ecg-online](https://github.com/EPCASE/ecg-online), fix résolution ontologie
+en prod (`903c224`), UI page 1 / page 2.*

@@ -1,0 +1,27 @@
+{
+  "id": "ASPECT_S1Q3T3",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "diagnostic",
+  "principe": "D1, C3",
+  "motif": "Vrai pattern ECG différenciant associé à l'embolie pulmonaire, absent du catalogue, à conserver comme composite plutôt que comme simple territoire.",
+  "concept_retenu": {
+    "id": "ASPECT_S1Q3T3",
+    "concept_name": "Aspect S1Q3T3",
+    "type": "pattern",
+    "parents": [
+      "EMBOLIE_PULMONAIRE",
+      "ECG_PAS_NORMAL"
+    ],
+    "requires": [
+      "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+      "ONDE_T_NEGATIVE"
+    ],
+    "synonymes": [
+      "S1Q3T3",
+      "S1q3T3",
+      "aspect S1Q3T3",
+      "aspect S1q3T3"
+    ]
+  },
+  "territoire_ignore_v1": ""
+}

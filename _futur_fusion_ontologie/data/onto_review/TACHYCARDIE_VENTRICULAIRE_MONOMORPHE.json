@@ -1,0 +1,20 @@
+{
+  "id": "TACHYCARDIE_VENTRICULAIRE_MONOMORPHE",
+  "verdict": "DECOMPOSER",
+  "classe": "diagnostic",
+  "decomposition": [
+    {
+      "id": "TACHYCARDIE_VENTRICULAIRE",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "MONOMORPHE",
+      "role": "qualifier",
+      "existe": true
+    }
+  ],
+  "motif": "Concept monolithique composé d'un pattern déjà existant et d'un qualifier transverse déjà existant ; ne pas recréer une TV dédiée quand la composition suffit.",
+  "principe": "C1, C3, D1",
+  "territoire_ignore_v1": ""
+}

@@ -1,0 +1,325 @@
+{
+  "num": 52,
+  "titre": "mort subite et syndrome de Wolff-Parkinson-White",
+  "famille": "genetique",
+  "model": "gpt-5.5",
+  "concepts_presents": [
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation atriale sur voie accessoire avec fréquence ventriculaire irrégulière et très rapide",
+      "nouveau_concept": {
+        "id_suggere": "FIBRILLATION_ATRIALE_SUR_VOIE_ACCESSOIRE",
+        "concept_name": "Fibrillation atriale sur voie accessoire",
+        "type": "pattern",
+        "categorie": "DIAGNOSTIC_URGENT",
+        "parents": [
+          "FIBRILLATION_ATRIALE",
+          "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE"
+        ],
+        "requires": [
+          "FIBRILLATION_ATRIALE",
+          "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+          "IRREGULIER",
+          "TACHYCARDIE",
+          "QRS_LARGE"
+        ],
+        "synonymes": [
+          "Fibrillation auriculaire sur voie accessoire",
+          "FA sur voie accessoire",
+          "FA pré-excitée",
+          "fibrillation atriale pré-excitée",
+          "fibrillation auriculaire pré-excitée",
+          "fibrillation atriale conduite par voie accessoire",
+          "fibrillation atriale conduite rapidement par la voie accessoire"
+        ],
+        "poids": 5,
+        "justification": "Diagnostic central du cas et du référentiel EDN, non réductible à la simple coexistence de FA et de pré-excitation."
+      }
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un aspect de voie accessoire est mis en évidence",
+      "synonymes_a_ajouter": [
+        "aspect de voie accessoire",
+        "voie accessoire",
+        "syndrome de Wolff-Parkinson-White",
+        "syndrome de WPW"
+      ]
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "pré-excitation"
+    },
+    {
+      "concept_id": "WOLF_MALIN",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "super-Wolff",
+      "synonymes_a_ajouter": [
+        "super-Wolff",
+        "aspect de super-Wolff",
+        "super-WPW"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "fibrillation auriculaire",
+      "synonymes_a_ajouter": [
+        "fibrillation auriculaire"
+      ]
+    },
+    {
+      "concept_id": "FIBRILLATION_VENTRICULAIRE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "le rythme dégénère en fibrillation ventriculaire"
+    },
+    {
+      "concept_id": "TACHYCARDIE",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "une tachycardie irrégulière"
+    },
+    {
+      "concept_id": "IRREGULIER",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "tachycardie irrégulière"
+    },
+    {
+      "concept_id": "QRS_LARGE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS larges",
+      "synonymes_a_ajouter": [
+        "QRS larges"
+      ]
+    },
+    {
+      "concept_id": "POLYMORPHE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS larges polymorphes",
+      "synonymes_a_ajouter": [
+        "polymorphes",
+        "QRS polymorphes"
+      ]
+    },
+    {
+      "concept_id": "RAPIDE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "rythme ventriculaire très rapide",
+      "synonymes_a_ajouter": [
+        "très rapide",
+        "rythme ventriculaire très rapide",
+        "fréquence ventriculaire très rapide",
+        "réponse ventriculaire très rapide"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "certains cycles ventriculaires très courts",
+      "nouveau_concept": {
+        "id_suggere": "CYCLES_VENTRICULAIRES_TRES_COURTS",
+        "concept_name": "Cycles ventriculaires très courts",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "FREQUENCE"
+        ],
+        "requires": [
+          "TACHYCARDIE"
+        ],
+        "synonymes": [
+          "cycles ventriculaires très courts",
+          "cycles RR très courts",
+          "intervalles RR très courts",
+          "cycle ventriculaire court"
+        ],
+        "poids": 4,
+        "justification": "Pierre insiste sur des cycles ventriculaires très courts, élément pronostique de la FA pré-excitée/Wolff malin ; aucun concept existant ne décrit explicitement cette mesure de cycle."
+      }
+    },
+    {
+      "concept_id": "QRS__120_MS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS très élargis",
+      "synonymes_a_ajouter": [
+        "QRS très élargis",
+        "QRS très larges",
+        "complexes QRS très élargis"
+      ]
+    },
+    {
+      "concept_id": "QRS_FINS",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "QRS fins"
+    },
+    {
+      "concept_id": "COMPLEXE_DE_FUSION",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "QRS intermédiaires (fusion)",
+      "synonymes_a_ajouter": [
+        "fusion",
+        "QRS de fusion",
+        "QRS intermédiaires",
+        "complexes QRS intermédiaires"
+      ]
+    },
+    {
+      "couverture": "CONCEPT_MANQUANT",
+      "statut": "present",
+      "surface": "aspect électrocardiographique \"en accordéon\"",
+      "nouveau_concept": {
+        "id_suggere": "ASPECT_EN_ACCORDEON",
+        "concept_name": "Aspect en accordéon",
+        "type": "finding",
+        "categorie": "DESCRIPTION_ECG",
+        "parents": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS"
+        ],
+        "requires": [
+          "QRS_LARGE",
+          "QRS_FINS",
+          "COMPLEXE_DE_FUSION"
+        ],
+        "synonymes": [
+          "aspect en accordéon",
+          "aspect ECG en accordéon",
+          "complexes QRS d'aspect variable",
+          "aspect variable des complexes QRS",
+          "variations cycle à cycle de la partie initiale du QRS"
+        ],
+        "poids": 4,
+        "justification": "Description ECG spécifique du cas : alternance de QRS plus ou moins pré-excités avec variations cycle à cycle."
+      }
+    },
+    {
+      "concept_id": "AXE_DU_QRS",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "L'axe du QRS ne change pas",
+      "synonymes_a_ajouter": [
+        "axe du QRS inchangé",
+        "axe du QRS ne change pas",
+        "axe QRS stable"
+      ]
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "différencier cet aspect de celui d'une tachycardie ventriculaire polymorphe"
+    },
+    {
+      "concept_id": "TORSADE_DE_POINTES",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "tachycardie ventriculaire polymorphe type torsade de pointes"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "COUVERT",
+      "statut": "present",
+      "surface": "rétablir un rythme sinusal efficace"
+    },
+    {
+      "concept_id": "CARDIOVERSION_ELECTRIQUE",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "un choc électrique est alors nécessaire",
+      "synonymes_a_ajouter": [
+        "choc électrique",
+        "choc électrique externe",
+        "cardioversion en urgence"
+      ]
+    },
+    {
+      "concept_id": "DEFIBRILLATEUR",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "present",
+      "surface": "défibrillateur externe semi-automatique",
+      "synonymes_a_ajouter": [
+        "défibrillateur externe semi-automatique",
+        "DSA"
+      ]
+    },
+    {
+      "concept_id": "BLOC_DE_BRANCHE_GAUCHE",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "bloc de branche gauche"
+    },
+    {
+      "concept_id": "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "syndrome coronaire aigu inférieur",
+      "synonymes_a_ajouter": [
+        "syndrome coronaire aigu inférieur",
+        "SCA inférieur"
+      ]
+    },
+    {
+      "concept_id": "INFERIEUR",
+      "couverture": "COUVERT",
+      "statut": "absent",
+      "surface": "syndrome coronaire aigu inférieur"
+    },
+    {
+      "concept_id": "RYTHME_SINUSAL",
+      "couverture": "SYNONYME_MANQUANT",
+      "statut": "absent",
+      "surface": "activité atriale sinusale",
+      "synonymes_a_ajouter": [
+        "activité atriale sinusale"
+      ]
+    }
+  ],
+  "relations_manquantes": [
+    {
+      "concept_id": "WOLF_MALIN",
+      "relation": "requires",
+      "cible": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "justification": "Le super-Wolff correspond à une pré-excitation majeure par faisceau accessoire très perméable."
+    },
+    {
+      "concept_id": "WOLF_MALIN",
+      "relation": "requires",
+      "cible": "QRS_LARGE",
+      "justification": "Le texte décrit l'aspect de super-Wolff par des QRS très élargis."
+    },
+    {
+      "concept_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_ATRIALE",
+      "justification": "Dans le cas, la voie accessoire conduit rapidement la FA et détermine le risque pronostique ; relation de support utile vers le pattern composite proposé."
+    },
+    {
+      "concept_id": "FIBRILLATION_ATRIALE",
+      "relation": "supports",
+      "cible": "FIBRILLATION_VENTRICULAIRE",
+      "justification": "Le texte indique qu'une réponse ventriculaire très rapide sur voie accessoire peut dégénérer en fibrillation ventriculaire létale."
+    },
+    {
+      "concept_id": "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE",
+      "relation": "excludes",
+      "cible": "AXE_DU_QRS",
+      "justification": "Pierre utilise l'absence de changement d'axe du QRS pour différencier l'aspect en accordéon d'une TV polymorphe/torsade ; à modéliser plutôt avec un qualificateur d'axe stable si créé."
+    }
+  ],
+  "synthese": "Le trou majeur est l'absence d'un pattern explicite « fibrillation atriale/auriculaire sur voie accessoire » et de son signe descriptif « aspect en accordéon ». Plusieurs formulations pédagogiques centrales de Pierre existent conceptuellement mais nécessitent des synonymes : voie accessoire/WPW, fibrillation auriculaire, super-Wolff, QRS larges/polymorphes et cycles très rapides.",
+  "error": null
+}

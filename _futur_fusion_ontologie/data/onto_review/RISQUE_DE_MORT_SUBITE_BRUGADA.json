@@ -1,0 +1,8 @@
+{
+  "id": "RISQUE_DE_MORT_SUBITE_BRUGADA",
+  "verdict": "REJETER",
+  "classe": "qualifier",
+  "principe": "D1, C5",
+  "motif": "Il s'agit d'un facteur de risque/contexte clinique familial et non d'un concept ECG observable ou d'un pattern ECG atomique; trop contextuel pour l'ontologie ECG v1.",
+  "territoire_ignore_v1": ""
+}

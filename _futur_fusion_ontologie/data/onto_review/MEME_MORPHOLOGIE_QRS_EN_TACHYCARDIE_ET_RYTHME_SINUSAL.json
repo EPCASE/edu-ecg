@@ -1,0 +1,26 @@
+{
+  "id": "MEME_MORPHOLOGIE_QRS_EN_TACHYCARDIE_ET_RYTHME_SINUSAL",
+  "verdict": "GARDER_ATOMIQUE",
+  "classe": "description",
+  "concept_retenu": {
+    "id": "MEME_MORPHOLOGIE_QRS_EN_TACHYCARDIE_ET_RYTHME_SINUSAL",
+    "concept_name": "Même morphologie des QRS en tachycardie et en rythme sinusal",
+    "type": "finding",
+    "parents": [
+      "MORPHOLOGIE_DU_QRS"
+    ],
+    "requires": [
+      "TACHYCARDIE",
+      "RYTHME_SINUSAL",
+      "PRESENCE_DE_QRS"
+    ],
+    "synonymes": [
+      "aspect des QRS identique en tachycardie et en rythme sinusal",
+      "même aspect de bloc de branche après réduction",
+      "même morphologie QRS après cardioversion"
+    ]
+  },
+  "motif": "Comparaison morphologique temporelle réutilisable et différenciante pour soutenir une aberration/conduction préexistante, non réductible à un territoire ni à un seul atome existant.",
+  "principe": "D1, C3",
+  "territoire_ignore_v1": ""
+}

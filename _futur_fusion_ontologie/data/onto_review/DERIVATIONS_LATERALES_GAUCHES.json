@@ -1,0 +1,8 @@
+{
+  "id": "DERIVATIONS_LATERALES_GAUCHES",
+  "verdict": "REJETER",
+  "classe": "topographie",
+  "motif": "Topographie pure de dérivations latérales gauches, ignorée en v1 sans création de concept de territoire.",
+  "principe": "T1",
+  "territoire_ignore_v1": "V5-V6 / latérales gauches"
+}

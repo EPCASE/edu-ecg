@@ -1,0 +1,24 @@
+{
+  "id": "QRS_130_MS",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "C1, C3",
+  "motif": "La valeur numérique ponctuelle ne justifie pas un concept dédié; elle se ramène à la durée du QRS avec le qualifier existant de QRS large/>120 ms.",
+  "decomposition": [
+    {
+      "id": "DUREE_DU_QRS",
+      "role": "finding",
+      "existe": true
+    },
+    {
+      "id": "QRS_LARGE",
+      "role": "qualifier",
+      "existe": true
+    },
+    {
+      "id": "QRS__120_MS",
+      "role": "qualifier",
+      "existe": true
+    }
+  ]
+}

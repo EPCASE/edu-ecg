@@ -1,0 +1,8 @@
+{
+  "id": "BLOC_DE_BRANCHE_INDIFFERENCIE",
+  "verdict": "REDUIRE_A_SYNONYME",
+  "classe": "diagnostic",
+  "principe": "C3, C5",
+  "motif": "Le libellé 'bloc intraventriculaire indifférencié/non systématisé' correspond au concept existant de bloc intraventriculaire aspécifique, sans créer un nouveau bloc de branche monolithique.",
+  "concept_cible": "BLOC_INTRAVENTRICULAIRE_ASPECIFIQUE"
+}

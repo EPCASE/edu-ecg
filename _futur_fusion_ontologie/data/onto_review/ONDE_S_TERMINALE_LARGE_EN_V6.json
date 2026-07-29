@@ -1,0 +1,25 @@
+{
+  "id": "ONDE_S_TERMINALE_LARGE_EN_V6",
+  "verdict": "DECOMPOSER",
+  "classe": "description",
+  "principe": "T1, C1",
+  "motif": "La dérivation V6 est ignorée en v1 et le caractère terminal/large/traînant doit être porté par un atome onde S large avec qualifier morphologique plutôt qu'un concept localisé.",
+  "territoire_ignore_v1": "V6",
+  "decomposition": [
+    {
+      "id": "ONDE_S_LARGE",
+      "role": "finding",
+      "existe": false
+    },
+    {
+      "id": "TERMINALE",
+      "role": "qualifier",
+      "existe": false
+    },
+    {
+      "id": "TRAINANTE",
+      "role": "qualifier",
+      "existe": false
+    }
+  ]
+}
