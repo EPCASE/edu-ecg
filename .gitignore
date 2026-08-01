@@ -67,7 +67,11 @@ cleanup_*.ps1
 cleanup_*.bat
 
 # RAG Pipeline — fichiers volumineux binaires
+# ⚠️ Exception (2026-08-01) : rag_pipeline/rag_index/*.npy EST versionné —
+# c'est l'index vectoriel pré-calculé du moteur (package edu-ecg-engine),
+# artefact nécessaire au fonctionnement, pas un fichier généré jetable.
 *.npy
+!rag_pipeline/rag_index/*.npy
 rag_pipeline/rag_index/embeddings.npy
 rag_pipeline/rag_index/documents.json
 rag_pipeline/rag_index/metadata.json

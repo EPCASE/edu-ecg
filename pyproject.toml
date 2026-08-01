@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edu-ecg-engine"
+version = "1.1.0"
+description = "Moteur neurosymbolique ECG-online : NER, recherche hybride, juge ontologique, scoring V3, feedback pédagogique (6 briques)."
+readme = "rag_pipeline/README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "EPCASE" }]
+
+dependencies = [
+    "openai>=1.54.3",
+    "numpy>=1.26.4",
+    "rank-bm25>=0.2.2",
+    "pydantic>=2.9.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+# ── Package "à plat" (imports historiques non relatifs) ─────────────────────
+# Les modules s'importent aujourd'hui via `from ner_extractor import ...`
+# (pas `from rag_pipeline.ner_extractor import ...`). On préserve ce
+# comportement en exposant rag_pipeline/ comme un package dont le contenu
+# est aussi accessible à plat, pour ne pas casser ecg-online/app/neuro_grader.py
+# (qui fait sys.path.insert(0, .../rag_pipeline) avant d'importer à plat).
+# Migration vers des imports relatifs propres : cf. TODO dans rag_pipeline/README.md.
+[tool.setuptools]
+packages = ["rag_pipeline"]
+include-package-data = true
+
+[tool.setuptools.package-data]
+rag_pipeline = ["data/*.json", "rag_index/*.json", "rag_index/*.npy"]
