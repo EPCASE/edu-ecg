@@ -34,6 +34,20 @@ Source de vérité unique pour toutes les métriques citées dans le projet
 de chiffre dans un README/audit doit pointer vers ce fichier ou vers
 `ecg-online/data/baseline_report.json` (P0.1), plutôt que d'être recopiée.
 
+### Convention moteur / application (2026-08-01)
+
+**Où lire la règle** : [`../rag_pipeline/README.md`](../rag_pipeline/README.md)
+(racine `edu-ecg`) et [`../ecg-online/rag_pipeline/ENGINE_VERSION.md`](../ecg-online/rag_pipeline/ENGINE_VERSION.md).
+
+- `edu-ecg/rag_pipeline/` (ce dépôt, racine) = **source de développement du
+  moteur** — branches, merge sur `main`, tag `engine-vX.Y.Z`.
+- `ecg-online/rag_pipeline/` = **copie vendorée figée**, jamais développée
+  directement, mise à jour manuellement (jamais `pip install` en production).
+- Ceci **remplace** la note historique de `AUDIT_ARCHITECTURE_2026.md` qui
+  décrivait une copie unique dans `ecg-online/` (état du 2026-07-29,
+  aujourd'hui périmé sur ce point précis — voir l'avertissement en tête de
+  ce document).
+
 ---
 
 ## 🟡 Documents historiques — figés, ne plus modifier, gardés pour traçabilité

@@ -1,7 +1,7 @@
 # 🧠 Pipeline RAG Neurosymbolique — Évaluation ECG
 
 > Module de correction automatique d'interprétations ECG par pipeline RAG neurosymbolique.  
-> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `RAGontologique`
+> **Repo** : [EPCASE/edu-ecg](https://github.com/EPCASE/edu-ecg) — Branche `main`
 
 > 📋 Voir **[`AUDITS.md`](./AUDITS.md)** pour l'index des documents d'audit (robustesse scientifique, architecture/repo, choix technologiques) et runbooks.
 
@@ -52,29 +52,48 @@ recalculé récemment — score pédagogique moyen, distinct du F1 d'extraction 
 
 ---
 
-## 📂 Structure (mise à jour 2026-07-29)
+## 📂 Structure (mise à jour 2026-08-01)
 
-> ⚠️ Le pipeline ne vit **plus** dans un dossier `rag_pipeline/` à la racine de
-> `ECG lecture/`. Après l'audit d'hygiène de repo (`AUDIT_ARCHITECTURE_2026.md`),
-> **la seule copie du pipeline** est désormais vendorée dans l'app déployée
-> `ecg-online/` — c'est la source de vérité unique.
+> ⚠️ **Convention à jour (2026-08-01)** — remplace la note du 2026-07-29
+> ci-dessous encore présente dans certains documents historiques
+> (`AUDIT_ARCHITECTURE_2026.md`, figé, non mis à jour). Depuis la discussion
+> d'architecture moteur/application du 2026-08-01 :
+> - **`ECG lecture/rag_pipeline/` (ce dossier, racine du dépôt `edu-ecg`) est
+>   redevenu la source canonique de développement du moteur.** Tout
+>   changement (NER, scoring, juge, etc.) se fait ici, sur une branche,
+>   mergée dans `main`, puis taguée `engine-vX.Y.Z` une fois stabilisée.
+> - **`ecg-online/rag_pipeline/`** est désormais une **copie vendorée figée**,
+>   mise à jour manuellement et ponctuellement (jamais de `pip install` live
+>   en production). Voir `rag_pipeline/README.md` (convention complète, procédure
+>   en 4 étapes) et `ecg-online/rag_pipeline/ENGINE_VERSION.md` (version
+>   actuellement vendorée : `engine-v1.1.0`).
+> - Ne pas confondre avec la note historique ci-dessous : elle documentait un
+>   état intermédiaire (2026-07-29) où le dossier racine avait été supprimé
+>   et `ecg-online` était l'unique copie. Ce n'est **plus** le cas : les deux
+>   dossiers coexistent à nouveau, avec des rôles différents et non-symétriques.
 
 ```
 ECG lecture/
-├── ecg-online/                        # ★ App Flask déployée (source de vérité) ★
+├── rag_pipeline/                      # ★ Source canonique de développement du moteur ★
+│   ├── ontology_index.py              # Brique 0/1 — Indexation ontologie
+│   ├── ner_extractor.py               # Brique 2 — NER GPT-4o
+│   ├── hybrid_search.py               # Brique 3 — Recherche Dense + BM25 + RRF
+│   ├── neurosymbolic_judge.py         # Brique 4 — Coupe-circuit + Juge LLM
+│   ├── scoring_v3.py                  # Brique 5 — Scoring ontologique
+│   ├── candidate_report.py            # Brique 6 — Orchestrateur + rapport
+│   ├── pedagogical_feedback.py        # Brique 6 — Feedback GPT + cours SFC
+│   ├── edn_knowledge_base.py          # Brique 6 — Knowledge base Item 231
+│   ├── scoring_thresholds.py          # Seuils versionnés (magic numbers externalisés)
+│   ├── data/ontology_v2.json          # Ontologie packagée (package-data)
+│   ├── rag_index/                     # Index vectoriels pré-calculés (.npy + BM25)
+│   └── README.md                      # ★ Convention moteur/app à lire en premier ★
+├── pyproject.toml                     # Package `edu-ecg-engine` (install/test isolés, pas la voie de prod)
+│
+├── ecg-online/                        # ★ App Flask déployée (production) ★
 │   ├── app/                           # server.py, neuro_grader.py, golden_config.py...
-│   ├── rag_pipeline/                  # ★ LE pipeline (6 briques + index + ontologie) ★
-│   │   ├── ontology_index.py          # Brique 0/1 — Indexation ontologie
-│   │   ├── ner_extractor.py           # Brique 2 — NER GPT-4o
-│   │   ├── hybrid_search.py           # Brique 3 — Recherche Dense + BM25 + RRF
-│   │   ├── neurosymbolic_judge.py     # Brique 4 — Coupe-circuit + Juge LLM
-│   │   ├── scoring_v3.py              # Brique 5 — Scoring ontologique
-│   │   ├── candidate_report.py        # Brique 6 — Orchestrateur + rapport
-│   │   ├── pedagogical_feedback.py    # Brique 6 — Feedback GPT + cours SFC
-│   │   ├── edn_knowledge_base.py      # Brique 6 — Knowledge base Item 231
-│   │   ├── scoring_thresholds.py      # Seuils versionnés (magic numbers externalisés)
+│   ├── rag_pipeline/                  # ★ Copie VENDORÉE figée du moteur (cf. ENGINE_VERSION.md) ★
 │   │   ├── ARCHITECTURE_PIPELINE.md   # Doc architecture détaillée (Mermaid)
-│   │   ├── rag_index/                 # Index vectoriels pré-calculés (.npy + BM25)
+│   │   ├── ENGINE_VERSION.md          # Tag actuellement vendoré + procédure de mise à jour
 │   │   └── tests/test_scoring_v3.py   # 18 tests de non-régression
 │   ├── scripts/                       # extract_cases.py, build_ecg_gallery.py, export_corrections_json.py...
 │   ├── frontend/                      # HTML/CSS/JS de l'app
@@ -97,9 +116,13 @@ les métriques mesurées, l'audit de robustesse et la stratégie ontologie ↔ L
 
 ### Corriger un texte étudiant (Python)
 
+> Exemple valable pour la source de développement (`ECG lecture/rag_pipeline/`).
+> Pour utiliser la copie vendorée en production, remplacer le chemin par
+> `ecg-online/rag_pipeline` (cf. convention ci-dessus).
+
 ```python
 import sys
-sys.path.insert(0, "ecg-online/rag_pipeline")
+sys.path.insert(0, "rag_pipeline")
 from candidate_report import generate_candidate_report
 
 report = generate_candidate_report(
@@ -130,7 +153,7 @@ python export_corrections_json.py --students ECG-WY55  # Un seul étudiant
 | Ressource | Localisation | Usage |
 |-----------|-------------|-------|
 | `.env` (clé OpenAI) | `ECG lecture/.env` ou `ecg-online/.env` | API GPT-4o, GPT-4o-mini, embeddings |
-| `ontology_v2.json` | `ecg-online/rag_pipeline/data/` | Ontologie ECG runtime (345 concepts) — copie vendorée de `ECG lecture/data/ontology_v2.json` |
+| `ontology_v2.json` | `rag_pipeline/data/` (dev) et `ecg-online/rag_pipeline/data/` (copie vendorée prod) | Ontologie ECG runtime (345 concepts) |
 | `goldenset/` | `ECG evaluation/goldenset/` | 15 cas annotés par expert |
 | CSV étudiants | `ECG evaluation/` | Réponses des étudiants |
 | Images ECG | `ECG collector/images/` | PNG pour les rapports HTML |

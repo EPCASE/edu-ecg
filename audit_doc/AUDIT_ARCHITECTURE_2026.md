@@ -5,6 +5,17 @@
 > repo est explicitement décidé. Voir `roadmap_scientifique_2026.md` (actif)
 > et `audit_doc/README.md` (index).
 
+> ⚠️ **Périmé depuis le 2026-08-01** sur un point précis : ce document
+> constate (à raison, au 2026-07-29) qu'il n'existe plus qu'**une seule copie**
+> de `rag_pipeline/` (dans `ecg-online/`). Depuis la discussion d'architecture
+> moteur/application du 2026-08-01, **`ECG lecture/rag_pipeline/` a été
+> recréé intentionnellement** comme source de développement du moteur,
+> distincte de la copie vendorée figée `ecg-online/rag_pipeline/`. Ce n'est
+> **pas** une régression vers la duplication non contrôlée décrite ici : les
+> deux copies ont désormais des rôles explicitement différents et une
+> procédure de synchronisation documentée. Voir `rag_pipeline/README.md`
+> (racine `edu-ecg`) pour la convention à jour.
+
 > **Périmètre** : les 4 workspaces (`ECG lecture`, `RAG ontologique`, `ECG evaluation`, `ECG collector`).
 > **Distinct de** `AUDIT.md` (qui porte sur la robustesse scientifique du scoring/extraction — toujours
 > valide, non remis en cause ici).
