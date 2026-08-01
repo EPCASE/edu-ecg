@@ -44,6 +44,16 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   mécanisme fonctionnel, à utiliser comme pré-remplissage humain (pas comme
   vérité automatique) lors de la Phase 2 du curriculum ; généralisable aux
   75 cas seulement après P1.4.
+- **Curriculum Phase 1 — audit de couverture (01/08/2026)** :
+  `ecg-online/data/case_curriculum_map.json` (15 parcours, dont les 5
+  existants dans `frontend/pathways.json` conservés en compatibilité) +
+  validateur `ecg-online/scripts/validate_case_curriculum_map.py`. Vérifie
+  automatiquement que les 75 cas apparaissent exactement une fois. Résultat :
+  ✅ 75/75 cas affectés, 0 doublon, 0 absence, couverture 100 % sur les 11
+  familles cliniques (`data/cases.json`). Ce mapping est un premier jet
+  structurel, **pas encore validé cliniquement** (cf. avertissement du
+  curriculum) — la Phase 2 (rédaction des objectifs/indices/critères par
+  cas) reste à faire.
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
