@@ -28,6 +28,14 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   benchmark verrouillé (P3.2) ni un challenge set complet.
 - Phase E (`ecg-online/ROADMAP.md`) : golden de scoring actuel (`cases_golden.json`,
   75 cas, mono-expert) nettoyé, 0 conflit réel, audité sur 343 réponses réelles.
+- **P1.1 + P1.2 (01/08/2026)** : schéma `scoring_v2` défini et validé
+  (`ecg-online/data/scoring_schema_v2.json` + `scripts/validate_scoring_v2.py`),
+  pilote réalisé sur 10 cas contrastés (`ecg-online/data/scoring_pilot_v2.json`,
+  27 critères, 0 erreur de schéma) — rapport complet dans
+  `ecg-online/docs/P1.2_pilote_scoring_v2_rapport.md`. Critère de sortie P1.2
+  atteint : aucune situation fréquente n'a nécessité de champ improvisé.
+  **Prochaine étape : P1.3 (annotation indépendante multi-expert)**, pas
+  encore démarrée (le pilote actuel est en `evidence_source: single_expert`).
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
