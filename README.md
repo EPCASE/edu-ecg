@@ -15,7 +15,13 @@ Le pipeline transforme le **texte libre d'un étudiant** en médecine en une **n
 Texte étudiant → NER → Recherche Hybride → Juge Neurosymbolique → Scoring → Rapport + Feedback
 ```
 
-**Score moyen sur 15 cas × 7 étudiants : ~92%** | Latence : ~3-5s/cas
+**Score moyen sur 15 cas × 7 étudiants : ~92%** (chiffre historique, non daté/non
+recalculé récemment — score pédagogique moyen, distinct du F1 d'extraction ci-après)
+| Latence : ~3-5s/cas
+
+> 📊 **Métriques à jour** : voir [`audit_doc/METRICS_LEDGER.md`](audit_doc/METRICS_LEDGER.md)
+> (source de vérité unique, P0.3) — notamment extraction P=90.4%/R=89.2%/F1=89.8%
+> mesurée sur 100 réponses réelles annotées (`ecg-online/GOLDEN_EXTRACTION.md`).
 
 ---
 

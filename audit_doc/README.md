@@ -27,6 +27,13 @@ Séquence retenue par l'équipe (30/07/2026) : **P1 → P3 → P4** (voir sectio
 "Séquence retenue" dans le document lui-même). P0.1/P0.2 (baseline + tri
 public/privé) à faire en tâche de fond, en parallèle, car peu coûteux.
 
+### [`METRICS_LEDGER.md`](./METRICS_LEDGER.md) — P0.3 fait (2026-08-01)
+
+Source de vérité unique pour toutes les métriques citées dans le projet
+(extraction, coupe-circuit, golden de scoring, tests). Toute nouvelle mention
+de chiffre dans un README/audit doit pointer vers ce fichier ou vers
+`ecg-online/data/baseline_report.json` (P0.1), plutôt que d'être recopiée.
+
 ---
 
 ## 🟡 Documents historiques — figés, ne plus modifier, gardés pour traçabilité
@@ -39,7 +46,7 @@ Ces documents ont rempli leur rôle (diagnostic, cadrage initial) et sont
 |---|---|---|
 | [`ECG_Online_Architecture_Cible_Feuille_de_Route.md`](./ECG_Online_Architecture_Cible_Feuille_de_Route.md) | Document de cadrage stratégique initial (vision cible, 1882 lignes) | 🔒 Figé — son contenu scientifique est repris et affiné dans `roadmap_scientifique_2026.md` |
 | [`FEUILLE_DE_ROUTE_ALIGNEE.md`](./FEUILLE_DE_ROUTE_ALIGNEE.md) | Pont entre le cadrage ci-dessus et le code réel — Paliers 1/2/3 | 🔒 Figé — **Palier 1 et 2 sont terminés et mergés sur `main`** (`ecg-online`, commit `e6a7180`). Le "Palier 3" y décrit est remplacé par P1/P3/P4 de `roadmap_scientifique_2026.md`, qui est plus précis. |
-| [`AUDIT.md`](./AUDIT.md) | Audit scientifique initial (précision/rappel, golden set) | 🔒 Figé — chiffres historiques, base du P0.3 (source de vérité unique des métriques) à venir |
+| [`AUDIT.md`](./AUDIT.md) | Audit scientifique initial (précision/rappel, golden set) | 🔒 Figé — chiffres historiques, désormais consolidés dans `METRICS_LEDGER.md` (P0.3, fait) |
 | [`AUDIT_ARCHITECTURE_2026.md`](./AUDIT_ARCHITECTURE_2026.md) | Audit hygiène de repo/code (duplication, fichiers morts) | 🔒 Figé — constat, aucune action destructive exécutée. À reprendre seulement si un chantier de nettoyage repo est décidé explicitement |
 | [`AUDIT_TECHNOLOGIQUE_2026.md`](./AUDIT_TECHNOLOGIQUE_2026.md) | Choix IA/techno futurs (fine-tuning, local, ontologie↔LLM) | 🔒 Figé — conclusions reprises dans P7 (réduction dépendance techno) de `roadmap_scientifique_2026.md` |
 | [`AUDITS.md`](./AUDITS.md) | Index des audits (avant celui-ci) | 🔒 Figé — remplacé par le présent fichier comme point d'entrée |

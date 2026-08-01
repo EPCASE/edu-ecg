@@ -71,11 +71,15 @@ Ordre validé pour les prochains chantiers, **différent** de l'ordre suggéré 
    idéalement des éléments de P2) pour être calibré contre du réel.
 
 En tâche de fond, en parallèle (peu coûteux, ne pas laisser traîner) :
-- **P0.1** : figer une baseline versionnée (tag Git + versions figées
-  cas/goldens/dépendances/modèles). Actuellement partiel (pipeline_version/
-  ontology_version existent déjà).
+- **P0.1** : ✅ fait (2026-08-01) — baseline versionnée : script
+  `ecg-online/scripts/generate_baseline_report.py`, rapport
+  `ecg-online/data/baseline_report.json`, doc `ecg-online/docs/BASELINE_P0.1.md`,
+  tag Git `baseline-p0.1-2026-08-01`.
 - **P0.2** : trier les fichiers publics/privés avant que leur nombre ne
   grossisse encore.
+- **P0.3** : ✅ fait (2026-08-01) — registre unique `audit_doc/METRICS_LEDGER.md` ;
+  README racine corrigé (chiffre "~92%" désormais daté/sourcé, distinct du F1
+  d'extraction) ; index `audit_doc/README.md` mis à jour.
 
 P2 (golden de décision humaine par réponse), P5-P8 : pas commencés,
 volontairement après P1/P3/P4 (cf. §2.2 anti-scope-creep du document).
@@ -181,6 +185,10 @@ Créer une release ou un tag comprenant :
 
 Chaque prédiction historique peut être reliée à une configuration complète et identifiable.
 
+> ✅ **Fait le 2026-08-01** — cf. `ecg-online/docs/BASELINE_P0.1.md`,
+> `ecg-online/scripts/generate_baseline_report.py`,
+> `ecg-online/data/baseline_report.json`, tag `baseline-p0.1-2026-08-01`.
+
 ---
 
 ### P0.2 Séparer les actifs publics et privés
@@ -223,6 +231,14 @@ Chaque résultat doit préciser :
 ### Critère de sortie
 
 Le README, les documents d’audit et les futurs manuscrits utilisent les mêmes chiffres.
+
+> ✅ **Fait le 2026-08-01** — cf. `audit_doc/METRICS_LEDGER.md` (registre
+> unique de toutes les métriques du projet, avec tâche/corpus/split/n/
+> pipeline_version/ontology_version/définition/date pour chacune). README
+> racine corrigé (chiffre "~92%" désormais daté/sourcé, distingué du F1
+> d'extraction). Anciens chiffres incohérents (README 92%/RAG-onto 62,4%/
+> ARCHITECTURE 42%/CSV 85,1%&60,2%) recensés et marqués obsolètes dans le
+> registre (§5 "Métriques historiques marquées obsolètes").
 
 ---
 
