@@ -36,6 +36,14 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   atteint : aucune situation fréquente n'a nécessité de champ improvisé.
   **Prochaine étape : P1.3 (annotation indépendante multi-expert)**, pas
   encore démarrée (le pilote actuel est en `evidence_source: single_expert`).
+- **Liaison curriculum ↔ scoring_v2 (01/08/2026)** : script de dérivation
+  automatique `ecg-online/scripts/derive_curriculum_objectives.py`
+  (`required_concepts`/`unsafe_errors` du curriculum dérivés des critères
+  `role=required`/`role=exclusion` de scoring_v2), testé sur le pilote
+  10 cas — voir `ecg-online/docs/curriculum_scoring_v2_liaison.md`. Verdict :
+  mécanisme fonctionnel, à utiliser comme pré-remplissage humain (pas comme
+  vérité automatique) lors de la Phase 2 du curriculum ; généralisable aux
+  75 cas seulement après P1.4.
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
