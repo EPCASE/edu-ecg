@@ -1,7 +1,332 @@
 # Roadmap scientifique et produit — ECG-online
 
 **Version : 30 juillet 2026**
-**Statut : document de référence pour les développements à venir**
+**Statut : document de référence pou- Validé en test manuel : le juge global détecte correctement la négation-
+  puis-affirmation et la contradiction associée sur `NEG_THEN_ASSERT-05`.
+- **Comparaison sur corpus synthétique (100 items, gold fuzzy provisoire)** :
+  gains concentrés comme attendu sur IMPLICIT/NEG_THEN_ASSERT/LEXICAL_DISTANCE
+  (+0.14 F1 chacun), 0.00 sur les deux méthodes pour UNSUPPORTED_CRITICAL
+  (signal de sécurité à creuser). Cf. `projetLLMjuge/rapport_comparaison_2026-08-02.json`.
+- **✅ Comparaison sur le VRAI golden d'extraction (2026-08-02)** — 100 réponses
+  étudiantes réelles, 100 % annotées par un expert humain (`ecg-online/data/
+  extraction_golden.json`, cf. `ecg-online/GOLDEN_EXTRACTION.md`). Script :
+  `rag_pipeline/scripts/compare_judges_real_gold.py`. Rapport complet :
+  `ECG evaluation/rapport_gold_reel_2026-08-02.json`.
+  - Pipeline actuel : TP=494 FP=45 FN=48 → **taux de FP=8.3%**, taux
+    d'omission=8.9% (P=91.7% R=91.1% F1=91.4%).
+  - Juge global (rejoué en direct) : TP=496 FP=44 FN=46 → **taux de
+    FP=8.1%**, taux d'omission=8.5% (P=91.9% R=91.5% F1=91.7%).
+  - Écart global **marginal** (+0.3 F1) sur ce golden — contrairement au
+    corpus synthétique où l'écart était de +3.5 F1. Cohen's kappa=-0.075
+    (quasi aucun accord structurel : les deux méthodes se trompent sur des
+    concepts différents, pas sur les mêmes).
+  - **Analyse de complémentarité par brique (clé pour la décision d'archi)** :
+    en comparant les FP du pipeline actuel à leur méthode d'origine (via
+    `pipeline_extraction[].method` déjà tracé dans le golden) contre ce que le
+    juge global aurait produit sur les mêmes textes :
+
+    | Méthode d'origine du FP pipeline | n FP | Évités par le juge global | Répétés par le juge global |
+    |---|---|---|---|
+    | `juge_llm` (Brique 4 actuelle) | 15 | **15 (100%)** | 0 |
+    | `pattern_inference` | 3 | **3 (100%)** | 0 |
+    | `lexical_backstop` | 8 | **8 (100%)** | 0 |
+    | `fallback_subterm` | 3 | **3 (100%)** | 0 |
+    | `coupe_circuit` (symbolique) | 17 | 15 (88%) | 2 |
+
+    ➡️ **Le juge global élimine quasi totalement les hallucinations des
+    méthodes de repli faibles** (juge_llm 67.9% précision, pattern_inference
+    0% précision, lexical_backstop 69.2%, fallback_subterm 66.7% — cf. table
+    d'ablation §1) alors qu'il n'apporte presque rien sur le coupe-circuit
+    symbolique (déjà 96.5% précision, quasi optimal). Sur les FN : 41 concepts
+    manqués par le pipeline actuel sont retrouvés par le juge global, et 39
+    concepts manqués par le juge global sont retrouvés par le pipeline actuel
+    (chevauchement d'erreurs très faible dans les deux sens → forte
+    complémentarité, cohérent avec le kappa proche de 0).
+
+**Piste d'architecture retenue pour la suite — juge global en second lecteur
+ciblé, pas en remplacement total** :
+
+Le F1 global quasi identique masque une réalité par brique : le coupe-circuit
+symbolique (74% du volume, 96.5% précision) n'a **aucun besoin** d'être
+remplacé — le juge global n'y apporte rien. En revanche, les ~26% du volume
+actuellement traités par les méthodes de repli faibles (juge_llm,
+pattern_inference, lexical_backstop, fallback_subterm — précision combinée
+~68%) sont exactement le point faible que le juge global corrige quasi
+parfaitement (100% des FP évités sur 3 des 4 méthodes, 88% par avance). D'où
+la proposition d'un **arbitrage sélectif** :
+1. Le coupe-circuit symbolique reste la voie principale, inchangée
+   (performance déjà quasi-optimale, rapide, gratuit).
+2. **Seuls les termes qui ne matchent PAS le coupe-circuit** (donc qui
+   tombent aujourd'hui sur juge_llm/pattern_inference/lexical_backstop/
+   fallback_subterm) sont soumis au juge global — qui a déjà tout le contexte
+   de la réponse (pas seulement le terme isolé), ce qui explique sa
+   supériorité sur ces cas ambigus.
+3. Gain attendu : réduction du volume de FP de ~26 points de précision
+   perdus aujourd'hui sur ~26% du volume, sans toucher au 74% déjà fiable —
+   et sans payer le coût (latence + tokens) d'un appel LLM global sur
+   *toutes* les réponses alors que 74% n'en ont pas besoin.
+4. Risque à vérifier avant décision finale : le juge global perd le contexte
+   d'isolement du coupe-circuit — s'assurer qu'un juge "second lecteur" reçoit
+   bien le texte complet (pas juste les termes non résolus) pour garder son
+   avantage sur l'implicite/la négation-puis-affirmation.
+
+**Prochaines étapes (après P1.3, pas avant — cf. §2.2 anti-scope-creep) :**
+1. ✅ Lancer `compare_judges_extraction.py` sur les 100 items synthétiques,
+   analyser par strate — fait.
+2. ✅ Tester sur le vrai golden d'extraction (100 réponses réelles annotées)
+   — fait, cf. ci-dessus. Résultat : écart marginal en F1 global, mais forte
+   complémentarité par brique → oriente vers un hybride ciblé plutôt qu'un
+   remplacement total.
+3. ✅ **Prototype hybride testé sur les DEUX golds (2026-08-02)** — script
+   `rag_pipeline/scripts/compare_hybrid_arbiter.py`. Architecture : coupe-circuit
+   inchangé + juge global appelé en second lecteur sur le TEXTE COMPLET avec
+   le CATALOGUE COMPLET (⚠️ un catalogue restreint aux seuls concepts non
+   résolus par coupe-circuit a été essayé en premier et s'est révélé être un
+   contresens : privé du bon concept, le juge hallucine sur le concept
+   voisin restant — le filtrage doit se faire en SORTIE, pas en entrée). Les
+   claims du juge portant sur un concept déjà validé par coupe-circuit sont
+   ignorés (pas de double-compte). Résultat final = coupe_circuit_ids ∪
+   (claims du juge global hors coupe_circuit_ids).
+
+   **Sur le gold RÉEL** (`ECG evaluation/rapport_hybride_arbitre_real_fixed_2026-08-02.json`) :
+
+   | | TP | FP | FN | Taux FP | Taux omission | P/R/F1 |
+   |---|---|---|---|---|---|---|
+   | Pipeline actuel complet | 494 | 45 | 48 | 8.3% | 8.9% | 91.7/91.1/91.4 |
+   | **Hybride (coupe-circuit + juge global 2e lecteur)** | 519 | 77 | 23 | 12.9% | **4.2%** | 87.1/**95.8**/91.2 |
+
+   → Gain net de rappel (**-4.7 points d'omission**, de 8.9% à 4.2%), au prix
+   d'un taux de FP qui remonte (8.3% → 12.9%). F1 quasi stable (91.4 → 91.2,
+   dans le bruit). Le compromis n'est PAS un gain "gratuit" : c'est un
+   arbitrage explicite rappel/précision, à calibrer selon le risque
+   pédagogique visé (favoriser le rappel a du sens si l'objectif est de ne
+   jamais pénaliser un étudiant pour un concept réellement écrit mais non
+   détecté ; favoriser la précision a du sens si l'objectif est d'éviter de
+   créditer des concepts halluciné). Voir §"decision à prendre" ci-dessous.
+
+   **Sur le gold VIRTUEL** (corpus synthétique, gold fuzzy provisoire,
+   `ECG evaluation` rapport combiné) :
+
+   | | TP | FP | FN | Taux FP | Taux omission | P/R/F1 |
+   |---|---|---|---|---|---|---|
+   | Pipeline actuel complet | 58 | 132 | 118 | 69.5% | 67.0% | 30.5/33.0/31.7 |
+   | Hybride | 70 | 191 | 106 | 73.2% | 60.2% | 26.8/39.8/32.0 |
+
+   ⚠️ Chiffres à lire avec prudence : le gold synthétique est un gold
+   *provisoire* par projection fuzzy texte-libre (PAS une vraie annotation
+   ontologique), donc son taux de FP/omission élevé reflète en grande partie
+   du bruit de projection, pas la qualité réelle de l'extraction — cf.
+   avertissement dans `compare_judges_extraction.py`. La tendance (F1
+   quasi stable, gain de rappel) reste cependant cohérente avec le gold réel.
+
+   **🐛 Cause racine identifiée (2026-08-02)** : `scoring_v3.find_owl_concept()`
+   ne retourne PAS `None` quand aucun concept réel n'est trouvé dans
+   l'ontologie — il **invente un `ontology_id`** à partir du texte brut
+   (`concept_text.upper().replace(" ", "_")`, cf. `scoring_v3.py` L144-149).
+   Vérifié empiriquement : **48% des 177 labels `correct_elements` du corpus
+   synthétique (85/177) ne matchent AUCUN concept réel de l'ontologie** et
+   se retrouvent donc dans le gold comme des IDs fantômes que ni le pipeline
+   actuel ni le juge global ne peuvent jamais trouver (ils n'existent pas
+   dans le catalogue candidat) → FN artificiels garantis. Exemples observés :
+   `BAV` (trop générique, jamais un concept exact), `IRRÉGULARITÉ_COMPLÈTE`
+   (avec accents, alors que les vrais IDs sont normalisés sans accents),
+   `ABSENCE_D'ONDES_P` (apostrophe typographique ≠ `ABSENCE_D_ONDE_P` réel).
+   ➡️ **Le taux de FP/omission catastrophique du corpus synthétique (69.5%/
+   67.0%) n'est donc PAS représentatif de la qualité d'extraction** — c'est
+   un artefact du gold provisoire lui-même, pas un signal sur le pipeline ni
+   sur le juge global. Un correctif de projection locale (rejet des IDs
+   fantômes via `get_concept()`) a fait chuter le taux d'omission mesuré à
+   36.6%/22.6%, mais le taux de FP reste artificiellement élevé (~70%) pour
+   une raison structurelle différente : le corpus ne liste dans
+   `correct_elements` que les concepts pertinents au phénomène CIBLÉ par
+   chaque item, pas une liste exhaustive de tout ce que le texte décrit —
+   ce corpus n'a donc jamais été conçu pour mesurer un taux de FP absolu,
+   seulement pour comparer relativement les deux méthodes sur des
+   phénomènes rares. **Décision (2026-08-02) : on abandonne ce corpus comme
+   source de métriques chiffrées et on se concentre exclusivement sur le
+   gold RÉEL** (100 réponses réelles, annotation exhaustive humaine) comme
+   unique référence quantitative fiable pour ce chantier. Le corpus
+   synthétique reste utile qualitativement (cf. test manuel négation-puis-
+   affirmation) mais sort du périmètre de mesure chiffrée tant qu'il n'est
+   pas ré-annoté de façon exhaustive par un expert (Phase 1 réelle).
+
+### 📌 Résultat de référence retenu — gold réel (100 réponses, 2026-08-02)
+
+| | TP | FP | FN | **Taux FP** | **Taux omission** | P / R / F1 |
+|---|---|---|---|---|---|---|
+| Pipeline actuel (coupe-circuit + méthodes de repli) | 494 | 45 | 48 | 8.3% | 8.9% | 91.7/91.1/91.4 |
+| **Hybride (coupe-circuit inchangé + juge global 2e lecteur, filtrage en sortie)** | 519 | 77 | 23 | 12.9% | **4.2%** | 87.1/**95.8**/91.2 |
+
+Script : `rag_pipeline/scripts/compare_hybrid_arbiter.py --gold real`.
+Rapport : `ECG evaluation/rapport_hybride_arbitre_real_fixed_2026-08-02.json`.
+
+**Lecture** : l'hybride réduit fortement l'omission (-4.7 points, de 8.9% à
+4.2% — il retrouve la quasi-totalité des concepts manqués par le pipeline
+actuel), au prix d'un taux de FP qui remonte de 8.3% à 12.9%. Le F1 global
+est quasi stable (91.4 vs 91.2, dans le bruit de mesure sur 100 items).
+**Ce n'est pas un gain gratuit : c'est un arbitrage explicite rappel/
+précision**, pas un remplacement strictement supérieur.
+
+### 🧭 Réflexion — quelle direction prendre ?
+
+Trois options se dégagent, non exclusives :
+
+**(a) Ne rien changer.** Le F1 global ne bouge pas significativement (91.4
+→ 91.2) et le pipeline actuel est déjà mature, rapide, sans coût LLM
+additionnel sur 74% du volume. Argument principal : "si ce n'est pas cassé,
+ne pas complexifier l'architecture pour un gain marginal non démontré comme
+significatif statistiquement sur seulement 100 items."
+
+**(b) Adopter l'hybride tel quel**, en assumant l'arbitrage recall/precision.
+Ça se justifie si le risque pédagogique dominant est **la sous-notation
+injuste** (un étudiant a réellement écrit un concept correct, non détecté,
+donc non crédité) plutôt que la sur-notation (un concept crédité à tort).
+Dans un contexte d'évaluation formative (auto-entraînement, pas d'examen
+sommatif), ce choix est défendable : mieux vaut créditer un peu trop que
+frustrer l'étudiant par une omission arbitraire du système. Le risque
+inverse (FP) devient plus grave si le score sert de note sommative réelle.
+
+**(c) Affiner le filtrage de sortie du juge global avant de trancher entre
+(a) et (b)** — piste concrète non encore testée : ne retenir les claims du
+juge global que lorsque `expression_mode` ∈ {implicit_complete,
+implicit_partial, paraphrased} (excluant `explicit`). Rationale : c'est
+précisément sur l'implicite/la paraphrase que le juge global a un avantage
+contextuel documenté (cf. analyse par strate sur le corpus synthétique,
+gains concentrés sur IMPLICIT/NEG_THEN_ASSERT/LEXICAL_DISTANCE) ; sur les
+formulations explicites, il n'apporte rien et ne fait qu'ajouter du bruit
+(FP) sur des reformulations déjà bien couvertes par coupe-circuit et les
+méthodes de repli. Cette piste devrait mécaniquement réduire le taux de FP
+de l'hybride en ne sacrifiant qu'une petite partie du gain de rappel (celui
+qui vient de cas déjà explicites que le pipeline actuel ratait pour d'autres
+raisons, ex: bug de résolution plutôt que d'implicite véritable).
+
+**Recommandation initiale** : tester (c) avant de décider entre (a) et (b) —
+c'est peu coûteux (aucun nouvel appel LLM, juste un filtre supplémentaire
+sur les rapports déjà collectés) et peut faire basculer la décision sans
+nouveau run complet.
+
+### ✅ Test de la piste (c) réalisé (2026-08-02) — résultat négatif, piste abandonnée
+
+Script modifié : `extract_global_judge_targeted()` dans
+`compare_hybrid_arbiter.py` capture désormais, pour CHAQUE claim du juge
+global (avant filtrage), `{claim_id, concept_id, polarity, expression_mode}`
+dans `per_item["global_judge_claims_raw"]` — ce qui permet de tester
+offline n'importe quelle variante de filtrage de sortie sans nouvel appel
+API. Re-run complet sur les 100 items du gold réel :
+`ECG evaluation/rapport_hybride_real_with_claims_2026-08-02.json`.
+
+Variante (c) testée : ne garder du juge global que les claims
+`polarity == "present"` ET `expression_mode` ∈ {paraphrased,
+implicit_complete, implicit_partial} (exclusion des `explicit`), en plus du
+filtre déjà existant (hors `coupe_circuit_ids`).
+
+| | TP | FP | FN | Taux FP | Taux omission | P/R/F1 |
+|---|---|---|---|---|---|---|
+| Pipeline actuel complet | 494 | 45 | 48 | 8.3% | 8.9% | 91.7/91.1/91.4 |
+| Hybride complet (sans filtre expression_mode) | 520 | 72 | 22 | 12.2% | 4.1% | 87.8/95.9/91.7 |
+| **Variante (c) — filtrage expression_mode (exclut `explicit`)** | **460** | **50** | **82** | 9.8% | **15.1%** | 90.2/84.9/87.5 |
+
+**Verdict : la variante (c) est PIRE que les deux autres options sur presque
+tous les axes.** Elle a même moins de TP (460) que le pipeline actuel seul
+(494) — elle perd des concepts que le pipeline actuel trouvait déjà. Son
+taux d'omission (15.1%) est le pire des trois configurations testées,
+loin derrière le pipeline actuel (8.9%) et l'hybride complet (4.1%). Le gain
+sur le taux de FP (9.8% vs 12.2% pour l'hybride complet) ne compense pas
+cette perte massive de rappel.
+
+**Explication** : le filtre par `expression_mode` n'est pas un bon proxy
+pour distinguer FP de TP. Ce n'est pas parce qu'une mention est jugée
+« explicite » par le juge qu'elle est nécessairement redondante avec
+coupe-circuit — le juge peut classer « explicit » des reformulations
+légèrement différentes de la formulation canonique, que coupe-circuit
+(matching plus strict) ne capte pas. Exclure les claims `explicit` prive
+donc l'hybride de vrais positifs légitimes en plus des faux positifs visés.
+**Piste (c) abandonnée** — pas de variante de repli testée (seuil de
+`certainty` ou filtrage par `polarity` seuls n'ont pas été essayés, jugés
+hors scope pour ce chantier vu le signal déjà clairement défavorable).
+
+### 📍 Décision formelle prise (2026-08-02) : **option (a) — ne rien changer**
+
+Argumentation :
+- Le F1 de l'hybride complet (91.7) n'est pas significativement supérieur à
+  celui du pipeline actuel (91.4) sur 100 items — l'écart est dans le bruit
+  de mesure, et la variante (c) censée améliorer le compromis s'est révélée
+  contre-productive.
+- L'hybride complet réduit fortement l'omission (4.1% vs 8.9%) mais au prix
+  d'un taux de FP significativement plus élevé (12.2% vs 8.3%) et d'un coût
+  additionnel (latence + tokens d'un appel LLM global par réponse). Sans
+  piste de filtrage qui améliore ce compromis (la seule testée a échoué),
+  le gain net ne justifie pas la complexité et le coût ajoutés.
+- Conforme au principe anti-scope-creep (§2.2) : pas de changement
+  d'architecture de production tant qu'un gain net et robuste n'est pas
+  démontré. Le pipeline actuel (coupe-circuit + méthodes de repli) reste en
+  production tel quel.
+- Le chantier du juge sémantique global n'est PAS abandonné pour autant :
+  il reste une piste de recherche documentée (cf. proposition
+  `projetLLMjuge/ECG_online_proposition_iteration_juge_global_2026-08-02.md`),
+  à reprendre après P1.3/P1.4 (schéma scoring V2 stabilisé, double
+  annotation cardiologue disponible) qui fournira un gold plus riche et
+  potentiellement d'autres axes de filtrage (ex: exploiter `certainty`,
+  `inferred_from`, ou une calibration par famille de phénomène plutôt que
+  par `expression_mode` seul).
+
+4. Double annotation cardiologue du corpus synthétique (Phase 1 réelle) —
+   reste utile à terme pour valider finement les strates rares, et devient
+   le prérequis nécessaire pour toute reprise future de ce chantier (le
+   gold réel actuel, bien que fiable, n'est que 100 items — insuffisant
+   pour trancher des écarts fins comme celui observé ici).
+5. **Décision formelle prise** : option (a), ne rien changer en production.
+   Le chantier est mis en pause (pas fermé) — cf. état des lieux ci-dessous.
+
+### 🤖 Choix du modèle pour ce type de réflexion architecturale — Claude Opus vs Sonnet
+
+Question posée : pour ce genre de travail (diagnostic de bug de mesure,
+arbitrage architecture recall/precision, décision de priorisation), y a-t-il
+un intérêt à basculer sur un modèle "Opus"-like (raisonnement plus profond,
+plus lent, plus cher) plutôt que "Sonnet"-like (rapide, moins cher, déjà
+utilisé dans cette session) ?
+
+**Nature du travail réalisé dans ce chantier** : il combine (1) de
+l'exécution outillée répétitive (lancer des scripts, lire des logs, corriger
+un bug de projection identifié empiriquement) et (2) du raisonnement
+d'architecture ponctuel mais peu profond (arbitrage recall/precision assez
+standard, pas de preuve mathématique ni de synthèse de littérature complexe
+requise). Le point de blocage principal a été atteint par **itération
+empirique rapide** (test sur 3 items → observation → hypothèse → correction
+→ re-test), pas par un raisonnement long en un seul passage.
+
+**Avantages attendus d'un modèle "Opus"** dans ce contexte précis :
+- Meilleure anticipation des pièges AVANT de lancer un run coûteux (le bug
+  du catalogue restreint qui force l'hallucination, ou celui du fallback
+  fantôme de `find_owl_concept`, auraient pu être anticipés par un
+  raisonnement plus approfondi sur le prompt/la fonction AVANT le premier
+  test empirique — ça aurait évité 2 runs de 100 items à ~8-10 min chacun).
+- Meilleure qualité de synthèse/rédaction sur les arbitrages nuancés
+  (formulation des 3 options a/b/c ci-dessus, articulation risque
+  pédagogique/technique) — bénéfice réel mais marginal, le résultat actuel
+  est déjà exploitable.
+
+**Limites/coûts** :
+- Latence et coût significativement plus élevés, alors qu'une bonne partie
+  du travail ici est de l'exécution d'outils (scripts, lecture de logs) où
+  la vitesse d'itération compte plus que la profondeur de raisonnement par
+  requête — un modèle plus lent aurait ralenti le cycle test→observe→corrige
+  qui a été le mode de travail dominant.
+- Le vrai levier de qualité sur ce chantier n'est pas le modèle utilisé pour
+  l'assistance, mais la **qualité du gold de test** (le bug de projection a
+  eu bien plus d'impact sur la fiabilité des résultats que n'importe quel
+  choix de modèle d'assistance).
+
+**Conclusion pragmatique** : un modèle "Opus"-like serait utile ponctuellement
+en amont d'un run coûteux — pour une revue de conception (relire
+`extract_global_judge_targeted`/`build_candidate_catalog` et anticiper les
+pièges de filtrage catalogue vs sortie) avant de lancer 100 items en
+production — mais pas nécessaire pour la boucle d'itération empirique elle-
+même, qui bénéficie davantage de rapidité. Recommandation : réserver un
+modèle plus coûteux/lent aux moments de **revue de conception avant
+exécution** (relecture de prompt système, de logique de filtrage, de
+schéma de données) plutôt qu'à l'ensemble du chantier — un usage ciblé, pas
+un remplacement systématique.oppements à venir**
 
 > 📌 **Ce document est LA référence active** (cf. `audit_doc/README.md` pour
 > l'index complet). `FEUILLE_DE_ROUTE_ALIGNEE.md` et
@@ -54,6 +379,38 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   structurel, **pas encore validé cliniquement** (cf. avertissement du
   curriculum) — la Phase 2 (rédaction des objectifs/indices/critères par
   cas) reste à faire.
+- **Correctifs de couverture lexicale de l'ontologie + feedback IA
+  (2026-08-06)** — deux bugs trouvés et corrigés à partir d'un signalement
+  utilisateur sur un cas réel, puis généralisés via un scan systématique
+  des 73 sessions étudiantes réelles (345 cas) :
+  1. Synonyme manquant "Flutter commun anti-horaire" sur le concept
+     `FLUTTER_ATRIAL_ANTIHORAIRE` (ontologie) — écrit littéralement par un
+     étudiant mais ni le NER ni le filet lexical de secours ne le
+     reconnaissaient faute de correspondance exacte.
+  2. Seuil du filet lexical de secours (`_lexical_backstop_ids`) trop
+     strict pour les concepts à 2 mots (ex. "Echappement ventriculaire") :
+     remplacement du critère `BACKSTOP_MIN_DISTINCTIVE_WORDS` (longueur du
+     synonyme) par `BACKSTOP_MAX_WORD_DOCUMENT_FREQUENCY` (spécificité
+     lexicale calculée dynamiquement depuis la fréquence documentaire des
+     mots dans l'ontologie chargée) — critère générique, sans liste de
+     mots figée en dur, donc indépendant de la langue et scalable à
+     l'ajout de nouveaux concepts (une première option de liste blanche a
+     été explicitement écartée pour cette raison).
+  3. Validé sans régression sur le re-scan des 345 cas + régénération
+     complète v9 (100 items) + audit qualité gpt-5.6 correspondant (cas
+     flutter passé en verdict "excellent", cas échappement ventriculaire
+     tous corrigés).
+  4. Prompt de rédaction du feedback (`pedagogical_feedback.py`) durci en
+     parallèle : validateur clinique post-hoc `ClinicalClaimValidation`
+     (second appel LLM à température nulle qui détecte toute affirmation
+     non ancrée dans le contexte réel), garde-fou déterministe de
+     cohérence ton/score, détection de fuite de jargon technique interne.
+  → Détail complet, chiffres et méthodologie : `ecg-online/data/
+  audit_feedback_gpt_verdict_2026-08-05_AUDIT.md` (document opérationnel
+  dédié au suivi qualité du feedback IA, mis à jour à chaque itération).
+  Modèle de génération du feedback : **gpt-4o** (gpt-4o-mini écarté, trop
+  d'approximations cliniques) ; gpt-5.6 n'est utilisé que comme juge
+  d'audit externe de la qualité rédactionnelle, jamais comme rédacteur.
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
@@ -84,7 +441,83 @@ En tâche de fond, en parallèle (peu coûteux, ne pas laisser traîner) :
 P2 (golden de décision humaine par réponse), P5-P8 : pas commencés,
 volontairement après P1/P3/P4 (cf. §2.2 anti-scope-creep du document).
 
----
+### 🔬 Chantier parallèle — Juge sémantique global (à porter après P1.3)
+
+Décidé le 2026-08-01/02 : le juge LLM actuel (Brique 4, résolution locale
+par concept) a la précision la plus faible de toutes les méthodes
+d'extraction (67.9 %, cf. `METRICS_LEDGER.md` §1 — table d'ablation) et ne
+traite que ~13 % du volume (le coupe-circuit symbolique absorbant déjà ~74 %
+à 96.5 % de précision). Question posée : le juge LLM actuel est-il la bonne
+architecture, ou la fragmentation du texte en entités séparées avant
+résolution perd-elle des phénomènes de discours global (implicites,
+contradictions, négation-puis-affirmation, hiérarchisation de différentiel,
+cohérence mesure/interprétation) ?
+
+**Statut (2026-08-02)** :
+- Proposition d'architecture documentée : `projetLLMjuge/ECG_online_proposition_iteration_juge_global_2026-08-02.md`
+  (juge sémantique global à appel unique, remplaçant NER+recherche+juge local
+  par une lecture complète du discours, garde-fous stricts §12).
+- Corpus ciblé de 100 réponses synthétiques (10 phénomènes × 10 cas) créé :
+  `projetLLMjuge/ECG_online_corpus_cible_100_reponses_2026-08-02.{md,jsonl}`.
+  ⚠️ Corpus synthétique, PAS encore doublement annoté par des cardiologues
+  (Phase 1 du plan, non faite) — à ne pas citer comme gold validé.
+- Prototype Phase 2 implémenté (sans toucher scoring_v3/ner_extractor/
+  neurosymbolic_judge existants) : `rag_pipeline/global_semantic_schema.py`
+  (schéma `GlobalSemanticReport` : claims/measurements/contradictions/
+  unsupported_claims), `rag_pipeline/global_semantic_judge.py` (appel LLM
+  unique + catalogue ontologique compact ≤30 concepts).
+- Harnais de comparaison (Phase 5 simplifiée) : `rag_pipeline/scripts/
+  compare_judges_extraction.py` — compare la capacité d'EXTRACTION des deux
+  méthodes (precision/recall/F1 + Cohen's kappa d'accord inter-méthodes),
+  PAS la note finale (déterministe, calibrable séparément). Gold utilisé :
+  projection fuzzy provisoire des `correct_elements` texte-libre du corpus
+  (non-validée cliniquement) — résultats donc INDICATIFS à ce stade.
+- Validé en test manuel : le juge global détecte correctement la négation-
+  puis-affirmation et la contradiction associée sur `NEG_THEN_ASSERT-05`.
+
+**Prochaines étapes (après P1.3, pas avant — cf. §2.2 anti-scope-creep)** :
+1. ✅ Lancer `compare_judges_extraction.py` sur les 100 items, analyser par
+   strate — fait, cf. détail ci-dessus (§ résultats hybride/expression_mode).
+2. Double annotation cardiologue du corpus (Phase 1 réelle, remplace le gold
+   provisoire fuzzy) — PAS FAITE, reste le prérequis pour toute reprise.
+3. ✅ Décision prise (2026-08-02) : **option (a) — ne rien changer en
+   production**. Le pipeline actuel (coupe-circuit + méthodes de repli)
+   reste tel quel. Voir détail complet et justification dans la section
+   "🧭 Réflexion — quelle direction prendre ?" ci-dessus.
+
+**🗂️ État des lieux — chantier "juge sémantique global" (statut au 2026-08-02)**
+
+| Item | Statut | Détail |
+|---|---|---|
+| Schéma `GlobalSemanticReport` (Pydantic) | ✅ Fait | `rag_pipeline/global_semantic_schema.py` — claims/measurements/contradictions/unsupported_claims/unresolved_mentions, `expression_mode`, `min_expression_mode` déjà supporté dans `extract_found_concept_ids()`. |
+| Juge global (appel LLM unique) | ✅ Fait | `rag_pipeline/global_semantic_judge.py` — `judge_global()` + `build_candidate_catalog()` (BM25/dense + expansion relations ontologiques, ≤30 concepts). |
+| Harnais de comparaison brut (extraction seule) | ✅ Fait | `rag_pipeline/scripts/compare_judges_extraction.py`. |
+| Harnais hybride (coupe-circuit + juge 2e lecteur) | ✅ Fait | `rag_pipeline/scripts/compare_hybrid_arbiter.py` — capture désormais aussi les claims bruts avec `expression_mode` par item (`global_judge_claims_raw`), réutilisable offline sans nouveaux appels API. |
+| Mesure sur gold réel (100 items) | ✅ Fait | Pipeline actuel : TP=494/FP=45/FN=48 (FP 8.3%, omission 8.9%). Hybride complet : TP=520/FP=72/FN=22 (FP 12.2%, omission 4.1%). |
+| Piste de filtrage `expression_mode` (option c) | ✅ Testée, ❌ rejetée | TP=460/FP=50/FN=82 (FP 9.8%, omission **15.1%**) — pire que les deux autres options, piste abandonnée. |
+| Décision d'architecture finale | ✅ Prise | **Option (a)** : ne rien changer en production. |
+| Double annotation cardiologue (Phase 1 réelle) | ❌ Pas fait | Reste LE prérequis bloquant pour toute reprise crédible de ce chantier — sans lui, le gold synthétique (10 phénomènes ciblés) ne peut pas servir de mesure quantitative absolue (non-exhaustivité documentée). |
+| Reprise du chantier | ⏸️ En pause | Pas fermé : à reprendre après P1.3/P1.4 (schéma scoring V2 stabilisé + gold plus riche), avec éventuellement d'autres axes de filtrage à explorer (`certainty`, `inferred_from`, calibration par famille de phénomène plutôt que par `expression_mode` seul). |
+
+**Ce qu'il resterait concrètement à développer si le chantier est repris** :
+1. Annotation cardiologue double (au moins 2 experts indépendants) du corpus
+   synthétique 100 items — condition sine qua non pour toute nouvelle mesure
+   quantitative fiable sur les phénomènes rares (implicite, contradiction,
+   négation-puis-affirmation).
+2. Explorer des axes de filtrage alternatifs à `expression_mode` seul —
+   ex: combiner avec `certainty` (ne garder que les claims à haute
+   certitude), ou calibrer un filtre différent par phénomène/famille
+   clinique plutôt qu'un filtre global uniforme.
+3. Si un filtrage prometteur émerge, refaire une mesure complète sur le gold
+   réel (100 items) + le corpus synthétique ré-annoté, avant toute décision
+   de mise en production, même partielle (shadow mode recommandé en premier,
+   cf. proposition §10 Phase 6).
+4. Envisager, indépendamment du filtrage, une réduction de coût/latence du
+   juge global (catalogue plus compact, appel restreint aux réponses où le
+   pipeline actuel a un signal d'incertitude, plutôt qu'un appel systématique
+   sur 100% des réponses) — piste non explorée cette session.
+
+
 
 ## 1. Positionnement du projet
 
