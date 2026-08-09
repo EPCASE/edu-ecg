@@ -411,6 +411,51 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   Modèle de génération du feedback : **gpt-4o** (gpt-4o-mini écarté, trop
   d'approximations cliniques) ; gpt-5.6 n'est utilisé que comme juge
   d'audit externe de la qualité rédactionnelle, jamais comme rédacteur.
+- **Relecture ontologique complète des 75 cas + outillage IA de relecture
+  (2026-08-09)** : session dédiée à la relecture conceptuelle du golden de
+  scoring existant, avec un premier outillage IA pour l'assister — à
+  rattacher à **P1.3** (l'affirmation "pas encore démarrée" ci-dessus est
+  désormais **obsolète**, cf. correction ci-dessous) :
+  1. 10 nouveaux concepts ontologiques ajoutés + correction de plusieurs
+     redondances structurelles détectées pendant la relecture des 75 cas.
+  2. Deux tours de déduplication de synonymes : collisions introduites par
+     les nouveaux concepts, puis un second passage sur ~20 collisions
+     préexistantes plus anciennes.
+  3. Décision de fusion de catégorie D (`VOLTAGE_DU_QRS_NORMAL` /
+     `VOLTAGE_NORMAL_DU_QRS`) prise puis **annulée** dans la même session
+     après ré-examen (retour au concept OWL d'origine) — `.owl` régénéré
+     et archivé (`convert_owl_to_v2.py` / `regenerate_ontology.py`),
+     script `scripts/revert_voltage_merge_keep_owl_concept_2026_08_09.py`
+     (ecg-online) conservé pour trace.
+  4. Double validation de non-régression du revert : `scripts/audit_golden.py`
+     → 0 bloquant (21 avertissements résiduels, doublons inoffensifs déjà
+     connus) ; script de comparaison numérique avant/après sur les 75 cas
+     via `scoring_v3` → **0 régression** (moyenne 90.89 % avant/après ;
+     l'écart préexistant du cas 75 à 85.7 % est sans lien avec le revert).
+  5. **Bug de dérive découvert et corrigé** : les 3 copies vendorées de
+     `ontology_v2.json` (`data/`, `rag_pipeline/data/`,
+     `ecg-online/rag_pipeline/data/`) avaient divergé silencieusement sur 5
+     concepts (`ARTEFACTE`, `ECG_NORMAL`, `FLUTTER_ATRIAL_ANTIHORAIRE`,
+     `PRESENCE_D_ONDE_Q_PATHOLOGIQUE`, `TREMULATION_DE_LA_LIGNE_DE_BASE`),
+     antérieur à la session du jour. Resynchronisées manuellement (copie
+     canonique = version la plus riche par concept), vérifiées identiques
+     (0 diff sur les 358 concepts), re-testées via `audit_golden.py`
+     (0 bloquant, inchangé) — commits `8a82d20` (ECG lecture) et `4bc15e0`
+     (ecg-online). **Point de vigilance process** : la synchro manuelle des
+     3 copies est fragile ; envisager un script de vérification permanent
+     (3-way diff par concept) plutôt qu'une vérification ad hoc.
+  6. Assainissement du dépôt : ~40 fichiers temporaires supprimés (logs,
+     `.bak*`, versions intermédiaires d'`audit_feedback_*.json`, scripts
+     `_tmp_*.py`) — commits `3c19b27` (ecg-online) et `44b2cd3` (ECG lecture).
+  → **Correction du statut P1.3** : le travail de relecture/annotation
+  assistée par IA (fonctions `review_scoring_criteria()` /
+  `suggest_scoring_criteria()` dans `app/gpt_annotator.py`,
+  `app/scoring_v2_review.py`, UI `frontend/scoring_review.html`) est
+  opérationnel et a été exercé sur les 75 cas dans cette session — P1.3
+  n'est donc plus "pas encore démarrée" mais **en cours**. Reste à évaluer
+  précisément par rapport au critère de sortie P1.3 (annotation **multi-expert
+  indépendante**, pas seulement assistée par IA) avant de la déclarer
+  terminée — cf. §"remaining work" / P1.5 ci-dessous.
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
