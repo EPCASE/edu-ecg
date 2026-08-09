@@ -1,0 +1,1523 @@
+{
+  "before": {
+    "n_items_used": 100,
+    "global": {
+      "tp": 536,
+      "fp": 57,
+      "fn": 85,
+      "precision": 0.9038785834738617,
+      "recall": 0.8631239935587761,
+      "f1": 0.8830313014827018
+    },
+    "per_method": {
+      "coupe_circuit": {
+        "tp": 454,
+        "fp": 17,
+        "precision": 0.9639065817409767
+      },
+      "juge_llm": {
+        "tp": 57,
+        "fp": 27,
+        "precision": 0.6785714285714286
+      },
+      "pattern_inference": {
+        "tp": 1,
+        "fp": 2,
+        "precision": 0.3333333333333333
+      },
+      "fallback_subterm": {
+        "tp": 6,
+        "fp": 3,
+        "precision": 0.6666666666666666
+      },
+      "lexical_backstop": {
+        "tp": 18,
+        "fp": 8,
+        "precision": 0.6923076923076923
+      }
+    },
+    "fp_examples": [
+      {
+        "item_id": "1-02",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "1-02",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present",
+        "method": "pattern_inference"
+      },
+      {
+        "item_id": "11-01",
+        "ontology_id": "PR_NORMAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "12-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "13-01",
+        "ontology_id": "TACHYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "13-01",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "14-01",
+        "ontology_id": "INTERVALLE_PR",
+        "statut": "present",
+        "method": "fallback_subterm"
+      },
+      {
+        "item_id": "14-01",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present",
+        "method": "fallback_subterm"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "COMPLEXE_DE_FUSION",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "15-02",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "15-02",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "16-01",
+        "ontology_id": "PR_NORMAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "2-01",
+        "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "2-02",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "21-01",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "23-04",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present",
+        "method": "pattern_inference"
+      },
+      {
+        "item_id": "24-03",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "24-05",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "25-01",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "25-02",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "25-04",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "25-04",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "25-05",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "26-05",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "28-01",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "28-01",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "PR_COURT",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "3-01",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "3-03",
+        "ontology_id": "NONE",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "33-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "37-01",
+        "ontology_id": "FLUTTER_DROIT_TYPIQUE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "41-01",
+        "ontology_id": "FLUTTER_DROIT_TYPIQUE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "42-01",
+        "ontology_id": "FLUTTER_DROIT_TYPIQUE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "42-03",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "43-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "43-03",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "44-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "NONE",
+        "statut": "hypothese",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "present",
+        "method": "fallback_subterm"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "NONE",
+        "statut": "hypothese",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "73-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "9-01",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "9-03",
+        "ontology_id": "TACHYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "9-03",
+        "ontology_id": "BLOC_DE_BRANCHE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      }
+    ],
+    "fn_examples": [
+      {
+        "item_id": "1-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "1-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "10-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "11-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "12-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "13-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "13-01",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "13-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "13-04",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-01",
+        "ontology_id": "UNE_ONDE_P_BLOQUEE",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-01",
+        "ontology_id": "BAV_2_MOBITZ_2",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "absent"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "15-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "15-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "15-02",
+        "ontology_id": "AXE_NORMAL_DU_QRS",
+        "statut": "absent"
+      },
+      {
+        "item_id": "16-01",
+        "ontology_id": "PR_NORMAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "17-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "18-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "2-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "2-02",
+        "ontology_id": "STIMULATION_VENTRICULAIRE",
+        "statut": "present"
+      },
+      {
+        "item_id": "20-01",
+        "ontology_id": "BLOC_DE_BRANCHE_DROIT",
+        "statut": "present"
+      },
+      {
+        "item_id": "21-01",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "23-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "23-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "23-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "23-05",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "24-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "24-02",
+        "ontology_id": "INFERIEUR",
+        "statut": "present"
+      },
+      {
+        "item_id": "24-03",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "24-05",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-01",
+        "ontology_id": "ANTERIEUR",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "ARYTHMIE_SINUSALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-04",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-05",
+        "ontology_id": "UNE_ONDE_P_BLOQUEE",
+        "statut": "present"
+      },
+      {
+        "item_id": "26-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "26-04",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "26-05",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "26-05",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-01",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "absent"
+      },
+      {
+        "item_id": "28-01",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "INTERVALLE_PR",
+        "statut": "absent"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-03",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-03",
+        "ontology_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-04",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "33-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-01",
+        "ontology_id": "TACHYCARDIE_ATRIALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-01",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-02",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-03",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-03",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "37-05",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "40-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "40-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "41-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "42-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "42-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "42-03",
+        "ontology_id": "FLUTTER_DROIT_TYPIQUE",
+        "statut": "present"
+      },
+      {
+        "item_id": "43-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "44-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "45-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "TACHYCARDIE_ATRIALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "48-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "48-01",
+        "ontology_id": "CAPTURE_SUPRAVENTRICULAIRE",
+        "statut": "present"
+      },
+      {
+        "item_id": "5-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "73-01",
+        "ontology_id": "ONDE_P",
+        "statut": "absent"
+      },
+      {
+        "item_id": "8-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "8-02",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "9-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "present"
+      }
+    ]
+  },
+  "after": {
+    "n_items_used": 100,
+    "global": {
+      "tp": 571,
+      "fp": 70,
+      "fn": 50,
+      "precision": 0.890795631825273,
+      "recall": 0.9194847020933977,
+      "f1": 0.9049128367670365
+    },
+    "per_method": {
+      "coupe_circuit": {
+        "tp": 505,
+        "fp": 36,
+        "precision": 0.933456561922366
+      },
+      "juge_llm": {
+        "tp": 59,
+        "fp": 25,
+        "precision": 0.7023809523809523
+      },
+      "pattern_inference": {
+        "tp": 1,
+        "fp": 2,
+        "precision": 0.3333333333333333
+      },
+      "fallback_subterm": {
+        "tp": 2,
+        "fp": 1,
+        "precision": 0.6666666666666666
+      },
+      "lexical_backstop": {
+        "tp": 4,
+        "fp": 6,
+        "precision": 0.4
+      }
+    },
+    "fp_examples": [
+      {
+        "item_id": "1-02",
+        "ontology_id": "ABSENCE_D_ISCHEMIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "1-02",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present",
+        "method": "pattern_inference"
+      },
+      {
+        "item_id": "11-01",
+        "ontology_id": "PR_NORMAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "12-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "13-01",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-01",
+        "ontology_id": "INTERVALLE_PR",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "COMPLEXE_DE_FUSION",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "15-02",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "16-01",
+        "ontology_id": "PR_NORMAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "2-01",
+        "ontology_id": "BAV_DE_TYPE_1",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "2-03",
+        "ontology_id": "PR_NORMAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "2-03",
+        "ontology_id": "BAV_DE_TYPE_1",
+        "statut": "hypothese",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "20-01",
+        "ontology_id": "ECHAPPEMENT",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "21-01",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "23-04",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present",
+        "method": "pattern_inference"
+      },
+      {
+        "item_id": "23-05",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "24-04",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "24-04",
+        "ontology_id": "BAV",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "24-05",
+        "ontology_id": "HYPERTROPHIE_VENTRICULAIRE",
+        "statut": "present",
+        "method": "fallback_subterm"
+      },
+      {
+        "item_id": "25-01",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "25-02",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "25-02",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "ANOMALIE_DES_ONDES_T",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "25-04",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "26-02",
+        "ontology_id": "2_1",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "26-04",
+        "ontology_id": "2_1",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "28-01",
+        "ontology_id": "ARYTHMIE_ATRIALE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "28-03",
+        "ontology_id": "ABSENCE_DE_QRS",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "28-05",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "3-01",
+        "ontology_id": "ABSENCE_D_ISCHEMIE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "absent",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "3-03",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "33-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "37-01",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "37-05",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "40-02",
+        "ontology_id": "TACHYCARDIE_SINUSALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "40-02",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "41-01",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "42-01",
+        "ontology_id": "TREMULATION_DE_LA_LIGNE_DE_BASE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "42-01",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "42-02",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "42-03",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "42-03",
+        "ontology_id": "TOIT_D_USINE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "43-01",
+        "ontology_id": "ONDE_P_RETROGRADE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "43-01",
+        "ontology_id": "MALADIE_RYTHMIQUE_OREILLETTE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "43-03",
+        "ontology_id": "MALADIE_RYTHMIQUE_OREILLETTE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "44-01",
+        "ontology_id": "ONDE_P_RETROGRADE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "44-01",
+        "ontology_id": "MALADIE_RYTHMIQUE_OREILLETTE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "44-03",
+        "ontology_id": "ONDE_P_RETROGRADE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "45-01",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "ONDE_P_RETROGRADE",
+        "statut": "hypothese",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "FLUTTER_ATRIAL",
+        "statut": "hypothese",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "ONDE_DELTA",
+        "statut": "hypothese",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "NONE",
+        "statut": "hypothese",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "48-01",
+        "ontology_id": "CAPTURE_SUPRAVENTRICULAIRE",
+        "statut": "hypothese",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "49-01",
+        "ontology_id": "ONDE_P",
+        "statut": "absent",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "49-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "absent",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "49-01",
+        "ontology_id": "RAPIDE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "52-01",
+        "ontology_id": "WOLF_MALIN",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "57-01",
+        "ontology_id": "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+        "statut": "present",
+        "method": "lexical_backstop"
+      },
+      {
+        "item_id": "65-01",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "absent",
+        "method": "coupe_circuit"
+      },
+      {
+        "item_id": "73-01",
+        "ontology_id": "NONE",
+        "statut": "present",
+        "method": "juge_llm"
+      },
+      {
+        "item_id": "9-03",
+        "ontology_id": "FREQUENCE_NORMALE",
+        "statut": "present",
+        "method": "coupe_circuit"
+      }
+    ],
+    "fn_examples": [
+      {
+        "item_id": "13-01",
+        "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "ECG_NORMAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-02",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "14-03",
+        "ontology_id": "RYTHME_REGULIER",
+        "statut": "absent"
+      },
+      {
+        "item_id": "14-04",
+        "ontology_id": "BLOC_DE_BRANCHE_DROIT",
+        "statut": "present"
+      },
+      {
+        "item_id": "15-02",
+        "ontology_id": "AXE_NORMAL_DU_QRS",
+        "statut": "absent"
+      },
+      {
+        "item_id": "16-01",
+        "ontology_id": "PR_NORMAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "2-01",
+        "ontology_id": "BAV_DE_TYPE_1",
+        "statut": "hypothese"
+      },
+      {
+        "item_id": "2-02",
+        "ontology_id": "STIMULATION_VENTRICULAIRE",
+        "statut": "present"
+      },
+      {
+        "item_id": "2-03",
+        "ontology_id": "PR_ALLONGE",
+        "statut": "present"
+      },
+      {
+        "item_id": "2-03",
+        "ontology_id": "BLOC_DE_BRANCHE_GAUCHE",
+        "statut": "present"
+      },
+      {
+        "item_id": "2-03",
+        "ontology_id": "BAV_DE_TYPE_1",
+        "statut": "present"
+      },
+      {
+        "item_id": "20-01",
+        "ontology_id": "BLOC_DE_BRANCHE_DROIT_COMPLET",
+        "statut": "present"
+      },
+      {
+        "item_id": "21-01",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "23-05",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present"
+      },
+      {
+        "item_id": "24-02",
+        "ontology_id": "INFERIEUR",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-01",
+        "ontology_id": "INTERVALLE_PR",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-01",
+        "ontology_id": "UNE_ONDE_P_BLOQUEE",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-01",
+        "ontology_id": "ANTERIEUR",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "ARYTHMIE_SINUSALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "ONDE_T_NEGATIVE",
+        "statut": "present"
+      },
+      {
+        "item_id": "25-03",
+        "ontology_id": "BRADYCARDIE",
+        "statut": "present"
+      },
+      {
+        "item_id": "28-01",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "absent"
+      },
+      {
+        "item_id": "28-03",
+        "ontology_id": "ONDE_P",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-02",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "present"
+      },
+      {
+        "item_id": "3-03",
+        "ontology_id": "PAS_DE_TROUBLES_DE_LA_CONDUCTION",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-01",
+        "ontology_id": "TACHYCARDIE_ATRIALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-01",
+        "ontology_id": "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "statut": "present"
+      },
+      {
+        "item_id": "37-03",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "40-02",
+        "ontology_id": "TACHYCARDIE",
+        "statut": "present"
+      },
+      {
+        "item_id": "40-02",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "present"
+      },
+      {
+        "item_id": "42-03",
+        "ontology_id": "FLUTTER_DROIT_TYPIQUE",
+        "statut": "present"
+      },
+      {
+        "item_id": "43-01",
+        "ontology_id": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "44-01",
+        "ontology_id": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "44-03",
+        "ontology_id": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "45-01",
+        "ontology_id": "RYTHME",
+        "statut": "present"
+      },
+      {
+        "item_id": "45-01",
+        "ontology_id": "FLUTTER_DROIT_TYPIQUE",
+        "statut": "present"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "MORPHOLOGIE_DE_L_ONDE_P_NON_SINUSALE",
+        "statut": "hypothese"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+        "statut": "hypothese"
+      },
+      {
+        "item_id": "46-01",
+        "ontology_id": "TACHYCARDIE_ATRIALE",
+        "statut": "present"
+      },
+      {
+        "item_id": "47-01",
+        "ontology_id": "RYTHME_SINUSAL",
+        "statut": "absent"
+      },
+      {
+        "item_id": "48-01",
+        "ontology_id": "CAPTURE_SUPRAVENTRICULAIRE",
+        "statut": "present"
+      },
+      {
+        "item_id": "49-01",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "49-01",
+        "ontology_id": "RYTHME",
+        "statut": "present"
+      },
+      {
+        "item_id": "49-01",
+        "ontology_id": "ONDE_P_PRESENTE",
+        "statut": "absent"
+      },
+      {
+        "item_id": "65-01",
+        "ontology_id": "IRREGULIER",
+        "statut": "present"
+      },
+      {
+        "item_id": "73-01",
+        "ontology_id": "ONDE_P",
+        "statut": "absent"
+      }
+    ]
+  }
+}
