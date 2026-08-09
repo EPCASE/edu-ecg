@@ -430,12 +430,23 @@
       "parents": [
         "INTERFERENCE_EXTRA_CARDIAQUE"
       ],
+      "children": [
+        "TREMULATION_DE_LA_LIGNE_DE_BASE"
+      ],
       "synonymes": [
         "parasitage de la ligne de base",
         "parasite de la ligne de base",
         "parasites",
         "artéfacts",
-        "tracé parasité"
+        "tracé parasité",
+        "artéfact de la ligne de base",
+        "artéfact de tremblement de la ligne de base",
+        "artéfact de tremblement sur la ligne de base",
+        "artéfact de tremblement",
+        "artéfact de mouvement",
+        "artéfact de mouvements des bras",
+        "artéfact musculaire",
+        "artéfact de ligne de base par tremblement"
       ]
     },
     "ARYTHMIE": {
@@ -2503,7 +2514,8 @@
         "CCW common flutter",
         "Flutter atrial anti-horaire",
         "Flutter commun antihoraire",
-        "Flutter atrial commun anti-horaire"
+        "Flutter atrial commun anti-horaire",
+        "Flutter commun anti-horaire"
       ],
       "parents": [
         "FLUTTER_DROIT_TYPIQUE"
@@ -4368,6 +4380,7 @@
       "poids": 2,
       "type": "finding",
       "synonymes": [
+        "Aspect QS",
         "Onde Q de nécrose",
         "Trou électrique",
         "ondes Q de nécrose",
@@ -6254,7 +6267,8 @@
       "poids": 2,
       "type": "qualifier",
       "parents": [
-        "DESORGANISEE"
+        "DESORGANISEE",
+        "ARTEFACTE"
       ],
       "synonymes": [
         "ondulation de la ligne de base",
