@@ -147,3 +147,6 @@ _dryrun_archive.py
 _DRYRUN_ARCHIVE.txt
 _INVENTAIRE_CLEANUP.txt
 _run_virtual_75.log
+
+# Backup images (182 Mo, non necessaire en versionnement)
+_ecg_images_originalformat_backup/

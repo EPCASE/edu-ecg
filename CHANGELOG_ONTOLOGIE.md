@@ -164,14 +164,45 @@ générique/parent, gardés sur le concept le plus précis) :
   (`VOLTAGE_DU_QRS.children`, et le `concept_id` dans `scoring_pilot_v2.json` +
   `scoring_v2_review.json` migré vers `VOLTAGE_NORMAL_DU_QRS`).
 
-**Validation post-traitement** :
-- Ré-audit complet (`audit_ontology_full_2026_08_09.py`) : **`syn_collisions=0`**
-  (358 concepts, dangling=0, cycles=0, contradictions requires/excludes=0). Les 9
-  incohérences bidirectionnelles parent↔children pré-existantes (`STIMULATION`,
-  `VOLTAGE_DU_QRS`) restent inchangées (hors périmètre de ce fix).
-- Inférence `ECG_NORMAL` re-testée : **intacte** (normal → infère ; HAG → bloqué),
-  confirmant que la fusion du concept Partie B `VOLTAGE_NORMAL_DU_QRS` n'a rien cassé.
+**⚠️ Correction (2026-08-09, plus tard le même jour)** : décision D **inversée**. Le
+concept **réellement présent dans le `.owl` source** (`VOLTAGE_DU_QRS_NORMAL`) est
+conservé comme canonique — pas `VOLTAGE_NORMAL_DU_QRS` (qui n'était qu'un doublon
+JSON-only, à tort choisi car il portait l'inférence Partie B). Script
+`revert_voltage_merge_keep_owl_concept_2026_08_09.py` :
+- Recrée `VOLTAGE_DU_QRS_NORMAL` (type=finding, hide=1, définition originale
+  restaurée depuis backup pré-fusion) en union des synonymes/excludes accumulés sur
+  `VOLTAGE_NORMAL_DU_QRS`, supprime `VOLTAGE_NORMAL_DU_QRS`, recâble toutes les
+  références résiduelles (`QRS_NORMAL.requires` → `VOLTAGE_DU_QRS_NORMAL`,
+  `VOLTAGE_DU_QRS.children`), migre le `concept_id` dans `scoring_pilot_v2.json` +
+  `scoring_v2_review.json`.
+- Vérifié safe via lecture du code source de `PatternInferencer` : l'inférence ne
+  matche que sur la **string** `concept_id`, indépendamment du champ `type` —
+  inverser le sens de la fusion ne casse rien.
+- Bénéfice collatéral : résout aussi une des 9 incohérences parent↔children
+  pré-existantes (`VOLTAGE_DU_QRS`), désormais `VOLTAGE_DU_QRS_NORMAL` proprement
+  listé dans `VOLTAGE_DU_QRS.children` (8 restantes, toutes `STIMULATION`).
+
+**Validation post-traitement (après le revert D)** :
+- Ré-audit complet (`audit_ontology_full_2026_08_09.py`) : 358 concepts, `dangling=0`,
+  `syn_collisions=0`, `cycles=0`, `req_excl_contradictions=0`,
+  **`incoherent_parent_children=8`** (↓ de 9, cf. ci-dessus).
+- Inférence `ECG_NORMAL` re-testée : **intacte** (normal → infère ; HAG → bloqué).
 - Tous les `concept_id` des 75 cas résolvent toujours (`bad=[]` sur pilot + review).
+- Ancien `.owl` patché (reflétant l'ancien sens de fusion) archivé dans
+  `_owl_archive/BrYOzRZIu7jQTwmfcGsi35_patched_2026-08-09_v1_obsolete.owl`.
+- Nouveau `.owl` régénéré (`generate_owl_relecture75.py`, réutilise les 10 IRI
+  existants — idempotent) puis les 20 suppressions de synonymes (catégories A/B/C)
+  appliquées directement aux classes OWL existantes via
+  `apply_synonym_removals_to_owl_2026_08_09.py` (20 `skos:altLabel` retirés).
+  Validation finale : XML valide, 415 classes, 0 doublon d'IRI, les 20 synonymes
+  cibles bien absents.
+- **Retest golden final** (`scripts/audit_golden.py`, audit golden × ontologie) :
+  **0 anomalie bloquante**, 21 avertissements cosmétiques préexistants (doublons de
+  labels inoffensifs, sans rapport avec les changements du jour) — confirme que
+  l'ensemble des changements du jour (10 nouveaux concepts, fix redondance
+  structurelle, 2 vagues de dédoublonnage de synonymes, revert de la fusion D) ne
+  casse aucune référence golden (`unknown_concept_id=0`, `dangling_requires=0`,
+  `dangling_excludes=0`, `case_without_validant=0`).
 
 > ⚠️ **Écart `.owl` connu (à traiter avant réimport WebProtégé)** : `VOLTAGE_DU_QRS_NORMAL`
 > **existe réellement comme classe OWL** (avec ses propres `excludes`/annotation `hide`),

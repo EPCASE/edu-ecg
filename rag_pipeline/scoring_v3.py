@@ -29,6 +29,17 @@ Principe :
     On ne cumule PAS les sources : on prend toujours le score max
     (enfant > parent+1 > qualifier > parent+2 > support).
 
+⚠️ TODO P4 (refonte scoring, cf. ecg-online/data/scoring_schema_v2.json,
+    champ `minimum_specificity`, et ecg-online/app/scoring_v2_review.py) :
+    les règles 1b/1c ci-dessus sont GLOBALES et câblées en dur (un enfant
+    donne TOUJOURS 1.0, un parent TOUJOURS 2/3 ou 1/3, quel que soit le
+    concept). Le golden scoring_v2 (annoté en P1.3 via /scoring-review)
+    prévoit une tolérance PAR CRITÈRE (exact_only/child_ok/parent_ok/
+    any_related) censée remplacer cette heuristique globale. Tant que ce
+    fichier n'est pas mis à jour pour lire `minimum_specificity`, les
+    annotations P1.3 sur ce champ n'ont AUCUN effet sur la note réelle des
+    étudiants — seule cette règle 1b/1c ci-dessus s'applique en production.
+
 Conversion des négations :
     Les concepts avec statut "absent" sont convertis en concepts positifs
     via le mapping ontologique (excludes / excludes_families).

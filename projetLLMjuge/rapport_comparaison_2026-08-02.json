@@ -1,0 +1,2801 @@
+{
+  "n_items": 100,
+  "gold_status": "PROVISOIRE — projection fuzzy des correct_elements, pas encore d'annotation experte (Phase 1 non faite)",
+  "current_pipeline_micro": {
+    "precision": 0.316,
+    "recall": 0.341,
+    "f1": 0.328,
+    "tp": 60,
+    "fp": 130,
+    "fn": 116
+  },
+  "global_judge_micro": {
+    "precision": 0.323,
+    "recall": 0.415,
+    "f1": 0.363,
+    "tp": 73,
+    "fp": 153,
+    "fn": 103
+  },
+  "inter_method_cohen_kappa": 0.073,
+  "per_item": [
+    {
+      "id": "EXPLICIT-01",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "ECG_NORMAL",
+        "FREQUENCE_NORMALE",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "AXE_NORMAL_DU_QRS",
+          "ECG_NORMAL",
+          "FREQUENCE_NORMALE",
+          "PR_NORMAL",
+          "QRS_FINS",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 4.36
+      },
+      "global_judge": {
+        "found_ids": [
+          "AXE_NORMAL_DU_QRS",
+          "ECG_NORMAL",
+          "FREQUENCE_NORMALE",
+          "INTERVALLE_PR",
+          "PRESENCE_DE_QRS",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 4.8
+      }
+    },
+    {
+      "id": "EXPLICIT-02",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+        "INDICE_DE_SOKOLOW__35_MM",
+        "VOLTAGES_ELEVES"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "INDICE_DE_SOKOLOW__35_MM"
+        ],
+        "precision": 1.0,
+        "recall": 0.667,
+        "f1": 0.8,
+        "latency_s": 4.29
+      },
+      "global_judge": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "INDICE_DE_SOKOLOW__35_MM",
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "precision": 0.667,
+        "recall": 0.667,
+        "f1": 0.667,
+        "latency_s": 3.14
+      }
+    },
+    {
+      "id": "EXPLICIT-03",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "BLOC_DE_BRANCHE_DROIT_COMPLET",
+        "QRS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_RETARD_DROIT",
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "QRS_LARGE",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.25,
+        "recall": 0.5,
+        "f1": 0.333,
+        "latency_s": 5.64
+      },
+      "global_judge": {
+        "found_ids": [
+          "ASPECT_DE_RETARD_DROIT",
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "QRS_LARGE",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.25,
+        "recall": 0.5,
+        "f1": 0.333,
+        "latency_s": 4.75
+      }
+    },
+    {
+      "id": "EXPLICIT-04",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "ALLONGEMENT_PROGRESSIF_DU_PR",
+        "BAV"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR",
+          "BAV_2_MOBITZ_1",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 5.22
+      },
+      "global_judge": {
+        "found_ids": [
+          "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR",
+          "BAV_2_MOBITZ_1",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.16
+      }
+    },
+    {
+      "id": "EXPLICIT-05",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "BAV_2_MOBITZ_2",
+        "PR_CONSTANTS",
+        "UNE_ONDE_P_BLOQUEE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_2_MOBITZ_2",
+          "INTERVALLE_PR",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.667,
+        "recall": 0.667,
+        "f1": 0.667,
+        "latency_s": 5.38
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+          "BAV_2_MOBITZ_2",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.667,
+        "recall": 0.667,
+        "f1": 0.667,
+        "latency_s": 3.13
+      }
+    },
+    {
+      "id": "EXPLICIT-06",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "ABSENCE_D’ONDES_P",
+        "FIBRILLATION_ATRIALE",
+        "IRREGULARITE_COMPLETE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "IRREGULIER"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 3.64
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ONDE_P",
+          "FIBRILLATION_ATRIALE",
+          "IRREGULIER"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 2.79
+      }
+    },
+    {
+      "id": "EXPLICIT-07",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "FLUTTER_ATRIAL_TYPIQUE",
+        "TOIT_D_USINE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "CONDUCTION",
+          "FLUTTER_DROIT_TYPIQUE",
+          "ONDE_F"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 5.36
+      },
+      "global_judge": {
+        "found_ids": [
+          "FLUTTER_ATRIAL_ATYPIQUE",
+          "RYTHME_REGULIER",
+          "TOIT_D_USINE"
+        ],
+        "precision": 0.333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "latency_s": 2.72
+      }
+    },
+    {
+      "id": "EXPLICIT-08",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "CAPTURE_SUPRAVENTRICULAIRE",
+        "DISSOCIATION_ATRIO_VENTRICULAIRE",
+        "TACHYCARDIE_VENTRICULAIRE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "CAPTURE_SUPRAVENTRICULAIRE",
+          "DISSOCIATION_ATRIO_VENTRICULAIRE",
+          "MONOMORPHE",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.857,
+        "latency_s": 2.64
+      },
+      "global_judge": {
+        "found_ids": [
+          "CAPTURE_SUPRAVENTRICULAIRE",
+          "DISSOCIATION_ATRIO_VENTRICULAIRE",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.72
+      }
+    },
+    {
+      "id": "EXPLICIT-09",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "PERICARDITE",
+        "SOUS-DECALAGE_PR",
+        "SUS-DECALAGE_ST_DIFFUS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "PERICARDITE",
+          "SOUS_PQ"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 6.64
+      },
+      "global_judge": {
+        "found_ids": [
+          "ANOMALIES_DU_SEGMENT_ST",
+          "PERICARDITE",
+          "SOUS_PQ"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 3.19
+      }
+    },
+    {
+      "id": "EXPLICIT-10",
+      "stratum_code": "EXPLICIT",
+      "gold_ids_provisoires": [
+        "BRUGADA_TYPE_1",
+        "SUS-DECALAGE_EN_DOME_V1-V2"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1",
+          "ONDE_T_NEGATIVE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 5.98
+      },
+      "global_judge": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1",
+          "ONDE_T_NEGATIVE",
+          "SUS_DECALAGE_DE_L_ONDE_J"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.47
+      }
+    },
+    {
+      "id": "IMPLICIT-01",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "CRITERES_D’HVG",
+        "INDICE_DE_SOKOLOW__35_MM"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.38
+      },
+      "global_judge": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "INDICE_DE_SOKOLOW__35_MM"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 3.62
+      }
+    },
+    {
+      "id": "IMPLICIT-02",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "QRS",
+        "RSR’_V1",
+        "S_TERMINALE_DI-V6"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_RETARD_DROIT",
+          "MORPHOLOGIE_DU_QRS",
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 4.49
+      },
+      "global_judge": {
+        "found_ids": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS",
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.77
+      }
+    },
+    {
+      "id": "IMPLICIT-03",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "DISCORDANCE_SECONDAIRE",
+        "MORPHOLOGIE_DE_BBG",
+        "QRS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS_LARGE",
+          "TROUBLE_DE_REPOLARISATION",
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 9.52
+      },
+      "global_judge": {
+        "found_ids": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS",
+          "QRS_LARGE",
+          "TROUBLE_DE_REPOLARISATION"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.51
+      }
+    },
+    {
+      "id": "IMPLICIT-04",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "ALLONGEMENT_PROGRESSIF_DU_PR",
+        "UNE_ONDE_P_BLOQUEE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ONDE_P",
+          "PR_ALLONGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.95
+      },
+      "global_judge": {
+        "found_ids": [
+          "ECG_PAS_NORMAL",
+          "INTERVALLE_PR",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "latency_s": 3.58
+      }
+    },
+    {
+      "id": "IMPLICIT-05",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "ONDE_P",
+        "PR_CONSTANTS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ABSENCE_DE_QRS"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.01
+      },
+      "global_judge": {
+        "found_ids": [
+          "INTERVALLE_PR",
+          "ONDE_P"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 3.24
+      }
+    },
+    {
+      "id": "IMPLICIT-06",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "ABSENCE_DE_P_PREALABLE",
+        "COMPLEXE_PREMATURE_LARGE",
+        "REPOS_COMPENSATEUR"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS",
+          "QRS__120_MS",
+          "REPOS_COMPENSATEUR"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 6.27
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ONDE_P",
+          "MORPHOLOGIE_ANORMALE_DU_QRS",
+          "PREMATURE",
+          "QRS_LARGE",
+          "REPOS_COMPENSATEUR"
+        ],
+        "precision": 0.2,
+        "recall": 0.333,
+        "f1": 0.25,
+        "latency_s": 4.14
+      }
+    },
+    {
+      "id": "IMPLICIT-07",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "IRREGULARITE_COMPLETE",
+        "ORGANISEE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "DESORGANISEE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.66
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ONDE_P",
+          "IRREGULIER"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.6
+      }
+    },
+    {
+      "id": "IMPLICIT-08",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "BLOC_AV_FONCTIONNEL",
+        "TACHYCARDIE_ATRIALE",
+        "TOIT_D_USINE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS",
+          "TACHYCARDIE",
+          "TOIT_D_USINE"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 7.13
+      },
+      "global_judge": {
+        "found_ids": [
+          "FLUTTER_ATRIAL_ATYPIQUE",
+          "TOIT_D_USINE"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 3.25
+      }
+    },
+    {
+      "id": "IMPLICIT-09",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "ONDE_DELTA",
+        "PR_COURT",
+        "QRS_LARGE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ONDE_DELTA",
+          "PR_COURT",
+          "QRS_LARGE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.07
+      },
+      "global_judge": {
+        "found_ids": [
+          "ONDE_DELTA",
+          "PR_COURT",
+          "QRS_LARGE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.88
+      }
+    },
+    {
+      "id": "IMPLICIT-10",
+      "stratum_code": "IMPLICIT",
+      "gold_ids_provisoires": [
+        "SOUS-DECALAGE_PR",
+        "SUS-DECALAGE_ST_DIFFUS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_ENDOCARDIQUE",
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 4.19
+      },
+      "global_judge": {
+        "found_ids": [
+          "ANOMALIES_DU_SEGMENT_ST",
+          "SOUS_PQ"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.07
+      }
+    },
+    {
+      "id": "PARTIAL-01",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "FREQUENCE_NORMALE",
+        "QRS_FINS",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FREQUENCE_NORMALE",
+          "QRS_FINS",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 1.48
+      },
+      "global_judge": {
+        "found_ids": [
+          "FREQUENCE",
+          "FREQUENCE_NORMALE",
+          "QRS_FINS",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.75,
+        "recall": 1.0,
+        "f1": 0.857,
+        "latency_s": 3.0
+      }
+    },
+    {
+      "id": "PARTIAL-02",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "INDICE_DE_SOKOLOW__35_MM"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 0.9
+      },
+      "global_judge": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "INDICE_DE_SOKOLOW__35_MM"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 1.97
+      }
+    },
+    {
+      "id": "PARTIAL-03",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "QRS",
+        "RSR’_V1"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_RETARD_DROIT",
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.62
+      },
+      "global_judge": {
+        "found_ids": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS",
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.13
+      }
+    },
+    {
+      "id": "PARTIAL-04",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "ECHAPPEMENT_POSSIBLE",
+        "PAUSE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "PAUSE",
+          "RYTHME"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 3.17
+      },
+      "global_judge": {
+        "found_ids": [
+          "LENT",
+          "PAUSE"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 2.02
+      }
+    },
+    {
+      "id": "PARTIAL-05",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "BAV",
+        "UNE_ONDE_P_BLOQUEE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 1.2
+      },
+      "global_judge": {
+        "found_ids": [
+          "BAV",
+          "BAV_2_MOBITZ_2",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.667,
+        "recall": 1.0,
+        "f1": 0.8,
+        "latency_s": 2.39
+      }
+    },
+    {
+      "id": "PARTIAL-06",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "EXTRASYSTOLES"
+      ],
+      "current_pipeline": {
+        "found_ids": [],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.8
+      },
+      "global_judge": {
+        "found_ids": [
+          "EXTRASYSTOLE_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.45
+      }
+    },
+    {
+      "id": "PARTIAL-07",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "ARYTHMIE",
+        "REGULARITE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "RYTHME_REGULIER",
+          "TACHYCARDIE_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.75
+      },
+      "global_judge": {
+        "found_ids": [
+          "ARYTHMIE_ATRIALE",
+          "RYTHME_REGULIER"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.57
+      }
+    },
+    {
+      "id": "PARTIAL-08",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "QRS",
+        "TACHYCARDIE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS_LARGE",
+          "RYTHME_REGULIER",
+          "TACHYCARDIE"
+        ],
+        "precision": 0.333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "latency_s": 1.61
+      },
+      "global_judge": {
+        "found_ids": [
+          "QRS_LARGE",
+          "TACHYCARDIE"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 1.72
+      }
+    },
+    {
+      "id": "PARTIAL-09",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "SUS-DECALAGE_ST_DIFFUS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.26
+      },
+      "global_judge": {
+        "found_ids": [
+          "ANOMALIES_DU_SEGMENT_ST",
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.78
+      }
+    },
+    {
+      "id": "PARTIAL-10",
+      "stratum_code": "PARTIAL",
+      "gold_ids_provisoires": [
+        "INFERIEUR"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.88
+      },
+      "global_judge": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.65
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-01",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "ECG_NORMAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ECG_NORMAL",
+          "QT_LONG"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 2.77
+      },
+      "global_judge": {
+        "found_ids": [
+          "ECG_NORMAL",
+          "QT_LONG"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 2.43
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-02",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "MICROVOLTAGE"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 1.24
+      },
+      "global_judge": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE",
+          "MICROVOLTAGE"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 1.82
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-03",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "BLOC_DE_BRANCHE_DROIT_COMPLET"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "QRS_FINS"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 1.27
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "QRS_FINS"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 3.4
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-04",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "BAV"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.11
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ALLONGEMENT_DE_L_INTERVALLE_PR",
+          "BAV_2_MOBITZ_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.42
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-05",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "BAV_2_MOBITZ_2"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR",
+          "BAV_2_MOBITZ_2"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 4.17
+      },
+      "global_judge": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1",
+          "BAV_2_MOBITZ_2"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 3.13
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-06",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "FIBRILLATION_ATRIALE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "MORPHOLOGIE_ONDE_P_SINUSALE"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 1.29
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "ONDE_P",
+          "RYTHME_REGULIER"
+        ],
+        "precision": 0.333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "latency_s": 3.7
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-07",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "FLUTTER_ATRIAL_TYPIQUE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 4.79
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ONDE_P",
+          "FLUTTER_DROIT_TYPIQUE",
+          "IRREGULIER"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.59
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-08",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "TACHYCARDIE_VENTRICULAIRE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "INTERVALLE_PR",
+          "ONDE_P",
+          "QRS_FINS",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "latency_s": 3.9
+      },
+      "global_judge": {
+        "found_ids": [
+          "ONDE_P",
+          "PR_NORMAL",
+          "QRS_FINS",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "latency_s": 4.42
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-09",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "PERICARDITE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "MIROIR",
+          "PERICARDITE"
+        ],
+        "precision": 0.333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "latency_s": 4.13
+      },
+      "global_judge": {
+        "found_ids": [
+          "ANTERIEUR",
+          "INFERIEUR",
+          "PERICARDITE"
+        ],
+        "precision": 0.333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "latency_s": 3.12
+      }
+    },
+    {
+      "id": "CORRECT_FALSE-10",
+      "stratum_code": "CORRECT_FALSE",
+      "gold_ids_provisoires": [
+        "BRUGADA_TYPE_1"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1",
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 4.66
+      },
+      "global_judge": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1",
+          "INFERIEUR"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.14
+      }
+    },
+    {
+      "id": "CONTRADICTORY-01",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+        "ECG_NORMAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_GAUCHE_COMPLET"
+        ],
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.667,
+        "latency_s": 0.89
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+          "ECG_NORMAL"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.41
+      }
+    },
+    {
+      "id": "CONTRADICTORY-02",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "FIBRILLATION_ATRIALE",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 1.4
+      },
+      "global_judge": {
+        "found_ids": [
+          "1_1",
+          "FIBRILLATION_ATRIALE",
+          "ONDE_P",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 3.39
+      }
+    },
+    {
+      "id": "CONTRADICTORY-03",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "BAV_2_MOBITZ_1",
+        "BAV_2_MOBITZ_2"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1",
+          "BAV_2_MOBITZ_2",
+          "INTERVALLE_PR"
+        ],
+        "precision": 0.667,
+        "recall": 1.0,
+        "f1": 0.8,
+        "latency_s": 3.08
+      },
+      "global_judge": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1",
+          "BAV_2_MOBITZ_2"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.89
+      }
+    },
+    {
+      "id": "CONTRADICTORY-04",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "BAV_COMPLET",
+        "CONDUCTION"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_COMPLET",
+          "DISSOCIATION_ATRIO_VENTRICULAIRE",
+          "INTERVALLE_PR",
+          "ONDE_P"
+        ],
+        "precision": 0.25,
+        "recall": 0.5,
+        "f1": 0.333,
+        "latency_s": 3.63
+      },
+      "global_judge": {
+        "found_ids": [
+          "1_1",
+          "BAV_COMPLET",
+          "DISSOCIATION_ATRIO_VENTRICULAIRE",
+          "INTERVALLE_PR"
+        ],
+        "precision": 0.25,
+        "recall": 0.5,
+        "f1": 0.333,
+        "latency_s": 3.54
+      }
+    },
+    {
+      "id": "CONTRADICTORY-05",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "FIBRILLATION_ATRIALE",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 1.28
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "RYTHME_REGULIER",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.667,
+        "recall": 1.0,
+        "f1": 0.8,
+        "latency_s": 2.38
+      }
+    },
+    {
+      "id": "CONTRADICTORY-06",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "FIBRILLATION_ATRIALE",
+        "FLUTTER_DROIT_TYPIQUE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "FLUTTER_DROIT_TYPIQUE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 3.44
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "FLUTTER_DROIT_TYPIQUE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.74
+      }
+    },
+    {
+      "id": "CONTRADICTORY-07",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+        "TACHYCARDIE_SINUSALE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "MORPHOLOGIE_ONDE_P_SINUSALE",
+          "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+          "TACHYCARDIE_SINUSALE"
+        ],
+        "precision": 0.667,
+        "recall": 1.0,
+        "f1": 0.8,
+        "latency_s": 2.82
+      },
+      "global_judge": {
+        "found_ids": [
+          "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+          "TACHYCARDIE_SINUSALE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.73
+      }
+    },
+    {
+      "id": "CONTRADICTORY-08",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "AVNRT_AVEC_ABERRATION",
+        "TACHYCARDIE_VENTRICULAIRE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ABERRATION_VENTRICULAIRE",
+          "DISSOCIATION_ATRIO_VENTRICULAIRE",
+          "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.25,
+        "recall": 0.5,
+        "f1": 0.333,
+        "latency_s": 5.27
+      },
+      "global_judge": {
+        "found_ids": [
+          "DISSOCIATION_ATRIO_VENTRICULAIRE",
+          "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE_TYPIQUE",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "latency_s": 3.26
+      }
+    },
+    {
+      "id": "CONTRADICTORY-09",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "PERICARDITE",
+        "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "PERICARDITE",
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 2.7
+      },
+      "global_judge": {
+        "found_ids": [
+          "PERICARDITE",
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 3.27
+      }
+    },
+    {
+      "id": "CONTRADICTORY-10",
+      "stratum_code": "CONTRADICTORY",
+      "gold_ids_provisoires": [
+        "ECG_NORMAL",
+        "HYPERKALIEMIE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ECG_NORMAL",
+          "HYPERKALIEMIE",
+          "QRS_LARGE"
+        ],
+        "precision": 0.667,
+        "recall": 1.0,
+        "f1": 0.8,
+        "latency_s": 2.52
+      },
+      "global_judge": {
+        "found_ids": [
+          "ECG_NORMAL",
+          "ECG_PAS_NORMAL",
+          "HYPERKALIEMIE",
+          "QRS_LARGE"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 3.48
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-01",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "HYPERTROPHIE_VENTRICULAIRE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE_GAUCHE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.24
+      },
+      "global_judge": {
+        "found_ids": [
+          "HYPERTROPHIE_VENTRICULAIRE"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 3.16
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-02",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "BBD_ABSENT",
+        "BBD_PRESENT"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.0
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.27
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-03",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "MOBITZ_I/WENCKEBACH_PRESENT",
+        "WENCKEBACH_ABSENT"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.71
+      },
+      "global_judge": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.75
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-04",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "MOBITZ_II_ABSENT",
+        "MOBITZ_II_PRESENT"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_2_MOBITZ_2"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.04
+      },
+      "global_judge": {
+        "found_ids": [
+          "BAV_2_MOBITZ_2"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.87
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-05",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "FA_ABSENTE",
+        "FA_PRESENTE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.43
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.74
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-06",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "FLUTTER_ABSENT",
+        "FLUTTER_PRESENT"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "TACHYCARDIE_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.16
+      },
+      "global_judge": {
+        "found_ids": [
+          "FLUTTER_ATRIAL_HORAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.39
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-07",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "TV_ABSENTE",
+        "TV_PRESENTE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.05
+      },
+      "global_judge": {
+        "found_ids": [
+          "TACHYCARDIE_VENTRICULAIRE_CICATRICIELLE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.49
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-08",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "PERICARDITE_ABSENTE",
+        "PERICARDITE_PRESENTE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "PERICARDITE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.62
+      },
+      "global_judge": {
+        "found_ids": [
+          "PERICARDITE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.53
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-09",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "SUS-DECALAGE_ABSENT",
+        "SUS-DECALAGE_PRESENT",
+        "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.66
+      },
+      "global_judge": {
+        "found_ids": [
+          "INFERIEUR",
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 3.82
+      }
+    },
+    {
+      "id": "NEG_THEN_ASSERT-10",
+      "stratum_code": "NEG_THEN_ASSERT",
+      "gold_ids_provisoires": [
+        "BRUGADA_ABSENT",
+        "BRUGADA_PRESENT"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.23
+      },
+      "global_judge": {
+        "found_ids": [
+          "SYNDROME_DE_BRUGADA"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.38
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-01",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.16
+      },
+      "global_judge": {
+        "found_ids": [
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE",
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.5
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-02",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "POLYMORPHE",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.19
+      },
+      "global_judge": {
+        "found_ids": [
+          "TACHYCARDIE_VENTRICULAIRE_POLYMORPHE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.19
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-03",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_COMPLET",
+          "STIMULATION"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.1
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_AURICULO_VENTRICULAIRE",
+          "STIMULATION"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.15
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-04",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "EMBOLIE_PULMONAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.3
+      },
+      "global_judge": {
+        "found_ids": [
+          "EMBOLIE_PULMONAIRE",
+          "PATHOLOGIE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.55
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-05",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "INFARCTUS_DU_MYOCARDE_A_LA_PHASE_AIGUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 0.96
+      },
+      "global_judge": {
+        "found_ids": [
+          "INFERIEUR",
+          "SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.33
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-06",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 0.95
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.33
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-07",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+          "FIBRILLATION_ATRIALE",
+          "WOLF_MALIN"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.76
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "QUALIFICATEUR_EPISODE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.93
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-08",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "SOUTENU",
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.25
+      },
+      "global_judge": {
+        "found_ids": [
+          "TACHYCARDIE_VENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.57
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-09",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.31
+      },
+      "global_judge": {
+        "found_ids": [
+          "PATHOLOGIE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.12
+      }
+    },
+    {
+      "id": "UNSUPPORTED_CRITICAL-10",
+      "stratum_code": "UNSUPPORTED_CRITICAL",
+      "gold_ids_provisoires": [],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.36
+      },
+      "global_judge": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1",
+          "SYNDROME_DE_BRUGADA"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.81
+      }
+    },
+    {
+      "id": "HEDGED-01",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "ARTEFACT_DE_TREMBLEMENT_PROBABLE",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "RYTHME_REGULIER",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 3.17
+      },
+      "global_judge": {
+        "found_ids": [
+          "1_1",
+          "ARTEFACTE",
+          "ONDE_P"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.81
+      }
+    },
+    {
+      "id": "HEDGED-02",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "BBD_COMPLET_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.62
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.66
+      }
+    },
+    {
+      "id": "HEDGED-03",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "PAUSE"
+      ],
+      "current_pipeline": {
+        "found_ids": [],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.77
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ONDE_P",
+          "PAUSE"
+        ],
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.667,
+        "latency_s": 2.9
+      }
+    },
+    {
+      "id": "HEDGED-04",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "MOBITZ_I_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ALLONGEMENT_PROGRESSIF_DE_L_INTERVALLE_PR",
+          "BAV"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.5
+      },
+      "global_judge": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1",
+          "PR_ALLONGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.95
+      }
+    },
+    {
+      "id": "HEDGED-05",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "FA_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.27
+      },
+      "global_judge": {
+        "found_ids": [
+          "CONDUCTION_VARIABLE",
+          "FIBRILLATION_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.8
+      }
+    },
+    {
+      "id": "HEDGED-06",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "FLUTTER_TYPIQUE_TRES_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FLUTTER_DROIT_TYPIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.22
+      },
+      "global_judge": {
+        "found_ids": [
+          "FLUTTER_ATRIAL_ANTIHORAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.2
+      }
+    },
+    {
+      "id": "HEDGED-07",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "AVNRT_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS_FINS",
+          "TACHYCARDIE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.53
+      },
+      "global_judge": {
+        "found_ids": [
+          "QRS_FINS",
+          "TACHYCARDIE_JONCTIONNELLE_PAR_REENTREE_INTRA_NODALE_TYPIQUE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.39
+      }
+    },
+    {
+      "id": "HEDGED-08",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "CAPTURE_SUPRAVENTRICULAIRE",
+        "DISSOCIATION_AV",
+        "TV_TRES_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "CAPTURE_SUPRAVENTRICULAIRE",
+          "DISSOCIATION_ATRIO_VENTRICULAIRE"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 4.1
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_AURICULO_VENTRICULAIRE",
+          "CAPTURE_SUPRAVENTRICULAIRE",
+          "TACHYCARDIE_VENTRICULAIRE_CICATRICIELLE"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 3.7
+      }
+    },
+    {
+      "id": "HEDGED-09",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "PERICARDITE_PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "COURANT_DE_LESION_SOUS_EPICARDIQUE",
+          "PR_ANORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 4.48
+      },
+      "global_judge": {
+        "found_ids": [
+          "PERICARDITE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.89
+      }
+    },
+    {
+      "id": "HEDGED-10",
+      "stratum_code": "HEDGED",
+      "gold_ids_provisoires": [
+        "BRUGADA_TYPE_1_POSSIBLE/PROBABLE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.05
+      },
+      "global_judge": {
+        "found_ids": [
+          "ASPECT_DE_BRUGADA_DE_TYPE_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.41
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-01",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "FREQUENCE_MESUREE_A_45/MIN"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BRADYCARDIE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 0.86
+      },
+      "global_judge": {
+        "found_ids": [
+          "BRADYCARDIE",
+          "FREQUENCE_NORMALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.17
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-02",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "PR_260_MS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "PR_ALLONGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 0.84
+      },
+      "global_judge": {
+        "found_ids": [
+          "PR_ALLONGE",
+          "PR_NORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.31
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-03",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "BLOC_DE_BRANCHE_DROIT_COMPLET",
+        "QRS_FINS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "QRS_FINS"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 1.23
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_DROIT_COMPLET",
+          "QRS_FINS"
+        ],
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "latency_s": 3.97
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-04",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+        "QRS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_GAUCHE_COMPLET",
+          "QRS_FINS"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 1.15
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_DE_BRANCHE_GAUCHE_COMPLET"
+        ],
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.667,
+        "latency_s": 3.32
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-05",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "FREQUENCE_135/MIN",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "RYTHME_SINUSAL",
+          "TACHYCARDIE"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 1.84
+      },
+      "global_judge": {
+        "found_ids": [
+          "BRADYCARDIE",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 3.57
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-06",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "FIBRILLATION_ATRIALE",
+        "FREQUENCE_150/MIN"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "TACHYCARDIE"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 1.34
+      },
+      "global_judge": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE",
+          "REPONSE_VENTRICULAIRE_LENTE"
+        ],
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5,
+        "latency_s": 2.03
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-07",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "PREEXCITATION_VENTRICULAIRE_PAR_FIBRE_DE_MAHAIM",
+        "PR_220_MS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+          "PR_ALLONGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.99
+      },
+      "global_judge": {
+        "found_ids": [
+          "FAISCEAU_ACCESSOIRE_A_CONDUCTION_ANTEROGRADE",
+          "INTERVALLE_PR",
+          "PR_ALLONGE",
+          "PR_COURT"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.47
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-08",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "QTC_560_MS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QT_LONG"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.45
+      },
+      "global_judge": {
+        "found_ids": [
+          "ANOMALIE_DE_DUREE_DU_QT",
+          "QT_NORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.5
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-09",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "AXE_+120°"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "DEVIATION_AXIALE_DROITE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.0
+      },
+      "global_judge": {
+        "found_ids": [
+          "AXE_DU_QRS",
+          "DEVIATION_AXIALE_GAUCHE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.54
+      }
+    },
+    {
+      "id": "NUMERIC_CONFLICT-10",
+      "stratum_code": "NUMERIC_CONFLICT",
+      "gold_ids_provisoires": [
+        "QRS"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 0.99
+      },
+      "global_judge": {
+        "found_ids": [
+          "QRS_FINS",
+          "QRS__120_MS"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.4
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-01",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "ARTEFACTE",
+        "FA_ECARTEE",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "QRS"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.12
+      },
+      "global_judge": {
+        "found_ids": [
+          "1_1",
+          "ARTEFACTE",
+          "ONDE_P"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 3.67
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-02",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "CONDUCTION",
+        "ECG_NORMAL",
+        "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+        "RYTHME_SINUSAL"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "CONDUCTION",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.667,
+        "latency_s": 6.47
+      },
+      "global_judge": {
+        "found_ids": [
+          "ECG_NORMAL",
+          "PAS_D_ANOMALIE_DE_LE_REPOLARISATION",
+          "PR_NORMAL",
+          "QRS_FINS",
+          "RYTHME_SINUSAL"
+        ],
+        "precision": 0.6,
+        "recall": 0.75,
+        "f1": 0.667,
+        "latency_s": 4.1
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-03",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "HVG_IMPLICITE",
+        "VOLTAGES_ELEVES"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "PRESENCE_D_ONDE_Q_PATHOLOGIQUE",
+          "VOLTAGE_DU_QRS",
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 5.34
+      },
+      "global_judge": {
+        "found_ids": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS",
+          "VOLTAGE_DU_QRS_ANORMAL"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.22
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-04",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "BBD_COMPLET_IMPLICITE",
+        "RETARD_TERMINAL_DROIT"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "ASPECT_DE_RETARD_DROIT",
+          "QRS",
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 9.49
+      },
+      "global_judge": {
+        "found_ids": [
+          "MORPHOLOGIE_ANORMALE_DU_QRS",
+          "TROUBLE_DE_CONDUCTION_INTRAVENTRICULAIRE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.19
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-05",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "ALLONGEMENT_PROGRESSIF_DU_PR",
+        "MOBITZ_I_IMPLICITE",
+        "UNE_ONDE_P_BLOQUEE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "BAV_2_MOBITZ_1"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 3.12
+      },
+      "global_judge": {
+        "found_ids": [
+          "BLOC_AURICULO_VENTRICULAIRE",
+          "UNE_ONDE_P_BLOQUEE"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 3.15
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-06",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "ESV_IMPLICITE",
+        "QRS",
+        "REPOS_COMPENSATEUR"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "PREMATURE",
+          "QRS_LARGE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 7.17
+      },
+      "global_judge": {
+        "found_ids": [
+          "ABSENCE_D_ONDE_P",
+          "PREMATURE",
+          "QRS_LARGE",
+          "REPOS_COMPENSATEUR"
+        ],
+        "precision": 0.25,
+        "recall": 0.333,
+        "f1": 0.286,
+        "latency_s": 3.71
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-07",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "ABSENCE_D’ONDES_P",
+        "FA_IMPLICITE",
+        "IRREGULARITE_COMPLETE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "FIBRILLATION_ATRIALE"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.18
+      },
+      "global_judge": {
+        "found_ids": [
+          "DESORGANISEE",
+          "IRREGULIER"
+        ],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 2.76
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-08",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "FLUTTER_IMPLICITE",
+        "ONDES_F",
+        "TACHYCARDIE_ATRIALE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "REPONSE_VENTRICULAIRE_LENTE",
+          "TACHYCARDIE_ATRIALE"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 4.06
+      },
+      "global_judge": {
+        "found_ids": [
+          "ECG_PAS_NORMAL",
+          "REPONSE_VENTRICULAIRE_LENTE",
+          "TACHYCARDIE_ATRIALE"
+        ],
+        "precision": 0.333,
+        "recall": 0.333,
+        "f1": 0.333,
+        "latency_s": 3.39
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-09",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "CAPTURE_SUPRAVENTRICULAIRE",
+        "DISSOCIATION_AV",
+        "TV_IMPLICITE"
+      ],
+      "current_pipeline": {
+        "found_ids": [
+          "CAPTURE_SUPRAVENTRICULAIRE",
+          "RYTHME"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 3.1
+      },
+      "global_judge": {
+        "found_ids": [
+          "CAPTURE_SUPRAVENTRICULAIRE",
+          "PERTE_DE_CAPTURE_ATRIALE"
+        ],
+        "precision": 0.5,
+        "recall": 0.333,
+        "f1": 0.4,
+        "latency_s": 2.92
+      }
+    },
+    {
+      "id": "LEXICAL_DISTANCE-10",
+      "stratum_code": "LEXICAL_DISTANCE",
+      "gold_ids_provisoires": [
+        "AMYLOSE",
+        "DISCORDANCE_EPAISSEUR-VOLTAGE",
+        "MICROVOLTAGE",
+        "PSEUDO-NECROSE"
+      ],
+      "current_pipeline": {
+        "found_ids": [],
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "latency_s": 1.32
+      },
+      "global_judge": {
+        "found_ids": [
+          "MICROVOLTAGE"
+        ],
+        "precision": 1.0,
+        "recall": 0.25,
+        "f1": 0.4,
+        "latency_s": 2.95
+      }
+    }
+  ]
+}
