@@ -79,16 +79,45 @@ Script : `ecg-online/scripts/fix_synonym_ambiguity_2026_08_09.py`.
 > (`BrYOzRZIu7jQTwmfcGsi35`), en écrasant/fusionnant avec la version courante, pour que
 > les 10 nouveaux concepts existent aussi côté WebProtégé et restent l'IRI de référence
 > pour toute future réannotation (cf. `RUNBOOK_REBUILD_ONTOLOGIE.md`).
+>
+> Le script est **idempotent** : relancé après validation du cas 62 (aucun impact
+> ontologie), il a réutilisé les mêmes 10 IRIs déjà mintés (`data/id_to_iri.json`)
+> sans les régénérer — le `.owl` produit est identique (415 classes, re-validé).
 
 ### 6. Bilan de validation ontologie (2026-08-09)
 
-- 359 → **369 concepts** (+10), 0 pointeur `parent`/`children` cassé.
-- 74/75 cas ont un `expert_1` complet ; cas **62 encore en attente** de relecture manuelle.
+- **359 concepts au total** (10 nouveaux inclus), 0 pointeur `parent`/`children` cassé.
+- **75/75 cas ont un `expert_1` complet** — cas 62 validé manuellement le 2026-08-09.
 - Tous les `concept_id` des 75 cas résolvent contre l'ontologie (`bad=[]`).
 - **Dette pré-existante identifiée, non corrigée aujourd'hui** (hors périmètre) :
   - 8 incohérences bidirectionnelles parent↔children (`STIMULATION` ×7, `VOLTAGE_DU_QRS` ×1).
   - 21 collisions de synonymes pré-existantes sans lien avec les concepts créés
     aujourd'hui (ex. `bav`, `at`/`ta`, `brs`, `ers`, `rija`, `onde de Pardee`, etc.).
+
+> 📌 **TODO (noté pour une prochaine session)** : traiter la dette de synonymes
+> ci-dessus (collisions pré-existantes). Nécessite une décision au cas par cas
+> (quel concept garde quel synonyme) — à ne pas corriger à l'aveugle, ripple effect
+> possible sur des cas déjà validés.
+
+### 7. Seconde relecture complète de fond (2026-08-09, après validation du cas 62)
+
+Script : `ecg-online/scripts/audit_ontology_full_2026_08_09.py` — relit `data/ontology_v2.json`
+dans son état final (après tous les fixes §1-4) et vérifie 7 dimensions :
+
+| Vérification | Résultat |
+|---|---|
+| Références cassées (`parents`/`children`/`requires`/`supports`/`excludes`/`has_qualifiers`) | **0** |
+| Incohérences bidirectionnelles parent↔children | 9 (= les mêmes 8 pré-existantes déjà documentées §6, `STIMULATION`/`VOLTAGE_DU_QRS` — **rien de nouveau**) |
+| Concepts sans parent ni jamais cités comme enfant | 5 : 4 racines légitimes (`CONCEPTS_ECG`, `DESCRIPTION_ECG`, `PATHOLOGIE`, `TOPOGRAPHIE`) + `SYNCOPE` (concept `context` volontairement hors hiérarchie de signes ECG — attendu) |
+| Auto-références | 0 |
+| Cycles parent/enfant directs | 0 |
+| Collisions de synonymes | 20 (les 21 pré-existantes de §6, **-1** car doublon `flutter atrial` corrigé §4 comptait double dans le 1er scan — confirmé : **aucune collision issue des 10 nouveaux concepts ne subsiste**) |
+| `requires`/`excludes` contradictoires (un concept qui exige ET exclut la même cible) | 0 |
+
+**Conclusion : ontologie viable, stable, sans régression.** Aucune anomalie nouvelle
+détectée par rapport au bilan §6 ; toutes les corrections de la journée (concepts,
+redondances, synonymes) sont confirmées cohérentes dans l'état final du fichier.
+La dette pré-existante (§6) reste identique et documentée pour une session dédiée.
 
 ---
 
