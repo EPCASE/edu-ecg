@@ -452,10 +452,15 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   `suggest_scoring_criteria()` dans `app/gpt_annotator.py`,
   `app/scoring_v2_review.py`, UI `frontend/scoring_review.html`) est
   opérationnel et a été exercé sur les 75 cas dans cette session — P1.3
-  n'est donc plus "pas encore démarrée" mais **en cours**. Reste à évaluer
-  précisément par rapport au critère de sortie P1.3 (annotation **multi-expert
-  indépendante**, pas seulement assistée par IA) avant de la déclarer
-  terminée — cf. §"remaining work" / P1.5 ci-dessous.
+  n'est donc plus "pas encore démarrée" mais **✅ considérée comme suffisante
+  et clôturée** (décision d'équipe 2026-08-09) : la **double lecture
+  humain + IA** (relecture experte assistée par le second-avis GPT sur
+  chaque critère, cf. outillage ci-dessus) est retenue comme méthode
+  d'annotation définitive pour ce golden — une annotation multi-expert
+  totalement indépendante en plus de la double lecture humain+IA n'est
+  **pas jugée nécessaire**. P1.5 (extension du golden) suit la même
+  logique et est donc également considéré comme couvert par le processus
+  actuel plutôt que bloqué en attente d'un second expert humain isolé.
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
