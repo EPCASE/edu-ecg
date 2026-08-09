@@ -119,6 +119,74 @@ détectée par rapport au bilan §6 ; toutes les corrections de la journée (con
 redondances, synonymes) sont confirmées cohérentes dans l'état final du fichier.
 La dette pré-existante (§6) reste identique et documentée pour une session dédiée.
 
+### 8. Traitement des 20 collisions de synonymes pré-existantes (2026-08-09, validé par l'expert)
+
+Script : `ecg-online/scripts/fix_synonym_collisions_preexisting_2026_08_09.py` (idempotent,
+3 copies runtime + migration des `concept_id` dans les cases). Décisions validées par
+l'expert, 4 catégories :
+
+**Catégorie A — règle "spécifique > générique"** (14 synonymes retirés du concept
+générique/parent, gardés sur le concept le plus précis) :
+
+| Synonyme | Gardé sur | Retiré de |
+|---|---|---|
+| `activité atriale sinusale` | `RYTHME_SINUSAL` | `MORPHOLOGIE_ONDE_P_SINUSALE` |
+| `arythmie ventriculaire polymorphe` | `TACHYCARDIE_VENTRICULAIRE_POLYMORPHE` | `ARYTHMIE_VENTRICULAIRE` |
+| `aspect de bloc de branche droite` | `ASPECT_DE_RETARD_DROIT` | `BLOC_DE_BRANCHE_DROIT`, `BLOC_DE_BRANCHE_DROIT_COMPLET` |
+| `aspect de bloc de branche gauche` | `ASPECT_DE_RETARD_GAUCHE` | `BLOC_DE_BRANCHE_GAUCHE` |
+| `at` | `TACHYCARDIE_ATRIALE` | `TACHYCARDIE_ATRIALE_FOCALE` |
+| `bloc de branche droite` | `BLOC_DE_BRANCHE_DROIT` | `BLOC_DE_BRANCHE_DROIT_COMPLET` |
+| `morphologie normale des ondes p` / `ondes p de morphologie normale` | `MORPHOLOGIE_ONDE_P_SINUSALE` | `ONDE_P_NORMALE` |
+| `onde de pardee` | `COURANT_DE_LESION_SOUS_EPICARDIQUE` | `SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_AVEC_SUS_DECALAGE_DU_SEGMENT_ST` |
+| `onde p avant chaque complexe qrs` | `1_1` | `ONDE_P_PRESENTE` |
+| `perte de l'automatisme sinusal` | `PARALYSIE_SINUSALE` | `DYSFONCTION_SINUSALE` |
+| `sous-décalage en miroir` | `MIROIR` | `COURANT_DE_LESION_SOUS_ENDOCARDIQUE` |
+| `ta` | `TACHYCARDIE_ATRIALE` | `FLUTTER_ATRIAL_ATYPIQUE` |
+| `trouble de conduction at(rio/o)ventriculaire` (2 variantes) | `BLOC_AURICULO_VENTRICULAIRE` | `TROUBLES_DE_CONDUCTION_ET_DE_L_AUTOMATICITE` |
+| `échappement jonctionnel` | `RYTHME_D_ECHAPPEMENT_JONCTIONNEL` | `ECHAPPEMENT` |
+
+**Catégorie B — erreur clinique corrigée** :
+- `rija` (Rythme Idio-Jonctionnel Accéléré) était à tort sur `RYTHME_D_ECHAPPEMENT_JONCTIONNEL`
+  (rythme d'échappement = *lent* par définition, contradiction clinique). Retiré, gardé
+  uniquement sur `RYTHME_JONCTIONELLE_ACCELERE`.
+
+**Catégorie C — arbitrage clinique (décision expert)** :
+- `brs` (Brugada Syndrome) : gardé sur `SYNDROME_DE_BRUGADA`, retiré de `ASPECT_DE_BRUGADA`
+  (le signe ECG isolé).
+- `ers` (Early Repolarization Syndrome) : gardé sur `SYNDROME_DE_REPOLARISATION_PRECOCE`,
+  retiré de `REPOLARISATION_PRECOCE` (le signe ECG isolé).
+
+**Catégorie D — fusion de concepts quasi-doublons** :
+- `VOLTAGE_DU_QRS_NORMAL` (finding, présent dans le `.owl`) fusionné **dans**
+  `VOLTAGE_NORMAL_DU_QRS` (pattern, concept **JSON uniquement**, couche d'enrichissement
+  Partie B — porte l'inférence `QRS_NORMAL.requires`). Synonymes et `excludes` unis,
+  `VOLTAGE_DU_QRS_NORMAL` supprimé du JSON, toutes les références résiduelles recâblées
+  (`VOLTAGE_DU_QRS.children`, et le `concept_id` dans `scoring_pilot_v2.json` +
+  `scoring_v2_review.json` migré vers `VOLTAGE_NORMAL_DU_QRS`).
+
+**Validation post-traitement** :
+- Ré-audit complet (`audit_ontology_full_2026_08_09.py`) : **`syn_collisions=0`**
+  (358 concepts, dangling=0, cycles=0, contradictions requires/excludes=0). Les 9
+  incohérences bidirectionnelles parent↔children pré-existantes (`STIMULATION`,
+  `VOLTAGE_DU_QRS`) restent inchangées (hors périmètre de ce fix).
+- Inférence `ECG_NORMAL` re-testée : **intacte** (normal → infère ; HAG → bloqué),
+  confirmant que la fusion du concept Partie B `VOLTAGE_NORMAL_DU_QRS` n'a rien cassé.
+- Tous les `concept_id` des 75 cas résolvent toujours (`bad=[]` sur pilot + review).
+
+> ⚠️ **Écart `.owl` connu (à traiter avant réimport WebProtégé)** : `VOLTAGE_DU_QRS_NORMAL`
+> **existe réellement comme classe OWL** (avec ses propres `excludes`/annotation `hide`),
+> alors que `VOLTAGE_NORMAL_DU_QRS` (le concept conservé après fusion) **n'a jamais existé
+> dans le `.owl`** — c'est un concept JSON-only de la couche Partie B. Le script
+> `generate_owl_relecture75.py` ne gère que l'AJOUT des 10 nouveaux concepts (§1) ; il
+> **ne reflète pas** les retraits de synonymes A/B/C ni la suppression/fusion de la
+> classe `VOLTAGE_DU_QRS_NORMAL` dans le `.owl` patché déjà produit.
+> **Action recommandée** : ne PAS réimporter le `.owl` tel quel pour ce qui concerne le
+> voltage QRS — traiter cet écart manuellement dans WebProtégé (retirer la classe
+> `VOLTAGE_DU_QRS_NORMAL`, ou la conserver et la rebrancher comme le concept canonique
+> selon la politique Partie B), ou écrire un script dédié de suppression/fusion OWL avant
+> le prochain rebuild. Les 3 retraits de synonymes A/B/C purs (sans suppression de classe)
+> restent, eux, mineurs et peuvent être répliqués à la main dans WebProtégé sans risque.
+
 ---
 
 ## Format des entrées futures
