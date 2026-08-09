@@ -304,6 +304,54 @@ solution générique proposée (raffinement de spécificité post-résolution).
 
 ---
 
+## 2026-08-09 (suite 2) — Correction du piège de la "double négation" (juge sémantique)
+
+**Contexte** : bug remonté en production (Scalingo) par l'utilisateur : la phrase
+« absence d'anomalie de la repolarisation » (correctement extraite par le NER) était
+scorée comme manquante (`"à compléter"`) au lieu d'être créditée.
+
+### Root cause
+1. Le NER extrait correctement `terme_brut="anomalie de la repolarisation"`,
+   `statut="absent"` (négation bien retirée) — **pas un bug NER**.
+2. La recherche hybride retourne parmi les candidats à la fois `TROUBLE_DE_REPOLARISATION`
+   (pôle positif, cible attendue) et `PAS_D_ANOMALIE_DE_LE_REPOLARISATION` (le concept
+   « normal » lui-même, dont le nom canonique/synonymes contiennent littéralement les
+   mots résiduels "anomalie de la repolarisation" → score BM25/cosinus le plus élevé).
+3. Le juge LLM (`neurosymbolic_judge.py`) choisissait à tort
+   `PAS_D_ANOMALIE_DE_LE_REPOLARISATION` (piège lexical) au lieu de
+   `TROUBLE_DE_REPOLARISATION`.
+4. Résultat : `PAS_D_ANOMALIE_DE_LE_REPOLARISATION/absent` extrait (double négation)
+   au lieu de `TROUBLE_DE_REPOLARISATION/absent` → le mécanisme `negation_of` du
+   scoring (qui cherche `TROUBLE_DE_REPOLARISATION` dans les entités absentes pour
+   créditer le validant golden) ne trouve rien → `match_type="missed"`.
+
+### Correction appliquée
+- **`rag_pipeline/neurosymbolic_judge.py`** (propagé + hash MD5 vérifié identique
+  sur `ecg-online/rag_pipeline/neurosymbolic_judge.py`,
+  `6843a1904d7bff78f0786b43aa9a0242`) : ajout de la règle **#10 "PIÈGE DE LA DOUBLE
+  NÉGATION"** au `SYSTEM_PROMPT` — règle générique (pas un cas particulier câblé en
+  dur) : quand un terme déjà nettoyé de sa négation décrit une anomalie/un trouble et
+  que les candidats contiennent à la fois le pôle positif (l'anomalie elle-même) et
+  un concept qui est la négation explicite de cette anomalie (nom "Pas de"/"Absence
+  de"), le juge doit **toujours choisir le pôle positif** — le statut "absent" étant
+  appliqué en aval par le scoring via `negation_of`.
+- Aucune modification d'ontologie ni de `ner_extractor.py`/`scoring_v3.py` (tous
+  deux vérifiés corrects et non modifiés).
+- **7 autres concepts identifiés à risque théorique similaire** (audit synonymes à
+  tournure négative, non modifiés individuellement — protégés par la règle générique
+  du prompt) : `ABSENCE_D_ONDE_P`, `ABSENCE_D_ONDE_Q_PATHOLOGIQUE`,
+  `DISSOCIATION_ATRIO_VENTRICULAIRE`, `ECG_NORMAL`, `PAS_DE_TROUBLES_DE_LA_CONDUCTION`,
+  `SYNDROME_CORONARIEN_A_LA_PHASE_AIGUE_SANS_ELEVATION_DU_SEGMENT_ST`,
+  `VOLTAGE_DU_QRS_NORMAL`.
+
+### Résultat retest golden (100 items)
+- **Avant (golden figé)** : F1 84.9% (TP=522, FP=71, FN=114)
+- **Après (pipeline rejoué avec le fix)** : F1 93.1% (TP=590, FP=42, FN=46)
+- Aucune régression détectée par rapport au v9 (93.0%) ; léger gain net.
+- Rapport : `outil_ontologie/rapport_retest_extraction_golden_2026-08-09_v10_negation_judge_fix.json`
+
+---
+
 ## Format des entrées futures
 
 ```
