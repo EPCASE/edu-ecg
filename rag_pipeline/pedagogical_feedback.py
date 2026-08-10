@@ -26,6 +26,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set
 
@@ -387,6 +388,83 @@ def _detect_jargon_leak(texte: str) -> List[str]:
 
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Garde-fou déterministe — contradiction de statut sur un même concept
+# (audit P3.3 du 2026-08-10) : sur les concepts crédités via un match_type
+# indirect (qualifier/requires/support), le rédacteur LLM produit parfois,
+# dans le même paragraphe, une formulation affirmant que l'étudiant a
+# "mentionné/identifié explicitement" un concept ET une formulation disant
+# qu'il ne l'a "pas nommé explicitement" — contradiction directe. Mesuré à
+# ~13% des générations sur un échantillon de 15 runs / 3 cas
+# (cf. docs/P3.3_challenge_set_results_2026_08_10.md), et NON détecté par le
+# juge LLM de validation clinique (_validate_clinical_claims) dont le
+# périmètre cible les inventions cliniques non fondées par le cours, pas ce
+# type précis d'incohérence de formulation. Détection par règle simple
+# (regex), sans appel LLM supplémentaire — volontairement peu coûteux et
+# déterministe, complémentaire du juge LLM existant plutôt que substitutif.
+# ──────────────────────────────────────────────────────────────────────────────
+
+_STATUS_CONTRADICTION_POS_RE = re.compile(
+    r"(mentionn|identifi|not(?:é|e))[a-zé]*\s+(explicitement|clairement)",
+    re.IGNORECASE,
+)
+_STATUS_CONTRADICTION_NEG_RE = re.compile(
+    r"sans\s+(?:le|la|l['’])\s*(?:nommer|identifier|mentionner)\s+explicitement",
+    re.IGNORECASE,
+)
+
+
+def _detect_status_contradiction(texte: str) -> bool:
+    """
+    Détection déterministe (regex) d'une contradiction de statut : le texte
+    affirme à la fois qu'un élément a été "mentionné/identifié/noté
+    explicitement" ET qu'un élément n'a "pas été nommé explicitement".
+    Volontairement simple/best-effort : ne cherche pas à savoir si les deux
+    mentions portent EXACTEMENT sur le même concept (trop coûteux à faire de
+    façon fiable sans LLM), mais la co-occurrence des deux formulations dans
+    un même texte court (un paragraphe de feedback) est déjà un signal fort
+    d'incohérence potentielle à neutraliser par prudence.
+    """
+    return bool(_STATUS_CONTRADICTION_POS_RE.search(texte) and _STATUS_CONTRADICTION_NEG_RE.search(texte))
+
+
+def _neutralize_status_contradiction(texte: str, model: str = "gpt-4o") -> str:
+    """
+    Demande une réécriture ciblée pour lever une contradiction de statut
+    détectée par `_detect_status_contradiction` : le rédacteur doit choisir,
+    pour chaque concept concerné, UNE SEULE formulation cohérente avec les
+    données réelles (found=True/False, match_type) déjà fournies dans le
+    contexte, sans changer le reste du texte ni son ton général.
+    """
+    client = OpenAI()
+    retry_message = f"""Le texte de feedback pédagogique suivant contient une
+CONTRADICTION DE FORMULATION : il affirme, pour un même concept ou des
+concepts très proches, à la fois qu'il a été "mentionné/identifié/noté
+explicitement" ET qu'il n'a "pas été nommé explicitement" (ou une
+formulation équivalente). Ces deux affirmations ne peuvent pas être vraies
+en même temps pour un même concept.
+
+Réécris le texte en choisissant, pour chaque concept concerné, UNE SEULE
+formulation cohérente (en te basant sur le sens global du texte : si un
+concept a globalement été présenté comme trouvé/identifié, garde cette
+version ; sinon garde la version "non nommé explicitement"), SANS changer
+le reste du texte ni son ton général, et en respectant STRICTEMENT toutes
+les règles système (jargon interdit, rangs EDN, ton vs score, citations
+réelles uniquement) :
+
+{texte}"""
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": retry_message},
+        ],
+        temperature=0.3,
+        max_tokens=800,
+    )
+    return (response.choices[0].message.content or "").strip()
+
+
+# ──────────────────────────────────────────────────────────────────────────────
 # Validation post-hoc des affirmations cliniques (piste "problèmes résiduels"
 # de l'audit 2026-08-06) : un second appel LLM, dédié et à température nulle,
 # relit le texte généré à la lumière STRICTE du contexte fourni (concepts +
@@ -658,6 +736,35 @@ doit apparaître), sans changer le fond clinique du message :
             # La validation post-hoc est un filet de sécurité best-effort :
             # une erreur ici ne doit jamais faire échouer la génération.
             logger.warning(f"Validation post-hoc des affirmations cliniques ignorée (erreur : {e_validate})")
+
+        # Garde-fou déterministe complémentaire (P3.3, 2026-08-10) : le juge
+        # LLM ci-dessus ne détecte pas les contradictions de FORMULATION
+        # (mentionné explicitement / sans le nommer explicitement pour un
+        # même concept) — mesuré à ~13% des générations sur match_type
+        # indirect, sans déclenchement du juge LLM dans ces cas précis (cf.
+        # docs/P3.3_challenge_set_results_2026_08_10.md). Détection par
+        # règle simple, sans appel LLM supplémentaire tant qu'aucune
+        # contradiction n'est détectée.
+        if _detect_status_contradiction(feedback_text):
+            logger.warning(
+                "Contradiction de statut détectée (formulation 'mentionné explicitement' "
+                "et 'sans le nommer explicitement' co-présentes) — reformulation ciblée demandée."
+            )
+            try:
+                neutralized_text = _neutralize_status_contradiction(feedback_text, model=model)
+                if neutralized_text and not _detect_jargon_leak(neutralized_text):
+                    if not _detect_status_contradiction(neutralized_text):
+                        feedback_text = neutralized_text
+                    else:
+                        # La reformulation n'a pas résolu la contradiction : on
+                        # conserve quand même la nouvelle version (généralement
+                        # moins mauvaise) plutôt que d'abandonner silencieusement.
+                        feedback_text = neutralized_text
+                        logger.warning("La reformulation n'a pas complètement éliminé la contradiction de statut.")
+                else:
+                    logger.warning("La reformulation anti-contradiction a introduit du jargon — texte conservé tel quel.")
+            except Exception as e_neutralize:
+                logger.warning(f"Neutralisation de la contradiction de statut ignorée (erreur : {e_neutralize})")
 
         feedback_text = _enforce_tone_guardrail(feedback_text, report.score_final_pct)
 
