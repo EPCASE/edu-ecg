@@ -461,6 +461,39 @@ Correspond à ce que ce roadmap appelle **P0.1 (partiel)** et **P5.3** :
   **pas jugée nécessaire**. P1.5 (extension du golden) suit la même
   logique et est donc également considéré comme couvert par le processus
   actuel plutôt que bloqué en attente d'un second expert humain isolé.
+- **P1.4 — Migration + audit des 75 cas (2026-08-08 à 2026-08-10)** :
+  1. Migration bareme V1 → schéma V2 déjà réalisée le 2026-08-08
+     (`scripts/bootstrap_pilot_v2_all_cases.py` + `merge_bareme_into_pilot_v2.py`) :
+     `data/scoring_pilot_v2.json` et `data/scoring_v2_review.json` couvrent
+     les 75 cas (`expert_1` rempli partout, `evidence_source=
+     bareme_v1_migre/bareme_v1_valide`).
+  2. **Signalement étudiant (feedback Google Sheets, 09/08)** sur cases 25/
+     41/49 → correction V1 en production (`cases_golden.json`/
+     `scoring_config.json`, script `scripts/fix_golden_redundancy_2026_08_10.py`,
+     testée par régression via `golden_for_scorer()` +
+     `scripts/_test_scoring_regression_25_41_49.py`).
+  3. **Audit de cohérence V2 (2026-08-10)** : 30 incohérences trouvées sur
+     les 75 cas migrés — 17 critères `role=alternative` sans
+     `alternative_group` (mécanisme OR inopérant) + 13 critères
+     `role=exclusion` avec `expected_status=present` (contradiction
+     logique). Toutes corrigées avec validation clinique cas par cas
+     (script `scripts/fix_alternative_groups_scoring_v2_2026_08_10.py`,
+     0 erreur résiduelle après correction). Validateur
+     `scripts/validate_scoring_v2.py` corrigé (enum `evidence_source`
+     désynchronisé des données réelles).
+  4. **Rapport de différences V1/V2** généré
+     (`scripts/generate_v1_v2_diff_report.py` →
+     `ecg-online/docs/P1.4_diff_v1_v2_report.md`) : 53/75 cas ont au moins
+     un écart, mais la majorité des `only_v1` sont des micro-fragments du
+     fuzzy-match V1 imparfait (pas de vrais concepts cliniques oubliés).
+  5. **Interface d'annotation** : déjà adaptée aux 75 cas (vérifié via
+     `app/scoring_v2_review.py::overview()`, qui itère sur
+     `scoring_pilot_v2.json` — 75 cas présents).
+  → **P1.4 considérée comme couverte** : script de migration ✅, validateur
+  JSON ✅, rapport de différences ✅, audit des contradictions ✅, interface
+  ✅. Reste optionnel : tests de non-régression dédiés à `scoring_v2_review.json`
+  (risque faible car non branché au moteur — cf. avertissement
+  `minimum_specificity`/`group_logic` dans `app/scoring_v2_review.py`).
 
 ### 🔜 Séquence retenue par l'équipe (30/07/2026)
 
