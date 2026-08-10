@@ -939,39 +939,79 @@ Il ne doit pas être l’arbitre final du golden utilisé pour l’évaluer.
 
 ## P3 — Splits et benchmark verrouillé
 
+> **Statut (2026-08-10)** : décision prise avec l'expert compte tenu de la
+> contrainte **« pas de nouveaux ECG disponibles »** — tout le dispositif P3
+> doit fonctionner avec le jeu unique des 75 cas existants (golden V1 +
+> corrections V2 du 2026-08-10). Voir détail des niveaux ci-dessous.
+
 ### P3.1 Organiser quatre niveaux d’évaluation
 
 #### Niveau 1 — Nouvelles réponses sur des cas connus
 
 Évalue la robustesse aux formulations.
+✅ **Réalisable dès maintenant** — déjà largement couvert par
+`extraction_golden.json` (100 réponses réelles annotées sur les cas
+existants).
 
 #### Niveau 2 — Nouveaux ECG dans une famille connue
 
 Évalue la généralisation à un nouveau tracé et à un nouveau barème.
+⛔ **Différé** — nécessite l'écriture de nouveaux cas, non disponibles
+actuellement. À reprendre dès que de nouveaux ECG/barèmes seront produits.
 
 #### Niveau 3 — Famille diagnostique non vue
 
 Évalue le transfert conceptuel.
+⛔ **Différé** — même contrainte que le niveau 2.
 
 #### Niveau 4 — Centre externe
 
 Évalue la généralisation pédagogique et linguistique.
+⛔ **Différé** — nécessite des ECG/annotations d'un centre externe, non
+disponibles actuellement.
 
 ---
 
 ### P3.2 Créer un test interne verrouillé
 
-Sélectionner avant les prochaines modifications :
-
-* plusieurs cas actuels ;
-* leurs réponses ;
-* idéalement de nouveaux cas jamais utilisés.
-
-Le test doit être stocké séparément et ne pas être consulté lors du développement.
+> **Décision (2026-08-10)** : pas de sous-ensemble séparé. **Les 75 cas
+> existants (golden V1 + V2 corrigés) constituent la référence unique et
+> verrouillée**, plutôt qu'un sous-échantillon dédié « test caché ».
+>
+> Justification :
+> - il n'existe qu'un seul jeu de 75 cas — en sacrifier une partie comme
+>   « dev set » réduirait d'autant la couverture des 11 familles cliniques,
+>   déjà limitée ;
+> - il ne s'agit pas de machine learning statistique optimisé sur les
+>   données (où l'overfitting justifie un vrai holdout caché), mais de
+>   corrections manuelles guidées par le raisonnement clinique — le risque
+>   de sur-ajustement invisible est donc moindre ;
+> - les 75 cas ayant déjà été extensivement révisés le 2026-08-10, isoler
+>   maintenant un sous-ensemble « jamais touché » serait artificiel et ne
+>   donnerait qu'une fausse impression de rigueur.
+>
+> **Verrouillage = discipline de process, pas de séparation de données** :
+> - toute modification future d'un cas golden doit être justifiée par une
+>   preuve clinique/pédagogique concrète (signalement étudiant, erreur
+>   d'annotation avérée) et documentée via un script dédié + entrée de
+>   changelog — jamais par « ça fait monter le score » ;
+> - `scripts/generate_v1_v2_diff_report.py` sert de garde-fou de
+>   non-régression : à chaque évolution du moteur de scoring, on regénère
+>   un diff complet sur les 75 cas et on vérifie l'absence de régression
+>   silencieuse.
 
 ---
 
 ### P3.3 Construire un challenge set
+
+> Réalisable sans nouveaux ECG : il s'agit de construire des **réponses
+> étudiantes synthétiques volontairement adversariales** sur les 75 cas
+> existants, pas de nouveaux tracés. Ce chantier recoupe directement le
+> « trou métrique » documenté dans
+> `ecg-online/docs/SCORING_LOGIC_required_optional_alternative_exclusion.md`
+> (redondance de crédit sur `alternative_group`, ex. cas 41 flutter) — le
+> pattern « concept enfant plus spécifique » / « concept parent trop
+> générique » ci-dessous doit explicitement couvrir ce cas de figure.
 
 Inclure volontairement :
 
