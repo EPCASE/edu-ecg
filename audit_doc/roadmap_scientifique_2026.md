@@ -1012,6 +1012,30 @@ disponibles actuellement.
 > (redondance de crédit sur `alternative_group`, ex. cas 41 flutter) — le
 > pattern « concept enfant plus spécifique » / « concept parent trop
 > générique » ci-dessous doit explicitement couvrir ce cas de figure.
+>
+> **Statut (2026-08-10) : ✅ Implémenté et un correctif réel en a découlé.**
+> `ecg-online/data/challenge_set_v1.json` (16 items couvrant les 12
+> patterns) + `ecg-online/scripts/run_challenge_set_2026_08_10.py`
+> (exécution contre le pipeline réel). Résultats et investigations dans
+> `ecg-online/docs/P3.3_challenge_set_results_2026_08_10.md` :
+> - Non-régressions confirmées sur les corrections golden du jour
+>   (flutter cas 41, TSV cas 49, hypothesis_acceptable cas 21).
+> - 2 gaps réels identifiés côté scoring (non corrigés, priorité P4) :
+>   absence de détection de contradiction diagnostic/descripteurs (ex. FA
+>   créditée malgré un rythme décrit comme régulier), double négation non
+>   gérée par le moteur de négation (fréquence d'usage réelle faible).
+> - **Correctif livré** : le texte de feedback pédagogique
+>   (`generate_pedagogical_feedback`) produisait, sur les concepts
+>   crédités via un match_type indirect (qualifier/requires/support), une
+>   contradiction de formulation dans ~13% des générations (« mentionné
+>   explicitement » ET « sans le nommer explicitement » pour un même
+>   concept), non détectée par le juge LLM existant. Un garde-fou
+>   déterministe (`_detect_status_contradiction` /
+>   `_neutralize_status_contradiction` dans
+>   `rag_pipeline/pedagogical_feedback.py`) a été ajouté et validé à 0/40
+>   contradiction résiduelle sur les mesures post-correctif. Protégé par
+>   un test de non-régression dédié
+>   (`ecg-online/scripts/_test_status_contradiction_guardrail.py`).
 
 Inclure volontairement :
 
@@ -1031,6 +1055,18 @@ Inclure volontairement :
 ---
 
 ## P4 — Refonte du scoring
+
+> **Entrées connues issues du P3.3 (2026-08-10)**, à traiter dans ce
+> chantier (cf. `ecg-online/docs/P3.3_challenge_set_results_2026_08_10.md`) :
+> - `chal_02` : une contradiction descriptive majeure (ex. « fibrillation
+>   atriale » associée à un rythme décrit comme parfaitement régulier)
+>   n'est pas détectée — le score final peut atteindre 100% malgré
+>   l'incohérence clinique interne. Rattaché à P4.3 (cohérence
+>   diagnostic/descripteurs).
+> - `chal_04` : une formulation en double négation peut faire chuter le
+>   score à 0% malgré un sens global positif — limite mineure du moteur
+>   de négation actuel, fréquence d'usage réelle faible, à traiter dans
+>   le cadre de P4.3 si le temps le permet.
 
 ### P4.1 Séparer adéquation et sécurité
 
